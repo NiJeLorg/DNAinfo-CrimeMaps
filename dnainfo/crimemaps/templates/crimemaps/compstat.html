@@ -14,28 +14,16 @@
 
     <nav class="navbar navbar-default">
       <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <div class="navbar-brand">DNAinfo New York</div>
-        </div>
-        <div class="collapse navbar-collapse" id="navbar-collapse">
-          <ul class="nav navbar-nav navbar-right">
+          <ul class="nav navbar-nav navbar-almostLeft">
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ startDate|date:"F j, Y" }} - {{ endDate|date:"F j, Y" }}<span class="caret"></span></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">View Four Weeks Ending on {{ endDate|date:"F j, Y" }}<span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
                 {% for date in dates %}
-                    <li><a href="/compstat/?startDate={{ date.start_date }}&endDate={{ date.end_date }}">{{ date.start_date }} - {{ date.end_date }}</a></li>
+                    <li><a href="/compstat/?startDate={{ date.start_date }}&endDate={{ date.end_date }}">{{ date.end_date }}</a></li>
                 {% endfor %}
               </ul>
             </li>
           </ul>
-        </div><!-- /.navbar-collapse -->
-
       </div>
     </nav>
 
@@ -57,14 +45,14 @@
                             <p><strong>Legend</strong></p>
                             <div id="legend">
                                 <div class="legend-cloropleth">
-                                    <p>Change in Total Major Crimes</p>
+                                    <p>Change in Total Major Crimes from Previous Four Weeks</p>
                                     <ul>
-                                        <li class="min">&lt;-20</li>
-                                        <li class="max">&gt;20</li>
+                                        <li class="min">&gt;20 decrease</li>
+                                        <li class="max">&gt;20 increase</li>
                                         <li class="graph">
                                             <div class="colors">
                                                 <div class="quartile" style="background-color:#4d4d4d"></div>
-                                                <div class="quartile" style="background-color:999999"></div>
+                                                <div class="quartile" style="background-color:#999999"></div>
                                                 <div class="quartile" style="background-color:#e0e0e0"></div>
                                                 <div class="quartile" style="background-color:#fddbc7"></div>
                                                 <div class="quartile" style="background-color:#ef8a62"></div>
@@ -83,6 +71,15 @@
 
         <!-- Map Content -->
         <div id="map" class="map"></div>
+
+
+    <nav class="navbar navbar-default navbar-fixed-bottom">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <div class="navbar-brand">DNAinfo New York</div>
+        </div>
+      </div> 
+    </nav>
 {% endblock %}
 
 {% block modal_block %}

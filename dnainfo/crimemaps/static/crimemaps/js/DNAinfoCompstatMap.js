@@ -60,7 +60,16 @@ DNAinfoCompstatMap.onEachFeature_POLYGONS = function(feature,layer){
 
 	var precinct = DNAinfoCompstatMap.precinctNumbers(feature.id);
 
-	layer.bindLabel("<strong>" + precinct + " Precinct</strong><br />" + feature.properties.total + " major crimes between<br />" + dateFormat(feature.properties.start_date) + " and " + dateFormat(feature.properties.end_date) + ".", { direction:'auto' });
+	var percentChange = ((Math.abs(feature.properties.total - feature.properties.last_month_total) / feature.properties.last_month_total) * 100).toFixed(0);
+
+	if (feature.properties.diff_total > 0) {
+		var headingTotalText = "<strong><span class='increaseTextPopup'>"+ percentChange +"% increase</span></strong> in major<br />crimes from previous<br />four weeks.";
+	} else {
+		var headingTotalText = "<strong><span class='decreaseTextPopup'>"+ percentChange +"% decrease</span></strong> in major<br />crimes from previous<br />four weeks.";
+	}
+
+
+	layer.bindLabel("<strong>" + precinct + " Precinct</strong><br />" + headingTotalText, { direction:'auto' });
 	
     layer.on('mouseover', function(ev) {
     	var latLngCenter = L.latLng(MY_MAP.center[0], MY_MAP.center[1]);
@@ -109,19 +118,19 @@ DNAinfoCompstatMap.onEachFeature_POLYGONS = function(feature,layer){
 DNAinfoCompstatMap.drawChart = function(feature,layer){
 	var dateFormat = d3.time.format("%x");
 	var precinct = DNAinfoCompstatMap.precinctNumbers(feature.id);
-	var percentChange = ((feature.properties.total / feature.properties.last_month_total) * 100).toFixed(0);
 
+	var headingTotalText = feature.properties.total + " major crimes from " + dateFormat(feature.properties.start_date) + " to " + dateFormat(feature.properties.end_date);
 
-	if (feature.properties.diff_total > 0) {
-		var headingTotalText = "<span class='increaseText'>"+ percentChange +"% increase</span> in major crimes from previous 4 weeks.";
-	} else {
-		var headingTotalText = "<span class='decreaseText'>"+ percentChange +"% decrease</span> in major crimes from previous 4 weeks.";
-	}
+	var headingTotalTextLastMonth = feature.properties.last_month_total + " major crimes from " + dateFormat(feature.properties.last_month_start_date) + " to " + dateFormat(feature.properties.last_month_end_date);
 
 	// add content to description area
-	$('#descriptionTitle').html("<p><strong>" + precinct + " Precinct</strong> | "+ headingTotalText +"</p>");
+	$('#descriptionTitle').html("<p><strong>" + precinct + " Precinct</strong><br />"+ headingTotalText + "<br />" + headingTotalTextLastMonth + "</p>");
 
+	/*
 	$('#description').html("<p>Distribution of the change in major crimes committed in the four weeks from " + dateFormat(feature.properties.start_date) + " to " + dateFormat(feature.properties.end_date) + " compared with the previous four weeks from " + dateFormat(feature.properties.last_month_start_date) + " to " + dateFormat(feature.properties.last_month_end_date) + ".</p><div id='barChart'></div>");
+	*/
+
+	$('#description').html("<p>Distribution by category of the change in major crimes committed:</p><div id='barChart'></div>");
 
 	// create object for bar chart
 	var chartArray = [];
@@ -309,11 +318,11 @@ DNAinfoCompstatMap.getStyleFor_POLYGONS = function (feature){
 }
 
 DNAinfoCompstatMap.fillColor_POLYGONS = function (d){
-    return d >= 20  ? '#b2182b' :
-           d >= 10  ? '#ef8a62' :
-           d >= 0   ? '#fddbc7' :
-           d >= -10 ? '#e0e0e0' :
-           d >= -20 ? '#999999' :
+    return d > 20  ? '#b2182b' :
+           d > 10  ? '#ef8a62' :
+           d > 0   ? '#fddbc7' :
+           d > -10 ? '#e0e0e0' :
+           d > -20 ? '#999999' :
                       '#4d4d4d';	
 }
 

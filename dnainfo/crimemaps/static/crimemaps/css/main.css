@@ -8,12 +8,14 @@ html, body {
     color: #252525;
 }
 
+body { padding-bottom: 50px; }
+
 .map {
     position:absolute;
     left:0;
     right:0;
     top:0;
-    bottom:0;
+    bottom:50px;
     width:100%;
     margin-top: 50px;
 	overflow: hidden;
@@ -24,7 +26,7 @@ html, body {
 }
 
 .map-popup-wrapper-open {
-	bottom:250px;
+	bottom:300px;
 }
 
 .popup-wrapper {
@@ -32,7 +34,7 @@ html, body {
     position: fixed;
     left: 0px;
     right: 0px;
-    bottom: 0px;
+    bottom: 50px;
     height: 0px;
     overflow: auto;
     background: #fff; /*#d9d9d9;*/
@@ -65,11 +67,19 @@ html, body {
 }
 
 .increaseText {
-	color: #b2182b;
+	color: #931212;
 }
 
 .decreaseText {
-	color: #4d4d4d;
+	color: #545454;
+}
+
+.increaseTextPopup {
+	color: #e4b1b1;
+}
+
+.decreaseTextPopup {
+	color: #bdbdbd;
 }
 
 /*
@@ -232,13 +242,26 @@ html, body {
   background-color: transparent;
 }
 
-.navbar-right {
-  margin-right: 15px;
+.navbar-almostLeft {
+  margin-left: 25px;
 }
 
 .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
   color: #dbdbdb;
   background-color: #931212;
+}
+
+@media (max-width: 767px) {
+	.navbar-nav .open .dropdown-menu {
+	  position: absolute;
+	  float: left;
+	  width: auto;
+	  margin-top: 0;
+	  background-color: #fff;
+	  border: 1px solid rgba(0, 0, 0, .15);
+	  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+	  box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+	}
 }
 
 
