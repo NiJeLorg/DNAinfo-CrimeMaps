@@ -16,10 +16,11 @@ function DNAinfoCompstatMap() {
     	center: this.center,
    	 	zoom: this.zoom,
 	});
+
 	
 	// add CartoDB tiles
 	this.CartoDBLayer = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',{
-	  attribution: 'Created By <a href="http://nijel.org/">NiJeL</a> | Map Data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> Contributors, Map Tiles &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
+	  attribution: 'Created By <a href="http://nijel.org/">NiJeL</a> | &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
 	});
 	this.map.addLayer(this.CartoDBLayer);
 	
@@ -38,14 +39,22 @@ function DNAinfoCompstatMap() {
 
 }
 
+// get and set bounds based on open wrapper
+DNAinfoCompstatMap.slightPanUp = function (){
+	var point = L.point(0, 150);
+	MY_MAP.map.panBy(point);
+}
+
 DNAinfoCompstatMap.onEachFeature_POLYGONS = function(feature,layer){	
 	var highlight = {
 	    weight: 2,
-	    opacity: 1
+	    opacity: 1,
+	    color: '#000'
 	};
 	var noHighlight = {
         weight: 1,
-        opacity: 0.75
+        opacity: 0.75,
+        color: '#f1f1f1'
 	};
 	var dateFormat = d3.time.format("%x");
 
@@ -53,8 +62,25 @@ DNAinfoCompstatMap.onEachFeature_POLYGONS = function(feature,layer){
 
 	layer.bindLabel("<strong>" + precinct + " Precinct</strong><br />" + feature.properties.total + " major crimes between<br />" + dateFormat(feature.properties.start_date) + " and " + dateFormat(feature.properties.end_date) + ".", { direction:'auto' });
 	
-    layer.on('mouseover', function(ev) {		
-		layer.setStyle(highlight);				
+    layer.on('mouseover', function(ev) {
+    	var latLngCenter = L.latLng(MY_MAP.center[0], MY_MAP.center[1]);
+		var results = leafletPip.pointInLayer(latLngCenter, MY_MAP.POLYGONS, true);
+		var leafletId = results[0]._leaflet_id;
+		//was center label moused over?
+		if (layer._leaflet_id != leafletId) {
+			// don't show center label
+			MY_MAP.map._layers[leafletId].label.close();
+			MY_MAP.map._layers[leafletId].setStyle(noHighlight);
+		} 
+
+		layer.setStyle(highlight);
+
+		if (!L.Browser.ie && !L.Browser.opera) {
+	        layer.bringToFront();
+	    }
+
+		DNAinfoCompstatMap.drawChart(feature,layer);
+
     });
 		
     layer.on('mouseout', function(ev) {
@@ -70,120 +96,152 @@ DNAinfoCompstatMap.onEachFeature_POLYGONS = function(feature,layer){
 			$( ".map" ).toggleClass("map-popup-wrapper-open");		
 		}
 
-		// add content to description area
-		$('#descriptionTitle').html("<p><strong>" + precinct + " Precinct</strong></p>");
-
-		$('#description').html("<p>Distribution of the " + feature.properties.total + " major crimes committed between " + dateFormat(feature.properties.start_date) + " and " + dateFormat(feature.properties.end_date) + ".</p><div id='barChart'></div>");
-
-		// create object for bar chart
-		var chartArray = [];
-		chartArray[0] = parseInt(feature.properties.murder);
-		chartArray[1] = parseInt(feature.properties.rape);
-		chartArray[2] = parseInt(feature.properties.robbery);
-		chartArray[3] = parseInt(feature.properties.felony_assault);
-		chartArray[4] = parseInt(feature.properties.burglary);
-		chartArray[5] = parseInt(feature.properties.grand_larceny);
-		chartArray[6] = parseInt(feature.properties.grand_larceny_auto);
-
-
-		var w = $('#barChart').width();
-		var h = 130;
-
-		var xScale = d3.scale.ordinal()
-						.domain(d3.range(chartArray.length))
-						.rangeRoundBands([0, w], 0.05);
-
-		var yScale = d3.scale.linear()
-						.domain([0, d3.max(chartArray)])
-						.rangeRound([0, h-60]);
-
-		// draw bar chart
-		svg = d3.select("#barChart")
-			.append("svg")
-			.attr("width", w)
-			.attr("height", h);
-
-		svg.selectAll(".bar")
-		   .data(chartArray)
-		   .enter()
-		   .append("rect")
-		   .attr("class", "bar")
-		   .attr("x", function(d, i) {
-		   		return xScale(i);
-		   })
-		   .attr("y", function(d) {
-		   		return (h-50) - yScale(d);
-		   })
-		   .attr("width", xScale.rangeBand())
-		   .attr("height", function(d) {
-		   		return yScale(d);
-		   })
-		   .attr("fill", function(d, i) {
-		   		return DNAinfoCompstatMap.COMPSTATordinalCategoryColors(i);
-		   });
-
-		svg.selectAll(".numbers")
-		   .data(chartArray)
-		   .enter()
-		   .append("text")
-		   .attr("class", "numbers")
-		   .text(function(d) {
-		   		return d;
-		   })
-		   .attr("text-anchor", "middle")
-		   .attr("x", function(d, i) {
-		   		return xScale(i) + xScale.rangeBand() / 2;
-		   })
-		   .attr("y", function(d) {
-		   		if (d == 0) {
-		   			return h - 52;
-		   		} else {
-		   			return h - yScale(d) - 52;
-		   		}
-		   })
-		   .attr("font-family", "'Titillium Web', Helvetica, Sans-Serif")
-		   .attr("font-size", "12px")
-		   .attr("fill", "#252525");
-
-		svg.selectAll(".categories")
-		   .data(chartArray)
-		   .enter()
-		   .append("text")
-		   .attr("class", "categories")
-		   .text(function(d, i) {
-		   		return DNAinfoCompstatMap.ordinalCategories(i);
-		   })
-		   .attr("text-anchor", "end")
-		   .attr("transform", function(d, i) {
-		   		var x = xScale(i) + xScale.rangeBand() / 1.5;
-		   		var y = h-40;
-		   		return "translate(" + x + "," + y + ")rotate(-45)";
-		   })
-		   .attr("font-family", "'Titillium Web', Helvetica, Sans-Serif")
-		   .attr("font-size", "12px")
-		   .attr("fill", "#252525");
-
-
-		svg.append("g")
-			.attr("class", "axis")
-			.append('line')
-			.attr("x1", 0)
-			.attr("x2", w)
-			.attr("y1", 0)
-			.attr("y2", 0)
-			.attr("transform", function(d, i) {
-		   		var y = h-50;
-		   		return "translate(0," + y + ")";
-		   	})
-		   	.attr("stroke", "#545454");
-
-
-		// draw legend
-        $("#legend").html('<div class="legend-category"><p>Major Crime Categories</p><div class="col-sm-6"><ul><li><div class="bullet" style="background: #66c2a5"></div> Murder</li><li><div class="bullet" style="background: #fc8d62"></div> Rape</li><li><div class="bullet" style="background: #8da0cb"></div> Robbery</li><li><div class="bullet" style="background: #e78ac3"></div> Felony Assault</li></ul></div><div class="col-sm-6"><ul><li><div class="bullet" style="background: #a6d854"></div> Burglary</li><li><div class="bullet" style="background: #ffd92f"></div> Grand Larceny</li><li><div class="bullet" style="background: #e5c494"></div> Grand Larceny Auto</li></ul></div></div><div class="clearfix"></div><div class="legend-cloropleth"><p>Number of Major Crimes</p><ul><li class="min">0</li><li class="max">&gt;50</li><li class="graph"><div class="colors"><div class="quartile" style="background-color:#f0f9e8"></div><div class="quartile" style="background-color:#ccebc5"></div><div class="quartile" style="background-color:#a8ddb5"></div><div class="quartile" style="background-color:#7bccc4"></div><div class="quartile" style="background-color:#43a2ca"></div><div class="quartile" style="background-color:#0868ac"></div></div></li></ul></div>');
-
-
+		DNAinfoCompstatMap.drawChart(feature,layer);
 	});	
+
+    // we'll now add an ID to each layer so we can fire the mouseover and click outside of the map
+    layer._leaflet_id = 'layerID' + count;
+    count++;
+
+}
+
+
+DNAinfoCompstatMap.drawChart = function(feature,layer){
+	var dateFormat = d3.time.format("%x");
+	var precinct = DNAinfoCompstatMap.precinctNumbers(feature.id);
+	var percentChange = ((feature.properties.total / feature.properties.last_month_total) * 100).toFixed(0);
+
+
+	if (feature.properties.diff_total > 0) {
+		var headingTotalText = "<span class='increaseText'>"+ percentChange +"% increase</span> in major crimes from previous 4 weeks.";
+	} else {
+		var headingTotalText = "<span class='decreaseText'>"+ percentChange +"% decrease</span> in major crimes from previous 4 weeks.";
+	}
+
+	// add content to description area
+	$('#descriptionTitle').html("<p><strong>" + precinct + " Precinct</strong> | "+ headingTotalText +"</p>");
+
+	$('#description').html("<p>Distribution of the change in major crimes committed in the four weeks from " + dateFormat(feature.properties.start_date) + " to " + dateFormat(feature.properties.end_date) + " compared with the previous four weeks from " + dateFormat(feature.properties.last_month_start_date) + " to " + dateFormat(feature.properties.last_month_end_date) + ".</p><div id='barChart'></div>");
+
+	// create object for bar chart
+	var chartArray = [];
+	chartArray[0] = parseInt(feature.properties.diff_murder);
+	chartArray[1] = parseInt(feature.properties.diff_rape);
+	chartArray[2] = parseInt(feature.properties.diff_robbery);
+	chartArray[3] = parseInt(feature.properties.diff_felony_assault);
+	chartArray[4] = parseInt(feature.properties.diff_burglary);
+	chartArray[5] = parseInt(feature.properties.diff_grand_larceny);
+	chartArray[6] = parseInt(feature.properties.diff_grand_larceny_auto);
+
+	var margin = {top: 30, right: 10, bottom: 30, left: 10},
+    w = $('#barChart').width() - margin.left - margin.right,
+    h = 100 - margin.top - margin.bottom;
 	
+
+	var xScale = d3.scale.ordinal()
+					.domain(d3.range(chartArray.length))
+					.rangeRoundBands([0, w], 0.05);
+
+	if (d3.min(chartArray) <= 0) {
+		var chartYmin = d3.min(chartArray);
+	} else {
+		var chartYmin = 0;
+	}
+
+	var y0 = Math.max(chartYmin, Math.abs(d3.max(chartArray))) + 10;
+
+	var yScale = d3.scale.linear()
+					.domain([-y0, y0])
+					.rangeRound([h, 0]);
+
+	// draw bar chart
+	svg = d3.select("#barChart")
+		.append("svg")
+		.attr("width", w + margin.left + margin.right)
+		.attr("height", h + margin.top + margin.bottom)
+		.append("g")
+	    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+	svg.selectAll(".bar")
+	   .data(chartArray)
+	   .enter()
+	   .append("rect")
+	   .attr("class", "bar")
+	   .attr("x", function(d, i) {
+	   		return xScale(i);
+	   })
+	   .attr("y", function(d) {
+	   		return yScale(Math.max(0, d));
+	   })
+	   .attr("width", xScale.rangeBand())
+	   .attr("height", function(d) {
+	   		return Math.abs(yScale(d) - yScale(0));
+	   })
+	   .attr("fill", function(d) {
+	   		return DNAinfoCompstatMap.fillColor_POLYGONS(d);
+	   });
+
+	svg.selectAll(".numbers")
+	   .data(chartArray)
+	   .enter()
+	   .append("text")
+	   .attr("class", "numbers")
+	   .text(function(d) {
+	   		return d;
+	   })
+	   .attr("text-anchor", "middle")
+	   .attr("x", function(d, i) {
+	   		return xScale(i) + xScale.rangeBand() / 2;
+	   })
+	   .attr("y", function(d) {
+	   		if (d >= 0) {
+	   			return yScale(d) - 2;
+	   		} else {
+				return yScale(d) + 12;
+	   		}
+	   })
+	   .attr("font-family", "'Titillium Web', Helvetica, Sans-Serif")
+	   .attr("font-size", "12px")
+	   .attr("fill", "#252525");
+
+	svg.selectAll(".categories")
+	   .data(chartArray)
+	   .enter()
+	   .append("text")
+	   .attr("class", "categories")
+	   .text(function(d, i) {
+	   		return DNAinfoCompstatMap.ordinalCategories(i);
+	   })
+	   .attr("text-anchor", "middle")
+	   .attr("transform", function(d, i) {
+	   		var x = xScale(i) + xScale.rangeBand() / 1.8;
+	   		if (d >= 0) {
+	   			var y = h + 10;
+	   		} else {
+	   			var y = h - 40;
+	   		}
+	   		
+	   		return "translate(" + x + "," + y + ")rotate(-45)";
+	   })
+	   .attr("font-family", "'Titillium Web', Helvetica, Sans-Serif")
+	   .attr("font-size", "12px")
+	   .attr("fill", "#252525");
+
+
+	svg.append("g")
+		.attr("class", "axis")
+		.append('line')
+		.attr("x1", 0)
+		.attr("x2", w)
+		.attr("y1", 0)
+		.attr("y2", 0)
+		.attr("transform", function(d, i) {
+	   		var y = yScale(0);
+	   		return "translate(0," + y + ")";
+	   	})
+	   	.attr("stroke", "#545454");
+
+
 }
 
 
@@ -205,6 +263,8 @@ DNAinfoCompstatMap.prototype.loadPolyLayer = function (){
 					if (feature.id == precinct) {
 						value.start_date = dateFormat.parse(value.start_date);
 						value.end_date = dateFormat.parse(value.end_date);
+						value.last_month_start_date = dateFormat.parse(value.last_month_start_date);
+						value.last_month_end_date = dateFormat.parse(value.last_month_end_date);
 						feature.properties = value;
 					}
 				});
@@ -213,15 +273,30 @@ DNAinfoCompstatMap.prototype.loadPolyLayer = function (){
 		});
 	}
 
-	function drawPolysWData () {
+	function drawPolysWData() {
 		thismap.POLYGONS = L.geoJson(polyTopojson, {
 		    style: DNAinfoCompstatMap.getStyleFor_POLYGONS,
 			onEachFeature: DNAinfoCompstatMap.onEachFeature_POLYGONS
 		});
-		thismap.POLYGONS.addTo(thismap.map);		
+		thismap.POLYGONS.addTo(thismap.map);
+		findCenterandFire();
+	}
+
+	function findCenterandFire() {
+		var latLngCenter = L.latLng(thismap.center[0], thismap.center[1]);
+		var results = leafletPip.pointInLayer(latLngCenter, thismap.POLYGONS, true);
+		var leafletId = results[0]._leaflet_id;
+		thismap.map._layers[leafletId].fire('click');
+		thismap.map._layers[leafletId].fireEvent('mouseover', {
+	      latlng: latLngCenter,
+	      layerPoint: thismap.map.latLngToLayerPoint(latLngCenter),
+	      containerPoint: thismap.map.latLngToContainerPoint(latLngCenter)
+	    });
+
 	}
 
 }
+
 
 DNAinfoCompstatMap.getStyleFor_POLYGONS = function (feature){
     return {
@@ -229,17 +304,17 @@ DNAinfoCompstatMap.getStyleFor_POLYGONS = function (feature){
         opacity: 0.75,
         color: '#f1f1f1',
         fillOpacity: 0.75,
-        fillColor: DNAinfoCompstatMap.fillColor_POLYGONS(feature.properties.total)
+        fillColor: DNAinfoCompstatMap.fillColor_POLYGONS(feature.properties.diff_total)
     }
 }
 
 DNAinfoCompstatMap.fillColor_POLYGONS = function (d){
-    return d > 50 ? '#0868ac' :
-           d > 25 ? '#43a2ca' :
-           d > 10 ? '#7bccc4' :
-           d > 5  ? '#a8ddb5' :
-           d > 1  ? '#ccebc5' :
-                    '#f0f9e8';	
+    return d >= 20  ? '#b2182b' :
+           d >= 10  ? '#ef8a62' :
+           d >= 0   ? '#fddbc7' :
+           d >= -10 ? '#e0e0e0' :
+           d >= -20 ? '#999999' :
+                      '#4d4d4d';	
 }
 
 DNAinfoCompstatMap.COMPSTATordinalCategoryColors = function (d){

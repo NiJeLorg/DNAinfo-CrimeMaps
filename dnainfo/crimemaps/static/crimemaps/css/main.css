@@ -64,6 +64,14 @@ html, body {
   width: 1px;
 }
 
+.increaseText {
+	color: #b2182b;
+}
+
+.decreaseText {
+	color: #4d4d4d;
+}
+
 /*
 * Legend CSS
 */

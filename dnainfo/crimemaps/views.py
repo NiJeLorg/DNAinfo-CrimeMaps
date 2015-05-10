@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import JsonResponse
+from django.db.models import Sum
 
 #import all crimemaps models
 from crimemaps.models import *
@@ -10,8 +11,13 @@ import json
 # for date parsing
 import datetime
 import dateutil.parser
+from dateutil.relativedelta import relativedelta
 
 # views for DNAinfo crime maps
+def index(request):
+	return redirect('/compstat/')
+
+
 def compstatPage(request):
 	today = datetime.datetime.now()
 	DD = datetime.timedelta(days=30)
@@ -86,48 +92,61 @@ def compstatApi(request):
 		startDate = request.GET.get("startDate","")
 		endDate = request.GET.get("endDate","")
 		# create data objects from start and end dates
-		startDateparsed = dateutil.parser.parse(startDate)
-		startDateobject = startDateparsed.date()
+		#startDateparsed = dateutil.parser.parse(startDate)
+		#startDateobject = startDateparsed.date()
 		endDateparsed = dateutil.parser.parse(endDate)
 		endDateobject = endDateparsed.date()
 
+		#this month start date
+		fourWeeksAgoParsed = endDateparsed + relativedelta(weeks=-4, days=1)
+		fourWeeksAgoObject = fourWeeksAgoParsed.date()
+
+		#last month start date
+		eightWeeksAgoParsed = endDateparsed + relativedelta(weeks=-8, days=1)
+		eightWeeksAgoObject = eightWeeksAgoParsed.date()
+
+		#last month end date
+		fourWeeksAgoPlusOneDayParsed = endDateparsed + relativedelta(weeks=-4)
+		fourWeeksAgoPlusOneDayObject = fourWeeksAgoPlusOneDayParsed.date()
+
 		#pull compstat data
-		compstats = compstat.objects.filter(start_date__gte=startDateobject, end_date__lte=endDateobject)
-		for stat in compstats:
-			# parse dates into strings
-			response[stat.precinct] = {}
-			response[stat.precinct]['start_date'] = stat.start_date
-			response[stat.precinct]['end_date'] = stat.end_date
-			response[stat.precinct]['murder'] = stat.murder
-			response[stat.precinct]['rape'] = stat.rape
-			response[stat.precinct]['robbery'] = stat.robbery
-			response[stat.precinct]['felony_assault'] = stat.felony_assault
-			response[stat.precinct]['burglary'] = stat.burglary
-			response[stat.precinct]['grand_larceny'] = stat.grand_larceny
-			response[stat.precinct]['grand_larceny_auto'] = stat.grand_larceny_auto
-			response[stat.precinct]['total'] = stat.total
-			response[stat.precinct]['transit'] = stat.transit
-			response[stat.precinct]['housing'] = stat.housing
-			response[stat.precinct]['petit_larceny'] = stat.petit_larceny
-			response[stat.precinct]['misdemeanor_assault'] = stat.misdemeanor_assault
-			response[stat.precinct]['misdemeanor_sex_crimes'] = stat.misdemeanor_sex_crimes
-			response[stat.precinct]['shooting_victims'] = stat.shooting_victims
-			response[stat.precinct]['shooting_inc'] = stat.shooting_inc
-			response[stat.precinct]['murder_last_year'] = stat.murder_last_year
-			response[stat.precinct]['rape_last_year'] = stat.rape_last_year
-			response[stat.precinct]['robbery_last_year'] = stat.robbery_last_year
-			response[stat.precinct]['felony_assault_last_year'] = stat.felony_assault_last_year
-			response[stat.precinct]['burglary_last_year'] = stat.burglary_last_year
-			response[stat.precinct]['grand_larceny_last_year'] = stat.grand_larceny_last_year
-			response[stat.precinct]['grand_larceny_auto_last_year'] = stat.grand_larceny_auto_last_year
-			response[stat.precinct]['total_last_year'] = stat.total_last_year
-			response[stat.precinct]['transit_last_year'] = stat.transit_last_year
-			response[stat.precinct]['housing_last_year'] = stat.housing_last_year
-			response[stat.precinct]['petit_larceny_last_year'] = stat.petit_larceny_last_year
-			response[stat.precinct]['misdemeanor_assault_last_year'] = stat.misdemeanor_assault_last_year
-			response[stat.precinct]['misdemeanor_sex_crimes_last_year'] = stat.misdemeanor_sex_crimes_last_year
-			response[stat.precinct]['shooting_victims_last_year'] = stat.shooting_victims_last_year
-			response[stat.precinct]['shooting_inc_last_year'] = stat.shooting_inc_last_year
+		thisMonthCompstats = compstat.objects.filter(start_date__gte=fourWeeksAgoObject, end_date__lte=endDateobject).values('precinct').annotate(Sum('murder'), Sum('rape'), Sum('robbery'), Sum('felony_assault'), Sum('burglary'), Sum('grand_larceny'), Sum('grand_larceny_auto'), Sum('total'))
+		for stat in thisMonthCompstats:
+			# add values for this month's compstats
+			precinct = stat['precinct']
+			response[precinct] = {}
+			response[precinct]['start_date'] = fourWeeksAgoObject
+			response[precinct]['end_date'] = endDateobject
+			response[precinct]['murder'] = stat['murder__sum']
+			response[precinct]['rape'] = stat['rape__sum']
+			response[precinct]['robbery'] = stat['robbery__sum']
+			response[precinct]['felony_assault'] = stat['felony_assault__sum']
+			response[precinct]['burglary'] = stat['burglary__sum']
+			response[precinct]['grand_larceny'] = stat['grand_larceny__sum']
+			response[precinct]['grand_larceny_auto'] = stat['grand_larceny_auto__sum']
+			response[precinct]['total'] = stat['total__sum']
+			# show the previous month's compstats
+			lastMonthCompstats = compstat.objects.filter(start_date__gte=eightWeeksAgoObject, end_date__lte=fourWeeksAgoPlusOneDayObject, precinct__exact=precinct).values('precinct').annotate(Sum('murder'), Sum('rape'), Sum('robbery'), Sum('felony_assault'), Sum('burglary'), Sum('grand_larceny'), Sum('grand_larceny_auto'), Sum('total'))
+			for lastStat in lastMonthCompstats:
+				response[precinct]['last_month_start_date'] = eightWeeksAgoObject
+				response[precinct]['last_month_end_date'] = fourWeeksAgoPlusOneDayObject
+				response[precinct]['last_month_murder'] = lastStat['murder__sum']
+				response[precinct]['last_month_rape'] = lastStat['rape__sum']
+				response[precinct]['last_month_robbery'] = lastStat['robbery__sum']
+				response[precinct]['last_month_felony_assault'] = lastStat['felony_assault__sum']
+				response[precinct]['last_month_burglary'] = lastStat['burglary__sum']
+				response[precinct]['last_month_grand_larceny'] = lastStat['grand_larceny__sum']
+				response[precinct]['last_month_grand_larceny_auto'] = lastStat['grand_larceny_auto__sum']
+				response[precinct]['last_month_total'] = lastStat['total__sum']
+				# calculate difference
+				response[precinct]['diff_murder'] = int(stat['murder__sum']) - int(lastStat['murder__sum'])
+				response[precinct]['diff_rape'] = int(stat['rape__sum']) - int(lastStat['rape__sum'])
+				response[precinct]['diff_robbery'] = int(stat['robbery__sum']) - int(lastStat['robbery__sum'])
+				response[precinct]['diff_felony_assault'] = int(stat['felony_assault__sum']) - int(lastStat['felony_assault__sum'])
+				response[precinct]['diff_burglary'] = int(stat['burglary__sum']) - int(lastStat['burglary__sum'])
+				response[precinct]['diff_grand_larceny'] = int(stat['grand_larceny__sum']) - int(lastStat['grand_larceny__sum'])
+				response[precinct]['diff_grand_larceny_auto'] = int(stat['grand_larceny_auto__sum']) - int(lastStat['grand_larceny_auto__sum'])
+				response[precinct]['diff_total'] = int(stat['total__sum']) - int(lastStat['total__sum'])
 
 	return JsonResponse(response)
 

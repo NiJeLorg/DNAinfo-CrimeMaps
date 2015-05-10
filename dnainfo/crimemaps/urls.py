@@ -2,6 +2,7 @@ from django.conf.urls import include, url
 from crimemaps import views
 
 urlpatterns = [
+    url(r'^$', views.index, name='index'),
     url(r'^compstat/$', views.compstatPage, name='compstat'),
     url(r'^compstatapi/$', views.compstatApi, name='compstatApi'),
     url(r'^doitt/$', views.doittPage, name='doitt'),
