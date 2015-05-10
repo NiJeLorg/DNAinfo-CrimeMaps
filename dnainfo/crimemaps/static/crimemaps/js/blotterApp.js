@@ -8,9 +8,14 @@
  */
 var BLOTTER = null;
 var MY_MAP = null;
+// set up a counter so we can assign an ID to each layer
+var count = 0;
+var nearestCenterId = null;
 
 $().ready(new function(){
     var myMap = new DNAinfoBlotterMap();
     myMap.loadPointLayers();
-    MY_MAP = myMap;			
+    myMap.loadPrecincts();
+    MY_MAP = myMap;
+    DNAinfoBlotterMap.slightPanUp();
 });

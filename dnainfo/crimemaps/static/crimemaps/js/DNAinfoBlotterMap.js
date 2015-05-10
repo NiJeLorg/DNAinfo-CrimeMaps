@@ -19,7 +19,7 @@ function DNAinfoBlotterMap() {
 	
 	// add CartoDB tiles
 	this.CartoDBLayer = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',{
-	  attribution: 'Created By <a href="http://nijel.org/">NiJeL</a> | Map Data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> Contributors, Map Tiles &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
+	  attribution: 'Created By <a href="http://nijel.org/">NiJeL</a> | &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
 	});
 	this.map.addLayer(this.CartoDBLayer);
 	
@@ -39,13 +39,20 @@ function DNAinfoBlotterMap() {
 
 }
 
+// get and set bounds based on open wrapper
+DNAinfoBlotterMap.slightPanUp = function (){
+	var point = L.point(0, 150);
+	MY_MAP.map.panBy(point);
+}
 
 DNAinfoBlotterMap.onEachFeature_BLOTTER = function(feature,layer){	
 	var highlight = {
-	    weight: 2
+	    weight: 2,
+	    color: '#000'
 	};
 	var noHighlight = {
-        weight: 1
+        weight: 1,
+        color: '#f1f1f1'
 	};
 	var dateFormat = d3.time.format("%a %b %e, %Y %I:%M %p ");
 
@@ -53,8 +60,26 @@ DNAinfoBlotterMap.onEachFeature_BLOTTER = function(feature,layer){
 
 	layer.bindLabel("<strong>" + precinct + " Precinct</strong><br />" + feature.properties.Address + "<br />" + dateFormat(feature.properties.DateTime), { direction:'auto' });
 	
-    layer.on('mouseover', function(ev) {		
-		layer.setStyle(highlight);				
+    layer.on('mouseover', function(ev) {	
+
+		if (layer._leaflet_id != nearestCenterId) {
+			// don't show center label
+			MY_MAP.map._layers[nearestCenterId].label.close();
+			MY_MAP.map._layers[nearestCenterId].setStyle(noHighlight);
+		} 
+
+		layer.setStyle(highlight);
+
+		if (!L.Browser.ie && !L.Browser.opera) {
+	        layer.bringToFront();
+	    }
+
+
+		// add content to description area
+		$('#descriptionTitle').html("<p><strong>" + precinct + " Precinct</strong></p>");
+
+		$('#description').html("<p>" + feature.properties.Address + " <br />"+ dateFormat(feature.properties.DateTime) +"</p><p>"+ feature.properties.PoliceSaid +"</p></div>");
+
     });
 		
     layer.on('mouseout', function(ev) {
@@ -79,8 +104,44 @@ DNAinfoBlotterMap.onEachFeature_BLOTTER = function(feature,layer){
 
 	});
 
+	// we'll now add an ID to each layer so we can fire the mouseover and click outside of the map
+    layer._leaflet_id = 'layerID' + count;
+    count++;
+
 }
 
+
+DNAinfoBlotterMap.onEachFeature_POLYGONS = function(feature,layer){	
+	var highlight = {
+	    color: '#000'
+	};
+	var noHighlight = {
+        color: '#bdbdbd'
+	};
+
+	var precinct = DNAinfoBlotterMap.precinctNumbers(feature.id);
+	layer.bindLabel("<strong>" + precinct + " Precinct</strong>", { direction:'auto' });
+	
+    layer.on('mouseover', function(ev) {
+
+		// don't show center label
+		//MY_MAP.map._layers[nearestCenterId].label.close();
+		//MY_MAP.map._layers[nearestCenterId].setStyle(noHighlight);
+
+		layer.setStyle(highlight);
+		if (!L.Browser.ie && !L.Browser.opera) {
+	        layer.bringToFront();
+	        MY_MAP.BLOTTER.bringToFront();
+	    }
+
+
+    });
+		
+    layer.on('mouseout', function(ev) {
+		layer.setStyle(noHighlight);		
+    });	
+
+}
 
 DNAinfoBlotterMap.prototype.loadPointLayers = function (){
 	// load points layers
@@ -89,8 +150,8 @@ DNAinfoBlotterMap.prototype.loadPointLayers = function (){
 	d3.json('/blotterapi/?startDate=' + startDate + '&endDate=' + endDate, function(data) {
 		geojsonData = data;
 		$.each(geojsonData.features, function(i, d){
-			console.log(d);
 			d.properties.DateTime = dateFormat.parse(d.properties.DateTime);
+			d.properties.leafletId = 'layerID' + i;
 		});
 
 		thismap.BLOTTER = L.geoJson(geojsonData, {
@@ -98,7 +159,50 @@ DNAinfoBlotterMap.prototype.loadPointLayers = function (){
 			onEachFeature: DNAinfoBlotterMap.onEachFeature_BLOTTER
 		}).addTo(thismap.map);
 
+		findCenterandFire();
 	});
+
+	function findCenterandFire() {
+		var centerLat = thismap.center[0];
+		var centerLon = thismap.center[1];
+		var centerFeature = {
+		  "type": "Feature",
+		  "properties": {},
+		  "geometry": {
+		    "type": "Point",
+		    "coordinates": [centerLon, centerLat]
+		  }
+		};
+		var nearest = turf.nearest(centerFeature, geojsonData);
+		nearestCenterId = nearest.properties.leafletId;
+		var pointLatLng = L.latLng(nearest.geometry.coordinates[1], nearest.geometry.coordinates[0]);
+		thismap.map._layers[nearestCenterId].fire('click');
+		thismap.map._layers[nearestCenterId].fireEvent('mouseover', {
+	      latlng: pointLatLng,
+	      layerPoint: thismap.map.latLngToLayerPoint(pointLatLng),
+	      containerPoint: thismap.map.latLngToContainerPoint(pointLatLng)
+	    });
+
+	}
+
+
+}
+
+
+DNAinfoBlotterMap.prototype.loadPrecincts = function (){
+	var thismap = this;
+	d3.json(NYC_Precincts, function(data) {
+		polyTopojson = topojson.feature(data, data.objects.NYC_Precincts).features;
+		drawPolys();
+	});
+
+	function drawPolys() {
+		thismap.POLYGONS = L.geoJson(polyTopojson, {
+		    style: DNAinfoBlotterMap.getStyleFor_POLYGONS,
+			onEachFeature: DNAinfoBlotterMap.onEachFeature_POLYGONS
+		});
+		thismap.POLYGONS.addTo(thismap.map).bringToBack();
+	}
 
 }
 
@@ -116,6 +220,16 @@ DNAinfoBlotterMap.getStyleFor_BLOTTER = function (feature, latlng){
 	
 	return pointMarker;
 	
+}
+
+DNAinfoBlotterMap.getStyleFor_POLYGONS = function (feature){
+    return {
+        weight: 2,
+        opacity: 1,
+        color: '#bdbdbd',
+        fillOpacity: 0,
+        fillColor: '#fff'
+    }
 }
 
 

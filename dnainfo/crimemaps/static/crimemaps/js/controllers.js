@@ -10,8 +10,6 @@ $( document ).ready(function() {
 	$( ".popup-wrapper" ).toggleClass("popup-wrapper-open");
 	$( ".map" ).toggleClass("map-popup-wrapper-open");
 
-	DNAinfoCompstatMap.slightPanUp();
-
 	// close popup tray
 	$('#popup-close').click(function() {
 		$( ".popup-wrapper" ).toggleClass("popup-wrapper-open");
