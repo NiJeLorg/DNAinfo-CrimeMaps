@@ -124,10 +124,6 @@ DNAinfoBlotterMap.onEachFeature_POLYGONS = function(feature,layer){
 	
     layer.on('mouseover', function(ev) {
 
-		// don't show center label
-		//MY_MAP.map._layers[nearestCenterId].label.close();
-		//MY_MAP.map._layers[nearestCenterId].setStyle(noHighlight);
-
 		layer.setStyle(highlight);
 		if (!L.Browser.ie && !L.Browser.opera) {
 	        layer.bringToFront();

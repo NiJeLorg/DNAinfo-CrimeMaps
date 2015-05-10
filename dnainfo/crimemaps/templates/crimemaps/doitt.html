@@ -4,8 +4,6 @@
 {% block css_block %}
     <link rel="stylesheet" type="text/css" href="{% static 'crimemaps/css/leaflet.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'crimemaps/css/leaflet.label.css' %}">	
-    <link rel="stylesheet" type="text/css" href="{% static 'crimemaps/css/MarkerCluster.css' %}">	
-    <link rel="stylesheet" type="text/css" href="{% static 'crimemaps/css/MarkerCluster.Default.css' %}">	
     <link rel="stylesheet" type="text/css" href="{% static 'crimemaps/css/Control.Geocoder.css' %}">	
 {% endblock %}
 
@@ -15,7 +13,7 @@
 {% block body_block %}
     <nav class="navbar navbar-default">
       <div class="container-fluid">
-          <ul class="nav navbar-nav navbar-right">
+          <ul class="nav navbar-nav navbar-almostLeft">
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">View data for {{ monthYear|date:"F Y" }}<span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
@@ -45,38 +43,14 @@
                         <div class="col-sm-6">
                             <p><strong>Legend</strong></p>
                             <div id="legend">
-                                <div class="legend-category">
-                                    <p>Major Crime Categories</p>
-                                    <div class="col-sm-6">
-                                        <ul>
-                                            <li>
-                                                <div class="bullet" style="background: #66c2a5"></div> Murder
-                                            </li>
-                                            <li>
-                                                <div class="bullet" style="background: #fc8d62"></div> Rape
-                                            </li>
-                                            <li>
-                                                <div class="bullet" style="background: #8da0cb"></div> Robbery
-                                            </li>
-                                            <li>
-                                                <div class="bullet" style="background: #e78ac3"></div> Felony Assault
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <ul>                                    
-                                            <li>
-                                                <div class="bullet" style="background: #a6d854"></div> Burglary
-                                            </li>
-                                            <li>
-                                                <div class="bullet" style="background: #ffd92f"></div> Grand Larceny
-                                            </li>
-                                            <li>
-                                                <div class="bullet" style="background: #e5c494"></div> Grand Larceny Auto
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
+                               <div class="legend-category"><p>Major Crime Categories</p><div class="col-sm-6"><ul><li><div class="bullet" style="background: #e41a1c"></div> Murder</li><li><div class="bullet" style="background: #377eb8"></div> Rape</li><li><div class="bullet" style="background: #4daf4a"></div> Robbery</li><li><div class="bullet" style="background: #984ea3"></div> Felony Assault</li></ul></div><div class="col-sm-6"><ul><li><div class="bullet" style="background: #ff7f00"></div> Burglary</li><li><div class="bullet" style="background: #ffff33"></div> Grand Larceny</li><li><div class="bullet" style="background: #a65628"></div> Grand Larceny Auto</li></ul></div></div><div class="clearfix"></div><div class="legend-bubbles"><p>Number of Major Crimes</p><ul><li>0</li><li class="graph" style="background: #66c2a5;"><div class="bubbles"></div></li><li>&gt;5</li></ul></div>
+
+
+
+
+
+
+
                             </div>
                         </div>
                     </div>
@@ -105,15 +79,15 @@
 	<!-- create locations geojsons-->
 	<script type="text/javascript">
         var monthYear = '{{ monthYear|date:"FY" }}';
+        var NYC_Precincts = "{% static 'crimemaps/data/NYC_Precincts.topojson' %}";
 	</script>
 	<script type="text/javascript" src="{% static 'crimemaps/js/d3.min.js' %}"></script>
 	<script type="text/javascript" src="{% static 'crimemaps/js/moment.min.js' %}"></script>
 	<script type="text/javascript" src="{% static 'crimemaps/js/leaflet.js' %}"></script>
 	<script type="text/javascript" src="{% static 'crimemaps/js/leaflet.label-src.js' %}"></script>
-	<script type="text/javascript" src="{% static 'crimemaps/js/leaflet-omnivore.min.js' %}"></script>
 	<script type="text/javascript" src="{% static 'crimemaps/js/topojson.js' %}"></script>
-	<script type="text/javascript" src="{% static 'crimemaps/js/leaflet.markercluster.js' %}"></script>
 	<script type="text/javascript" src="{% static 'crimemaps/js/Control.Geocoder.js' %}"></script>
+  <script type="text/javascript" src="{% static 'crimemaps/js/turf.min.js' %}"></script>
 	<script type="text/javascript" src="{% static 'crimemaps/js/DNAinfoDoittMap.js' %}"></script>
 	<script type="text/javascript" src="{% static 'crimemaps/js/doittApp.js' %}"></script>
 	<script type="text/javascript" src="{% static 'crimemaps/js/controllers.js' %}"></script>

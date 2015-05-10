@@ -19,7 +19,7 @@ function DNAinfoDoittMap() {
 	
 	// add CartoDB tiles
 	this.CartoDBLayer = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',{
-	  attribution: 'Created By <a href="http://nijel.org/">NiJeL</a> | Map Data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> Contributors, Map Tiles &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
+	  attribution: 'Created By <a href="http://nijel.org/">NiJeL</a> | &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
 	});
 	this.map.addLayer(this.CartoDBLayer);
 	
@@ -36,22 +36,23 @@ function DNAinfoDoittMap() {
 	// empty containers for layers 
 	this.GRADPOINT = null;
 
-	// marker cluster options
-	clusterLocations = L.markerClusterGroup({ 
-		showCoverageOnHover: false, 
-		maxClusterRadius: 40,
-		disableClusteringAtZoom: 14
-	});
+}
 
+// get and set bounds based on open wrapper
+DNAinfoDoittMap.slightPanUp = function (){
+	var point = L.point(0, 150);
+	MY_MAP.map.panBy(point);
 }
 
 
 DNAinfoDoittMap.onEachFeature_GRADPOINT = function(feature,layer){	
 	var highlight = {
-	    weight: 2
+	    weight: 2,
+	    color: '#000'
 	};
 	var noHighlight = {
-        weight: 1
+        weight: 1,
+        color: '#f1f1f1'
 	};
 	var dateFormat = d3.time.format("%Y");
 
@@ -62,7 +63,25 @@ DNAinfoDoittMap.onEachFeature_GRADPOINT = function(feature,layer){
 	layer.bindLabel(feature.properties.TOT + " <span class='text-lowercase'>" + feature.properties.CR + "</span>", { direction:'auto' });
 	
     layer.on('mouseover', function(ev) {		
-		layer.setStyle(highlight);				
+		if (layer._leaflet_id != nearestCenterId) {
+			// don't show center label
+			MY_MAP.map._layers[nearestCenterId].label.close();
+			MY_MAP.map._layers[nearestCenterId].setStyle(noHighlight);
+		} 
+
+		layer.setStyle(highlight);
+
+		if (!L.Browser.ie && !L.Browser.opera) {
+	        layer.bringToFront();
+	    }
+
+	    // add content to description area
+		$('#descriptionTitle').html("<p><strong>Type of Crimes at a Location </strong></p>");
+
+		var month = moment(feature.properties.MO, "MM").format("MMMM");
+
+		$('#description').html("<p>" + feature.properties.TOT + " <span class='text-lowercase'>" + feature.properties.CR + "</span> at this location in " + month + " " + feature.properties.YR +".</p><div id='barChart'></div>");
+
     });
 		
     layer.on('mouseout', function(ev) {
@@ -85,12 +104,43 @@ DNAinfoDoittMap.onEachFeature_GRADPOINT = function(feature,layer){
 
 		$('#description').html("<p>" + feature.properties.TOT + " <span class='text-lowercase'>" + feature.properties.CR + "</span> at this location in " + month + " " + feature.properties.YR +".</p><div id='barChart'></div>");
 
-		// update legend
-		$("#legend").html('<div class="legend-category"><p>Major Crime Categories</p><div class="col-sm-6"><ul><li><div class="bullet" style="background: #66c2a5"></div> Murder</li><li><div class="bullet" style="background: #fc8d62"></div> Rape</li><li><div class="bullet" style="background: #8da0cb"></div> Robbery</li><li><div class="bullet" style="background: #e78ac3"></div> Felony Assault</li></ul></div><div class="col-sm-6"><ul><li><div class="bullet" style="background: #a6d854"></div> Burglary</li><li><div class="bullet" style="background: #ffd92f"></div> Grand Larceny</li><li><div class="bullet" style="background: #e5c494"></div> Grand Larceny Auto</li></ul></div></div><div class="clearfix"></div><div class="legend-bubbles"><p>Number of Major Crimes</p><ul><li>0</li><li class="graph" style="background: #66c2a5;"><div class="bubbles"></div></li><li>&gt;5</li></ul></div>');
 
 	});
 
+	// we'll now add an ID to each layer so we can fire the mouseover and click outside of the map
+    layer._leaflet_id = 'layerID' + count;
+    count++;
+
 }
+
+DNAinfoDoittMap.onEachFeature_POLYGONS = function(feature,layer){	
+	var highlight = {
+	    color: '#000'
+	};
+	var noHighlight = {
+        color: '#bdbdbd'
+	};
+
+	var precinct = DNAinfoDoittMap.precinctNumbers(feature.id);
+	layer.bindLabel("<strong>" + precinct + " Precinct</strong>", { direction:'auto' });
+	
+    layer.on('mouseover', function(ev) {
+
+    	layer.setStyle(highlight);
+		if (!L.Browser.ie && !L.Browser.opera) {
+	        layer.bringToFront();
+	        MY_MAP.GRADPOINT.bringToFront();
+	    }
+
+
+    });
+		
+    layer.on('mouseout', function(ev) {
+		layer.setStyle(noHighlight);		
+    });	
+
+}
+
 
 
 DNAinfoDoittMap.prototype.loadPointLayers = function (){
@@ -99,20 +149,60 @@ DNAinfoDoittMap.prototype.loadPointLayers = function (){
 
 	d3.json('/doittapi/?monthYear=' + monthYear, function(data) {
 		geojsonData = data;
-		console.log(geojsonData);
+
+		$.each(geojsonData.features, function(i, d){
+			d.properties.leafletId = 'layerID' + i;
+		});
 
 		thismap.GRADPOINT = L.geoJson(geojsonData, {
 		    pointToLayer: DNAinfoDoittMap.getStyleFor_GRADPOINT,
 			onEachFeature: DNAinfoDoittMap.onEachFeature_GRADPOINT
 		}).addTo(thismap.map);
 
-		//clusterLocations.addLayer(thismap.GRADPOINT);
-		//clusterLocations.addTo(thismap.map);
-
+		findCenterandFire();
 	});
+
+	function findCenterandFire() {
+		var centerLat = thismap.center[0];
+		var centerLon = thismap.center[1];
+		var centerFeature = {
+		  "type": "Feature",
+		  "properties": {},
+		  "geometry": {
+		    "type": "Point",
+		    "coordinates": [centerLon, centerLat]
+		  }
+		};
+		var nearest = turf.nearest(centerFeature, geojsonData);
+		nearestCenterId = nearest.properties.leafletId;
+		var pointLatLng = L.latLng(nearest.geometry.coordinates[1], nearest.geometry.coordinates[0]);
+		thismap.map._layers[nearestCenterId].fire('click');
+		thismap.map._layers[nearestCenterId].fireEvent('mouseover', {
+	      latlng: pointLatLng,
+	      layerPoint: thismap.map.latLngToLayerPoint(pointLatLng),
+	      containerPoint: thismap.map.latLngToContainerPoint(pointLatLng)
+	    });
+
+	}
 
 }
 
+DNAinfoDoittMap.prototype.loadPrecincts = function (){
+	var thismap = this;
+	d3.json(NYC_Precincts, function(data) {
+		polyTopojson = topojson.feature(data, data.objects.NYC_Precincts).features;
+		drawPolys();
+	});
+
+	function drawPolys() {
+		thismap.POLYGONS = L.geoJson(polyTopojson, {
+		    style: DNAinfoDoittMap.getStyleFor_POLYGONS,
+			onEachFeature: DNAinfoDoittMap.onEachFeature_POLYGONS
+		});
+		thismap.POLYGONS.addTo(thismap.map).bringToBack();
+	}
+
+}
 
 DNAinfoDoittMap.getStyleFor_GRADPOINT = function (feature, latlng){
 
@@ -129,15 +219,25 @@ DNAinfoDoittMap.getStyleFor_GRADPOINT = function (feature, latlng){
 	
 }
 
+DNAinfoDoittMap.getStyleFor_POLYGONS = function (feature){
+    return {
+        weight: 2,
+        opacity: 1,
+        color: '#bdbdbd',
+        fillOpacity: 0,
+        fillColor: '#fff'
+    }
+}
+
 
 DNAinfoDoittMap.DOITTordinalCategoryColors = function (d){
-    return d == "MURDER" ? '#66c2a5' :
-           d == "RAPE" ? '#fc8d62' :
-           d == "ROBBERY" ? '#8da0cb' :
-           d == "FELONY ASSAULT" ? '#e78ac3' :
-           d == "BURGLARY" ? '#a6d854' :
-           d == "GRAND LARCENY" ? '#ffd92f' :
-           d == "GRAND LARCENY OF MOTOR VEHICLE" ? '#e5c494' :
+    return d == "MURDER" ? '#e41a1c' :
+           d == "RAPE" ? '#377eb8' :
+           d == "ROBBERY" ? '#4daf4a' :
+           d == "FELONY ASSAULT" ? '#984ea3' :
+           d == "BURGLARY" ? '#ff7f00' :
+           d == "GRAND LARCENY" ? '#ffff33' :
+           d == "GRAND LARCENY OF MOTOR VEHICLE" ? '#a65628' :
                     '#000';	
 }
 
