@@ -142,7 +142,7 @@ DNAinfoCompstatMap.drawChart = function(feature,layer){
 	chartArray[5] = parseInt(feature.properties.diff_grand_larceny);
 	chartArray[6] = parseInt(feature.properties.diff_grand_larceny_auto);
 
-	var margin = {top: 30, right: 10, bottom: 30, left: 10},
+	var margin = {top: 30, right: 0, bottom: 30, left: 0},
     w = $('#barChart').width() - margin.left - margin.right,
     h = 100 - margin.top - margin.bottom;
 	
