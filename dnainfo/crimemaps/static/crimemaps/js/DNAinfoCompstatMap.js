@@ -308,12 +308,13 @@ DNAinfoCompstatMap.prototype.loadPolyLayer = function (){
 
 
 DNAinfoCompstatMap.getStyleFor_POLYGONS = function (feature){
+	var percentChange = (((feature.properties.total - feature.properties.last_month_total) / feature.properties.last_month_total) * 100).toFixed(0);
     return {
         weight: 1,
         opacity: 0.75,
         color: '#f1f1f1',
         fillOpacity: 0.75,
-        fillColor: DNAinfoCompstatMap.fillColor_POLYGONS(feature.properties.diff_total)
+        fillColor: DNAinfoCompstatMap.fillColor_POLYGONS(percentChange)
     }
 }
 
