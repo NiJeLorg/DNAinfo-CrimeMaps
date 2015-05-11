@@ -8,7 +8,7 @@ function DNAinfoDoittMap() {
 
 	this.center = DNAinfoDoittMap.centerBySubdomain();
     //this.center = [40.710508, -73.943825];
-    this.zoom = 14;
+    this.zoom = 15;
 
     this.map = new L.Map('map', {
 		minZoom:13,
