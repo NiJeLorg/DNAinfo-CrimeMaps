@@ -65,7 +65,7 @@ class Command(BaseCommand):
                     lon = float(data['gsx$longitude']['$t'])
 
                 #use get or create to only create records for objects newly added to the spreadsheets
-                obj, created = blotter.objects.get_or_create(Precinct=precinctNum, Address=data['gsx$address']['$t'], BlotterWeek=BlotterWeekObject, CrimeType=crimeType, PoliceSaid=data['gsx$policesaid']['$t'], Arrest=arrest, Latitude=lat, Longitude=lon, JSDate=JSDateObject)
+                obj, created = blotter.objects.update_or_create(Precinct=precinctNum, Address=data['gsx$address']['$t'], BlotterWeek=BlotterWeekObject, CrimeType=crimeType, PoliceSaid=data['gsx$policesaid']['$t'], Arrest=arrest, Latitude=lat, Longitude=lon, JSDate=JSDateObject)
 
                 if created == True:
                     print data['gsx$datetime']['$t']
