@@ -71,8 +71,8 @@ def blotterPage(request):
 
 	#select a distinct list of end dates from the system
 	dates = []
-	latestDate = blotter.objects.latest('DateTime')
-	earliestDate = blotter.objects.earliest('DateTime')
+	latestDate = blotter.objects.exclude(DateTime=None).latest('DateTime')
+	earliestDate = blotter.objects.exclude(DateTime=None).earliest('DateTime')
 	countDate = latestDate.DateTime
 	while (earliestDate.DateTime < countDate):
 		date = {}
