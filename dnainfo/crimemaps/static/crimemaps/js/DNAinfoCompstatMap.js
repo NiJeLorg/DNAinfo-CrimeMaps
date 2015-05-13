@@ -583,8 +583,8 @@ DNAinfoCompstatMap.centerBySubdomain = function (){
 		"jackson-heights": [],
 		"jamaica": [],
 		"jamaica-estates": [],
-		"jamaica-hills
-		/new-york/kensington": [],
+		"jamaica-hills": []
+		"kensington": [],
 		"kew-gardens": [],
 		"kew-gardens-hills": [],
 		"kingsbridge": [],
