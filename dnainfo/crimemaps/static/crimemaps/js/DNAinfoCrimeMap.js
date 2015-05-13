@@ -17,7 +17,7 @@ function DNAinfoCrimeMap() {
 	});
 	
 	// add CartoDB tiles
-	this.CartoDBLayer = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',{
+	this.CartoDBLayer = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png',{
 	  attribution: 'Created By <a href="http://nijel.org/">NiJeL</a> | Map Data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> Contributors, Map Tiles &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
 	});
 	this.map.addLayer(this.CartoDBLayer);

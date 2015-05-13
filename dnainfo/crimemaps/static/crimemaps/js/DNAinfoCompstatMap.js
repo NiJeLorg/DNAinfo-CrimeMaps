@@ -19,7 +19,7 @@ function DNAinfoCompstatMap() {
 
 	
 	// add CartoDB tiles
-	this.CartoDBLayer = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',{
+	this.CartoDBLayer = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png',{
 	  attribution: 'Created By <a href="http://nijel.org/">NiJeL</a> | &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
 	});
 	this.map.addLayer(this.CartoDBLayer);
@@ -395,6 +395,7 @@ DNAinfoCompstatMap.centerBySubdomain = function (){
 	var urlArray = referrer.split("/");
 	var domain = urlArray[2];
 	var neighborhood = urlArray[5];
+	console.log(urlArray);
 
 	var lookup = {
 		"washington-heights-inwood": [40.846719, -73.935156],
