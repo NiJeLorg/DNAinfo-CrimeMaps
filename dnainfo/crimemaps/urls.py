@@ -3,6 +3,7 @@ from crimemaps import views
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
+    url(r'^nycbuilder/$', views.linkiframebuilder, name='linkiframebuilder'),
     url(r'^compstat/$', views.compstatPage, name='compstat'),
     url(r'^compstatapi/$', views.compstatApi, name='compstatApi'),
     url(r'^doitt/$', views.doittPage, name='doitt'),

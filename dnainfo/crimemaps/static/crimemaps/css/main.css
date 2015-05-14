@@ -82,6 +82,10 @@ body { padding-bottom: 50px; }
 	color: #bdbdbd;
 }
 
+.margin10top {
+	margin-top: 10px;
+}
+
 /*
 * Legend CSS
 */

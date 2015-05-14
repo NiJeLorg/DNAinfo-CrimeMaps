@@ -17,6 +17,35 @@ from dateutil.relativedelta import relativedelta
 def index(request):
 	return redirect('/compstat/')
 
+def linkiframebuilder(request):
+	#select a distinct list of end dates from the system
+	compstatDates = []
+	dateList = compstat.objects.values('start_date', 'end_date').distinct().order_by('-start_date')
+	for date in dateList:
+		compstatDates.append(date)
+
+	#select a distinct list of end dates from the system
+	doittDates = []
+	dateList = doitt.objects.values('MO', 'YR').distinct().order_by('-YR', '-MO')
+	for date in dateList:
+		string = str(date['MO']) + '/1/' + str(date['YR'])
+		parsed = dateutil.parser.parse(string).date()
+		doittDates.append(parsed)
+
+	#select a distinct list of end dates from the system
+	blotterDates = []
+	DD = datetime.timedelta(days=7)
+	latestDate = blotter.objects.exclude(DateTime=None).latest('DateTime')
+	earliestDate = blotter.objects.exclude(DateTime=None).earliest('DateTime')
+	countDate = latestDate.DateTime
+	while (earliestDate.DateTime < countDate):
+		date = {}
+		date['end_date'] = countDate
+		date['start_date'] = countDate - DD
+		blotterDates.append(date)
+		countDate = countDate - DD 
+
+	return render(request, 'crimemaps/linkiframebuilder.html', {'compstatDates': compstatDates, 'doittDates': doittDates, 'blotterDates': blotterDates})
 
 def compstatPage(request):
 	today = datetime.datetime.now()
