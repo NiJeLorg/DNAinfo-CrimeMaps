@@ -1,0 +1,98 @@
+{% extends 'crimemaps/base.html' %}
+{% load staticfiles %}
+
+{% block css_block %}
+    <link rel="stylesheet" type="text/css" href="{% static 'crimemaps/css/leaflet.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'crimemaps/css/leaflet.label.css' %}">	
+    <link rel="stylesheet" type="text/css" href="{% static 'crimemaps/css/Control.Geocoder.css' %}">	
+{% endblock %}
+
+{% block head_js_block %}
+{% endblock %}
+	
+{% block body_block %}
+
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <div class="navbar-brand">DNAinfo New York</div>
+        </div>
+      </div> 
+    </nav>
+
+        <!-- #popup-wrapper-->
+        <div id="popup-wrapper" class="popup-wrapper">
+            <div class="popup-content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <button type="button" class="close right" id="popup-close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div id="descriptionTitle"></div>
+                            <div id="description"></div>
+                        </div>
+                        <div class="col-sm-6">
+                            <p><strong>Legend</strong></p>
+                            <div id="legend">
+                               <div class="legend-category">
+                                   <p>Modal Category of Mode of Trasportation Taken to Work by Workers, 2013</p>
+                                   <div class="col-sm-6">
+                                       <ul>
+                                           <li><div class="bullet" style="background: #e41a1c"></div> Driving Alone</li>
+                                           <li><div class="bullet" style="background: #377eb8"></div> Carpooling</li>
+                                           <li><div class="bullet" style="background: #4daf4a"></div> Public Trasportation</li>
+                                           <li><div class="bullet" style="background: #984ea3"></div> Walking</li>
+                                       </ul>
+                                       </div>
+                                   <div class="col-sm-6">
+                                       <ul>
+                                           <li><div class="bullet" style="background: #ff7f00"></div> Other Mode of Transport</li>
+                                           <li><div class="bullet" style="background: #ffff33"></div> Worked at Home</li>
+                                           <li><div class="bullet" style="background: #fff"></div> No workers in 2013</li>
+                                       </ul>
+                                   </div>
+                               </div>
+                               <div class="clearfix"></div>
+                                <p><small>Data from the United States Census Bureau; <a href="http://www.census.gov/acs/www/">American Community Survey</a></small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /#popup-wrapper-->
+
+        <!-- Map Content -->
+        <div id="map" class="map"></div>
+
+
+
+{% endblock %}
+
+{% block modal_block %}
+{% endblock %}
+
+{% block js_block %}
+	<!-- create locations geojsons-->
+	<script type="text/javascript">
+		var topojsonData = "{% static 'crimemaps/data/nyc_acs_10_13_commute.topojson' %}";
+	</script>
+	<script type="text/javascript" src="{% static 'crimemaps/js/d3.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'crimemaps/js/moment.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'crimemaps/js/leaflet.js' %}"></script>
+	<script type="text/javascript" src="{% static 'crimemaps/js/leaflet.label-src.js' %}"></script>
+	<script type="text/javascript" src="{% static 'crimemaps/js/topojson.js' %}"></script>
+	<script type="text/javascript" src="{% static 'crimemaps/js/Control.Geocoder.js' %}"></script>
+	<script type="text/javascript" src="{% static 'crimemaps/js/leaflet-pip.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'crimemaps/js/DNAinfoTtwMap.js' %}"></script>
+	<script type="text/javascript" src="{% static 'crimemaps/js/TtwApp.js' %}"></script>
+	<script type="text/javascript" src="{% static 'crimemaps/js/controllers.js' %}"></script>
+{% endblock %}
+
+
+	
+	
+

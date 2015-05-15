@@ -20,6 +20,16 @@ def index(request):
 def workedFromHome(request):
 	return render(request, 'crimemaps/workedFromHome.html', {})
 
+def chiWorkedFromHome(request):
+	return render(request, 'crimemaps/chiWorkedFromHome.html', {})
+
+def transportToWork(request):
+	return render(request, 'crimemaps/transportToWork.html', {})
+
+def chiTransportToWork(request):
+	return render(request, 'crimemaps/chiTransportToWork.html', {})
+
+
 def linkiframebuilder(request):
 	#select a distinct list of end dates from the system
 	compstatDates = []
