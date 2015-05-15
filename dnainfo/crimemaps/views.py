@@ -17,6 +17,9 @@ from dateutil.relativedelta import relativedelta
 def index(request):
 	return redirect('/compstat/')
 
+def workedFromHome(request):
+	return render(request, 'crimemaps/workedFromHome.html', {})
+
 def linkiframebuilder(request):
 	#select a distinct list of end dates from the system
 	compstatDates = []
