@@ -58,6 +58,7 @@ def compstatPage(request):
 	earlier_str = earlier.strftime("%x")
 	startDate = request.GET.get("startDate",earlier_str)
 	endDate = request.GET.get("endDate",today_str)
+	center = request.GET.get("center","")
 	#ensure startDate and endDate are datetime objects
 	startDate = dateutil.parser.parse(startDate).date()
 	endDate = dateutil.parser.parse(endDate).date()
@@ -75,6 +76,7 @@ def doittPage(request):
 	today = datetime.datetime.now()
 	today_str = today.strftime("%M %Y")
 	monthYearGet = request.GET.get("monthYear",today_str)
+	center = request.GET.get("center","")
 	#ensure date is a datetime object
 	monthDayYear = '1 ' + monthYearGet
 	monthYear = dateutil.parser.parse(monthDayYear).date()
@@ -97,6 +99,7 @@ def blotterPage(request):
 	earlier_str = earlier.strftime("%x")
 	startDate = request.GET.get("startDate",earlier_str)
 	endDate = request.GET.get("endDate",today_str)
+	center = request.GET.get("center","")
 	#ensure startDate and endDate are datetime objects
 	startDate = dateutil.parser.parse(startDate).date()
 	endDate = dateutil.parser.parse(endDate).date()
@@ -114,7 +117,7 @@ def blotterPage(request):
 		countDate = countDate - DD 
 	
 
-	return render(request, 'crimemaps/blotter.html', {'startDate':startDate, 'endDate':endDate, 'dates':dates})
+	return render(request, 'crimemaps/blotter.html', {'startDate':startDate, 'endDate':endDate, 'center': center, 'dates':dates})
 
 
 

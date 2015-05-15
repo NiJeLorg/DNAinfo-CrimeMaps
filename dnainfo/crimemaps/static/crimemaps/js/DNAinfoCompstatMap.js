@@ -5,8 +5,14 @@
 // initialize map
 function DNAinfoCompstatMap() {
 	// set zoom and center for this map
-
-	this.center = DNAinfoCompstatMap.centerBySubdomain();
+	if (center) {
+		centerArray = center.split(',');
+		this.center = [centerArray[0], centerArray[1]];
+		console.log(this.center);
+	} else {
+		this.center = DNAinfoCompstatMap.centerBySubdomain();
+	}
+	center = this.center;
     //this.center = [40.710508, -73.943825];
     this.zoom = 13;
 

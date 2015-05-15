@@ -79,6 +79,7 @@
 	<!-- create locations geojsons-->
 	<script type="text/javascript">
         var monthYear = '{{ monthYear|date:"FY" }}';
+        var center = '{{ center }}';
         var NYC_Precincts = "{% static 'crimemaps/data/NYC_Precincts.topojson' %}";
 	</script>
 	<script type="text/javascript" src="{% static 'crimemaps/js/d3.min.js' %}"></script>
@@ -91,6 +92,16 @@
 	<script type="text/javascript" src="{% static 'crimemaps/js/DNAinfoDoittMap.js' %}"></script>
 	<script type="text/javascript" src="{% static 'crimemaps/js/doittApp.js' %}"></script>
 	<script type="text/javascript" src="{% static 'crimemaps/js/controllers.js' %}"></script>
+  <script type="text/javascript">
+    $( document ).ready(function() {
+      // make date and center links
+      var appendLis = ''; 
+      {% for date in dates %}
+          appendLis += '<li><a href="/doitt/?monthYear={{ date|date:"F Y" }}&center='+ center +'">{{ date|date:"F Y" }}</a></li>';
+      {% endfor %}
+      $('.append').html(appendLis);
+    });
+  </script>
 {% endblock %}
 
 
