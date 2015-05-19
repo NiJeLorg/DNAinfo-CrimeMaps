@@ -136,7 +136,7 @@ DNAinfoCompstatMap.drawChart = function(feature,layer){
 	$('#description').html("<p>Distribution of the change in major crimes committed in the four weeks from " + dateFormat(feature.properties.start_date) + " to " + dateFormat(feature.properties.end_date) + " compared with the previous four weeks from " + dateFormat(feature.properties.last_month_start_date) + " to " + dateFormat(feature.properties.last_month_end_date) + ".</p><div id='barChart'></div>");
 	*/
 
-	$('#description').html("<p>Breakdown of crimes by category from" + dateFormat(feature.properties.start_date) + " to " + dateFormat(feature.properties.end_date) + ":</p><div id='barChart'></div>");
+	$('#description').html("<p>Breakdown of crimes by category from " + dateFormat(feature.properties.start_date) + " to " + dateFormat(feature.properties.end_date) + ":</p><div id='barChart'></div>");
 
 	// create object for bar chart
 	var chartArray = [];
