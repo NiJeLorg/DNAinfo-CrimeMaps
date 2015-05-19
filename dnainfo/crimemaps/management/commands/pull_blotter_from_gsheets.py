@@ -5,6 +5,7 @@ import urllib, json
 # for date parsing
 import datetime
 import time
+from datetime import date
 from django.utils import timezone
 import dateutil.parser
 
@@ -75,10 +76,64 @@ class Command(BaseCommand):
                     obj.DateTime = DateTimeObject
                     obj.save()
 
+    def load_blotter_data_consolidated_sheet(self):
+        keys = ['1WZsIEkHVy8YUrfYaBEkk3z0xy1bikYySqNcXE8NRxMY']
+        base_url = 'https://spreadsheets.google.com/feeds/list/'
+        params = '/1/public/values?alt=json'
+
+        for counter, key in enumerate(keys):
+            url = base_url + key + params
+            response = urllib.urlopen(url)
+            data = json.loads(response.read())
+            for data in data['feed']['entry']:
+                #get data ready to be added
+                dateTime = data['gsx$date']['$t'] + ' ' + data['gsx$time']['$t']
+                DateTimeparsed = dateutil.parser.parse(dateTime)
+                DateTimeObject = timezone.make_aware(DateTimeparsed)
+                justDate = DateTimeparsed.date()
+
+                if hasattr(data, 'gsx$arrest'):
+                    if data['gsx$arrests']['$t'] == 'Yes':
+                        arrest = True
+                    elif data['gsx$arrests']['$t'] == 'No':
+                        arrest = False
+                    else:
+                        arrest = None
+                else:
+                    arrest = None
+
+                if hasattr(data, 'gsx$crimetype'):
+                    crimeType = data['gsx$crimetype']['$t']
+                else:
+                    crimeType = None
+
+                if hasattr(data, 'gsx$precinct'):
+                    if data['gsx$precinct']['$t'] == '':
+                        precinctNum = 0
+                    else:
+                        precinctNum = int(data['gsx$precinct']['$t'])
+                else:
+                    precinctNum = 0
+
+                if data['gsx$latitude']['$t'] == '':
+                    lat = 0                    
+                else:
+                    lat = float(data['gsx$latitude']['$t'])
+
+                if data['gsx$latitude']['$t'] == '':
+                    lon = 0                    
+                else:
+                    lon = float(data['gsx$longitude']['$t'])
+
+                #use get or create to only create records for objects newly added to the spreadsheets
+                obj, created = blotter.objects.update_or_create(Precinct=precinctNum, Address=data['gsx$address']['$t'], DateTime=DateTimeObject, BlotterWeek=justDate, CrimeType=crimeType, PoliceSaid=data['gsx$policesaid']['$t'], Arrest=arrest, Latitude=lat, Longitude=lon, JSDate=justDate)
+
 
     def handle(self, *args, **options):
         print "Loading Blotter Data...."
         self.load_blotter_data()
+        print "Loading Blotter Data form the Consolidated Sheet...."
+        self.load_blotter_data_consolidated_sheet()
 
 
 
