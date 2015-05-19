@@ -136,17 +136,17 @@ DNAinfoCompstatMap.drawChart = function(feature,layer){
 	$('#description').html("<p>Distribution of the change in major crimes committed in the four weeks from " + dateFormat(feature.properties.start_date) + " to " + dateFormat(feature.properties.end_date) + " compared with the previous four weeks from " + dateFormat(feature.properties.last_month_start_date) + " to " + dateFormat(feature.properties.last_month_end_date) + ".</p><div id='barChart'></div>");
 	*/
 
-	$('#description').html("<p>Distribution by category of the change in major crimes committed:</p><div id='barChart'></div>");
+	$('#description').html("<p>Breakdown of crimes by category from" + dateFormat(feature.properties.start_date) + " to " + dateFormat(feature.properties.end_date) + ":</p><div id='barChart'></div>");
 
 	// create object for bar chart
 	var chartArray = [];
-	chartArray[0] = parseInt(feature.properties.diff_murder);
-	chartArray[1] = parseInt(feature.properties.diff_rape);
-	chartArray[2] = parseInt(feature.properties.diff_robbery);
-	chartArray[3] = parseInt(feature.properties.diff_felony_assault);
-	chartArray[4] = parseInt(feature.properties.diff_burglary);
-	chartArray[5] = parseInt(feature.properties.diff_grand_larceny);
-	chartArray[6] = parseInt(feature.properties.diff_grand_larceny_auto);
+	chartArray[0] = parseInt(feature.properties.murder);
+	chartArray[1] = parseInt(feature.properties.rape);
+	chartArray[2] = parseInt(feature.properties.robbery);
+	chartArray[3] = parseInt(feature.properties.felony_assault);
+	chartArray[4] = parseInt(feature.properties.burglary);
+	chartArray[5] = parseInt(feature.properties.grand_larceny);
+	chartArray[6] = parseInt(feature.properties.grand_larceny_auto);
 
 	var margin = {top: 30, right: 0, bottom: 30, left: 0},
     w = $('#barChart').width() - margin.left - margin.right,
