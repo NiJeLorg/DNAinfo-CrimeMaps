@@ -107,11 +107,8 @@ class Command(BaseCommand):
                 else:
                     crimeType = None
 
-                if hasattr(data, 'gsx$precinct'):
-                    if data['gsx$precinct']['$t'] == '':
-                        precinctNum = 0
-                    else:
-                        precinctNum = int(data['gsx$precinct']['$t'])
+                if data['gsx$precinct']['$t'] != '':
+                    precinctNum = int(data['gsx$precinct']['$t'])
                 else:
                     precinctNum = 0
 
