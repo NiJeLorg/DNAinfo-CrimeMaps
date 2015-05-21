@@ -262,7 +262,7 @@ def blotterApi(request):
 			data['properties'] = {}
 			data['properties']['Precinct'] = stat.Precinct
 			data['properties']['Address'] = stat.Address
-			data['properties']['DateTime'] = rawTime.astimezone(time_zone)
+			data['properties']['DateTime'] = rawTime.astimezone(time_zone).replace(tzinfo=None)
 			data['properties']['BlotterWeek'] = stat.BlotterWeek
 			data['properties']['CrimeType'] = stat.CrimeType
 			data['properties']['PoliceSaid'] = stat.PoliceSaid
