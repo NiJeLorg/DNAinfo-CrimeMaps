@@ -236,8 +236,6 @@ def doittApi(request):
 
 
 def blotterApi(request):
-	# time zone
-	time_zone = pytz.timezone('America/New_York')
 	#add in the items geojson requires 
 	response = {}
 	response['type'] = "FeatureCollection"
@@ -255,13 +253,14 @@ def blotterApi(request):
 		#pull doitt data
 		blotters = blotter.objects.filter(DateTime__range=[startDateobject,endDateobject])
 		for stat in blotters:
+			rawTime = stat.DateTime
 			# parse dates into strings
 			data = {}
 			data['type'] = 'Feature'
 			data['properties'] = {}
 			data['properties']['Precinct'] = stat.Precinct
 			data['properties']['Address'] = stat.Address
-			data['properties']['DateTime'] = time_zone.localize(stat.DateTime)
+			data['properties']['DateTime'] = rawTime.astimezone('America/New_York')
 			data['properties']['BlotterWeek'] = stat.BlotterWeek
 			data['properties']['CrimeType'] = stat.CrimeType
 			data['properties']['PoliceSaid'] = stat.PoliceSaid
