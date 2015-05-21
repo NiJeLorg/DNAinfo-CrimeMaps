@@ -72,7 +72,7 @@ class Command(BaseCommand):
                     print data['gsx$datetime']['$t']
                     #try to add date time 
                     nytz = dateutil.tz.gettz('America/New_York')
-                    DateTimeObject = dateutil.parser.parse(data['gsx$datetime']['$t'], ignoretz=True)
+                    DateTimeObject = dateutil.parser.parse(data['gsx$datetime']['$t'], ignoretz=True, tzinfos=nytz)
                     obj.DateTime = DateTimeObject
                     obj.save()
 
@@ -89,7 +89,7 @@ class Command(BaseCommand):
                 #get data ready to be added
                 dateTime = data['gsx$date']['$t'] + ' ' + data['gsx$time']['$t']
                 nytz = dateutil.tz.gettz('America/New_York')
-                DateTimeObject = dateutil.parser.parse(dateTime, ignoretz=True)
+                DateTimeObject = dateutil.parser.parse(dateTime, ignoretz=True, tzinfos=nytz)
                 print DateTimeObject
                 justDate = DateTimeObject.date()
 
