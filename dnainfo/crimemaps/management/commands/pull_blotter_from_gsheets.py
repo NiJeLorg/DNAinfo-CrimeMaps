@@ -71,7 +71,7 @@ class Command(BaseCommand):
                     print data['gsx$datetime']['$t']
                     #try to add date time 
                     DateTimeparsed = parse_datetime(data['gsx$datetime']['$t'])
-                    DateTimeObject = pytz.timezone("America/New_York").localize(DateTimeparsed, is_dst=None)
+                    DateTimeObject = pytz.timezone("America/New_York").localize(DateTimeparsed)
 
                     obj.DateTime = DateTimeObject
                     obj.save()
@@ -89,7 +89,7 @@ class Command(BaseCommand):
                 #get data ready to be added
                 dateTime = data['gsx$date']['$t'] + ' ' + data['gsx$time']['$t']
                 DateTimeparsed = parse_datetime(dateTime)
-                DateTimeObject = pytz.timezone("America/New_York").localize(DateTimeparsed, is_dst=None)
+                DateTimeObject = pytz.timezone("America/New_York").localize(DateTimeparsed)
                 justDate = DateTimeparsed.date()
 
                 if hasattr(data, 'gsx$arrest'):
