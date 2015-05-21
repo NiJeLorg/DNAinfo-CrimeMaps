@@ -8,6 +8,7 @@ import time
 from datetime import date
 from django.utils import timezone
 import dateutil.parser
+import pytz
 
 
 """
@@ -70,7 +71,8 @@ class Command(BaseCommand):
                     print data['gsx$datetime']['$t']
                     #try to add date time 
                     DateTimeparsed = dateutil.parser.parse(data['gsx$datetime']['$t'])
-                    DateTimeObject = timezone.make_aware(DateTimeparsed)
+                    DateTimeObject = pytz.timezone("America/New_York").localize(DateTimeparsed, is_dst=None)
+
                     obj.DateTime = DateTimeObject
                     obj.save()
 
@@ -87,7 +89,7 @@ class Command(BaseCommand):
                 #get data ready to be added
                 dateTime = data['gsx$date']['$t'] + ' ' + data['gsx$time']['$t']
                 DateTimeparsed = dateutil.parser.parse(dateTime)
-                DateTimeObject = timezone.make_aware(DateTimeparsed)
+                DateTimeObject = pytz.timezone("America/New_York").localize(DateTimeparsed, is_dst=None)
                 justDate = DateTimeparsed.date()
 
                 if hasattr(data, 'gsx$arrest'):
