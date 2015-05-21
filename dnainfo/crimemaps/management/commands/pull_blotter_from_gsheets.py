@@ -8,6 +8,7 @@ import time
 from datetime import date
 from django.utils import timezone
 import dateutil.parser
+import dateutil.tz
 import pytz
 
 
@@ -70,8 +71,8 @@ class Command(BaseCommand):
                 if created == True:
                     print data['gsx$datetime']['$t']
                     #try to add date time 
-                    DateTimeparsed = dateutil.parser.parse(data['gsx$datetime']['$t'])
-                    DateTimeObject = pytz.timezone("America/New_York").localize(DateTimeparsed, is_dst=None)
+                    nytz = dateutil.tz.gettz('America/New_York')
+                    DateTimeObject = dateutil.parser.parse(data['gsx$datetime']['$t'], tzinfos=nytz)
                     obj.DateTime = DateTimeObject
                     obj.save()
 
@@ -87,9 +88,9 @@ class Command(BaseCommand):
             for data in data['feed']['entry']:
                 #get data ready to be added
                 dateTime = data['gsx$date']['$t'] + ' ' + data['gsx$time']['$t']
-                DateTimeparsed = dateutil.parser.parse(dateTime)
-                DateTimeObject = pytz.timezone("America/New_York").localize(DateTimeparsed, is_dst=None)
-                justDate = DateTimeparsed.date()
+                nytz = dateutil.tz.gettz('America/New_York')
+                DateTimeObject = dateutil.parser.parse(dateTime, tzinfos=nytz)
+                justDate = DateTimeObject.date()
 
                 if hasattr(data, 'gsx$arrest'):
                     if data['gsx$arrests']['$t'] == 'Yes':
