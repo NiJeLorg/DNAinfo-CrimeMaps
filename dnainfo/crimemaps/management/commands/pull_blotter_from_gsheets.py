@@ -71,8 +71,8 @@ class Command(BaseCommand):
                 if created == True:
                     print data['gsx$datetime']['$t']
                     #try to add date time 
-                    nytz = dateutil.tz.gettz('America/New_York')
-                    DateTimeObject = dateutil.parser.parse(data['gsx$datetime']['$t'], tzinfos=nytz)
+                    notz = dateutil.parser.parse(data['gsx$datetime']['$t'], ignoretz=True)
+                    DateTimeObject = pytz.timezone("America/New_York").localize(notz, is_dst=None)
                     obj.DateTime = DateTimeObject
                     obj.save()
 
@@ -88,8 +88,8 @@ class Command(BaseCommand):
             for data in data['feed']['entry']:
                 #get data ready to be added
                 dateTime = data['gsx$date']['$t'] + ' ' + data['gsx$time']['$t']
-                nytz = dateutil.tz.gettz('America/New_York')
-                DateTimeObject = dateutil.parser.parse(dateTime, tzinfos=nytz)
+                notz = dateutil.parser.parse(dateTime, ignoretz=True)
+                DateTimeObject = pytz.timezone("America/New_York").localize(notz, is_dst=None)
                 print DateTimeObject
                 justDate = DateTimeObject.date()
 
