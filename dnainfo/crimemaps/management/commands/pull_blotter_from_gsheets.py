@@ -89,7 +89,8 @@ class Command(BaseCommand):
                 #get data ready to be added
                 dateTime = data['gsx$date']['$t'] + ' ' + data['gsx$time']['$t']
                 nytz = dateutil.tz.gettz('America/New_York')
-                DateTimeObject = dateutil.parser.parse(dateTime, ignoretz=True, tzinfos=nytz)
+                DateTimeObject = dateutil.parser.parse(dateTime, ignoretz=True)
+                print DateTimeObject
                 justDate = DateTimeObject.date()
 
                 if hasattr(data, 'gsx$arrest'):
