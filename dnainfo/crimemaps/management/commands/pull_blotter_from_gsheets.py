@@ -87,7 +87,7 @@ class Command(BaseCommand):
             for data in data['feed']['entry']:
                 #get data ready to be added
                 dateTime = data['gsx$date']['$t'] + ' ' + data['gsx$time']['$t']
-                DateTimeObject = dateutil.parser.parse(dateTime, parserinfo=None, tzinfos=('America/New_York'))
+                DateTimeObject = dateutil.parser.parse(dateTime, parserinfo=None, {tzinfos='America/New_York'})
                 justDate = DateTimeObject.date()
 
                 if hasattr(data, 'gsx$arrest'):
