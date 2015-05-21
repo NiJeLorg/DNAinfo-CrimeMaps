@@ -47,6 +47,7 @@ class Command(BaseCommand):
                 else:
                     crimeType = None
 
+                print data['gsx$precinct']['$t']
                 if data['gsx$precinct']['$t'] != '' or data['gsx$precinct']['$t'] != '10th' or data['gsx$precinct']['$t'] != '13th' or data['gsx$precinct']['$t'] != '1st' or data['gsx$precinct']['$t'] != '20th' or data['gsx$precinct']['$t'] != '25th' or data['gsx$precinct']['$t'] != '40th' or data['gsx$precinct']['$t'] != '6th' or data['gsx$precinct']['$t'] != '78th' or data['gsx$precinct']['$t'] != '7th' or data['gsx$precinct']['$t'] != '90th' or data['gsx$precinct']['$t'] != '94th':
                     precinctNum = int(data['gsx$precinct']['$t'])
                 else:
