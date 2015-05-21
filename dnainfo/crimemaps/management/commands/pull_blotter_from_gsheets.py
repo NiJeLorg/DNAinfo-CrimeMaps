@@ -6,13 +6,10 @@ import urllib, json
 import datetime
 import time
 from datetime import date
+from django.utils import timezone
 import dateutil.parser
 from django.utils.dateparse import parse_datetime
 import pytz
-
-#for timezone support
-from django.utils.timezone import activate
-activate(settings.TIME_ZONE)
 
 
 
