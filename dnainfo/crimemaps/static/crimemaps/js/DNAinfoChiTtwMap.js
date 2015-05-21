@@ -134,6 +134,17 @@ DNAinfoChiTtwMap.onEachFeature_POLYGONS = function(feature,layer){
 			$( ".map" ).toggleClass("map-popup-wrapper-open");		
 		}
 
+		var latLngCenter = L.latLng(MY_MAP.center[0], MY_MAP.center[1]);
+		var results = leafletPip.pointInLayer(latLngCenter, MY_MAP.POLYGONS, true);
+		var leafletId = results[0]._leaflet_id;
+		//was center label moused over?
+		if (layer._leaflet_id != leafletId) {
+			// don't show center label
+			MY_MAP.map._layers[leafletId].label.close();
+			MY_MAP.map._layers[leafletId].setStyle(noHighlight);
+		} 
+
+
 		if (!mode[0].value) {
 			var headingText = "No workers in 2013.";
 		} else {

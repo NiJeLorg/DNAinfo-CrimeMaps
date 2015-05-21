@@ -101,6 +101,13 @@ DNAinfoBlotterMap.onEachFeature_BLOTTER = function(feature,layer){
 			$( ".map" ).toggleClass("map-popup-wrapper-open");		
 		}
 
+		if (layer._leaflet_id != nearestCenterId) {
+			// don't show center label
+			MY_MAP.map._layers[nearestCenterId].label.close();
+			MY_MAP.map._layers[nearestCenterId].setStyle(noHighlight);
+		} 
+
+
 		// add content to description area
 		$('#descriptionTitle').html("<p><strong>" + precinct + " Precinct</strong></p>");
 
