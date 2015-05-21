@@ -48,10 +48,10 @@ class Command(BaseCommand):
                     crimeType = None
 
                 print data['gsx$precinct']['$t']
-                if data['gsx$precinct']['$t'] != '':
-                	precinctNum = int(data['gsx$precinct']['$t'])
-
-
+                if data['gsx$precinct']['$t'] != '' and data['gsx$precinct']['$t'] != '10th' and data['gsx$precinct']['$t'] != '13th' and data['gsx$precinct']['$t'] != '1st' and data['gsx$precinct']['$t'] != '20th' and data['gsx$precinct']['$t'] != '25th' and data['gsx$precinct']['$t'] != '40th' and data['gsx$precinct']['$t'] != '6th' and data['gsx$precinct']['$t'] != '78th' and data['gsx$precinct']['$t'] != '7th' and data['gsx$precinct']['$t'] != '90th' and data['gsx$precinct']['$t'] != '94th':
+                    precinctNum = int(data['gsx$precinct']['$t'])
+                else:
+                    precinctNum = precincts[counter]
 
                 if data['gsx$latitude']['$t'] == '':
                     lat = 0                    
