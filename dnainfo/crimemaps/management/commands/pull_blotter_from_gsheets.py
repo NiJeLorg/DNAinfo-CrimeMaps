@@ -47,7 +47,7 @@ class Command(BaseCommand):
                 else:
                     crimeType = None
 
-                if data['gsx$precinct']['$t'] != '' or if data['gsx$precinct']['$t'] != '10th' or if data['gsx$precinct']['$t'] != '13th' or if data['gsx$precinct']['$t'] != '1st' or if data['gsx$precinct']['$t'] != '20th' or if data['gsx$precinct']['$t'] != '25th' or if data['gsx$precinct']['$t'] != '40th' or if data['gsx$precinct']['$t'] != '6th' or if data['gsx$precinct']['$t'] != '78th' or if data['gsx$precinct']['$t'] != '7th' or if data['gsx$precinct']['$t'] != '90th' or if data['gsx$precinct']['$t'] != '94th':
+                if data['gsx$precinct']['$t'] != '' or data['gsx$precinct']['$t'] != '10th' or data['gsx$precinct']['$t'] != '13th' or data['gsx$precinct']['$t'] != '1st' or data['gsx$precinct']['$t'] != '20th' or data['gsx$precinct']['$t'] != '25th' or data['gsx$precinct']['$t'] != '40th' or data['gsx$precinct']['$t'] != '6th' or data['gsx$precinct']['$t'] != '78th' or data['gsx$precinct']['$t'] != '7th' or data['gsx$precinct']['$t'] != '90th' or data['gsx$precinct']['$t'] != '94th':
                     precinctNum = int(data['gsx$precinct']['$t'])
                 else:
                     precinctNum = precincts[counter]
