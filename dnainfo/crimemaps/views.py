@@ -13,6 +13,10 @@ import datetime
 import dateutil.parser
 from dateutil.relativedelta import relativedelta
 
+#for timezone support
+from django.utils.timezone import activate
+activate(settings.TIME_ZONE)
+
 # views for DNAinfo crime maps
 def index(request):
 	return redirect('/compstat/')
