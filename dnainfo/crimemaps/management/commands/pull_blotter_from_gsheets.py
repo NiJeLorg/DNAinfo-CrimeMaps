@@ -70,8 +70,7 @@ class Command(BaseCommand):
                     print data['gsx$datetime']['$t']
                     #try to add date time 
                     DateTimeparsed = dateutil.parser.parse(data['gsx$datetime']['$t'])
-                    DateTimeObject = timezone.make_aware(DateTimeparsed)
-                    obj.DateTime = DateTimeObject
+                    obj.DateTime = DateTimeparsed
                     obj.save()
 
     def load_blotter_data_consolidated_sheet(self):
@@ -87,7 +86,6 @@ class Command(BaseCommand):
                 #get data ready to be added
                 dateTime = data['gsx$date']['$t'] + ' ' + data['gsx$time']['$t']
                 DateTimeparsed = dateutil.parser.parse(dateTime)
-                DateTimeObject = timezone.make_aware(DateTimeparsed)
                 justDate = DateTimeparsed.date()
 
                 if hasattr(data, 'gsx$arrest'):
@@ -121,7 +119,7 @@ class Command(BaseCommand):
                     lon = float(data['gsx$longitude']['$t'])
 
                 #use get or create to only create records for objects newly added to the spreadsheets
-                obj, created = blotter.objects.update_or_create(Precinct=precinctNum, Address=data['gsx$address']['$t'], DateTime=DateTimeObject, BlotterWeek=justDate, CrimeType=crimeType, PoliceSaid=data['gsx$policesaid']['$t'], Arrest=arrest, Latitude=lat, Longitude=lon, JSDate=justDate)
+                obj, created = blotter.objects.update_or_create(Precinct=precinctNum, Address=data['gsx$address']['$t'], DateTime=DateTimeparsed, BlotterWeek=justDate, CrimeType=crimeType, PoliceSaid=data['gsx$policesaid']['$t'], Arrest=arrest, Latitude=lat, Longitude=lon, JSDate=justDate)
 
 
     def handle(self, *args, **options):
