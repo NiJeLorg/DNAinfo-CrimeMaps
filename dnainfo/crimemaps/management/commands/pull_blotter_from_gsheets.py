@@ -10,6 +10,11 @@ import dateutil.parser
 from django.utils.dateparse import parse_datetime
 import pytz
 
+#for timezone support
+from django.utils.timezone import activate
+activate(settings.TIME_ZONE)
+
+
 
 """
   Loads blotter data from google spreadsheets API
