@@ -7,7 +7,6 @@ import datetime
 import time
 from datetime import date
 from django.utils.dateparse import parse_datetime
-import dateutil.parser
 import pytz
 
 
@@ -70,7 +69,7 @@ class Command(BaseCommand):
                 if created == True:
                     print data['gsx$datetime']['$t']
                     #try to add date time 
-                    DateTimeparsed = dateutil.parser.parse(data['gsx$datetime']['$t'], ignoretz=True)
+                    DateTimeparsed = parse_datetime(data['gsx$datetime']['$t'])
                     DateTimeObject = pytz.timezone("America/New_York").localize(DateTimeparsed, is_dst=None)
 
                     obj.DateTime = DateTimeObject
@@ -88,7 +87,7 @@ class Command(BaseCommand):
             for data in data['feed']['entry']:
                 #get data ready to be added
                 dateTime = data['gsx$date']['$t'] + ' ' + data['gsx$time']['$t']
-                DateTimeparsed = dateutil.parser.parse(dateTime, ignoretz=True)
+                DateTimeparsed = parse_datetime(dateTime)
                 DateTimeObject = pytz.timezone("America/New_York").localize(DateTimeparsed, is_dst=None)
                 justDate = DateTimeparsed.date()
 
