@@ -155,7 +155,7 @@ DNAinfoBlotterMap.onEachFeature_POLYGONS = function(feature,layer){
 DNAinfoBlotterMap.prototype.loadPointLayers = function (){
 	// load points layers
 	var thismap = this;
-	var dateFormat = d3.time.format("%Y-%m-%dT%XZ");
+	var dateFormat = d3.time.format("%Y-%m-%dT%X");
 	d3.json('/blotterapi/?startDate=' + startDate + '&endDate=' + endDate, function(data) {
 		geojsonData = data;
 		$.each(geojsonData.features, function(i, d){
