@@ -16,7 +16,7 @@ class Command(BaseCommand):
             for row in reader:
                 if row[0] != 'longitude': # Ignore the header row, import everything else
 	                #use get or create to only create records for objects newly added to the spreadsheets
-	                obj, created = doitt.objects.update_or_create(longitude=float(row[0]), latitude=float(row[1]), YR=int(row[2]), MO=int(row[3]), X=int(row[4]), Y=int(row[5]), TOT=int(row[6]), CR=row[7])
+	                obj, created = doitt.objects.update_or_create(longitude=float(row[0]), latitude=float(row[1]), YR=int(float(row[2])), MO=int(float(row[3])), X=int(float(row[4])), Y=int(float(row[5])), TOT=int(float(row[6])), CR=row[7])
 
 
     def handle(self, *args, **options):
