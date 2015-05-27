@@ -17,6 +17,9 @@ import pytz
 """
 class Command(BaseCommand):
     
+    def truncate_table(self):
+        blotter.objects.all().delete()
+
     def load_blotter_data(self):
         keys = ['1NISlql8CXM-eVmJikOiY0ZF2MEaVYcZYTbIFU_gZ3oo', '1DJ2lUCY07XAxCn9Wn-kHBC83zNQhE5XEzeFHJ23Qg9M', '1zsPX6xKUaXwtzwzyLqJG_hCqMW6TNx3Gxi95VLSXvUw', '1cXZuk5IBNH4DOGG8XLZMr7LHpbYidmGRpm0sqB2cWcc', '18lUQ173090JpCGHWWjw6m87Yy1rxFxUuCXJlGrNa9xg', '1SjMXehyftQ8ESCi1Bl0IX9PY-zZgj4FVIBGlwYoN2Pc', '1_z9c0LUeSGZiVML3nP7g_nxrtcEmGfdVKlOTJCTtrEQ', '1UbhLaPDFE5NICYrlv5YOImZIoN5WTKJ9oIijSvCIjG0', '1Pj3AJk0NU6_rAbykgjTF5btlhHKZRq8eo8eCy_GijVw', '1tDrqnTn07Y4y2-vWKuxSiES45136KkRd8Kk1pd4h78s', '1sDE-lHe-RGgoDFTuB-otkgSvhQBE8t3To3dscrpmBIc', '1bhUNdCnUbUDWaTick1VGr1R1iD2g8U16aJxAvvZkotg']
         precincts = [10, 13, 1, 20, 25, 40, 6, 78, 7, 90, 94, 0]
@@ -33,6 +36,9 @@ class Command(BaseCommand):
                 JSDateparsed = dateutil.parser.parse(data['gsx$jsdate']['$t'])
                 BlotterWeekObject = BlotterWeekparsed.date()
                 JSDateObject = JSDateparsed.date()
+                #try to add date time 
+                notz = dateutil.parser.parse(data['gsx$datetime']['$t'], ignoretz=True)
+                DateTimeObject = pytz.timezone("America/New_York").localize(notz, is_dst=None)
 
                 if hasattr(data, 'gsx$arrest'):
                     if data['gsx$arrest']['$t'] == 'Yes':
@@ -65,16 +71,10 @@ class Command(BaseCommand):
                 else:
                     lon = float(data['gsx$longitude']['$t'])
 
-                #use get or create to only create records for objects newly added to the spreadsheets
-                obj, created = blotter.objects.update_or_create(Precinct=precinctNum, Address=data['gsx$address']['$t'], BlotterWeek=BlotterWeekObject, CrimeType=crimeType, PoliceSaid=data['gsx$policesaid']['$t'], Arrest=arrest, Latitude=lat, Longitude=lon, JSDate=JSDateObject)
 
-                if created == True:
-                    print data['gsx$datetime']['$t']
-                    #try to add date time 
-                    notz = dateutil.parser.parse(data['gsx$datetime']['$t'], ignoretz=True)
-                    DateTimeObject = pytz.timezone("America/New_York").localize(notz, is_dst=None)
-                    obj.DateTime = DateTimeObject
-                    obj.save()
+                #use get or create to only create records for objects newly added to the spreadsheets
+                obj = blotter.objects.create(Precinct=precinctNum, Address=data['gsx$address']['$t'], DateTime=DateTimeObject, BlotterWeek=BlotterWeekObject, CrimeType=crimeType, PoliceSaid=data['gsx$policesaid']['$t'], Arrest=arrest, Latitude=lat, Longitude=lon, JSDate=JSDateObject)
+
 
     def load_blotter_data_consolidated_sheet(self):
         keys = ['1WZsIEkHVy8YUrfYaBEkk3z0xy1bikYySqNcXE8NRxMY']
@@ -124,10 +124,12 @@ class Command(BaseCommand):
                     lon = float(data['gsx$longitude']['$t'])
 
                 #use get or create to only create records for objects newly added to the spreadsheets
-                obj, created = blotter.objects.update_or_create(Precinct=precinctNum, Address=data['gsx$address']['$t'], DateTime=DateTimeObject, BlotterWeek=justDate, CrimeType=crimeType, PoliceSaid=data['gsx$policesaid']['$t'], Arrest=arrest, Latitude=lat, Longitude=lon, JSDate=justDate)
+                obj = blotter.objects.create(Precinct=precinctNum, Address=data['gsx$address']['$t'], DateTime=DateTimeObject, BlotterWeek=justDate, CrimeType=crimeType, PoliceSaid=data['gsx$policesaid']['$t'], Arrest=arrest, Latitude=lat, Longitude=lon, JSDate=justDate)
 
 
     def handle(self, *args, **options):
+        print "Delete Current Records..."
+        self.truncate_table()
         print "Loading Blotter Data...."
         self.load_blotter_data()
         print "Loading Blotter Data form the Consolidated Sheet...."
