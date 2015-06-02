@@ -69,18 +69,12 @@ DNAinfoWfhMap.onEachFeature_POLYGONS = function(feature,layer){
         color: '#f1f1f1'
 	};
 
-	if (feature.properties.nyc10_hc01_vc34 == 0) {
-	    var percentChange = 'undefined'
-	} else {
-	    var percentChange = (((feature.properties.nyc13_hc01_vc33 - feature.properties.nyc10_hc01_vc34) / feature.properties.nyc10_hc01_vc34) * 100).toFixed(0);
-	}
+	var pctWfh = (feature.properties.nyc13_pcnt_wkhm * 100).toFixed(1);
 
-	if (percentChange == 'undefined') {
-		var headingText = "No people reported working<br />from home in 2010.";
-	} else if (percentChange > 0) {
-		var headingText = "<strong><span class='increaseTextPopup'>"+ Math.abs(percentChange) +"% increase</span></strong><br />in people who reported<br />working from home from<br />2010-2013.";
+	if (feature.properties.nyc13_hc01_vc33 == 0) {
+		var headingText = "<strong>"+ feature.properties.NTAName + "</strong><br />No people reported working<br />from home in 2013.";
 	} else {
-		var headingText = "<strong><span class='decreaseTextPopup'>"+ Math.abs(percentChange) +"% decrease</span></strong><br />in people who reported<br />working from home from<br />2010-2013.";
+		var headingText = "<strong>"+ feature.properties.NTAName + "</strong><br /><strong><span class='increaseTextPopup'>"+ pctWfh +"%</span></strong> of people reported<br />working from home<br />in 2013.";
 	}
 
 	layer.bindLabel(headingText, { direction:'auto' });
@@ -102,28 +96,16 @@ DNAinfoWfhMap.onEachFeature_POLYGONS = function(feature,layer){
 	        layer.bringToFront();
 	    }
 
-		if (percentChange == 'undefined') {
-			var headingText = "No people reported working from home in 2010.";
-		} else if (percentChange > 0) {
-			var headingText = "<strong><span class='increaseTextPopup'>"+ Math.abs(percentChange) +"% increase</span></strong> in people who reported working from home from 2010-2013.";
-		} else {
-			var headingText = "<strong><span class='decreaseTextPopup'>"+ Math.abs(percentChange) +"% decrease</span></strong> in people who reported working from home from 2010-2013.";
-		}
 
 		if (feature.properties.nyc13_hc01_vc33 > 0) {
-			var headingTotalText = DNAinfoWfhMap.addCommas(feature.properties.nyc13_hc01_vc33) + " people (" + feature.properties.nyc13_hc03_vc33.toFixed(1) + "% of workers 16 and older) worked from home in 2013.";
+			var descriptionText = DNAinfoWfhMap.addCommas(feature.properties.nyc13_hc01_vc33) + " people (" + pctWfh + "% of workers 16 and older) worked from home in 2013.";
 		} else {
-			var headingTotalText = "0 people (0% of workers 16 and older) worked from home in 2013.";			
-		}
-
-		if (feature.properties.nyc10_hc01_vc34 > 0) {
-			var headingTotalTextLastMonth = DNAinfoWfhMap.addCommas(feature.properties.nyc10_hc01_vc34) + " people (" + feature.properties.nyc10_hc03_vc34.toFixed(1) + "% of workers 16 and older) worked from home in 2010.";
-		} else {
-			var headingTotalTextLastMonth = "0 people (0% of workers 16 and older) worked from home in 2010.";						
+			var descriptionText = "0 people (0% of workers 16 and older) worked from home in 2013.";						
 		}
 
 		// add content to description area
-		$('#descriptionTitle').html("<p>"+ headingText +"<br />"+ headingTotalText + "<br />" + headingTotalTextLastMonth + "</p>");
+		$('#descriptionTitle').html("<p><strong>"+ feature.properties.NTAName +"</strong></p>");
+		$('#description').html("<p>"+ descriptionText +"</p>");
 
     });
 		
@@ -150,28 +132,15 @@ DNAinfoWfhMap.onEachFeature_POLYGONS = function(feature,layer){
 			MY_MAP.map._layers[leafletId].setStyle(noHighlight);
 		} 
 
-		if (percentChange == 'undefined') {
-			var headingText = "No people reported working from home in 2010.";
-		} else if (percentChange > 0) {
-			var headingText = "<strong><span class='increaseTextPopup'>"+ Math.abs(percentChange) +"% increase</span></strong> in people who reported working from home from 2010-2013.";
-		} else {
-			var headingText = "<strong><span class='decreaseTextPopup'>"+ Math.abs(percentChange) +"% decrease</span></strong> in people who reported working from home from 2010-2013.";
-		}
-
 		if (feature.properties.nyc13_hc01_vc33 > 0) {
-			var headingTotalText = DNAinfoWfhMap.addCommas(feature.properties.nyc13_hc01_vc33) + " people (" + feature.properties.nyc13_hc03_vc33.toFixed(1) + "% of workers 16 and older) worked from home in 2013.";
+			var descriptionText = DNAinfoWfhMap.addCommas(feature.properties.nyc13_hc01_vc33) + " people (" + pctWfh + "% of workers 16 and older) worked from home in 2013.";
 		} else {
-			var headingTotalText = "0 people (0% of workers 16 and older) worked from home in 2013.";			
-		}
-
-		if (feature.properties.nyc10_hc01_vc34 > 0) {
-			var headingTotalTextLastMonth = DNAinfoWfhMap.addCommas(feature.properties.nyc10_hc01_vc34) + " people (" + feature.properties.nyc10_hc03_vc34.toFixed(1) + "% of workers 16 and older) worked from home in 2010.";
-		} else {
-			var headingTotalTextLastMonth = "0 people (0% of workers 16 and older) worked from home in 2010.";						
+			var descriptionText = "0 people (0% of workers 16 and older) worked from home in 2013.";						
 		}
 
 		// add content to description area
-		$('#descriptionTitle').html("<p>"+ headingText +"<br />"+ headingTotalText + "<br />" + headingTotalTextLastMonth + "</p>");
+		$('#descriptionTitle').html("<p><strong>"+ feature.properties.NTAName +"</strong></p>");
+		$('#description').html("<p>"+ descriptionText +"</p>");
 
 	});	
 
@@ -187,7 +156,7 @@ DNAinfoWfhMap.prototype.loadPolyLayer = function (){
 	var thismap = this;
 
 	d3.json(topojsonData, function(data) {
-		polyTopojson = topojson.feature(data, data.objects.nyc_acs_10_13_commute).features;
+		polyTopojson = topojson.feature(data, data.objects.nyc_acs_2013_neighareas_commute).features;
 		drawPolysWData();
 	});
 
@@ -217,27 +186,27 @@ DNAinfoWfhMap.prototype.loadPolyLayer = function (){
 
 
 DNAinfoWfhMap.getStyleFor_POLYGONS = function (feature){
-	if (feature.properties.nyc10_hc01_vc34 == 0) {
-	    var percentChange = 'undefined'
+	if (feature.properties.nyc13_hc01_vc33 == 0) {
+	    var pctWfh = 'undefined'
 	} else {
-	    var percentChange = (((feature.properties.nyc13_hc01_vc33 - feature.properties.nyc10_hc01_vc34) / feature.properties.nyc10_hc01_vc34) * 100).toFixed(0);
+		var pctWfh = (feature.properties.nyc13_pcnt_wkhm * 100).toFixed(1);
 	}
     return {
         weight: 1,
         opacity: 0.75,
         color: '#f1f1f1',
         fillOpacity: 0.75,
-        fillColor: DNAinfoWfhMap.fillColor_POLYGONS(percentChange)
+        fillColor: DNAinfoWfhMap.fillColor_POLYGONS(pctWfh)
     }
 }
 
 DNAinfoWfhMap.fillColor_POLYGONS = function (d){
     return d == 'undefined' ? '#fff' :
-    	   d > 100  ? '#b2182b' :
-           d > 50  ? '#ef8a62' :
-           d > 0   ? '#fddbc7' :
-           d > -50 ? '#e0e0e0' :
-           d > -100 ? '#999999' :
+    	   d > 10 ? '#b2182b' :
+           d > 8 ? '#ef8a62' :
+           d > 6 ? '#fddbc7' :
+           d > 4  ? '#e0e0e0' :
+           d > 2  ? '#999999' :
                      '#4d4d4d';	
 }
 
