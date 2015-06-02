@@ -73,10 +73,10 @@ DNAinfoWfhMap.onEachFeature_POLYGONS = function(feature,layer){
 	// split string to check for parks
 	var parks = feature.properties.NTAName.split(',');
 
-	if (feature.properties.nyc13_hc01_vc33 == 0) {
-		var headingText = "<strong>"+ feature.properties.NTAName + "</strong><br />No people reported working<br />from home.";
-	} else if (parks[0] == "Parks") {
+	if (parks[0] == "Parks" || parks[0] == "Airport") {
 		var headingText = "<strong>"+ feature.properties.NTAName + "</strong>";
+	} else if (feature.properties.nyc13_hc01_vc33 == 0) {
+		var headingText = "<strong>"+ feature.properties.NTAName + "</strong><br />No people reported working<br />from home.";
 	} else {
 		var headingText = "<strong>"+ feature.properties.NTAName + "</strong><br /><strong><span class='increaseTextPopup'>"+ pctWfh +"%</span></strong> of people reported<br />working from home.";
 	}
@@ -101,7 +101,7 @@ DNAinfoWfhMap.onEachFeature_POLYGONS = function(feature,layer){
 	    }
 
 
-		if (parks[0] == "Parks") {
+		if (parks[0] == "Parks" || parks[0] == "Airport") {
 			var descriptionText = "";
 		} else if (feature.properties.nyc13_hc01_vc33 > 0) {
 			var descriptionText = DNAinfoWfhMap.addCommas(feature.properties.nyc13_hc01_vc33) + " people (" + pctWfh + "% of workers 16 and older) worked from home.";
@@ -138,7 +138,7 @@ DNAinfoWfhMap.onEachFeature_POLYGONS = function(feature,layer){
 			MY_MAP.map._layers[leafletId].setStyle(noHighlight);
 		} 
 
-		if (parks[0] == "Parks") {
+		if (parks[0] == "Parks" || parks[0] == "Airport") {
 			var descriptionText = "";
 		} else if (feature.properties.nyc13_hc01_vc33 > 0) {
 			var descriptionText = DNAinfoWfhMap.addCommas(feature.properties.nyc13_hc01_vc33) + " people (" + pctWfh + "% of workers 16 and older) worked from home.";
@@ -196,7 +196,7 @@ DNAinfoWfhMap.prototype.loadPolyLayer = function (){
 DNAinfoWfhMap.getStyleFor_POLYGONS = function (feature){
 	var parks = feature.properties.NTAName.split(',');
 
-	if (feature.properties.nyc13_hc01_vc33 == 0 || parks[0] == "Parks") {
+	if (feature.properties.nyc13_hc01_vc33 == 0 || parks[0] == "Parks" || parks[0] == "Airport") {
 	    var pctWfh = 'undefined'
 	} else {
 		var pctWfh = (feature.properties.nyc13_pcnt_wkhm * 100).toFixed(1);
