@@ -70,11 +70,15 @@ DNAinfoWfhMap.onEachFeature_POLYGONS = function(feature,layer){
 	};
 
 	var pctWfh = (feature.properties.nyc13_pcnt_wkhm * 100).toFixed(1);
+	// split string to check for parks
+	var parks = feature.properties.NTAName.split(',');
 
 	if (feature.properties.nyc13_hc01_vc33 == 0) {
-		var headingText = "<strong>"+ feature.properties.NTAName + "</strong><br />No people reported working<br />from home in 2013.";
+		var headingText = "<strong>"+ feature.properties.NTAName + "</strong><br />No people reported working<br />from home.";
+	} else if (parks[0] == "Parks") {
+		var headingText = "<strong>"+ feature.properties.NTAName + "</strong>";
 	} else {
-		var headingText = "<strong>"+ feature.properties.NTAName + "</strong><br /><strong><span class='increaseTextPopup'>"+ pctWfh +"%</span></strong> of people reported<br />working from home<br />in 2013.";
+		var headingText = "<strong>"+ feature.properties.NTAName + "</strong><br /><strong><span class='increaseTextPopup'>"+ pctWfh +"%</span></strong> of people reported<br />working from home.";
 	}
 
 	layer.bindLabel(headingText, { direction:'auto' });
@@ -97,10 +101,12 @@ DNAinfoWfhMap.onEachFeature_POLYGONS = function(feature,layer){
 	    }
 
 
-		if (feature.properties.nyc13_hc01_vc33 > 0) {
-			var descriptionText = DNAinfoWfhMap.addCommas(feature.properties.nyc13_hc01_vc33) + " people (" + pctWfh + "% of workers 16 and older) worked from home in 2013.";
+		if (parks[0] == "Parks") {
+			var descriptionText = "";
+		} else if (feature.properties.nyc13_hc01_vc33 > 0) {
+			var descriptionText = DNAinfoWfhMap.addCommas(feature.properties.nyc13_hc01_vc33) + " people (" + pctWfh + "% of workers 16 and older) worked from home.";
 		} else {
-			var descriptionText = "0 people (0% of workers 16 and older) worked from home in 2013.";						
+			var descriptionText = "0 people (0% of workers 16 and older) worked from home.";						
 		}
 
 		// add content to description area
@@ -132,10 +138,12 @@ DNAinfoWfhMap.onEachFeature_POLYGONS = function(feature,layer){
 			MY_MAP.map._layers[leafletId].setStyle(noHighlight);
 		} 
 
-		if (feature.properties.nyc13_hc01_vc33 > 0) {
-			var descriptionText = DNAinfoWfhMap.addCommas(feature.properties.nyc13_hc01_vc33) + " people (" + pctWfh + "% of workers 16 and older) worked from home in 2013.";
+		if (parks[0] == "Parks") {
+			var descriptionText = "";
+		} else if (feature.properties.nyc13_hc01_vc33 > 0) {
+			var descriptionText = DNAinfoWfhMap.addCommas(feature.properties.nyc13_hc01_vc33) + " people (" + pctWfh + "% of workers 16 and older) worked from home.";
 		} else {
-			var descriptionText = "0 people (0% of workers 16 and older) worked from home in 2013.";						
+			var descriptionText = "0 people (0% of workers 16 and older) worked from home.";						
 		}
 
 		// add content to description area
@@ -186,7 +194,9 @@ DNAinfoWfhMap.prototype.loadPolyLayer = function (){
 
 
 DNAinfoWfhMap.getStyleFor_POLYGONS = function (feature){
-	if (feature.properties.nyc13_hc01_vc33 == 0) {
+	var parks = feature.properties.NTAName.split(',');
+
+	if (feature.properties.nyc13_hc01_vc33 == 0 || parks[0] == "Parks") {
 	    var pctWfh = 'undefined'
 	} else {
 		var pctWfh = (feature.properties.nyc13_pcnt_wkhm * 100).toFixed(1);
@@ -201,12 +211,13 @@ DNAinfoWfhMap.getStyleFor_POLYGONS = function (feature){
 }
 
 DNAinfoWfhMap.fillColor_POLYGONS = function (d){
+
     return d == 'undefined' ? '#fff' :
     	   d > 10 ? '#b2182b' :
            d > 8 ? '#ef8a62' :
            d > 6 ? '#fddbc7' :
-           d > 4  ? '#e0e0e0' :
-           d > 2  ? '#999999' :
+           d > 4 ? '#e0e0e0' :
+           d > 2 ? '#999999' :
                      '#4d4d4d';	
 }
 
