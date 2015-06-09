@@ -341,8 +341,11 @@ DNAinfoCompstatMap.prototype.loadPolyLayer = function (){
 }
 
 
-DNAinfoCompstatMap.getStyleFor_POLYGONS = function (feature){
+DNAinfoCompstatMap.getStyleFor_POLYGONS = function (feature){	
 	var percentChange = (((feature.properties.total - feature.properties.last_month_total) / feature.properties.last_month_total) * 100).toFixed(0);
+	console.log("precinct: ", feature.id);
+	console.log("% change: ", percentChange);
+
     return {
         weight: 1,
         opacity: 0.75,
