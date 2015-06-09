@@ -294,7 +294,6 @@ DNAinfoCompstatMap.prototype.loadPolyLayer = function (){
 
 	d3.json('/compstatapi/?startDate=' + startDate + '&endDate=' + endDate, function(data) {
 		polygonData = data;
-		console.log(polygonData);
 		attachDataToTopojson(polygonData);
 	});
 
@@ -344,8 +343,6 @@ DNAinfoCompstatMap.prototype.loadPolyLayer = function (){
 
 DNAinfoCompstatMap.getStyleFor_POLYGONS = function (feature){	
 	var percentChange = (((feature.properties.total - feature.properties.last_month_total) / feature.properties.last_month_total) * 100).toFixed(0);
-	console.log("precinct: ", feature.id);
-	console.log("% change: ", percentChange);
 
     return {
         weight: 1,
