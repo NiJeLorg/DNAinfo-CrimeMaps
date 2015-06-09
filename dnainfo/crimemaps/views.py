@@ -163,7 +163,7 @@ def compstatApi(request):
 			# add values for this month's compstats
 			precinct = stat['precinct']
 			# TEMPORARILY SKIP 9TH PRECINCT
-			if precinct != '9':
+			if precinct != '009':
 				response[precinct] = {}
 				response[precinct]['start_date'] = fourWeeksAgoObject
 				response[precinct]['end_date'] = endDateobject
