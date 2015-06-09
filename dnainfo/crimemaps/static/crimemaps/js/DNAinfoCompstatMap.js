@@ -294,6 +294,7 @@ DNAinfoCompstatMap.prototype.loadPolyLayer = function (){
 
 	d3.json('/compstatapi/?startDate=' + startDate + '&endDate=' + endDate, function(data) {
 		polygonData = data;
+		console.log(polygonData);
 		attachDataToTopojson(polygonData);
 	});
 
