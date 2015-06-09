@@ -68,11 +68,14 @@ DNAinfoCompstatMap.onEachFeature_POLYGONS = function(feature,layer){
 
 	var percentChange = ((Math.abs(feature.properties.total - feature.properties.last_month_total) / feature.properties.last_month_total) * 100).toFixed(0);
 
-	if (feature.properties.diff_total > 0) {
+	if (isNaN(percentChange)) {
+		var headingTotalText = "Data not avialable<br />for this precinct.";
+	} else if (feature.properties.diff_total > 0) {
 		var headingTotalText = "<strong><span class='increaseTextPopup'>"+ percentChange +"% increase</span></strong> in major<br />crimes from previous<br />four weeks.";
 	} else {
 		var headingTotalText = "<strong><span class='decreaseTextPopup'>"+ percentChange +"% decrease</span></strong> in major<br />crimes from previous<br />four weeks.";
 	}
+
 
 
 	layer.bindLabel("<strong>" + precinct + " Precinct</strong><br />" + headingTotalText, { direction:'auto' });
@@ -94,7 +97,14 @@ DNAinfoCompstatMap.onEachFeature_POLYGONS = function(feature,layer){
 	        layer.bringToFront();
 	    }
 
-		DNAinfoCompstatMap.drawChart(feature,layer);
+	    if (isNaN(percentChange)) {
+	    	$('#descriptionTitle').html('');
+	    	$('#description').html('');
+	    	$('#barChart').html('');
+	    } else {
+	    	DNAinfoCompstatMap.drawChart(feature,layer);
+	    }
+
 
     });
 		
@@ -122,7 +132,14 @@ DNAinfoCompstatMap.onEachFeature_POLYGONS = function(feature,layer){
 		} 
 
 
-		DNAinfoCompstatMap.drawChart(feature,layer);
+	    if (isNaN(percentChange)) {
+	    	$('#descriptionTitle').html('');
+	    	$('#description').html('');
+	    	$('#barChart').html('');
+	    } else {
+	    	DNAinfoCompstatMap.drawChart(feature,layer);
+	    }
+
 	});	
 
     // we'll now add an ID to each layer so we can fire the mouseover and click outside of the map
@@ -336,11 +353,12 @@ DNAinfoCompstatMap.getStyleFor_POLYGONS = function (feature){
 }
 
 DNAinfoCompstatMap.fillColor_POLYGONS = function (d){
-    return d > 20  ? '#b2182b' :
-           d > 10  ? '#ef8a62' :
-           d > 0   ? '#fddbc7' :
-           d > -10 ? '#e0e0e0' :
-           d > -20 ? '#999999' :
+    return d > 20   ? '#b2182b' :
+           d > 10   ? '#ef8a62' :
+           d > 0    ? '#fddbc7' :
+           d > -10  ? '#e0e0e0' :
+           d > -20  ? '#999999' :
+           isNaN(d) ? '#ffffff' :
                       '#4d4d4d';	
 }
 

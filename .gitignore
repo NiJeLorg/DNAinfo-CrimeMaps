@@ -48,3 +48,7 @@ Thumbs.db
 ##########
 env/
 
+
+dnainfo/crimemaps/management/commands/auto_doitt_import.py
+
+dnainfo/crimemaps/management/commands/doitt_auto_import.py
