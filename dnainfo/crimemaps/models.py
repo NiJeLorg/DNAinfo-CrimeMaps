@@ -67,6 +67,38 @@ class blotter(models.Model):
 	def __unicode__(self):
 		return self.Address
 
+class chiShootings(models.Model):
+	ID = models.IntegerField(primary_key=True)
+	Date = models.DateTimeField(blank=True, null=True)
+	Address = models.CharField(max_length=255, default='')
+	Lat = models.FloatField()
+	Long = models.FloatField()
+	RD = models.CharField(max_length=255, default='', blank=True, null=True)
+	District = models.CharField(max_length=255, default='', blank=True, null=True)
+	Beat = models.CharField(max_length=255, default='', blank=True, null=True)
+	IUCR = models.CharField(max_length=255, default='', blank=True, null=True)
+	Location = models.CharField(max_length=255, default='', blank=True, null=True)
+	Status = models.CharField(max_length=255, default='', blank=True, null=True)
+	Domestic = models.CharField(max_length=255, default='', blank=True, null=True)
+	HomVics = models.IntegerField(default=0, blank=True, null=True)
+	OtherShoo = models.IntegerField(default=0, blank=True, null=True)
+	TotalVict = models.IntegerField(default=0, blank=True, null=True)
+	Month = models.IntegerField(default=0, blank=True, null=True)
+	Day = models.IntegerField(default=0, blank=True, null=True)
+	Year = models.IntegerField(default=0, blank=True, null=True)
+	Hour = models.IntegerField(default=0, blank=True, null=True)
+	DayOfWeek = models.CharField(max_length=255, default='', blank=True, null=True)
+	MonthYear = models.CharField(max_length=255, default='', blank=True, null=True)
+	URL = models.TextField(default='', blank=True, null=True)
+	Notes = models.TextField(default='', blank=True, null=True)
+	Neighborhood = models.CharField(max_length=255, default='', blank=True, null=True)
+	CommunityNo = models.IntegerField(default=0, blank=True, null=True)
+	CommunityName = models.CharField(max_length=255, default='', blank=True, null=True)
+	PoliceInvolved = models.CharField(max_length=255, default='', blank=True, null=True)
+
+	def __unicode__(self):
+		return self.Address
+
 
 
 

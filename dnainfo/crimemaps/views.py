@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
-from django.db.models import Sum
+from django.db.models import Sum, Count
 
 #import all crimemaps models
 from crimemaps.models import *
@@ -10,8 +10,10 @@ import json
 
 # for date parsing
 import datetime
+from datetime import date
 import dateutil.parser
 from dateutil.relativedelta import relativedelta
+from dateutil import rrule
 
 #for timezone support
 import pytz
@@ -131,6 +133,27 @@ def blotterPage(request):
 	
 
 	return render(request, 'crimemaps/blotter.html', {'startDate':startDate, 'endDate':endDate, 'center': center, 'dates':dates})
+
+
+def chiShootingsPage(request):
+	#set up dates and times for initial filtering and for time slider set up
+	today = datetime.datetime.now()
+	firstOfYear = date(date.today().year, 1, 1)
+	today_str = today.strftime("%x")
+	firstOfYear_str = firstOfYear.strftime("%x")
+	startDate = request.GET.get("startDate",firstOfYear_str)
+	endDate = request.GET.get("endDate",today_str)
+	center = request.GET.get("center","")
+	#ensure startDate and endDate are datetime objects
+	startDate = dateutil.parser.parse(startDate).date()
+	endDate = dateutil.parser.parse(endDate).date()
+
+	# pull the earliest date for time slider
+	earliestShooting = chiShootings.objects.earliest('Date')
+	
+
+	return render(request, 'crimemaps/chiShootings.html', {'startDate':startDate, 'endDate':endDate, 'center': center, 'earliestShooting':earliestShooting})
+
 
 
 
@@ -277,3 +300,215 @@ def blotterApi(request):
 
 
 	return JsonResponse(response)
+
+
+def chiShootingsApi(request):
+	# time zone
+	time_zone = pytz.timezone('US/Central')
+	#add in the items geojson requires 
+	response = {}
+	response['type'] = "FeatureCollection"
+	response['features'] = []
+
+	if request.method == 'GET':
+		#gather potential filter variables
+		startDate = request.GET.get("startDate","")
+		endDate = request.GET.get("endDate","")
+		district = request.GET.get("distinct","")
+		beat = request.GET.get("beat","")
+		location = request.GET.get("location","")
+		neighborhood = request.GET.get("neighborhood","")
+		communityno = request.GET.get("communityno","")
+		communityname = request.GET.get("communityname","")
+		mintotalvict = request.GET.get("mintotalvict","")
+		maxtotalvict = request.GET.get("maxtotalvict","")
+		minhomvics = request.GET.get("minhomvics","")
+		maxhomvics = request.GET.get("minhomvics","")
+
+		# create data objects from start and end dates
+		startDateparsed = dateutil.parser.parse(startDate)
+		startDateobject = startDateparsed.date()
+		endDateparsed = dateutil.parser.parse(endDate)
+		endDateobject = endDateparsed.date()
+
+		#add kwargs
+		kwargs = {}
+		# show date range selected
+		kwargs['Date__range'] = [startDateobject,endDateobject]
+
+		# add to kwargs if filters exist
+		if district != '':
+			districtArray = district.split(',')
+			kwargs['District__in'] = districtArray
+
+		if beat != '':
+			beatArray = beat.split(',')
+			kwargs['Beat__in'] = beatArray
+
+		if location != '':
+			locationArray = location.split(',')
+			kwargs['Location__in'] = locationArray
+
+		if neighborhood != '':
+			neighborhoodArray = neighborhood.split(',')
+			kwargs['Neighborhood__in'] = neighborhoodArray
+
+		if communityno != '':
+			communitynoArray = communityno.split(',')
+			kwargs['CommunityNo__in'] = communitynoArray
+
+		if communityname != '':
+			communitynameArray = communityname.split(',')
+			kwargs['CommunityName__in'] = communitynameArray
+
+		if mintotalvict != '':
+			kwargs['TotalVict__gte'] = mintotalvict
+
+		if maxtotalvict != '':
+			kwargs['TotalVict__lte'] = maxtotalvict
+
+		if minhomvics != '':
+			kwargs['HomVics__gte'] = minhomvics
+
+		if maxhomvics != '':
+			kwargs['HomVics__lte'] = maxhomvics
+
+
+		#pull shootings data
+		shootings = chiShootings.objects.filter(**kwargs)
+		for shooting in shootings:
+			rawTime = shooting.Date
+			data = {}
+			data['type'] = 'Feature'
+			data['properties'] = {}
+			data['properties']['Date'] = rawTime.astimezone(time_zone).replace(tzinfo=None)
+			data['properties']['Address'] = shooting.Address
+			data['properties']['RD'] = shooting.RD
+			data['properties']['District'] = shooting.District
+			data['properties']['Beat'] = shooting.Beat
+			data['properties']['IUCR'] = shooting.IUCR
+			data['properties']['Location'] = shooting.Location
+			data['properties']['Status'] = shooting.Status
+			data['properties']['Domestic'] = shooting.Domestic
+			data['properties']['HomVics'] = shooting.HomVics
+			data['properties']['OtherShoo'] = shooting.OtherShoo
+			data['properties']['TotalVict'] = shooting.TotalVict
+			data['properties']['Month'] = shooting.Month
+			data['properties']['Day'] = shooting.Day
+			data['properties']['Year'] = shooting.Year
+			data['properties']['Hour'] = shooting.Hour
+			data['properties']['DayOfWeek'] = shooting.DayOfWeek
+			data['properties']['MonthYear'] = shooting.MonthYear
+			data['properties']['URL'] = shooting.URL
+			data['properties']['Notes'] = shooting.Notes
+			data['properties']['Neighborhood'] = shooting.Neighborhood
+			data['properties']['CommunityNo'] = shooting.CommunityNo
+			data['properties']['CommunityName'] = shooting.CommunityName
+			data['properties']['PoliceInvolved'] = shooting.PoliceInvolved
+			data['geometry'] = {}
+			data['geometry']['type'] = 'Point'
+			data['geometry']['coordinates'] = [shooting.Long, shooting.Lat]
+			response['features'].append(data)
+
+
+	return JsonResponse(response)
+
+
+def chiShootingsAggregateApi(request):
+	# time zone
+	time_zone = pytz.timezone('US/Central')
+	#add in the items geojson requires 
+	response = {}
+	if request.method == 'GET':
+		startDate = request.GET.get("startDate","")
+		endDate = request.GET.get("endDate","")
+		district = request.GET.get("distinct","")
+		beat = request.GET.get("beat","")
+		location = request.GET.get("location","")
+		neighborhood = request.GET.get("neighborhood","")
+		communityno = request.GET.get("communityno","")
+		communityname = request.GET.get("communityname","")
+		mintotalvict = request.GET.get("mintotalvict","")
+		maxtotalvict = request.GET.get("maxtotalvict","")
+		minhomvics = request.GET.get("minhomvics","")
+		maxhomvics = request.GET.get("minhomvics","")
+
+		# create data objects from start and end dates
+		startDateparsed = dateutil.parser.parse(startDate)
+		startDateobject = startDateparsed.date()
+		endDateparsed = dateutil.parser.parse(endDate)
+		endDateobject = endDateparsed.date()
+
+		#add kwargs
+		kwargs = {}
+		# show date range selected
+		#kwargs['Date__range'] = [startDateobject,endDateobject]
+
+		# add to kwargs if filters exist
+		if district != '':
+			districtArray = district.split(',')
+			kwargs['District__in'] = districtArray
+
+		if beat != '':
+			beatArray = beat.split(',')
+			kwargs['Beat__in'] = beatArray
+
+		if location != '':
+			locationArray = location.split(',')
+			kwargs['Location__in'] = locationArray
+
+		if neighborhood != '':
+			neighborhoodArray = neighborhood.split(',')
+			kwargs['Neighborhood__in'] = neighborhoodArray
+
+		if communityno != '':
+			communitynoArray = communityno.split(',')
+			kwargs['CommunityNo__in'] = communitynoArray
+
+		if communityname != '':
+			communitynameArray = communityname.split(',')
+			kwargs['CommunityName__in'] = communitynameArray
+
+		if mintotalvict != '':
+			kwargs['TotalVict__gte'] = mintotalvict
+
+		if maxtotalvict != '':
+			kwargs['TotalVict__lte'] = maxtotalvict
+
+		if minhomvics != '':
+			kwargs['HomVics__gte'] = minhomvics
+
+		if maxhomvics != '':
+			kwargs['HomVics__lte'] = maxhomvics
+
+		#pull yearly shootings data
+		#iterate thorugh years and push numbers to json
+		# pull the earliest date for time slider
+		earliestShooting = chiShootings.objects.earliest('Date')
+		now = time_zone.localize(datetime.datetime.now())
+
+		for dt in rrule.rrule(rrule.YEARLY, dtstart=earliestShooting.Date, until=now):
+			Year = dt.strftime("%Y")
+			kwargs['Year__exact'] = Year
+			yearlyShootings = chiShootings.objects.filter(**kwargs).values('Neighborhood').annotate(num_shootings = Count('ID'), sum_homicide = Sum('HomVics'), sum_victims = Sum('TotalVict'))
+
+			for stat in yearlyShootings:
+				neighborhood = stat['Neighborhood']
+				if hasattr(response, neighborhood):
+					response[neighborhood][Year] = {}
+				else:
+					response[neighborhood] = {}
+					response[neighborhood][Year] = {}
+				response[neighborhood][Year]['num_shootings'] = stat['num_shootings']
+				response[neighborhood][Year]['sum_homicide'] = stat['sum_homicide']
+				response[neighborhood][Year]['sum_victims'] = stat['sum_homicide']
+
+				
+
+
+	return JsonResponse(response)
+
+
+
+
+

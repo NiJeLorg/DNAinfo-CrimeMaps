@@ -14,4 +14,7 @@ urlpatterns = [
     url(r'^doittapi/$', views.doittApi, name='doittApi'),
     url(r'^blotter/$', views.blotterPage, name='blotter'),
     url(r'^blotterapi/$', views.blotterApi, name='blotterApi'),
+    url(r'^chishootings/$', views.chiShootingsPage, name='chiShootingsPage'),
+    url(r'^chishootingsapi/$', views.chiShootingsApi, name='chiShootingsApi'),
+    url(r'^chishootingsaggregateapi/$', views.chiShootingsAggregateApi, name='chiShootingsAggregateApi'),
 ]
