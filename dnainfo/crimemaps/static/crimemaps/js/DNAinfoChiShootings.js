@@ -306,8 +306,17 @@ DNAinfoChiShootings.drawTimeSlider = function (){
 	var minDate = new Date(2010,0,1);
 	var maxDate = moment().toDate();
 	var sixMonthsAgo = moment().subtract(6, 'months').startOf('month').toDate();
-	selectedMax = maxDate;
-	selectedMin = sixMonthsAgo;
+	if (startDate) {
+		selectedMin = moment(startDate).toDate();
+	} else {
+		selectedMin = sixMonthsAgo;
+	}
+
+	if (endDate) {
+		selectedMax = moment(endDate).toDate();
+	} else {
+		selectedMax = maxDate;
+	}
 
 	mapSlider = d3.slider()
 					.axis(
@@ -325,7 +334,7 @@ DNAinfoChiShootings.drawTimeSlider = function (){
 						d3.time.scale()
 							.domain([minDate, maxDate])
 					)
-					.value( [ sixMonthsAgo, maxDate ] )
+					.value( [ selectedMin, selectedMax ] )
 					.on("slideend", function(evt, value) {
 						$("body").addClass("loading");
 						// run a function to update map layers with new dates
