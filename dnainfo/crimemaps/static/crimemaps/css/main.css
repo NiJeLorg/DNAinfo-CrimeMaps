@@ -10,6 +10,34 @@ html, body {
 
 body { padding-bottom: 50px; }
 
+/*
+* loading screen modals
+*/
+
+body.loading {
+    overflow: hidden;   
+}
+
+body.loading .loading-modal {
+    display: block;
+}
+
+.loading-modal {
+    display:    none;
+    position:   fixed;
+    z-index:    10000;
+    top:        0;
+    left:       0;
+    height:     100%;
+    width:      100%;
+    opacity:  .7;
+    background: url('images/spinner.gif') 
+                50% 50% 
+                no-repeat;
+    background-color: #fff;
+}
+
+
 .map {
     position:absolute;
     left:0;

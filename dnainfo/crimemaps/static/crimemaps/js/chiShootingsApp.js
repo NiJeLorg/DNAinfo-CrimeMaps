@@ -10,6 +10,8 @@ var CHISHOOTINGS = null;
 var COMMUNITIES = null;
 var MY_MAP = null;
 var nearestCenterId = null;
+var selectedMin = null;
+var selectedMax = null;
 
 $().ready(new function(){
     var myMap = new DNAinfoChiShootings();

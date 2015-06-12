@@ -5,6 +5,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'crimemaps/css/leaflet.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'crimemaps/css/leaflet.label.css' %}">	
     <link rel="stylesheet" type="text/css" href="{% static 'crimemaps/css/Control.Geocoder.css' %}">	
+    <link rel="stylesheet" type="text/css" href="{% static 'crimemaps/css/d3.slider.css' %}">    
 {% endblock %}
 
 {% block head_js_block %}
@@ -31,28 +32,163 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
+                            <p><strong>Filter Shootings By:</strong></p>
+                            <div id="timeSlider"></div>
+                            <small>Date Range Selected: <span id="printStartDate"></span> - <span id="printEndDate"></span></small>
+                            <form class="form-inline padding15topbottom">
+                              <div class="form-group">
+                                <label for="district">District: </label>
+                                <select class="form-control" id="district">
+                                    <option value="">--</option>
+                                {% for district in districts %}
+                                    <option value="{{ district.District }}">{{ district.District }}</option>
+                                {% endfor %}
+                                </select>
+                              </div>
+                              <div class="form-group">
+                                <label for="neighborhood">Neighborhood: </label>
+                                <select class="form-control" id="neighborhood">
+                                    <option value="">--</option>
+                                {% for neighborhood in neighborhoods %}
+                                    <option value="{{ neighborhood.Neighborhood }}">{{ neighborhood.Neighborhood }}</option>
+                                {% endfor %}
+                                </select>
+                              </div>
+                              <div class="form-group">
+                                <label for="location">Location: </label>
+                                <select class="form-control" id="location">
+                                    <option value="">--</option>
+                                {% for location in locations %}
+                                    <option value="{{ location.Location }}">{{ location.Location }}</option>
+                                {% endfor %}
+                                </select>
+                              </div>
+                              <div class="form-group">
+                                <label for="dayofweek">Day of Week: </label>
+                                <select class="form-control" id="dayofweek">
+                                    <option value="">--</option>
+                                    <option value="Monday">Monday</option>
+                                    <option value="Tuesday">Tuesday</option>
+                                    <option value="Wednesday">Wednesday</option>
+                                    <option value="Thursday">Thursday</option>
+                                    <option value="Friday">Friday</option>
+                                    <option value="Saturday">Saturday</option>
+                                    <option value="Sunday">Sunday</option>
+                                </select>
+                              </div>
+                              <div class="form-group">
+                                <label for="hour">Time of Day: </label>
+                                <select class="form-control" id="hour">
+                                    <option value="">--</option>
+                                    <option value="8,9,10,11,12,13,14,15,16">Daytime (8am - 5pm)</option>
+                                    <option value="17,18,19,20,21,22,23">Evening (5pm - 12am)</option>
+                                    <option value="0,1,2,3,4,5,6,7">Overnight (12am - 8am)</option>
+                                    <option value="6,7,8,16,17,18">Commute (6-9am; 4-7pm)</option>
+                                    <option value="18,19,20,21,22,23,0,1,2">Nighttime (6pm - 3am)</option>
+                                </select>
+                              </div>
+                              <div class="form-group">
+                                <label for="dateofweek">Number of Victims:</label>
+                                <select class="form-control" id="mintotalvict">
+                                    <option value="">--</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                                 to
+                                <select class="form-control" id="maxtotalvict">
+                                    <option value="">--</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                              </div>
+                              <div class="form-group">
+                                <label for="dateofweek">Number of Homicides:</label>
+                                <select class="form-control" id="minhomvics">
+                                    <option value="">--</option>
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                                 to
+                                <select class="form-control" id="maxhomvics">
+                                    <option value="">--</option>
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                              </div>
+                            </form>
                         </div>
                         <div class="col-sm-6">
+                            <p><strong>Charts</strong></p>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-8">
+                        <div class="col-sm-6">
                             <div id="descriptionTitle"></div>
                             <div id="description"></div>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-6">
                             <p><strong>Legend</strong></p>
                             <div id="legend">
-                              <div class="legend-bubbles">
-                                <p>Number of Shooting Victims</p>
-                                <ul>
-                                  <li>1</li>
-                                  <li class="graph" style="background: #931212;"><div class="bubbles"></div></li>
-                                  <li>&gt;5</li>
-                                </ul>
+                              <div class="row">
+                                <div class="col-sm-6">
+                                  <div class="legend-bubbles">
+                                    <p>Number of Shooting Victims</p>
+                                    <ul>
+                                      <li>1</li>
+                                      <li class="graph" style="background: #931212;"><div class="bubbles"></div></li>
+                                      <li>&gt;5</li>
+                                    </ul>
+                                  </div>
+                                </div>
+                                <div class="col-sm-6">
+                                  <div class="legend-category">
+                                  <p>Homicide Victims</p>
+                                      <ul>
+                                        <li><div class="bullet" style="background: #931212;"></div> 0</li><li>
+                                        <div class="bullet" style="background: #4d4d4d;"></div> 1 or more</li>
+                                      </ul>
+                                  </div>
+                                </div>
                               </div>
-                              <div class="clearfix"></div>
-                                <p><small>Data compiled by DNAinfo</small></p>
+                              <div class="row">
+                                <div class="col-sm-12">
+                                    <p><small>Data compiled by DNAinfo</small></p>
+                                </div>
+                              </div> 
                             </div>
                         </div>
                     </div>
@@ -80,14 +216,16 @@
 	</script>
 	<script type="text/javascript" src="{% static 'crimemaps/js/d3.min.js' %}"></script>
 	<script type="text/javascript" src="{% static 'crimemaps/js/moment.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'crimemaps/js/d3.slider.js' %}"></script>
 	<script type="text/javascript" src="{% static 'crimemaps/js/leaflet.js' %}"></script>
 	<script type="text/javascript" src="{% static 'crimemaps/js/leaflet.label-src.js' %}"></script>
 	<script type="text/javascript" src="{% static 'crimemaps/js/topojson.js' %}"></script>
 	<script type="text/javascript" src="{% static 'crimemaps/js/Control.Geocoder.js' %}"></script>
-  <script type="text/javascript" src="{% static 'crimemaps/js/turf.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'crimemaps/js/turf.min.js' %}"></script>
 	<script type="text/javascript" src="{% static 'crimemaps/js/DNAinfoChiShootings.js' %}"></script>
 	<script type="text/javascript" src="{% static 'crimemaps/js/chiShootingsApp.js' %}"></script>
 	<script type="text/javascript" src="{% static 'crimemaps/js/controllers.js' %}"></script>
+    <script type="text/javascript" src="{% static 'crimemaps/js/chiShootingsListeners.js' %}"></script>
 {% endblock %}
 
 

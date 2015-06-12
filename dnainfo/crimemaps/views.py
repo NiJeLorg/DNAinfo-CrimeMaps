@@ -150,9 +150,14 @@ def chiShootingsPage(request):
 
 	# pull the earliest date for time slider
 	earliestShooting = chiShootings.objects.earliest('Date')
+
+	# get values for combo box
+	districts = chiShootings.objects.values('District').distinct().order_by('District')
+	neighborhoods = chiShootings.objects.values('Neighborhood').distinct().order_by('Neighborhood')
+	locations = chiShootings.objects.values('Location').distinct().order_by('Location')
 	
 
-	return render(request, 'crimemaps/chiShootings.html', {'startDate':startDate, 'endDate':endDate, 'center': center, 'earliestShooting':earliestShooting})
+	return render(request, 'crimemaps/chiShootings.html', {'startDate':startDate, 'endDate':endDate, 'center': center, 'earliestShooting':earliestShooting, 'districts':districts, 'neighborhoods':neighborhoods, 'locations': locations})
 
 
 
@@ -314,7 +319,7 @@ def chiShootingsApi(request):
 		#gather potential filter variables
 		startDate = request.GET.get("startDate","")
 		endDate = request.GET.get("endDate","")
-		district = request.GET.get("distinct","")
+		district = request.GET.get("district","")
 		beat = request.GET.get("beat","")
 		location = request.GET.get("location","")
 		neighborhood = request.GET.get("neighborhood","")
@@ -323,7 +328,14 @@ def chiShootingsApi(request):
 		mintotalvict = request.GET.get("mintotalvict","")
 		maxtotalvict = request.GET.get("maxtotalvict","")
 		minhomvics = request.GET.get("minhomvics","")
-		maxhomvics = request.GET.get("minhomvics","")
+		maxhomvics = request.GET.get("maxhomvics","")
+		month = request.GET.get("month","")
+		year = request.GET.get("year","")
+		hour = request.GET.get("hour","")
+		dayofweek = request.GET.get("dayofweek","")
+		policeinvolved = request.GET.get("policepnvolved","")
+
+
 
 		# create data objects from start and end dates
 		startDateparsed = dateutil.parser.parse(startDate)
@@ -372,6 +384,22 @@ def chiShootingsApi(request):
 
 		if maxhomvics != '':
 			kwargs['HomVics__lte'] = maxhomvics
+
+		if month != '':
+			kwargs['Month__exact'] = month
+
+		if year != '':
+			kwargs['Year__exact'] = year
+
+		if hour != '':
+			hourArray = hour.split(',')
+			kwargs['Hour__in'] = hourArray
+
+		if dayofweek != '':
+			kwargs['DayOfWeek__exact'] = dayofweek
+
+		if policeinvolved != '':
+			kwargs['PoliceInvolved__exact'] = policeinvolved
 
 
 		#pull shootings data
@@ -422,7 +450,7 @@ def chiShootingsAggregateApi(request):
 	if request.method == 'GET':
 		startDate = request.GET.get("startDate","")
 		endDate = request.GET.get("endDate","")
-		district = request.GET.get("distinct","")
+		district = request.GET.get("district","")
 		beat = request.GET.get("beat","")
 		location = request.GET.get("location","")
 		neighborhood = request.GET.get("neighborhood","")
@@ -432,6 +460,11 @@ def chiShootingsAggregateApi(request):
 		maxtotalvict = request.GET.get("maxtotalvict","")
 		minhomvics = request.GET.get("minhomvics","")
 		maxhomvics = request.GET.get("minhomvics","")
+		month = request.GET.get("month","")
+		year = request.GET.get("year","")
+		hour = request.GET.get("hour","")
+		dayofweek = request.GET.get("dayofweek","")
+		policeinvolved = request.GET.get("policepnvolved","")
 
 		# create data objects from start and end dates
 		startDateparsed = dateutil.parser.parse(startDate)
@@ -481,6 +514,22 @@ def chiShootingsAggregateApi(request):
 		if maxhomvics != '':
 			kwargs['HomVics__lte'] = maxhomvics
 
+		if month != '':
+			kwargs['Month__exact'] = month
+
+		if year != '':
+			kwargs['Year__exact'] = year
+
+		if hour != '':
+			hourArray = hour.split(',')
+			kwargs['Hour__in'] = hourArray
+
+		if dayofweek != '':
+			kwargs['DayOfWeek__exact'] = dayofweek
+
+		if policeinvolved != '':
+			kwargs['PoliceInvolved__exact'] = policeinvolved
+
 		#pull yearly shootings data
 		#iterate thorugh years and push numbers to json
 		# pull the earliest date for time slider
@@ -494,16 +543,41 @@ def chiShootingsAggregateApi(request):
 
 			for stat in yearlyShootings:
 				neighborhood = stat['Neighborhood']
-				if hasattr(response, neighborhood):
+				if neighborhood in response:
 					response[neighborhood][Year] = {}
 				else:
 					response[neighborhood] = {}
 					response[neighborhood][Year] = {}
 				response[neighborhood][Year]['num_shootings'] = stat['num_shootings']
 				response[neighborhood][Year]['sum_homicide'] = stat['sum_homicide']
-				response[neighborhood][Year]['sum_victims'] = stat['sum_homicide']
+				response[neighborhood][Year]['sum_victims'] = stat['sum_victims']
 
-				
+		# remove years from kwargs
+		#kwargs.pop("Year__exact", None)
+
+		# add in monthly data for previous 6 months
+		firstDaysixMonthsAgo = now + relativedelta(day=1, months=-6)
+		for dt in rrule.rrule(rrule.MONTHLY, dtstart=firstDaysixMonthsAgo, until=now):
+			Month = dt.strftime("%m")
+			Year = dt.strftime("%Y")
+			kwargs['Month__exact'] = Month
+			kwargs['Year__exact'] = Year
+
+			monthlyShootings = chiShootings.objects.filter(**kwargs).values('Neighborhood').annotate(num_shootings = Count('ID'), sum_homicide = Sum('HomVics'), sum_victims = Sum('TotalVict'))
+
+			for stat in monthlyShootings:
+				neighborhood = stat['Neighborhood']
+				if neighborhood in response:
+					response[neighborhood][Month] = {}
+					response[neighborhood][Month][Year] = {}
+				else:
+					response[neighborhood] = {}
+					response[neighborhood][Month] = {}
+					response[neighborhood][Month][Year] = {}
+				response[neighborhood][Month][Year]['num_shootings'] = stat['num_shootings']
+				response[neighborhood][Month][Year]['sum_homicide'] = stat['sum_homicide']
+				response[neighborhood][Month][Year]['sum_victims'] = stat['sum_victims']
+
 
 
 	return JsonResponse(response)

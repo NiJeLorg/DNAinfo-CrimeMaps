@@ -110,8 +110,11 @@ DNAinfoChiShootings.onEachFeature_CHISHOOTINGS = function(feature,layer){
 
 		if (layer._leaflet_id != nearestCenterId) {
 			// don't show center label
-			MY_MAP.map._layers[nearestCenterId].label.close();
-			MY_MAP.map._layers[nearestCenterId].setStyle(noHighlight);
+			//check for existence first
+			if (MY_MAP.map._layers[nearestCenterId]) {
+				MY_MAP.map._layers[nearestCenterId].label.close();
+				MY_MAP.map._layers[nearestCenterId].setStyle(noHighlight);
+			}
 		} 
 
 		layer.setStyle(highlight);
@@ -119,7 +122,6 @@ DNAinfoChiShootings.onEachFeature_CHISHOOTINGS = function(feature,layer){
 		if (!L.Browser.ie && !L.Browser.opera) {
 	        layer.bringToFront();
 	    }
-
 
 		// add content to description area
 		$('#descriptionTitle').html("<p><strong>" + feature.properties.Address + "</strong></p>");
@@ -143,8 +145,11 @@ DNAinfoChiShootings.onEachFeature_CHISHOOTINGS = function(feature,layer){
 
 		if (layer._leaflet_id != nearestCenterId) {
 			// don't show center label
-			MY_MAP.map._layers[nearestCenterId].label.close();
-			MY_MAP.map._layers[nearestCenterId].setStyle(noHighlight);
+			//check for existence first
+			if (MY_MAP.map._layers[nearestCenterId]) {
+				MY_MAP.map._layers[nearestCenterId].label.close();
+				MY_MAP.map._layers[nearestCenterId].setStyle(noHighlight);
+			}
 		} 
 
 
@@ -205,6 +210,9 @@ DNAinfoChiShootings.prototype.loadPointLayers = function (){
 		}).addTo(thismap.map);
 
 		findCenterandFire();
+
+		// draw time slider after points are added
+		DNAinfoChiShootings.drawTimeSlider();
 	});
 
 	function findCenterandFire() {
@@ -229,6 +237,7 @@ DNAinfoChiShootings.prototype.loadPointLayers = function (){
 	    });
 
 	}
+
 
 
 }
@@ -259,7 +268,7 @@ DNAinfoChiShootings.getStyleFor_CHISHOOTINGS = function (feature, latlng){
 		color: '#bdbdbd',
 		weight: 1,
 		opacity: 1,
-		fillColor: '#931212',
+		fillColor: DNAinfoChiShootings.FillColor(feature.properties.HomVics),
 		fillOpacity: 1
 	});
 	
@@ -285,6 +294,105 @@ DNAinfoChiShootings.CountRadius = function (d){
            d > 1 ? 6 :
                    4 ;	
 }
+
+DNAinfoChiShootings.FillColor = function (d){
+    return d > 0 ? "#931212" :
+                   "#4d4d4d" ;	
+
+}
+
+
+DNAinfoChiShootings.drawTimeSlider = function (){
+	var minDate = new Date(2010,0,1);
+	var maxDate = moment().toDate();
+	var sixMonthsAgo = moment().subtract(6, 'months').startOf('month').toDate();
+	selectedMax = maxDate;
+	selectedMin = sixMonthsAgo;
+
+	mapSlider = d3.slider()
+					.axis(
+						d3.svg.axis()
+							.orient("top")
+							.scale(
+								d3.time.scale()
+									.domain([minDate, maxDate])
+							)
+							.ticks(d3.time.years)
+							.tickSize(24, 0)
+							.tickFormat(d3.time.format("%Y"))
+					)
+					.scale(
+						d3.time.scale()
+							.domain([minDate, maxDate])
+					)
+					.value( [ sixMonthsAgo, maxDate ] )
+					.on("slideend", function(evt, value) {
+						$("body").addClass("loading");
+						// run a function to update map layers with new dates
+						selectedMin = value[0];
+						selectedMax = value[1];
+						DNAinfoChiShootings.updateMapFromSliderCombo();
+						// add formated dates selected to area right below slider
+						$('#printStartDate').html(moment(selectedMin).format("MMM D, YYYY"));
+						$('#printEndDate').html(moment(selectedMax).format("MMM D, YYYY"));
+
+					})
+					.on("slide", function(evt, value) {
+						// run a function to update map layers with new dates
+						selectedMin = value[0];
+						selectedMax = value[1];
+						// add formated dates selected to area right below slider
+						$('#printStartDate').html(moment(selectedMin).format("MMM D, YYYY"));
+						$('#printEndDate').html(moment(selectedMax).format("MMM D, YYYY"));
+					});
+
+	d3.select('#timeSlider').call(mapSlider);
+
+	// add formated dates selected to area right below slider
+	$('#printStartDate').html(moment(selectedMin).format("MMM D, YYYY"));
+	$('#printEndDate').html(moment(selectedMax).format("MMM D, YYYY"));
+
+}
+
+
+DNAinfoChiShootings.updateMapFromSliderCombo = function (){
+	// close popups
+	MY_MAP.map.closePopup();
+	// moment parses unix offsets and javascript date objects in the same way
+	var startDate = moment(selectedMin).format("YYYY-MM-DD");
+	var endDate = moment(selectedMax).format("YYYY-MM-DD");
+	var dateFormat = d3.time.format("%Y-%m-%dT%X");
+
+	// combo box selections
+	var district = $( "#district option:selected" ).val();
+	var neighborhood = $( "#neighborhood option:selected" ).val();
+	var location = $( "#location option:selected" ).val();
+	var dayofweek = $( "#dayofweek option:selected" ).val();
+	var hour = $( "#hour option:selected" ).val();
+	var mintotalvict = $( "#mintotalvict option:selected" ).val();
+	var maxtotalvict = $( "#maxtotalvict option:selected" ).val();
+	var minhomvics = $( "#minhomvics option:selected" ).val();
+	var maxhomvics = $( "#maxhomvics option:selected" ).val();
+
+
+	d3.json('/chishootingsapi/?startDate=' + startDate + '&endDate=' + endDate + '&district=' + district + '&neighborhood=' + neighborhood + '&location=' + location + '&dayofweek=' + dayofweek + '&hour=' + hour + '&mintotalvict=' + mintotalvict + '&maxtotalvict=' + maxtotalvict + '&minhomvics=' + minhomvics + '&maxhomvics=' + maxhomvics, function(data) {
+		geojsonData = data;
+		$.each(geojsonData.features, function(i, d){
+			d.properties.Date = dateFormat.parse(d.properties.Date);
+			d.properties.leafletId = 'layerID' + i;
+		});
+
+		// clear layer
+		MY_MAP.CHISHOOTINGS.clearLayers();
+		// add new data
+		MY_MAP.CHISHOOTINGS.addData(geojsonData);
+
+		$("body").removeClass("loading");
+
+	});
+
+}
+
 
 
 
