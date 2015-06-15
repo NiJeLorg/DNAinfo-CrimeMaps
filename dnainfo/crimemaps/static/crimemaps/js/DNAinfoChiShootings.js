@@ -485,7 +485,7 @@ DNAinfoChiShootings.updateChart = function(dataset, neighborhood){
 		if (type == 'year') {
 			var	chartWidth       = ($('#barChart').width()/2)/2,
 			    spaceForLabels   = ($('#barChart').width()/2)/4,
-			    spaceForLegend   = 30;
+			    spaceForLegend   = 24;
 		} else {
 			var chartWidth       = ($('#barChart').width()/2)/3.5,
 			    spaceForLabels   = ($('#barChart').width()/2)/3.5,
