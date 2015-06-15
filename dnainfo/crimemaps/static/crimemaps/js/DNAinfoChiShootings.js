@@ -65,12 +65,16 @@ DNAinfoChiShootings.onEachFeature_CHISHOOTINGS = function(feature,layer){
 
 
 	if (feature.properties.District) {
-		var district = "<br />" + DNAinfoChiShootings.districtNumbers(feature.properties.District) + " District";
+		if (feature.properties.District == 'SP') {
+			var district = "<br /> State Police"
+		} else {
+			var district = "<br />" + DNAinfoChiShootings.districtNumbers(feature.properties.District) + " District";			
+		}
 	} else {
 		var district = '';
 	}
 
-	if (feature.properties.Beat) {
+	if (feature.properties.Beat && feature.properties.Beat != 'SP') {
 		var beat = "<br />Beat Number " + feature.properties.Beat;
 	} else {
 		var beat = '';
@@ -83,7 +87,7 @@ DNAinfoChiShootings.onEachFeature_CHISHOOTINGS = function(feature,layer){
 	}
 
 	if (feature.properties.URL) {
-		var url = "<a href='" + feature.properties.URL + "' target='_top'>" + feature.properties.URL + "</a><br />";
+		var url = "<a href='" + feature.properties.URL + "' target='_top'>Read about this shooting.</a><br />";
 	} else {
 		var url = '';
 	}
@@ -124,7 +128,7 @@ DNAinfoChiShootings.onEachFeature_CHISHOOTINGS = function(feature,layer){
 	    }
 
 		// add content to description area
-		$('#descriptionTitle').html("<p><strong>" + feature.properties.Address + "</strong></p>");
+		$('#descriptionTitle').html("<p><strong>Shooting at " + feature.properties.Address + "</strong></p>");
 
 		$('#description').html("<p>" + url + dateFormat(feature.properties.Date) + "<br />" + TotalVict + "<br />" + HomVics + district + beat + location + "</p></div>");
 
@@ -154,9 +158,11 @@ DNAinfoChiShootings.onEachFeature_CHISHOOTINGS = function(feature,layer){
 
 
 		// add content to description area
-		$('#descriptionTitle').html("<p><strong>" + district + " Precinct</strong></p>");
+		$('#descriptionTitle').html("<p><strong>" + feature.properties.Address + "</strong></p>");
 
-		$('#description').html("<p>" + feature.properties.Address + " <br />"+ dateFormat(feature.properties.Date) +"</p><p>"+ feature.properties.Notes +"</p></div>");
+		$('#description').html("<p>" + url + dateFormat(feature.properties.Date) + "<br />" + TotalVict + "<br />" + HomVics + district + beat + location + "</p></div>");
+
+		DNAinfoChiShootings.drawChart(feature,layer);
 
 	});
 
@@ -190,6 +196,17 @@ DNAinfoChiShootings.onEachFeature_COMMUNITIES = function(feature,layer){
     layer.on('mouseout', function(ev) {
 		layer.setStyle(noHighlight);		
     });	
+
+    layer.on('click', function(ev) {
+		layer.setStyle(highlight);
+		if (!L.Browser.ie && !L.Browser.opera) {
+	        layer.bringToFront();
+	        MY_MAP.CHISHOOTINGS.bringToFront();
+	    }
+
+	    DNAinfoChiShootings.drawChart(feature,layer);
+    });	
+
 
 }
 
@@ -341,9 +358,6 @@ DNAinfoChiShootings.drawTimeSlider = function (){
 						selectedMin = value[0];
 						selectedMax = value[1];
 						DNAinfoChiShootings.updateMapFromSliderCombo();
-						// add formated dates selected to area right below slider
-						$('#printStartDate').html(moment(selectedMin).format("MMM D, YYYY"));
-						$('#printEndDate').html(moment(selectedMax).format("MMM D, YYYY"));
 
 					})
 					.on("slide", function(evt, value) {
@@ -364,9 +378,226 @@ DNAinfoChiShootings.drawTimeSlider = function (){
 }
 
 
+DNAinfoChiShootings.drawChart = function(feature,layer){
+	// remove any charts if they exist
+	d3.select('#barChart').selectAll("*").remove();
+
+	// remove chart title
+	$('#chartTitle').html("");
+
+	// query the API based on neighborhood selected
+	if (feature.properties.Neighborhood) {
+		var neighborhood = feature.properties.Neighborhood;
+	} else {
+		var neighborhood = feature.properties.comm_name;
+	}
+
+	// don't bother attempting if neighborhood is undefined
+	if (neighborhood) {
+		d3.json('/chishootingsaggregateapi/?neighborhood=' + neighborhood, function(data) {
+			var dataset = data;
+
+			DNAinfoChiShootings.updateChart(dataset, neighborhood);
+
+		});			
+	}
+
+
+}
+
+
+DNAinfoChiShootings.updateChart = function(dataset, neighborhood){
+
+	// add chart title
+	$('#chartTitle').html("<p><strong>" + neighborhood + "</strong></p>");
+
+		
+	var yearData = {};
+	yearData.labels = [];
+	yearData.series = [{label: 'Shootings', values: []}, {label: 'Shooting Victims', values: []}, {label: 'Homicide Victims', values: []}];
+
+	// this year
+	var thisYear = parseInt(moment().format("YYYY"));
+
+	for (var i = thisYear; i >= 2010; i--) {
+		if (dataset[neighborhood][i]) {
+			var num_shootings = parseInt(dataset[neighborhood][i]['num_shootings']);
+			var sum_victims = parseInt(dataset[neighborhood][i]['sum_victims']);
+			var sum_homicide = parseInt(dataset[neighborhood][i]['sum_homicide']);
+		} else {
+			var num_shootings = 0;
+			var sum_victims = 0;
+			var sum_homicide = 0;
+		}
+		yearData.labels.push(i);
+		yearData.series[0].values.push(num_shootings);
+		yearData.series[1].values.push(sum_victims);
+		yearData.series[2].values.push(sum_homicide);
+	};
+
+
+	drawHorizBarchart(yearData, 'year')
+
+
+	// this month
+	var monthData = {};
+	monthData.labels = [];
+	monthData.series = [{label: 'Shootings', values: []}, {label: 'Victims', values: []}, {label: 'Homicides', values: []}];
+
+	var evaluateDate = moment().startOf('month');
+	var beginningMonth = moment().subtract(6, 'months');
+	while (evaluateDate >= beginningMonth) {
+		var month = evaluateDate.month();
+		var year = evaluateDate.year();
+		console.log(dataset[neighborhood][month]);
+		if (dataset[neighborhood][month]) {
+			var num_shootings = parseInt(dataset[neighborhood][month][year]['num_shootings']);
+			var sum_victims = parseInt(dataset[neighborhood][month][year]['sum_victims']);
+			var sum_homicide = parseInt(dataset[neighborhood][month][year]['sum_homicide']);
+		} else {
+			var num_shootings = 0;
+			var sum_victims = 0;
+			var sum_homicide = 0;
+		}
+		var monthLabel = evaluateDate.format("MMM YYYY");
+		monthData.labels.push(monthLabel);
+		monthData.series[0].values.push(num_shootings);
+		monthData.series[1].values.push(sum_victims);
+		monthData.series[2].values.push(sum_homicide);
+
+		evaluateDate.subtract(1, 'months');
+	
+	}
+	console.log(monthData);
+
+	drawHorizBarchart(monthData, 'month')
+
+
+	function drawHorizBarchart (data, type) {
+		// Zip the series data together (first values, second values, etc.)
+		var zippedData = [];
+		for (var i=0; i<data.labels.length; i++) {
+		  for (var j=0; j<data.series.length; j++) {
+		    zippedData.push(data.series[j].values[i]);
+		  }
+		}
+
+		if (type == 'year') {
+			var	chartWidth       = ($('#barChart').width()/2)/2,
+			    spaceForLabels   = ($('#barChart').width()/2)/4,
+			    spaceForLegend   = 30;
+		} else {
+			var chartWidth       = ($('#barChart').width()/2)/3.5,
+			    spaceForLabels   = ($('#barChart').width()/2)/3.5,
+			    spaceForLegend   = ($('#barChart').width()/2)/2;
+		}
+
+		var margin 			 = {top: 30, right: 0, bottom: 30, left: 0},
+		    barHeight        = 10,
+		    groupHeight      = barHeight * data.series.length,
+		    gapBetweenGroups = 10;
+
+	    var color = [ "#E41A1C", "#377EB8", "#4DAF4A" ];
+	    var chartHeight = barHeight * zippedData.length + gapBetweenGroups * data.labels.length;
+
+		var x = d3.scale.linear()
+		    .domain([0, d3.max(zippedData)])
+		    .range([0, chartWidth]); 
+
+		var y = d3.scale.linear()
+		    .range([chartHeight + gapBetweenGroups, 0]);
+
+		var yAxis = d3.svg.axis()
+		    .scale(y)
+		    .tickFormat('')
+		    .tickSize(0)
+		    .orient("left");
+
+		// draw bar chart
+		var chart = d3.select('#barChart')
+			.append("svg")
+		    .attr("width", spaceForLabels + chartWidth + spaceForLegend)
+		    .attr("height", chartHeight);
+
+		// Create bars
+		var bar = chart.selectAll("g")
+		    .data(zippedData)
+		    .enter().append("g")
+		    .attr("transform", function(d, i) {
+		      return "translate(" + spaceForLabels + "," + (i * barHeight + gapBetweenGroups * (0.5 + Math.floor(i/data.series.length))) + ")";
+		    });
+
+		// Create rectangles of the correct width
+		bar.append("rect")
+		    .attr("fill", function(d,i) { return color[i % data.series.length]; })
+		    .attr("class", "bar")
+		    .attr("width", x)
+		    .attr("height", barHeight - 1);
+
+		// Add text label in bar
+		bar.append("text")
+			.attr("class", "label")
+		    .attr("x", function(d) { return x(d) + 3; })
+		    .attr("y", barHeight / 2)
+		    .attr("dy", ".25em")
+		    .text(function(d) { return d; });
+
+		// Draw labels
+		bar.append("text")
+		    .attr("class", "label")
+		    .attr("text-anchor", "end")
+		    .attr("x", function(d) { return - 4; })
+		    .attr("y", groupHeight / 2)
+		    .attr("dy", ".25em")
+		    .text(function(d,i) {
+		      if (i % data.series.length === 0)
+		        return data.labels[Math.floor(i/data.series.length)];
+		      else
+		        return ""});
+
+		chart.append("g")
+		      .attr("class", "y axis")
+		      .attr("transform", "translate(" + spaceForLabels + ", " + -gapBetweenGroups/2 + ")")
+		      .call(yAxis);
+
+		// Draw legend
+		var legendRectSize = 10,
+		    legendSpacing  = 2;
+
+		var legend = chart.selectAll('.legend')
+		    .data(data.series)
+		    .enter()
+		    .append('g')
+		    .attr('transform', function (d, i) {
+		        var height = legendRectSize + legendSpacing;
+		        var offset = -gapBetweenGroups/2;
+		        var horz = spaceForLabels + chartWidth + 40 - legendRectSize;
+		        var vert = i * height - offset;
+		        return 'translate(' + horz + ',' + vert + ')';
+		    });
+
+		legend.append('rect')
+		    .attr('width', legendRectSize)
+		    .attr('height', legendRectSize)
+		    .style('fill', function (d, i) { return color[i]; })
+		    .style('stroke', function (d, i) { return color[i]; });
+
+		legend.append('text')
+		    .attr('class', 'label')
+		    .attr('x', legendRectSize + legendSpacing)
+		    .attr('y', legendRectSize - legendSpacing)
+		    .text(function (d) { return d.label; });
+
+
+	}
+
+}
+
+
 DNAinfoChiShootings.updateMapFromSliderCombo = function (){
 	// close popups
 	MY_MAP.map.closePopup();
+
 	// moment parses unix offsets and javascript date objects in the same way
 	var startDate = moment(selectedMin).format("YYYY-MM-DD");
 	var endDate = moment(selectedMax).format("YYYY-MM-DD");
@@ -399,6 +630,11 @@ DNAinfoChiShootings.updateMapFromSliderCombo = function (){
 		$("body").removeClass("loading");
 
 	});
+
+	// update printed start and end dates
+	$('#printStartDate').html(moment(selectedMin).format("MMM D, YYYY"));
+	$('#printEndDate').html(moment(selectedMax).format("MMM D, YYYY"));
+
 
 }
 

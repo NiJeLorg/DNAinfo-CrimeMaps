@@ -558,7 +558,7 @@ def chiShootingsAggregateApi(request):
 		# add in monthly data for previous 6 months
 		firstDaysixMonthsAgo = now + relativedelta(day=1, months=-6)
 		for dt in rrule.rrule(rrule.MONTHLY, dtstart=firstDaysixMonthsAgo, until=now):
-			Month = dt.strftime("%m")
+			Month = int(dt.strftime("%m"))
 			Year = dt.strftime("%Y")
 			kwargs['Month__exact'] = Month
 			kwargs['Year__exact'] = Year

@@ -35,6 +35,10 @@
                             <p><strong>Filter Shootings By:</strong></p>
                             <div id="timeSlider"></div>
                             <small>Date Range Selected: <span id="printStartDate"></span> - <span id="printEndDate"></span></small>
+                            <br />
+                            <button class="btn btn-default margin10top" id="yearToDate">Year to Date</button>
+                            <button class="btn btn-default margin10top" id="previousSixMonths">Previous Six Months</button>
+                            <button class="btn btn-default margin10top" id="previousYear">Previous Year</button>
                             <form class="form-inline padding15topbottom">
                               <div class="form-group">
                                 <label for="district">District: </label>
@@ -55,7 +59,7 @@
                                 </select>
                               </div>
                               <div class="form-group">
-                                <label for="location">Location: </label>
+                                <label for="location">Crime Scene Type: </label>
                                 <select class="form-control" id="location">
                                     <option value="">--</option>
                                 {% for location in locations %}
@@ -152,10 +156,11 @@
                             </form>
                         </div>
                         <div class="col-sm-6">
-                            <p><strong>Charts</strong></p>
+                            <div id="chartTitle"></div>
+                            <div id="barChart"></div>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row margin10top">
                         <div class="col-sm-6">
                             <div id="descriptionTitle"></div>
                             <div id="description"></div>
@@ -178,8 +183,8 @@
                                   <div class="legend-category">
                                   <p>Homicide Victims</p>
                                       <ul>
-                                        <li><div class="bullet" style="background: #931212;"></div> 0</li><li>
-                                        <div class="bullet" style="background: #4d4d4d;"></div> 1 or more</li>
+                                        <li><div class="bullet" style="background: #4d4d4d;"></div> 0</li><li>
+                                        <div class="bullet" style="background: #931212;"></div> 1 or more</li>
                                       </ul>
                                   </div>
                                 </div>
