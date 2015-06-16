@@ -615,8 +615,37 @@ DNAinfoChiShootings.updateMapFromSliderCombo = function (){
 	var minhomvics = $( "#minhomvics option:selected" ).val();
 	var maxhomvics = $( "#maxhomvics option:selected" ).val();
 
+	// create comma seperated range of hours
+	var hours = [];
+	// ensure that min and max hours have a value if none is selected
+	if (minhour == '') {
+		minhour = 0;
+	} else {
+		minhour = parseInt(minhour);
+	}
+	if (maxhour == '') {
+		maxhour = 23;
+	} else {
+		maxhour = parseInt(maxhour);
+	}
+	// determine which is bigger, min or max hour
+	if (minhour <= maxhour) {
+		for (var i = minhour; i <= maxhour; i++) {
+		    hours.push(i);
+		}		
+	} else {
+		// when maxhour is bigger than minhour, we need to puse from min to the end of the day (23) and then from 0 to maxhour 
+		for (var i = minhour; i <= 23; i++) {
+		    hours.push(i);
+		}
+		for (var i = 0; i <= maxhour; i++) {
+		    hours.push(i);
+		}
+	}
 
-	d3.json('/chishootingsapi/?startDate=' + startDate + '&endDate=' + endDate + '&district=' + district + '&communityno=' + communityno + '&location=' + location + '&dayofweek=' + dayofweek + '&minhour=' + minhour + '&maxhour=' + maxhour + '&mintotalvict=' + mintotalvict + '&maxtotalvict=' + maxtotalvict + '&minhomvics=' + minhomvics + '&maxhomvics=' + maxhomvics, function(data) {
+	hours = hours.join(','); 
+
+	d3.json('/chishootingsapi/?startDate=' + startDate + '&endDate=' + endDate + '&district=' + district + '&communityno=' + communityno + '&location=' + location + '&dayofweek=' + dayofweek + '&hour=' + hours + '&mintotalvict=' + mintotalvict + '&maxtotalvict=' + maxtotalvict + '&minhomvics=' + minhomvics + '&maxhomvics=' + maxhomvics, function(data) {
 		geojsonData = data;
 		$.each(geojsonData.features, function(i, d){
 			d.properties.Date = dateFormat.parse(d.properties.Date);

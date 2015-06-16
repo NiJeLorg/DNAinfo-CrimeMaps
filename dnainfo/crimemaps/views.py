@@ -332,11 +332,9 @@ def chiShootingsApi(request):
 		maxhomvics = request.GET.get("maxhomvics","")
 		month = request.GET.get("month","")
 		year = request.GET.get("year","")
-		minhour = request.GET.get("minhour","")
-		maxhour = request.GET.get("maxhour","")
+		hour = request.GET.get("hour","")
 		dayofweek = request.GET.get("dayofweek","")
 		policeinvolved = request.GET.get("policepnvolved","")
-
 
 
 		# create data objects from start and end dates
@@ -347,7 +345,6 @@ def chiShootingsApi(request):
 
 		#add kwargs and hour query
 		kwargs = {}
-		hourq = Q(Hour__gte=0)
 		# show date range selected
 		kwargs['Date__range'] = [startDateobject,endDateobject]
 
@@ -394,16 +391,9 @@ def chiShootingsApi(request):
 		if year != '':
 			kwargs['Year__exact'] = year
 
-		if minhour != '':
-			minhourq = Q(Hour__gte=minhour)
-			hourq = Q(Hour__gte=minhour)
-
-		if maxhour != '':
-			maxhourq = Q(Hour__lt=maxhour)
-			if hourq:
-				hourq = minhourq | maxhourq
-			else:
-				hourq = maxhourq
+		if hour != '':
+			hourArray = hour.split(',')
+			kwargs['Hour__in'] = hourArray
 
 		if dayofweek != '':
 			kwargs['DayOfWeek__exact'] = dayofweek
@@ -413,7 +403,7 @@ def chiShootingsApi(request):
 
 
 		#pull shootings data
-		shootings = chiShootings.objects.filter(**kwargs).filter(hourq)
+		shootings = chiShootings.objects.filter(**kwargs)
 		for shooting in shootings:
 			rawTime = shooting.Date
 			data = {}
@@ -472,8 +462,7 @@ def chiShootingsAggregateApi(request):
 		maxhomvics = request.GET.get("minhomvics","")
 		month = request.GET.get("month","")
 		year = request.GET.get("year","")
-		minhour = request.GET.get("minhour","")
-		maxhour = request.GET.get("maxhour","")
+		hour = request.GET.get("hour","")
 		dayofweek = request.GET.get("dayofweek","")
 		policeinvolved = request.GET.get("policepnvolved","")
 
@@ -531,11 +520,9 @@ def chiShootingsAggregateApi(request):
 		if year != '':
 			kwargs['Year__exact'] = year
 
-		if minhour != '':
-			kwargs['Hour__gte'] = minhour
-
-		if maxhour != '':
-			kwargs['Hour__lte'] = maxhour
+		if hour != '':
+			hourArray = hour.split(',')
+			kwargs['Hour__in'] = hourArray
 
 		if dayofweek != '':
 			kwargs['DayOfWeek__exact'] = dayofweek
