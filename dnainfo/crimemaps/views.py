@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.db.models import Sum, Count
+from django.db.models import Q
 
 #import all crimemaps models
 from crimemaps.models import *
@@ -153,11 +154,11 @@ def chiShootingsPage(request):
 
 	# get values for combo box
 	districts = chiShootings.objects.values('District').distinct().order_by('District')
-	neighborhoods = chiShootings.objects.values('Neighborhood').distinct().order_by('Neighborhood')
+	communitynos = chiShootings.objects.values('CommunityNo', 'CommunityName').distinct().order_by('CommunityName')
 	locations = chiShootings.objects.values('Location').distinct().order_by('Location')
 	
 
-	return render(request, 'crimemaps/chiShootings.html', {'startDate':startDate, 'endDate':endDate, 'center': center, 'earliestShooting':earliestShooting, 'districts':districts, 'neighborhoods':neighborhoods, 'locations': locations})
+	return render(request, 'crimemaps/chiShootings.html', {'startDate':startDate, 'endDate':endDate, 'center': center, 'earliestShooting':earliestShooting, 'districts':districts, 'communitynos':communitynos, 'locations': locations})
 
 
 
@@ -331,7 +332,8 @@ def chiShootingsApi(request):
 		maxhomvics = request.GET.get("maxhomvics","")
 		month = request.GET.get("month","")
 		year = request.GET.get("year","")
-		hour = request.GET.get("hour","")
+		minhour = request.GET.get("minhour","")
+		maxhour = request.GET.get("maxhour","")
 		dayofweek = request.GET.get("dayofweek","")
 		policeinvolved = request.GET.get("policepnvolved","")
 
@@ -343,8 +345,9 @@ def chiShootingsApi(request):
 		endDateparsed = dateutil.parser.parse(endDate)
 		endDateobject = endDateparsed.date()
 
-		#add kwargs
+		#add kwargs and hour query
 		kwargs = {}
+		hourq = Q(Hour__gte=0)
 		# show date range selected
 		kwargs['Date__range'] = [startDateobject,endDateobject]
 
@@ -391,9 +394,16 @@ def chiShootingsApi(request):
 		if year != '':
 			kwargs['Year__exact'] = year
 
-		if hour != '':
-			hourArray = hour.split(',')
-			kwargs['Hour__in'] = hourArray
+		if minhour != '':
+			minhourq = Q(Hour__gte=minhour)
+			hourq = Q(Hour__gte=minhour)
+
+		if maxhour != '':
+			maxhourq = Q(Hour__lt=maxhour)
+			if hourq:
+				hourq = minhourq | maxhourq
+			else:
+				hourq = maxhourq
 
 		if dayofweek != '':
 			kwargs['DayOfWeek__exact'] = dayofweek
@@ -403,7 +413,7 @@ def chiShootingsApi(request):
 
 
 		#pull shootings data
-		shootings = chiShootings.objects.filter(**kwargs)
+		shootings = chiShootings.objects.filter(**kwargs).filter(hourq)
 		for shooting in shootings:
 			rawTime = shooting.Date
 			data = {}
@@ -462,7 +472,8 @@ def chiShootingsAggregateApi(request):
 		maxhomvics = request.GET.get("minhomvics","")
 		month = request.GET.get("month","")
 		year = request.GET.get("year","")
-		hour = request.GET.get("hour","")
+		minhour = request.GET.get("minhour","")
+		maxhour = request.GET.get("maxhour","")
 		dayofweek = request.GET.get("dayofweek","")
 		policeinvolved = request.GET.get("policepnvolved","")
 
@@ -520,9 +531,11 @@ def chiShootingsAggregateApi(request):
 		if year != '':
 			kwargs['Year__exact'] = year
 
-		if hour != '':
-			hourArray = hour.split(',')
-			kwargs['Hour__in'] = hourArray
+		if minhour != '':
+			kwargs['Hour__gte'] = minhour
+
+		if maxhour != '':
+			kwargs['Hour__lte'] = maxhour
 
 		if dayofweek != '':
 			kwargs['DayOfWeek__exact'] = dayofweek
@@ -539,18 +552,18 @@ def chiShootingsAggregateApi(request):
 		for dt in rrule.rrule(rrule.YEARLY, dtstart=earliestShooting.Date, until=now):
 			Year = dt.strftime("%Y")
 			kwargs['Year__exact'] = Year
-			yearlyShootings = chiShootings.objects.filter(**kwargs).values('Neighborhood').annotate(num_shootings = Count('ID'), sum_homicide = Sum('HomVics'), sum_victims = Sum('TotalVict'))
+			yearlyShootings = chiShootings.objects.filter(**kwargs).values('CommunityNo').annotate(num_shootings = Count('ID'), sum_homicide = Sum('HomVics'), sum_victims = Sum('TotalVict'))
 
 			for stat in yearlyShootings:
-				neighborhood = stat['Neighborhood']
-				if neighborhood in response:
-					response[neighborhood][Year] = {}
+				communityno = stat['CommunityNo']
+				if communityno in response:
+					response[communityno][Year] = {}
 				else:
-					response[neighborhood] = {}
-					response[neighborhood][Year] = {}
-				response[neighborhood][Year]['num_shootings'] = stat['num_shootings']
-				response[neighborhood][Year]['sum_homicide'] = stat['sum_homicide']
-				response[neighborhood][Year]['sum_victims'] = stat['sum_victims']
+					response[communityno] = {}
+					response[communityno][Year] = {}
+				response[communityno][Year]['num_shootings'] = stat['num_shootings']
+				response[communityno][Year]['sum_homicide'] = stat['sum_homicide']
+				response[communityno][Year]['sum_victims'] = stat['sum_victims']
 
 		# remove years from kwargs
 		#kwargs.pop("Year__exact", None)
@@ -563,20 +576,20 @@ def chiShootingsAggregateApi(request):
 			kwargs['Month__exact'] = Month
 			kwargs['Year__exact'] = Year
 
-			monthlyShootings = chiShootings.objects.filter(**kwargs).values('Neighborhood').annotate(num_shootings = Count('ID'), sum_homicide = Sum('HomVics'), sum_victims = Sum('TotalVict'))
+			monthlyShootings = chiShootings.objects.filter(**kwargs).values('CommunityNo').annotate(num_shootings = Count('ID'), sum_homicide = Sum('HomVics'), sum_victims = Sum('TotalVict'))
 
 			for stat in monthlyShootings:
-				neighborhood = stat['Neighborhood']
-				if neighborhood in response:
-					response[neighborhood][Month] = {}
-					response[neighborhood][Month][Year] = {}
+				communityno = stat['CommunityNo']
+				if communityno in response:
+					response[communityno][Month] = {}
+					response[communityno][Month][Year] = {}
 				else:
-					response[neighborhood] = {}
-					response[neighborhood][Month] = {}
-					response[neighborhood][Month][Year] = {}
-				response[neighborhood][Month][Year]['num_shootings'] = stat['num_shootings']
-				response[neighborhood][Month][Year]['sum_homicide'] = stat['sum_homicide']
-				response[neighborhood][Month][Year]['sum_victims'] = stat['sum_victims']
+					response[communityno] = {}
+					response[communityno][Month] = {}
+					response[communityno][Month][Year] = {}
+				response[communityno][Month][Year]['num_shootings'] = stat['num_shootings']
+				response[communityno][Month][Year]['sum_homicide'] = stat['sum_homicide']
+				response[communityno][Month][Year]['sum_victims'] = stat['sum_victims']
 
 
 

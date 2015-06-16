@@ -41,20 +41,24 @@
                             <button class="btn btn-default margin10top" id="previousYear">Previous Year</button>
                             <form class="form-inline padding15topbottom">
                               <div class="form-group">
-                                <label for="district">District: </label>
+                                <label for="district">Police District: </label>
                                 <select class="form-control" id="district">
                                     <option value="">--</option>
                                 {% for district in districts %}
-                                    <option value="{{ district.District }}">{{ district.District }}</option>
+                                    {% if district.District %}
+                                        <option value="{{ district.District }}">{{ district.District }}</option>
+                                    {% endif %}
                                 {% endfor %}
                                 </select>
                               </div>
                               <div class="form-group">
-                                <label for="neighborhood">Neighborhood: </label>
-                                <select class="form-control" id="neighborhood">
+                                <label for="communityno">Community Area: </label>
+                                <select class="form-control" id="communityno">
                                     <option value="">--</option>
-                                {% for neighborhood in neighborhoods %}
-                                    <option value="{{ neighborhood.Neighborhood }}">{{ neighborhood.Neighborhood }}</option>
+                                {% for communityno in communitynos %}
+                                    {% if communityno.CommunityName %}
+                                        <option value="{{ communityno.CommunityNo }}">{{ communityno.CommunityName }}</option>
+                                    {% endif %}
                                 {% endfor %}
                                 </select>
                               </div>
@@ -63,7 +67,9 @@
                                 <select class="form-control" id="location">
                                     <option value="">--</option>
                                 {% for location in locations %}
-                                    <option value="{{ location.Location }}">{{ location.Location }}</option>
+                                    {% if location.Location %}
+                                        <option value="{{ location.Location }}">{{ location.Location }}</option>
+                                    {% endif %}   
                                 {% endfor %}
                                 </select>
                               </div>
@@ -82,13 +88,60 @@
                               </div>
                               <div class="form-group">
                                 <label for="hour">Time of Day: </label>
-                                <select class="form-control" id="hour">
+                                <select class="form-control" id="minhour">
                                     <option value="">--</option>
-                                    <option value="8,9,10,11,12,13,14,15,16">Daytime (8am - 5pm)</option>
-                                    <option value="17,18,19,20,21,22,23">Evening (5pm - 12am)</option>
-                                    <option value="0,1,2,3,4,5,6,7">Overnight (12am - 8am)</option>
-                                    <option value="6,7,8,16,17,18">Commute (6-9am; 4-7pm)</option>
-                                    <option value="18,19,20,21,22,23,0,1,2">Nighttime (6pm - 3am)</option>
+                                    <option value="0">12am</option>
+                                    <option value="1">1am</option>
+                                    <option value="2">2am</option>
+                                    <option value="3">3am</option>
+                                    <option value="4">4am</option>
+                                    <option value="5">5am</option>
+                                    <option value="6">6am</option>
+                                    <option value="7">7am</option>
+                                    <option value="8">8am</option>
+                                    <option value="9">9am</option>
+                                    <option value="10">10am</option>
+                                    <option value="11">11am</option>
+                                    <option value="12">12pm</option>
+                                    <option value="13">1pm</option>
+                                    <option value="14">2pm</option>
+                                    <option value="15">3pm</option>
+                                    <option value="16">4pm</option>
+                                    <option value="17">5pm</option>
+                                    <option value="18">6pm</option>
+                                    <option value="19">7pm</option>
+                                    <option value="20">8pm</option>
+                                    <option value="21">9pm</option>
+                                    <option value="22">10pm</option>
+                                    <option value="23">11pm</option>
+                                </select>
+                                 to
+                                <select class="form-control" id="maxhour">
+                                    <option value="">--</option>
+                                    <option value="0">12am</option>
+                                    <option value="1">1am</option>
+                                    <option value="2">2am</option>
+                                    <option value="3">3am</option>
+                                    <option value="4">4am</option>
+                                    <option value="5">5am</option>
+                                    <option value="6">6am</option>
+                                    <option value="7">7am</option>
+                                    <option value="8">8am</option>
+                                    <option value="9">9am</option>
+                                    <option value="10">10am</option>
+                                    <option value="11">11am</option>
+                                    <option value="12">12pm</option>
+                                    <option value="13">1pm</option>
+                                    <option value="14">2pm</option>
+                                    <option value="15">3pm</option>
+                                    <option value="16">4pm</option>
+                                    <option value="17">5pm</option>
+                                    <option value="18">6pm</option>
+                                    <option value="19">7pm</option>
+                                    <option value="20">8pm</option>
+                                    <option value="21">9pm</option>
+                                    <option value="22">10pm</option>
+                                    <option value="23">11pm</option>
                                 </select>
                               </div>
                               <div class="form-group">

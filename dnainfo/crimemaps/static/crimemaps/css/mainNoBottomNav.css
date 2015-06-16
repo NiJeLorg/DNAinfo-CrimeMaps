@@ -211,6 +211,10 @@ body.loading .loading-modal {
 	height: 22px;
 }
 
+.legend-bubbles {
+	height: 80px;
+}
+
 .legend-bubbles ul {
 	padding: 0 0 5px 0;
 	margin: 0;
