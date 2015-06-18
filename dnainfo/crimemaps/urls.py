@@ -8,6 +8,7 @@ urlpatterns = [
     url(r'^nycworkedfromhome/$', views.workedFromHome, name='workedFromHome'),
     url(r'^chiworkedfromhome/$', views.chiWorkedFromHome, name='chiWorkedFromHome'),
     url(r'^nycbuilder/$', views.linkiframebuilder, name='linkiframebuilder'),
+    url(r'^chibuilder/$', views.chilinkiframebuilder, name='chilinkiframebuilder'),
     url(r'^compstat/$', views.compstatPage, name='compstat'),
     url(r'^compstatapi/$', views.compstatApi, name='compstatApi'),
     url(r'^doitt/$', views.doittPage, name='doitt'),

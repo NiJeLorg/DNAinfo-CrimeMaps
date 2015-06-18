@@ -74,6 +74,9 @@ def linkiframebuilder(request):
 
 	return render(request, 'crimemaps/linkiframebuilder.html', {'compstatDates': compstatDates, 'doittDates': doittDates, 'blotterDates': blotterDates})
 
+def chilinkiframebuilder(request):
+	return render(request, 'crimemaps/chilinkiframebuilder.html', {})
+
 def compstatPage(request):
 	today = datetime.datetime.now()
 	DD = datetime.timedelta(days=30)

@@ -1,0 +1,49 @@
+{% extends 'crimemaps/base.html' %}
+{% load staticfiles %}
+
+{% block css_block %}
+  <link rel="stylesheet" type="text/css" href="{% static 'crimemaps/css/bootstrap-datepicker.min.css' %}">    
+{% endblock %}
+
+{% block head_js_block %}
+{% endblock %}
+	
+{% block body_block %}
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <div class="navbar-brand">DNAinfo Chicago | Chicago Crimes URL and iframe Builder</div>
+        </div>
+      </div> 
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-12">
+          <h3>Create Chicago Shootings Map URL/iframe</h3>
+          <p>Select start and end dates below to create a URL and an iframe for this map.</p>
+          <div class="input-daterange input-group" id="datepicker">
+              <input type="text" class="input-sm form-control" name="start" id="startDate" placeholder="From"/>
+              <span class="input-group-addon">to</span>
+              <input type="text" class="input-sm form-control" name="end" id="endDate" placeholder="To"/>
+          </div>
+          <div id="chiShootingsUrl" class="margin10top"></div>
+          <div id="chiShootingsIframe"></div>
+        </div>
+      </div>
+    </div>
+
+{% endblock %}
+
+{% block modal_block %}
+{% endblock %}
+
+{% block js_block %}
+  <script type="text/javascript" src="{% static 'crimemaps/js/bootstrap-datepicker.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'crimemaps/js/chilinkiframebuilder.js' %}"></script>
+{% endblock %}
+
+
+	
+	
+
