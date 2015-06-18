@@ -177,6 +177,10 @@ def compstatApi(request):
 		endDateparsed = dateutil.parser.parse(endDate)
 		endDateobject = endDateparsed.date()
 
+		#four weeks ago plus one day (for beginning date of first 28 day period)
+		fourWeeksAgoPlusOneDayParsed = endDateparsed + relativedelta(weeks=-4, days=1)
+		fourWeeksAgoPlusOneDayObject = fourWeeksAgoPlusOneDayParsed.date()
+
 		#Date range for four weeks ago should be four weeks ago to five weeks ago
 		#five weeks ago (start date)
 		fiveWeeksAgoParsed = endDateparsed + relativedelta(weeks=-5, days=1)
@@ -200,10 +204,11 @@ def compstatApi(request):
 			precinct = stat['precinct']
 			# TEMPORARILY SKIP 9TH PRECINCT if either start date is on 2015-04-20
 			if precinct == '009' and (startDateobject == fourTwenty or fiveWeeksAgoObject == fourTwenty):
-				response[precinct] = {}
+				#do nothing
+				nothingVar = 'nothing'
 			else:
 				response[precinct] = {}
-				response[precinct]['start_date'] = fourWeeksAgoObject
+				response[precinct]['start_date'] = fourWeeksAgoPlusOneDayObject
 				response[precinct]['end_date'] = endDateobject
 				response[precinct]['murder'] = stat['murder__sum']
 				response[precinct]['rape'] = stat['rape__sum']
