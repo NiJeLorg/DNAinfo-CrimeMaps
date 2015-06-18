@@ -37,6 +37,9 @@ def chiTransportToWork(request):
 
 
 def linkiframebuilder(request):
+	# time zone
+	time_zone = pytz.timezone('America/New_York')
+
 	#select a distinct list of end dates from the system
 	compstatDates = []
 	dateList = compstat.objects.values('start_date', 'end_date').distinct().order_by('-start_date')
@@ -56,7 +59,12 @@ def linkiframebuilder(request):
 	DD = datetime.timedelta(days=7)
 	latestDate = blotter.objects.exclude(DateTime=None).latest('DateTime')
 	earliestDate = blotter.objects.exclude(DateTime=None).earliest('DateTime')
-	countDate = latestDate.DateTime
+	now = time_zone.localize(datetime.datetime.now())
+	if latestDate.DateTime > now:
+		countDate = today
+	else:
+		countDate = latestDate.DateTime
+
 	while (earliestDate.DateTime < countDate):
 		date = {}
 		date['end_date'] = countDate
@@ -108,6 +116,9 @@ def doittPage(request):
 	return render(request, 'crimemaps/doitt.html', {'monthYear':monthYear, 'dates':dates})
 
 def blotterPage(request):
+	# time zone
+	time_zone = pytz.timezone('America/New_York')
+
 	today = datetime.datetime.now()
 	DD = datetime.timedelta(days=7)
 	earlier = today - DD
@@ -124,7 +135,12 @@ def blotterPage(request):
 	dates = []
 	latestDate = blotter.objects.exclude(DateTime=None).latest('DateTime')
 	earliestDate = blotter.objects.exclude(DateTime=None).earliest('DateTime')
-	countDate = latestDate.DateTime
+	now = time_zone.localize(datetime.datetime.now())
+	if latestDate.DateTime > now:
+		countDate = today
+	else:
+		countDate = latestDate.DateTime
+
 	while (earliestDate.DateTime < countDate):
 		date = {}
 		date['end_date'] = countDate
