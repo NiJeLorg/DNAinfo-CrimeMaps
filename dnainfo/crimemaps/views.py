@@ -169,30 +169,39 @@ def compstatApi(request):
 		startDate = request.GET.get("startDate","")
 		endDate = request.GET.get("endDate","")
 		# create data objects from start and end dates
-		#startDateparsed = dateutil.parser.parse(startDate)
-		#startDateobject = startDateparsed.date()
+		##### 6/17/15 #### Moved to using 28 day counts for compstat
+		# Date range for first four weeks should be startDate to endDate
+		startDateparsed = dateutil.parser.parse(startDate)
+		startDateobject = startDateparsed.date()
+
 		endDateparsed = dateutil.parser.parse(endDate)
 		endDateobject = endDateparsed.date()
 
-		#this month start date
-		fourWeeksAgoParsed = endDateparsed + relativedelta(weeks=-4, days=1)
+		#Date range for four weeks ago should be four weeks ago to five weeks ago
+		#five weeks ago (start date)
+		fiveWeeksAgoParsed = endDateparsed + relativedelta(weeks=-5, days=1)
+		fiveWeeksAgoObject = fiveWeeksAgoParsed.date()
+
+		#four weeks ago (end date)
+		fourWeeksAgoParsed = endDateparsed + relativedelta(weeks=-4)
 		fourWeeksAgoObject = fourWeeksAgoParsed.date()
 
-		#last month start date
+		#eight weeks ago (beginning of previous period)
 		eightWeeksAgoParsed = endDateparsed + relativedelta(weeks=-8, days=1)
 		eightWeeksAgoObject = eightWeeksAgoParsed.date()
 
-		#last month end date
-		fourWeeksAgoPlusOneDayParsed = endDateparsed + relativedelta(weeks=-4)
-		fourWeeksAgoPlusOneDayObject = fourWeeksAgoPlusOneDayParsed.date()
+		# for missing value from precinct 9 check for start dates on 2015-04-20
+		fourTwenty = datetime.date(2015, 4, 20)
 
 		#pull compstat data
-		thisMonthCompstats = compstat.objects.filter(start_date__gte=fourWeeksAgoObject, end_date__lte=endDateobject).values('precinct').annotate(Sum('murder'), Sum('rape'), Sum('robbery'), Sum('felony_assault'), Sum('burglary'), Sum('grand_larceny'), Sum('grand_larceny_auto'), Sum('total'))
+		thisMonthCompstats = compstat.objects.filter(start_date__gte=startDateobject, end_date__lte=endDateobject).values('precinct').annotate(Sum('murder'), Sum('rape'), Sum('robbery'), Sum('felony_assault'), Sum('burglary'), Sum('grand_larceny'), Sum('grand_larceny_auto'), Sum('total'))
 		for stat in thisMonthCompstats:
 			# add values for this month's compstats
 			precinct = stat['precinct']
-			# TEMPORARILY SKIP 9TH PRECINCT
-			if precinct != '009':
+			# TEMPORARILY SKIP 9TH PRECINCT if either start date is on 2015-04-20
+			if precinct == '009' and (startDateobject == fourTwenty or fiveWeeksAgoObject == fourTwenty):
+				response[precinct] = {}
+			else:
 				response[precinct] = {}
 				response[precinct]['start_date'] = fourWeeksAgoObject
 				response[precinct]['end_date'] = endDateobject
@@ -205,10 +214,10 @@ def compstatApi(request):
 				response[precinct]['grand_larceny_auto'] = stat['grand_larceny_auto__sum']
 				response[precinct]['total'] = stat['total__sum']
 				# show the previous month's compstats
-				lastMonthCompstats = compstat.objects.filter(start_date__gte=eightWeeksAgoObject, end_date__lte=fourWeeksAgoPlusOneDayObject, precinct__exact=precinct).values('precinct').annotate(Sum('murder'), Sum('rape'), Sum('robbery'), Sum('felony_assault'), Sum('burglary'), Sum('grand_larceny'), Sum('grand_larceny_auto'), Sum('total'))
+				lastMonthCompstats = compstat.objects.filter(start_date__gte=fiveWeeksAgoObject, end_date__lte=fourWeeksAgoObject, precinct__exact=precinct).values('precinct').annotate(Sum('murder'), Sum('rape'), Sum('robbery'), Sum('felony_assault'), Sum('burglary'), Sum('grand_larceny'), Sum('grand_larceny_auto'), Sum('total'))
 				for lastStat in lastMonthCompstats:
-					response[precinct]['last_month_start_date'] = eightWeeksAgoObject
-					response[precinct]['last_month_end_date'] = fourWeeksAgoPlusOneDayObject
+					response[precinct]['last_month_start_date'] = fiveWeeksAgoObject
+					response[precinct]['last_month_end_date'] = fourWeeksAgoObject
 					response[precinct]['last_month_murder'] = lastStat['murder__sum']
 					response[precinct]['last_month_rape'] = lastStat['rape__sum']
 					response[precinct]['last_month_robbery'] = lastStat['robbery__sum']
