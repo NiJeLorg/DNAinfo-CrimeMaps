@@ -451,7 +451,7 @@ DNAinfoChiShootings.updateChart = function(dataset, communityno, communityname){
 	var evaluateDate = moment().startOf('month');
 	var beginningMonth = moment().subtract(6, 'months');
 	while (evaluateDate >= beginningMonth) {
-		var month = evaluateDate.month();
+		var month = evaluateDate.month() + 1;
 		var year = evaluateDate.year();
 		if (dataset[communityno][month]) {
 			var num_shootings = parseInt(dataset[communityno][month][year]['num_shootings']);
