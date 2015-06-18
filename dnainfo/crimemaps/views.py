@@ -216,7 +216,7 @@ def compstatApi(request):
 				# show the previous month's compstats
 				lastMonthCompstats = compstat.objects.filter(start_date__gte=fiveWeeksAgoObject, end_date__lte=fourWeeksAgoObject, precinct__exact=precinct).values('precinct').annotate(Sum('murder'), Sum('rape'), Sum('robbery'), Sum('felony_assault'), Sum('burglary'), Sum('grand_larceny'), Sum('grand_larceny_auto'), Sum('total'))
 				for lastStat in lastMonthCompstats:
-					response[precinct]['last_month_start_date'] = fiveWeeksAgoObject
+					response[precinct]['last_month_start_date'] = eightWeeksAgoObject
 					response[precinct]['last_month_end_date'] = fourWeeksAgoObject
 					response[precinct]['last_month_murder'] = lastStat['murder__sum']
 					response[precinct]['last_month_rape'] = lastStat['rape__sum']
