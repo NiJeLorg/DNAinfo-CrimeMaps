@@ -87,4 +87,9 @@ $( document ).ready(function() {
 
 	}
 
+	$('body').on('click', '#viewCitywide', function () {
+		DNAinfoChiShootings.drawCitywideChart();	    
+	});
+
+
 });

@@ -18,5 +18,6 @@ $().ready(new function(){
     myMap.loadPointLayers();
     myMap.loadCommuninities();
     MY_MAP = myMap;
+    DNAinfoChiShootings.drawCitywideChart();
     DNAinfoChiShootings.slightPanUp();
 });

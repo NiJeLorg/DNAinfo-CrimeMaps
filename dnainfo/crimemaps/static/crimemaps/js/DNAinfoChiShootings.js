@@ -123,9 +123,11 @@ DNAinfoChiShootings.onEachFeature_CHISHOOTINGS = function(feature,layer){
 
 		layer.setStyle(highlight);
 
+		/*
 		if (!L.Browser.ie && !L.Browser.opera) {
 	        layer.bringToFront();
 	    }
+	    */
 
 		// add content to description area
 		$('#descriptionTitle').html("<p><strong>Shooting at " + feature.properties.Address + "</strong></p>");
@@ -246,7 +248,7 @@ DNAinfoChiShootings.prototype.loadPointLayers = function (){
 		var nearest = turf.nearest(centerFeature, geojsonData);
 		nearestCenterId = nearest.properties.leafletId;
 		var pointLatLng = L.latLng(nearest.geometry.coordinates[1], nearest.geometry.coordinates[0]);
-		thismap.map._layers[nearestCenterId].fire('click');
+		//thismap.map._layers[nearestCenterId].fire('click');
 		thismap.map._layers[nearestCenterId].fireEvent('mouseover', {
 	      latlng: pointLatLng,
 	      layerPoint: thismap.map.latLngToLayerPoint(pointLatLng),
@@ -410,8 +412,9 @@ DNAinfoChiShootings.drawChart = function(feature,layer){
 
 DNAinfoChiShootings.updateChart = function(dataset, communityno, communityname){
 
+	communityname = communityname.toLowerCase();
 	// add chart title
-	$('#chartTitle').html("<p><strong>" + communityname + "</strong></p>");
+	$('#chartTitle').html("<p class='text-capitalize'><strong>" + communityname + " </strong><button type=\"button\" class=\"btn btn-default btn-xs\" id=\"viewCitywide\">View Citywide</button></p>");
 
 		
 	var yearData = {};
@@ -450,7 +453,6 @@ DNAinfoChiShootings.updateChart = function(dataset, communityno, communityname){
 	while (evaluateDate >= beginningMonth) {
 		var month = evaluateDate.month();
 		var year = evaluateDate.year();
-		console.log(dataset[communityno][month]);
 		if (dataset[communityno][month]) {
 			var num_shootings = parseInt(dataset[communityno][month][year]['num_shootings']);
 			var sum_victims = parseInt(dataset[communityno][month][year]['sum_victims']);
@@ -594,6 +596,207 @@ DNAinfoChiShootings.updateChart = function(dataset, communityno, communityname){
 }
 
 
+DNAinfoChiShootings.drawCitywideChart = function(){
+	// remove any charts if they exist
+	d3.select('#barChart').selectAll("*").remove();
+
+	// remove chart title
+	$('#chartTitle').html("");
+
+	// don't bother attempting if neighborhood is undefined
+	d3.json('/chishootingcitywidesaggregateapi/', function(data) {
+		var dataset = data;
+		DNAinfoChiShootings.updateCitywideChart(dataset);
+	});			
+
+}
+
+
+DNAinfoChiShootings.updateCitywideChart = function(dataset){
+
+	// add chart title
+	$('#chartTitle').html("<p class='text-capitalize'><strong>Citywide</strong></p>");
+
+		
+	var yearData = {};
+	yearData.labels = [];
+	yearData.series = [{label: 'Shootings', values: []}, {label: 'Shooting Victims', values: []}, {label: 'Homicide Victims', values: []}];
+
+	// this year
+	var thisYear = parseInt(moment().format("YYYY"));
+
+	for (var i = thisYear; i >= 2010; i--) {
+		if (dataset[i]) {
+			var num_shootings = parseInt(dataset[i]['num_shootings']);
+			var sum_victims = parseInt(dataset[i]['sum_victims']);
+			var sum_homicide = parseInt(dataset[i]['sum_homicide']);
+		} else {
+			var num_shootings = 0;
+			var sum_victims = 0;
+			var sum_homicide = 0;
+		}
+		yearData.labels.push(i);
+		yearData.series[0].values.push(num_shootings);
+		yearData.series[1].values.push(sum_victims);
+		yearData.series[2].values.push(sum_homicide);
+	};
+
+	drawHorizBarchart(yearData, 'year')
+
+
+	// this month
+	var monthData = {};
+	monthData.labels = [];
+	monthData.series = [{label: 'Shootings', values: []}, {label: 'Victims', values: []}, {label: 'Homicides', values: []}];
+
+	var evaluateDate = moment().startOf('month');
+	var beginningMonth = moment().subtract(6, 'months');
+	while (evaluateDate >= beginningMonth) {
+		var month = evaluateDate.month() + 1;
+		var year = evaluateDate.year();
+		if (dataset[month]) {
+			var num_shootings = parseInt(dataset[month][year]['num_shootings']);
+			var sum_victims = parseInt(dataset[month][year]['sum_victims']);
+			var sum_homicide = parseInt(dataset[month][year]['sum_homicide']);
+		} else {
+			var num_shootings = 0;
+			var sum_victims = 0;
+			var sum_homicide = 0;
+		}
+		var monthLabel = evaluateDate.format("MMM YYYY");
+		monthData.labels.push(monthLabel);
+		monthData.series[0].values.push(num_shootings);
+		monthData.series[1].values.push(sum_victims);
+		monthData.series[2].values.push(sum_homicide);
+
+		evaluateDate.subtract(1, 'months');
+	
+	}
+
+	drawHorizBarchart(monthData, 'month')
+
+
+	function drawHorizBarchart (data, type) {
+		// Zip the series data together (first values, second values, etc.)
+		var zippedData = [];
+		for (var i=0; i<data.labels.length; i++) {
+		  for (var j=0; j<data.series.length; j++) {
+		    zippedData.push(data.series[j].values[i]);
+		  }
+		}
+
+		if (type == 'year') {
+			var	chartWidth       = ($('#barChart').width()/2)/3,
+			    spaceForLabels   = 30,
+			    spaceForLegend   = 30;
+		} else {
+			var chartWidth       = ($('#barChart').width()/2)/3,
+			    spaceForLabels   = 50,
+			    spaceForLegend   = 90;
+		}
+
+		var margin 			 = {top: 30, right: 0, bottom: 30, left: 0},
+		    barHeight        = 10,
+		    groupHeight      = barHeight * data.series.length,
+		    gapBetweenGroups = 10;
+
+	    var color = [ "#ad1515", "#377EB8", "#4DAF4A" ];
+	    var chartHeight = barHeight * zippedData.length + gapBetweenGroups * data.labels.length;
+
+		var x = d3.scale.linear()
+		    .domain([0, d3.max(zippedData)])
+		    .range([0, chartWidth]); 
+
+		var y = d3.scale.linear()
+		    .range([chartHeight + gapBetweenGroups, 0]);
+
+		var yAxis = d3.svg.axis()
+		    .scale(y)
+		    .tickFormat('')
+		    .tickSize(0)
+		    .orient("left");
+
+		// draw bar chart
+		var chart = d3.select('#barChart')
+			.append("svg")
+		    .attr("width", spaceForLabels + chartWidth + spaceForLegend)
+		    .attr("height", chartHeight);
+
+		// Create bars
+		var bar = chart.selectAll("g")
+		    .data(zippedData)
+		    .enter().append("g")
+		    .attr("transform", function(d, i) {
+		      return "translate(" + spaceForLabels + "," + (i * barHeight + gapBetweenGroups * (0.5 + Math.floor(i/data.series.length))) + ")";
+		    });
+
+		// Create rectangles of the correct width
+		bar.append("rect")
+		    .attr("fill", function(d,i) { return color[i % data.series.length]; })
+		    .attr("class", "bar")
+		    .attr("width", x)
+		    .attr("height", barHeight - 1);
+
+		// Add text label in bar
+		bar.append("text")
+			.attr("class", "label")
+		    .attr("x", function(d) { return x(d) + 3; })
+		    .attr("y", barHeight / 2)
+		    .attr("dy", ".25em")
+		    .text(function(d) { return d; });
+
+		// Draw labels
+		bar.append("text")
+		    .attr("class", "label")
+		    .attr("text-anchor", "end")
+		    .attr("x", function(d) { return - 4; })
+		    .attr("y", groupHeight / 2)
+		    .attr("dy", ".25em")
+		    .text(function(d,i) {
+		      if (i % data.series.length === 0)
+		        return data.labels[Math.floor(i/data.series.length)];
+		      else
+		        return ""});
+
+		chart.append("g")
+		      .attr("class", "y axis")
+		      .attr("transform", "translate(" + spaceForLabels + ", " + -gapBetweenGroups/2 + ")")
+		      .call(yAxis);
+
+		// Draw legend
+		var legendRectSize = 10,
+		    legendSpacing  = 2;
+
+		var legend = chart.selectAll('.legend')
+		    .data(data.series)
+		    .enter()
+		    .append('g')
+		    .attr('transform', function (d, i) {
+		        var height = legendRectSize + legendSpacing;
+		        var offset = -gapBetweenGroups/2;
+		        var horz = spaceForLabels + chartWidth + 42 - legendRectSize;
+		        var vert = i * height - offset;
+		        return 'translate(' + horz + ',' + vert + ')';
+		    });
+
+		legend.append('rect')
+		    .attr('width', legendRectSize)
+		    .attr('height', legendRectSize)
+		    .style('fill', function (d, i) { return color[i]; })
+		    .style('stroke', function (d, i) { return color[i]; });
+
+		legend.append('text')
+		    .attr('class', 'label')
+		    .attr('x', legendRectSize + legendSpacing)
+		    .attr('y', legendRectSize - legendSpacing)
+		    .text(function (d) { return d.label; });
+
+
+	}
+
+}
+
+
 DNAinfoChiShootings.updateMapFromSliderCombo = function (){
 	// close popups
 	MY_MAP.map.closePopup();
@@ -604,18 +807,20 @@ DNAinfoChiShootings.updateMapFromSliderCombo = function (){
 	var dateFormat = d3.time.format("%Y-%m-%dT%X");
 
 	// combo box selections
-	var district = $( "#district option:selected" ).val();
+	//var district = $( "#district option:selected" ).val();
 	var communityno = $( "#communityno option:selected" ).val();
-	var location = $( "#location option:selected" ).val();
+	//var location = $( "#location option:selected" ).val();
 	var dayofweek = $( "#dayofweek option:selected" ).val();
-	var minhour = $( "#minhour option:selected" ).val();
-	var maxhour = $( "#maxhour option:selected" ).val();
-	var mintotalvict = $( "#mintotalvict option:selected" ).val();
-	var maxtotalvict = $( "#maxtotalvict option:selected" ).val();
-	var minhomvics = $( "#minhomvics option:selected" ).val();
-	var maxhomvics = $( "#maxhomvics option:selected" ).val();
+	var hour = $( "#hour option:selected" ).val();
+	//var minhour = $( "#minhour option:selected" ).val();
+	//var maxhour = $( "#maxhour option:selected" ).val();
+	//var mintotalvict = $( "#mintotalvict option:selected" ).val();
+	//var maxtotalvict = $( "#maxtotalvict option:selected" ).val();
+	//var minhomvics = $( "#minhomvics option:selected" ).val();
+	//var maxhomvics = $( "#maxhomvics option:selected" ).val();
 
 	// create comma seperated range of hours
+	/*
 	var hours = [];
 	// ensure that min and max hours have a value if none is selected
 	if (minhour == '') {
@@ -644,8 +849,9 @@ DNAinfoChiShootings.updateMapFromSliderCombo = function (){
 	}
 
 	hours = hours.join(','); 
+	*/
 
-	d3.json('/chishootingsapi/?startDate=' + startDate + '&endDate=' + endDate + '&district=' + district + '&communityno=' + communityno + '&location=' + location + '&dayofweek=' + dayofweek + '&hour=' + hours + '&mintotalvict=' + mintotalvict + '&maxtotalvict=' + maxtotalvict + '&minhomvics=' + minhomvics + '&maxhomvics=' + maxhomvics, function(data) {
+	d3.json('/chishootingsapi/?startDate=' + startDate + '&endDate=' + endDate + '&communityno=' + communityno + '&dayofweek=' + dayofweek + '&hour=' + hour, function(data) {
 		geojsonData = data;
 		$.each(geojsonData.features, function(i, d){
 			d.properties.Date = dateFormat.parse(d.properties.Date);

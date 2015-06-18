@@ -17,4 +17,5 @@ urlpatterns = [
     url(r'^chishootings/$', views.chiShootingsPage, name='chiShootingsPage'),
     url(r'^chishootingsapi/$', views.chiShootingsApi, name='chiShootingsApi'),
     url(r'^chishootingsaggregateapi/$', views.chiShootingsAggregateApi, name='chiShootingsAggregateApi'),
+    url(r'^chishootingcitywidesaggregateapi/$', views.chiShootingsCitywideAggregateApi, name='chiShootingsCitywideAggregateApi'),
 ]
