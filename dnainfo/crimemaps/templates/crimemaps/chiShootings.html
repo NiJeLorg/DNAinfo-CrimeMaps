@@ -32,7 +32,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
-                            <p><strong>Filter Shootings By:</strong></p>
+                            <p><strong>Show Shootings on Map:</strong></p>
                             <div id="timeSlider"></div>
                             <small>Date Range Selected: <span id="printStartDate"></span> - <span id="printEndDate"></span></small>
                             <br />
@@ -281,10 +281,18 @@
 {% endblock %}
 
 {% block js_block %}
+    <script type="text/javascript">
+      //add loading class to body
+      $("body").addClass("loading");
+      // remove when widdow is fully loaded
+      window.onload = function() {
+        $("body").removeClass("loading");
+      }
+    </script>
 	<!-- create locations geojsons-->
 	<script type="text/javascript">
-    var startDate = '{{ startDate }}';
-    var endDate = '{{ endDate }}';
+    var startDate = '{{ startDate|date:"c" }}';
+    var endDate = '{{ endDate|date:"c" }}';
     var center = '{{ center }}';
     var chiCommunities = "{% static 'crimemaps/data/chi_acs_2013_commareas_commute.topojson' %}";
 	</script>

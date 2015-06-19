@@ -69,13 +69,12 @@ DNAinfoCompstatMap.onEachFeature_POLYGONS = function(feature,layer){
 	var percentChange = ((Math.abs(feature.properties.total - feature.properties.last_month_total) / feature.properties.last_month_total) * 100).toFixed(0);
 
 	if (isNaN(percentChange)) {
-		var headingTotalText = "Data not avialable<br />for this precinct.";
+		var headingTotalText = "Data not available<br />for this precinct.";
 	} else if (feature.properties.diff_total > 0) {
 		var headingTotalText = "<strong><span class='increaseTextPopup'>"+ percentChange +"% increase</span></strong> in major<br />crimes from previous<br />four weeks.";
 	} else {
 		var headingTotalText = "<strong><span class='decreaseTextPopup'>"+ percentChange +"% decrease</span></strong> in major<br />crimes from previous<br />four weeks.";
 	}
-
 
 
 	layer.bindLabel("<strong>" + precinct + " Precinct</strong><br />" + headingTotalText, { direction:'auto' });
