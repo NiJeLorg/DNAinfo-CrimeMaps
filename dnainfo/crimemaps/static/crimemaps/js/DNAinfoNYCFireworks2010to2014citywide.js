@@ -3,10 +3,10 @@
 */
 
 // initialize map
-function DNAinfoNYCFireworks2010to2014() {
+function DNAinfoNYCFireworks2010to2014citywide() {
 	// set zoom and center for this map
-	this.center = DNAinfoNYCFireworks2010to2014.centerBySubdomain();
-    this.zoom = 14;
+	this.center = [40.749435, -73.940735];
+    this.zoom = 12;
 
     this.map = new L.Map('map', {
 		minZoom:11,
@@ -38,19 +38,19 @@ function DNAinfoNYCFireworks2010to2014() {
 
 	// subscribe to zoomend event to show
 	this.map.on('zoomend', function(e) {
-	    DNAinfoNYCFireworks2010to2014.checkZoomSwitchLayers();
+	    DNAinfoNYCFireworks2010to2014citywide.checkZoomSwitchLayers();
 	});
 
 
 }
 
 // get and set bounds based on open wrapper
-DNAinfoNYCFireworks2010to2014.slightPanUp = function (){
+DNAinfoNYCFireworks2010to2014citywide.slightPanUp = function (){
 	var point = L.point(0, 150);
 	MY_MAP.map.panBy(point);
 }
 
-DNAinfoNYCFireworks2010to2014.onEachFeature_FIREWORKS = function(feature,layer){	
+DNAinfoNYCFireworks2010to2014citywide.onEachFeature_FIREWORKS = function(feature,layer){	
 	var highlight = {
 	    weight: 2,
 	    color: '#000'
@@ -73,16 +73,9 @@ DNAinfoNYCFireworks2010to2014.onEachFeature_FIREWORKS = function(feature,layer){
 		var resolution_description = '';
 	}
 
-
 	layer.bindLabel("<strong>" + printAddress + "</strong><br />" + feature.properties.complaint_type + "<br />" + dateFormat(feature.properties.created_date), { direction:'auto' });
 	
     layer.on('mouseover', function(ev) {	
-
-		if (layer._leaflet_id != nearestCenterId) {
-			// don't show center label
-			MY_MAP.map._layers[nearestCenterId].label.close();
-			MY_MAP.map._layers[nearestCenterId].setStyle(noHighlight);
-		} 
 
 		layer.setStyle(highlight);
 
@@ -111,13 +104,6 @@ DNAinfoNYCFireworks2010to2014.onEachFeature_FIREWORKS = function(feature,layer){
 			$( ".map" ).toggleClass("map-popup-wrapper-open");		
 		}
 
-		if (layer._leaflet_id != nearestCenterId) {
-			// don't show center label
-			MY_MAP.map._layers[nearestCenterId].label.close();
-			MY_MAP.map._layers[nearestCenterId].setStyle(noHighlight);
-		} 
-
-
 		// add content to description area
 		$('#descriptionTitle').html("<p><strong>" + printAddress + "</strong></p>");
 
@@ -132,7 +118,7 @@ DNAinfoNYCFireworks2010to2014.onEachFeature_FIREWORKS = function(feature,layer){
 }
 
 
-DNAinfoNYCFireworks2010to2014.onEachFeature_POLYGONS = function(feature,layer){	
+DNAinfoNYCFireworks2010to2014citywide.onEachFeature_POLYGONS = function(feature,layer){	
 	var highlight = {
 	    color: '#000'
 	};
@@ -159,7 +145,7 @@ DNAinfoNYCFireworks2010to2014.onEachFeature_POLYGONS = function(feature,layer){
 
 }
 
-DNAinfoNYCFireworks2010to2014.prototype.loadPointLayers = function (){
+DNAinfoNYCFireworks2010to2014citywide.prototype.loadPointLayers = function (){
 	// load points layers
 	var thismap = this;
 	var dateFormat = d3.time.format("%Y-%m-%dT%X.%L");
@@ -185,13 +171,13 @@ DNAinfoNYCFireworks2010to2014.prototype.loadPointLayers = function (){
 			}
 		});
 		thismap.FIREWORKS = L.geoJson(geojsonData, {
-		    pointToLayer: DNAinfoNYCFireworks2010to2014.getStyleFor_FIREWORKS,
-			onEachFeature: DNAinfoNYCFireworks2010to2014.onEachFeature_FIREWORKS
-		}).addTo(thismap.map);
+		    pointToLayer: DNAinfoNYCFireworks2010to2014citywide.getStyleFor_FIREWORKS,
+			onEachFeature: DNAinfoNYCFireworks2010to2014citywide.onEachFeature_FIREWORKS
+		});
 
-		thismap.HEATMAP = L.heatLayer(heatMapData, {radius: 25, blur: 5, minOpacity: 0.4});
+		thismap.HEATMAP = L.heatLayer(heatMapData, {radius: 25, blur: 5, minOpacity: 0.4}).addTo(thismap.map);
 
-		findCenterandFire();
+		//findCenterandFire();
 
 	});
 
@@ -224,7 +210,7 @@ DNAinfoNYCFireworks2010to2014.prototype.loadPointLayers = function (){
 }
 
 
-DNAinfoNYCFireworks2010to2014.prototype.loadNeighborhoods = function (){
+DNAinfoNYCFireworks2010to2014citywide.prototype.loadNeighborhoods = function (){
 	var thismap = this;
 	d3.json(NYC_Neighborhoods, function(data) {
 		polyTopojson = topojson.feature(data, data.objects.nyc_acs_2013_neighareas_commute).features;
@@ -233,8 +219,8 @@ DNAinfoNYCFireworks2010to2014.prototype.loadNeighborhoods = function (){
 
 	function drawPolys() {
 		thismap.POLYGONS = L.geoJson(polyTopojson, {
-		    style: DNAinfoNYCFireworks2010to2014.getStyleFor_POLYGONS,
-			onEachFeature: DNAinfoNYCFireworks2010to2014.onEachFeature_POLYGONS
+		    style: DNAinfoNYCFireworks2010to2014citywide.getStyleFor_POLYGONS,
+			onEachFeature: DNAinfoNYCFireworks2010to2014citywide.onEachFeature_POLYGONS
 		});
 		thismap.POLYGONS.addTo(thismap.map).bringToBack();
 	}
@@ -242,7 +228,7 @@ DNAinfoNYCFireworks2010to2014.prototype.loadNeighborhoods = function (){
 }
 
 
-DNAinfoNYCFireworks2010to2014.getStyleFor_FIREWORKS = function (feature, latlng){
+DNAinfoNYCFireworks2010to2014citywide.getStyleFor_FIREWORKS = function (feature, latlng){
 
 	var pointMarker = L.circleMarker(latlng, {
 		radius: 10,
@@ -257,7 +243,7 @@ DNAinfoNYCFireworks2010to2014.getStyleFor_FIREWORKS = function (feature, latlng)
 	
 }
 
-DNAinfoNYCFireworks2010to2014.getStyleFor_POLYGONS = function (feature){
+DNAinfoNYCFireworks2010to2014citywide.getStyleFor_POLYGONS = function (feature){
     return {
         weight: 2,
         opacity: 1,
@@ -267,7 +253,7 @@ DNAinfoNYCFireworks2010to2014.getStyleFor_POLYGONS = function (feature){
     }
 }
 
-DNAinfoNYCFireworks2010to2014.checkZoomSwitchLayers = function (){
+DNAinfoNYCFireworks2010to2014citywide.checkZoomSwitchLayers = function (){
 	// if zoom level is small, show the small dots on the map, otherwise show the heatmap
 	// only if checked 
 	if (MY_MAP.map.getZoom() < 14) {
@@ -282,7 +268,7 @@ DNAinfoNYCFireworks2010to2014.checkZoomSwitchLayers = function (){
 
 
 
-DNAinfoNYCFireworks2010to2014.centerBySubdomain = function (){
+DNAinfoNYCFireworks2010to2014citywide.centerBySubdomain = function (){
 	// Based on a url like the following: 
 	// http://www.dnainfo.com/new-york/20150428/mott-haven/man-busted-on-stolen-citi-bike-claimed-he-borrowed-it-from-his-cousin-nypd
 

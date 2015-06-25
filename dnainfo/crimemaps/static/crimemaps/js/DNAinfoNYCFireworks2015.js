@@ -67,15 +67,16 @@ DNAinfoNYCFireworks2015.onEachFeature_FIREWORKS = function(feature,layer){
 		var printAddress = feature.properties.intersection_street_1 + " and " +feature.properties.intersection_street_2
 	}
 
+	if (feature.properties.resolution_description) {
+		var resolution_description = feature.properties.resolution_description;
+	} else {
+		var resolution_description = '';
+	}
+
 	layer.bindLabel("<strong>" + printAddress + "</strong><br />" + feature.properties.complaint_type + "<br />" + dateFormat(feature.properties.created_date), { direction:'auto' });
 	
     layer.on('mouseover', function(ev) {	
 
-		if (layer._leaflet_id != nearestCenterId) {
-			// don't show center label
-			MY_MAP.map._layers[nearestCenterId].label.close();
-			MY_MAP.map._layers[nearestCenterId].setStyle(noHighlight);
-		} 
 
 		layer.setStyle(highlight);
 
@@ -87,7 +88,7 @@ DNAinfoNYCFireworks2015.onEachFeature_FIREWORKS = function(feature,layer){
 		// add content to description area
 		$('#descriptionTitle').html("<p><strong>" + printAddress + "</strong></p>");
 
-		$('#description').html("<p>" + feature.properties.complaint_type + " <br />"+ dateFormat(feature.properties.created_date) +"<br />Location Type:" + feature.properties.location_type + "</p><p>"+ feature.properties.resolution_description +"</p></div>");
+		$('#description').html("<p>" + feature.properties.complaint_type + " <br />"+ dateFormat(feature.properties.created_date) +"<br />Location Type:" + feature.properties.location_type + "</p><p>"+ resolution_description +"</p></div>");
 
     });
 		
@@ -104,17 +105,10 @@ DNAinfoNYCFireworks2015.onEachFeature_FIREWORKS = function(feature,layer){
 			$( ".map" ).toggleClass("map-popup-wrapper-open");		
 		}
 
-		if (layer._leaflet_id != nearestCenterId) {
-			// don't show center label
-			MY_MAP.map._layers[nearestCenterId].label.close();
-			MY_MAP.map._layers[nearestCenterId].setStyle(noHighlight);
-		} 
-
-
 		// add content to description area
 		$('#descriptionTitle').html("<p><strong>" + printAddress + "</strong></p>");
 
-		$('#description').html("<p>" + feature.properties.complaint_type + " <br />"+ dateFormat(feature.properties.created_date) +"<br />Location Type:" + feature.properties.location_type + "</p><p>"+ feature.properties.resolution_description +"</p></div>");
+		$('#description').html("<p>" + feature.properties.complaint_type + " <br />"+ dateFormat(feature.properties.created_date) +"<br />Location Type:" + feature.properties.location_type + "</p><p>"+ resolution_description +"</p></div>");
 
 
 	});
@@ -142,7 +136,6 @@ DNAinfoNYCFireworks2015.onEachFeature_POLYGONS = function(feature,layer){
 	        layer.bringToFront();
 	        MY_MAP.FIREWORKS.bringToFront();
 	    }
-
 
     });
 		

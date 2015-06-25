@@ -750,3 +750,9 @@ def nycfireworks2010to2014(request):
 def nycfireworks2015(request):
 	return render(request, 'crimemaps/nycfireworks2015.html', {})
 
+def nycfireworks2010to2014citywide(request):
+	return render(request, 'crimemaps/nycfireworks2010to2014citywide.html', {})
+
+def nycfireworks2015citywide(request):
+	return render(request, 'crimemaps/nycfireworks2015citywide.html', {})
+
