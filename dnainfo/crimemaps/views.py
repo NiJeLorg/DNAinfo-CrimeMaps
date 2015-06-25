@@ -35,7 +35,6 @@ def transportToWork(request):
 def chiTransportToWork(request):
 	return render(request, 'crimemaps/chiTransportToWork.html', {})
 
-
 def linkiframebuilder(request):
 	# time zone
 	time_zone = pytz.timezone('America/New_York')
@@ -745,5 +744,9 @@ def chiShootingsCitywideAggregateApi(request):
 	return JsonResponse(response)
 
 
+def nycfireworks2010to2014(request):
+	return render(request, 'crimemaps/nycfireworks2010to2014.html', {})
 
+def nycfireworks2015(request):
+	return render(request, 'crimemaps/nycfireworks2015.html', {})
 
