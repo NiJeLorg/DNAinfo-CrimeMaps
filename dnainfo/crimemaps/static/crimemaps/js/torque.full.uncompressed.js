@@ -3329,7 +3329,8 @@ var Profiler = require('../profiler');
     },
 
     isHttps: function() {
-      return this.options.sql_api_protocol && this.options.sql_api_protocol === 'https';
+        return true;
+      //return this.options.sql_api_protocol && this.options.sql_api_protocol === 'https';
     },
 
     // execute actual query
@@ -4273,7 +4274,7 @@ var Profiler = require('../profiler');
       if (opts.no_cdn || has_empty_cdn) {
         return this._tilerHost();
       } else {
-        var protocol = this.isHttps() ? 'https': 'https';
+        var protocol = this.isHttps() ? 'https': 'http';
         var h = protocol + "://";
         if (!this.isHttps()) {
           h += "{s}.";
@@ -4297,7 +4298,8 @@ var Profiler = require('../profiler');
     },
 
     isHttps: function() {
-      return this.options.maps_api_template.indexOf('https') === 0;
+        return true;
+      //return this.options.maps_api_template.indexOf('https') === 0;
     },
 
     _generateCartoCSS: function() {
