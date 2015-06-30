@@ -756,3 +756,15 @@ def nycfireworks2010to2014citywide(request):
 def nycfireworks2015citywide(request):
 	return render(request, 'crimemaps/nycfireworks2015citywide.html', {})
 
+def nycfireworks2010to2014torque(request):
+	return render(request, 'crimemaps/nycfireworks2010to2014torque.html', {})
+
+def nycfireworks2015torque(request):
+	return render(request, 'crimemaps/nycfireworks2015torque.html', {})
+
+def nycfireworks2010to2014citywidetorque(request):
+	return render(request, 'crimemaps/nycfireworks2010to2014citywidetorque.html', {})
+
+def nycfireworks2015citywidetorque(request):
+	return render(request, 'crimemaps/nycfireworks2015citywidetorque.html', {})
+
