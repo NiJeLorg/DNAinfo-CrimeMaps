@@ -199,6 +199,7 @@ DNAinfoNYCFireworks2010to2014torque.prototype.loadPointLayers = function (){
 		  '-torque-frame-count: 512;',
 		  '-torque-animation-duration: 10;',
 		  '-torque-resolution: 2',
+		  '-torque-sql_api_protocol: "https"',
 		  '}',
 		  '#layer {',
 		  '  marker-width: 20;',
