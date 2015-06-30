@@ -4273,8 +4273,7 @@ var Profiler = require('../profiler');
       if (opts.no_cdn || has_empty_cdn) {
         return this._tilerHost();
       } else {
-        var protocol = this.isHttps() ? 'https': 'http';
-        console.log(protocol);
+        var protocol = this.isHttps() ? 'https': 'https';
         var h = protocol + "://";
         if (!this.isHttps()) {
           h += "{s}.";
