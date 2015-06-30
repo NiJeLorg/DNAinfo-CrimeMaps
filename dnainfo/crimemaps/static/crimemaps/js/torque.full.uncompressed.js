@@ -4321,13 +4321,13 @@ var Profiler = require('../profiler');
       var self = this;
       var layergroup = {};
       var host = this.options.dynamic_cdn ? this.url().replace('{s}', '0'): this._tilerHost();
-      var url = host + "/api/v1/map";
+      var url = "https://jd.cartodb.com/api/v1/map";
       var named = this.options.named_map;
       var allParams = {};
 
       if(named) {
         //tiles/template
-        url = host + "/api/v1/map/named/" + named.name + "/jsonp";
+        url = "https://jd.cartodb.com/api/v1/map/named/" + named.name + "/jsonp";
         if(typeof named.params !== "undefined"){
           layergroup = named.params;
         }
@@ -4381,7 +4381,7 @@ var Profiler = require('../profiler');
             c.http = data.cdn_url.http || c.http;
             c.https = data.cdn_url.https || c.https;
           }
-          self.templateUrl = self.url() + "/api/v1/map/" + data.layergroupid + "/" + torque_key + "/{z}/{x}/{y}.json.torque";
+          self.templateUrl = "https://jd.cartodb.com/api/v1/map/" + data.layergroupid + "/" + torque_key + "/{z}/{x}/{y}.json.torque";
           self._setReady(true);
         } else {
           Profiler.metric('torque.provider.windshaft.layergroup.error').inc();
