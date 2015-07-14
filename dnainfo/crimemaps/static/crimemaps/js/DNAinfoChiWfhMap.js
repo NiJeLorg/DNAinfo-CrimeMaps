@@ -249,7 +249,7 @@ DNAinfoChiWfhMap.centerBySubdomain = function (){
 		"austin": [41.892953, -87.761562],
 		"humboldt-park": [41.901704, -87.702482],
 		"garfield-park": [41.881308, -87.714772],
-		"east-garfield-park": [(41.881858, -87.702482)],
+		"east-garfield-park": [41.881858, -87.702482],
 		"montclare": [41.929385, -87.798165],
 		"beverly": [41.717120, -87.67618],
 		"morgan-park": [41.687840, -87.669003],

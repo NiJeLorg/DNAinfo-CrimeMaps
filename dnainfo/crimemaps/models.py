@@ -99,6 +99,11 @@ class chiShootings(models.Model):
 	def __unicode__(self):
 		return self.Address
 
+#model for neighborhood drawing site
+class neighborhoodDraw(models.Model):
+	neighborhoodLive = models.CharField(max_length=255, default='', blank=False, null=False)
+	yearsLived = models.IntegerField(default=0, blank=False, null=False)
+	drawnGeojson = models.TextField(default='')
 
 
 

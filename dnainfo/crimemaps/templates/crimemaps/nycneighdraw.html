@@ -1,0 +1,63 @@
+{% extends 'crimemaps/baseNoBottomNav.html' %}
+{% load staticfiles %}
+
+{% block css_block %}
+    <link rel="stylesheet" type="text/css" href="{% static 'crimemaps/css/leaflet.css' %}">
+{% endblock %}
+
+{% block head_js_block %}
+{% endblock %}
+	
+{% block body_block %}
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <div class="navbar-brand">DNAinfo New York</div>
+        </div>
+      </div> 
+    </nav>
+
+
+        <!-- Map Content -->
+        <div id="map" class="map"></div>
+
+
+{% endblock %}
+
+{% block modal_block %}
+<!-- intro how to modal -->
+<div class="modal fade" id="introduction" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body modalContent">
+        <h3 class="text-center text-uppercase">Drawing Your Neighborhood</h3>
+        <p class="text-justify">
+            Instructions here.
+        </p>
+        <div class="clearfix"></div>
+        <button id="closeIntroModalSurvey" class="btn btn-danger btn-lg center-block" type="submit">Go For It!</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block js_block %}
+
+	<!-- create locations geojsons-->
+	<script type="text/javascript">
+        $('#introduction').modal('show');
+        var NYC_Neighborhoods = "{% static 'crimemaps/data/nyc_acs_2013_neighareas_commute.geojson' %}";
+        var neighborhoodLive = "{{ neighborhoodDrawObject.neighborhoodLive }}"
+	</script>
+	<script type="text/javascript" src="{% static 'crimemaps/js/leaflet.js' %}"></script>
+    <script type="text/javascript" src="{% static 'crimemaps/js/turf.min.js' %}"></script>
+    <script type="text/javascript" src="http://maps.stamen.com/js/tile.stamen.js?v1.3.0"></script>
+	<script type="text/javascript" src="{% static 'crimemaps/js/DNAinfoNYCNeighDraw.js' %}"></script>
+	<script type="text/javascript" src="{% static 'crimemaps/js/nycneighdrawapp.js' %}"></script>
+{% endblock %}
+
+
+	
+	
+

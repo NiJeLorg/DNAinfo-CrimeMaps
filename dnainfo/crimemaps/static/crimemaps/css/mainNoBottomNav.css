@@ -310,5 +310,11 @@ body.loading .loading-modal {
 	}
 }
 
+/*
+* Form top padding
+*/
 
+.topPadding50 {
+	padding-top: 50px;
+}
 

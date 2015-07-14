@@ -2,9 +2,13 @@ from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.db.models import Sum, Count
 from django.db.models import Q
+from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect
 
-#import all crimemaps models
+
+#import all crimemaps models and forms
 from crimemaps.models import *
+from crimemaps.forms import *
 
 #for creating json objects
 import json
@@ -767,4 +771,40 @@ def nycfireworks2010to2014citywidetorque(request):
 
 def nycfireworks2015citywidetorque(request):
 	return render(request, 'crimemaps/nycfireworks2015citywidetorque.html', {})
+
+def nycneigh(request, id=None):
+    if id:
+		neighborhoodDrawObject = neighborhoodDraw.objects.get(pk=id)
+    else:
+        neighborhoodDrawObject = neighborhoodDraw()
+
+    # A HTTP POST?
+    if request.method == 'POST':
+        form = nycNeighDrawForm(request.POST, instance=neighborhoodDrawObject)
+
+        # Have we been provided with a valid form?
+        if form.is_valid():
+            # Save the new data to the database.
+            f = form.save()
+            lookupObject = neighborhoodDraw.objects.get(pk=f.pk)
+            return HttpResponseRedirect(reverse('nycneighdraw', args=(lookupObject.pk,)))
+        else:
+            # The supplied form contained errors - just print them to the terminal.
+            print form.errors
+    else:
+        # If the request was not a POST, display the form to enter details.
+        form = nycNeighDrawForm(instance=neighborhoodDrawObject)
+
+    # Bad form (or form details), no form supplied...
+    # Render the form with error messages (if any).
+	return render(request, 'crimemaps/nycneigh.html', {'form':form})
+
+
+def nycneighdraw(request, id=None):
+	neighborhoodDrawObject = neighborhoodDraw.objects.get(pk=id)
+
+	return render(request, 'crimemaps/nycneighdraw.html', {'neighborhoodDrawObject': neighborhoodDrawObject})
+
+
+
 
