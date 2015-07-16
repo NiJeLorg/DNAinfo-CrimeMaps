@@ -318,3 +318,19 @@ body.loading .loading-modal {
 	padding-top: 50px;
 }
 
+/*
+* Neighborhood draw maps buttons
+*/
+
+#imFinished, #shareFB {
+	position: absolute;
+	top: 122px;
+	left: 10px;
+}
+
+#startOver, #shareTwitter {
+	position: absolute;
+	top: 162px;
+	left: 10px;
+}
+

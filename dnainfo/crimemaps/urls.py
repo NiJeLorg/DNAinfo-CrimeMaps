@@ -29,4 +29,9 @@ urlpatterns = [
     url(r'^nycfireworks2015citywidetorque/$', views.nycfireworks2015citywidetorque, name='nycfireworks2015citywidetorque'),
     url(r'^nycneigh/$', views.nycneigh, name='nycneigh'),
     url(r'^nycneighdraw/(?P<id>\d+)/$', views.nycneighdraw, name='nycneighdraw'),
+    url(r'^nycneighdrawsave/(?P<id>\d+)/$', views.nycneighdrawsave, name='nycneighdrawsave'),
+    url(r'^chineigh/$', views.chineigh, name='chineigh'),
+    url(r'^chineighdraw/(?P<id>\d+)/$', views.chineighdraw, name='chineighdraw'),
+    url(r'^chineighdrawsave/(?P<id>\d+)/$', views.chineighdrawsave, name='chineighdrawsave'),
+
 ]

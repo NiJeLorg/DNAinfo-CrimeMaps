@@ -1,0 +1,79 @@
+{% extends 'crimemaps/baseNoBottomNav.html' %}
+{% load staticfiles %}
+
+{% block css_block %}
+    <link rel="stylesheet" type="text/css" href="{% static 'crimemaps/css/leaflet.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'crimemaps/css/leaflet.draw.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'crimemaps/css/leaflet.label.css' %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+{% endblock %}
+
+{% block head_js_block %}
+{% endblock %}
+	
+{% block body_block %}
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <div class="navbar-brand">DNAinfo Chicago | Drawing <span class="neighborhoodName"></span></div>
+        </div>
+      </div> 
+    </nav>
+
+
+        <!-- Map Content -->
+        <div id="map" class="map"></div>
+        <button id="imFinished" class="btn btn-success hidden" type="submit">I'm Finished</button>
+        <button id="startOver" class="btn btn-warning hidden" type="submit">Start Over</button>
+        <button id="shareFB" class="btn btn-primary hidden" type="submit">Share on <i class="fa fa-facebook-official fa-lg"></i></button>
+        <button id="shareTwitter" class="btn btn-info hidden" type="submit">Share on <i class="fa fa-twitter fa-lg"></i></button>
+
+
+{% endblock %}
+
+{% block modal_block %}
+<!-- intro how to modal -->
+<div class="modal fade" id="introduction" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body modalContent">
+        <h3 class="text-center text-uppercase">Drawing <span class="neighborhoodName"></span></h3>
+        <p>
+          Begin drawing <span class="neighborhoodName"></span> by clicking on the <span class="leaflet-draw-toolbar leaflet-bar leaflet-draw-toolbar-top"><a class="leaflet-draw-draw-polygon" href="#" title="Draw a polygon"></a></span> icon under the zoom tools in the upper-left corner. Draw a full polygon by following the instructions next to your cursor.
+        </p>
+        <p>
+          Once complete, click <button class="btn btn-success" type="submit">I'm Finished</button> if you're satisfied with your work, or <button class="btn btn-warning" type="submit">Start Over</button> if you need to try again.              
+        </p>
+        <p>
+          After you're finished, you'll see the "official" <span class="neighborhoodName"></span> neighborhood boundary appear alonside your drawing. You can share this completed map to Facebook or Twitter by clicking <button class="btn btn-primary" type="submit">Share on <i class="fa fa-facebook-official fa-lg"></i></button> or <button class="btn btn-info" type="submit">Share on <i class="fa fa-twitter fa-lg"></i></button>
+        </p>
+
+        <div class="clearfix"></div>
+        <button id="closeIntroModal" class="btn btn-danger btn-lg center-block" type="submit">Go For It!</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block js_block %}
+  <script type="text/javascript" src="{% static 'crimemaps/js/jquery.cookie.js' %}"></script>
+	<script type="text/javascript">
+    var id = "{{ id }}"
+    var CHI_Neighborhoods = "{% static 'crimemaps/data/chi_acs_2013_commareas_commute.topojson' %}";
+    var neighborhoodLive = "{{ neighborhoodDrawObject.neighborhoodLive }}"
+	</script>
+  <script type="text/javascript" src="{% static 'crimemaps/js/d3.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'crimemaps/js/leaflet.js' %}"></script>
+  <script type="text/javascript" src="{% static 'crimemaps/js/topojson.js' %}"></script>
+  <script type="text/javascript" src="{% static 'crimemaps/js/leaflet.draw.js' %}"></script>
+  <script type="text/javascript" src="{% static 'crimemaps/js/leaflet.label-src.js' %}"></script>
+	<script type="text/javascript" src="{% static 'crimemaps/js/DNAinfoCHINeighDraw.js' %}"></script>
+	<script type="text/javascript" src="{% static 'crimemaps/js/chineighdrawapp.js' %}"></script>
+  <script type="text/javascript" src="{% static 'crimemaps/js/chidrawMapControllers.js' %}"></script>
+{% endblock %}
+
+
+	
+	
+

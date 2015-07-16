@@ -23,6 +23,9 @@ from dateutil import rrule
 #for timezone support
 import pytz
 
+#CSRF decorator
+from django.views.decorators.csrf import ensure_csrf_cookie
+
 # views for DNAinfo crime maps
 def index(request):
 	return redirect('/compstat/')
@@ -773,38 +776,100 @@ def nycfireworks2015citywidetorque(request):
 	return render(request, 'crimemaps/nycfireworks2015citywidetorque.html', {})
 
 def nycneigh(request, id=None):
-    if id:
+	if id:
 		neighborhoodDrawObject = neighborhoodDraw.objects.get(pk=id)
-    else:
-        neighborhoodDrawObject = neighborhoodDraw()
+	else:
+		neighborhoodDrawObject = neighborhoodDraw()
 
-    # A HTTP POST?
-    if request.method == 'POST':
-        form = nycNeighDrawForm(request.POST, instance=neighborhoodDrawObject)
+	# A HTTP POST?
+	if request.method == 'POST':
+		form = nycNeighDrawForm(request.POST, instance=neighborhoodDrawObject)
 
-        # Have we been provided with a valid form?
-        if form.is_valid():
-            # Save the new data to the database.
-            f = form.save()
-            lookupObject = neighborhoodDraw.objects.get(pk=f.pk)
-            return HttpResponseRedirect(reverse('nycneighdraw', args=(lookupObject.pk,)))
-        else:
-            # The supplied form contained errors - just print them to the terminal.
-            print form.errors
-    else:
-        # If the request was not a POST, display the form to enter details.
-        form = nycNeighDrawForm(instance=neighborhoodDrawObject)
+		# Have we been provided with a valid form?
+		if form.is_valid():
+			# Save the new data to the database.
+			f = form.save()
+			lookupObject = neighborhoodDraw.objects.get(pk=f.pk)
+			return HttpResponseRedirect(reverse('nycneighdraw', args=(lookupObject.pk,)))
+		else:
+			# The supplied form contained errors - just print them to the terminal.
+			print form.errors
+	else:
+		# If the request was not a POST, display the form to enter details.
+		form = nycNeighDrawForm(instance=neighborhoodDrawObject)
 
-    # Bad form (or form details), no form supplied...
-    # Render the form with error messages (if any).
+	# Bad form (or form details), no form supplied...
+	# Render the form with error messages (if any).
 	return render(request, 'crimemaps/nycneigh.html', {'form':form})
 
 
+@ensure_csrf_cookie
 def nycneighdraw(request, id=None):
 	neighborhoodDrawObject = neighborhoodDraw.objects.get(pk=id)
 
-	return render(request, 'crimemaps/nycneighdraw.html', {'neighborhoodDrawObject': neighborhoodDrawObject})
+	return render(request, 'crimemaps/nycneighdraw.html', {'neighborhoodDrawObject': neighborhoodDrawObject, 'id':id})
 
 
+def nycneighdrawsave(request, id=None):
+
+	# A HTTP POST?
+	if request.method == 'POST':
+		# update record with geojson
+		neighborhoodDraw.objects.filter(pk=id).update(drawnGeojson=request.POST)
+		empty = {}
+	else:
+		empty = {}
+
+	# Bad form (or form details), no form supplied...
+	return JsonResponse(request.POST)
+
+
+def chineigh(request, id=None):
+	if id:
+		neighborhoodDrawObject = neighborhoodDraw.objects.get(pk=id)
+	else:
+		neighborhoodDrawObject = neighborhoodDraw()
+
+	# A HTTP POST?
+	if request.method == 'POST':
+		form = chiNeighDrawForm(request.POST, instance=neighborhoodDrawObject)
+
+		# Have we been provided with a valid form?
+		if form.is_valid():
+			# Save the new data to the database.
+			f = form.save()
+			lookupObject = neighborhoodDraw.objects.get(pk=f.pk)
+			return HttpResponseRedirect(reverse('chineighdraw', args=(lookupObject.pk,)))
+		else:
+			# The supplied form contained errors - just print them to the terminal.
+			print form.errors
+	else:
+		# If the request was not a POST, display the form to enter details.
+		form = chiNeighDrawForm(instance=neighborhoodDrawObject)
+
+	# Bad form (or form details), no form supplied...
+	# Render the form with error messages (if any).
+	return render(request, 'crimemaps/chineigh.html', {'form':form})
+
+
+@ensure_csrf_cookie
+def chineighdraw(request, id=None):
+	neighborhoodDrawObject = neighborhoodDraw.objects.get(pk=id)
+
+	return render(request, 'crimemaps/chineighdraw.html', {'neighborhoodDrawObject': neighborhoodDrawObject, 'id':id})
+
+
+def chineighdrawsave(request, id=None):
+
+	# A HTTP POST?
+	if request.method == 'POST':
+		# update record with geojson
+		neighborhoodDraw.objects.filter(pk=id).update(drawnGeojson=request.POST)
+		empty = {}
+	else:
+		empty = {}
+
+	# Bad form (or form details), no form supplied...
+	return JsonResponse(request.POST)
 
 

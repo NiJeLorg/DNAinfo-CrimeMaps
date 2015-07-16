@@ -13,7 +13,7 @@ var DRAWNGEOJSON = null;
 var MY_MAP = null;
 
 $().ready(new function(){
-    var myMap = new DNAinfoNYCNeighDraw();
+    var myMap = new DNAinfoCHINeighDraw();
     myMap.loadNeighborhoods();
     MY_MAP = myMap;
 });

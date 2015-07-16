@@ -12,17 +12,14 @@ function DNAinfoNYCNeighDraw() {
 		minZoom:11,
 		maxZoom:17,
     	center: this.center,
-   	 	zoom: this.zoom,
+   	 	zoom: this.zoom
 	});
 
-	this.stamenLayer = new L.StamenTileLayer("toner-lite");
+	//this.stamenLayer = new L.StamenTileLayer("toner-lite");
+	this.stamenLayer = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.png',{
+	  attribution: 'Created By <a href="http://nijel.org/">NiJeL</a> | Map tiles by <a href="http://stamen.com/">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.'
+	});
 	
-	// add CartoDB tiles
-	this.CartoDBLayer = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png',{
-	  attribution: 'Created By <a href="http://nijel.org/">NiJeL</a> | &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
-	});
-	//this.map.addLayer(this.CartoDBLayer);
-
 	this.map.addLayer(this.stamenLayer);
 
 		
@@ -37,9 +34,170 @@ function DNAinfoNYCNeighDraw() {
 	this.NEIGHBORHOODS = null;
 
 
+	// initiate drawing tools
+	this.FEATURELAYER = new L.FeatureGroup();
+	this.map.addLayer(this.FEATURELAYER);
+
+	// Initialise the draw control and pass it the FeatureGroup of editable layers
+	this.drawControl = new L.Control.Draw({
+		draw: {
+			polyline: false,
+			rectangle: false,
+			circle: false,
+			marker: false,
+			polygon: {
+				allowIntersection: false,
+				guidelineDistance: 10,
+				metric: false,
+				shapeOptions: {
+		            color: '#ad1515'
+		        }
+			},
+		},
+	    edit: {
+	        featureGroup: this.FEATURELAYER,
+	        edit: false,
+	        remove: false,
+	    },
+	});
+	this.map.addControl(this.drawControl);
+
+	var thismap = this;
+	this.map.on('draw:created', function (e) {
+	    thismap.DRAWNLAYER = e.layer;
+
+	    // add layer to map
+	    thismap.map.addLayer(thismap.DRAWNLAYER);
+	    thismap.DRAWNLAYER.bindLabel('My version of ' + DNAinfoNYCNeighDraw.neighborhoodName(neighborhoodLive));
+
+	    // zoom map to drawn layer
+	    var bounds = thismap.DRAWNLAYER.getBounds();
+	    thismap.map.fitBounds(bounds);
+
+	    // turn off polygon draw tools so they can only draw one polygon
+	   	thismap.map.removeControl(thismap.drawControl);
+
+	   	// add finished start over buttons
+	   	$('#imFinished').removeClass('hidden');
+	   	$('#startOver').removeClass('hidden');
+
+	});
 
 }
 
+
+DNAinfoNYCNeighDraw.startOver = function () {
+	// remove buttons
+	$('#imFinished').addClass('hidden');
+	$('#startOver').addClass('hidden');
+
+	// remove drawn layer from map
+	MY_MAP.map.removeLayer(MY_MAP.DRAWNLAYER);
+
+	// add drawing controls
+	MY_MAP.map.addControl(MY_MAP.drawControl);
+
+	// reset map to original zoom and center
+	MY_MAP.map.setView(MY_MAP.center, MY_MAP.zoom);
+
+}
+
+
+DNAinfoNYCNeighDraw.imFinished = function () {
+	// remove these buttons
+	$('#imFinished').addClass('hidden');
+	$('#startOver').addClass('hidden');
+
+	// add share buttons
+	$('#shareFB').removeClass('hidden');
+	$('#shareTwitter').removeClass('hidden');
+
+	// ajax call to save the geojson
+	MY_MAP.DRAWNGEOJSON = MY_MAP.DRAWNLAYER.toGeoJSON();
+	var geojson = MY_MAP.DRAWNGEOJSON;
+	var url = '/nycneighdrawsave/'+ id + '/';
+	var csrftoken = $.cookie('csrftoken');
+
+	function csrfSafeMethod(method) {
+	    // these HTTP methods do not require CSRF protection
+	    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+	}
+	$.ajaxSetup({
+	    beforeSend: function(xhr, settings) {
+	        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+	            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+	        }
+	    }
+	});
+
+	$.post( url, geojson,  function(data){ console.log(data); }, "json");
+
+	// show neighborhoods
+	MY_MAP.map.addLayer(MY_MAP.NEIGHBORHOODS).bringToBack();
+
+	// zoom map to neighborhood layer
+    var bounds = MY_MAP.NEIGHBORHOODS.getBounds();
+    MY_MAP.map.fitBounds(bounds);
+
+
+}
+
+
+DNAinfoNYCNeighDraw.onEachFeature_NEIGHBORHOODS = function(feature,layer){	
+	var highlight = {
+	    color: '#000'
+	};
+	var noHighlight = {
+        color: '#000'
+	};
+
+	layer.bindLabel("<strong>" + feature.properties.NTAName + "</strong>", { direction:'auto' });
+	
+    layer.on('mouseover', function(ev) {
+
+		layer.setStyle(highlight);
+		if (!L.Browser.ie && !L.Browser.opera) {
+	        layer.bringToBack();
+	    }
+
+
+    });
+		
+    layer.on('mouseout', function(ev) {
+		layer.setStyle(noHighlight);		
+    });	
+
+}
+
+
+DNAinfoNYCNeighDraw.prototype.loadNeighborhoods = function (){
+	var thismap = this;
+	d3.json(NYC_Neighborhoods, function(data) {
+		polyTopojson = topojson.feature(data, data.objects.nyc_acs_2013_neighareas_commute).features;
+		drawPolys();
+	});
+
+	function drawPolys() {
+		thismap.NEIGHBORHOODS = L.geoJson(polyTopojson, {
+		    style: DNAinfoNYCNeighDraw.getStyleFor_NEIGHBORHOODS,
+			onEachFeature: DNAinfoNYCNeighDraw.onEachFeature_NEIGHBORHOODS,
+			filter: function(feature, layer) {
+				return (feature.properties.NTAName == DNAinfoNYCNeighDraw.neighborhoodName(neighborhoodLive));
+			}
+		});
+	}
+
+}
+
+DNAinfoNYCNeighDraw.getStyleFor_NEIGHBORHOODS = function (feature){
+    return {
+        weight: 4,
+        opacity: 1,
+        color: '#000',
+        fillOpacity: 0.5,
+        fillColor: '#bdbdbd'
+    }
+}
 
 
 
@@ -47,57 +205,6 @@ function DNAinfoNYCNeighDraw() {
 DNAinfoNYCNeighDraw.center = function (neighborhood){
 
 	var lookup = {
-		"washington-heights-inwood": [40.846719, -73.935156],
-		"harlem": [40.811550, -73.946477],
-		"upper-west-side-morningside-heights": [40.793327, -73.970261],
-		"upper-east-side-roosevelt-island": [40.772141, -73.957386],
-		"midtown-theater-district": [40.757709, -73.982105],
-		"murray-hill-gramercy-midtown-east": [40.753288, -73.973866],
-		"chelsea-hells-kitchen": [40.765380, -73.992062],
-		"greenwich-village-soho": [40.726340, -73.995924],
-		"east-village-lower-east-side": [40.719770, -73.985109],
-		"downtown": [40.711508, -74.007339],
-		"riverdale-kingsbridge": [40.888649, -73.908463],
-		"fordham-tremont": [40.861500, -73.89058],
-		"woodlawn-wakefield": [40.895361, -73.862916],
-		"pelham-parkway-baychester": [40.861651, -73.843918],
-		"morris-park-parkchester": [40.845161, -73.853874],
-		"soundview-castle-hill": [40.817755, -73.857307],
-		"throgs-neck-country-club": [40.817496, -73.817482],
-		"astoria-long-island-city": [40.756019, -73.938847],
-		"jackson-heights-elmhurst": [40.748996, -73.882713],
-		"flushing-whitestone": [40.780899, -73.822975],
-		"bayside-douglaston": [40.763140, -73.77125],
-		"forest-hills-rego-park-jamaica": [40.711402, -73.828468],
-		"maspeth-middle-village-ridgewood": [40.713094, -73.888378],
-		"fresh-meadows-jamaica-estates": [40.727324, -73.775597],
-		"jamaica-hollis": [40.705677, -73.779888],
-		"queens-village-hollis-st-albans": [40.703855, -73.745728],
-		"howard-beach-richmond-hill": [40.679694, -73.827095],
-		"rockaways": [40.584431, -73.821945],
-		"williamsburg-greenpoint-bushwick": [40.708930, -73.943138],
-		"fort-greene-dumbo": [40.692402, -73.975582],
-		"park-slope-windsor-terrace-gowanus": [40.665845, -73.983307],
-		"crown-heights-prospect-heights-prospect-lefferts-gardens": [40.666496, -73.951721],
-		"bay-ridge-bensonhurst": [40.618741, -74.012489],
-		"coney-island-brighton-beach": [40.576510, -73.972321],
-		"sheepshead-bay-marine-park": [40.604407, -73.945885],
-		"borough-park-midwood": [40.624735, -73.978500],
-		"kensington-flatbush-ditmas-park": [40.639277, -73.968029],
-		"east-new-york-brownsville": [40.661287, -73.896618],
-		"canarsie-mill-basin": [40.629164, -73.910179],
-		"st-george-port-richmond": [40.644548, -74.080141],
-		"new-dorp-south-beach": [40.579199, -74.097290],
-		"great-kills-tottenville": [40.508341, -74.23554],
-		"south-bronx": [40.817670, -73.918426],
-		"norwood-bedford-park": [40.871328, -73.88697],
-		"norwood-bedford-park": [40.871328, -73.88697],
-		"sunset-park-greenwood-heights": [40.645789, -74.002876],
-		"cobble-hill-carroll-gardens-red-hook": [40.681728, -74.001160],
-		"south-jamaica-springfield-gardens-rosedale": [40.670320, -73.764267],
-		"bedford-stuyvesant": [40.685243, -73.939877],
-		"brooklyn-heights-downtown-brooklyn": [40.696176, -73.991032],
-		"east-flatbush-prospect-lefferts-gardens": [40.650999, -73.939705],	
 		"allerton": [40.863743, -73.862489],
 		"annandale": [40.540460, -74.178217],
 		"arden-heights": [40.556795, -74.173906],
@@ -105,6 +212,7 @@ DNAinfoNYCNeighDraw.center = function (neighborhood){
 		"arverne": [40.592658, -73.797793],
 		"astoria": [40.764357, -73.923462],
 		"auburndale": [40.761430, -73.78996],
+		"baisley-park": [40.684879, -73.782299],
 		"bath-beach": [40.602196, -74.003571],
 		"battery-park-city": [40.712217, -74.016058],
 		"bay-ridge": [40.626164, -74.03295],
@@ -113,13 +221,14 @@ DNAinfoNYCNeighDraw.center = function (neighborhood){
 		"baychester": [40.869386, -73.833084],
 		"bayside": [40.763140, -73.77125],
 		"bayswater": [40.606781, -73.766908],
-		"bed-stuy": [40.687218, -73.941774],
+		"bedford": [40.687218, -73.941774],
 		"bedford-park": [40.870100, -73.885691],
 		"beechhurst": [40.790355, -73.797793],
 		"belle-harbor": [40.575485, -73.850728],
 		"bellerose": [40.724371, -73.715401],
 		"belmont": [40.852320, -73.88601],
-		"bensonhurst": [40.611269, -73.997695],
+		"bensonhurst-east": [40.611269, -73.997695],
+		"bensonhurst-west": [40.611269, -73.997695],
 		"bergen-beach": [40.617705, -73.903649],
 		"bloomfield": [40.620814, -74.188582],
 		"boerum-hill": [40.684869, -73.984472],
@@ -127,18 +236,21 @@ DNAinfoNYCNeighDraw.center = function (neighborhood){
 		"breezy-point": [40.556494, -73.926248],
 		"briarwood": [40.708949, -73.815439],
 		"brighton-beach": [40.577621, -73.961376],
+		"bronxdale": [40.577621, -73.961376],
 		"broad-channel": [40.608382, -73.815925],
 		"brooklyn-heights": [40.696010, -73.993287],
 		"brookville": [40.659079, -73.752199],
 		"brownsville": [40.663080, -73.909528],
 		"bulls-heads": [40.609682, -74.162163],
-		"bushwick": [40.694428, -73.921286],
+		"bushwick-north": [40.694428, -73.921286],
+		"bushwick-south": [40.694428, -73.921286],
 		"cambria-heights": [40.692158, -73.733075],
 		"canarsie": [40.640233, -73.906058],
 		"carnegie-hill": [40.784465, -73.955086],
 		"carroll-gardens": [40.679533, -73.999164],
 		"castle-hill": [40.817683, -73.850728],
 		"castleton-corners": [40.613371, -74.1216],
+		"central-harlem-south": [40.811550, -73.946477],
 		"central-harlem": [40.811550, -73.946477],
 		"charleston": [40.528197, -74.23554],
 		"chelsea": [40.746500, -74.001374],
@@ -162,7 +274,9 @@ DNAinfoNYCNeighDraw.center = function (neighborhood){
 		"coney-island": [40.574926, -73.985941],
 		"corona": [(40.744986, -73.864261)],
 		"country-club": [40.843054, -73.821321],
-		"crown-heights": [40.668103, -73.944799],
+		"crotona-park-east": [40.836656, -73.892196],
+		"crown-heights-north": [40.668103, -73.944799],
+		"crown-heights-south": [40.668103, -73.944799],
 		"cypress-hills": [40.683612, -73.88013],
 		"ditmars": [40.773366, -73.906788],
 		"ditmas-park": [40.640922, -73.962433],
@@ -173,7 +287,9 @@ DNAinfoNYCNeighDraw.center = function (neighborhood){
 		"dyker-heights": [40.618718, -74.015323],
 		"east-elmhurst": [40.773750, -73.87131],
 		"east-flatbush": [40.643747, -73.930104],
-		"east-harlem": [40.795740, -73.938921],
+		"east-flushing": [40.767499, -73.833079],
+		"east-harlem-north": [40.795740, -73.938921],
+		"east-harlem-south": [40.795740, -73.938921],
 		"east-new-york": [40.675800, -73.90281],
 		"east-village": [40.726477, -73.981534],
 		"east-williamsburg": [40.715876, -73.933043],
@@ -184,6 +300,7 @@ DNAinfoNYCNeighDraw.center = function (neighborhood){
 		"elmhurst": [40.737975, -73.88013],
 		"eltingville": [40.544601, -74.16457],
 		"emerson-hill": [40.607319, -74.096095],
+		"erasmus": [40.649633, -73.952894],
 		"far-rockaway": [40.609130, -73.75054],
 		"fieldston": [40.894268, -73.903649],
 		"financial-district": [40.707491, -74.011276],
@@ -201,6 +318,7 @@ DNAinfoNYCNeighDraw.center = function (neighborhood){
 		"garment-district": [40.754707, -73.991634],
 		"gerritsen-beach": [40.587003, -73.922755],
 		"glendale": [40.698994, -73.880443],
+		"glen-oaks": [40.747150, -73.711822],
 		"governors-island": [40.689450, -74.016792],
 		"gowanus": [40.673336, -73.990349],
 		"gramercy": [40.737688, -73.981936],
@@ -250,7 +368,9 @@ DNAinfoNYCNeighDraw.center = function (neighborhood){
 		"long-island-city": [40.741280, -73.95639],
 		"longwood": [40.824844, -73.891588],
 		"lower-east-side": [40.715033, -73.984272],
+		"madison": [40.605625, -73.949208],
 		"malba": [40.790666, -73.825733],
+		"manhattanville": [40.816944, -73.955833],
 		"manhattan-beach": [40.578158, -73.938921],
 		"manhattan-valley": [40.800536, -73.961576],
 		"marble-hill": [40.876117, -73.910263],
@@ -281,6 +401,8 @@ DNAinfoNYCNeighDraw.center = function (neighborhood){
 		"new-dorp": [40.573480, -74.11721],
 		"new-dorp-beach": [40.565707, -74.104909],
 		"new-springville": [40.589035, -74.156292],
+		"north-corona": [40.750270, -73.862489],
+		"north-side-south-side": [40.714476, -73.962965],
 		"noho": [40.728659, -73.992553],
 		"nolita": [40.722897, -73.995491],
 		"norwood": [40.877146, -73.87866],
@@ -288,6 +410,8 @@ DNAinfoNYCNeighDraw.center = function (neighborhood){
 		"oakwood": [40.558475, -74.115187],
 		"ocean-breeze": [40.586769, -74.078479],
 		"ocean-hill": [40.584564, -73.966932],
+		"ocean-parkway-south": [40.617796, -73.971441],
+		"old-astoria": [40.772254, -73.927882],
 		"old-town": [40.596612, -74.087368],
 		"olinville": [40.880391, -73.8669],
 		"ozone-park": [40.679407, -73.850728],
@@ -305,6 +429,7 @@ DNAinfoNYCNeighDraw.center = function (neighborhood){
 		"prospect-park-south": [40.645774, -73.966106],
 		"prospect-lefferts-gardens": [40.659045, -73.950677],
 		"queens-village": [40.717450, -73.73646],
+		"queensboro-hill": [40.728852, -73.823190],
 		"randall-manor": [40.641060, -74.103441],
 		"randalls-island": [40.793227, -73.921286],
 		"red-hook": [40.677280, -74.009447],
@@ -321,6 +446,7 @@ DNAinfoNYCNeighDraw.center = function (neighborhood){
 		"rosedale": [40.665940, -73.73555],
 		"rossville": [40.550981, -74.203258],
 		"roxbury": [40.567058, -73.890243],
+		"rugby": [40.654076, -73.922625],
 		"schuylerville": [40.834881, -73.833084],
 		"sea-gate": [40.576810, -74.007978],
 		"seaside": [40.583049, -73.825733],
@@ -339,11 +465,14 @@ DNAinfoNYCNeighDraw.center = function (neighborhood){
 		"st.-george": [40.643748, -74.073643],
 		"stapleton": [40.627915, -74.075162],
 		"starrett-city": [40.649052, -73.880227],
+		"steinway": [40.774546, -73.903748],
+		"stuy-heights": [40.687218, -73.941774],
 		"stuy-town": [40.718047, -74.014129],
 		"sugar-hill": [40.827930, -73.944065],
 		"sunnyside": [40.743276, -73.919632],
 		"sunnyside-staten-island": [40.612788, -74.104909],
-		"sunset-park": [40.645532, -74.012385],
+		"sunset-park-east": [40.645532, -74.012385],
+		"sunset-park-west": [40.645532, -74.012385],
 		"sutton-place": [40.757628, -73.961698],
 		"throgs-neck": [40.818399, -73.821321],
 		"times-square-theater-district": [40.758895, -73.985131],
@@ -361,11 +490,14 @@ DNAinfoNYCNeighDraw.center = function (neighborhood){
 		"upper-west-side": [40.787011, -73.975368],
 		"utopia": [40.735210, -73.79191],
 		"van-nest": [40.845889, -73.8669],
+		"van-cortlandt-village": [40.876531, -73.895674],
 		"vinegar-hill": [40.703719, -73.982268],
 		"wakefield": [40.905424, -73.854665],
-		"washington-heights": [40.841708, -73.939355],
+		"washington-heights-north": [40.841708, -73.939355],
+		"washington-heights-south": [40.841708, -73.939355],
 		"wavecrest": [40.598669, -73.758573],
 		"west-brighton": [40.627030, -74.109314],
+		"west-concourse": [40.832125, -73.914771],
 		"west-farms": [40.843061, -73.8816],
 		"west-harlem": [40.811550, -73.946477],
 		"west-village": [40.735781, -74.003571],
@@ -389,6 +521,212 @@ DNAinfoNYCNeighDraw.center = function (neighborhood){
 		return lookup[neighborhood];
 	} else {
 		return [40.710508, -73.943825];
+	}
+
+
+}
+
+
+DNAinfoNYCNeighDraw.neighborhoodName = function (neighborhood){
+
+	var lookup = {
+		'allerton': 'Allerton-Pelham Gardens',
+		'annandale': 'Annadale-Huguenot-Prince\'s Bay-Eltingville',
+		'arden-heights': 'Arden Heights',
+		'arrochar': 'Grasmere-Arrochar-Ft. Wadsworth',
+		'arverne': 'Hammels-Arverne-Edgemere',
+		'astoria': 'Astoria',
+		'auburndale': 'Auburndale',
+		'baisley-park': 'Baisley Park',
+		'bath-beach': 'Bath Beach',
+		'battery-park-city': 'Battery Park City-Lower Manhattan',
+		'bay-ridge': 'Bay Ridge',
+		'bay-terrace': 'Ft. Totten-Bay Terrace-Clearview',
+		'baychester': 'Eastchester-Edenwald-Baychester',
+		'bayside': 'Bayside-Bayside Hills',
+		'bayswater': 'Far Rockaway-Bayswater',
+		'bedford': 'Bedford',
+		'bedford-park': 'Bedford Park-Fordham North',
+		'belle-harbor': 'Breezy Point-Belle Harbor-Rockaway Park-Broad Channel',
+		'bellerose': 'Bellerose',
+		'belmont': 'Belmont',
+		'bensonhurst-east': 'Bensonhurst East',
+		'bensonhurst-west': 'Bensonhurst West',
+		'borough-park': 'Borough Park',
+		'briarwood': 'Briarwood-Jamaica Hills',
+		'brighton-beach': 'Brighton Beach',
+		'bronxdale': 'Bronxdale',
+		'brooklyn-heights': 'Brooklyn Heights-Cobble Hill',
+		'brownsville': 'Brownsville',
+		'bulls-heads': 'Bulls Heads',
+		'bushwick-north': 'Bushwick North',
+		'bushwick-south': 'Bushwick South',
+		'cambria-heights': 'Cambria Heights',
+		'canarsie': 'Canarsie',
+		'carroll-gardens': 'Carroll Gardens-Columbia Street-Red Hook',
+		'central-harlem': 'Central Harlem North-Polo Grounds',
+		'central-harlem-south': 'Central Harlem South',
+		'charleston': 'Charleston-Richmond Valley-Tottenville',
+		'chinatown': 'Chinatown',
+		'claremont': 'Claremont-Bathgate',
+		'hells-kitchen-clinton': 'Clinton',
+		'clinton-hill': 'Clinton Hill',
+		'co-op-city': 'Co-op City',
+		'college-point': 'College Point',
+		'corona': 'Corona',
+		'crotona-park-east': 'Crotona Park East',
+		'country-club': 'Country Club',
+		'crown-heights-north': 'Crown Heights North',
+		'crown-heights-south': 'Crown Heights South',
+		'cypress-hills': 'Cypress Hills-City Line',
+		'douglaston': 'Douglas Manor-Douglaston-Little Neck',
+		'downtown-brooklyn': 'DUMBO-Vinegar Hill-Downtown Brooklyn-Boerum Hill',
+		'dyker-heights': 'Dyker Heights',
+		'concourse': 'East Concourse-Concourse Village',
+		'east-elmhurst': 'East Elmhurst',
+		'east-flatbush': 'East Flatbush-Farragut',
+		'east-flushing': 'East Flushing',
+		'east-harlem-north': 'East Harlem North',
+		'east-harlem-south': 'East Harlem South',
+		'east-new-york': 'East New York',
+		'tremont-east-tremont': 'East Tremont',
+		'east-village': 'East Village',
+		'east-williamsburg': 'East Williamsburg',
+		'elmhurst': 'Elmhurst',
+		'erasmus': 'Erasmus',
+		'flatbush': 'Flatbush',
+		'flatlands': 'Flatlands',
+		'flushing': 'Flushing',
+		'fordham': 'Fordham South',
+		'forest-hills': 'Forest Hills',
+		'fort-greene': 'Fort Greene',
+		'fresh-meadows': 'Fresh Meadows-Utopia',
+		'garment-district': 'Garment District',
+		'bergen-beach': 'Georgetown-Marine Park-Bergen Beach-Mill Basin',
+		'gerritsen-beach': 'Gerritsen Beach',
+		'glendale': 'Glendale',
+		'glen-oaks':'Glen Oaks-Floral Park-New Hyde Park',
+		'gramercy': 'Gramercy',
+		'gravesend': 'Gravesend',
+		'great-kills': 'Great Kills',
+		'greenpoint': 'Greenpoint',
+		'grymes-hill': 'Grymes Hill-Clifton-Fox Hills',
+		'hamilton-heights': 'Hamilton Heights',
+		'high-bridge': 'Highbridge',
+		'hollis': 'Hollis',
+		'homecrest': 'Homecrest',
+		'chelsea': 'Hudson Yards-Chelsea-Flatiron-Union Square',
+		'sunnyside': 'Hunters Point-Sunnyside-West Maspeth',
+		'hunts-point': 'Hunts Point',
+		'jackson-heights': 'Jackson Heights',
+		'jamaica': 'Jamaica',
+		'jamaica-estates': 'Jamaica Estates-Holliswood',
+		'kensington': 'Kensington-Ocean Parkway',
+		'kew-gardens': 'Kew Gardens',
+		'kew-gardens-hills': 'Kew Gardens Hills',
+		'kingsbridge-heights': 'Kingsbridge Heights',
+		'laurelton': 'Laurelton',
+		'lenox-hill': 'Lenox Hill-Roosevelt Island',
+		'lincoln-square': 'Lincoln Square',
+		'lindenwood': 'Lindenwood-Howard Beach',
+		'longwood': 'Longwood',
+		'lower-east-side': 'Lower East Side',
+		'madison': 'Madison',
+		'manhattanville': 'Manhattanville',
+		'marble-hill': 'Marble Hill-Inwood',
+		'marine-park': 'Marine Park',
+		'mariners-harbor': 'Mariner\'s Harbor-Arlington-Port Ivory-Graniteville',
+		'maspeth': 'Maspeth',
+		'melrose': 'Melrose South-Mott Haven North',
+		'middle-village': 'Middle Village',
+		'midtown': 'Midtown-Midtown South',
+		'midwood': 'Midwood',
+		'morningside-heights': 'Morningside Heights',
+		'morrisania': 'Morrisania-Melrose',
+		'mott-haven': 'Mott Haven-Port Morris',
+		'mount-hope': 'Mount Hope',
+		'murray-hill': 'Murray Hill-Kips Bay',
+		'murray-hill-queens': 'Murray Hill',
+		'new-brighton': 'New Brighton-Silver Lake',
+		'new-dorp': 'New Dorp-Midland Beach',
+		'new-springville': 'New Springville-Bloomfield-Travis',
+		'fieldston': 'North Riverdale-Fieldston-Riverdale',
+		'norwood': 'Norword',
+		'north-corona': 'North Corona',
+		'north-side-south-side': 'North Side-South Side',
+		'oakland-gardens': 'Oakland Gardens',
+		'oakwood': 'Oakwood-Oakwood Beach',
+		'ocean-hill': 'Ocean Hill',
+		'ocean-parkway-south': 'Ocean Parkway South',
+		'old-astoria': 'Old Astoria',
+		'old-town': 'Old Town-Dongan Hills-South Beach',
+		'ozone-park': 'Ozone Park',
+		'park-slope': 'Park Slope-Gowanus',
+		'parkchester': 'Parkchester',
+		'pelham-bay': 'Pelham Bay-Country Club-City Island',
+		'pelham-parkway': 'Pelham Parkway',
+		'pomonok': 'Pomonok-Flushing Heights-Hillcrest',
+		'port-richmond': 'Port Richmond',
+		'prospect-heights': 'Prospect Heights',
+		'prospect-lefferts-gardens': 'Prospect Lefferts Gardens-Wingate',
+		'queensboro-hill': 'Queensboro Hill',
+		'queens-village': 'Queens Village',
+		'long-island-city': 'Queensbridge-Ravenswood-Long Island City',    
+		'rego-park': 'Rego Park',
+		'richmond-hill': 'Richmond Hill',
+		'ridgewood': 'Ridgewood',
+		'rosedale': 'Rosedale',
+		'rossville': 'Rossville-Woodrow',
+		'rugby': 'Rugby-Remsen Village',
+		'schuylerville': 'Schuylerville-Throgs Neck-Edgewater Park',
+		'sea-gate': 'Seagate-Coney Island',
+		'sheepshead-bay': 'Sheepshead Bay-Gerritsen Beach-Manhattan Beach',
+		'soho': 'SoHo-TriBeCa-Civic Center-Little Italy',
+		'soundview': 'Soundview-Bruckner',
+		'castle-hill': 'Soundview-Castle Hill-Clason Point-Harding Park',
+		'south-jamaica': 'South Jamaica',
+		'south-ozone-park': 'South Ozone Park',
+		'springfield-gardens': 'Springfield Gardens North',
+		'brookville': 'Springfield Gardens South-Brookville',
+		'spuyten-duyvil': 'Spuyten Duyvil-Kingsbridge',
+		'st-albans': 'St. Albans',
+		'stapleton': 'Stapleton-Rosebank',
+		'starrett-city': 'Starrett City',
+		'steinway': 'Steinway',
+		'stuy-heights': 'Stuyvesant Heights',
+		'stuy-town': 'Stuyvesant Town-Cooper Village',
+		'sunset-park-east': 'Sunset Park East',
+		'sunset-park-west': 'Sunset Park West',
+		'todt-hill': 'Todt Hill-Emerson Hill-Heartland Village-Lighthouse Hill',
+		'turtle-bay': 'Turtle Bay-East Midtown',
+		'university-heights': 'University Heights-Morris Heights',
+		'upper-east-side': 'Upper East Side-Carnegie Hill',
+		'upper-west-side': 'Upper West Side',
+		'van-cortlandt-village': 'Van Cortlandt Village',
+		'van-nest': 'Van Nest-Morris Park-Westchester Square',
+		'washington-heights-north': 'Washington Heights North',
+		'washington-heights-south': 'Washington Heights South',
+		'west-brighton': 'West Brighton',
+		'west-concourse': 'West Concourse',
+		'west-farms': 'West Farms-Bronx River',
+		'st.-george': 'West New Brighton-New Brighton-St. George',
+		'west-village': 'West Village',
+		'unionport': 'Westchester-Unionport',
+		'westerleigh': 'Westerleigh',
+		'whitestone': 'Whitestone',
+		'williamsbridge': 'Williamsbridge-Olinville',
+		'williamsburg': 'Williamsburg',
+		'windsor-terrace': 'Windsor Terrace',
+		'woodhaven': 'Woodhaven',
+		'woodlawn': 'Woodlawn-Wakefield',
+		'woodside': 'Woodside',
+		'yorkville': 'Yorkville',
+	}
+
+	if (lookup[neighborhood]) {			
+		return lookup[neighborhood];
+	} else {
+		return '';
 	}
 
 

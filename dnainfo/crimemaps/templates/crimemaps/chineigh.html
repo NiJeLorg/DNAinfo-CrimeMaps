@@ -1,0 +1,49 @@
+{% extends 'crimemaps/baseNoBottomNav.html' %}
+{% load staticfiles %}
+{% load bootstrap_tags %}
+
+{% block css_block %}
+{% endblock %}
+
+{% block head_js_block %}
+{% endblock %}
+	
+
+{% block body_block %}
+
+	<nav class="navbar navbar-default">
+	  <div class="container-fluid">
+	    <div class="navbar-header">
+	      <div class="navbar-brand">DNAinfo Chicago</div>
+	    </div>
+	  </div> 
+	</nav>
+
+
+	<div class="container topPadding50">
+	  <div class="row">
+	    <div class="col-md-6 col-md-offset-3">
+			<form method="post" action=".">
+				{% csrf_token %}
+				{{ form|as_bootstrap }}
+				<input type="submit" class="btn btn-danger" value="Draw Your Neighborhood!" />
+			</form>
+	    </div>
+	  </div>
+	</div> <!-- /container -->
+
+
+{% endblock %}
+
+{% block modal_block %}
+{% endblock %}
+
+{% block js_block %}
+{% endblock %}
+
+
+
+
+	
+	
+
