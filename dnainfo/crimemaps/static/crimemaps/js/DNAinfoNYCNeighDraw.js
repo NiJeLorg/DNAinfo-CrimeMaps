@@ -133,7 +133,7 @@ DNAinfoNYCNeighDraw.imFinished = function () {
 	$.post( url, geojson,  function(data){ console.log(data); }, "json");
 
 	// show neighborhoods
-	MY_MAP.map.addLayer(MY_MAP.NEIGHBORHOODS).bringToBack();
+	MY_MAP.map.addLayer(MY_MAP.NEIGHBORHOODS);
 
 	// zoom map to neighborhood layer
     var bounds = MY_MAP.NEIGHBORHOODS.getBounds();
