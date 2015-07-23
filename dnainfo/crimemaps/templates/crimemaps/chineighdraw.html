@@ -42,10 +42,10 @@
           Begin drawing <span class="neighborhoodName"></span> by clicking on the <span class="leaflet-draw-toolbar leaflet-bar leaflet-draw-toolbar-top"><a class="leaflet-draw-draw-polygon" href="#" title="Draw a polygon"></a></span> icon under the zoom tools in the upper-left corner. Draw a full polygon by following the instructions next to your cursor.
         </p>
         <p>
-          Once complete, click <button class="btn btn-success" type="submit">I'm Finished</button> if you're satisfied with your work, or <button class="btn btn-warning" type="submit">Start Over</button> if you need to try again.              
+          Once complete, click <strong>I'm Finished</strong> if you're satisfied with your work, or <strong>Start Over</strong> if you need to try again.              
         </p>
         <p>
-          After you're finished, you'll see the "official" <span class="neighborhoodName"></span> neighborhood boundary appear alonside your drawing. You can share this completed map to Facebook or Twitter by clicking <button class="btn btn-primary" type="submit">Share on <i class="fa fa-facebook-official fa-lg"></i></button> or <button class="btn btn-info" type="submit">Share on <i class="fa fa-twitter fa-lg"></i></button>
+          After you're finished, you'll see the "official" <span class="neighborhoodName"></span> neighborhood boundary appear alonside your drawing. You can share this completed map to Facebook or Twitter.
         </p>
 
         <div class="clearfix"></div>
@@ -61,7 +61,7 @@
 	<script type="text/javascript">
     var id = "{{ id }}"
     var CHI_Neighborhoods = "{% static 'crimemaps/data/chi_acs_2013_commareas_commute.topojson' %}";
-    var neighborhoodLive = "{{ neighborhoodDrawObject.neighborhoodLive }}"
+    var neighborhoodLive = "{{ neighborhoodDrawObject.neighborhoodLive.dnaurl }}"
 	</script>
   <script type="text/javascript" src="{% static 'crimemaps/js/d3.min.js' %}"></script>
 	<script type="text/javascript" src="{% static 'crimemaps/js/leaflet.js' %}"></script>

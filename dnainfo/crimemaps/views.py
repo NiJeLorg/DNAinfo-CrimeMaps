@@ -777,9 +777,9 @@ def nycfireworks2015citywidetorque(request):
 
 def nycneigh(request, id=None):
 	if id:
-		neighborhoodDrawObject = neighborhoodDraw.objects.get(pk=id)
+		neighborhoodDrawObject = neighborhoodDrawNYC.objects.get(pk=id)
 	else:
-		neighborhoodDrawObject = neighborhoodDraw()
+		neighborhoodDrawObject = neighborhoodDrawNYC()
 
 	# A HTTP POST?
 	if request.method == 'POST':
@@ -789,7 +789,7 @@ def nycneigh(request, id=None):
 		if form.is_valid():
 			# Save the new data to the database.
 			f = form.save()
-			lookupObject = neighborhoodDraw.objects.get(pk=f.pk)
+			lookupObject = neighborhoodDrawNYC.objects.get(pk=f.pk)
 			return HttpResponseRedirect(reverse('nycneighdraw', args=(lookupObject.pk,)))
 		else:
 			# The supplied form contained errors - just print them to the terminal.
@@ -805,7 +805,7 @@ def nycneigh(request, id=None):
 
 @ensure_csrf_cookie
 def nycneighdraw(request, id=None):
-	neighborhoodDrawObject = neighborhoodDraw.objects.get(pk=id)
+	neighborhoodDrawObject = neighborhoodDrawNYC.objects.get(pk=id)
 
 	return render(request, 'crimemaps/nycneighdraw.html', {'neighborhoodDrawObject': neighborhoodDrawObject, 'id':id})
 
@@ -815,7 +815,7 @@ def nycneighdrawsave(request, id=None):
 	# A HTTP POST?
 	if request.method == 'POST':
 		# update record with geojson
-		neighborhoodDraw.objects.filter(pk=id).update(drawnGeojson=request.POST)
+		neighborhoodDrawNYC.objects.filter(pk=id).update(drawnGeojson=request.POST['geojson'])
 		empty = {}
 	else:
 		empty = {}
@@ -826,9 +826,9 @@ def nycneighdrawsave(request, id=None):
 
 def chineigh(request, id=None):
 	if id:
-		neighborhoodDrawObject = neighborhoodDraw.objects.get(pk=id)
+		neighborhoodDrawObject = neighborhoodDrawCHI.objects.get(pk=id)
 	else:
-		neighborhoodDrawObject = neighborhoodDraw()
+		neighborhoodDrawObject = neighborhoodDrawCHI()
 
 	# A HTTP POST?
 	if request.method == 'POST':
@@ -838,7 +838,7 @@ def chineigh(request, id=None):
 		if form.is_valid():
 			# Save the new data to the database.
 			f = form.save()
-			lookupObject = neighborhoodDraw.objects.get(pk=f.pk)
+			lookupObject = neighborhoodDrawCHI.objects.get(pk=f.pk)
 			return HttpResponseRedirect(reverse('chineighdraw', args=(lookupObject.pk,)))
 		else:
 			# The supplied form contained errors - just print them to the terminal.
@@ -854,7 +854,7 @@ def chineigh(request, id=None):
 
 @ensure_csrf_cookie
 def chineighdraw(request, id=None):
-	neighborhoodDrawObject = neighborhoodDraw.objects.get(pk=id)
+	neighborhoodDrawObject = neighborhoodDrawCHI.objects.get(pk=id)
 
 	return render(request, 'crimemaps/chineighdraw.html', {'neighborhoodDrawObject': neighborhoodDrawObject, 'id':id})
 
@@ -864,7 +864,7 @@ def chineighdrawsave(request, id=None):
 	# A HTTP POST?
 	if request.method == 'POST':
 		# update record with geojson
-		neighborhoodDraw.objects.filter(pk=id).update(drawnGeojson=request.POST)
+		neighborhoodDrawCHI.objects.filter(pk=id).update(drawnGeojson=request.POST['geojson'])
 		empty = {}
 	else:
 		empty = {}

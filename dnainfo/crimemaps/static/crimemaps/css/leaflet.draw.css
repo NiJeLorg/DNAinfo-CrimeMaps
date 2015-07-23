@@ -145,11 +145,15 @@
 }
 
 .leaflet-draw-toolbar .leaflet-draw-draw-polygon {
-	background-position: -31px -2px;
+	/* updated to add a glyphicon instead of the sprite sheet icon */
+	/* background-position: -31px -2px; */
+	background-position: -300px -2px;
 }
 
 .leaflet-touch .leaflet-draw-toolbar .leaflet-draw-draw-polygon {
-	background-position: -29px -1px;
+	/* updated to add a glyphicon instead of the sprite sheet icon */
+	/* background-position: -29px -1px; */
+	background-position: -300px -1px;
 }
 
 .leaflet-draw-toolbar .leaflet-draw-draw-rectangle {

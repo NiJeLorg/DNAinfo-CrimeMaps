@@ -21,4 +21,7 @@ $( document ).ready(function() {
 
     $('.neighborhoodName').text(DNAinfoNYCNeighDraw.neighborhoodName(neighborhoodLive));
 
+    // add glyphicon to draw polygon tool
+    $('.leaflet-draw-draw-polygon').append("<span class=\"glyphicon glyphicon-pencil red-pencil\" aria-hidden=\"true\"></span>");
+
 });

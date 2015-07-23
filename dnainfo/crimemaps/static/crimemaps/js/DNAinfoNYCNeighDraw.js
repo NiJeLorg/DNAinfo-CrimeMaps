@@ -97,6 +97,9 @@ DNAinfoNYCNeighDraw.startOver = function () {
 	// add drawing controls
 	MY_MAP.map.addControl(MY_MAP.drawControl);
 
+	// add glyphicon to draw polygon tool
+    $('.leaflet-draw-draw-polygon').append("<span class=\"glyphicon glyphicon-pencil red-pencil\" aria-hidden=\"true\"></span>");
+
 	// reset map to original zoom and center
 	MY_MAP.map.setView(MY_MAP.center, MY_MAP.zoom);
 
@@ -130,7 +133,7 @@ DNAinfoNYCNeighDraw.imFinished = function () {
 	    }
 	});
 
-	$.post( url, geojson,  function(data){ console.log(data); }, "json");
+	$.post( url, {'geojson': JSON.stringify(geojson)},  function(data){ console.log(data); }, "json");
 
 	// show neighborhoods
 	MY_MAP.map.addLayer(MY_MAP.NEIGHBORHOODS);

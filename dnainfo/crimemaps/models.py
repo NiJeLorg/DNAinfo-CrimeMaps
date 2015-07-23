@@ -99,9 +99,32 @@ class chiShootings(models.Model):
 	def __unicode__(self):
 		return self.Address
 
-#model for neighborhood drawing site
-class neighborhoodDraw(models.Model):
-	neighborhoodLive = models.CharField(max_length=255, default='', blank=False, null=False)
+#model for NYC neighborhood look up table
+class neighborhoodNYC(models.Model):
+	dnaurl = models.CharField(max_length=255, default='', blank=False, null=False)
+	name = models.CharField(max_length=255, default='', blank=False, null=False)
+
+	def __unicode__(self):
+		return self.name
+
+
+#model for CHI neighborhood look up table
+class neighborhoodCHI(models.Model):
+	dnaurl = models.CharField(max_length=255, default='', blank=False, null=False)
+	name = models.CharField(max_length=255, default='', blank=False, null=False)
+
+	def __unicode__(self):
+		return self.name
+
+#model for NYC neighborhood drawing site
+class neighborhoodDrawNYC(models.Model):
+	neighborhoodLive = models.ForeignKey(neighborhoodNYC)
+	yearsLived = models.IntegerField(default=0, blank=False, null=False)
+	drawnGeojson = models.TextField(default='')
+
+#model for CHI neighborhood drawing site
+class neighborhoodDrawCHI(models.Model):
+	neighborhoodLive = models.ForeignKey(neighborhoodCHI)
 	yearsLived = models.IntegerField(default=0, blank=False, null=False)
 	drawnGeojson = models.TextField(default='')
 
