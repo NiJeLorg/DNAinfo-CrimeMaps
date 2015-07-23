@@ -39,9 +39,6 @@ class Migration(migrations.Migration):
             old_name='neighborhoodDraw',
             new_name='neighborhoodDrawCHI',
         ),
-        migrations.DeleteModel(
-            name='neighborhood',
-        ),
         migrations.AlterField(
             model_name='neighborhooddrawchi',
             name='neighborhoodLive',
@@ -51,5 +48,8 @@ class Migration(migrations.Migration):
             model_name='neighborhooddrawnyc',
             name='neighborhoodLive',
             field=models.ForeignKey(to='crimemaps.neighborhoodNYC'),
+        ),
+        migrations.DeleteModel(
+            name='neighborhood',
         ),
     ]
