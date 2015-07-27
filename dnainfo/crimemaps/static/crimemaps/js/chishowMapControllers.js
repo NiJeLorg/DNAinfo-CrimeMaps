@@ -8,12 +8,13 @@ $( document ).ready(function() {
 
     $('.neighborhoodName').text(DNAinfoCHINeighShow.neighborhoodName(neighborhoodLive));
 
+    var fbUrl = "https://visualizations.dnainfo.com/chineighshow/"+ id +"/";
 
     $('#showShareFB').click(function() { 
       FB.ui({
         method: 'share',
         display: 'popup',
-        href: 'https://visualizations.dnainfo.com/chineighshow/{{ id }}/',
+        href: fbUrl,
       }, function(response){});
     });
 
