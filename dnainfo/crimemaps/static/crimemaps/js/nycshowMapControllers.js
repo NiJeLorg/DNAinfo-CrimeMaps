@@ -8,7 +8,7 @@ $( document ).ready(function() {
 
     $('.neighborhoodName').text(DNAinfoNYCNeighShow.neighborhoodName(neighborhoodLive));
 
-    var fbUrl = "https://visualizations.dnainfo.com/nycneighshow/{{ id }}/";
+    var fbUrl = "https://visualizations.dnainfo.com/nycneighshow/"+ id +"/";
 
     $('#showShareFB').click(function() { 
       FB.ui({
