@@ -91,7 +91,7 @@
 	<script type="text/javascript">
     var id = "{{ id }}"
     var NYC_Neighborhoods = "{% static 'crimemaps/data/nyc_acs_2013_neighareas_commute.topojson' %}";
-    var neighborhoodLive = "{{ neighborhoodDrawObject.neighborhoodLive.dnaurl }}"
+    var neighborhoodLive = "{{ neighborhoodDrawObject.neighborhoodLive.dnaurl }}";
 	</script>
   <script type="text/javascript" src="{% static 'crimemaps/js/d3.min.js' %}"></script>
 	<script type="text/javascript" src="{% static 'crimemaps/js/leaflet.js' %}"></script>
@@ -101,15 +101,6 @@
 	<script type="text/javascript" src="{% static 'crimemaps/js/DNAinfoNYCNeighDraw.js' %}"></script>
 	<script type="text/javascript" src="{% static 'crimemaps/js/nycneighdrawapp.js' %}"></script>
   <script type="text/javascript" src="{% static 'crimemaps/js/nycdrawMapControllers.js' %}"></script>
-  <script type="text/javascript">
-    $('#showShareFB').click(function() { 
-      FB.ui({
-        method: 'share',
-        display: 'popup',
-        href: 'https://visualizations.dnainfo.com/nycneighshow/{{ id }}/',
-      }, function(response){});
-    });
-  </script>
 {% endblock %}
 
 
