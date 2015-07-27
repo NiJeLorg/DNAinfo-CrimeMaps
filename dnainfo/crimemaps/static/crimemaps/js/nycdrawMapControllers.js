@@ -25,11 +25,13 @@ $( document ).ready(function() {
     $('.leaflet-draw-draw-polygon').append("<span class=\"glyphicon glyphicon-pencil red-pencil\" aria-hidden=\"true\"></span>");
 
 
+    var fbUrl = "https://visualizations.dnainfo.com/nycneighshow/"+ id +"/";
+
     $('#shareFB').click(function() { 
       FB.ui({
         method: 'share',
         display: 'popup',
-        href: 'https://visualizations.dnainfo.com/nycneighshow/{{ id }}/',
+        href: fbUrl,
       }, function(response){});
     });
 
