@@ -824,6 +824,22 @@ def nycneighdrawsave(request, id=None):
 	return JsonResponse(request.POST)
 
 
+def nycneighshow(request, id=None):
+	neighborhoodDrawObject = neighborhoodDrawNYC.objects.get(pk=id)
+
+	neighborhoodDrawObjectForm = neighborhoodDrawNYC()
+	form = nycNeighDrawForm(instance=neighborhoodDrawObjectForm)
+
+	return render(request, 'crimemaps/nycneighshow.html', {'neighborhoodDrawObject': neighborhoodDrawObject, 'id':id, 'form':form})
+
+
+def getnycdrawngeojson(request, id=None):
+
+	neighborhoodDrawObject = neighborhoodDrawNYC.objects.get(pk=id)
+
+	return JsonResponse(neighborhoodDrawObject.drawnGeojson, safe=False)
+
+
 def chineigh(request, id=None):
 	if id:
 		neighborhoodDrawObject = neighborhoodDrawCHI.objects.get(pk=id)
@@ -873,3 +889,17 @@ def chineighdrawsave(request, id=None):
 	return JsonResponse(request.POST)
 
 
+def chineighshow(request, id=None):
+	neighborhoodDrawObject = neighborhoodDrawCHI.objects.get(pk=id)
+
+	neighborhoodDrawObjectForm = neighborhoodDrawCHI()
+	form = chiNeighDrawForm(instance=neighborhoodDrawObjectForm)
+
+	return render(request, 'crimemaps/chineighshow.html', {'neighborhoodDrawObject': neighborhoodDrawObject, 'id':id, 'form':form})
+
+
+def getchidrawngeojson(request, id=None):
+
+	neighborhoodDrawObject = neighborhoodDrawCHI.objects.get(pk=id)
+
+	return JsonResponse(neighborhoodDrawObject.drawnGeojson, safe=False)

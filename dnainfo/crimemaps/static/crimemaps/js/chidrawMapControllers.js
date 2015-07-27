@@ -24,5 +24,12 @@ $( document ).ready(function() {
     // add glyphicon to draw polygon tool
     $('.leaflet-draw-draw-polygon').append("<span class=\"glyphicon glyphicon-pencil red-pencil\" aria-hidden=\"true\"></span>");
 
+    $('#shareFB').click(function() { 
+      FB.ui({
+        method: 'share',
+        display: 'popup',
+        href: 'https://visualizations.dnainfo.com/chineighshow/{{ id }}/',
+      }, function(response){});
+    });
 
 });

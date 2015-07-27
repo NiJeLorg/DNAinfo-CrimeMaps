@@ -9,6 +9,23 @@
 {% endblock %}
 
 {% block head_js_block %}
+<script type="text/javascript">
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '406014149589534',
+      xfbml      : true,
+      version    : 'v2.4'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
 {% endblock %}
 	
 {% block body_block %}
@@ -25,8 +42,7 @@
         <div id="map" class="map"></div>
         <button id="imFinished" class="btn btn-success hidden" type="submit">I'm Finished</button>
         <button id="startOver" class="btn btn-warning hidden" type="submit">Start Over</button>
-        <button id="shareFB" class="btn btn-primary hidden" type="submit">Share on <i class="fa fa-facebook-official fa-lg"></i></button>
-        <button id="shareTwitter" class="btn btn-info hidden" type="submit">Share on <i class="fa fa-twitter fa-lg"></i></button>
+        <div id="fb-root"></div>
 
 
 {% endblock %}
@@ -50,6 +66,21 @@
 
         <div class="clearfix"></div>
         <button id="closeIntroModal" class="btn btn-danger btn-lg center-block" type="submit">Go For It!</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- share modal -->
+<div class="modal fade" id="share" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body modalContent">
+        <h3 class="text-center text-uppercase">Share Your Version of <span class="neighborhoodName"></span></h3>
+        <p class="text-center">
+          <button id="shareFB" class="btn btn-primary btn-lg" type="submit">Share on <i class="fa fa-facebook-official fa-lg"></i></button>
+          <a class="btn btn-info btn-lg" href="https://twitter.com/share?url=https%3A%2F%2Fvisualizations.dnainfo.org%2Fchineighshow%2F{{ id }}%2F&via=DNAinfo&text=Check%20out%20the%20map%20of%20my%20neighborhood%20I%20drew%20compared%20to%20the%20official%20neighborhood:" role="button" target="_blank">Share on <i class="fa fa-twitter fa-lg"></i></a>
+        </p>
       </div>
     </div>
   </div>

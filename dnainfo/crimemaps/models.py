@@ -129,5 +129,37 @@ class neighborhoodDrawCHI(models.Model):
 	drawnGeojson = models.TextField(default='')
 
 
+# model for Chicago zillow app
+#class CHIZillow(models.Model):
+#	zipcode = models.IntegerField(default=0, blank=False, null=False)
+#	neighborhoods_covered = models.CharField(max_length=255, default='', blank=False, null=False)
+#	population = models.IntegerField(default=0, blank=True, null=True)
+#	pct_living_in_same_house = models.FloatField(default=0, blank=True, null=True)
+#	med_hh_income = models.IntegerField(default=0, blank=True, null=True)
+#	pct_change_sq_ft = models.FloatField(default=0, blank=True, null=True)
+#	pct_homes_sold = models.FloatField(default=0, blank=True, null=True)
+#	pct_change_avg_rent = models.FloatField(default=0, blank=True, null=True)
+#	estimated_value_sq_ft = models.IntegerField(default=0, blank=True, null=True)
+#	estimated_value_all_homes = models.IntegerField(default=0, blank=True, null=True)
+#	avg_rent_sq_ft = models.FloatField(default=0, blank=True, null=True)
+#	med_list_price = models.IntegerField(default=0, blank=True, null=True)
+#	med_sale_price = models.IntegerField(default=0, blank=True, null=True)
+
+
+
+#class CHIZillowTitles(models.Model):
+#	zipcode = models.CharField(max_length=255, default='', blank=False, null=False)
+#	neighborhoods_covered = models.CharField(max_length=255, default='', blank=False, null=False)
+#	population = models.CharField(max_length=255, default='', blank=False, null=False)
+#	pct_living_in_same_house = models.CharField(max_length=255, default='', blank=False, null=False)
+#	med_hh_income = models.CharField(max_length=255, default='', blank=False, null=False)
+#	pct_change_sq_ft = models.CharField(max_length=255, default='', blank=False, null=False)
+#	pct_homes_sold = models.CharField(max_length=255, default='', blank=False, null=False)
+#	pct_change_avg_rent = models.CharField(max_length=255, default='', blank=False, null=False)
+#	estimated_value_sq_ft = models.CharField(max_length=255, default='', blank=False, null=False)
+#	estimated_value_all_homes = models.CharField(max_length=255, default='', blank=False, null=False)
+#	avg_rent_sq_ft = models.CharField(max_length=255, default='', blank=False, null=False)
+#	med_list_price = models.CharField(max_length=255, default='', blank=False, null=False)
+#	med_sale_price = models.CharField(max_length=255, default='', blank=False, null=False)
 
 

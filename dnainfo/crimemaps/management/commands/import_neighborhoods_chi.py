@@ -9,6 +9,10 @@ import csv
 """
 class Command(BaseCommand):
     
+    def truncate_tables(self):
+        neighborhoodDrawCHI.objects.all().delete()
+        neighborhoodCHI.objects.all().delete()
+
     def load_neighborhoods(self):
         __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
         # open partner.csv and dump into Contact table
@@ -23,6 +27,8 @@ class Command(BaseCommand):
 
 
     def handle(self, *args, **options):
+        print "Truncate Tables...."
+        self.truncate_tables()
         print "Loading Neighborhoods...."
         self.load_neighborhoods()
 

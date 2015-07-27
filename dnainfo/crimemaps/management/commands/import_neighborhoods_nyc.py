@@ -8,6 +8,10 @@ import csv
   Loads list for neighborhoods from CSV
 """
 class Command(BaseCommand):
+
+    def truncate_tables(self):
+        neighborhoodDrawNYC.objects.all().delete()
+        neighborhoodNYC.objects.all().delete()
     
     def load_neighborhoods(self):
         __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
@@ -23,6 +27,8 @@ class Command(BaseCommand):
 
 
     def handle(self, *args, **options):
+        print "Truncate Tables...."
+        self.truncate_tables()
         print "Loading Neighborhoods...."
         self.load_neighborhoods()
 

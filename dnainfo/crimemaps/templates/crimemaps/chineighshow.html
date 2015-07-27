@@ -1,0 +1,117 @@
+{% extends 'crimemaps/baseNoBottomNav.html' %}
+{% load staticfiles %}
+{% load bootstrap_tags %}
+{% load django_select2_tags %}
+
+
+{% block css_block %}
+    <link rel="stylesheet" type="text/css" href="{% static 'crimemaps/css/leaflet.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'crimemaps/css/leaflet.label.css' %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    {% import_django_select2_css %}
+{% endblock %}
+
+{% block head_js_block %}
+<script type="text/javascript">
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '406014149589534',
+      xfbml      : true,
+      version    : 'v2.4'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+{% endblock %}
+	
+{% block body_block %}
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <div class="navbar-brand">DNAinfo Chicago | Drawing <span class="neighborhoodName"></span></div>
+        </div>
+      </div> 
+    </nav>
+
+        <!-- #popup-wrapper-->
+        <div id="popup-wrapper" class="popup-wrapper popup-wrapper-open">
+            <div class="popup-content">
+                <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-md-6 col-md-offset-3">
+                        <h4>Try Your Hand at Drawing Your Neighborhood!</h4>
+                        <form method="post" action="/chineigh/">
+                          {% csrf_token %}
+                          {{ form|as_bootstrap }}
+                          <input type="submit" class="btn btn-danger" value="Draw Your Neighborhood!" />
+                        </form>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /#popup-wrapper-->
+
+        <!-- Map Content -->
+        <div id="map" class="map map-popup-wrapper-open"></div>
+        <button id="showShareFB" class="btn btn-primary" type="submit">Share on <i class="fa fa-facebook-official fa-lg"></i></button>
+        <a id="showShareTwitter" class="btn btn-info" href="https://twitter.com/share?url=https%3A%2F%2Fvisualizations.dnainfo.org%2Fchineighshow%2F{{ id }}%2F&via=DNAinfo&text=Check%20out%20the%20map%20of%20my%20neighborhood%20I%20drew%20compared%20to%20the%20official%20neighborhood:" role="button" target="_blank">Share on <i class="fa fa-twitter fa-lg"></i></a>
+
+        <div id="fb-root"></div>
+
+{% endblock %}
+
+{% block modal_block %}
+{% endblock %}
+
+{% block js_block %}
+  <script type="text/javascript" src="{% static 'crimemaps/js/jquery.cookie.js' %}"></script>
+	<script type="text/javascript">
+    var id = "{{ id }}"
+    var CHI_Neighborhoods = "{% static 'crimemaps/data/chi_acs_2013_commareas_commute.topojson' %}";
+    var neighborhoodLive = "{{ neighborhoodDrawObject.neighborhoodLive.dnaurl }}";
+	</script>
+  <script type="text/javascript" src="{% static 'crimemaps/js/d3.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'crimemaps/js/leaflet.js' %}"></script>
+  <script type="text/javascript" src="{% static 'crimemaps/js/topojson.js' %}"></script>
+  <script type="text/javascript" src="{% static 'crimemaps/js/leaflet.label-src.js' %}"></script>
+	<script type="text/javascript" src="{% static 'crimemaps/js/DNAinfoCHINeighShow.js' %}"></script>
+	<script type="text/javascript" src="{% static 'crimemaps/js/chineighshowapp.js' %}"></script>
+  <script type="text/javascript" src="{% static 'crimemaps/js/chishowMapControllers.js' %}"></script>
+  {% import_django_select2_js %}
+  <script type="text/javascript">
+    $( document ).ready(function() {
+      // sort the select list
+      $('#id_neighborhoodLive').select2({
+          sortResults: function(results, container, query) {
+            function sort(a,b){
+              a = a.text.toLowerCase();
+              b = b.text.toLowerCase();
+              if(a > b) {
+                  return 1;
+              } else if (a < b) {
+                  return -1;
+              }
+              return 0;
+          }
+          results.sort(sort);
+
+                return results;
+          }
+      });
+
+    });
+  </script>
+{% endblock %}
+
+
+	
+	
+

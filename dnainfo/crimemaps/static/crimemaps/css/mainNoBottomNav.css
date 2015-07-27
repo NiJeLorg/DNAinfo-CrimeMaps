@@ -322,13 +322,17 @@ body.loading .loading-modal {
 * Neighborhood draw maps buttons
 */
 
-#imFinished, #shareFB {
+.shareButtons {
+	width: 100%;
+}
+
+#imFinished, #showShareFB {
 	position: absolute;
 	top: 122px;
 	left: 10px;
 }
 
-#startOver, #shareTwitter {
+#startOver, #showShareTwitter {
 	position: absolute;
 	top: 162px;
 	left: 10px;
@@ -337,4 +341,6 @@ body.loading .loading-modal {
 .red-pencil {
 	color: #ad1515;
 }
+
+
 

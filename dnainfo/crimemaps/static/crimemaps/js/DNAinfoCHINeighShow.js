@@ -3,9 +3,9 @@
 */
 
 // initialize map
-function DNAinfoCHINeighDraw() {
+function DNAinfoCHINeighShow() {
 	// set zoom and center for this map
-	this.center = DNAinfoCHINeighDraw.center(neighborhoodLive);
+	this.center = DNAinfoCHINeighShow.center(neighborhoodLive);
     this.zoom = 13;
 
     this.map = new L.Map('map', {
@@ -32,147 +32,31 @@ function DNAinfoCHINeighDraw() {
 	
 	// empty containers for layers 
 	this.NEIGHBORHOODS = null;
-
-
-	// initiate drawing tools
-	this.FEATURELAYER = new L.FeatureGroup();
-	this.map.addLayer(this.FEATURELAYER);
-
-	// Initialise the draw control and pass it the FeatureGroup of editable layers
-	this.drawControl = new L.Control.Draw({
-		draw: {
-			polyline: false,
-			rectangle: false,
-			circle: false,
-			marker: false,
-			polygon: {
-				allowIntersection: false,
-				guidelineDistance: 10,
-				metric: false,
-				shapeOptions: {
-		            color: '#ad1515'
-		        }
-			},
-		},
-	    edit: {
-	        featureGroup: this.FEATURELAYER,
-	        edit: false,
-	        remove: false,
-	    },
-	});
-	this.map.addControl(this.drawControl);
-
-	var thismap = this;
-	this.map.on('draw:created', function (e) {
-	    thismap.DRAWNLAYER = e.layer;
-
-	    // add layer to map
-	    thismap.map.addLayer(thismap.DRAWNLAYER);
-	    thismap.DRAWNLAYER.bindLabel('My version of ' + DNAinfoCHINeighDraw.neighborhoodName(neighborhoodLive));
-
-	    // zoom map to drawn layer
-	    var bounds = thismap.DRAWNLAYER.getBounds();
-	    thismap.map.fitBounds(bounds);
-
-	    // turn off polygon draw tools so they can only draw one polygon
-	   	thismap.map.removeControl(thismap.drawControl);
-
-	   	// add finished start over buttons
-	   	$('#imFinished').removeClass('hidden');
-	   	$('#startOver').removeClass('hidden');
-
-	});
+	this.DRAWNGEOJSON = null;
 
 }
 
 
-DNAinfoCHINeighDraw.startOver = function () {
-	// remove buttons
-	$('#imFinished').addClass('hidden');
-	$('#startOver').addClass('hidden');
-
-	// remove drawn layer from map
-	MY_MAP.map.removeLayer(MY_MAP.DRAWNLAYER);
-
-	// add drawing controls
-	MY_MAP.map.addControl(MY_MAP.drawControl);
-
-	// add glyphicon to draw polygon tool
-    $('.leaflet-draw-draw-polygon').append("<span class=\"glyphicon glyphicon-pencil red-pencil\" aria-hidden=\"true\"></span>");
-
-	// reset map to original zoom and center
-	MY_MAP.map.setView(MY_MAP.center, MY_MAP.zoom);
-
-}
-
-
-DNAinfoCHINeighDraw.imFinished = function () {
-	// remove these buttons
-	$('#imFinished').addClass('hidden');
-	$('#startOver').addClass('hidden');
-
-	// ajax call to save the geojson
-	MY_MAP.DRAWNGEOJSON = MY_MAP.DRAWNLAYER.toGeoJSON();
-	var geojson = MY_MAP.DRAWNGEOJSON;
-	var url = '/chineighdrawsave/'+ id + '/';
-	var csrftoken = $.cookie('csrftoken');
-
-	function csrfSafeMethod(method) {
-	    // these HTTP methods do not require CSRF protection
-	    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-	}
-	$.ajaxSetup({
-	    beforeSend: function(xhr, settings) {
-	        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-	            xhr.setRequestHeader("X-CSRFToken", csrftoken);
-	        }
-	    }
-	});
-
-	$.post( url, {'geojson': JSON.stringify(geojson)},  function(data){ console.log(data); }, "json");
-
-	// show neighborhoods
-	MY_MAP.map.addLayer(MY_MAP.NEIGHBORHOODS);
-
-	// zoom map to neighborhood layer
-    var bounds = MY_MAP.NEIGHBORHOODS.getBounds();
-    MY_MAP.map.fitBounds(bounds);
-
-    setTimeout(function(){
-    	$('#share').modal('show');
-    },1000);
-
-}
-
-
-DNAinfoCHINeighDraw.onEachFeature_NEIGHBORHOODS = function(feature,layer){	
-	var highlight = {
-	    color: '#000'
-	};
-	var noHighlight = {
-        color: '#000'
-	};
+DNAinfoCHINeighShow.onEachFeature_NEIGHBORHOODS = function(feature,layer){	
 
 	layer.bindLabel("<strong>" + feature.properties.comm_name + "</strong>", { direction:'auto' });
 	
     layer.on('mouseover', function(ev) {
-
-		layer.setStyle(highlight);
 		if (!L.Browser.ie && !L.Browser.opera) {
 	        layer.bringToBack();
 	    }
-
-
     });
 		
-    layer.on('mouseout', function(ev) {
-		layer.setStyle(noHighlight);		
-    });	
+}
 
+DNAinfoCHINeighShow.onEachFeature_DRAWNGEOJSON = function(feature,layer){	
+
+	layer.bindLabel('My version of ' + DNAinfoCHINeighShow.neighborhoodName(neighborhoodLive));
+	
 }
 
 
-DNAinfoCHINeighDraw.prototype.loadNeighborhoods = function (){
+DNAinfoCHINeighShow.prototype.loadNeighborhoods = function (){
 	var thismap = this;
 	d3.json(CHI_Neighborhoods, function(data) {
 		polyTopojson = topojson.feature(data, data.objects.chi_acs_2013_commareas_commute).features;
@@ -181,17 +65,42 @@ DNAinfoCHINeighDraw.prototype.loadNeighborhoods = function (){
 
 	function drawPolys() {
 		thismap.NEIGHBORHOODS = L.geoJson(polyTopojson, {
-		    style: DNAinfoCHINeighDraw.getStyleFor_NEIGHBORHOODS,
-			onEachFeature: DNAinfoCHINeighDraw.onEachFeature_NEIGHBORHOODS,
+		    style: DNAinfoCHINeighShow.getStyleFor_NEIGHBORHOODS,
+			onEachFeature: DNAinfoCHINeighShow.onEachFeature_NEIGHBORHOODS,
 			filter: function(feature, layer) {
-				return (feature.properties.comm_name == DNAinfoCHINeighDraw.neighborhoodName(neighborhoodLive));
+				return (feature.properties.comm_name == DNAinfoCHINeighShow.neighborhoodName(neighborhoodLive));
 			}
 		});
+
+		thismap.map.addLayer(thismap.NEIGHBORHOODS);
 	}
 
 }
 
-DNAinfoCHINeighDraw.getStyleFor_NEIGHBORHOODS = function (feature){
+DNAinfoCHINeighShow.prototype.loadDrawnGeojson = function (){
+	var thismap = this;
+	$.ajax({
+		type: "GET",
+		url: "/getchidrawngeojson/"+ id +"/",
+		success: function(data){
+			// load the draw tools
+			if (data) {
+				var geojson = JSON.parse(data);
+				thismap.DRAWNGEOJSON = L.geoJson(geojson, {
+				    style: DNAinfoCHINeighShow.getStyleFor_DRAWNGEOJSON,
+					onEachFeature: DNAinfoCHINeighShow.onEachFeature_DRAWNGEOJSON,
+				});
+				thismap.map.addLayer(thismap.DRAWNGEOJSON);
+			} else {
+				thismap.DRAWNGEOJSON = null;
+			}
+        }
+	});
+
+}
+
+
+DNAinfoCHINeighShow.getStyleFor_NEIGHBORHOODS = function (feature){
     return {
         weight: 4,
         opacity: 1,
@@ -201,10 +110,20 @@ DNAinfoCHINeighDraw.getStyleFor_NEIGHBORHOODS = function (feature){
     }
 }
 
+DNAinfoCHINeighShow.getStyleFor_DRAWNGEOJSON = function (feature){
+    return {
+        weight: 4,
+        opacity: 1,
+        color: '#ad1515',
+        fillOpacity: 0.5,
+        fillColor: '#ad1515'
+    }
+}
 
 
 
-DNAinfoCHINeighDraw.center = function (neighborhood){
+
+DNAinfoCHINeighShow.center = function (neighborhood){
 
 	var lookup = {
 		"austin-belmont-cragin": [41.932598, -87.770290],
@@ -369,7 +288,7 @@ DNAinfoCHINeighDraw.center = function (neighborhood){
 }
 
 
-DNAinfoCHINeighDraw.neighborhoodName = function (neighborhood){
+DNAinfoCHINeighShow.neighborhoodName = function (neighborhood){
 
 	var lookup = {
 		'austin': 'Austin',
