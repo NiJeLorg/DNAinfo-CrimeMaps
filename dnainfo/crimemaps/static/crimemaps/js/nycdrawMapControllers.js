@@ -19,22 +19,10 @@ $( document ).ready(function() {
       DNAinfoNYCNeighDraw.startOver();
     });
 
-    $('.neighborhoodName').text(DNAinfoNYCNeighDraw.neighborhoodName(neighborhoodLive));
+    $('.neighborhoodName').text(DNAinfoNYCNeighDraw.neighborhoodBabyName(neighborhoodLive));
 
     // add glyphicon to draw polygon tool
     $('.leaflet-draw-draw-polygon').append("<span class=\"glyphicon glyphicon-pencil red-pencil\" aria-hidden=\"true\"></span>");
 
-
-    var fbUrl = "https://visualizations.dnainfo.com/nycneighshow/"+ id +"/";
-
-    $('#shareFB').click(function() { 
-      FB.ui({
-        method: 'share',
-        display: 'popup',
-        href: fbUrl,
-      }, function(response){});
-    });
-
-    
 
 });
