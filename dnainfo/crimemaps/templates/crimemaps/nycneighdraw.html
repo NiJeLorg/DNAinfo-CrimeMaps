@@ -9,8 +9,11 @@
 {% endblock %}
 
 {% block head_js_block %}
-<meta property="og:title" content="DNAinfo Draw Your Neighborhood Maps" />
-<script type="text/javascript">
+<meta property="fb:app_id" content="406014149589534" /> 
+<meta property="og:type"   content="website" /> 
+<meta property="og:url"    content="https://visualizations.dnainfo.com/nycneighshow/{{ id }}/" /> 
+<meta property="og:title"  content="DNAinfo Draw Your NYC Neighborhood Maps" /> 
+<meta property="og:image"  content="{% static 'crimemaps/css/images/DNA_DYOM_NYC.png' %}" /><script type="text/javascript">
   window.fbAsyncInit = function() {
     FB.init({
       appId      : '406014149589534',
