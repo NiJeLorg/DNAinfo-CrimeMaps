@@ -118,13 +118,17 @@ class neighborhoodCHI(models.Model):
 
 #model for NYC neighborhood drawing site
 class neighborhoodDrawNYC(models.Model):
+	created = models.DateTimeField(auto_now=True)
 	neighborhoodLive = models.ForeignKey(neighborhoodNYC)
+	otherNeighborhood = models.CharField(max_length=255, default='', blank=True, null=True)
 	yearsLived = models.IntegerField(default=0, blank=False, null=False)
 	drawnGeojson = models.TextField(default='')
 
 #model for CHI neighborhood drawing site
 class neighborhoodDrawCHI(models.Model):
+	created = models.DateTimeField(auto_now=True)
 	neighborhoodLive = models.ForeignKey(neighborhoodCHI)
+	otherNeighborhood = models.CharField(max_length=255, default='', blank=True, null=True)
 	yearsLived = models.IntegerField(default=0, blank=False, null=False)
 	drawnGeojson = models.TextField(default='')
 

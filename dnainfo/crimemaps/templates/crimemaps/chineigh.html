@@ -63,6 +63,19 @@
 		    }
 		});
 
+		// hide other neighborhood write in 
+	    $('#div_id_otherNeighborhood').addClass('hidden');
+
+	    $('#id_neighborhoodLive').change(function() {
+	    	if( $('#select2-chosen-2').html() == "Other" ) {
+	    		$('#div_id_otherNeighborhood').removeClass('hidden');
+	    	} else {
+	    		$('#div_id_otherNeighborhood').addClass('hidden');
+	    		$('#id_otherNeighborhood').val('');
+	    	}
+	    });
+
+
 	});
 </script>
 {% endblock %}

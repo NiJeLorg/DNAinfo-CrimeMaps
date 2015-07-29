@@ -13,13 +13,14 @@ bay-terrace-staten-island,Bay Terrace (Staten Island)
 baychester,Baychester
 bayside,Bayside
 bayswater,Bayswater
-bed-stuy,Bedford-Stuyvesant
+bedford,Bedford
 bedford-park,Bedford Park 
 beechhurst,Beechhurst
 belle-harbor,Belle Harbor
 bellerose,Bellerose
 belmont,Belmont
-bensonhurst,Bensonhurst
+bensonhurst-east,Bensonhurst East
+bensonhurst-west,Bensonhurst West
 bergen-beach,Bergen Beach
 bloomfield,Bloomfield
 boerum-hill,Boreum Hill
@@ -32,7 +33,8 @@ brooklyn-heights,Brooklyn Heights
 brookville,Brookville
 brownsville,Brownsville
 bulls-heads,Bulls Heads
-bushwick,Bushwick
+bushwick-north,Bushwick North
+bushwick-south,Bushwick South
 cambria-heights,Cambria Heights
 canarsie,Canarsie
 carnegie-hill,Carnegie Hill
@@ -40,6 +42,7 @@ carroll-gardens,Carroll Gardens
 castle-hill,Castle Hill
 castleton-corners,Castleton Corners
 central-harlem,Central Harlem
+central-harlem-south,Central Harlem South
 charleston,Charleston
 chelsea,Chelsea
 chelsea-staten-island,Chelsea (Staten Island)
@@ -60,9 +63,11 @@ concord,Concord
 concourse,Concourse
 concourse-village,Concourse Village
 coney-island,Coney Island
+north-corona,North Corona
 corona,Corona
 country-club,Country Club
-crown-heights,Crown Heights
+crown-heights-north,Crown Heights North
+crown-heights-south,Crown Heights South
 cypress-hills,Cypress Hills
 ditmars,Ditmars
 ditmas-park,Ditmas Park
@@ -73,7 +78,8 @@ dumbo,DUMBO
 dyker-heights,Dyker Heights
 east-elmhurst,East Elmhurst
 east-flatbush,East Flatbush
-east-harlem,East Harlem
+east-harlem-north,East Harlem North
+east-harlem-south,East Harlem South
 east-new-york,East New York
 east-village,East Village
 east-williamsburg,East Williamsburg
@@ -90,6 +96,7 @@ financial-district,Financial District
 flatbush,Flatbush
 flatiron,Flatiron
 flatlands,Flatlands
+east-flushing,East Flushing
 flushing,Flushing
 fordham,Fordham
 forest-hills,Forest Hills
@@ -237,11 +244,13 @@ st-albans,St. Albans
 st.-george,St. George
 stapleton,Stapleton
 starrett-city,Starrett City
-stuy-town,Stuy-Town
+stuy-heights,Stuyvesant Heights
+stuy-town,Stuyvesant Town
 sugar-hill,Sugar Hill
 sunnyside,Sunnyside
 sunnyside-staten-island,Sunnyside (Staten Island)
-sunset-park,Sunset Park
+sunset-park-east,Sunset Park East
+sunset-park-west,Sunset Park West
 sutton-place,Sutton Place
 throgs-neck,Throgs Neck
 times-square-theater-district,Times Square/ Theater District
@@ -261,7 +270,8 @@ utopia,Utopia
 van-nest,Van Nest
 vinegar-hill,Vinegar Hill
 wakefield,Wakefield
-washington-heights,Washington Heights
+washington-heights-north,Washington Heights North
+washington-heights-south,Washington Heights South
 wavecrest,Wavecrest
 west-brighton,West Brighton
 west-farms,West Farms
@@ -279,3 +289,4 @@ woodlawn,Woodlawn
 woodrow,Woodrow
 woodside,Woodside
 yorkville,Yorkville
+other,Other

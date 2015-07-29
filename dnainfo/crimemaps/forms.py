@@ -45,9 +45,10 @@ class nycNeighDrawForm(forms.ModelForm):
 
     class Meta:
         model = neighborhoodDrawNYC
-        fields = ('neighborhoodLive', 'yearsLived')
+        fields = ('neighborhoodLive', 'otherNeighborhood', 'yearsLived')
         labels = {
-            'neighborhoodLive': 'Please select the neighborhood in which you currently live.',
+            'neighborhoodLive': 'Deciding where one neighborhood ends and the next one begins is a debate as old as New York. So let\'s settle it once and for all: draw where you think your neighborhood outlines are. Don\'t see your neighborhood represented here? Type it in the field below and then click "Draw Your Neighborhood."',
+            'otherNeighborhood': 'Type in your neighborhood here if it\'s not in the list above',
         }
         widgets = {
             'neighborhoodLive': widgets.Select2Widget(),
@@ -58,9 +59,10 @@ class chiNeighDrawForm(forms.ModelForm):
 
     class Meta:
         model = neighborhoodDrawCHI
-        fields = ('neighborhoodLive', 'yearsLived')
+        fields = ('neighborhoodLive', 'otherNeighborhood', 'yearsLived')
         labels = {
-            'neighborhoodLive': 'Please select the neighborhood in which you currently live.',
+            'neighborhoodLive': 'Deciding where one neighborhood ends and the next one begins is a debate as old as Chicago. So let\'s settle it once and for all: draw where you think your neighborhood outlines are. Don\'t see your neighborhood represented here? Pick "Other" from the menu, type it in the field below, and then click "Draw Your Neighborhood."',
+            'otherNeighborhood': 'Type in your neighborhood here if it\'s not in the list above',
         }
         widgets = {
             'neighborhoodLive': widgets.Select2Widget(),

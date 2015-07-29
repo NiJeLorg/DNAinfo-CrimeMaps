@@ -66,8 +66,8 @@
 
         <!-- Map Content -->
         <div id="map" class="map map-popup-wrapper-open"></div>
-        <a id="showShareFB" class="btn btn-primary" href="https://www.facebook.com/dialog/feed?app_id=406014149589534&display=popup&caption=Check%20out%20the%20map%20of%20my%20neighborhood%20I%20drew%20compared%20to%20the%20official%20neighborhood:&link=https%3A%2F%2Fvisualizations.dnainfo.com%2Fchineighshow%2F{{ id }}%2F&redirect_uri=https%3A%2F%2Fvisualizations.dnainfo.com%2Fchineighshow%2F{{ id }}%2F" role="button" target="_blank">Share on <i class="fa fa-facebook-official fa-lg"></i></a>        
-        <a id="showShareTwitter" class="btn btn-info" href="https://twitter.com/share?url=https%3A%2F%2Fvisualizations.dnainfo.com%2Fchineighshow%2F{{ id }}%2F&via=DNAinfo&text=Check%20out%20the%20map%20of%20my%20neighborhood%20I%20drew%20compared%20to%20the%20official%20neighborhood:" role="button" target="_blank">Share on <i class="fa fa-twitter fa-lg"></i></a>
+        <a id="showShareFB" class="btn btn-primary" href="#" role="button" target="_blank">Share on <i class="fa fa-facebook-official fa-lg"></i></a>
+        <a id="showShareTwitter" class="btn btn-info" href="#" role="button" target="_blank">Share on <i class="fa fa-twitter fa-lg"></i></a>
 
 {% endblock %}
 
@@ -80,6 +80,7 @@
     var id = "{{ id }}"
     var CHI_Neighborhoods = "{% static 'crimemaps/data/chi_acs_2013_commareas_commute.topojson' %}";
     var neighborhoodLive = "{{ neighborhoodDrawObject.neighborhoodLive.dnaurl }}";
+    var otherNeighborhood = "{{ neighborhoodDrawObject.otherNeighborhood }}";
 	</script>
   <script type="text/javascript" src="{% static 'crimemaps/js/d3.min.js' %}"></script>
 	<script type="text/javascript" src="{% static 'crimemaps/js/leaflet.js' %}"></script>
@@ -109,6 +110,19 @@
                 return results;
           }
       });
+
+      // hide other neighborhood write in 
+      $('#div_id_otherNeighborhood').addClass('hidden');
+
+      $('#id_neighborhoodLive').change(function() {
+        if( $('#select2-chosen-2').html() == "Other" ) {
+          $('#div_id_otherNeighborhood').removeClass('hidden');
+        } else {
+          $('#div_id_otherNeighborhood').addClass('hidden');
+          $('#id_otherNeighborhood').val('');
+        }
+      });
+
 
     });
   </script>

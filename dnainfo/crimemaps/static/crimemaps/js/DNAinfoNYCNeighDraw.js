@@ -6,8 +6,12 @@
 function DNAinfoNYCNeighDraw() {
 	// set zoom and center for this map
 	this.center = DNAinfoNYCNeighDraw.center(neighborhoodLive);
-    this.zoom = 14;
-
+	if (neighborhoodLive == 'other'){
+		this.zoom = 11;
+	} else {
+		this.zoom = 14;
+	}
+    
     this.map = new L.Map('map', {
 		minZoom:11,
 		maxZoom:17,
@@ -132,11 +136,13 @@ DNAinfoNYCNeighDraw.imFinished = function () {
 	$.post( url, {'geojson': JSON.stringify(geojson)},  function(data){ console.log(data); }, "json");
 
 	// show neighborhoods
-	MY_MAP.map.addLayer(MY_MAP.NEIGHBORHOODS);
+	if (neighborhoodLive != 'other'){
+		MY_MAP.map.addLayer(MY_MAP.NEIGHBORHOODS);
 
-	// zoom map to neighborhood layer
-    var bounds = MY_MAP.NEIGHBORHOODS.getBounds();
-    MY_MAP.map.fitBounds(bounds);
+		// zoom map to neighborhood layer
+	    var bounds = MY_MAP.NEIGHBORHOODS.getBounds();
+	    MY_MAP.map.fitBounds(bounds);
+	}
 
     setTimeout(function(){
     	$('#share').modal('show');
@@ -147,29 +153,14 @@ DNAinfoNYCNeighDraw.imFinished = function () {
 
 
 DNAinfoNYCNeighDraw.onEachFeature_NEIGHBORHOODS = function(feature,layer){	
-	var highlight = {
-	    color: '#000'
-	};
-	var noHighlight = {
-        color: '#000'
-	};
-
 	layer.bindLabel("<strong>" + feature.properties.NTAName + "</strong>", { direction:'auto' });
 	
     layer.on('mouseover', function(ev) {
-
-		layer.setStyle(highlight);
 		if (!L.Browser.ie && !L.Browser.opera) {
 	        layer.bringToBack();
 	    }
-
-
     });
 		
-    layer.on('mouseout', function(ev) {
-		layer.setStyle(noHighlight);		
-    });	
-
 }
 
 
@@ -548,13 +539,14 @@ DNAinfoNYCNeighDraw.neighborhoodName = function (neighborhood){
 		'baychester': 'Eastchester-Edenwald-Baychester',
 		'bayside': 'Bayside-Bayside Hills',
 		'bayswater': 'Far Rockaway-Bayswater',
-		'bed-stuy': 'Bedford',
+		'bedford': 'Bedford',
 		'bedford-park': 'Bedford Park-Fordham North',
 		'beechhurst': 'Whitestone',
 		'belle-harbor': 'Breezy Point-Belle Harbor-Rockaway Park-Broad Channel',
 		'bellerose': 'Bellerose',
 		'belmont': 'Belmont',
-		'bensonhurst': 'Bensonhurst East',
+		'bensonhurst-east': 'Bensonhurst East',
+		'bensonhurst-west': 'Bensonhurst West',
 		'bergen-beach': 'Georgetown-Marine Park-Bergen Beach-Mill Basin',
 		'bloomfield': 'New Springville-Bloomfield-Travis',
 		'boerum-hill': 'DUMBO-Vinegar Hill-Downtown Brooklyn-Boerum Hill',
@@ -567,7 +559,8 @@ DNAinfoNYCNeighDraw.neighborhoodName = function (neighborhood){
 		'brookville': 'Springfield Gardens South-Brookville',
 		'brownsville': 'Brownsville',
 		'bulls-heads': 'New Springville-Bloomfield-Travis',
-		'bushwick': 'Bushwick North',
+		'bushwick-north': 'Bushwick North',
+		'bushwick-south': 'Bushwick South',
 		'cambria-heights': 'Cambria Heights',
 		'canarsie': 'Canarsie',
 		'carnegie-hill': 'Upper East Side-Carnegie Hill',
@@ -575,6 +568,7 @@ DNAinfoNYCNeighDraw.neighborhoodName = function (neighborhood){
 		'castle-hill': 'Soundview-Castle Hill-Clason Point-Harding Park',
 		'castleton-corners': 'Westerleigh',
 		'central-harlem': 'Central Harlem North-Polo Grounds',
+		'central-harlem-south': 'Central Harlem South',
 		'charleston': 'Charleston-Richmond Valley-Tottenville',
 		'chelsea': 'Hudson Yards-Chelsea-Flatiron-Union Square',
 		'chelsea-staten-island': 'New Springville-Bloomfield-Travis',
@@ -595,9 +589,11 @@ DNAinfoNYCNeighDraw.neighborhoodName = function (neighborhood){
 		'concourse': 'East Concourse-Concourse Village',
 		'concourse-village': 'East Concourse-Concourse Village',
 		'coney-island': 'Seagate-Coney Island',
+		'north-corona': 'North Corona',
 		'corona': 'Corona',
 		'country-club': 'Pelham Bay-Country Club-City Island',
-		'crown-heights': 'Crown Heights North',
+		'crown-heights-north': 'Crown Heights North',
+		'crown-heights-south': 'Crown Heights South',
 		'cypress-hills': 'Cypress Hills-City Line',
 		'ditmars': 'Steinway',
 		'ditmas-park': 'Flatbush',
@@ -608,7 +604,8 @@ DNAinfoNYCNeighDraw.neighborhoodName = function (neighborhood){
 		'dyker-heights': 'Dyker Heights',
 		'east-elmhurst': 'East Elmhurst',
 		'east-flatbush': 'East Flatbush-Farragut',
-		'east-harlem': 'East Harlem North',
+		'east-harlem-north': 'East Harlem North',
+		'east-harlem-south': 'East Harlem South',
 		'east-new-york': 'East New York',
 		'east-village': 'East Village',
 		'east-williamsburg': 'East Williamsburg',
@@ -625,6 +622,7 @@ DNAinfoNYCNeighDraw.neighborhoodName = function (neighborhood){
 		'flatbush': 'Flatbush',
 		'flatiron': 'Hudson Yards-Chelsea-Flatiron-Union Square',
 		'flatlands': 'Flatlands',
+		'east-flushing': 'East Flushing',
 		'flushing': 'Flushing',
 		'fordham': 'Fordham South',
 		'forest-hills': 'Forest Hills',
@@ -772,11 +770,13 @@ DNAinfoNYCNeighDraw.neighborhoodName = function (neighborhood){
 		'st.-george': 'West New Brighton-New Brighton-St. George',
 		'stapleton': 'Stapleton-Rosebank',
 		'starrett-city': 'Starrett City',
+		'stuy-heights': 'Stuyvesant Heights',
 		'stuy-town': 'Stuyvesant Town-Cooper Village',
 		'sugar-hill': 'Hamilton Heights',
 		'sunnyside': 'Hunters Point-Sunnyside-West Maspeth',
 		'sunnyside-staten-island': 'Westerleigh',
-		'sunset-park': 'Sunset Park East',
+		'sunset-park-east': 'Sunset Park East',
+		'sunset-park-west': 'Sunset Park West',
 		'sutton-place': 'Turtle Bay-East Midtown',
 		'throgs-neck': 'Schuylerville-Throgs Neck-Edgewater Park',
 		'times-square-theater-district': 'Midtown-Midtown South',
@@ -796,7 +796,8 @@ DNAinfoNYCNeighDraw.neighborhoodName = function (neighborhood){
 		'van-nest': 'Van Nest-Morris Park-Westchester Square',
 		'vinegar-hill': 'DUMBO-Vinegar Hill-Downtown Brooklyn-Boerum Hill',
 		'wakefield': 'Woodlawn-Wakefield',
-		'washington-heights': 'Washington Heights North',
+		'washington-heights-north': 'Washington Heights North',
+		'washington-heights-south': 'Washington Heights South',
 		'wavecrest': 'Far Rockaway-Bayswater',
 		'west-brighton': 'West Brighton',
 		'west-farms': 'West Farms-Bronx River',
@@ -845,13 +846,14 @@ DNAinfoNYCNeighDraw.neighborhoodBabyName = function (neighborhood){
 		'baychester': 'Baychester',
 		'bayside': 'Bayside',
 		'bayswater': 'Bayswater',
-		'bed-stuy': 'Bedford-Stuyvesant',
-		'bedford-park': 'Bedford Park',
+		'bedford': 'Bedford',
+		'bedford-park': 'Bedford Park ',
 		'beechhurst': 'Beechhurst',
 		'belle-harbor': 'Belle Harbor',
 		'bellerose': 'Bellerose',
 		'belmont': 'Belmont',
-		'bensonhurst': 'Bensonhurst',
+		'bensonhurst-east': 'Bensonhurst East',
+		'bensonhurst-west': 'Bensonhurst West',
 		'bergen-beach': 'Bergen Beach',
 		'bloomfield': 'Bloomfield',
 		'boerum-hill': 'Boreum Hill',
@@ -864,7 +866,8 @@ DNAinfoNYCNeighDraw.neighborhoodBabyName = function (neighborhood){
 		'brookville': 'Brookville',
 		'brownsville': 'Brownsville',
 		'bulls-heads': 'Bulls Heads',
-		'bushwick': 'Bushwick',
+		'bushwick-north': 'Bushwick North',
+		'bushwick-south': 'Bushwick South',
 		'cambria-heights': 'Cambria Heights',
 		'canarsie': 'Canarsie',
 		'carnegie-hill': 'Carnegie Hill',
@@ -872,6 +875,7 @@ DNAinfoNYCNeighDraw.neighborhoodBabyName = function (neighborhood){
 		'castle-hill': 'Castle Hill',
 		'castleton-corners': 'Castleton Corners',
 		'central-harlem': 'Central Harlem',
+		'central-harlem-south': 'Central Harlem South',
 		'charleston': 'Charleston',
 		'chelsea': 'Chelsea',
 		'chelsea-staten-island': 'Chelsea (Staten Island)',
@@ -892,9 +896,11 @@ DNAinfoNYCNeighDraw.neighborhoodBabyName = function (neighborhood){
 		'concourse': 'Concourse',
 		'concourse-village': 'Concourse Village',
 		'coney-island': 'Coney Island',
+		'north-corona': 'North Corona',
 		'corona': 'Corona',
 		'country-club': 'Country Club',
-		'crown-heights': 'Crown Heights',
+		'crown-heights-north': 'Crown Heights North',
+		'crown-heights-south': 'Crown Heights South',
 		'cypress-hills': 'Cypress Hills',
 		'ditmars': 'Ditmars',
 		'ditmas-park': 'Ditmas Park',
@@ -905,7 +911,8 @@ DNAinfoNYCNeighDraw.neighborhoodBabyName = function (neighborhood){
 		'dyker-heights': 'Dyker Heights',
 		'east-elmhurst': 'East Elmhurst',
 		'east-flatbush': 'East Flatbush',
-		'east-harlem': 'East Harlem',
+		'east-harlem-north': 'East Harlem North',
+		'east-harlem-south': 'East Harlem South',
 		'east-new-york': 'East New York',
 		'east-village': 'East Village',
 		'east-williamsburg': 'East Williamsburg',
@@ -922,6 +929,7 @@ DNAinfoNYCNeighDraw.neighborhoodBabyName = function (neighborhood){
 		'flatbush': 'Flatbush',
 		'flatiron': 'Flatiron',
 		'flatlands': 'Flatlands',
+		'east-flushing': 'East Flushing',
 		'flushing': 'Flushing',
 		'fordham': 'Fordham',
 		'forest-hills': 'Forest Hills',
@@ -1069,11 +1077,13 @@ DNAinfoNYCNeighDraw.neighborhoodBabyName = function (neighborhood){
 		'st.-george': 'St. George',
 		'stapleton': 'Stapleton',
 		'starrett-city': 'Starrett City',
-		'stuy-town': 'Stuy-Town',
+		'stuy-heights': 'Stuyvesant Heights',
+		'stuy-town': 'Stuyvesant Town',
 		'sugar-hill': 'Sugar Hill',
 		'sunnyside': 'Sunnyside',
 		'sunnyside-staten-island': 'Sunnyside (Staten Island)',
-		'sunset-park': 'Sunset Park',
+		'sunset-park-east': 'Sunset Park East',
+		'sunset-park-west': 'Sunset Park West',
 		'sutton-place': 'Sutton Place',
 		'throgs-neck': 'Throgs Neck',
 		'times-square-theater-district': 'Times Square/ Theater District',
@@ -1093,7 +1103,8 @@ DNAinfoNYCNeighDraw.neighborhoodBabyName = function (neighborhood){
 		'van-nest': 'Van Nest',
 		'vinegar-hill': 'Vinegar Hill',
 		'wakefield': 'Wakefield',
-		'washington-heights': 'Washington Heights',
+		'washington-heights-north': 'Washington Heights North',
+		'washington-heights-south': 'Washington Heights South',
 		'wavecrest': 'Wavecrest',
 		'west-brighton': 'West Brighton',
 		'west-farms': 'West Farms',
@@ -1117,7 +1128,12 @@ DNAinfoNYCNeighDraw.neighborhoodBabyName = function (neighborhood){
 	if (lookup[neighborhood]) {			
 		return lookup[neighborhood];
 	} else {
-		return '';
+		if (neighborhood == 'other') {
+			return otherNeighborhood;
+		} else {
+			return '';
+		}
+
 	}
 
 

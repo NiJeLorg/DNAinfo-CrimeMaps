@@ -8,7 +8,7 @@ ashburn,Ashburn
 auburn-gresham,Auburn Gresham
 avalon-park,Avalon Park
 avondale,Avondale
-back-of-yards,Back of Yards
+back-of-yards,Back of the Yards
 belmont-cragin,Belmont Cragin
 beverly,Beverly
 boystown,Boystown
@@ -18,7 +18,7 @@ brighton-park,Brighton Park
 bronzeville,Bronzeville
 bucktown,Bucktown
 burnside,Burnside
-bush,Bush
+bush,The Bush
 calumet-heights,Calumet Heights
 canaryville,Canaryville
 chatham,Chatham
@@ -39,7 +39,7 @@ ford-city,Ford City
 forest-glen,Forest Glen
 fuller-park,Fuller Park
 gage-park,Gage Park
-gap,Gap
+gap,The Gap
 garfield-park,Garfield Park
 garfield-ridge,Garfield Ridge
 gladstone-park,Gladstone Park
@@ -81,7 +81,7 @@ north-lawndale,North Lawndale
 north-park,North Park
 norwood-park,Norwood Park
 oakland,Oakland
-ohare,O\Hare
+ohare,O'Hare
 old-edgebrook,Old Edgebrook
 old-town,Old Town
 pill-hill,Pill Hill
@@ -93,7 +93,7 @@ ravenswood,Ravenswood
 river-north,River North
 river-west,River West
 riverdale,Riverdale
-rogers-park,Roger\s Park
+rogers-park,Rogers Park
 roscoe-village,Roscoe Village
 roseland,Roseland
 sauganash,Sauganash
@@ -119,8 +119,9 @@ west-lawn,West Lawn
 west-loop,West Loop
 west-pullman,West Pullman
 west-ridge,West Ridge
-west-rogers-park,West Roger\s Park
+west-rogers-park,West Rogers Park
 west-town,West Town
 wicker-park,Wicker Park
 woodlawn,Woodlawn
 wrigleyville,Wrigleyville
+other,Other

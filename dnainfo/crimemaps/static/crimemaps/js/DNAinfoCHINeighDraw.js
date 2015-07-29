@@ -6,7 +6,11 @@
 function DNAinfoCHINeighDraw() {
 	// set zoom and center for this map
 	this.center = DNAinfoCHINeighDraw.center(neighborhoodLive);
-    this.zoom = 13;
+	if (neighborhoodLive == 'other'){
+		this.zoom = 11;
+	} else {
+		this.zoom = 13;
+	}
 
     this.map = new L.Map('map', {
 		minZoom:11,
@@ -132,11 +136,14 @@ DNAinfoCHINeighDraw.imFinished = function () {
 	$.post( url, {'geojson': JSON.stringify(geojson)},  function(data){ console.log(data); }, "json");
 
 	// show neighborhoods
-	MY_MAP.map.addLayer(MY_MAP.NEIGHBORHOODS);
+	if (neighborhoodLive != 'other'){
+		MY_MAP.map.addLayer(MY_MAP.NEIGHBORHOODS);
 
-	// zoom map to neighborhood layer
-    var bounds = MY_MAP.NEIGHBORHOODS.getBounds();
-    MY_MAP.map.fitBounds(bounds);
+		// zoom map to neighborhood layer
+	    var bounds = MY_MAP.NEIGHBORHOODS.getBounds();
+	    MY_MAP.map.fitBounds(bounds);
+	}
+
 
     setTimeout(function(){
     	$('#share').modal('show');
@@ -146,29 +153,14 @@ DNAinfoCHINeighDraw.imFinished = function () {
 
 
 DNAinfoCHINeighDraw.onEachFeature_NEIGHBORHOODS = function(feature,layer){	
-	var highlight = {
-	    color: '#000'
-	};
-	var noHighlight = {
-        color: '#000'
-	};
-
 	layer.bindLabel("<strong>" + feature.properties.comm_name + "</strong>", { direction:'auto' });
 	
     layer.on('mouseover', function(ev) {
-
-		layer.setStyle(highlight);
 		if (!L.Browser.ie && !L.Browser.opera) {
 	        layer.bringToBack();
 	    }
-
-
     });
 		
-    layer.on('mouseout', function(ev) {
-		layer.setStyle(noHighlight);		
-    });	
-
 }
 
 
@@ -382,24 +374,24 @@ DNAinfoCHINeighDraw.neighborhoodName = function (neighborhood){
 		'auburn-gresham': 'Auburn Gresham',
 		'avalon-park': 'Avalon Park',
 		'avondale': 'Avondale',
-		'back-of-yards': 'New City (Back of the Yards and Canaryville)',
+		'back-of-yards': 'New City',
 		'belmont-cragin': 'Belmont Cragin',
 		'beverly': 'Beverly',
 		'boystown': 'Lakeview',
 		'brainerd': 'Washington Heights',
 		'bridgeport': 'Bridgeport',
 		'brighton-park': 'Brighton Park',
-		'bronzeville': 'Douglas (Bronzeville)',
+		'bronzeville': 'Douglas',
 		'bucktown': 'Logan Square',
 		'burnside': 'Burnside',
 		'bush': 'South Chicago',
 		'calumet-heights': 'Calumet Heights',
-		'canaryville': 'New City (Back of the Yards and Canaryville)',
+		'canaryville': 'New City',
 		'chatham': 'Chatham',
 		'chicago-lawn': 'Chicago Lawn',
 		'chinatown': 'Armour Square',
 		'clearing': 'Clearing',
-		'douglas': 'Douglas (Bronzeville)',
+		'douglas': 'Douglas ',
 		'downtown': 'Loop',
 		'dunning': 'Dunning',
 		'east-garfield-park': 'East Garfield Park',
@@ -413,16 +405,16 @@ DNAinfoCHINeighDraw.neighborhoodName = function (neighborhood){
 		'forest-glen': 'Forest Glen',
 		'fuller-park': 'Fuller Park',
 		'gage-park': 'Gage Park',
-		'gap': 'Douglas (Bronzeville)',
+		'gap': 'Douglas',
 		'garfield-park': 'West Garfield Park',
 		'garfield-ridge': 'Garfield Ridge',
 		'gladstone-park': 'Jefferson Park',
 		'gold-coast': 'Near North Side',
-		'grand-boulevard': 'Grand Boulevard (Bronzeville)',
+		'grand-boulevard': 'Grand Boulevard',
 		'grand-crossing': 'Greater Grand Crossing',
 		'greektown': 'Near West Side',
-		'heart-of-chicago': 'Pilsen',
-		'heart-of-italy': 'Pilsen',
+		'heart-of-chicago': 'Lower West Side',
+		'heart-of-italy': 'Lower West Side',
 		'hegewisch': 'Hegewisch',
 		'hermosa': 'Hermosa',
 		'humboldt-park': 'Humboldt Park',
@@ -435,7 +427,7 @@ DNAinfoCHINeighDraw.neighborhoodName = function (neighborhood){
 		'lincoln-park': 'Lincoln Park',
 		'lincoln-square': 'Lincoln Square',
 		'little-italy': 'Near West Side',
-		'little-village': 'Little Village',
+		'little-village': 'South Lawndale',
 		'logan-square': 'Logan Square',
 		'loop': 'Loop',
 		'marquette-park': 'Chicago Lawn',
@@ -447,7 +439,7 @@ DNAinfoCHINeighDraw.neighborhoodName = function (neighborhood){
 		'morgan-park': 'Morgan Park',
 		'mt-greenwood': 'Mount Greenwood',
 		'near-west-side': 'Near West Side',
-		'new-city': 'New City (Back of the Yards and Canaryville)',
+		'new-city': 'New City ',
 		'noble-square': 'West Town',
 		'north-center': 'North Center',
 		'north-edgebrook': 'Forest Glen',
@@ -459,7 +451,7 @@ DNAinfoCHINeighDraw.neighborhoodName = function (neighborhood){
 		'old-edgebrook': 'Forest Glen',
 		'old-town': 'Near North Side',
 		'pill-hill': 'Calumet Heights',
-		'pilsen': 'Pilsen',
+		'pilsen': 'Lower West Side',
 		'portage-park': 'Portage Park',
 		'pullman': 'Pullman',
 		'ravenswood-manor': 'Albany Park',
@@ -498,6 +490,8 @@ DNAinfoCHINeighDraw.neighborhoodName = function (neighborhood){
 		'wicker-park': 'West Town',
 		'woodlawn': 'Woodlawn',
 		'wrigleyville': 'Lakeview',
+
+
 	}
 
 	if (lookup[neighborhood]) {			
@@ -526,7 +520,7 @@ DNAinfoCHINeighDraw.neighborhoodBabyName = function (neighborhood){
 		'auburn-gresham': 'Auburn Gresham',
 		'avalon-park': 'Avalon Park',
 		'avondale': 'Avondale',
-		'back-of-yards': 'Back of Yards',
+		'back-of-yards': 'Back of the Yards',
 		'belmont-cragin': 'Belmont Cragin',
 		'beverly': 'Beverly',
 		'boystown': 'Boystown',
@@ -536,7 +530,7 @@ DNAinfoCHINeighDraw.neighborhoodBabyName = function (neighborhood){
 		'bronzeville': 'Bronzeville',
 		'bucktown': 'Bucktown',
 		'burnside': 'Burnside',
-		'bush': 'Bush',
+		'bush': 'The Bush',
 		'calumet-heights': 'Calumet Heights',
 		'canaryville': 'Canaryville',
 		'chatham': 'Chatham',
@@ -557,7 +551,7 @@ DNAinfoCHINeighDraw.neighborhoodBabyName = function (neighborhood){
 		'forest-glen': 'Forest Glen',
 		'fuller-park': 'Fuller Park',
 		'gage-park': 'Gage Park',
-		'gap': 'Gap',
+		'gap': 'The Gap',
 		'garfield-park': 'Garfield Park',
 		'garfield-ridge': 'Garfield Ridge',
 		'gladstone-park': 'Gladstone Park',
@@ -611,7 +605,7 @@ DNAinfoCHINeighDraw.neighborhoodBabyName = function (neighborhood){
 		'river-north': 'River North',
 		'river-west': 'River West',
 		'riverdale': 'Riverdale',
-		'rogers-park': 'Roger\'s Park',
+		'rogers-park': 'Rogers Park',
 		'roscoe-village': 'Roscoe Village',
 		'roseland': 'Roseland',
 		'sauganash': 'Sauganash',
@@ -637,17 +631,23 @@ DNAinfoCHINeighDraw.neighborhoodBabyName = function (neighborhood){
 		'west-loop': 'West Loop',
 		'west-pullman': 'West Pullman',
 		'west-ridge': 'West Ridge',
-		'west-rogers-park': 'West Roger\'s Park',
+		'west-rogers-park': 'West Rogers Park',
 		'west-town': 'West Town',
 		'wicker-park': 'Wicker Park',
 		'woodlawn': 'Woodlawn',
 		'wrigleyville': 'Wrigleyville',
+
 	}
 
 	if (lookup[neighborhood]) {			
 		return lookup[neighborhood];
 	} else {
-		return '';
+		if (neighborhood == 'other') {
+			return otherNeighborhood;
+		} else {
+			return '';
+		}
+
 	}
 
 

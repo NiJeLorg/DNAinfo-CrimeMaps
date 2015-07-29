@@ -57,19 +57,47 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-body modalContent">
-        <h3 class="text-center text-uppercase">Drawing <span class="neighborhoodName"></span></h3>
+        <h3 class="text-center text-uppercase">LET’S SETTLE IT: <span class="neighborhoodName"></span>'S BORDERS</h3>
         <p>
-          Begin drawing <span class="neighborhoodName"></span> by clicking on the <span class="leaflet-draw-toolbar leaflet-bar leaflet-draw-toolbar-top"><a class="leaflet-draw-draw-polygon" href="#" title="Draw a polygon"></a></span> icon under the zoom tools in the upper-left corner. Draw a full polygon by following the instructions next to your cursor.
+          Begin drawing <span class="neighborhoodName"></span> by clicking on the pen icon at left. Tap the pen tool all along the outlines of the neighborhood until the entire area you've chosen is shaded in red.
         </p>
         <p>
-          Once complete, click <strong>I'm Finished</strong> if you're satisfied with your work, or <strong>Start Over</strong> if you need to try again.              
+          When you're done, click <strong>I'm Finished</strong> if you like the result, or <strong>Start Over</strong> if you need to try again.        
         </p>
         <p>
-          After you're finished, you'll see the "official" <span class="neighborhoodName"></span> neighborhood boundary appear alonside your drawing. You can share this completed map to Facebook or Twitter.
+          {% if neighborhoodDrawObject.neighborhoodLive.dnaurl != 'other' %} 
+          When you submit your drawing, we'll show you the city's official version of the neighborhood alongside yours.
+          {% endif %} 
+          We'll share the consensus about the neighborhood lines in the weeks to come, so spread the word when you’re done!
         </p>
 
         <div class="clearfix"></div>
         <button id="closeIntroModal" class="btn btn-danger btn-lg center-block" type="submit">Go For It!</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- intro how to modal -->
+<div class="modal fade" id="introductionTouch" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body modalContent">
+        <h3 class="text-center text-uppercase">LET’S SETTLE IT: <span class="neighborhoodName"></span>'S BORDERS</h3>
+        <p>
+          Begin drawing <span class="neighborhoodName"></span> by clicking on the pen icon at left. Tap the pen tool all along the outlines of the neighborhood until the entire area you've chosen is shaded in red.
+        </p>
+        <p>
+          When you're done, click <strong>I'm Finished</strong> if you like the result, or <strong>Start Over</strong> if you need to try again.             
+        </p>
+        <p>
+          {% if neighborhoodDrawObject.neighborhoodLive.dnaurl != 'other' %} 
+          When you submit your drawing, we'll show you the city's official version of the neighborhood alongside yours. 
+          {% endif %} 
+          We'll share the consensus about the neighborhood lines in the weeks to come, so spread the word when you're done!
+        </p>
+        <div class="clearfix"></div>
+        <button id="closeIntroModalTouch" class="btn btn-danger btn-lg center-block" type="submit">Go For It!</button>
       </div>
     </div>
   </div>
@@ -82,9 +110,13 @@
       <div class="modal-body modalContent">
         <h3 class="text-center text-uppercase">Share Your Version of <span class="neighborhoodName"></span></h3>
         <p class="text-center">
-          <a class="btn btn-primary btn-lg" href="https://www.facebook.com/dialog/feed?app_id=406014149589534&display=popup&caption=Check%20out%20the%20map%20of%20my%20neighborhood%20I%20drew%20compared%20to%20the%20official%20neighborhood:&link=https%3A%2F%2Fvisualizations.dnainfo.com%2Fchineighshow%2F{{ id }}%2F&redirect_uri=https%3A%2F%2Fvisualizations.dnainfo.com%2Fchineighshow%2F{{ id }}%2F" role="button" target="_blank">Share on <i class="fa fa-facebook-official fa-lg"></i></a>        
-          <a class="btn btn-info btn-lg" href="https://twitter.com/share?url=https%3A%2F%2Fvisualizations.dnainfo.com%2Fchineighshow%2F{{ id }}%2F&via=DNAinfo&text=Check%20out%20the%20map%20of%20my%20neighborhood%20I%20drew%20compared%20to%20the%20official%20neighborhood:" role="button" target="_blank">Share on <i class="fa fa-twitter fa-lg"></i></a>
+          <a id="facebookButtonModal" class="btn btn-primary btn-lg facebookButtonModal" href="#" role="button" target="_blank">Share on <i class="fa fa-facebook-official fa-lg"></i></a>
+          <a id="twitterButtonModal" class="btn btn-info btn-lg" href="#" role="button" target="_blank">Share on <i class="fa fa-twitter fa-lg"></i></a>
         </p>
+        {% if neighborhoodDrawObject.neighborhoodLive.dnaurl != 'other' %} 
+        <p>These are the closest outlines the city has to your neighborhood's boundaries. Don’t like what you see? It's probably because the city doesn't officially recognize your neighborhood as an independent area!</p>
+        <p>Credit: City of Chicago</p>
+        {% endif %} 
       </div>
     </div>
   </div>
@@ -97,6 +129,7 @@
     var id = "{{ id }}"
     var CHI_Neighborhoods = "{% static 'crimemaps/data/chi_acs_2013_commareas_commute.topojson' %}";
     var neighborhoodLive = "{{ neighborhoodDrawObject.neighborhoodLive.dnaurl }}"
+    var otherNeighborhood = "{{ neighborhoodDrawObject.otherNeighborhood }}";
 	</script>
 	<script type="text/javascript" src="{% static 'crimemaps/js/d3.min.js' %}"></script>
 	<script type="text/javascript" src="{% static 'crimemaps/js/leaflet.js' %}"></script>
