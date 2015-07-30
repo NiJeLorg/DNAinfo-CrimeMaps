@@ -47,7 +47,7 @@ class nycNeighDrawForm(forms.ModelForm):
         model = neighborhoodDrawNYC
         fields = ('neighborhoodLive', 'otherNeighborhood', 'yearsLived')
         labels = {
-            'neighborhoodLive': 'Deciding where one neighborhood ends and the next one begins is a debate as old as New York. So let\'s settle it once and for all: draw where you think your neighborhood outlines are. Don\'t see your neighborhood represented here? Type it in the field below and then click "Draw Your Neighborhood."',
+            'neighborhoodLive': 'Deciding where one neighborhood ends and the next one begins is a debate as old as New York. So let\'s settle it once and for all: draw where you think your neighborhood outlines are. Don\'t see your neighborhood represented here? Select "OTHER," type it in the field below, and then click "Draw Your Neighborhood."',
             'otherNeighborhood': 'Type in your neighborhood here if it\'s not in the list above',
         }
         widgets = {
@@ -61,7 +61,7 @@ class chiNeighDrawForm(forms.ModelForm):
         model = neighborhoodDrawCHI
         fields = ('neighborhoodLive', 'otherNeighborhood', 'yearsLived')
         labels = {
-            'neighborhoodLive': 'Deciding where one neighborhood ends and the next one begins is a debate as old as Chicago. So let\'s settle it once and for all: draw where you think your neighborhood outlines are. Don\'t see your neighborhood represented here? Pick "Other" from the menu, type it in the field below, and then click "Draw Your Neighborhood."',
+            'neighborhoodLive': 'Deciding where one neighborhood ends and the next one begins is a debate as old as Chicago. So let\'s settle it once and for all: draw where you think your neighborhood outlines are. Don\'t see your neighborhood represented here? Select "OTHER," type it in the field below, and then click "Draw Your Neighborhood."',
             'otherNeighborhood': 'Type in your neighborhood here if it\'s not in the list above',
         }
         widgets = {

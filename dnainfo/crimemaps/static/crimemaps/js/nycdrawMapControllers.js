@@ -9,7 +9,7 @@ $( document ).ready(function() {
     if (L.Browser.touch) {
       $('#introductionTouch').modal('show');
       $('#closeIntroModalTouch').click(function() {
-        $('#introduction').modal('hide');
+        $('#introductionTouch').modal('hide');
       });
     } else {
       $('#introduction').modal('show');
