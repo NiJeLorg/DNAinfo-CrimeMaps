@@ -12,6 +12,7 @@ var DRAWNLAYER = null;
 var DRAWNGEOJSON = null;
 var ALLDRAWNGEOJSONS = null;
 var MY_MAP = null;
+var firstOne = null;
 
 $().ready(new function(){
     var myMap = new DNAinfoCHINeighDraw();

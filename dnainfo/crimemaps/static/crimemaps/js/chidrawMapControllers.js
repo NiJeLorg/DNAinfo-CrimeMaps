@@ -36,7 +36,7 @@ $( document ).ready(function() {
     var fbcaption = 'I\'m a '+ DNAinfoCHINeighDraw.neighborhoodBabyName(neighborhoodLive) +' expert & here\'s where I think the area begins and ends. Now draw your neighborhood: https://visualizations.dnainfo.com/chineigh/ via https://www.facebook.com/dnainfo/';
     var fblink = 'https://visualizations.dnainfo.com/chineighshow/'+ id +'/';
     var fbUrl = 'https://www.facebook.com/dialog/feed?app_id=' + app_id + '&display=popup&caption='+ encodeURIComponent(fbcaption) + '&link=' + encodeURIComponent(fblink) + '&redirect_uri=' + encodeURIComponent(fblink);
-    $('#facebookButtonModal').attr("href", fbUrl);
+    $('.facebookButtonModal').attr("href", fbUrl);
     $('#showShareFB').attr("href", fbUrl);
 
 
@@ -44,7 +44,7 @@ $( document ).ready(function() {
     var via = 'DNAinfo';
     var twittercaption = 'Here\'s where I think '+ DNAinfoCHINeighDraw.neighborhoodBabyName(neighborhoodLive) +'\'s borders are. Now draw your neighborhood: https://visualizations.dnainfo.com/chineigh/';
     var twitterUrl = 'https://twitter.com/share?url=' + encodeURIComponent(twitterlink) + '&via='+ encodeURIComponent(via) + '&text=' + encodeURIComponent(twittercaption);
-    $('#twitterButtonModal').attr("href", twitterUrl);
+    $('.twitterButtonModal').attr("href", twitterUrl);
     $('#showShareTwitter').attr("href", twitterUrl);
 
 

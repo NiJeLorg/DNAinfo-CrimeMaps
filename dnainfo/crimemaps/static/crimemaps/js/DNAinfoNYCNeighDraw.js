@@ -152,7 +152,11 @@ DNAinfoNYCNeighDraw.imFinished = function () {
 	}
 
     setTimeout(function(){
-    	$('#share').modal('show');
+    	if (firstOne) {
+    		$('#shareFirstOne').modal('show');
+    	} else {
+    		$('#share').modal('show');
+    	}	
     },1000);
 
 
@@ -174,6 +178,7 @@ DNAinfoNYCNeighDraw.prototype.loadAllDrawnGeojsons = function (){
 		success: function(data){
 			// load the draw tools
 			if (data.length > 0) {
+				firstOne = false;
 				var geojson = [];
 				for (var i = data.length - 1; i >= 0; i--) {
 					if (data[i]) {
@@ -185,6 +190,7 @@ DNAinfoNYCNeighDraw.prototype.loadAllDrawnGeojsons = function (){
 					onEachFeature: DNAinfoNYCNeighDraw.onEachFeature_ALLDRAWNGEOJSONS,
 				});
 			} else {
+				firstOne = true;
 				thismap.ALLDRAWNGEOJSONS = null;
 			}
         }

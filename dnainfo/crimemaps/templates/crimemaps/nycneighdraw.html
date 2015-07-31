@@ -60,16 +60,13 @@
       <div class="modal-body modalContent">
         <h3 class="text-center text-uppercase">LET’S SETTLE IT: <span class="neighborhoodName"></span>'S BORDERS</h3>
         <p>
-          Begin drawing <span class="neighborhoodName"></span> by clicking on the pen icon at left. Tap the pen tool all along the outlines of the neighborhood until the entire area you've chosen is shaded in red.
+          Start drawing your version of <span class="neighborhoodName"></span> by clicking on the pen tool to the left. Then, drag the pen tool all along the outlines of the neighborhood until the entire area you've chosen is shaded in red.
         </p>
         <p>
-          When you're done, click <strong>I'm Finished</strong> if you like the result, or <strong>Start Over</strong> if you need to try again.        
+          When you're done, select <strong>I'm Finished</strong> if you like the result, or <strong>Start Over</strong> if you need to try again.        
         </p>
         <p>
-          {% if neighborhoodDrawObject.neighborhoodLive.dnaurl != 'other' %} 
-          When you submit your drawing, we'll show you the city's official version of the neighborhood alongside yours.
-          {% endif %} 
-          We'll share the consensus about the neighborhood lines in the weeks to come, so spread the word when you’re done!
+          When you're done we'll show your where other <span class="neighborhoodName"></span> residents think the neighborhood's boundaries are. We'll share a consensus about the neighborhood lines in the weeks to come, so spread the word when you're done!
         </p>
 
         <div class="clearfix"></div>
@@ -86,16 +83,13 @@
       <div class="modal-body modalContent">
         <h3 class="text-center text-uppercase">LET’S SETTLE IT: <span class="neighborhoodName"></span>'S BORDERS</h3>
         <p>
-          Begin drawing <span class="neighborhoodName"></span> by clicking on the pen icon at left. Tap the pen tool all along the outlines of the neighborhood until the entire area you've chosen is shaded in red.
+          Start drawing your version of <span class="neighborhoodName"></span> by clicking on the pen tool to the left. Then, tap the pen tool all along the outlines of the neighborhood until the entire area you've chosen is shaded in red.
         </p>
         <p>
-          When you're done, click <strong>I'm Finished</strong> if you like the result, or <strong>Start Over</strong> if you need to try again.             
+          When you're done, select <strong>I'm Finished</strong> if you like the result, or <strong>Start Over</strong> if you need to try again.        
         </p>
         <p>
-          {% if neighborhoodDrawObject.neighborhoodLive.dnaurl != 'other' %} 
-          When you submit your drawing, we'll show you the city's official version of the neighborhood alongside yours. 
-          {% endif %} 
-          We'll share the consensus about the neighborhood lines in the weeks to come, so spread the word when you're done!
+          When you're done we'll show your where other <span class="neighborhoodName"></span> residents think the neighborhood's boundaries are. We'll share a consensus about the neighborhood lines in the weeks to come, so spread the word when you're done!
         </p>
         <div class="clearfix"></div>
         <button id="closeIntroModalTouch" class="btn btn-danger btn-lg center-block" type="submit">Go For It!</button>
@@ -110,14 +104,27 @@
     <div class="modal-content">
       <div class="modal-body modalContent">
         <h3 class="text-center text-uppercase">Share Your Version of <span class="neighborhoodName"></span></h3>
+        <p>Check out how your version of <span class="neighborhoodName"></span> compares to your neighbor's. Don't like what you see? Let them hear it!</p>
         <p class="text-center">
-          <a id="facebookButtonModal" class="btn btn-primary btn-lg facebookButtonModal" href="#" role="button" target="_blank">Share on <i class="fa fa-facebook-official fa-lg"></i></a>
-          <a id="twitterButtonModal" class="btn btn-info btn-lg" href="#" role="button" target="_blank">Share on <i class="fa fa-twitter fa-lg"></i></a>
+          <a class="btn btn-primary btn-lg facebookButtonModal" href="#" role="button" target="_blank">Share on <i class="fa fa-facebook-official fa-lg"></i></a>
+          <a class="btn btn-info btn-lg twitterButtonModal" href="#" role="button" target="_blank">Share on <i class="fa fa-twitter fa-lg"></i></a>
         </p>
-        {% if neighborhoodDrawObject.neighborhoodLive.dnaurl != 'other' %} 
-        <p>These are the closest outlines the city has to your neighborhood's boundaries. Don’t like what you see? It's probably because the city doesn't officially recognize your neighborhood as an independent area!</p>
-        <p>Credit: NYC Department of City Planning</p>
-        {% endif %} 
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- share first one modal -->
+<div class="modal fade" id="shareFirstOne" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body modalContent">
+        <h3 class="text-center text-uppercase">Share Your Version of <span class="neighborhoodName"></span></h3>
+        <p>You’re a pioneer: The first person to map <span class="neighborhoodName"></span>. Share your map with neighbors and they’ll compare their borders with yours.</p>
+        <p class="text-center">
+          <a class="btn btn-primary btn-lg facebookButtonModal" href="#" role="button" target="_blank">Share on <i class="fa fa-facebook-official fa-lg"></i></a>
+          <a class="btn btn-info btn-lg twitterButtonModal" href="#" role="button" target="_blank">Share on <i class="fa fa-twitter fa-lg"></i></a>
+        </p>
       </div>
     </div>
   </div>
