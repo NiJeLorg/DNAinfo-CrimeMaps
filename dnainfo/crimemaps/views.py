@@ -840,6 +840,18 @@ def getnycdrawngeojson(request, id=None):
 	return JsonResponse(neighborhoodDrawObject.drawnGeojson, safe=False)
 
 
+def getALLnycdrawngeojson(request, neighborhoodLive=None, id=None):
+	neighborhood = neighborhoodNYC.objects.get(dnaurl=neighborhoodLive)
+
+	allDrawnNeighborhoods = neighborhoodDrawNYC.objects.filter(neighborhoodLive=neighborhood).exclude(id=id)
+	geojsons = []
+	for drawn in allDrawnNeighborhoods:
+		geojsons.append(drawn.drawnGeojson) 
+
+	return JsonResponse(geojsons, safe=False)
+
+
+
 def chineigh(request, id=None):
 	if id:
 		neighborhoodDrawObject = neighborhoodDrawCHI.objects.get(pk=id)
@@ -903,3 +915,14 @@ def getchidrawngeojson(request, id=None):
 	neighborhoodDrawObject = neighborhoodDrawCHI.objects.get(pk=id)
 
 	return JsonResponse(neighborhoodDrawObject.drawnGeojson, safe=False)
+
+
+def getALLchidrawngeojson(request, neighborhoodLive=None, id=None):
+	neighborhood = neighborhoodCHI.objects.get(dnaurl=neighborhoodLive)
+
+	allDrawnNeighborhoods = neighborhoodDrawCHI.objects.filter(neighborhoodLive=neighborhood).exclude(id=id)
+	geojsons = []
+	for drawn in allDrawnNeighborhoods:
+		geojsons.append(drawn.drawnGeojson) 
+
+	return JsonResponse(geojsons, safe=False)

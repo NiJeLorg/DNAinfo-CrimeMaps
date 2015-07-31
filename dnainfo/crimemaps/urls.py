@@ -32,10 +32,12 @@ urlpatterns = [
     url(r'^nycneighdrawsave/(?P<id>\d+)/$', views.nycneighdrawsave, name='nycneighdrawsave'),
     url(r'^nycneighshow/(?P<id>\d+)/$', views.nycneighshow, name='nycneighshow'),
     url(r'^getnycdrawngeojson/(?P<id>\d+)/$', views.getnycdrawngeojson, name='getnycdrawngeojson'),
+    url(r'^getallnycdrawngeojson/(?P<neighborhoodLive>[-\w]+)/(?P<id>\d+)/$', views.getALLnycdrawngeojson, name='getALLnycdrawngeojson'),
     url(r'^chineigh/$', views.chineigh, name='chineigh'),
     url(r'^chineighdraw/(?P<id>\d+)/$', views.chineighdraw, name='chineighdraw'),
     url(r'^chineighdrawsave/(?P<id>\d+)/$', views.chineighdrawsave, name='chineighdrawsave'),
     url(r'^chineighshow/(?P<id>\d+)/$', views.chineighshow, name='chineighshow'),
     url(r'^getchidrawngeojson/(?P<id>\d+)/$', views.getchidrawngeojson, name='getchidrawngeojson'),
+    url(r'^getallchidrawngeojson/(?P<neighborhoodLive>[-\w]+)/(?P<id>\d+)/$', views.getALLchidrawngeojson, name='getALLchidrawngeojson'),
 
 ]

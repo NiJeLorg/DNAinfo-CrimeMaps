@@ -32,7 +32,15 @@ function DNAinfoCHINeighShow() {
 	
 	// empty containers for layers 
 	this.NEIGHBORHOODS = null;
+	this.ALLDRAWNGEOJSONS = null;
 	this.DRAWNGEOJSON = null;
+
+}
+
+
+DNAinfoCHINeighShow.onEachFeature_ALLDRAWNGEOJSONS = function(feature,layer){	
+
+	layer.bindLabel('Other DNAinfo Visitor\'s Drawings of ' + DNAinfoCHINeighShow.neighborhoodBabyName(neighborhoodLive));
 
 }
 
@@ -53,6 +61,35 @@ DNAinfoCHINeighShow.onEachFeature_DRAWNGEOJSON = function(feature,layer){
 
 	layer.bindLabel('My version of ' + DNAinfoCHINeighShow.neighborhoodBabyName(neighborhoodLive));
 	
+}
+
+
+DNAinfoCHINeighShow.prototype.loadAllDrawnGeojsons = function (){
+	var thismap = this;
+	$.ajax({
+		type: "GET",
+		url: "/getallchidrawngeojson/"+ neighborhoodLive + "/" + id + "/" ,
+		success: function(data){
+			// load the draw tools
+			if (data.length > 0) {
+				var geojson = [];
+				for (var i = data.length - 1; i >= 0; i--) {
+					if (data[i]) {
+						geojson.push(JSON.parse(data[i]));
+					}
+				};
+				thismap.ALLDRAWNGEOJSONS = L.geoJson(geojson, {
+				    style: DNAinfoCHINeighShow.getStyleFor_ALLDRAWNGEOJSONS,
+					onEachFeature: DNAinfoCHINeighShow.onEachFeature_ALLDRAWNGEOJSONS,
+				});
+				thismap.map.addLayer(thismap.ALLDRAWNGEOJSONS);
+				thismap.ALLDRAWNGEOJSONS.bringToBack();
+			} else {
+				thismap.ALLDRAWNGEOJSONS = null;
+			}
+        }
+	});
+
 }
 
 
@@ -103,6 +140,15 @@ DNAinfoCHINeighShow.prototype.loadDrawnGeojson = function (){
 
 }
 
+DNAinfoCHINeighShow.getStyleFor_ALLDRAWNGEOJSONS = function (feature){
+    return {
+        weight: 4,
+        opacity: 1,
+        color: '#000',
+        fillOpacity: 0.5,
+        fillColor: '#bdbdbd'
+    }
+}
 
 DNAinfoCHINeighShow.getStyleFor_NEIGHBORHOODS = function (feature){
     return {

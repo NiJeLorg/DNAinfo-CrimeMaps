@@ -36,6 +36,7 @@ function DNAinfoNYCNeighDraw() {
 	
 	// empty containers for layers 
 	this.NEIGHBORHOODS = null;
+	this.ALLDRAWNGEOJSONS = null;
 
 
 	// initiate drawing tools
@@ -115,6 +116,11 @@ DNAinfoNYCNeighDraw.imFinished = function () {
 	$('#imFinished').addClass('hidden');
 	$('#startOver').addClass('hidden');
 
+	// add these buttons
+	$('#showShareFB').removeClass('hidden');
+	$('#showShareTwitter').removeClass('hidden');
+	$('#viewOnDNA').removeClass('hidden');
+
 	// ajax call to save the geojson
 	MY_MAP.DRAWNGEOJSON = MY_MAP.DRAWNLAYER.toGeoJSON();
 	var geojson = MY_MAP.DRAWNGEOJSON;
@@ -136,11 +142,12 @@ DNAinfoNYCNeighDraw.imFinished = function () {
 	$.post( url, {'geojson': JSON.stringify(geojson)},  function(data){ console.log(data); }, "json");
 
 	// show neighborhoods
-	if (neighborhoodLive != 'other'){
-		MY_MAP.map.addLayer(MY_MAP.NEIGHBORHOODS);
+	if (neighborhoodLive != 'other' && MY_MAP.ALLDRAWNGEOJSONS){
+		MY_MAP.map.addLayer(MY_MAP.ALLDRAWNGEOJSONS);
+		MY_MAP.ALLDRAWNGEOJSONS.bringToBack();
 
 		// zoom map to neighborhood layer
-	    var bounds = MY_MAP.NEIGHBORHOODS.getBounds();
+	    var bounds = MY_MAP.ALLDRAWNGEOJSONS.getBounds();
 	    MY_MAP.map.fitBounds(bounds);
 	}
 
@@ -150,6 +157,52 @@ DNAinfoNYCNeighDraw.imFinished = function () {
 
 
 }
+
+
+DNAinfoNYCNeighDraw.onEachFeature_ALLDRAWNGEOJSONS = function(feature,layer){	
+
+	layer.bindLabel('Other DNAinfo Visitor\'s Drawings of ' + DNAinfoNYCNeighDraw.neighborhoodBabyName(neighborhoodLive));
+
+	
+}
+
+DNAinfoNYCNeighDraw.prototype.loadAllDrawnGeojsons = function (){
+	var thismap = this;
+	$.ajax({
+		type: "GET",
+		url: "/getallnycdrawngeojson/"+ neighborhoodLive + "/" + id + "/" ,
+		success: function(data){
+			// load the draw tools
+			if (data.length > 0) {
+				var geojson = [];
+				for (var i = data.length - 1; i >= 0; i--) {
+					if (data[i]) {
+						geojson.push(JSON.parse(data[i]));
+					}
+				};
+				thismap.ALLDRAWNGEOJSONS = L.geoJson(geojson, {
+				    style: DNAinfoNYCNeighDraw.getStyleFor_ALLDRAWNGEOJSONS,
+					onEachFeature: DNAinfoNYCNeighDraw.onEachFeature_ALLDRAWNGEOJSONS,
+				});
+			} else {
+				thismap.ALLDRAWNGEOJSONS = null;
+			}
+        }
+	});
+
+}
+
+DNAinfoNYCNeighDraw.getStyleFor_ALLDRAWNGEOJSONS = function (feature){
+    return {
+        weight: 4,
+        opacity: 1,
+        color: '#000',
+        fillOpacity: 0.5,
+        fillColor: '#bdbdbd'
+    }
+}
+
+
 
 
 DNAinfoNYCNeighDraw.onEachFeature_NEIGHBORHOODS = function(feature,layer){	

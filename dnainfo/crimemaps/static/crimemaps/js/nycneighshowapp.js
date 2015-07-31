@@ -7,11 +7,13 @@
   On DOM load handlers
  */
 var NEIGHBORHOODS = null;
+var ALLDRAWNGEOJSONS = null;
 var MY_MAP = null;
 
 $().ready(new function(){
     var myMap = new DNAinfoNYCNeighShow();
-    myMap.loadNeighborhoods();
+    //myMap.loadNeighborhoods();
+    myMap.loadAllDrawnGeojsons();
     myMap.loadDrawnGeojson();
     MY_MAP = myMap;
 });

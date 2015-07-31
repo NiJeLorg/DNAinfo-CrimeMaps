@@ -46,6 +46,9 @@
         <div id="map" class="map"></div>
         <button id="imFinished" class="btn btn-success hidden" type="submit">I'm Finished</button>
         <button id="startOver" class="btn btn-warning hidden" type="submit">Start Over</button>
+        <a id="showShareFB" class="btn btn-primary hidden" href="#" role="button" target="_blank">Share on <i class="fa fa-facebook-official fa-lg"></i></a>
+        <a id="showShareTwitter" class="btn btn-info hidden" href="#" role="button" target="_blank">Share on <i class="fa fa-twitter fa-lg"></i></a>
+        <a id="viewOnDNA" class="btn btn-danger hidden" href="/nycneighshow/{{ id }}/" role="button" target="_blank">View on DNAinfo</a>
 
 {% endblock %}
 
@@ -128,6 +131,7 @@
     var NYC_Neighborhoods = "{% static 'crimemaps/data/nyc_acs_2013_neighareas_commute.topojson' %}";
     var neighborhoodLive = "{{ neighborhoodDrawObject.neighborhoodLive.dnaurl }}";
     var otherNeighborhood = "{{ neighborhoodDrawObject.otherNeighborhood }}";
+
 	</script>
   <script type="text/javascript" src="{% static 'crimemaps/js/d3.min.js' %}"></script>
 	<script type="text/javascript" src="{% static 'crimemaps/js/leaflet.js' %}"></script>

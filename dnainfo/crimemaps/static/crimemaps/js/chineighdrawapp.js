@@ -10,10 +10,12 @@ var NEIGHBORHOODS = null;
 var FEATURELAYER = null;
 var DRAWNLAYER = null;
 var DRAWNGEOJSON = null;
+var ALLDRAWNGEOJSONS = null;
 var MY_MAP = null;
 
 $().ready(new function(){
     var myMap = new DNAinfoCHINeighDraw();
-    myMap.loadNeighborhoods();
+    //myMap.loadNeighborhoods();
+    myMap.loadAllDrawnGeojsons();
     MY_MAP = myMap;
 });
