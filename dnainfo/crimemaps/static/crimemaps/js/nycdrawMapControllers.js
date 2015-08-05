@@ -11,11 +11,17 @@ $( document ).ready(function() {
       $('#closeIntroModalTouch').click(function() {
         $('#introductionTouch').modal('hide');
       });
+      $('#helpButton').click(function() {
+        $('#introductionTouch').modal('show');
+      });      
     } else {
       $('#introduction').modal('show');
       $('#closeIntroModal').click(function() {
         $('#introduction').modal('hide');
       });
+      $('#helpButton').click(function() {
+        $('#introduction').modal('show');
+      });      
     }
 
   

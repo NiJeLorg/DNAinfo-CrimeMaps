@@ -344,6 +344,12 @@ body.loading .loading-modal {
 	left: 10px;	
 }
 
+#helpButton {
+	position: absolute;
+	top: 60px;
+	right: 10px;	
+}
+
 .red-pencil {
 	color: #ad1515;
 }
