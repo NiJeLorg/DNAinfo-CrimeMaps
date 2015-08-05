@@ -152,7 +152,7 @@ DNAinfoCHINeighDraw.imFinished = function () {
 
 
     setTimeout(function(){
-    	if (firstOne) {
+    	if (firstOne || neighborhoodLive == 'other') {
     		$('#shareFirstOne').modal('show');
     	} else {
     		$('#share').modal('show');

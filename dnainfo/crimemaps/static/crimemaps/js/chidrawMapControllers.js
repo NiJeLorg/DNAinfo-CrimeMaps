@@ -11,11 +11,17 @@ $( document ).ready(function() {
       $('#closeIntroModalTouch').click(function() {
         $('#introductionTouch').modal('hide');
       });
+      $('#helpButton').click(function() {
+        $('#introductionTouch').modal('show');
+      });      
     } else {
       $('#introduction').modal('show');
       $('#closeIntroModal').click(function() {
         $('#introduction').modal('hide');
       });
+      $('#helpButton').click(function() {
+        $('#introduction').modal('show');
+      });      
     }
 
     $('#imFinished').click(function() {
@@ -41,8 +47,8 @@ $( document ).ready(function() {
 
 
     var twitterlink = 'https://visualizations.dnainfo.com/chineighshow/'+ id +'/';
-    var via = 'DNAinfo';
-    var twittercaption = 'Here\'s where I think '+ DNAinfoCHINeighDraw.neighborhoodBabyName(neighborhoodLive) +'\'s borders are. Now draw your neighborhood: https://visualizations.dnainfo.com/chineigh/';
+    var via = 'DNAinfoChi';
+    var twittercaption = 'Here\'s where I think '+ DNAinfoCHINeighDraw.neighborhoodBabyName(neighborhoodLive) +'\'s borders are. Now draw your neighborhood.';
     var twitterUrl = 'https://twitter.com/share?url=' + encodeURIComponent(twitterlink) + '&via='+ encodeURIComponent(via) + '&text=' + encodeURIComponent(twittercaption);
     $('.twitterButtonModal').attr("href", twitterUrl);
     $('#showShareTwitter').attr("href", twitterUrl);

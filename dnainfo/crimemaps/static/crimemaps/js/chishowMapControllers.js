@@ -17,8 +17,8 @@ $( document ).ready(function() {
 
 
     var twitterlink = 'https://visualizations.dnainfo.com/chineighshow/'+ id +'/';
-    var via = 'DNAinfo';
-    var twittercaption = 'Here\'s where I think '+ DNAinfoCHINeighShow.neighborhoodBabyName(neighborhoodLive) +'\'s borders are. Now draw your neighborhood: https://visualizations.dnainfo.com/chineigh/';
+    var via = 'DNAinfoChi';
+    var twittercaption = 'Here\'s where I think '+ DNAinfoCHINeighShow.neighborhoodBabyName(neighborhoodLive) +'\'s borders are. Now draw your neighborhood.';
     var twitterUrl = 'https://twitter.com/share?url=' + encodeURIComponent(twitterlink) + '&via='+ encodeURIComponent(via) + '&text=' + encodeURIComponent(twittercaption);
     $('#showShareTwitter').attr("href", twitterUrl);
 
