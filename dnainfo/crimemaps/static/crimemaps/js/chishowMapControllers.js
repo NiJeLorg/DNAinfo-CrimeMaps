@@ -8,6 +8,9 @@ $( document ).ready(function() {
 
     $('.neighborhoodName').text(DNAinfoCHINeighShow.neighborhoodBabyName(neighborhoodLive));
 
+    // update facebook meta content
+    $("meta[property='og:description']").attr('content', "I'm a " + DNAinfoCHINeighShow.neighborhoodBabyName(neighborhoodLive) + " expert & here's where I think the area begins and ends. Now draw your neighborhood.");
+
     // facebook link creation and appending
     var app_id = '406014149589534';
     var fbcaption = 'I\'m a '+ DNAinfoCHINeighShow.neighborhoodBabyName(neighborhoodLive) +' expert & here\'s where I think the area begins and ends. Now draw your neighborhood: https://visualizations.dnainfo.com/chineigh/ via https://www.facebook.com/DNAinfoChicago';
@@ -17,7 +20,7 @@ $( document ).ready(function() {
 
 
     var twitterlink = 'https://visualizations.dnainfo.com/chineighshow/'+ id +'/';
-    var via = 'DNAinfoChi';
+    var via = 'DNAinfoCHI';
     var twittercaption = 'Here\'s where I think '+ DNAinfoCHINeighShow.neighborhoodBabyName(neighborhoodLive) +'\'s borders are. Now draw your neighborhood.';
     var twitterUrl = 'https://twitter.com/share?url=' + encodeURIComponent(twitterlink) + '&via='+ encodeURIComponent(via) + '&text=' + encodeURIComponent(twittercaption);
     $('#showShareTwitter').attr("href", twitterUrl);

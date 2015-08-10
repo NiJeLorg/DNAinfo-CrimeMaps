@@ -3,6 +3,7 @@
 {% load bootstrap_tags %}
 {% load django_select2_tags %}
 
+{% block title %}Where Exactly Is Your Neighborhood | DNAinfo{% endblock %}
 
 {% block css_block %}
     <link rel="stylesheet" type="text/css" href="{% static 'crimemaps/css/leaflet.css' %}">
@@ -14,8 +15,9 @@
 {% block head_js_block %}
 <meta property="fb:app_id" content="406014149589534" /> 
 <meta property="og:type"   content="website" /> 
-<meta property="og:url"    content="https://visualizations.dnainfo.com/chineighshow/{{ id }}/" /> 
-<meta property="og:title"  content="DNAinfo Draw Your Chicago Neighborhood Maps" /> 
+<meta property="og:url"    content="https://visualizations.dnainfo.com/chineighshow/{{ id }}/" />
+<meta property="og:description" content="" />
+<meta property="og:title"  content="Where Exactly Is Your Neighborhood?" /> 
 <meta property="og:image"  content="{% static 'crimemaps/css/images/DNA_DYOM_CHI.png' %}" />
 <script type="text/javascript">
   window.fbAsyncInit = function() {
@@ -37,13 +39,19 @@
 {% endblock %}
 	
 {% block body_block %}
-    <nav class="navbar navbar-default">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <div class="navbar-brand">DNAinfo Chicago | Drawing <span class="neighborhoodName"></span></div>
-        </div>
-      </div> 
-    </nav>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+        <a class="navbar-brand" href="http://www.dnainfo.com/chicago/"><img src="{% static 'crimemaps/css/images/DNACHILogo.png' %}" class="navbar-brand-img-chi"/></a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="collapse">
+      <p class="navbar-text">Drawing <span class="neighborhoodName"></span></p>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
 
         <!-- #popup-wrapper-->
         <div id="popup-wrapper" class="popup-wrapper popup-wrapper-open">

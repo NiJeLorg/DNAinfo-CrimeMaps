@@ -278,6 +278,23 @@ body.loading .loading-modal {
 	background-color: transparent;
 }
 
+.navbar-brand-img-nyc {
+	height: 20px;
+}
+
+.navbar-brand-img-chi {
+	height: 26px;
+}
+
+
+.navbar-text {
+	color: #f1f1f1 !important;
+    background-color: transparent;
+    font-size: 20px;
+    font-weight: 100;
+    margin-top: 12px;
+}
+
 .navbar-default .navbar-nav > li > a {
   color: #f1f1f1;
 }

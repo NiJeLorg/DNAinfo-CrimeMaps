@@ -3,6 +3,8 @@
 {% load bootstrap_tags %}
 {% load django_select2_tags %}
 
+{% block title %}Where Exactly Is Your Neighborhood | DNAinfo{% endblock %}
+
 {% block css_block %}
 {% import_django_select2_css %}
 {% endblock %}
@@ -16,10 +18,13 @@
 	<nav class="navbar navbar-default">
 	  <div class="container-fluid">
 	    <div class="navbar-header">
-	      <div class="navbar-brand">DNAinfo New York</div>
+	        <a class="navbar-brand" href="http://www.dnainfo.com/new-york/"><img src="{% static 'crimemaps/css/images/DNANYCLogo.png' %}" class="navbar-brand-img-nyc"/></a>
 	    </div>
 	  </div> 
 	</nav>
+
+
+
 
 
 	<div class="container">

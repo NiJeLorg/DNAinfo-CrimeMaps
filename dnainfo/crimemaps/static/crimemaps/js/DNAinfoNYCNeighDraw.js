@@ -929,7 +929,7 @@ DNAinfoNYCNeighDraw.neighborhoodBabyName = function (neighborhood){
 		'coney-island': 'Coney Island',
 		'corona': 'Corona',
 		'country-club': 'Country Club',
-		'crown-heights': 'Crown Heights North',
+		'crown-heights': 'Crown Heights',
 		'cypress-hills': 'Cypress Hills',
 		'ditmars': 'Ditmars',
 		'ditmas-park': 'Ditmas Park',

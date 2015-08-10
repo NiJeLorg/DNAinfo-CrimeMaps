@@ -12,7 +12,7 @@ $( document ).ready(function() {
         $('#introductionTouch').modal('hide');
       });
       $('#helpButton').click(function() {
-        $('#introductionTouch').modal('show');
+        $('#helpTouch').modal('show');
       });      
     } else {
       $('#introduction').modal('show');
@@ -20,7 +20,7 @@ $( document ).ready(function() {
         $('#introduction').modal('hide');
       });
       $('#helpButton').click(function() {
-        $('#introduction').modal('show');
+        $('#help').modal('show');
       });      
     }
 
@@ -33,6 +33,9 @@ $( document ).ready(function() {
     });
 
     $('.neighborhoodName').text(DNAinfoCHINeighDraw.neighborhoodBabyName(neighborhoodLive));
+
+    // update facebook meta content
+    $("meta[property='og:description']").attr('content', "I'm a " + DNAinfoCHINeighDraw.neighborhoodBabyName(neighborhoodLive) + " expert & here's where I think the area begins and ends. Now draw your neighborhood.");
 
     // add glyphicon to draw polygon tool
     $('.leaflet-draw-draw-polygon').append("<span class=\"glyphicon glyphicon-pencil red-pencil\" aria-hidden=\"true\"></span>");
@@ -47,7 +50,7 @@ $( document ).ready(function() {
 
 
     var twitterlink = 'https://visualizations.dnainfo.com/chineighshow/'+ id +'/';
-    var via = 'DNAinfoChi';
+    var via = 'DNAinfoCHI';
     var twittercaption = 'Here\'s where I think '+ DNAinfoCHINeighDraw.neighborhoodBabyName(neighborhoodLive) +'\'s borders are. Now draw your neighborhood.';
     var twitterUrl = 'https://twitter.com/share?url=' + encodeURIComponent(twitterlink) + '&via='+ encodeURIComponent(via) + '&text=' + encodeURIComponent(twittercaption);
     $('.twitterButtonModal').attr("href", twitterUrl);

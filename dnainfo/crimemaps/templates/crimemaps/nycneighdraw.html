@@ -1,6 +1,8 @@
 {% extends 'crimemaps/baseNoBottomNav.html' %}
 {% load staticfiles %}
 
+{% block title %}Where Exactly Is Your Neighborhood | DNAinfo{% endblock %}
+
 {% block css_block %}
     <link rel="stylesheet" type="text/css" href="{% static 'crimemaps/css/leaflet.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'crimemaps/css/leaflet.draw.css' %}">
@@ -12,7 +14,8 @@
 <meta property="fb:app_id" content="406014149589534" /> 
 <meta property="og:type"   content="website" /> 
 <meta property="og:url"    content="https://visualizations.dnainfo.com/nycneighshow/{{ id }}/" /> 
-<meta property="og:title"  content="DNAinfo Draw Your NYC Neighborhood Maps" /> 
+<meta property="og:description" content="" />
+<meta property="og:title"  content="Where Exactly Is Your Neighborhood?" /> 
 <meta property="og:image"  content="{% static 'crimemaps/css/images/DNA_DYOM_NYC.png' %}" /><script type="text/javascript">
   window.fbAsyncInit = function() {
     FB.init({
@@ -33,13 +36,19 @@
 {% endblock %}
 	
 {% block body_block %}
-    <nav class="navbar navbar-default">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <div class="navbar-brand">DNAinfo New York | Drawing <span class="neighborhoodName"></span></div>
-        </div>
-      </div> 
-    </nav>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+        <a class="navbar-brand" href="http://www.dnainfo.com/new-york/"><img src="{% static 'crimemaps/css/images/DNANYCLogo.png' %}" class="navbar-brand-img-nyc"/></a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="collapse">
+      <p class="navbar-text">Drawing <span class="neighborhoodName"></span></p>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
 
 
         <!-- Map Content -->
@@ -48,7 +57,7 @@
         <button id="startOver" class="btn btn-warning hidden" type="submit">Start Over</button>
         <a id="showShareFB" class="btn btn-primary hidden" href="#" role="button" target="_blank">Share on <i class="fa fa-facebook-official fa-lg"></i></a>
         <a id="showShareTwitter" class="btn btn-info hidden" href="#" role="button" target="_blank">Share on <i class="fa fa-twitter fa-lg"></i></a>
-        <a id="viewOnDNA" class="btn btn-danger hidden" href="/nycneighshow/{{ id }}/" role="button" target="_blank">Link</a>
+        <a id="viewOnDNA" class="btn btn-danger hidden" href="/nycneigh/" role="button">Try Again</a>
         <button id="helpButton" class="btn btn-danger" type="submit">Help!</button>
 
 
@@ -60,6 +69,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-body modalContent">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h3 class="text-center text-uppercase">LET’S SETTLE IT: <span class="neighborhoodName"></span>'S BORDERS</h3>
         <p>
           Start drawing your version of <span class="neighborhoodName"></span> by clicking on the pen tool to the left. Then, drag the pen tool all along the outlines of the neighborhood until the entire area you've chosen is shaded in red.
@@ -83,6 +93,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-body modalContent">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h3 class="text-center text-uppercase">LET’S SETTLE IT: <span class="neighborhoodName"></span>'S BORDERS</h3>
         <p>
           Start drawing your version of <span class="neighborhoodName"></span> by clicking on the pen tool to the left. Then, tap the pen tool all along the outlines of the neighborhood until the entire area you've chosen is shaded in red.
@@ -100,11 +111,58 @@
   </div>
 </div>
 
+<div class="modal fade" id="help" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body modalContent">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h3 class="text-center text-uppercase">Directions</h3>
+        <p>
+          Start drawing your version of <span class="neighborhoodName"></span> by clicking on the pen tool to the left. Then, drag the pen tool all along the outlines of the neighborhood until the entire area you've chosen is shaded in red.
+        </p>
+        <p>
+          When you're done, select <strong>I'm Finished</strong> if you like the result, or <strong>Start Over</strong> if you need to try again.        
+        </p>
+        <p>
+          When you're done we'll show your where other <span class="neighborhoodName"></span> residents think the neighborhood's boundaries are. We'll share a consensus about the neighborhood lines in the weeks to come, so spread the word when you're done!
+        </p>
+
+        <div class="clearfix"></div>
+        <button class="btn btn-danger btn-lg center-block" type="submit" data-dismiss="modal" aria-label="Close">Return to Map</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- intro how to modal -->
+<div class="modal fade" id="helpTouch" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body modalContent">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h3 class="text-center text-uppercase">Directions</h3>
+        <p>
+          Start drawing your version of <span class="neighborhoodName"></span> by clicking on the pen tool to the left. Then, tap the pen tool all along the outlines of the neighborhood until the entire area you've chosen is shaded in red.
+        </p>
+        <p>
+          When you're done, select <strong>I'm Finished</strong> if you like the result, or <strong>Start Over</strong> if you need to try again.        
+        </p>
+        <p>
+          When you're done we'll show your where other <span class="neighborhoodName"></span> residents think the neighborhood's boundaries are. We'll share a consensus about the neighborhood lines in the weeks to come, so spread the word when you're done!
+        </p>
+        <div class="clearfix"></div>
+        <button class="btn btn-danger btn-lg center-block" type="submit" data-dismiss="modal" aria-label="Close">Return to Map</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- share modal -->
 <div class="modal fade" id="share" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-body modalContent">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h3 class="text-center text-uppercase">Share Your Version of <span class="neighborhoodName"></span></h3>
         <p>Check out how your version of <span class="neighborhoodName"></span> compares to your neighbors'. Don't like what you see? Let them hear it!</p>
         <p class="text-center">
@@ -121,6 +179,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-body modalContent">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h3 class="text-center text-uppercase">Share Your Version of <span class="neighborhoodName"></span></h3>
         <p>You’re a pioneer: The first person to map <span class="neighborhoodName"></span>. Share your map with neighbors and they’ll compare their borders with yours.</p>
         <p class="text-center">
