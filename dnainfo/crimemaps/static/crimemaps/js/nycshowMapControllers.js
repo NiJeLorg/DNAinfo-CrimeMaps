@@ -25,4 +25,8 @@ $( document ).ready(function() {
     var twitterUrl = 'https://twitter.com/share?url=' + encodeURIComponent(twitterlink) + '&via='+ encodeURIComponent(via) + '&text=' + encodeURIComponent(twittercaption);
     $('#showShareTwitter').attr("href", twitterUrl);
     
+    $('.share').click(function() {
+      $('#shareThankYou').modal('show');
+    });
+
 });

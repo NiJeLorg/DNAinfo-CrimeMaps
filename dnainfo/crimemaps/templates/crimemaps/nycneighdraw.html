@@ -55,8 +55,8 @@
         <div id="map" class="map"></div>
         <button id="imFinished" class="btn btn-success hidden" type="submit">I'm Finished</button>
         <button id="startOver" class="btn btn-warning hidden" type="submit">Start Over</button>
-        <a id="showShareFB" class="btn btn-primary hidden" href="#" role="button" target="_blank">Share on <i class="fa fa-facebook-official fa-lg"></i></a>
-        <a id="showShareTwitter" class="btn btn-info hidden" href="#" role="button" target="_blank">Share on <i class="fa fa-twitter fa-lg"></i></a>
+        <a id="showShareFB" class="btn btn-primary hidden share" href="#" role="button" target="_blank">Share on <i class="fa fa-facebook-official fa-lg"></i></a>
+        <a id="showShareTwitter" class="btn btn-info hidden share" href="#" role="button" target="_blank">Share on <i class="fa fa-twitter fa-lg"></i></a>
         <a id="viewOnDNA" class="btn btn-danger hidden" href="/nycneigh/" role="button">Try Again</a>
         <button id="helpButton" class="btn btn-danger" type="submit">Help!</button>
 
@@ -166,8 +166,11 @@
         <h3 class="text-center text-uppercase">Share Your Version of <span class="neighborhoodName"></span></h3>
         <p>Check out how your version of <span class="neighborhoodName"></span> compares to your neighbors'. Don't like what you see? Let them hear it!</p>
         <p class="text-center">
-          <a class="btn btn-primary btn-lg facebookButtonModal" href="#" role="button" target="_blank">Share on <i class="fa fa-facebook-official fa-lg"></i></a>
-          <a class="btn btn-info btn-lg twitterButtonModal" href="#" role="button" target="_blank">Share on <i class="fa fa-twitter fa-lg"></i></a>
+          <a class="btn btn-primary btn-lg facebookButtonModal share" href="#" role="button" target="_blank">Share on <i class="fa fa-facebook-official fa-lg"></i></a>
+          <a class="btn btn-info btn-lg twitterButtonModal share" href="#" role="button" target="_blank">Share on <i class="fa fa-twitter fa-lg"></i></a>
+        </p>
+        <p class="text-center">
+          <a class="btn btn-danger btn-lg" href="#" role="button">Return to Story</a>
         </p>
       </div>
     </div>
@@ -183,13 +186,34 @@
         <h3 class="text-center text-uppercase">Share Your Version of <span class="neighborhoodName"></span></h3>
         <p>You’re a pioneer: The first person to map <span class="neighborhoodName"></span>. Share your map with neighbors and they’ll compare their borders with yours.</p>
         <p class="text-center">
-          <a class="btn btn-primary btn-lg facebookButtonModal" href="#" role="button" target="_blank">Share on <i class="fa fa-facebook-official fa-lg"></i></a>
-          <a class="btn btn-info btn-lg twitterButtonModal" href="#" role="button" target="_blank">Share on <i class="fa fa-twitter fa-lg"></i></a>
+          <a class="btn btn-primary btn-lg facebookButtonModal share" href="#" role="button" target="_blank">Share on <i class="fa fa-facebook-official fa-lg"></i></a>
+          <a class="btn btn-info btn-lg twitterButtonModal share" href="#" role="button" target="_blank">Share on <i class="fa fa-twitter fa-lg"></i></a>
+        </p>
+        <p class="text-center">
+          <a class="btn btn-danger btn-lg" href="#" role="button">Return to Story</a>
         </p>
       </div>
     </div>
   </div>
 </div>
+
+<!-- share thank you -->
+<div class="modal fade" id="shareThankYou" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body modalContent">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h3 class="text-center text-uppercase">Thanks!</h3>
+        <p class="text-center">We'll share the results of your boundaries soon.</p>
+        <p class="text-center">
+          <a class="btn btn-primary btn-lg" href="/nycneigh/" role="button">Try Again</a>
+          <a class="btn btn-danger btn-lg" href="http://www.dnainfo.com/new-york/" role="button">Return to DNAinfo</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
 {% endblock %}
 
 {% block js_block %}
@@ -209,6 +233,17 @@
 	<script type="text/javascript" src="{% static 'crimemaps/js/DNAinfoNYCNeighDraw.js' %}"></script>
 	<script type="text/javascript" src="{% static 'crimemaps/js/nycneighdrawapp.js' %}"></script>
   <script type="text/javascript" src="{% static 'crimemaps/js/nycdrawMapControllers.js' %}"></script>
+
+  <script>
+   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+   ga('create', 'UA-11547945-4', 'auto');
+   ga('send', 'pageview');
+
+  </script>
 {% endblock %}
 
 

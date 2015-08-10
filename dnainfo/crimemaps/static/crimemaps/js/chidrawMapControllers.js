@@ -57,4 +57,10 @@ $( document ).ready(function() {
     $('#showShareTwitter').attr("href", twitterUrl);
 
 
+    $('.share').click(function() {
+        $('#share').modal('hide');
+        $('#shareFirstOne').modal('hide');
+        $('#shareThankYou').modal('show');
+    });
+
 });
