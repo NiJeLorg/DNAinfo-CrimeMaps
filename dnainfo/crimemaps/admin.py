@@ -9,6 +9,6 @@ admin.site.register(blotter)
 admin.site.register(neighborhoodNYC)
 admin.site.register(neighborhoodCHI)
 admin.site.register(neighborhoodDrawNYC)
-admin.site.register(neighborhoodDrawCHI
+admin.site.register(neighborhoodDrawCHI)
 
 
