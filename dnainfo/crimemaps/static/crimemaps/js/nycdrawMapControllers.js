@@ -36,7 +36,7 @@ $( document ).ready(function() {
     $('.neighborhoodName').text(DNAinfoNYCNeighDraw.neighborhoodBabyName(neighborhoodLive));
 
     // update facebook meta content
-    $("meta[property='og:description']").attr('content', "I'm a " + DNAinfoNYCNeighDraw.neighborhoodBabyName(neighborhoodLive) + " expert & here's where I think the area begins and ends. Now draw your neighborhood.");
+    //$("meta[property='og:description']").attr('content', "I'm a " + DNAinfoNYCNeighDraw.neighborhoodBabyName(neighborhoodLive) + " expert & here's where I think the area begins and ends. Now draw your neighborhood.");
 
     // add glyphicon to draw polygon tool
     $('.leaflet-draw-draw-polygon').append("<span class=\"glyphicon glyphicon-pencil red-pencil\" aria-hidden=\"true\"></span>");

@@ -9,7 +9,7 @@ $( document ).ready(function() {
     $('.neighborhoodName').text(DNAinfoCHINeighShow.neighborhoodBabyName(neighborhoodLive));
 
     // update facebook meta content
-    $("meta[property='og:description']").attr('content', "I'm a " + DNAinfoCHINeighShow.neighborhoodBabyName(neighborhoodLive) + " expert & here's where I think the area begins and ends. Now draw your neighborhood.");
+    //$("meta[property='og:description']").attr('content', "I'm a " + DNAinfoCHINeighShow.neighborhoodBabyName(neighborhoodLive) + " expert & here's where I think the area begins and ends. Now draw your neighborhood.");
 
     // facebook link creation and appending
     var app_id = '406014149589534';
