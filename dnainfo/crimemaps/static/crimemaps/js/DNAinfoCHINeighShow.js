@@ -145,7 +145,7 @@ DNAinfoCHINeighShow.getStyleFor_ALLDRAWNGEOJSONS = function (feature){
         weight: 4,
         opacity: 1,
         color: '#000',
-        fillOpacity: 0.5,
+        fillOpacity: 0.05,
         fillColor: '#bdbdbd'
     }
 }
