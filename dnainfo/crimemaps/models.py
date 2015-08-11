@@ -124,9 +124,6 @@ class neighborhoodDrawNYC(models.Model):
 	yearsLived = models.IntegerField(default=0, blank=False, null=False)
 	drawnGeojson = models.TextField(default='')
 
-	def __str__(self):
-		return self.neighborhoodLive
-
 
 #model for CHI neighborhood drawing site
 class neighborhoodDrawCHI(models.Model):
@@ -135,9 +132,6 @@ class neighborhoodDrawCHI(models.Model):
 	otherNeighborhood = models.CharField(max_length=255, default='', blank=True, null=True)
 	yearsLived = models.IntegerField(default=0, blank=False, null=False)
 	drawnGeojson = models.TextField(default='')
-
-	def __str__(self):
-		return self.neighborhoodLive
 
 
 # model for Chicago zillow app
