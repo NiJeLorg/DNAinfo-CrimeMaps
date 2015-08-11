@@ -28,7 +28,7 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 
 # views for DNAinfo crime maps
 def index(request):
-	return redirect('/compstat/')
+	return redirect('http://www.dnainfo.com/')
 
 def workedFromHome(request):
 	return render(request, 'crimemaps/workedFromHome.html', {})
