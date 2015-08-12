@@ -880,6 +880,21 @@ def allnycgeojsons(request):
 
 	return JsonResponse(geojsons, safe=False)
 
+def nycpolygonsbyneigh(request, neighborhoodLive=None):
+
+	return render(request, 'crimemaps/nycpolygonsbyneigh.html', {'neighborhoodLive': neighborhoodLive})
+
+def nycgeojsonsbyneigh(request, neighborhoodLive=None):
+	neighborhood = neighborhoodNYC.objects.get(dnaurl=neighborhoodLive)
+
+	allDrawnNeighborhoods = neighborhoodDrawNYC.objects.filter(neighborhoodLive=neighborhood)
+	geojsons = []
+	for drawn in allDrawnNeighborhoods:
+		changed = drawn.drawnGeojson.replace('\"properties\":{}', '\"properties\":{\"ID\":\"'+ str(drawn.id) +'\"}')
+		geojsons.append(changed) 
+
+	return JsonResponse(geojsons, safe=False)
+
 
 def chineigh(request, id=None):
 	if id:
@@ -975,6 +990,21 @@ def allchipolygons(request):
 def allchigeojsons(request):
 
 	allDrawnNeighborhoods = neighborhoodDrawCHI.objects.all()
+	geojsons = []
+	for drawn in allDrawnNeighborhoods:
+		changed = drawn.drawnGeojson.replace('\"properties\":{}', '\"properties\":{\"ID\":\"'+ str(drawn.id) +'\"}')
+		geojsons.append(changed) 
+
+	return JsonResponse(geojsons, safe=False)
+
+def chipolygonsbyneigh(request, neighborhoodLive=None):
+
+	return render(request, 'crimemaps/chipolygonsbyneigh.html', {'neighborhoodLive': neighborhoodLive})
+
+def chigeojsonsbyneigh(request, neighborhoodLive=None):
+	neighborhood = neighborhoodCHI.objects.get(dnaurl=neighborhoodLive)
+
+	allDrawnNeighborhoods = neighborhoodDrawCHI.objects.filter(neighborhoodLive=neighborhood)
 	geojsons = []
 	for drawn in allDrawnNeighborhoods:
 		changed = drawn.drawnGeojson.replace('\"properties\":{}', '\"properties\":{\"ID\":\"'+ str(drawn.id) +'\"}')

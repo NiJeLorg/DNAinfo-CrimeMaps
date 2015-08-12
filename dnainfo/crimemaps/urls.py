@@ -36,6 +36,8 @@ urlpatterns = [
     url(r'^getallnycdrawngeojsonids/(?P<neighborhoodLive>[-\w]+)/(?P<id>\d+)/$', views.getALLnycdrawngeojsonIDS, name='getALLnycdrawngeojsonIDS'),
     url(r'^allnycpolygons/$', views.allnycpolygons, name='allnycpolygons'),
     url(r'^allnycgeojsons/$', views.allnycgeojsons, name='allnycgeojsons'),
+    url(r'^nycpolygonsbyneigh/(?P<neighborhoodLive>[-\w]+)/$', views.nycpolygonsbyneigh, name='nycpolygonsbyneigh'),
+    url(r'^nycgeojsonsbyneigh/(?P<neighborhoodLive>[-\w]+)/$', views.nycgeojsonsbyneigh, name='nycgeojsonsbyneigh'),
     url(r'^chineigh/$', views.chineigh, name='chineigh'),
     url(r'^chineighdraw/(?P<id>\d+)/$', views.chineighdraw, name='chineighdraw'),
     url(r'^chineighdrawsave/(?P<id>\d+)/$', views.chineighdrawsave, name='chineighdrawsave'),
@@ -45,5 +47,7 @@ urlpatterns = [
     url(r'^getallchidrawngeojsonids/(?P<neighborhoodLive>[-\w]+)/(?P<id>\d+)/$', views.getALLchidrawngeojsonIDS, name='getALLchidrawngeojsonIDS'),
     url(r'^allchipolygons/$', views.allchipolygons, name='allchipolygons'),
     url(r'^allchigeojsons/$', views.allchigeojsons, name='allchigeojsons'),
+    url(r'^chipolygonsbyneigh/(?P<neighborhoodLive>[-\w]+)/$', views.chipolygonsbyneigh, name='nycpolygonsbyneigh'),
+    url(r'^chigeojsonsbyneigh/(?P<neighborhoodLive>[-\w]+)/$', views.chigeojsonsbyneigh, name='chigeojsonsbyneigh'),
 
 ]

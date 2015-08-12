@@ -1,0 +1,53 @@
+{% extends 'crimemaps/baseNoBottomNav.html' %}
+{% load staticfiles %}
+
+{% block title %}Naughty Drawing Patrol{% endblock %}
+
+{% block css_block %}
+    <link rel="stylesheet" type="text/css" href="{% static 'crimemaps/css/leaflet.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'crimemaps/css/leaflet.label.css' %}">
+{% endblock %}
+
+{% block head_js_block %}
+{% endblock %}
+	
+{% block body_block %}
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+        <a class="navbar-brand" href="http://www.dnainfo.com/chicago/"><img src="{% static 'crimemaps/css/images/DNACHILogo.png' %}" class="navbar-brand-img-chi"/></a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="collapse">
+      <p class="navbar-text">Searching for Naughty Drawings</p>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+        <!-- Map Content -->
+        <div id="map" class="map"></div>
+
+{% endblock %}
+
+{% block modal_block %}
+{% endblock %}
+
+{% block js_block %}
+  <script type="text/javascript">
+    var neighborhoodLive = "{{ neighborhoodLive }}";
+  </script>
+  <script type="text/javascript" src="{% static 'crimemaps/js/d3.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'crimemaps/js/leaflet.js' %}"></script>
+  <script type="text/javascript" src="{% static 'crimemaps/js/topojson.js' %}"></script>
+  <script type="text/javascript" src="{% static 'crimemaps/js/leaflet.label-src.js' %}"></script>
+	<script type="text/javascript" src="{% static 'crimemaps/js/DNAinfoCHINeigh.js' %}"></script>
+	<script type="text/javascript" src="{% static 'crimemaps/js/chineighapp.js' %}"></script>
+  <script type="text/javascript" src="{% static 'crimemaps/js/chiMapControllers.js' %}"></script>
+{% endblock %}
+
+
+	
+	
+
