@@ -832,6 +832,10 @@ def nycneighshow(request, id=None):
 
 	return render(request, 'crimemaps/nycneighshow.html', {'neighborhoodDrawObject': neighborhoodDrawObject, 'id':id, 'form':form})
 
+def allnycpolygons(request):
+
+	return render(request, 'crimemaps/allnycpolygons.html', {})
+
 
 def getnycdrawngeojson(request, id=None):
 
@@ -860,6 +864,21 @@ def getALLnycdrawngeojsonIDS(request, neighborhoodLive=None, id=None):
 		ids.append(drawn.id) 
 
 	return JsonResponse(ids, safe=False)
+
+
+def allnycpolygons(request):
+
+	return render(request, 'crimemaps/allnycpolygons.html', {})
+
+def allnycgeojsons(request):
+
+	allDrawnNeighborhoods = neighborhoodDrawNYC.objects.all()
+	geojsons = []
+	for drawn in allDrawnNeighborhoods:
+		changed = drawn.drawnGeojson.replace('\"properties\":{}', '\"properties\":{\"ID\":\"'+ str(drawn.id) +'\"}')
+		geojsons.append(changed) 
+
+	return JsonResponse(geojsons, safe=False)
 
 
 def chineigh(request, id=None):
@@ -947,3 +966,18 @@ def getALLchidrawngeojsonIDS(request, neighborhoodLive=None, id=None):
 		ids.append(drawn.id) 
 
 	return JsonResponse(ids, safe=False)
+
+
+def allchipolygons(request):
+
+	return render(request, 'crimemaps/allchipolygons.html', {})
+
+def allchigeojsons(request):
+
+	allDrawnNeighborhoods = neighborhoodDrawCHI.objects.all()
+	geojsons = []
+	for drawn in allDrawnNeighborhoods:
+		changed = drawn.drawnGeojson.replace('\"properties\":{}', '\"properties\":{\"ID\":\"'+ str(drawn.id) +'\"}')
+		geojsons.append(changed) 
+
+	return JsonResponse(geojsons, safe=False)
