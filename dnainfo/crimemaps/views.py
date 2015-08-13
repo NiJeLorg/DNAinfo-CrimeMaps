@@ -1015,5 +1015,5 @@ def chigeojsonsbyneigh(request, neighborhoodLive=None):
 
 def strip_non_ascii(string):
     ''' Returns the string without non ASCII characters'''
-    stripped = (c for c in string if 0 < ord(c) < 123)
+    stripped = (c for c in string if 96 < ord(c) < 122)
     return ''.join(stripped)
