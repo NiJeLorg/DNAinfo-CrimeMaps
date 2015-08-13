@@ -847,7 +847,7 @@ def getnycdrawngeojson(request, id=None):
 def getALLnycdrawngeojson(request, neighborhoodLive=None, id=None):
 	neighborhood = neighborhoodNYC.objects.get(dnaurl=neighborhoodLive)
 
-	allDrawnNeighborhoods = neighborhoodDrawNYC.objects.filter(neighborhoodLive=neighborhood, approved=True).exclude(id=id)[:100]
+	allDrawnNeighborhoods = neighborhoodDrawNYC.objects.filter(neighborhoodLive=neighborhood, approved=True).exclude(id=id)[:1000]
 	geojsons = []
 	for drawn in allDrawnNeighborhoods:
 		geojsons.append(drawn.drawnGeojson) 
