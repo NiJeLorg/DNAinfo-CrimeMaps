@@ -42,12 +42,10 @@ DNAinfoNYCNeigh.onEachFeature_ALLDRAWNGEOJSONS = function(feature,layer){
 	var highlight = {
 	    weight: 3,
 	    opacity: 1,
-	    color: '#000'
 	};
 	var noHighlight = {
         weight: 1.5,
         opacity: 0.75,
-        color: '#000'
 	};
 
 	layer.on('mouseover', function(ev) {
@@ -93,9 +91,9 @@ DNAinfoNYCNeigh.prototype.loadAllDrawnGeojsons = function (){
 
 DNAinfoNYCNeigh.getStyleFor_ALLDRAWNGEOJSONS = function (feature){
     return {
-        weight: 1.5,
-        opacity: 1,
-        color: '#000',
+        weight: 1,
+        opacity: 0.75,
+        color: '#000066',
         fillOpacity: 0,
         fillColor: '#bdbdbd'
     }
