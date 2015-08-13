@@ -875,8 +875,7 @@ def allnycgeojsons(request):
 	allDrawnNeighborhoods = neighborhoodDrawNYC.objects.all()
 	geojsons = []
 	for drawn in allDrawnNeighborhoods:
-		otherNeighborhood = drawn.otherNeighborhood.replace('{', '').replace('}', '')
-		changed = drawn.drawnGeojson.replace('\"properties\":{}', '\"properties\":{\"ID\":\"'+ str(drawn.id) +'\", \"neighborhoodLive\":\"'+ str(drawn.neighborhoodLive.name) +'\", \"otherNeighborhood\":\"'+ str(otherNeighborhood) +'\"}')
+		changed = drawn.drawnGeojson.replace('\"properties\":{}', '\"properties\":{\"ID\":\"'+ str(drawn.id) +'\", \"neighborhoodLive\":\"'+ str(drawn.neighborhoodLive.name) +'\", \"otherNeighborhood\":\"\"}')
 		geojsons.append(changed) 
 
 	return JsonResponse(geojsons, safe=False)
