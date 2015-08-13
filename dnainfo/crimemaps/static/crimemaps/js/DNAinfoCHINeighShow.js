@@ -42,6 +42,26 @@ DNAinfoCHINeighShow.onEachFeature_ALLDRAWNGEOJSONS = function(feature,layer){
 
 	layer.bindLabel('Other DNAinfo Visitor\'s Drawings of ' + DNAinfoCHINeighShow.neighborhoodBabyName(neighborhoodLive));
 
+	var highlight = {
+	    weight: 3,
+	    opacity: 1,
+	};
+	var noHighlight = {
+        weight: 1.5,
+        opacity: 0.75,
+	};
+
+	layer.on('mouseover', function(ev) {
+		layer.setStyle(highlight);
+    });
+		
+    layer.on('mouseout', function(ev) {
+		layer.setStyle(noHighlight);
+		if (!L.Browser.ie && !L.Browser.opera) {
+	        layer.bringToBack();
+	    }	
+    });	
+
 }
 
 
@@ -142,10 +162,10 @@ DNAinfoCHINeighShow.prototype.loadDrawnGeojson = function (){
 
 DNAinfoCHINeighShow.getStyleFor_ALLDRAWNGEOJSONS = function (feature){
     return {
-        weight: 4,
-        opacity: 1,
-        color: '#000',
-        fillOpacity: 0.05,
+        weight: 1,
+        opacity: 0.75,
+        color: '#191975',
+        fillOpacity: 0,
         fillColor: '#bdbdbd'
     }
 }
