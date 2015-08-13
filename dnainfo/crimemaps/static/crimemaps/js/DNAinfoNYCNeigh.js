@@ -93,7 +93,7 @@ DNAinfoNYCNeigh.getStyleFor_ALLDRAWNGEOJSONS = function (feature){
     return {
         weight: 1,
         opacity: 0.75,
-        color: '#000066',
+        color: '#191975',
         fillOpacity: 0,
         fillColor: '#bdbdbd'
     }
