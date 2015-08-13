@@ -38,6 +38,28 @@ function DNAinfoNYCNeigh() {
 DNAinfoNYCNeigh.onEachFeature_ALLDRAWNGEOJSONS = function(feature,layer){	
 
 	layer.bindLabel('ID Number: ' + feature.properties.ID);
+
+	var highlight = {
+	    weight: 3,
+	    opacity: 1,
+	    color: '#000'
+	};
+	var noHighlight = {
+        weight: 1.5,
+        opacity: 0.75,
+        color: '#000'
+	};
+
+	layer.on('mouseover', function(ev) {
+		layer.setStyle(highlight);
+    });
+		
+    layer.on('mouseout', function(ev) {
+		layer.setStyle(noHighlight);
+		if (!L.Browser.ie && !L.Browser.opera) {
+	        layer.bringToBack();
+	    }	
+    });	
 	
 }
 
@@ -71,10 +93,10 @@ DNAinfoNYCNeigh.prototype.loadAllDrawnGeojsons = function (){
 
 DNAinfoNYCNeigh.getStyleFor_ALLDRAWNGEOJSONS = function (feature){
     return {
-        weight: 4,
+        weight: 1.5,
         opacity: 1,
         color: '#000',
-        fillOpacity: 0.05,
+        fillOpacity: 0,
         fillColor: '#bdbdbd'
     }
 }
