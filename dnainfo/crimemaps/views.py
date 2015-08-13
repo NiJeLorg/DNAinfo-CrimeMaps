@@ -875,7 +875,7 @@ def allnycgeojsons(request):
 	allDrawnNeighborhoods = neighborhoodDrawNYC.objects.all()
 	geojsons = []
 	for drawn in allDrawnNeighborhoods:
-		changed = drawn.drawnGeojson.replace('\"properties\":{}', '\"properties\":{\"ID\":\"'+ str(drawn.id) +'\", \"neighborhoodLive\":\"'+ str(drawn.neighborhoodLive.name) +'\", \"otherNeighborhood\":\"\"}')
+		changed = drawn.drawnGeojson.replace('\"properties\":{}', '\"properties\":{\"ID\":\"'+ str(drawn.id) +'\", \"neighborhoodLive\":\"'+ str(drawn.neighborhoodLive.name) +'\", \"otherNeighborhood\":\"' + strip_non_ascii(drawn.otherNeighborhood) +'\"}')
 		geojsons.append(changed) 
 
 	return JsonResponse(geojsons, safe=False)
@@ -1011,3 +1011,9 @@ def chigeojsonsbyneigh(request, neighborhoodLive=None):
 		geojsons.append(changed) 
 
 	return JsonResponse(geojsons, safe=False)
+
+
+def strip_non_ascii(string):
+    ''' Returns the string without non ASCII characters'''
+    stripped = (c for c in string if 0 < ord(c) < 127)
+    return ''.join(stripped)
