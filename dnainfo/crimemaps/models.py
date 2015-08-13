@@ -123,6 +123,8 @@ class neighborhoodDrawNYC(models.Model):
 	otherNeighborhood = models.CharField(max_length=255, default='', blank=True, null=True)
 	yearsLived = models.IntegerField(default=0, blank=False, null=False)
 	drawnGeojson = models.TextField(default='')
+	approved = models.BooleanField(default=False)
+
 
 
 #model for CHI neighborhood drawing site
@@ -132,6 +134,7 @@ class neighborhoodDrawCHI(models.Model):
 	otherNeighborhood = models.CharField(max_length=255, default='', blank=True, null=True)
 	yearsLived = models.IntegerField(default=0, blank=False, null=False)
 	drawnGeojson = models.TextField(default='')
+	approved = models.BooleanField(default=False)
 
 
 # model for Chicago zillow app
