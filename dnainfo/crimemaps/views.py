@@ -847,7 +847,7 @@ def getnycdrawngeojson(request, id=None):
 def getALLnycdrawngeojson(request, neighborhoodLive=None, id=None):
 	neighborhood = neighborhoodNYC.objects.get(dnaurl=neighborhoodLive)
 
-	allDrawnNeighborhoods = neighborhoodDrawNYC.objects.filter(neighborhoodLive=neighborhood, approved=True).exclude(id=id)[:1000]
+	allDrawnNeighborhoods = neighborhoodDrawNYC.objects.filter(neighborhoodLive=neighborhood, approved=True).exclude(id=id)[:100]
 	geojsons = []
 	for drawn in allDrawnNeighborhoods:
 		geojsons.append(drawn.drawnGeojson) 
@@ -858,7 +858,7 @@ def getALLnycdrawngeojson(request, neighborhoodLive=None, id=None):
 def getALLnycdrawngeojsonIDS(request, neighborhoodLive=None, id=None):
 	neighborhood = neighborhoodNYC.objects.get(dnaurl=neighborhoodLive)
 
-	allDrawnNeighborhoods = neighborhoodDrawNYC.objects.filter(neighborhoodLive=neighborhood).exclude(id=id)
+	allDrawnNeighborhoods = neighborhoodDrawNYC.objects.filter(neighborhoodLive=neighborhood, approved=True).exclude(id=id)[:100]
 	ids = []
 	for drawn in allDrawnNeighborhoods:
 		ids.append(drawn.id) 
@@ -964,7 +964,7 @@ def getchidrawngeojson(request, id=None):
 def getALLchidrawngeojson(request, neighborhoodLive=None, id=None):
 	neighborhood = neighborhoodCHI.objects.get(dnaurl=neighborhoodLive)
 
-	allDrawnNeighborhoods = neighborhoodDrawCHI.objects.filter(neighborhoodLive=neighborhood).exclude(id=id)
+	allDrawnNeighborhoods = neighborhoodDrawCHI.objects.filter(neighborhoodLive=neighborhood, approved=True).exclude(id=id)[:100]
 	geojsons = []
 	for drawn in allDrawnNeighborhoods:
 		geojsons.append(drawn.drawnGeojson) 
@@ -975,7 +975,7 @@ def getALLchidrawngeojson(request, neighborhoodLive=None, id=None):
 def getALLchidrawngeojsonIDS(request, neighborhoodLive=None, id=None):
 	neighborhood = neighborhoodCHI.objects.get(dnaurl=neighborhoodLive)
 
-	allDrawnNeighborhoods = neighborhoodDrawCHI.objects.filter(neighborhoodLive=neighborhood).exclude(id=id)
+	allDrawnNeighborhoods = neighborhoodDrawCHI.objects.filter(neighborhoodLive=neighborhood, approved=True).exclude(id=id)[:100]
 	ids = []
 	for drawn in allDrawnNeighborhoods:
 		ids.append(drawn.id) 
