@@ -37,7 +37,7 @@ function DNAinfoNYCNeigh() {
 
 DNAinfoNYCNeigh.onEachFeature_ALLDRAWNGEOJSONS = function(feature,layer){	
 
-	layer.bindLabel('ID Number: ' + feature.properties.ID);
+	layer.bindLabel('ID Number: ' + feature.properties.ID + '<br />Neighborhood Name: ' + feature.properties.neighborhoodLive + '<br />Other Neighborhood: ' + feature.properties.otherNeighborhood);
 
 	var highlight = {
 	    weight: 3,
