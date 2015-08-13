@@ -890,7 +890,7 @@ def nycgeojsonsbyneigh(request, neighborhoodLive=None):
 	allDrawnNeighborhoods = neighborhoodDrawNYC.objects.filter(neighborhoodLive=neighborhood)
 	geojsons = []
 	for drawn in allDrawnNeighborhoods:
-		changed = drawn.drawnGeojson.replace('\"properties\":{}', '\"properties\":{\"ID\":\"'+ str(drawn.id) +'\", \"created\":\"'+ str(drawn.created) +'\", \"neighborhoodLive\":\"'+ str(drawn.neighborhoodLive.name) +'\", \"otherNeighborhood\":\"'+ drawn.otherNeighborhood +'\", \"yearsLived\":\"'+ str(drawn.yearsLived) +'\", \"approved\":\"'+ str(drawn.approved) +'\"}')
+		changed = drawn.drawnGeojson.replace('\"properties\":{}', '\"properties\":{\"ID\":\"'+ str(drawn.id) +'\", \"neighborhoodLive\":\"'+ str(drawn.neighborhoodLive.name) +'\", \"otherNeighborhood\":\"' + strip_non_ascii(drawn.otherNeighborhood) +'\"}')
 		geojsons.append(changed) 
 
 	return JsonResponse(geojsons, safe=False)
@@ -992,7 +992,7 @@ def allchigeojsons(request):
 	allDrawnNeighborhoods = neighborhoodDrawCHI.objects.all()
 	geojsons = []
 	for drawn in allDrawnNeighborhoods:
-		changed = drawn.drawnGeojson.replace('\"properties\":{}', '\"properties\":{\"ID\":\"'+ str(drawn.id) +'\", \"neighborhoodLive\":\"'+ str(drawn.neighborhoodLive.name) +'\", \"otherNeighborhood\":\"'+ drawn.otherNeighborhood +'\"}')
+		changed = drawn.drawnGeojson.replace('\"properties\":{}', '\"properties\":{\"ID\":\"'+ str(drawn.id) +'\", \"neighborhoodLive\":\"'+ str(drawn.neighborhoodLive.name) +'\", \"otherNeighborhood\":\"' + strip_non_ascii(drawn.otherNeighborhood) +'\"}')
 		geojsons.append(changed) 
 
 	return JsonResponse(geojsons, safe=False)
@@ -1007,7 +1007,7 @@ def chigeojsonsbyneigh(request, neighborhoodLive=None):
 	allDrawnNeighborhoods = neighborhoodDrawCHI.objects.filter(neighborhoodLive=neighborhood)
 	geojsons = []
 	for drawn in allDrawnNeighborhoods:
-		changed = drawn.drawnGeojson.replace('\"properties\":{}', '\"properties\":{\"ID\":\"'+ str(drawn.id) +'\", \"created\":\"'+ str(drawn.created) +'\", \"neighborhoodLive\":\"'+ str(drawn.neighborhoodLive.name) +'\", \"otherNeighborhood\":\"'+ drawn.otherNeighborhood +'\", \"yearsLived\":\"'+ str(drawn.yearsLived) +'\", \"approved\":\"'+ str(drawn.approved) +'\"}')
+		changed = drawn.drawnGeojson.replace('\"properties\":{}', '\"properties\":{\"ID\":\"'+ str(drawn.id) +'\", \"neighborhoodLive\":\"'+ str(drawn.neighborhoodLive.name) +'\", \"otherNeighborhood\":\"' + strip_non_ascii(drawn.otherNeighborhood) +'\"}')
 		geojsons.append(changed) 
 
 	return JsonResponse(geojsons, safe=False)
