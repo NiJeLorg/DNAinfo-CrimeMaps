@@ -26,7 +26,7 @@ class Command(BaseCommand):
 		NYCneighborhoods = neighborhoodNYC.objects.all()
 
 		for NYCneighborhood in NYCneighborhoods:
-			NYCdrawings = neighborhoodDrawNYC.objects.filter(neighborhoodLive=NYCneighborhood)
+			NYCdrawings = neighborhoodDrawNYC.objects.filter(neighborhoodLive=NYCneighborhood).exclude(approved=False)
 			if len(NYCdrawings) > 0:
 				print NYCneighborhood.name	
 				path = 'geojsons/' + NYCneighborhood.dnaurl
