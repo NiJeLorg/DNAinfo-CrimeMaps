@@ -86,8 +86,6 @@ DNAinfoNYCNeighView.prototype.loadAllDrawnGeojsons = function (){
 				    style: DNAinfoNYCNeighView.getStyleFor_ALLDRAWNGEOJSONS,
 					onEachFeature: DNAinfoNYCNeighView.onEachFeature_ALLDRAWNGEOJSONS,
 				});
-				thismap.map.addLayer(thismap.ALLDRAWNGEOJSONS);
-				thismap.ALLDRAWNGEOJSONS.bringToBack();
 			} else {
 				thismap.ALLDRAWNGEOJSONS = null;
 			}
@@ -183,6 +181,24 @@ DNAinfoNYCNeighView.fillColor_COUNTGEOJSON = function (d){
            d > 200 ? '#fc9272' :
            d > 100 ? '#fcbba1' :
                    	 '#fee5d9';	
+}
+
+DNAinfoNYCNeighView.addLayers = function (layer){
+	if (layer == "count") {
+		MY_MAP.COUNTGEOJSON.addTo(MY_MAP.map);
+	}
+	if (layer == "all") {
+		MY_MAP.ALLDRAWNGEOJSONS.addTo(MY_MAP.map);
+	}
+}
+
+DNAinfoNYCNeighView.removeLayers = function (layer){
+	if (layer == "count") {
+		MY_MAP.map.removeLayer(MY_MAP.COUNTGEOJSON);
+	}
+	if (layer == "all") {
+		MY_MAP.map.removeLayer(MY_MAP.ALLDRAWNGEOJSONS);
+	}
 }
 
 
