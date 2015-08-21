@@ -1017,3 +1017,7 @@ def strip_non_ascii(string):
     ''' Returns the string without non ASCII characters'''
     stripped = (c for c in string if ord(c) == 32 or 48 <= ord(c) <= 57 or 65 <= ord(c) <= 90  or 97 <= ord(c) <= 122)
     return ''.join(stripped)
+
+
+def nycneighview(request):
+	return render(request, 'crimemaps/nycneighview.html', {})

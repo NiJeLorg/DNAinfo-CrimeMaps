@@ -1,0 +1,106 @@
+{% extends 'crimemaps/baseNoBottomNav.html' %}
+{% load staticfiles %}
+
+{% block title %}Where Exactly Is Your Neighborhood | DNAinfo{% endblock %}
+
+{% block css_block %}
+    <link rel="stylesheet" type="text/css" href="{% static 'crimemaps/css/leaflet.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'crimemaps/css/leaflet.label.css' %}">
+{% endblock %}
+
+{% block head_js_block %}
+{% endblock %}
+	
+{% block body_block %}
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+        <a class="navbar-brand" href="http://www.dnainfo.com/new-york/"><img src="{% static 'crimemaps/css/images/DNANYCLogo.png' %}" class="navbar-brand-img-nyc"/></a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="collapse">
+      <p class="navbar-text">Composite Version of <span class="neighborhoodName"></span></p>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+
+        <!-- #popup-wrapper-->
+        <div id="popup-wrapper" class="popup-wrapper popup-wrapper-open">
+            <div class="popup-content">
+                <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <h4>View Layers</h4>
+                        <div class="checkbox">
+                          <label>
+                            <input type="checkbox" id="" checked>
+                            Count of drawn shapes
+                          </label>
+                        </div>
+                        <div class="checkbox">
+                          <label>
+                            <input type="checkbox" id="">
+                            All Drawn Shapes
+                          </label>
+                        </div>
+                        <h4>Legend</h4>
+                        <div id="legend">
+                          <div class="legend-cloropleth">
+                              <p>Number of DNAinfo visitors that included this area in their drawings</p>
+                              <ul>
+                                  <li class="min">0</li>
+                                  <li class="max">&gt;500</li>
+                                  <li class="graph">
+                                      <div class="colors">
+                                          <div class="quartile" style="background-color:#fee5d9"></div>
+                                          <div class="quartile" style="background-color:#fcbba1"></div>
+                                          <div class="quartile" style="background-color:#fc9272"></div>
+                                          <div class="quartile" style="background-color:#fb6a4a"></div>
+                                          <div class="quartile" style="background-color:#de2d26"></div>
+                                          <div class="quartile" style="background-color:#a50f15"></div>
+                                      </div>
+                                  </li>
+                              </ul>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <h4>How This Map Was Made</h4>
+                        <p>With thousands of DNAinfo visitors having drawn the boundaries of their neighborhoods, we wanted to give a sense of where there was broad agreement (and disagreement) in where neighborhoods begin and end. To this end, we randomly selected up to 50 drawings from DNAinfo visitors for this neighborhood. Using these edges of these overlapping shapes, we created a collection of non-overlapping polygons. These non-overlapping polygons are what you see above. The final step is to count how many of the shapes DNAinfo visitors drew representing this neighborhood fall within our new non-overlapping polygons. We then colorize this map above based on the number of times visitors drew a shape that fell within each polygon.</p>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /#popup-wrapper-->
+
+        <!-- Map Content -->
+        <div id="map" class="map map-popup-wrapper-open"></div>
+
+{% endblock %}
+
+{% block modal_block %}
+{% endblock %}
+
+{% block js_block %}
+  <script type="text/javascript">
+    var neighborhoodLive = "park-slope";
+    var countGeojson = "{% static 'crimemaps/data/parkslope_approved_50.geojson' %}";
+  </script>
+  <script type="text/javascript" src="{% static 'crimemaps/js/d3.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'crimemaps/js/leaflet.js' %}"></script>
+  <script type="text/javascript" src="{% static 'crimemaps/js/topojson.js' %}"></script>
+  <script type="text/javascript" src="{% static 'crimemaps/js/leaflet.label-src.js' %}"></script>
+	<script type="text/javascript" src="{% static 'crimemaps/js/DNAinfoNYCNeighView.js' %}"></script>
+	<script type="text/javascript" src="{% static 'crimemaps/js/nycneighviewapp.js' %}"></script>
+  <script type="text/javascript" src="{% static 'crimemaps/js/nycviewMapControllers.js' %}"></script>
+
+{% endblock %}
+
+
+	
+	
+
