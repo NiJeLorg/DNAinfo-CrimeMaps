@@ -6,14 +6,14 @@
 // initialize map
 function DNAinfoNYCNeighView() {
 	// set zoom and center for this map
-	this.center = DNAinfoNYCNeighView.center(neighborhoodLive);
-	this.zoom = 14;
+	//this.center = DNAinfoNYCNeighView.center(neighborhoodLive);
+	//this.zoom = 14;
 
     this.map = new L.Map('map', {
 		minZoom:11,
 		maxZoom:17,
-    	center: this.center,
-   	 	zoom: this.zoom
+    	//center: this.center,
+   	 	//zoom: this.zoom
 	});
 
 	//this.stamenLayer = new L.StamenTileLayer("toner-lite");
@@ -34,6 +34,10 @@ function DNAinfoNYCNeighView() {
 	this.NEIGHBORHOODS = null;
 	this.ALLDRAWNGEOJSONS = null;
 	this.COUNTGEOJSON = null;
+
+	// set up range for colorScale
+	this.colorScale = d3.scale.quantize()
+		.range(["#fee5d9","#fcbba1","#fc9272","#fb6a4a","#de2d26","#a50f15"]);
 
 }
 
@@ -64,7 +68,9 @@ DNAinfoNYCNeighView.onEachFeature_ALLDRAWNGEOJSONS = function(feature,layer){
 }
 
 DNAinfoNYCNeighView.onEachFeature_COUNTGEOJSON = function(feature,layer){	
-	layer.bindLabel(feature.properties.count + ' DNAinfo visitors drew ' + DNAinfoNYCNeighView.neighborhoodBabyName(neighborhoodLive) + ' here.');
+	var label = DNAinfoNYCNeighView.useLabelText(feature);
+
+	layer.bindLabel(label);
 	
 }
 
@@ -97,7 +103,7 @@ DNAinfoNYCNeighView.prototype.loadAllDrawnGeojsons = function (){
 DNAinfoNYCNeighView.prototype.loadCountGeojson = function (){
 	var thismap = this;
 	var polyTopojson;
-
+	/* For geojsons
 	d3.json(countGeojson, function(data) {
 		thismap.COUNTGEOJSON = L.geoJson(data, {
 			style: DNAinfoNYCNeighView.getStyleFor_COUNTGEOJSON,
@@ -107,15 +113,45 @@ DNAinfoNYCNeighView.prototype.loadCountGeojson = function (){
 		var bounds = thismap.COUNTGEOJSON.getBounds();
 	    thismap.map.fitBounds(bounds);
 	});
+	*/
 
-
-	/*
+	/* for topojsons */
 	d3.json(countGeojson, function(data) {
-		polyTopojson = topojson.feature(data, data.objects.parkslope_approved_100).features;
+		polyTopojson = topojson.feature(data, data.objects.parkslope_attr_25).features;
+		setUpMaxAndColorDomains();
+		applyMaxValue();
 		drawPolysWData();
 	});
 
+	function setUpMaxAndColorDomains() {
+		thismap.totalMax = d3.max(polyTopojson, function(d) { 
+				total_count = d.properties.count_under5 + d.properties.count_5 + d.properties.count_10_15 + d.properties.count_20greater;
+				return total_count; 
+			});
+		thismap.totalDomain = [0, thismap.totalMax];
+		thismap.underFiveMax = d3.max(polyTopojson, function(d) { return d.properties.count_under5; });
+		thismap.underFiveDomain = [0, thismap.underFiveMax];
+		thismap.fiveToTenMax = d3.max(polyTopojson, function(d) { return d.properties.count_5; });
+		thismap.fiveToTenDomain = [0, thismap.fiveToTenMax];
+		thismap.tenToTwentyMax = d3.max(polyTopojson, function(d) { return d.properties.count_10_15; });
+		thismap.tenToTwentyDomain = [0, thismap.tenToTwentyMax];
+		thismap.overTwentyMax = d3.max(polyTopojson, function(d) { return d.properties.count_20greater; });
+		thismap.overTwentyDomain = [0, thismap.overTwentyMax];
+
+	}
+
+	function applyMaxValue() {
+		$('.max').text(thismap.totalMax);
+	}
+
 	function drawPolysWData() {
+
+		//Set input domain for color scale
+		thismap.colorScale.domain(thismap.totalDomain);
+
+		//set color based on
+		thismap.useCount = 'total';
+
 		thismap.COUNTGEOJSON = L.geoJson(polyTopojson, {
 			style: DNAinfoNYCNeighView.getStyleFor_COUNTGEOJSON,
 			onEachFeature: DNAinfoNYCNeighView.onEachFeature_COUNTGEOJSON,
@@ -124,7 +160,6 @@ DNAinfoNYCNeighView.prototype.loadCountGeojson = function (){
 		var bounds = thismap.COUNTGEOJSON.getBounds();
 	    thismap.map.fitBounds(bounds);
 	}
-	*/
 
 	/*
 	$.ajax({
@@ -152,6 +187,99 @@ DNAinfoNYCNeighView.prototype.loadCountGeojson = function (){
 
 }
 
+
+DNAinfoNYCNeighView.useCount = function (feature){
+	if (MY_MAP) {
+		thismap = MY_MAP;
+	} else {
+		thismap = this;
+	}
+
+	if (thismap.useCount == 'total') {
+		var count = feature.properties.count_under5 + feature.properties.count_5 + feature.properties.count_10_15 + feature.properties.count_20greater;
+	} else if (thismap.useCount == 'count_under5') {
+		var count = feature.properties.count_under5;
+	} else if (thismap.useCount == 'count_5') {
+		var count = feature.properties.count_5;
+	} else if (thismap.useCount == 'count_10_15') {
+		var count = feature.properties.count_10_15;
+	} else if (thismap.useCount == 'count_20greater') {
+		var count = feature.properties.count_20greater;
+	}
+
+	return count;
+
+}
+
+DNAinfoNYCNeighView.useLabelText = function (feature){
+	if (MY_MAP) {
+		thismap = MY_MAP;
+	} else {
+		thismap = this;
+	}
+
+	var count = DNAinfoNYCNeighView.useCount(feature);
+
+	if (thismap.useCount == 'total') {
+		var label = count + ' DNAinfo visitors drew<br />' + DNAinfoNYCNeighView.neighborhoodBabyName(neighborhoodLive) + ' here.';
+	} else if (thismap.useCount == 'count_under5') {
+		var label = count + ' DNAinfo visitors who have<br />lived here less than 5 years<br />drew ' + DNAinfoNYCNeighView.neighborhoodBabyName(neighborhoodLive) + ' here.';
+	} else if (thismap.useCount == 'count_5') {
+		var label = count + ' DNAinfo visitors who have lived<br />here between 5 and 10 years<br />drew ' + DNAinfoNYCNeighView.neighborhoodBabyName(neighborhoodLive) + ' here.';
+	} else if (thismap.useCount == 'count_10_15') {
+		var label = count + ' DNAinfo visitors who have lived<br />here between 10 and 20 years<br />drew ' + DNAinfoNYCNeighView.neighborhoodBabyName(neighborhoodLive) + ' here.';
+	} else if (thismap.useCount == 'count_20greater') {
+		var label = count + ' DNAinfo visitors who have<br />lived here over 20 years<br />drew ' + DNAinfoNYCNeighView.neighborhoodBabyName(neighborhoodLive) + ' here.';
+	}
+
+	return label;
+
+}
+
+DNAinfoNYCNeighView.setMaxValue = function (feature){
+	if (MY_MAP) {
+		thismap = MY_MAP;
+	} else {
+		thismap = this;
+	}
+
+	if (thismap.useCount == 'total') {
+		$('.max').text(thismap.totalMax);
+	} else if (thismap.useCount == 'count_under5') {
+		$('.max').text(thismap.underFiveMax);
+	} else if (thismap.useCount == 'count_5') {
+		$('.max').text(thismap.fiveToTenMax);
+	} else if (thismap.useCount == 'count_10_15') {
+		$('.max').text(thismap.tenToTwentyMax);
+	} else if (thismap.useCount == 'count_20greater') {
+		$('.max').text(thismap.overTwentyMax);
+	}
+
+}
+
+
+DNAinfoNYCNeighView.setColorDomain = function (feature){
+	if (MY_MAP) {
+		thismap = MY_MAP;
+	} else {
+		thismap = this;
+	}
+
+	if (thismap.useCount == 'total') {
+		thismap.colorScale.domain(thismap.totalDomain);
+	} else if (thismap.useCount == 'count_under5') {
+		thismap.colorScale.domain(thismap.underFiveDomain);
+	} else if (thismap.useCount == 'count_5') {
+		thismap.colorScale.domain(thismap.fiveToTenDomain);
+	} else if (thismap.useCount == 'count_10_15') {
+		thismap.colorScale.domain(thismap.tenToTwentyDomain);
+	} else if (thismap.useCount == 'count_20greater') {
+		thismap.colorScale.domain(thismap.overTwentyDomain);
+	}
+
+}
+
+
 DNAinfoNYCNeighView.getStyleFor_ALLDRAWNGEOJSONS = function (feature){
     return {
         weight: 1,
@@ -168,19 +296,15 @@ DNAinfoNYCNeighView.getStyleFor_COUNTGEOJSON = function (feature){
         opacity: 0.25,
         color: '#ccc',
         fillOpacity: 0.75,
-        fillColor: DNAinfoNYCNeighView.fillColor_COUNTGEOJSON(feature.properties.count)
+        fillColor: DNAinfoNYCNeighView.fillColor_COUNTGEOJSON(feature)
     }
 }
 
-DNAinfoNYCNeighView.fillColor_COUNTGEOJSON = function (d){
+DNAinfoNYCNeighView.fillColor_COUNTGEOJSON = function (feature){
+	var count = DNAinfoNYCNeighView.useCount(feature);
 
-    return d == 'undefined' ? '#fff' :
-    	   d > 500 ? '#a50f15' :
-           d > 400 ? '#de2d26' :
-           d > 300 ? '#fb6a4a' :
-           d > 200 ? '#fc9272' :
-           d > 100 ? '#fcbba1' :
-                   	 '#fee5d9';	
+	return thismap.colorScale(count);
+
 }
 
 DNAinfoNYCNeighView.addLayers = function (layer){
@@ -199,6 +323,26 @@ DNAinfoNYCNeighView.removeLayers = function (layer){
 	if (layer == "all") {
 		MY_MAP.map.removeLayer(MY_MAP.ALLDRAWNGEOJSONS);
 	}
+}
+
+DNAinfoNYCNeighView.updateGeojson = function (){
+	// get selection
+	var drawnCount = $( "#drawnCount option:selected" ).val();
+
+	// set selection
+	MY_MAP.useCount = drawnCount;
+
+	// update max values and color domains
+	DNAinfoNYCNeighView.setMaxValue();
+	DNAinfoNYCNeighView.setColorDomain();
+
+	// iterate over each layer and set new style and labels
+	MY_MAP.COUNTGEOJSON.eachLayer(function (layer) {
+		var label = DNAinfoNYCNeighView.useLabelText(layer.feature);
+		layer.bindLabel(label);	   
+		layer.setStyle(DNAinfoNYCNeighView.getStyleFor_COUNTGEOJSON(layer.feature));
+	});
+
 }
 
 

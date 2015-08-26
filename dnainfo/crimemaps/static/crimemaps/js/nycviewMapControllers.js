@@ -26,5 +26,11 @@ $( document ).ready(function() {
 		}
 	});
 
+	$( "#drawnCount" ).change(function() {
+		DNAinfoNYCNeighView.updateGeojson();
+	});
+
+	
+
 
 });
