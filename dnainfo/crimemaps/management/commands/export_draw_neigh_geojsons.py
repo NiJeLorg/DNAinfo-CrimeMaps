@@ -39,7 +39,7 @@ class Command(BaseCommand):
 					if NYCdrawing.drawnGeojson:
 						filename = NYCneighborhood.dnaurl + "_" + str(count) + ".geojson"
 						with open(os.path.join(__location__, filename), 'wb') as f:
-							changed = NYCdrawing.drawnGeojson.replace('\"properties\":{}', '\"properties\":{\"ID\":\"'+ str(NYCdrawing.id) +'\", \"neighborhoodLive\":\"'+ str(NYCdrawing.neighborhoodLive.name) +'\", \"otherNeighborhood\":\"' + strip_non_ascii(NYCdrawing.otherNeighborhood) +'\"}'+'\", \"yearsLived\":\"' + str(NYCdrawing.yearsLived) +'\"}')
+							changed = NYCdrawing.drawnGeojson.replace('\"properties\":{}', '\"properties\":{\"ID\":\"'+ str(NYCdrawing.id) +'\", \"neighborhoodLive\":\"'+ str(NYCdrawing.neighborhoodLive.name) +'\", \"otherNeighborhood\":\"' + strip_non_ascii(NYCdrawing.otherNeighborhood) +'\", \"yearsLived\":\"' + str(NYCdrawing.yearsLived) +'\"}')
 							f.write(changed)
 							f.close()
 
