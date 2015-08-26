@@ -17,7 +17,7 @@ class Command(BaseCommand):
 		other = neighborhoodCHI.objects.get(name='Other')
 
 		#look up all the other neighborhoods written in, grouping by the same name
-		otherNeighborhoods = neighborhoodDrawCHI.objects.filter(neighborhoodLive=other).order_by('otherNeighborhood').distinct('otherNeighborhood')
+		otherNeighborhoods = neighborhoodDrawCHI.objects.filter(neighborhoodLive=other).values('otherNeighborhood').distinct()
 
 		#file for counting
 		filename = "CHI_other_writein_neighborhoods.csv"
