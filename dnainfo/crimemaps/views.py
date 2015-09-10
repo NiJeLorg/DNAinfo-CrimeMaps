@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.conf import settings
 from django.http import JsonResponse
 from django.db.models import Sum, Count
 from django.db.models import Q
@@ -1019,5 +1020,33 @@ def strip_non_ascii(string):
     return ''.join(stripped)
 
 
-def nycneighview(request):
-	return render(request, 'crimemaps/nycneighview.html', {})
+def nycneighview(request, neighborhoodID=None):
+	STATIC_URL = settings.STATIC_URL
+
+	neighborhoodDrawObject = neighborhoodDrawNYC()
+
+	if neighborhoodID:
+		neighborhood = neighborhoodNYC.objects.get(pk=neighborhoodID)
+	else:
+		neighborhood = neighborhoodNYC.objects.get(dnaurl='park-slope')
+
+	# get count of approved geojsons drawn
+	countDrawnNeighborhoods = neighborhoodDrawNYC.objects.filter(neighborhoodLive=neighborhood, approved=True).count()
+
+	# A HTTP POST?
+	if request.method == 'POST':
+		form = nycNeighViewForm(request.POST, instance=neighborhoodDrawObject)
+
+		# Have we been provided with a valid form?
+		if form.is_valid():
+			neighborhoodID = request.POST['neighborhoodLive']
+			return HttpResponseRedirect(reverse('nycneighview', args=(neighborhoodID,)))
+		else:
+			# The supplied form contained errors - just print them to the terminal.
+			print form.errors
+	else:
+		# If the request was not a POST, display the form to enter details.
+		form = nycNeighViewForm(instance=neighborhoodDrawObject)
+
+
+	return render(request, 'crimemaps/nycneighview.html', {'neighborhood': neighborhood, 'STATIC_URL': STATIC_URL, 'form': form, 'countDrawnNeighborhoods': countDrawnNeighborhoods})

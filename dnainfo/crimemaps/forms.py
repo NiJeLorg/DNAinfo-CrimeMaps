@@ -39,7 +39,6 @@ YEAR_CHOICES = (
 
 
 
-
 class nycNeighDrawForm(forms.ModelForm):
     yearsLived = forms.ChoiceField(choices=YEAR_CHOICES, label="How long have you lived in this neighborhood?")
 
@@ -69,3 +68,16 @@ class chiNeighDrawForm(forms.ModelForm):
         }
 
 
+
+class nycNeighViewForm(forms.ModelForm):
+
+    class Meta:
+        model = neighborhoodDrawNYC
+        fields = ('neighborhoodLive', )
+        labels = {
+            'neighborhoodLive': 'See Other Neighborhood Results:',
+        }
+        widgets = {
+            'neighborhoodLive': widgets.Select2Widget(),
+        }
+        

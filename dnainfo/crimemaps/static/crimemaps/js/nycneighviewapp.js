@@ -13,7 +13,7 @@ var MY_MAP = null;
 $().ready(new function(){
     var myMap = new DNAinfoNYCNeighView();
     myMap.loadAllDrawnGeojsons();
-    myMap.loadCountGeojson();
+	myMap.loadCountGeojson();
     MY_MAP = myMap;
 });
 

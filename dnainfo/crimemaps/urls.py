@@ -49,6 +49,7 @@ urlpatterns = [
     url(r'^allchigeojsons/$', views.allchigeojsons, name='allchigeojsons'),
     url(r'^chipolygonsbyneigh/(?P<neighborhoodLive>[-\w]+)/$', views.chipolygonsbyneigh, name='nycpolygonsbyneigh'),
     url(r'^chigeojsonsbyneigh/(?P<neighborhoodLive>[-\w]+)/$', views.chigeojsonsbyneigh, name='chigeojsonsbyneigh'),
+    url(r'^nycneighview/(?P<neighborhoodID>[-\w]+)/$', views.nycneighview, name='nycneighview'),
     url(r'^nycneighview/$', views.nycneighview, name='nycneighview'),
 
 ]
