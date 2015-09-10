@@ -41,7 +41,7 @@ $( document ).ready(function() {
 		$("#countControls").removeClass('hidden');
 		$("#shapeControls").removeClass('hidden');
 	} else if (countDrawnNeighborhoods > 0) {
-		$( "#all" ).prop('checked');
+		$( "#all" ).prop('checked', true);
 		$("#shapeControls").removeClass('hidden');
 	} else {
 		$("#nobodysDrawn").removeClass('hidden');
