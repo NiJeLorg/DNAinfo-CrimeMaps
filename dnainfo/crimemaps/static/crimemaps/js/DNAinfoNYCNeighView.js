@@ -10,7 +10,7 @@ function DNAinfoNYCNeighView() {
 	//this.zoom = 14;
 
     this.map = new L.Map('map', {
-		minZoom:11,
+		minZoom:8,
 		maxZoom:17,
     	//center: this.center,
    	 	//zoom: this.zoom
