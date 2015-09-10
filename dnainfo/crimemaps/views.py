@@ -1050,3 +1050,35 @@ def nycneighview(request, neighborhoodID=None):
 
 
 	return render(request, 'crimemaps/nycneighview.html', {'neighborhood': neighborhood, 'STATIC_URL': STATIC_URL, 'form': form, 'countDrawnNeighborhoods': countDrawnNeighborhoods})
+
+
+def chineighview(request, neighborhoodID=None):
+	STATIC_URL = settings.STATIC_URL
+
+	neighborhoodDrawObject = neighborhoodDrawCHI()
+
+	if neighborhoodID:
+		neighborhood = neighborhoodCHI.objects.get(pk=neighborhoodID)
+	else:
+		neighborhood = neighborhoodCHI.objects.get(dnaurl='wrigleyville')
+
+	# get count of approved geojsons drawn
+	countDrawnNeighborhoods = neighborhoodDrawCHI.objects.filter(neighborhoodLive=neighborhood, approved=True).count()
+
+	# A HTTP POST?
+	if request.method == 'POST':
+		form = chiNeighViewForm(request.POST, instance=neighborhoodDrawObject)
+
+		# Have we been provided with a valid form?
+		if form.is_valid():
+			neighborhoodID = request.POST['neighborhoodLive']
+			return HttpResponseRedirect(reverse('chineighview', args=(neighborhoodID,)))
+		else:
+			# The supplied form contained errors - just print them to the terminal.
+			print form.errors
+	else:
+		# If the request was not a POST, display the form to enter details.
+		form = chiNeighViewForm(instance=neighborhoodDrawObject)
+
+
+	return render(request, 'crimemaps/chineighview.html', {'neighborhood': neighborhood, 'STATIC_URL': STATIC_URL, 'form': form, 'countDrawnNeighborhoods': countDrawnNeighborhoods})
