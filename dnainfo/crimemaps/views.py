@@ -378,9 +378,9 @@ def chiShootingsApi(request):
 
 
 		# create data objects from start and end dates
-		startDateparsed = dateutil.parser.parse(startDate).astimezone(time_zone)
+		startDateparsed = dateutil.parser.parse(startDate)
 		startDateobject = startDateparsed.date()
-		endDateparsed = dateutil.parser.parse(endDate).astimezone(time_zone)
+		endDateparsed = dateutil.parser.parse(endDate)
 		endDateobject = endDateparsed.date()
 
 		#add kwargs and hour query
@@ -507,9 +507,9 @@ def chiShootingsAggregateApi(request):
 		policeinvolved = request.GET.get("policeinvolved","")
 
 		# create data objects from start and end dates
-		startDateparsed = dateutil.parser.parse(startDate).astimezone(time_zone)
+		startDateparsed = dateutil.parser.parse(startDate)
 		startDateobject = startDateparsed.date()
-		endDateparsed = dateutil.parser.parse(endDate).astimezone(time_zone)
+		endDateparsed = dateutil.parser.parse(endDate)
 		endDateobject = endDateparsed.date()
 
 		#add kwargs
@@ -649,9 +649,9 @@ def chiShootingsCitywideAggregateApi(request):
 		policeinvolved = request.GET.get("policeinvolved","")
 
 		# create data objects from start and end dates
-		startDateparsed = dateutil.parser.parse(startDate).astimezone(time_zone)
+		startDateparsed = dateutil.parser.parse(startDate)
 		startDateobject = startDateparsed.date()
-		endDateparsed = dateutil.parser.parse(endDate).astimezone(time_zone)
+		endDateparsed = dateutil.parser.parse(endDate)
 		endDateobject = endDateparsed.date()
 
 		#add kwargs
