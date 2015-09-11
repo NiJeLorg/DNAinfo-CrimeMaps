@@ -379,14 +379,12 @@ def chiShootingsApi(request):
 
 		# create data objects from start and end dates
 		startDateparsed = time_zone.localize(dateutil.parser.parse(startDate))
-		startDateobject = startDateparsed.date()
 		endDateparsed = time_zone.localize(dateutil.parser.parse(endDate))
-		endDateobject = endDateparsed.date()
 
 		#add kwargs and hour query
 		kwargs = {}
 		# show date range selected
-		kwargs['Date__range'] = [startDateobject,endDateobject]
+		kwargs['Date__range'] = [startDateparsed,endDateparsed]
 
 		# add to kwargs if filters exist
 		if district != '':
@@ -506,16 +504,8 @@ def chiShootingsAggregateApi(request):
 		dayofweek = request.GET.get("dayofweek","")
 		policeinvolved = request.GET.get("policeinvolved","")
 
-		# create data objects from start and end dates
-		startDateparsed = time_zone.localize(dateutil.parser.parse(startDate))
-		startDateobject = startDateparsed.date()
-		endDateparsed = time_zone.localize(dateutil.parser.parse(endDate))
-		endDateobject = endDateparsed.date()
-
 		#add kwargs
 		kwargs = {}
-		# show date range selected
-		#kwargs['Date__range'] = [startDateobject,endDateobject]
 
 		# add to kwargs if filters exist
 		if district != '':
@@ -648,16 +638,8 @@ def chiShootingsCitywideAggregateApi(request):
 		dayofweek = request.GET.get("dayofweek","")
 		policeinvolved = request.GET.get("policeinvolved","")
 
-		# create data objects from start and end dates
-		startDateparsed = time_zone.localize(dateutil.parser.parse(startDate))
-		startDateobject = startDateparsed.date()
-		endDateparsed = time_zone.localize(dateutil.parser.parse(endDate))
-		endDateobject = endDateparsed.date()
-
 		#add kwargs
 		kwargs = {}
-		# show date range selected
-		#kwargs['Date__range'] = [startDateobject,endDateobject]
 
 		# add to kwargs if filters exist
 		if district != '':
