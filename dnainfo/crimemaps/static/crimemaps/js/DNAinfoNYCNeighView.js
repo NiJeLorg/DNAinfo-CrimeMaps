@@ -88,9 +88,6 @@ DNAinfoNYCNeighView.onEachFeature_COUNTGEOJSON = function(feature,layer){
 		}		
 	}
 
-
-	
-	
 }
 
 DNAinfoNYCNeighView.prototype.loadAllDrawnGeojsons = function (){
@@ -147,13 +144,15 @@ DNAinfoNYCNeighView.prototype.loadCountGeojson = function (){
 	var geojsonPath = "/crimemaps/neigh_drawn_geojsons/" + neighborhood + "/polys_" + neighborhoodNoNyphen + "_25.topojson";
 	var countGeojson = STATIC_URL + geojsonPath;
 
-	/* for topojsons */
-	d3.json(countGeojson, function(data) {
-		polyTopojson = topojson.feature(data, eval("data.objects.polys_" + neighborhoodNoNyphen + "_25")).features;
-		setUpMaxAndColorDomains();
-		applyMaxValue();
-		drawPolysWData();
-	});
+	/* grab topojson and show only if more than 25 drawings were done in the hood  */
+	if (countDrawnNeighborhoods >= 25) {
+		d3.json(countGeojson, function(data) {
+			polyTopojson = topojson.feature(data, eval("data.objects.polys_" + neighborhoodNoNyphen + "_25")).features;
+			setUpMaxAndColorDomains();
+			applyMaxValue();
+			drawPolysWData();
+		});		
+	}
 
 	function setUpMaxAndColorDomains() {
 		thismap.totalMax = d3.max(polyTopojson, function(d) { 
@@ -195,11 +194,9 @@ DNAinfoNYCNeighView.prototype.loadCountGeojson = function (){
 			style: DNAinfoNYCNeighView.getStyleFor_COUNTGEOJSON,
 			onEachFeature: DNAinfoNYCNeighView.onEachFeature_COUNTGEOJSON,
 		});
-		if (countDrawnNeighborhoods >= 25) {
-			thismap.COUNTGEOJSON.addTo(thismap.map);
-			var bounds = thismap.COUNTGEOJSON.getBounds();
-		    thismap.map.fitBounds(bounds);			
-		}
+		thismap.COUNTGEOJSON.addTo(thismap.map);
+		var bounds = thismap.COUNTGEOJSON.getBounds();
+	    thismap.map.fitBounds(bounds);			
 	}
 
 	/*

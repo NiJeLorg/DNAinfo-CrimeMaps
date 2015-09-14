@@ -1013,7 +1013,7 @@ def nycneighview(request, neighborhoodID=None):
 		neighborhood = neighborhoodNYC.objects.get(dnaurl='park-slope')
 
 	# get count of approved geojsons drawn
-	countDrawnNeighborhoods = neighborhoodDrawNYC.objects.filter(neighborhoodLive=neighborhood, approved=True).count()
+	countDrawnNeighborhoods = neighborhoodDrawNYC.objects.filter(neighborhoodLive=neighborhood).count()
 
 	# A HTTP POST?
 	if request.method == 'POST':
@@ -1045,7 +1045,7 @@ def chineighview(request, neighborhoodID=None):
 		neighborhood = neighborhoodCHI.objects.get(dnaurl='wrigleyville')
 
 	# get count of approved geojsons drawn
-	countDrawnNeighborhoods = neighborhoodDrawCHI.objects.filter(neighborhoodLive=neighborhood, approved=True).count()
+	countDrawnNeighborhoods = neighborhoodDrawCHI.objects.filter(neighborhoodLive=neighborhood).count()
 
 	# A HTTP POST?
 	if request.method == 'POST':

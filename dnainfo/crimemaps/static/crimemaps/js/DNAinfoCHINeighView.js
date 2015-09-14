@@ -147,13 +147,16 @@ DNAinfoCHINeighView.prototype.loadCountGeojson = function (){
 	var geojsonPath = "/crimemaps/neigh_drawn_geojsons/chi-" + neighborhood + "/polys_chi" + neighborhoodNoNyphen + "_25.topojson";
 	var countGeojson = STATIC_URL + geojsonPath;
 
-	/* for topojsons */
-	d3.json(countGeojson, function(data) {
-		polyTopojson = topojson.feature(data, eval("data.objects.polys_chi" + neighborhoodNoNyphen + "_25")).features;
-		setUpMaxAndColorDomains();
-		applyMaxValue();
-		drawPolysWData();
-	});
+	/* grab topojson and show only if more than 25 drawings were done in the hood  */
+	if (countDrawnNeighborhoods >= 25) {
+		d3.json(countGeojson, function(data) {
+			polyTopojson = topojson.feature(data, eval("data.objects.polys_chi" + neighborhoodNoNyphen + "_25")).features;
+			setUpMaxAndColorDomains();
+			applyMaxValue();
+			drawPolysWData();
+		});		
+	}
+
 
 	function setUpMaxAndColorDomains() {
 		thismap.totalMax = d3.max(polyTopojson, function(d) { 
@@ -195,11 +198,9 @@ DNAinfoCHINeighView.prototype.loadCountGeojson = function (){
 			style: DNAinfoCHINeighView.getStyleFor_COUNTGEOJSON,
 			onEachFeature: DNAinfoCHINeighView.onEachFeature_COUNTGEOJSON,
 		});
-		if (countDrawnNeighborhoods >= 25) {
-			thismap.COUNTGEOJSON.addTo(thismap.map);
-			var bounds = thismap.COUNTGEOJSON.getBounds();
-		    thismap.map.fitBounds(bounds);			
-		}
+		thismap.COUNTGEOJSON.addTo(thismap.map);
+		var bounds = thismap.COUNTGEOJSON.getBounds();
+	    thismap.map.fitBounds(bounds);			
 	}
 
 	/*
@@ -687,7 +688,7 @@ DNAinfoCHINeighView.neighborhoodName = function (neighborhood){
 		'river-west': 'West Town',
 		'riverdale': 'Riverdale',
 		'rogers-park': 'Rogers Park',
-		'roscoe-village': 'North Center',
+		'roscoe-village': 'Roscoe Village',
 		'roseland': 'Roseland',
 		'sauganash': 'North Park',
 		'south-austin': 'Austin',

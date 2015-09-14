@@ -27,7 +27,7 @@ class Command(BaseCommand):
 		NYCneighborhoods = neighborhoodNYC.objects.all()
 
 		for NYCneighborhood in NYCneighborhoods:
-			NYCdrawings = neighborhoodDrawNYC.objects.filter(neighborhoodLive=NYCneighborhood).exclude(approved=False)
+			NYCdrawings = neighborhoodDrawNYC.objects.filter(neighborhoodLive=NYCneighborhood)
 			if len(NYCdrawings) > 0:
 				print NYCneighborhood.name	
 				__location__ = os.path.join(geojsonsPath, NYCneighborhood.dnaurl)
@@ -39,7 +39,7 @@ class Command(BaseCommand):
 					if NYCdrawing.drawnGeojson:
 						filename = NYCneighborhood.dnaurl + "_" + str(count) + ".geojson"
 						with open(os.path.join(__location__, filename), 'wb') as f:
-							changed = NYCdrawing.drawnGeojson.replace('\"properties\":{}', '\"properties\":{\"ID\":\"'+ str(NYCdrawing.id) +'\", \"neighborhoodLive\":\"'+ str(NYCdrawing.neighborhoodLive.name) +'\", \"otherNeighborhood\":\"' + strip_non_ascii(NYCdrawing.otherNeighborhood) +'\", \"yearsLived\":\"' + str(NYCdrawing.yearsLived) +'\"}')
+							changed = NYCdrawing.drawnGeojson.replace('\"properties\":{}', '\"properties\":{\"ID\":\"'+ str(NYCdrawing.id) +'\", \"approved\":\"'+ str(NYCdrawing.approved) +'\", \"neighborhoodLive\":\"'+ str(NYCdrawing.neighborhoodLive.name) +'\", \"otherNeighborhood\":\"' + strip_non_ascii(NYCdrawing.otherNeighborhood) +'\", \"yearsLived\":\"' + str(NYCdrawing.yearsLived) +'\"}')
 							f.write(changed)
 							f.close()
 
@@ -47,7 +47,7 @@ class Command(BaseCommand):
 		CHIneighborhoods = neighborhoodCHI.objects.all()
 
 		for CHIneighborhood in CHIneighborhoods:
-			CHIdrawings = neighborhoodDrawCHI.objects.filter(neighborhoodLive=CHIneighborhood).exclude(approved=False)
+			CHIdrawings = neighborhoodDrawCHI.objects.filter(neighborhoodLive=CHIneighborhood)
 			if len(CHIdrawings) > 0:
 				print CHIneighborhood.name
 				chipath = "chi-" + CHIneighborhood.dnaurl
@@ -60,7 +60,7 @@ class Command(BaseCommand):
 					if CHIdrawing.drawnGeojson:
 						filename = CHIneighborhood.dnaurl + "_" + str(count) + ".geojson"
 						with open(os.path.join(__location__, filename), 'wb') as f:
-							changed = CHIdrawing.drawnGeojson.replace('\"properties\":{}', '\"properties\":{\"ID\":\"'+ str(CHIdrawing.id) +'\", \"neighborhoodLive\":\"'+ str(CHIdrawing.neighborhoodLive.name) +'\", \"otherNeighborhood\":\"' + strip_non_ascii(CHIdrawing.otherNeighborhood) +'\", \"yearsLived\":\"' + str(CHIdrawing.yearsLived) +'\"}')
+							changed = CHIdrawing.drawnGeojson.replace('\"properties\":{}', '\"properties\":{\"ID\":\"'+ str(CHIdrawing.id) +'\", \"approved\":\"'+ str(CHIdrawing.approved) +'\", \"neighborhoodLive\":\"'+ str(CHIdrawing.neighborhoodLive.name) +'\", \"otherNeighborhood\":\"' + strip_non_ascii(CHIdrawing.otherNeighborhood) +'\", \"yearsLived\":\"' + str(CHIdrawing.yearsLived) +'\"}')
 							f.write(changed)
 							f.close()
 

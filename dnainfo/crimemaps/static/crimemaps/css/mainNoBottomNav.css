@@ -52,7 +52,7 @@ body.loading .loading-modal {
 }
 
 .map-popup-wrapper-open {
-	bottom:250px;
+	bottom:35%;
 }
 
 .map-popup-wrapper-75pct {
@@ -76,7 +76,7 @@ body.loading .loading-modal {
 }
 
 .popup-wrapper-open {
-	height: 250px;
+	height: 35%;
 }
 
 .popup-wrapper-75pct {
@@ -292,6 +292,10 @@ body.loading .loading-modal {
 
 .leaflet-popup-content-wrapper, .leaflet-popup-tip {
 	background-color: #595959;
+}
+
+.leaflet-popup-content {
+	color: #fff;
 }
 
 /*
