@@ -55,6 +55,10 @@ body.loading .loading-modal {
 	bottom:250px;
 }
 
+.map-popup-wrapper-75pct {
+	bottom:75%;
+}
+
 .popup-wrapper {
     z-index: 1001;
     position: fixed;
@@ -73,6 +77,10 @@ body.loading .loading-modal {
 
 .popup-wrapper-open {
 	height: 250px;
+}
+
+.popup-wrapper-75pct {
+	height: 75%;
 }
  
 .popup-content {

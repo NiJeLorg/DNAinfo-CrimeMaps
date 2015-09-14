@@ -35,36 +35,11 @@
             <div class="popup-content">
                 <div class="container-fluid">
                     <div class="row">
-                      <div class="col-md-6">
-                        <div id="countControls" class="hidden">
-                          <div class="form-group">
-                            <label for="drawnCount">View results based on the number of years readers have lived in <span class="neighborhoodName"></span>:</label>
-                            <select class="form-control" id="drawnCount">
-                              <option value="total">All Years</option>
-                              <option value="count_under5">0-5 Years</option>
-                              <option value="count_5">5-10 Years</option>
-                              <option value="count_10_15">10-20 Years</option>
-                              <option value="count_20greater">Longer than 20 Years</option>
-                            </select>
-                          </div>
+                        <div class="col-sm-12">
+                          <a id="popup-expand" class="btn btn-default btn-xs pull-right" href="#" role="button">Expand this window</a>
                         </div>
-                        <div id="shapeControls" class="hidden">
-                          <div class="checkbox">
-                            <label>
-                              <input type="checkbox" id="all">
-                              See some of the actual <span class="neighborhoodName"></span> outlines drawn by readers.
-                            </label>
-                          </div>
-                        </div>
-                        <form method="post" action=".">
-                          {% csrf_token %}
-                          {{ form|as_bootstrap }}
-                          <input type="submit" class="btn btn-danger" value="Go!" />
-                        </form>
-                        <br />
-                        <h4 id="nobodysDrawn" class="hidden">Be the first to draw this neighborhood!</h4>
-                        <h4><a class="btn btn-danger btn-lg" href="/nycneigh/" role="button">DRAW YOUR NEIGHBORHOOD</a></h4>
-                      </div>
+                    </div>
+                    <div class="row">
                       <div class="col-md-6">
                         <div id="legendWrapper" class="hidden">
                           <h4 id="legendTitle">Legend</h4>
@@ -96,12 +71,53 @@
                                     </li>
                                 </ul>
                             </div>
-                          </div>  
+                          </div>
+                        </div>
+
+                        <div id="countControls" class="hidden">
+                          <div class="form-group">
+                            <label for="drawnCount">View results based on the number of years readers have lived in <span class="neighborhoodName"></span>:</label>
+                            <select class="form-control" id="drawnCount">
+                              <option value="total">All Years</option>
+                              <option value="count_under5">0-5 Years</option>
+                              <option value="count_5">5-10 Years</option>
+                              <option value="count_10_15">10-20 Years</option>
+                              <option value="count_20greater">Longer than 20 Years</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div id="shapeControls" class="hidden">
+                          <div class="checkbox">
+                            <label>
+                              <input type="checkbox" id="all">
+                              See some of the actual <span class="neighborhoodName"></span> outlines drawn by readers.
+                            </label>
+                          </div>
+                        </div>
+                        <div id="howToUseThisMap">
                           <h4>How to Use This Map:</h4>
-                          <p>Hover or tap on sections of the map above to see how many readers think <span class="neighborhoodName"></span> is located there. Use the drop-down to the left to sort results by how long readers have lived in the neighborhood.</p>          
+                          <p>Hover or tap on sections of the map above to see how many readers think <span class="neighborhoodName"></span> is located there. Use the drop-down to the left to sort results by how long readers have lived in the neighborhood.</p>
+                        </div>       
+
+                      </div>
+                      <div class="col-md-6">
+                        <div id="howToUseThisMap">
                           <h4 id="howThisMapWasMadeTitle"><a href="#">How This Map Was Made</a></h4>
                           <p id="howThisMapWasMade" class="hidden">After getting thousands of drawings from DNAinfo readers, we wanted show where there was broad agreement (and disagreement) about where <span class="neighborhoodName"></span> begins and ends. We randomly selected up to 25 reader drawings and used them to create the composite map that you see above. We then colored the map based on the number of times visitors included that section of <span class="neighborhoodName"></span> in their drawing.</p> 
-                        </div>                     
+                        </div>
+
+                        <div id="chooseAnotherNeighborhood">
+                          <form method="post" action=".">
+                            {% csrf_token %}
+                            {{ form|as_bootstrap }}
+                            <input type="submit" class="btn btn-danger" value="Go!" />
+                          </form>
+                        </div>
+                        <br />
+                        <div id="drawNeighButton" class="hidden">
+                          <h4 id="nobodysDrawn" class="hidden">Be the first to draw this neighborhood!</h4>
+                          <h4><a class="btn btn-danger btn-lg" href="/nycneigh/" role="button">DRAW YOUR NEIGHBORHOOD</a></h4>
+                        </div>                        
                       </div>
                     </div>
                 </div>
