@@ -39,7 +39,7 @@ class Command(BaseCommand):
 					if NYCdrawing.drawnGeojson:
 						filename = NYCneighborhood.dnaurl + "_" + str(count) + ".geojson"
 						with open(os.path.join(__location__, filename), 'wb') as f:
-							changed = NYCdrawing.drawnGeojson.replace('\"properties\":{}', '\"properties\":{\"ID\":\"'+ str(NYCdrawing.id) +'\", \"approved\":\"'+ str(NYCdrawing.approved) +'\", \"neighborhoodLive\":\"'+ str(NYCdrawing.neighborhoodLive.name) +'\", \"otherNeighborhood\":\"' + strip_non_ascii(NYCdrawing.otherNeighborhood) +'\", \"yearsLived\":\"' + str(NYCdrawing.yearsLived) +'\"}')
+							changed = NYCdrawing.drawnGeojson.replace('\"properties\":{}', '\"properties\":{\"shapeID\":\"'+ str(NYCdrawing.id) +'\", \"approved\":\"'+ str(NYCdrawing.approved) +'\", \"neighborhoodLive\":\"'+ str(NYCdrawing.neighborhoodLive.name) +'\", \"otherNeighborhood\":\"' + strip_non_ascii(NYCdrawing.otherNeighborhood) +'\", \"yearsLived\":\"' + str(NYCdrawing.yearsLived) +'\"}')
 							f.write(changed)
 							f.close()
 
@@ -60,7 +60,7 @@ class Command(BaseCommand):
 					if CHIdrawing.drawnGeojson:
 						filename = CHIneighborhood.dnaurl + "_" + str(count) + ".geojson"
 						with open(os.path.join(__location__, filename), 'wb') as f:
-							changed = CHIdrawing.drawnGeojson.replace('\"properties\":{}', '\"properties\":{\"ID\":\"'+ str(CHIdrawing.id) +'\", \"approved\":\"'+ str(CHIdrawing.approved) +'\", \"neighborhoodLive\":\"'+ str(CHIdrawing.neighborhoodLive.name) +'\", \"otherNeighborhood\":\"' + strip_non_ascii(CHIdrawing.otherNeighborhood) +'\", \"yearsLived\":\"' + str(CHIdrawing.yearsLived) +'\"}')
+							changed = CHIdrawing.drawnGeojson.replace('\"properties\":{}', '\"properties\":{\"shapeID\":\"'+ str(CHIdrawing.id) +'\", \"approved\":\"'+ str(CHIdrawing.approved) +'\", \"neighborhoodLive\":\"'+ str(CHIdrawing.neighborhoodLive.name) +'\", \"otherNeighborhood\":\"' + strip_non_ascii(CHIdrawing.otherNeighborhood) +'\", \"yearsLived\":\"' + str(CHIdrawing.yearsLived) +'\"}')
 							f.write(changed)
 							f.close()
 
