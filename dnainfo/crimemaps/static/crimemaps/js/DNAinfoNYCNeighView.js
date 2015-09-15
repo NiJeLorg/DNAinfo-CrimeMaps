@@ -6,14 +6,14 @@
 // initialize map
 function DNAinfoNYCNeighView() {
 	// set zoom and center for this map
-	//this.center = DNAinfoNYCNeighView.center(neighborhood);
-	//this.zoom = 14;
+	this.center = DNAinfoNYCNeighView.center(neighborhood);
+	this.zoom = 14;
 
     this.map = new L.Map('map', {
 		minZoom:8,
 		maxZoom:17,
-    	//center: this.center,
-   	 	//zoom: this.zoom
+    	center: this.center,
+   	 	zoom: this.zoom
 	});
 
 	//this.stamenLayer = new L.StamenTileLayer("toner-lite");
@@ -110,14 +110,14 @@ DNAinfoNYCNeighView.prototype.loadAllDrawnGeojsons = function (){
 				});
 				if (countDrawnNeighborhoods < 25) {
 					thismap.ALLDRAWNGEOJSONS.addTo(thismap.map);
-					var bounds = thismap.ALLDRAWNGEOJSONS.getBounds();
-				    thismap.map.fitBounds(bounds);			
+					//var bounds = thismap.ALLDRAWNGEOJSONS.getBounds();
+				    //thismap.map.fitBounds(bounds);			
 				} 
 			} else {
 				thismap.ALLDRAWNGEOJSONS = null;
-				thismap.center = DNAinfoNYCNeighView.center(neighborhood);
-				thismap.zoom = 14;
-				thismap.map.setView(thismap.center, thismap.zoom);
+				//thismap.center = DNAinfoNYCNeighView.center(neighborhood);
+				//thismap.zoom = 14;
+				//thismap.map.setView(thismap.center, thismap.zoom);
 			}
         }
 	});
@@ -195,8 +195,8 @@ DNAinfoNYCNeighView.prototype.loadCountGeojson = function (){
 			onEachFeature: DNAinfoNYCNeighView.onEachFeature_COUNTGEOJSON,
 		});
 		thismap.COUNTGEOJSON.addTo(thismap.map);
-		var bounds = thismap.COUNTGEOJSON.getBounds();
-	    thismap.map.fitBounds(bounds);			
+		//var bounds = thismap.COUNTGEOJSON.getBounds();
+	    //thismap.map.fitBounds(bounds);			
 	}
 
 	/*
@@ -486,7 +486,7 @@ DNAinfoNYCNeighView.center = function (neighborhood){
 		"concourse": [40.831676, -73.922755],
 		"concourse-village": [40.828371, -73.916877],
 		"coney-island": [40.574926, -73.985941],
-		"corona": [(40.744986, -73.864261)],
+		"corona": [40.744986, -73.864261],
 		"country-club": [40.843054, -73.821321],
 		"crown-heights": [40.668103, -73.944799],
 		"cypress-hills": [40.683612, -73.88013],

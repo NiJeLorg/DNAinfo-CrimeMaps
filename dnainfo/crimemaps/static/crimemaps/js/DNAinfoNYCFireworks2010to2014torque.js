@@ -440,7 +440,7 @@ DNAinfoNYCFireworks2010to2014torque.centerBySubdomain = function (){
 		"concourse": [40.831676, -73.922755],
 		"concourse-village": [40.828371, -73.916877],
 		"coney-island": [40.574926, -73.985941],
-		"corona": [(40.744986, -73.864261)],
+		"corona": [40.744986, -73.864261],
 		"country-club": [40.843054, -73.821321],
 		"crown-heights": [40.668103, -73.944799],
 		"cypress-hills": [40.683612, -73.88013],

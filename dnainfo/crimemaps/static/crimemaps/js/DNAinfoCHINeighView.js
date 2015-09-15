@@ -6,14 +6,14 @@
 // initialize map
 function DNAinfoCHINeighView() {
 	// set zoom and center for this map
-	//this.center = DNAinfoCHINeighView.center(neighborhood);
-	//this.zoom = 14;
+	this.center = DNAinfoCHINeighView.center(neighborhood);
+	this.zoom = 14;
 
     this.map = new L.Map('map', {
 		minZoom:8,
 		maxZoom:17,
-    	//center: this.center,
-   	 	//zoom: this.zoom
+    	center: this.center,
+   	 	zoom: this.zoom
 	});
 
 	//this.stamenLayer = new L.StamenTileLayer("toner-lite");
@@ -113,14 +113,14 @@ DNAinfoCHINeighView.prototype.loadAllDrawnGeojsons = function (){
 				});
 				if (countDrawnNeighborhoods < 25) {
 					thismap.ALLDRAWNGEOJSONS.addTo(thismap.map);
-					var bounds = thismap.ALLDRAWNGEOJSONS.getBounds();
-				    thismap.map.fitBounds(bounds);			
+					//var bounds = thismap.ALLDRAWNGEOJSONS.getBounds();
+				    //thismap.map.fitBounds(bounds);			
 				} 
 			} else {
 				thismap.ALLDRAWNGEOJSONS = null;
-				thismap.center = DNAinfoCHINeighView.center(neighborhood);
-				thismap.zoom = 14;
-				thismap.map.setView(thismap.center, thismap.zoom);
+				//thismap.center = DNAinfoCHINeighView.center(neighborhood);
+				//thismap.zoom = 14;
+				//thismap.map.setView(thismap.center, thismap.zoom);
 			}
         }
 	});
@@ -199,8 +199,8 @@ DNAinfoCHINeighView.prototype.loadCountGeojson = function (){
 			onEachFeature: DNAinfoCHINeighView.onEachFeature_COUNTGEOJSON,
 		});
 		thismap.COUNTGEOJSON.addTo(thismap.map);
-		var bounds = thismap.COUNTGEOJSON.getBounds();
-	    thismap.map.fitBounds(bounds);			
+		//var bounds = thismap.COUNTGEOJSON.getBounds();
+	    //thismap.map.fitBounds(bounds);			
 	}
 
 	/*
