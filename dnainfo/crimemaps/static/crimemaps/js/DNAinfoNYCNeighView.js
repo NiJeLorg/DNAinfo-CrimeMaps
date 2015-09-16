@@ -7,7 +7,7 @@
 function DNAinfoNYCNeighView() {
 	// set zoom and center for this map
 	this.center = DNAinfoNYCNeighView.center(neighborhood);
-	this.zoom = 14;
+	this.zoom = 13;
 
     this.map = new L.Map('map', {
 		minZoom:8,
