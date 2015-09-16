@@ -6,14 +6,14 @@
 // initialize map
 function DNAinfoNYCNeighView() {
 	// set zoom and center for this map
-	this.center = DNAinfoNYCNeighView.center(neighborhood);
-	this.zoom = 13;
+	//this.center = DNAinfoNYCNeighView.center(neighborhood);
+	//this.zoom = 13;
 
     this.map = new L.Map('map', {
 		minZoom:8,
 		maxZoom:17,
-    	center: this.center,
-   	 	zoom: this.zoom
+    	//center: this.center,
+   	 	//zoom: this.zoom
 	});
 
 	//this.stamenLayer = new L.StamenTileLayer("toner-lite");
@@ -110,14 +110,14 @@ DNAinfoNYCNeighView.prototype.loadAllDrawnGeojsons = function (){
 				});
 				if (countDrawnNeighborhoods < 25) {
 					thismap.ALLDRAWNGEOJSONS.addTo(thismap.map);
-					//var bounds = thismap.ALLDRAWNGEOJSONS.getBounds();
-				    //thismap.map.fitBounds(bounds);			
+					var bounds = thismap.ALLDRAWNGEOJSONS.getBounds();
+				    thismap.map.fitBounds(bounds);			
 				} 
 			} else {
 				thismap.ALLDRAWNGEOJSONS = null;
-				//thismap.center = DNAinfoNYCNeighView.center(neighborhood);
-				//thismap.zoom = 14;
-				//thismap.map.setView(thismap.center, thismap.zoom);
+				thismap.center = DNAinfoNYCNeighView.center(neighborhood);
+				thismap.zoom = 14;
+				thismap.map.setView(thismap.center, thismap.zoom);
 			}
         }
 	});
@@ -127,17 +127,6 @@ DNAinfoNYCNeighView.prototype.loadAllDrawnGeojsons = function (){
 DNAinfoNYCNeighView.prototype.loadCountGeojson = function (){
 	var thismap = this;
 	var polyTopojson;
-	/* For geojsons
-	d3.json(countGeojson, function(data) {
-		thismap.COUNTGEOJSON = L.geoJson(data, {
-			style: DNAinfoNYCNeighView.getStyleFor_COUNTGEOJSON,
-			onEachFeature: DNAinfoNYCNeighView.onEachFeature_COUNTGEOJSON,
-		});
-		thismap.COUNTGEOJSON.addTo(thismap.map);
-		var bounds = thismap.COUNTGEOJSON.getBounds();
-	    thismap.map.fitBounds(bounds);
-	});
-	*/
 
 	// set countGeojson
 	var neighborhoodNoNyphen = neighborhood.replace(/-/g, '');
@@ -196,33 +185,9 @@ DNAinfoNYCNeighView.prototype.loadCountGeojson = function (){
 			onEachFeature: DNAinfoNYCNeighView.onEachFeature_COUNTGEOJSON,
 		});
 		thismap.COUNTGEOJSON.addTo(thismap.map);
-		//var bounds = thismap.COUNTGEOJSON.getBounds();
-	    //thismap.map.fitBounds(bounds);			
+		var bounds = thismap.COUNTGEOJSON.getBounds();
+	    thismap.map.fitBounds(bounds);			
 	}
-
-	/*
-	$.ajax({
-		type: "GET",
-		url: "/getnycdrawngeojson/"+ id +"/",
-		success: function(data){
-			// load the draw tools
-			if (data) {
-				var geojson = JSON.parse(data);
-				thismap.COUNTGEOJSON = L.geoJson(geojson, {
-				    style: DNAinfoNYCNeighView.getStyleFor_COUNTGEOJSON,
-					onEachFeature: DNAinfoNYCNeighView.onEachFeature_COUNTGEOJSON,
-				});
-				thismap.map.addLayer(thismap.COUNTGEOJSON);
-					var bounds = thismap.COUNTGEOJSON.getBounds();
-	    			thismap.map.fitBounds(bounds);
-				}
-
-			} else {
-				thismap.COUNTGEOJSON = null;
-			}
-        }
-	});
-	*/
 
 }
 
