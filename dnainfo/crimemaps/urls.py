@@ -38,6 +38,7 @@ urlpatterns = [
     url(r'^allnycgeojsons/$', views.allnycgeojsons, name='allnycgeojsons'),
     url(r'^nycpolygonsbyneigh/(?P<neighborhoodLive>[-\w]+)/$', views.nycpolygonsbyneigh, name='nycpolygonsbyneigh'),
     url(r'^nycgeojsonsbyneigh/(?P<neighborhoodLive>[-\w]+)/$', views.nycgeojsonsbyneigh, name='nycgeojsonsbyneigh'),
+    url(r'^removenycdrawngeojsonbyid/(?P<id>\d+)/$', views.removenycdrawngeojsonbyid, name='removenycdrawngeojsonbyid'),
     url(r'^chineigh/$', views.chineigh, name='chineigh'),
     url(r'^chineighdraw/(?P<id>\d+)/$', views.chineighdraw, name='chineighdraw'),
     url(r'^chineighdrawsave/(?P<id>\d+)/$', views.chineighdrawsave, name='chineighdrawsave'),

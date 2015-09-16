@@ -878,6 +878,14 @@ def nycgeojsonsbyneigh(request, neighborhoodLive=None):
 
 	return JsonResponse(geojsons, safe=False)
 
+def removenycdrawngeojsonbyid(request, id=None):
+
+	removeGeojson = neighborhoodDrawNYC.objects.filter(id=id).delete()
+
+	removed = {removed: id}
+
+	return JsonResponse(removed, safe=False)
+
 
 def chineigh(request, id=None):
 	if id:

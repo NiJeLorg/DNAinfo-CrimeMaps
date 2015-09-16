@@ -57,7 +57,20 @@ DNAinfoNYCNeigh.onEachFeature_ALLDRAWNGEOJSONS = function(feature,layer){
 		if (!L.Browser.ie && !L.Browser.opera) {
 	        layer.bringToBack();
 	    }	
-    });	
+    });
+
+    layer.on('click', function(ev) {
+    	console.log(feature.properties.ID);
+
+	    $.ajax({
+			type: "GET",
+			url: "/removenycdrawngeojsonbyid/"+ feature.properties.ID + "/" ,
+			success: function(data){
+				window.opener.reload(true);
+	        }
+		});
+
+    });
 	
 }
 
