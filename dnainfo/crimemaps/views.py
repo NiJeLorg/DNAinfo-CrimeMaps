@@ -882,7 +882,7 @@ def removenycdrawngeojsonbyid(request, id=None):
 
 	removeGeojson = neighborhoodDrawNYC.objects.filter(id=id).delete()
 
-	removed = {removed: id}
+	removed = {"removed": id}
 
 	return JsonResponse(removed, safe=False)
 
