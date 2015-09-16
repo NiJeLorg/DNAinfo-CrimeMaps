@@ -66,8 +66,7 @@ DNAinfoNYCNeigh.onEachFeature_ALLDRAWNGEOJSONS = function(feature,layer){
 			type: "GET",
 			url: "/removenycdrawngeojsonbyid/"+ feature.properties.ID + "/" ,
 			success: function(data){
-				console.log(data);
-				window.opener.reload(true);
+				window.location.reload(true); 
 	        }
 		});
 
