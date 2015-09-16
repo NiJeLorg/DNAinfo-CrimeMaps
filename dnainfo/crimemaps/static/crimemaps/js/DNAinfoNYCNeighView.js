@@ -141,6 +141,7 @@ DNAinfoNYCNeighView.prototype.loadCountGeojson = function (){
 
 	// set countGeojson
 	var neighborhoodNoNyphen = neighborhood.replace(/-/g, '');
+	neighborhoodNoNyphen = neighborhoodNoNyphen.replace(/./g, '');
 	var geojsonPath = "/crimemaps/neigh_drawn_geojsons/" + neighborhood + "/polys_" + neighborhoodNoNyphen + "_25.topojson";
 	var countGeojson = STATIC_URL + geojsonPath;
 
