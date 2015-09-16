@@ -873,7 +873,7 @@ def nycgeojsonsbyneigh(request, neighborhoodLive=None):
 	allDrawnNeighborhoods = neighborhoodDrawNYC.objects.filter(neighborhoodLive=neighborhood, approved=True).exclude(drawnGeojson='')
 	geojsons = []
 	for drawn in allDrawnNeighborhoods:
-		changed = drawn.drawnGeojson.replace('\"properties\":{}', '\"properties\":{\"shapeID\":\"'+ str(drawn.id) +'\", \"approved\":\"'+ str(drawn.approved) +'\", \"neighborhoodLive\":\"'+ str(drawn.neighborhoodLive.name) +'\", \"otherNeighborhood\":\"' + strip_non_ascii(drawn.otherNeighborhood) +'\", \"yearsLived\":\"' + str(drawn.yearsLived) +'\"}')
+		changed = drawn.drawnGeojson.replace('\"properties\":{}', '\"properties\":{\"ID\":\"'+ str(drawn.id) +'\", \"approved\":\"'+ str(drawn.approved) +'\", \"neighborhoodLive\":\"'+ str(drawn.neighborhoodLive.name) +'\", \"otherNeighborhood\":\"' + strip_non_ascii(drawn.otherNeighborhood) +'\", \"yearsLived\":\"' + str(drawn.yearsLived) +'\"}')
 		geojsons.append(changed) 
 
 	return JsonResponse(geojsons, safe=False)
@@ -990,7 +990,7 @@ def chigeojsonsbyneigh(request, neighborhoodLive=None):
 	allDrawnNeighborhoods = neighborhoodDrawCHI.objects.filter(neighborhoodLive=neighborhood, approved=True).exclude(drawnGeojson='')
 	geojsons = []
 	for drawn in allDrawnNeighborhoods:
-		changed = drawn.drawnGeojson.replace('\"properties\":{}', '\"properties\":{\"shapeID\":\"'+ str(drawn.id) +'\", \"approved\":\"'+ str(drawn.approved) +'\", \"neighborhoodLive\":\"'+ str(drawn.neighborhoodLive.name) +'\", \"otherNeighborhood\":\"' + strip_non_ascii(drawn.otherNeighborhood) +'\", \"yearsLived\":\"' + str(drawn.yearsLived) +'\"}')
+		changed = drawn.drawnGeojson.replace('\"properties\":{}', '\"properties\":{\"ID\":\"'+ str(drawn.id) +'\", \"approved\":\"'+ str(drawn.approved) +'\", \"neighborhoodLive\":\"'+ str(drawn.neighborhoodLive.name) +'\", \"otherNeighborhood\":\"' + strip_non_ascii(drawn.otherNeighborhood) +'\", \"yearsLived\":\"' + str(drawn.yearsLived) +'\"}')
 		geojsons.append(changed) 
 
 	return JsonResponse(geojsons, safe=False)
