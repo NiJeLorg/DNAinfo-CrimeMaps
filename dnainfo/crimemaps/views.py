@@ -870,7 +870,7 @@ def nycpolygonsbyneigh(request, neighborhoodLive=None):
 def nycgeojsonsbyneigh(request, neighborhoodLive=None):
 	neighborhood = neighborhoodNYC.objects.get(dnaurl=neighborhoodLive)
 
-	allDrawnNeighborhoods = neighborhoodDrawNYC.objects.filter(neighborhoodLive=neighborhood)
+	allDrawnNeighborhoods = neighborhoodDrawNYC.objects.filter(neighborhoodLive=neighborhood).exclude(approved=False)
 	geojsons = []
 	for drawn in allDrawnNeighborhoods:
 		changed = drawn.drawnGeojson.replace('\"properties\":{}', '\"properties\":{\"ID\":\"'+ str(drawn.id) +'\", \"neighborhoodLive\":\"'+ str(drawn.neighborhoodLive.name) +'\", \"otherNeighborhood\":\"' + strip_non_ascii(drawn.otherNeighborhood) +'\"}')
@@ -987,7 +987,7 @@ def chipolygonsbyneigh(request, neighborhoodLive=None):
 def chigeojsonsbyneigh(request, neighborhoodLive=None):
 	neighborhood = neighborhoodCHI.objects.get(dnaurl=neighborhoodLive)
 
-	allDrawnNeighborhoods = neighborhoodDrawCHI.objects.filter(neighborhoodLive=neighborhood)
+	allDrawnNeighborhoods = neighborhoodDrawCHI.objects.filter(neighborhoodLive=neighborhood).exclude(approved=False)
 	geojsons = []
 	for drawn in allDrawnNeighborhoods:
 		changed = drawn.drawnGeojson.replace('\"properties\":{}', '\"properties\":{\"ID\":\"'+ str(drawn.id) +'\", \"neighborhoodLive\":\"'+ str(drawn.neighborhoodLive.name) +'\", \"otherNeighborhood\":\"' + strip_non_ascii(drawn.otherNeighborhood) +'\"}')
