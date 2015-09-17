@@ -1004,6 +1004,15 @@ def chigeojsonsbyneigh(request, neighborhoodLive=None):
 	return JsonResponse(geojsons, safe=False)
 
 
+def removechidrawngeojsonbyid(request, id=None):
+
+	removeGeojson = neighborhoodDrawCHI.objects.filter(id=id).delete()
+
+	removed = {"removed": id}
+
+	return JsonResponse(removed, safe=False)
+
+
 def strip_non_ascii(string):
     ''' Returns the string without non ASCII characters'''
     stripped = (c for c in string if ord(c) == 32 or 48 <= ord(c) <= 57 or 65 <= ord(c) <= 90  or 97 <= ord(c) <= 122)
