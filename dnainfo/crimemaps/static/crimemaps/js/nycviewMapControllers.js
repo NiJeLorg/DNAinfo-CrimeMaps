@@ -40,13 +40,8 @@ $( document ).ready(function() {
 		$("#legendWrapper").removeClass('hidden');
 		$("#countControls").removeClass('hidden');
 		$("#shapeControls").removeClass('hidden');
-	} else if (countDrawnNeighborhoods > 5) {
-		$( "#all" ).prop('checked', true);
-		$("#shapeControls").removeClass('hidden');
-		$("#drawNeighButton").removeClass('hidden');
 	} else if (countDrawnNeighborhoods > 0) {
-		$( "#all" ).prop('checked', true);
-		$("#shapeControls").removeClass('hidden');
+		$("#outlinesOnlyText").removeClass('hidden');
 		$("#drawNeighButton").removeClass('hidden');
 	} else {
 		$("#nobodysDrawn").removeClass('hidden');

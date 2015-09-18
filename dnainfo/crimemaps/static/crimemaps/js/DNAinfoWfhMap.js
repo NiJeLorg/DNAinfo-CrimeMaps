@@ -472,7 +472,7 @@ DNAinfoWfhMap.centerBySubdomain = function (){
 		"oakland-gardens": [40.740858, -73.758241],
 		"oakwood": [40.558475, -74.115187],
 		"ocean-breeze": [40.586769, -74.078479],
-		"ocean-hill": [40.584564, -73.966932],
+		"ocean-hill": [40.677473, -73.907046],
 		"old-town": [40.596612, -74.087368],
 		"olinville": [40.880391, -73.8669],
 		"ozone-park": [40.679407, -73.850728],
