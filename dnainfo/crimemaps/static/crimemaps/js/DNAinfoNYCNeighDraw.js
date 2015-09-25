@@ -861,7 +861,7 @@ DNAinfoNYCNeighDraw.neighborhoodBabyName = function (neighborhood){
 		'woodrow': 'Woodrow',
 		'woodside': 'Woodside',
 		'yorkville': 'Yorkville',
-		"park-slope-south": "Park Slope South",
+		"park-slope-south": "South Slope",
 		"alphabet-city": "Alphabet City",
 		"nomad": "NoMad",
 		"tudor-city": "Tudor City",
