@@ -75,7 +75,7 @@ class nycNeighViewForm(forms.ModelForm):
         model = neighborhoodDrawNYC
         fields = ('neighborhoodLive', )
         labels = {
-            'neighborhoodLive': 'See Other Neighborhood Results:',
+            'neighborhoodLive': '',
         }
         widgets = {
             'neighborhoodLive': widgets.Select2Widget(),
@@ -88,7 +88,7 @@ class chiNeighViewForm(forms.ModelForm):
         model = neighborhoodDrawCHI
         fields = ('neighborhoodLive', )
         labels = {
-            'neighborhoodLive': 'See Other Neighborhood Results:',
+            'neighborhoodLive': '',
         }
         widgets = {
             'neighborhoodLive': widgets.Select2Widget(),

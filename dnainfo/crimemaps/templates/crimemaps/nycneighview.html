@@ -18,13 +18,19 @@
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-        <a class="navbar-brand" href="http://www.dnainfo.com/new-york/"><img src="{% static 'crimemaps/css/images/DNANYCLogo.png' %}" class="navbar-brand-img-nyc"/></a>
+    <div id="chooseAnotherNeighborhood">
+      <form class="navbar-form form-inline pull-left" method="post" action=".">
+        {% csrf_token %}
+        {{ form|as_bootstrap }}
+        <input type="submit" class="btn btn-default" value="Go!" />
+      </form>
     </div>
+   
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
+
     <div class="collapse navbar-collapse" id="collapse">
-      <p class="navbar-text">Composite Version of <span class="neighborhoodName"></span></p>
+        <a class="navbar-brand" href="http://www.dnainfo.com/new-york/"><img src="{% static 'crimemaps/css/images/DNANYCLogo.png' %}" class="navbar-brand-img-nyc"/></a>
+		<p class="navbar-text">Composite Version of <span class="neighborhoodName"></span></p>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
@@ -107,14 +113,15 @@
 
                       </div>
                       <div class="col-md-6">
-                        <div id="chooseAnotherNeighborhood">
+                        <!--<div id="chooseAnotherNeighborhood">
+                          <p><strong>See Other Neighborhood Results:</strong></p>
                           <form method="post" action=".">
                             {% csrf_token %}
                             {{ form|as_bootstrap }}
                             <input type="submit" class="btn btn-danger" value="Go!" />
                           </form>
                         </div>
-                        <br />
+                        <br />-->
                         <div id="drawNeighButton" class="hidden">
                           <h4 id="nobodysDrawn" class="hidden">Be the first to draw this neighborhood!</h4>
                           <h4><a class="btn btn-danger btn-lg" href="/nycneigh/" role="button">DRAW YOUR NEIGHBORHOOD</a></h4>
@@ -182,6 +189,10 @@
                 return results;
           }
       });
+
+      // show tect in neighborhood select header
+      $('.select2-chosen').html("Choose Your Neighborhood");
+
 
     });
   </script>
