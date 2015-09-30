@@ -120,6 +120,10 @@ body.loading .loading-modal {
 	margin-top: 10px;
 }
 
+.margin0bottom {
+	margin-bottom: 0px;
+}
+
 .padding15topbottom {
 	padding: 15px 0px;
 }
@@ -298,6 +302,10 @@ body.loading .loading-modal {
 	color: #fff;
 }
 
+.popup-link {
+    color: #99CCFF !important;
+}
+
 /*
 * Bootstrap overrides
 */
@@ -390,6 +398,8 @@ body.loading .loading-modal {
     margin-bottom: 0;
     vertical-align: middle;
 }
+
+
 
 /*
 * Form top padding

@@ -1,0 +1,127 @@
+{% extends 'crimemaps/baseNoBottomNavCHI.html' %}
+{% load staticfiles %}
+{% load bootstrap_tags %}
+
+{% block title %}Zillow Home and Rental Prices | DNAinfo{% endblock %}
+
+{% block css_block %}
+    <link rel="stylesheet" type="text/css" href="{% static 'crimemaps/css/leaflet.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'crimemaps/css/leaflet.label.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'crimemaps/css/Control.Geocoder.css' %}">  
+{% endblock %}
+
+{% block head_js_block %}
+{% endblock %}
+	
+{% block body_block %}
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+        <a class="navbar-brand" href="http://www.dnainfo.com/chicago/"><img src="{% static 'crimemaps/css/images/DNACHILogo.png' %}" class="navbar-brand-img-chi"/></a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="collapse">
+      <p class="navbar-text">Zillow Home and Rental Prices for {{ monthyear|date:"F Y" }}</p>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+        <!-- #popup-wrapper-->
+        <div id="popup-wrapper" class="popup-wrapper popup-wrapper-open">
+            <div class="popup-content">
+                <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <h4>Filter Data:</h4>
+                        <form id="filter-form">
+                          <div class="form-group">
+                            <label for="monthyear">By Date: </label>
+                            <select class="form-control" id="monthyear">
+                                {% for date in dates %}
+                                    <option value="{{ date.monthyear }}">{{ date.monthyear|date:"M Y" }}</option>
+                                {% endfor %}
+                            </select>
+                          </div>
+                          <p><strong>By Layer</strong></p>
+                          <div class="radio">
+                            <label>
+                              <input type="radio" name="optionsRadios" id="optionsRadios1" value="sale" checked>
+                              ​Change in Value for Home Sale Price per Square Foot Over Previous Year
+                            </label>
+                          </div>
+                          <div class="radio">
+                            <label>
+                              <input type="radio" name="optionsRadios" id="optionsRadios2" value="rent">
+                              Change in Average Rent per Square Foot Over Previous Year
+                            </label>
+                          </div>
+                        </form>                        
+                      </div>
+                      <div class="col-sm-6">
+                        <h4>Legend</h4>
+                            <div id="legend">
+                                <div class="legend-cloropleth">
+                                    <p id="legend-title">Change in Value for Home Sale Price per Square Foot Over Previous Year</p>
+                                    <ul>
+                                        <li class="min">&gt;10% decrease</li>
+                                        <li class="max">&gt;10% increase</li>
+                                        <li class="graph">
+                                            <div class="colors">
+                                                <div class="quartile" style="background-color:#4d4d4d"></div>
+                                                <div class="quartile" style="background-color:#999999"></div>
+                                                <div class="quartile" style="background-color:#e0e0e0"></div>
+                                                <div class="quartile" style="background-color:#fddbc7"></div>
+                                                <div class="quartile" style="background-color:#ef8a62"></div>
+                                                <div class="quartile" style="background-color:#b2182b"></div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="clearfix"></div>
+                                <br />
+                                <div class="col-xs-6 col-xs-offset-6">
+                                  <p>
+                                    <small>Source: <img class="img-responsive" src="{% static 'crimemaps/css/images/ForScreen_RGB_ZillowLogo_Blue-Square-Horizontal.png' %}" /></small>
+                                  </p>
+                                </div>
+                            </div>
+                      </div>
+                    </div>
+                    <br />
+                    <br />
+                </div>
+            </div>
+        </div>
+        <!-- /#popup-wrapper-->
+
+        <!-- Map Content -->
+        <div id="map" class="map map-popup-wrapper-open"></div>
+
+{% endblock %}
+
+{% block modal_block %}
+{% endblock %}
+
+{% block js_block %}
+	<script type="text/javascript">
+    var monthyear = '{{ monthyear }}';
+    var CHI_Zipcodes = "{% static 'crimemaps/data/zipcodes_chi4326.topojson' %}";
+	</script>
+  <script type="text/javascript" src="{% static 'crimemaps/js/d3.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'crimemaps/js/moment.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'crimemaps/js/leaflet.js' %}"></script>
+  <script type="text/javascript" src="{% static 'crimemaps/js/topojson.js' %}"></script>
+  <script type="text/javascript" src="{% static 'crimemaps/js/Control.Geocoder.js' %}"></script>
+  <script type="text/javascript" src="{% static 'crimemaps/js/leaflet.label-src.js' %}"></script>
+	<script type="text/javascript" src="{% static 'crimemaps/js/DNAinfoCHIZillow.js' %}"></script>
+	<script type="text/javascript" src="{% static 'crimemaps/js/chizillowapp.js' %}"></script>
+  <script type="text/javascript" src="{% static 'crimemaps/js/chiZillowControllers.js' %}"></script>
+
+{% endblock %}
+
+
+	
+	
+

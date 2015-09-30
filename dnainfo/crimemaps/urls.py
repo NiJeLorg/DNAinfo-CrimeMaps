@@ -55,5 +55,11 @@ urlpatterns = [
     url(r'^nycneighview/$', views.nycneighview, name='nycneighview'),
     url(r'^chineighview/(?P<neighborhoodID>[-\w]+)/$', views.chineighview, name='chineighview'),
     url(r'^chineighview/$', views.chineighview, name='chineighview'),
+    url(r'^chizillowzip/$', views.chizillowzip, name='chizillowzip'),
+    url(r'^chizillowzipapi/$', views.chizillowzipapi, name='chizillowzipapi'),
+    url(r'^chicookcounty/$', views.chicookcounty, name='chicookcounty'),
+    url(r'^chicookcountyapi/$', views.chicookcountyapi, name='chicookcountyapi'),
+    url(r'^nycstreeteasy/$', views.nycstreeteasy, name='nycstreeteasy'),
+    url(r'^nycstreeteasyapi/$', views.nycstreeteasyapi, name='nycstreeteasyapi'),
 
 ]

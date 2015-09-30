@@ -1081,3 +1081,189 @@ def chineighview(request, neighborhoodID=None):
 
 
 	return render(request, 'crimemaps/chineighview.html', {'neighborhood': neighborhood, 'STATIC_URL': STATIC_URL, 'form': form, 'countDrawnNeighborhoods': countDrawnNeighborhoods})
+
+
+def chizillowzip(request):
+	today = datetime.datetime.now()
+	today_str = today.strftime("%M/%Y")
+	monthYearGet = request.GET.get("monthyear",today_str)
+	#ensure date is a datetime object
+	monthYearGet = monthYearGet.split("/")
+	monthDayYear = monthYearGet[1] + '-' + monthYearGet[0] + '-1'
+	monthyear = dateutil.parser.parse(monthDayYear).date()
+
+	#select a distinct list of end dates from the system
+	dates = []
+	dateList = CHIZIPZillowData.objects.values('monthyear',).distinct().order_by('-monthyear')
+	for date in dateList:
+		dates.append(date)
+
+	return render(request, 'crimemaps/chizillowzip.html', {'monthyear':monthyear, 'dates':dates})
+
+
+def chizillowzipapi(request):
+	#add in the items geojson requires 
+	response = {}
+
+	if request.method == 'GET':
+		#gather potential filter variables
+		monthyear = request.GET.get("monthyear","")
+
+		# create data objects from start and end dates
+		monthyearparsed = dateutil.parser.parse(monthyear).date()
+
+		#add kwargs and hour query
+		kwargs = {}
+		# show date range selected
+		kwargs['monthyear__exact'] = monthyearparsed
+
+		#pull shootings data
+		datas = CHIZIPZillowData.objects.filter(**kwargs)
+		for data in datas:
+			zip = data.zip
+			response[zip] = {}
+			response[zip]['monthyear'] = monthyearparsed
+			response[zip]['neighborhoodscovered'] = data.neighborhoodscovered
+			response[zip]['population2013censusestimate'] = data.population2013censusestimate
+			response[zip]['percentlivinginsamehouseoneyearago2013censusestimate'] = data.percentlivinginsamehouseoneyearago2013censusestimate
+			response[zip]['medianhouseholdincome2013censusestimate'] = data.medianhouseholdincome2013censusestimate
+			response[zip]['changeinvaluesquarefootoverpreviousyear'] = data.changeinvaluesquarefootoverpreviousyear
+			response[zip]['changeavgrentsqfootoverpreviousyear'] = data.changeavgrentsqfootoverpreviousyear
+			response[zip]['percentofhomessoldinpastyear'] = data.percentofhomessoldinpastyear
+			response[zip]['estimatedvaluesquarefoot'] = data.estimatedvaluesquarefoot
+			response[zip]['estimatedvalueofallhomes'] = data.estimatedvalueofallhomes
+			response[zip]['avgrentsqfoot'] = data.avgrentsqfoot
+			response[zip]['medianlistprice'] = data.medianlistprice
+			response[zip]['mediansaleprice'] = data.mediansaleprice
+
+	return JsonResponse(response)
+
+
+def chicookcounty(request):
+	firstOfMonth = date(date.today().year, date.today().month, 1)
+	lastOfMonth = firstOfMonth + relativedelta(days=-1, months=1)
+	firstOfMonth_str = firstOfMonth.strftime("%x")
+	lastOfMonth_str = lastOfMonth.strftime("%x")
+	startDate = request.GET.get("startDate",firstOfMonth_str)
+	endDate = request.GET.get("endDate",lastOfMonth_str)
+	#ensure startDate and endDate are datetime objects
+	startDate = dateutil.parser.parse(startDate).date()
+	endDate = dateutil.parser.parse(endDate).date()
+
+	# pull the earliest date for time slider
+	earliestSale = CHICookCountyRealEstateData.objects.earliest('executed')
+
+	return render(request, 'crimemaps/chicookcounty.html', {'startDate':startDate, 'endDate':endDate, 'earliestSale':earliestSale})
+
+def chicookcountyapi(request):
+	#add in the items geojson requires 
+	response = {}
+	response['type'] = "FeatureCollection"
+	response['features'] = []
+
+	if request.method == 'GET':
+		#gather potential filter variables
+		startDate = request.GET.get("startDate","")
+		endDate = request.GET.get("endDate","")
+		minamount = request.GET.get("minamount","")
+		maxamount = request.GET.get("maxamount","")
+
+		# create data objects from start and end dates
+		startDateparsed = dateutil.parser.parse(startDate).date()
+		endDateparsed = dateutil.parser.parse(endDate).date()
+
+		#add kwargs and hour query
+		kwargs = {}
+		# show date range selected
+		kwargs['executed__range'] = [startDateparsed,endDateparsed]
+
+		# add to kwargs if filters exist
+		if minamount != '':
+			kwargs['amount__gte'] = minamount
+
+		if maxamount != '':
+			kwargs['amount__lte'] = maxamount			
+
+		#pull shootings data
+		datas = CHICookCountyRealEstateData.objects.filter(**kwargs)
+		for d in datas:
+			data = {}
+			data['type'] = 'Feature'
+			data['properties'] = {}
+			data['properties']['executed'] = d.executed
+			data['properties']['recorded'] = d.recorded
+			data['properties']['doc'] = d.doc
+			data['properties']['address'] = d.address
+			data['properties']['unit'] = d.unit
+			data['properties']['city'] = d.city
+			data['properties']['zip'] = d.zip
+			data['properties']['fulladdress'] = d.fulladdress
+			data['properties']['amount'] = d.amount
+			data['properties']['seller'] = d.seller
+			data['properties']['buyer'] = d.buyer
+			data['properties']['pin'] = d.pin
+			data['properties']['township'] = d.township
+			data['geometry'] = {}
+			data['geometry']['type'] = 'Point'
+			data['geometry']['coordinates'] = [d.longitude, d.latitude]
+			response['features'].append(data)
+
+
+	return JsonResponse(response)
+
+
+def nycstreeteasy(request):
+	today = datetime.datetime.now()
+	today_str = today.strftime("%M/%Y")
+	dateperiodGet = request.GET.get("dateperiod",today_str)
+	#ensure date is a datetime object
+	dateperiodGet = dateperiodGet.split("/")
+	dateperiodYear = dateperiodGet[1] + '-' + dateperiodGet[0] + '-1'
+	dateperiod = dateutil.parser.parse(dateperiodYear).date()
+
+
+	#select a distinct list of end dates from the system
+	dates = []
+	dateList = NYCStreetEasyRealEstateData.objects.values('dateperiod',).distinct().order_by('-dateperiod')
+	for date in dateList:
+		dates.append(date)
+
+	return render(request, 'crimemaps/nycstreeteasy.html', {'dateperiod':dateperiod, 'dates':dates})
+
+
+def nycstreeteasyapi(request):
+	#add in the items geojson requires 
+	response = {}
+
+	if request.method == 'GET':
+		#gather potential filter variables
+		dateperiod = request.GET.get("dateperiod","")
+
+		# create data objects from start and end dates
+		dateperiodparsed = dateutil.parser.parse(dateperiod).date()
+
+		#add kwargs and hour query
+		kwargs = {}
+		# show date range selected
+		kwargs['dateperiod__exact'] = dateperiodparsed
+
+		#pull shootings data
+		datas = NYCStreetEasyRealEstateData.objects.filter(**kwargs)
+		for data in datas:
+			area = data.area
+			response[area] = {}
+			response[area]['dateperiod'] = dateperiodparsed
+			response[area]['unittype'] = data.unittype
+			response[area]['medianaskingprice'] = data.medianaskingprice
+			response[area]['totalsalesinventory'] = data.totalsalesinventory
+			response[area]['medianaskingrent'] = data.medianaskingrent
+			response[area]['totalrentalinventory'] = data.totalrentalinventory
+			response[area]['medianclosingprice'] = data.medianclosingprice
+			response[area]['totalclosings'] = data.totalclosings
+			response[area]['medianppsf'] = data.medianppsf
+			response[area]['totalsaleclosings'] = data.totalsaleclosings
+			response[area]['medianaskingrentchcange'] = data.medianaskingrentchcange
+			response[area]['medianppsfchange'] = data.medianppsfchange
+
+	return JsonResponse(response)
+

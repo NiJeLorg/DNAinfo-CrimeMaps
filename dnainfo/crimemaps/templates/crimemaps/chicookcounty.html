@@ -1,0 +1,138 @@
+{% extends 'crimemaps/baseNoBottomNavCHI.html' %}
+{% load staticfiles %}
+
+{% block title %}Cook County Real Estate Sales | DNAinfo{% endblock %}
+
+
+{% block css_block %}
+    <link rel="stylesheet" type="text/css" href="{% static 'crimemaps/css/leaflet.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'crimemaps/css/leaflet.label.css' %}">	
+    <link rel="stylesheet" type="text/css" href="{% static 'crimemaps/css/Control.Geocoder.css' %}">	
+    <link rel="stylesheet" type="text/css" href="{% static 'crimemaps/css/d3.slider.css' %}">    
+{% endblock %}
+
+{% block head_js_block %}
+{% endblock %}
+	
+{% block body_block %}
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+        <a class="navbar-brand" href="http://www.dnainfo.com/chicago/"><img src="{% static 'crimemaps/css/images/DNACHILogo.png' %}" class="navbar-brand-img-chi"/></a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="collapse">
+      <p class="navbar-text">Cook County Real Estate Sales</p>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+        <!-- #popup-wrapper-->
+        <div id="popup-wrapper" class="popup-wrapper popup-wrapper-open">
+            <div class="popup-content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h4>Filter Data:</h4>
+                            <p><strong>By Date Sold:</strong></p>
+                            <div id="timeSlider"></div>
+                            <small>Date Range Selected: <span id="printStartDate"></span> - <span id="printEndDate"></span></small>
+                            <br />
+                            <form id="filter-form" class="padding15topbottom">
+                              <div class="form-group">
+                                <label for="maxamount">By Maximum Price Sold: </label>
+                                <select class="form-control" id="maxamount">
+                                    <option value="">----</option>
+                                    <option value="50000">$50,000</option>
+                                    <option value="100000">$100,000</option>
+                                    <option value="250000">$250,000</option>
+                                    <option value="500000">$500,000</option>
+                                    <option value="1000000">$1 Million</option>
+                                    <option value="2000000">$2 Million</option>
+                                </select>
+                              </div>
+                              <div class="form-group">
+                                <label for="minamount">By Minumum Price Sold: </label>
+                                <select class="form-control" id="minamount">
+                                    <option value="">----</option>
+                                    <option value="50000">$50,000</option>
+                                    <option value="100000">$100,000</option>
+                                    <option value="250000">$250,000</option>
+                                    <option value="500000">$500,000</option>
+                                    <option value="1000000">$1 Million</option>
+                                    <option value="2000000">$2 Million</option>
+                                </select>
+                              </div>
+                            </form>
+                        </div>
+                        <div class="col-sm-6">
+                            <h4>Legend</h4>
+                            <div id="legend">
+                              <div class="row">
+                                <div class="col-sm-6">
+                                  <div class="legend-bubbles">
+                                    <p>Sale Amount</p>
+                                    <ul>
+                                      <li>$0</li>
+                                      <li class="graph" style="background: #931212;"><div class="bubbles"></div></li>
+                                      <li id="legend-max-num">&gt;$2 Million</li>
+                                    </ul>
+                                  </div>
+                                </div>
+                                <div class="col-sm-6">
+                                  <div class="legend-category">
+                                  <p>Sale Amount Recorded</p>
+                                      <ul>
+                                        <li><div class="bullet" style="background: #931212;"></div> Yes</li>
+                                        <li><div class="bullet" style="background: #4d4d4d;"></div> No</li>
+                                      </ul>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-sm-12">
+                                    <p><small>Source: Cook County Recorder of Deeds</small></p>
+                                </div>
+                              </div> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /#popup-wrapper-->
+
+        <!-- Map Content -->
+        <div id="map" class="map map-popup-wrapper-open"></div>
+
+
+{% endblock %}
+
+{% block modal_block %}
+{% endblock %}
+
+{% block js_block %}
+	<script type="text/javascript">
+        var startDate = '{{ startDate }}';
+        var endDate = '{{ endDate }}';
+        var chiCommunities = "{% static 'crimemaps/data/chi_acs_2013_commareas_commute.topojson' %}";
+	</script>
+	<script type="text/javascript" src="{% static 'crimemaps/js/d3.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'crimemaps/js/moment.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'crimemaps/js/d3.slider.js' %}"></script>
+	<script type="text/javascript" src="{% static 'crimemaps/js/leaflet.js' %}"></script>
+	<script type="text/javascript" src="{% static 'crimemaps/js/leaflet.label-src.js' %}"></script>
+	<script type="text/javascript" src="{% static 'crimemaps/js/topojson.js' %}"></script>
+	<script type="text/javascript" src="{% static 'crimemaps/js/Control.Geocoder.js' %}"></script>
+    <script type="text/javascript" src="{% static 'crimemaps/js/turf.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'crimemaps/js/DNAinfoChiCookCounty.js' %}"></script>
+	<script type="text/javascript" src="{% static 'crimemaps/js/chicookcountyapp.js' %}"></script>
+    <script type="text/javascript" src="{% static 'crimemaps/js/chiCookCountyControllers.js' %}"></script>
+{% endblock %}
+
+
+	
+	
+
