@@ -73,7 +73,7 @@ DNAinfoChiCookCounty.onEachFeature_CHISALES = function(feature,layer){
 		layer.setStyle(noHighlight);		
     });	
 
-	layer.bindPopup("<h5>" + feature.properties.fulladdress + "</h5><p>" + amount + "Date of Sale: " + dateFormat(feature.properties.executed) + "<br />Sellers' Name: " + feature.properties.seller + "<br />Buyers' Name: " + feature.properties.buyer + "<br />PIN: <a class='popup-link' href='http://12.218.239.81/i2/default.aspx' target='_blank'>" + feature.properties.pin + "</a></p>");
+	layer.bindPopup("<h5>" + feature.properties.fulladdress + "</h5><p>" + amount + "Date of Sale: " + dateFormat(feature.properties.executed) + "<br />Seller's Name: " + feature.properties.seller + "<br />Buyer's Name: " + feature.properties.buyer + "<br />PIN: <a class='popup-link' href='http://12.218.239.81/i2/default.aspx' target='_blank'>" + feature.properties.pin + "</a></p>");
 
 }
 
