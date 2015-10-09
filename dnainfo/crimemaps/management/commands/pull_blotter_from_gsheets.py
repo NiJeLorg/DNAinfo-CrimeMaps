@@ -17,9 +17,6 @@ import pytz
 """
 class Command(BaseCommand):
     
-    def truncate_table(self):
-        blotter.objects.all().delete()
-
     def load_blotter_data(self):
         keys = ['1NISlql8CXM-eVmJikOiY0ZF2MEaVYcZYTbIFU_gZ3oo', '1DJ2lUCY07XAxCn9Wn-kHBC83zNQhE5XEzeFHJ23Qg9M', '1zsPX6xKUaXwtzwzyLqJG_hCqMW6TNx3Gxi95VLSXvUw', '1cXZuk5IBNH4DOGG8XLZMr7LHpbYidmGRpm0sqB2cWcc', '18lUQ173090JpCGHWWjw6m87Yy1rxFxUuCXJlGrNa9xg', '1SjMXehyftQ8ESCi1Bl0IX9PY-zZgj4FVIBGlwYoN2Pc', '1_z9c0LUeSGZiVML3nP7g_nxrtcEmGfdVKlOTJCTtrEQ', '1UbhLaPDFE5NICYrlv5YOImZIoN5WTKJ9oIijSvCIjG0', '1Pj3AJk0NU6_rAbykgjTF5btlhHKZRq8eo8eCy_GijVw', '1tDrqnTn07Y4y2-vWKuxSiES45136KkRd8Kk1pd4h78s', '1sDE-lHe-RGgoDFTuB-otkgSvhQBE8t3To3dscrpmBIc', '1bhUNdCnUbUDWaTick1VGr1R1iD2g8U16aJxAvvZkotg']
         precincts = [10, 13, 1, 20, 25, 40, 6, 78, 7, 90, 94, 0]
@@ -55,7 +52,6 @@ class Command(BaseCommand):
                 else:
                     crimeType = None
 
-                print data['gsx$precinct']['$t']
                 if data['gsx$precinct']['$t'] != '' and data['gsx$precinct']['$t'] != '10th' and data['gsx$precinct']['$t'] != '13th' and data['gsx$precinct']['$t'] != '1st' and data['gsx$precinct']['$t'] != '20th' and data['gsx$precinct']['$t'] != '25th' and data['gsx$precinct']['$t'] != '40th' and data['gsx$precinct']['$t'] != '6th' and data['gsx$precinct']['$t'] != '78th' and data['gsx$precinct']['$t'] != '7th' and data['gsx$precinct']['$t'] != '90th' and data['gsx$precinct']['$t'] != '94th':
                     precinctNum = int(data['gsx$precinct']['$t'])
                 else:
@@ -73,7 +69,8 @@ class Command(BaseCommand):
 
 
                 #use get or create to only create records for objects newly added to the spreadsheets
-                obj = blotter.objects.create(Precinct=precinctNum, Address=data['gsx$address']['$t'], DateTime=DateTimeObject, BlotterWeek=BlotterWeekObject, CrimeType=crimeType, PoliceSaid=data['gsx$policesaid']['$t'], Arrest=arrest, Latitude=lat, Longitude=lon, JSDate=JSDateObject)
+                updated_values = {'BlotterWeek':JSDateObject, 'CrimeType':crimeType, 'PoliceSaid':data['gsx$policesaid']['$t'], 'Arrest': arrest, 'Latitude':lat, 'Longitude':lon, 'JSDate': JSDateObject }
+                obj, created = blotter.objects.update_or_create(Precinct=precinctNum, Address=data['gsx$address']['$t'], DateTime=DateTimeObject,defaults=updated_values)
 
 
     def load_blotter_data_consolidated_sheet(self):
@@ -90,7 +87,6 @@ class Command(BaseCommand):
                 dateTime = data['gsx$date']['$t'] + ' ' + data['gsx$time']['$t']
                 notz = dateutil.parser.parse(dateTime, ignoretz=True)
                 DateTimeObject = pytz.timezone("America/New_York").localize(notz, is_dst=None)
-                print DateTimeObject
                 justDate = DateTimeObject.date()
 
                 if hasattr(data, 'gsx$arrest'):
@@ -124,16 +120,16 @@ class Command(BaseCommand):
                     lon = float(data['gsx$longitude']['$t'])
 
                 #use get or create to only create records for objects newly added to the spreadsheets
-                obj = blotter.objects.create(Precinct=precinctNum, Address=data['gsx$address']['$t'], DateTime=DateTimeObject, BlotterWeek=justDate, CrimeType=crimeType, PoliceSaid=data['gsx$policesaid']['$t'], Arrest=arrest, Latitude=lat, Longitude=lon, JSDate=justDate)
+                updated_values = {'BlotterWeek':justDate, 'CrimeType':crimeType, 'PoliceSaid':data['gsx$policesaid']['$t'], 'Arrest': arrest, 'Latitude':lat, 'Longitude':lon, 'JSDate': justDate }
+                obj, created = blotter.objects.update_or_create(Precinct=precinctNum, Address=data['gsx$address']['$t'], DateTime=DateTimeObject,defaults=updated_values)
 
 
     def handle(self, *args, **options):
-        print "Delete Current Records..."
-        self.truncate_table()
         print "Loading Blotter Data...."
         self.load_blotter_data()
-        print "Loading Blotter Data form the Consolidated Sheet...."
+        print "Loading Blotter Data from the Consolidated Sheet...."
         self.load_blotter_data_consolidated_sheet()
+        print "Done."
 
 
 
