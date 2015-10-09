@@ -23,9 +23,11 @@ from dateutil import rrule
 
 #for timezone support
 import pytz
+from django.utils import timezone
 
 #CSRF decorator
 from django.views.decorators.csrf import ensure_csrf_cookie
+
 
 # views for DNAinfo crime maps
 def index(request):
@@ -66,11 +68,16 @@ def linkiframebuilder(request):
 	DD = datetime.timedelta(days=7)
 	latestDate = blotter.objects.exclude(DateTime=None).latest('DateTime')
 	earliestDate = blotter.objects.exclude(DateTime=None).earliest('DateTime')
-	now = time_zone.localize(datetime.datetime.now())
+	now = timezone.now()
 	if latestDate.DateTime > now:
-		countDate = today
+		countDate = now
 	else:
 		countDate = latestDate.DateTime
+
+	# ensure earliest date isn't something way off
+	tenyearsago = now - datetime.timedelta(days=3650)
+	if tenyearsago > earliestDate.DateTime:
+		earliestDate.DateTime = tenyearsago
 
 	while (earliestDate.DateTime < countDate):
 		date = {}
@@ -151,14 +158,18 @@ def blotterPage(request):
 	else:
 		countDate = latestDate.DateTime
 
+	# ensure earliest date isn't something way off
+	tenyearsago = now - datetime.timedelta(days=3650)
+	if tenyearsago > earliestDate.DateTime:
+		earliestDate.DateTime = tenyearsago
+
 	while (earliestDate.DateTime < countDate):
 		date = {}
 		date['end_date'] = countDate
 		date['start_date'] = countDate - DD
 		dates.append(date)
 		countDate = countDate - DD 
-	
-
+	 
 	return render(request, 'crimemaps/blotter.html', {'startDate':startDate, 'endDate':endDate, 'center': center, 'dates':dates})
 
 
@@ -319,9 +330,9 @@ def blotterApi(request):
 		endDate = request.GET.get("endDate","")
 		# create data objects from start and end dates
 		startDateparsed = dateutil.parser.parse(startDate)
-		startDateobject = startDateparsed.date()
+		startDateobject = time_zone.localize(startDateparsed)
 		endDateparsed = dateutil.parser.parse(endDate)
-		endDateobject = endDateparsed.date()
+		endDateobject = time_zone.localize(endDateparsed)
 
 		#pull doitt data
 		blotters = blotter.objects.filter(DateTime__range=[startDateobject,endDateobject])
@@ -1214,7 +1225,7 @@ def chicookcountyapi(request):
 
 def nycstreeteasy(request):
 	today = datetime.datetime.now()
-	today_str = today.strftime("%M/%Y")
+	today_str = today.strftime("%m/%Y")
 	dateperiodGet = request.GET.get("dateperiod",today_str)
 	#ensure date is a datetime object
 	dateperiodGet = dateperiodGet.split("/")
