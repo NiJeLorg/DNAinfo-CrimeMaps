@@ -128,7 +128,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         print "Loading Blotter Data...."
-        self.load_blotter_data()
+        #self.load_blotter_data()
         print "Loading Blotter Data from the Consolidated Sheet...."
         self.load_blotter_data_consolidated_sheet()
         print "Done."
