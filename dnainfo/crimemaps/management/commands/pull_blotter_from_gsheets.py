@@ -36,7 +36,6 @@ class Command(BaseCommand):
                 #try to add date time 
                 notz = dateutil.parser.parse(data['gsx$datetime']['$t'], ignoretz=True)
                 DateTimeObject = pytz.timezone("America/New_York").localize(notz, is_dst=None)
-                print DateTimeObject
 
                 if hasattr(data, 'gsx$arrest'):
                     if data['gsx$arrest']['$t'] == 'Yes':
@@ -128,7 +127,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         print "Loading Blotter Data...."
-        #self.load_blotter_data()
+        self.load_blotter_data()
         print "Loading Blotter Data from the Consolidated Sheet...."
         self.load_blotter_data_consolidated_sheet()
         print "Done."
