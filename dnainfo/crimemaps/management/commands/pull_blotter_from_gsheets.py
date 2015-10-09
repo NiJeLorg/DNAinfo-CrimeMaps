@@ -36,6 +36,7 @@ class Command(BaseCommand):
                 #try to add date time 
                 notz = dateutil.parser.parse(data['gsx$datetime']['$t'], ignoretz=True)
                 DateTimeObject = pytz.timezone("America/New_York").localize(notz, is_dst=None)
+                print DateTimeObject
 
                 if hasattr(data, 'gsx$arrest'):
                     if data['gsx$arrest']['$t'] == 'Yes':
@@ -69,7 +70,7 @@ class Command(BaseCommand):
 
 
                 #use get or create to only create records for objects newly added to the spreadsheets
-                updated_values = {'BlotterWeek':JSDateObject, 'CrimeType':crimeType, 'PoliceSaid':data['gsx$policesaid']['$t'], 'Arrest': arrest, 'Latitude':lat, 'Longitude':lon, 'JSDate': JSDateObject }
+                updated_values = {'BlotterWeek':BlotterWeekObject, 'CrimeType':crimeType, 'PoliceSaid':data['gsx$policesaid']['$t'], 'Arrest': arrest, 'Latitude':lat, 'Longitude':lon, 'JSDate': JSDateObject }
                 obj, created = blotter.objects.update_or_create(Precinct=precinctNum, Address=data['gsx$address']['$t'], DateTime=DateTimeObject,defaults=updated_values)
 
 
@@ -87,6 +88,7 @@ class Command(BaseCommand):
                 dateTime = data['gsx$date']['$t'] + ' ' + data['gsx$time']['$t']
                 notz = dateutil.parser.parse(dateTime, ignoretz=True)
                 DateTimeObject = pytz.timezone("America/New_York").localize(notz, is_dst=None)
+                print DateTimeObject
                 justDate = DateTimeObject.date()
 
                 if hasattr(data, 'gsx$arrest'):
