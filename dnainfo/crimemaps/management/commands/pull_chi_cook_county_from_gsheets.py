@@ -41,6 +41,16 @@ class Command(BaseCommand):
                 else:
                     doc = -99
 
+                if is_number(data['gsx$buildingsize']['$t']):
+                    buildingsize = int(data['gsx$buildingsize']['$t'])
+                else:
+                    buildingsize = -99
+
+                if is_number(data['gsx$lotsize']['$t']):
+                    lotsize = int(data['gsx$lotsize']['$t'])
+                else:
+                    lotsize = -99
+
                 if is_number(data['gsx$latitude']['$t']):
                     latitude = float(data['gsx$latitude']['$t'])
                 else:
@@ -56,6 +66,11 @@ class Command(BaseCommand):
                 else:
                     amount = -99
 
+                if is_number(data['gsx$pricepersqft']['$t'].replace(',','').replace('$','')):
+                    pricepersqft = float(data['gsx$pricepersqft']['$t'].replace(',','').replace('$',''))
+                else:
+                    pricepersqft = -99
+
                 recorded = data['gsx$recorded']['$t']
                 recordedObject = dateutil.parser.parse(recorded).date()
 
@@ -63,7 +78,7 @@ class Command(BaseCommand):
                 executedObject = dateutil.parser.parse(executed).date()
 
                 #use get or create to only create records for objects newly added to the spreadsheets
-                updated_values = {'doc':doc, 'address': data['gsx$address']['$t'], 'unit': data['gsx$unit']['$t'], 'city': data['gsx$city']['$t'], 'zip': data['gsx$zip']['$t'], 'fulladdress': data['gsx$fulladdress']['$t'], 'latitude': latitude, 'longitude': longitude, 'amount': amount, 'recorded': recordedObject, 'executed': executedObject, 'seller': data['gsx$seller']['$t'], 'buyer': data['gsx$buyer']['$t'], 'township': data['gsx$township']['$t']}
+                updated_values = {'doc':doc, 'classNum':data['gsx$class']['$t'], 'description': data['gsx$description']['$t'], 'buildingsize': buildingsize, 'lotsize': lotsize, 'fulladdress': data['gsx$fulladdress']['$t'], 'latitude': latitude, 'longitude': longitude, 'amount': amount, 'recorded': recordedObject, 'executed': executedObject, 'seller': data['gsx$seller']['$t'], 'buyer': data['gsx$buyer']['$t'], 'address': data['gsx$address']['$t'], 'unit': data['gsx$unit']['$t'], 'pricepersqft': pricepersqft}
                 obj, created = CHICookCountyRealEstateData.objects.update_or_create(pin=data['gsx$pin']['$t'], defaults=updated_values)
 
 

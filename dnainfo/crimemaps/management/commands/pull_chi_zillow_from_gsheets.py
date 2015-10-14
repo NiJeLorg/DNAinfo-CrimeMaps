@@ -36,10 +36,14 @@ class Command(BaseCommand):
             data = json.loads(response.read())
             for data in data['feed']['entry']:
                 #get data ready to be added
-                dateTime = data['gsx$monthyear']['$t']
-                dateTime = dateTime.split("/")
-                dateTime = dateTime[1] + '-' + dateTime[0] + '-1'
-                DateTimeObject = dateutil.parser.parse(dateTime).date()
+                # dateperiod is of the for MMM-MMM YYYY
+                dateperiod = data['gsx$quarter']['$t']
+                #spilt into three components
+                dateperiod = dateperiod.split("-")
+                dateperiodyear = dateperiod[1].split(" ")
+                #using the first month create a date object that uses the first day of the quarter 
+                dateperiod = dateperiod[0] + ' 1, ' + dateperiodyear[1]
+                dateperiodObject = dateutil.parser.parse(dateperiod).date()
 
                 if is_number(data['gsx$zip']['$t']):
                     zip = int(data['gsx$zip']['$t'])
@@ -104,7 +108,7 @@ class Command(BaseCommand):
 
                 #use get or create to only create records for objects newly added to the spreadsheets
                 updated_values = {'neighborhoodscovered':data['gsx$neighborhoodscovered']['$t'], 'population2013censusestimate':population2013censusestimate, 'percentlivinginsamehouseoneyearago2013censusestimate':percentlivinginsamehouseoneyearago2013censusestimate, 'medianhouseholdincome2013censusestimate':medianhouseholdincome2013censusestimate, 'changeinvaluesquarefootoverpreviousyear':changeinvaluesquarefootoverpreviousyear, 'changeavgrentsqfootoverpreviousyear':changeavgrentsqfootoverpreviousyear, 'percentofhomessoldinpastyear':percentofhomessoldinpastyear, 'estimatedvaluesquarefoot':estimatedvaluesquarefoot, 'estimatedvalueofallhomes':estimatedvalueofallhomes, 'avgrentsqfoot':avgrentsqfoot, 'medianlistprice': medianlistprice, 'mediansaleprice':mediansaleprice }
-                obj, created = CHIZIPZillowData.objects.update_or_create(monthyear=DateTimeObject, zip=zip, defaults=updated_values)
+                obj, created = CHIZIPZillowData.objects.update_or_create(quarter=dateperiodObject, zip=zip, defaults=updated_values)
 
 
 

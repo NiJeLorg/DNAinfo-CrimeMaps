@@ -112,6 +112,10 @@ body.loading .loading-modal {
 	color: #e4b1b1;
 }
 
+.increaseTextPopupRE {
+	color: #a4d4f2;
+}
+
 .decreaseTextPopup {
 	color: #bdbdbd;
 }

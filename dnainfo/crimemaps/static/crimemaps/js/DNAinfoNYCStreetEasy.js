@@ -69,9 +69,9 @@ DNAinfoNYCStreetEasy.onEachFeature_ZIPS = function(feature,layer){
 		if (isNaN(feature.properties.medianppsfchange) || feature.properties.medianppsfchange == -99) {
 			var headingTotalText = "Data not available for change in<br /> median sale price per square foot<br />over the previous year for this area.";
 		} else if (feature.properties.medianppsfchange > 0) {
-			var headingTotalText = "<strong><span class='increaseTextPopup'>"+ Math.abs(feature.properties.medianppsfchange) +"% increase</span></strong> in the median<br />sale price per square foot<br />over the previous year.";
+			var headingTotalText = "<strong><span class='increaseTextPopup'>"+ Math.abs(feature.properties.medianppsfchange) +"% increase</span></strong> in the<br />median sale price per square<br />foot over the previous year.";
 		} else {
-			var headingTotalText = "<strong><span class='decreaseTextPopup'>"+ Math.abs(feature.properties.medianppsfchange) +"% decrease</span></strong> in the median<br />sale price per square foot<br />over the previous year.";
+			var headingTotalText = "<strong><span class='decreaseTextPopup'>"+ Math.abs(feature.properties.medianppsfchange) +"% decrease</span></strong> in the<br />median sale price per square<br />footover the previous year.";
 		}	
 
 		if (L.Browser.touch) {
@@ -108,9 +108,9 @@ DNAinfoNYCStreetEasy.onEachFeature_ZIPS = function(feature,layer){
 		if (isNaN(feature.properties.medianaskingrentchcange) || feature.properties.medianaskingrentchcange == -99) {
 			var headingTotalText = "Data not available for change in<br /> median asking rent over the previous<br />year for this area.";
 		} else if (feature.properties.medianaskingrentchcange > 0) {
-			var headingTotalText = "<strong><span class='increaseTextPopup'>"+ Math.abs(feature.properties.medianaskingrentchcange) +"% increase</span></strong> in the median<br />asking rent over the<br />previous year.";
+			var headingTotalText = "<strong><span class='increaseTextPopupRE'>"+ Math.abs(feature.properties.medianaskingrentchcange) +"% increase</span></strong> in the<br />median asking rent over<br />the previous year.";
 		} else {
-			var headingTotalText = "<strong><span class='decreaseTextPopup'>"+ Math.abs(feature.properties.medianaskingrentchcange) +"% decrease</span></strong> in the median<br />asking rent over the<br />previous year.";
+			var headingTotalText = "<strong><span class='decreaseTextPopup'>"+ Math.abs(feature.properties.medianaskingrentchcange) +"% decrease</span></strong> in the<br />median asking rent over<br />the previous year.";
 		}	
 
 		if (L.Browser.touch) {
@@ -131,10 +131,15 @@ DNAinfoNYCStreetEasy.onEachFeature_ZIPS = function(feature,layer){
 		if (isNaN(feature.properties.medianaskingrent) || feature.properties.medianaskingrent == -99) {
 			var medianaskingrent = "";
 		} else {
-			var medianaskingrent = "<li>Median asking rent here is <strong>$" + commaFormat(feature.properties.medianaskingrent) + "</strong>.</li>";
+			var M1 = moment(selectedQ).format("MMM");
+			var M2 = moment(selectedQ).add(2, 'months').format("MMM");
+			var Y  = moment(selectedQ).format("YYYY");
+
+
+			var medianaskingrent = "Median asking rent here was <strong>$" + commaFormat(feature.properties.medianaskingrent) + "</strong> in " + M1 + "-" + M2 + ", " + Y + ".";
 		}
 
-	    layer.bindPopup("<h5>" + feature.properties.name + "</h5><ul>" + medianaskingrent + "</ul>");
+	    layer.bindPopup("<h5>" + feature.properties.name + "</h5><p>" + medianaskingrent + "</p>");
 
 
 	}
@@ -176,6 +181,9 @@ DNAinfoNYCStreetEasy.prototype.loadSE = function (){
 		});
 
 		thismap.map.addLayer(thismap.ZIPS);
+
+		// draw time slider
+		DNAinfoNYCStreetEasy.drawTimeSlider();
 	}
 
 }
@@ -191,15 +199,15 @@ DNAinfoNYCStreetEasy.getStyleFor_ZIPS = function (feature){
         weight: 1,
         opacity: 0.75,
         color: '#f1f1f1',
-        fillOpacity: 0.75,
+        fillOpacity: DNAinfoNYCStreetEasy.fillOpacity_ZIPS(property),
         fillColor: DNAinfoNYCStreetEasy.fillColor_ZIPS(property)
     }
 }
 
 DNAinfoNYCStreetEasy.fillColor_ZIPS = function (d){
-    return d > 10   ? '#b2182b' :
-           d > 5    ? '#ef8a62' :
-           d > 0    ? '#fddbc7' :
+    return d > 10   ? '#4291c3' :
+           d > 5    ? '#77beea' :
+           d > 0    ? '#a4d4f2' :
            d > -5   ? '#e0e0e0' :
            d > -10  ? '#999999' :
            d == -99 ? '#ffffff' :
@@ -207,28 +215,73 @@ DNAinfoNYCStreetEasy.fillColor_ZIPS = function (d){
                       '#4d4d4d';	
 }
 
+DNAinfoNYCStreetEasy.fillOpacity_ZIPS = function (d){
+    return d > -99  ? 0.75 :
+           d == -99 ? 0 :
+           isNaN(d) ? 0 :
+                      0.75 ;	
+}
+
+
+DNAinfoNYCStreetEasy.drawTimeSlider = function (){
+	var minDate = new Date(2010,0,1);
+	var maxDate = moment().toDate();
+
+	// three month calc
+	var threemonthsago = moment().subtract(3, "months").toDate();
+	var threemonthdifference = maxDate - threemonthsago;
+
+	mapSlider = d3.slider()
+					.axis(
+						d3.svg.axis()
+							.orient("top")
+							.scale(
+								d3.time.scale()
+									.domain([minDate, maxDate])
+							)
+							.ticks(d3.time.year)
+							.tickSize(24, 0)
+							.tickFormat(d3.time.format("%Y"))
+					)
+					.scale(
+						d3.time.scale()
+							.domain([minDate, maxDate])
+					)
+					.step(threemonthdifference)
+					.value(selectedQ)
+					.on("slide", function(evt, value) {
+						// run a function to update map layers with new dates
+						selectedQ = value;
+						// add formated dates selected to area right below slider
+						$('.printQuarterM1').html(moment(selectedQ).format("MMM"));
+						var addtwomonths = moment(selectedQ).add(2, 'months').format("MMM");
+						$('.printQuarterM2').html(addtwomonths);
+						$('.printQuarterY').html(moment(selectedQ).format("YYYY"));
+
+						DNAinfoNYCStreetEasy.updateMapFromForm();
+
+					});
+
+	d3.select('#timeSlider').call(mapSlider);
+
+	// add formated dates selected to area right below slider
+	$('.printQuarterM1').html(moment(dateperiod).format("MMM"));
+	var addtwomonths = moment(dateperiod).add(2, 'months').format("MMM");
+	$('.printQuarterM2').html(addtwomonths);
+	$('.printQuarterY').html(moment(dateperiod).format("YYYY"));
+
+}
+
+
 
 DNAinfoNYCStreetEasy.updateMapFromForm = function (){
 	// close popups
 	MY_MAP.map.closePopup();
 
-	// pull year picked
-	var dateperiod = $( "#dateperiod option:selected" ).val();
-	var printMY = moment(dateperiod).format("MMMM YYYY")
-	$(".navbar-text").html("StreetEasy Home and Rental Prices for " + printMY)
+	// change selectedQ into something we can pass to the api
+	var apidate = moment(selectedQ).startOf('month').format("MMMM D, YYYY");
 
-
-	// which radio button is checked?
-	if ($('#optionsRadios1').is(':checked')) {
-		activeLayer = 'sale';
-		$("#legend-title").html("Change in Median Price per Square Foot Over Previous Year")
-	} else {
-		activeLayer = 'rent';
-		$("#legend-title").html("Change in Median Asking Rent Over Previous Year")
-	}
-
-
-	d3.json('/nycstreeteasyapi/?dateperiod=' + dateperiod, function(data) {
+	d3.json('/nycstreeteasyapi/?dateperiod=' + apidate, function(data) {
 		polygonData = data;
 		attachDataToTopojson(polygonData);
 	});

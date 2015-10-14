@@ -8,6 +8,8 @@
     <link rel="stylesheet" type="text/css" href="{% static 'crimemaps/css/leaflet.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'crimemaps/css/leaflet.label.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'crimemaps/css/Control.Geocoder.css' %}">  
+    <link rel="stylesheet" type="text/css" href="{% static 'crimemaps/css/d3.slider.css' %}">    
+
 {% endblock %}
 
 {% block head_js_block %}
@@ -23,7 +25,7 @@
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="collapse">
-      <p class="navbar-text">StreetEasy Home and Rental Prices for {{ dateperiod|date:"F Y" }}</p>
+      <p class="navbar-text">StreetEasy Home and Rental Prices for <span class="printQuarterM1"></span>-<span class="printQuarterM2"></span>, <span class="printQuarterY"></span></p>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
@@ -35,29 +37,10 @@
                     <div class="row">
                       <div class="col-sm-6">
                         <h4>Filter Data:</h4>
-                        <form id="filter-form">
-                          <div class="form-group">
-                            <label for="monthyear">By Date: </label>
-                            <select class="form-control" id="dateperiod">
-                                {% for date in dates %}
-                                    <option value="{{ date.dateperiod }}">{{ date.dateperiod|date:"M Y" }}</option>
-                                {% endfor %}
-                            </select>
-                          </div>
-                          <p><strong>By Layer</strong></p>
-                          <div class="radio">
-                            <label>
-                              <input type="radio" name="optionsRadios" id="optionsRadios1" value="sale" checked>
-                              ​Change in Median Price per Square Foot Over Previous Year
-                            </label>
-                          </div>
-                          <div class="radio">
-                            <label>
-                              <input type="radio" name="optionsRadios" id="optionsRadios2" value="rent">
-                              Change in Median Asking Rent Over Previous Year
-                            </label>
-                          </div>
-                        </form>                        
+                        <p><strong>By Date: </strong></p>
+                        <div id="timeSlider"></div>
+                        <small>Ouarter Selected: <span class="printQuarterM1"></span>-<span class="printQuarterM2"></span>, <span class="printQuarterY"></span></small>
+                        <br />
                       </div>
                       <div class="col-sm-6">
                         <h4>Legend</h4>
@@ -72,9 +55,9 @@
                                                 <div class="quartile" style="background-color:#4d4d4d"></div>
                                                 <div class="quartile" style="background-color:#999999"></div>
                                                 <div class="quartile" style="background-color:#e0e0e0"></div>
-                                                <div class="quartile" style="background-color:#fddbc7"></div>
-                                                <div class="quartile" style="background-color:#ef8a62"></div>
-                                                <div class="quartile" style="background-color:#b2182b"></div>
+                                                <div class="quartile" style="background-color:#a4d4f2"></div>
+                                                <div class="quartile" style="background-color:#77beea"></div>
+                                                <div class="quartile" style="background-color:#4291c3"></div>
                                             </div>
                                         </li>
                                     </ul>
@@ -111,6 +94,7 @@
 	</script>
   <script type="text/javascript" src="{% static 'crimemaps/js/d3.min.js' %}"></script>
   <script type="text/javascript" src="{% static 'crimemaps/js/moment.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'crimemaps/js/d3.slider.js' %}"></script>
 	<script type="text/javascript" src="{% static 'crimemaps/js/leaflet.js' %}"></script>
   <script type="text/javascript" src="{% static 'crimemaps/js/topojson.js' %}"></script>
   <script type="text/javascript" src="{% static 'crimemaps/js/Control.Geocoder.js' %}"></script>

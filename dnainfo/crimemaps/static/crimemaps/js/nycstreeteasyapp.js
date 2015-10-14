@@ -7,8 +7,9 @@
   On DOM load handlers
  */
 var ZIPS = null;
-var activeLayer = 'sale';
+var activeLayer = 'rent';
 var MY_MAP = null;
+var selectedQ = moment(dateperiod).toDate();
 
 $().ready(new function(){
     var myMap = new DNAinfoNYCStreetEasy();

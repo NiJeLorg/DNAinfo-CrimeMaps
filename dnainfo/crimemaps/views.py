@@ -1025,9 +1025,9 @@ def removechidrawngeojsonbyid(request, id=None):
 
 
 def strip_non_ascii(string):
-    ''' Returns the string without non ASCII characters'''
-    stripped = (c for c in string if ord(c) == 32 or 48 <= ord(c) <= 57 or 65 <= ord(c) <= 90  or 97 <= ord(c) <= 122)
-    return ''.join(stripped)
+	''' Returns the string without non ASCII characters'''
+	stripped = (c for c in string if ord(c) == 32 or 48 <= ord(c) <= 57 or 65 <= ord(c) <= 90  or 97 <= ord(c) <= 122)
+	return ''.join(stripped)
 
 
 def nycneighview(request, neighborhoodID=None):
@@ -1224,22 +1224,25 @@ def chicookcountyapi(request):
 
 
 def nycstreeteasy(request):
-	today = datetime.datetime.now()
-	today_str = today.strftime("%m/%Y")
-	dateperiodGet = request.GET.get("dateperiod",today_str)
-	#ensure date is a datetime object
-	dateperiodGet = dateperiodGet.split("/")
-	dateperiodYear = dateperiodGet[1] + '-' + dateperiodGet[0] + '-1'
-	dateperiod = dateutil.parser.parse(dateperiodYear).date()
+	dateperiod = request.GET.get("dateperiod","")
+	if dateperiod:
+		#ensure date is a datetime object
+		# dateperiod is of the for MMM-MMM YYYY
+		dateperiod = dateperiod.split("-")
+		dateperiodyear = dateperiod[1].split(" ")
+		#using the first month create a date object that uses the first day of the quarter 
+		dateperiod = dateperiod[0] + ' 1, ' + dateperiodyear[1]
+		dateperiod = dateutil.parser.parse(dateperiod).date()
+	else:
+		dateperiod = datetime.datetime.now().date()
 
 
 	#select a distinct list of end dates from the system
-	dates = []
-	dateList = NYCStreetEasyRealEstateData.objects.values('dateperiod',).distinct().order_by('-dateperiod')
-	for date in dateList:
-		dates.append(date)
+	# pull the earliest and latest dates for time slider
+	earliestObject = NYCStreetEasyRealEstateData.objects.earliest('dateperiod')
+	latestObject = NYCStreetEasyRealEstateData.objects.latest('dateperiod')
 
-	return render(request, 'crimemaps/nycstreeteasy.html', {'dateperiod':dateperiod, 'dates':dates})
+	return render(request, 'crimemaps/nycstreeteasy.html', {'dateperiod':dateperiod, 'earliestObject':earliestObject, 'latestObject':latestObject})
 
 
 def nycstreeteasyapi(request):
@@ -1264,17 +1267,8 @@ def nycstreeteasyapi(request):
 			area = data.area
 			response[area] = {}
 			response[area]['dateperiod'] = dateperiodparsed
-			response[area]['unittype'] = data.unittype
-			response[area]['medianaskingprice'] = data.medianaskingprice
-			response[area]['totalsalesinventory'] = data.totalsalesinventory
 			response[area]['medianaskingrent'] = data.medianaskingrent
-			response[area]['totalrentalinventory'] = data.totalrentalinventory
-			response[area]['medianclosingprice'] = data.medianclosingprice
-			response[area]['totalclosings'] = data.totalclosings
-			response[area]['medianppsf'] = data.medianppsf
-			response[area]['totalsaleclosings'] = data.totalsaleclosings
 			response[area]['medianaskingrentchcange'] = data.medianaskingrentchcange
-			response[area]['medianppsfchange'] = data.medianppsfchange
 
 	return JsonResponse(response)
 

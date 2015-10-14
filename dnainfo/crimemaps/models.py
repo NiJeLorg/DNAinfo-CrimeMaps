@@ -139,7 +139,7 @@ class neighborhoodDrawCHI(models.Model):
 
 # model for Chicago zillow app
 class CHIZIPZillowData(models.Model):
-	monthyear = models.DateField(default='', blank=True, null=True)
+	quarter = models.DateField(default='', blank=True, null=True)
 	zip = models.IntegerField(default=0, blank=False, null=False)
 	neighborhoodscovered = models.CharField(max_length=255, default='', blank=True, null=True)
 	population2013censusestimate = models.IntegerField(default=0, blank=True, null=True)
@@ -157,10 +157,10 @@ class CHIZIPZillowData(models.Model):
 
 class CHICookCountyRealEstateData(models.Model):
 	doc = models.IntegerField(default=0, blank=False, null=False)
-	address = models.CharField(max_length=255, default='', blank=True, null=True)
-	unit = models.CharField(max_length=255, default='', blank=True, null=True)
-	city = models.CharField(max_length=255, default='', blank=True, null=True)
-	zip = models.CharField(max_length=255, default='', blank=True, null=True)
+	classNum = models.CharField(max_length=255, default='', blank=True, null=True)
+	description = models.TextField( default='', blank=True, null=True)
+	buildingsize = models.IntegerField(default=0, blank=True, null=True)
+	lotsize = models.IntegerField(default=0, blank=True, null=True)
 	fulladdress = models.CharField(max_length=255, default='', blank=True, null=True)
 	latitude = models.FloatField(default=0, blank=True, null=True)
 	longitude = models.FloatField(default=0, blank=True, null=True)
@@ -170,22 +170,14 @@ class CHICookCountyRealEstateData(models.Model):
 	seller = models.CharField(max_length=255, default='', blank=True, null=True)
 	buyer = models.CharField(max_length=255, default='', blank=True, null=True)
 	pin = models.CharField(max_length=255, default='', blank=True, null=True)
-	township = models.CharField(max_length=255, default='', blank=True, null=True)
-
+	address = models.CharField(max_length=255, default='', blank=True, null=True)
+	unit = models.CharField(max_length=255, default='', blank=True, null=True)
+	pricepersqft = models.FloatField(default=0, blank=True, null=True)
 
 class NYCStreetEasyRealEstateData(models.Model):
 	area = models.CharField(max_length=255, default='', blank=False, null=False)
 	dateperiod = models.DateField(default='', blank=True, null=True)
-	unittype = models.CharField(max_length=255, default='', blank=False, null=False)
-	medianaskingprice = models.FloatField(default=0, blank=True, null=True)
-	totalsalesinventory = models.IntegerField(default=0, blank=True, null=True)
 	medianaskingrent = models.FloatField(default=0, blank=True, null=True)
-	totalrentalinventory = models.IntegerField(default=0, blank=True, null=True)
-	medianclosingprice = models.FloatField(default=0, blank=True, null=True)
-	totalclosings = models.IntegerField(default=0, blank=True, null=True)
-	medianppsf = models.FloatField(default=0, blank=True, null=True)
-	totalsaleclosings = models.IntegerField(default=0, blank=True, null=True)
 	medianaskingrentchcange = models.FloatField(default=0, blank=True, null=True)
-	medianppsfchange = models.FloatField(default=0, blank=True, null=True)
 
 
