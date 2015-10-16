@@ -61,7 +61,8 @@ DNAinfoCHIZillow.onEachFeature_ZIPS = function(feature,layer){
 	};
 
 	// comma number format
-	var commaFormat = d3.format(",.0");
+	var commaFormat = d3.format(",.0f");
+	var changeFormat = d3.format(",.2f");
 
 	if (activeLayer == 'sale') {
 
@@ -142,7 +143,7 @@ DNAinfoCHIZillow.onEachFeature_ZIPS = function(feature,layer){
 		if (isNaN(feature.properties.avgrentsqfoot) || feature.properties.avgrentsqfoot == -99) {
 			var price = "";
 		} else {
-			var price = " to $" + feature.properties.avgrentsqfoot;
+			var price = " to $" + changeFormat(feature.properties.avgrentsqfoot);
 		}
 
 		if (isNaN(feature.properties.changeavgrentsqfootoverpreviousyear) || feature.properties.changeavgrentsqfootoverpreviousyear == -99) {
@@ -187,7 +188,7 @@ DNAinfoCHIZillow.onEachFeature_ZIPS = function(feature,layer){
 		if (isNaN(feature.properties.avgrentsqfoot) || feature.properties.avgrentsqfoot == -99) {
 			var avgrentsqfoot = "";
 		} else {
-			var avgrentsqfoot = "<li>The average price for rentals is <strong>$" + commaFormat(feature.properties.avgrentsqfoot) + "</strong> per square foot.</li>";
+			var avgrentsqfoot = "<li>The average price for rentals is <strong>$" + changeFormat(feature.properties.avgrentsqfoot) + "</strong> per square foot.</li>";
 		}
 
 
