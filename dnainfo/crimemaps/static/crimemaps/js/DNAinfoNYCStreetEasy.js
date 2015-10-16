@@ -224,7 +224,7 @@ DNAinfoNYCStreetEasy.fillOpacity_ZIPS = function (d){
 
 
 DNAinfoNYCStreetEasy.drawTimeSlider = function (){
-	var minDate = new Date(2010,0,1);
+	var minDate = new Date(2011,0,1);
 	var maxDate = moment().toDate();
 
 	// three month calc

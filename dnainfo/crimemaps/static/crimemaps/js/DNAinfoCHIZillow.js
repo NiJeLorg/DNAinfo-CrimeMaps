@@ -65,12 +65,18 @@ DNAinfoCHIZillow.onEachFeature_ZIPS = function(feature,layer){
 
 	if (activeLayer == 'sale') {
 
+		if (isNaN(feature.properties.mediansaleprice) || feature.properties.mediansaleprice == -99) {
+			var price = "</span></strong> in home<br />";
+		} else {
+			var price = " to $" + commaFormat(feature.properties.mediansaleprice) + " </span></strong>in<br />home ";
+		}
+
 		if (isNaN(feature.properties.changeinvaluesquarefootoverpreviousyear) || feature.properties.changeinvaluesquarefootoverpreviousyear == -99) {
 			var headingTotalText = "Data not available for home<br />sale price per square foot over<br />the previous year for this zipcode.";
 		} else if (feature.properties.changeinvaluesquarefootoverpreviousyear > 0) {
-			var headingTotalText = "<strong><span class='increaseTextPopup'>"+ Math.abs(feature.properties.changeinvaluesquarefootoverpreviousyear) +"% increase</span></strong> in home<br />sale price per square foot<br />over the previous year.";
+			var headingTotalText = "<strong><span class='increaseTextPopupRE'>"+ Math.abs(feature.properties.changeinvaluesquarefootoverpreviousyear) +"% increase"+ price +"sale price per square foot<br />over the previous year.";
 		} else {
-			var headingTotalText = "<strong><span class='decreaseTextPopup'>"+ Math.abs(feature.properties.changeinvaluesquarefootoverpreviousyear) +"% decrease</span></strong> in home<br />sale price per square foot<br />over the previous year.";
+			var headingTotalText = "<strong><span class='decreaseTextPopup'>"+ Math.abs(feature.properties.changeinvaluesquarefootoverpreviousyear) +"% decrease"+ price +"sale price per square foot<br />over the previous year.";
 		}	
 
 		if (L.Browser.touch) {
@@ -133,12 +139,18 @@ DNAinfoCHIZillow.onEachFeature_ZIPS = function(feature,layer){
 
 	} else {
 
+		if (isNaN(feature.properties.avgrentsqfoot) || feature.properties.avgrentsqfoot == -99) {
+			var price = "";
+		} else {
+			var price = " to $" + feature.properties.avgrentsqfoot;
+		}
+
 		if (isNaN(feature.properties.changeavgrentsqfootoverpreviousyear) || feature.properties.changeavgrentsqfootoverpreviousyear == -99) {
 			var headingTotalText = "Data not available for the change in<br />average rent per square foot over<br />the previous year for this zipcode.";
 		} else if (feature.properties.changeavgrentsqfootoverpreviousyear > 0) {
-			var headingTotalText = "<strong><span class='increaseTextPopup'>"+ Math.abs(feature.properties.changeavgrentsqfootoverpreviousyear) +"% increase</span></strong> in average<br />rent per square foot over the<br />previous year.";
+			var headingTotalText = "<strong><span class='increaseTextPopupRE'>"+ Math.abs(feature.properties.changeavgrentsqfootoverpreviousyear) +"% increase" + price + "</span></strong> in average<br />rent per square foot over the<br />previous year.";
 		} else {
-			var headingTotalText = "<strong><span class='decreaseTextPopup'>"+ Math.abs(feature.properties.changeavgrentsqfootoverpreviousyear) +"% decrease</span></strong> in average<br />rent per square foot over the<br />previous year.";
+			var headingTotalText = "<strong><span class='decreaseTextPopup'>"+ Math.abs(feature.properties.changeavgrentsqfootoverpreviousyear) +"% decrease" + price + "</span></strong> in average<br />rent per square foot over the<br />previous year.";
 		}	
 
 		if (L.Browser.touch) {
@@ -192,7 +204,7 @@ DNAinfoCHIZillow.onEachFeature_ZIPS = function(feature,layer){
 DNAinfoCHIZillow.prototype.loadZillow = function (){
 	var thismap = this;
 
-	d3.json('/chizillowzipapi/?monthyear=' + monthyear, function(data) {
+	d3.json('/chizillowzipapi/?quarter=' + quarter, function(data) {
 		polygonData = data;
 		attachDataToTopojson(polygonData);
 	});
@@ -205,11 +217,11 @@ DNAinfoCHIZillow.prototype.loadZillow = function (){
 				$.each(polygonData, function(zip, value) {
 					if (feature.properties.ZIP == zip) {
 						value.zip = zip;
-						value.monthyear = dateFormat.parse(value.monthyear);
+						value.quarter = dateFormat.parse(value.quarter);
 						feature.properties = value;
 					}
 				});
-			});
+			}); 
 			drawPolysWData();
 		});
 	}
@@ -221,7 +233,12 @@ DNAinfoCHIZillow.prototype.loadZillow = function (){
 		});
 
 		thismap.map.addLayer(thismap.ZIPS);
+
+		// draw time slider
+		DNAinfoCHIZillow.drawTimeSlider();
+
 	}
+
 
 }
 
@@ -242,9 +259,9 @@ DNAinfoCHIZillow.getStyleFor_ZIPS = function (feature){
 }
 
 DNAinfoCHIZillow.fillColor_ZIPS = function (d){
-    return d > 10   ? '#b2182b' :
-           d > 5    ? '#ef8a62' :
-           d > 0    ? '#fddbc7' :
+    return d > 10   ? '#4291c3' :
+           d > 5    ? '#77beea' :
+           d > 0    ? '#a4d4f2' :
            d > -5   ? '#e0e0e0' :
            d > -10  ? '#999999' :
            d == -99 ? '#ffffff' :
@@ -253,15 +270,62 @@ DNAinfoCHIZillow.fillColor_ZIPS = function (d){
 }
 
 
+DNAinfoCHIZillow.drawTimeSlider = function (){
+	var minDate = new Date(2011,0,1);
+	var maxDate = moment().toDate();
+
+	// three month calc
+	var threemonthsago = moment().subtract(3, "months").toDate();
+	var threemonthdifference = maxDate - threemonthsago;
+
+	mapSlider = d3.slider()
+					.axis(
+						d3.svg.axis()
+							.orient("top")
+							.scale(
+								d3.time.scale()
+									.domain([minDate, maxDate])
+							)
+							.ticks(d3.time.year)
+							.tickSize(24, 0)
+							.tickFormat(d3.time.format("%Y"))
+					)
+					.scale(
+						d3.time.scale()
+							.domain([minDate, maxDate])
+					)
+					.step(threemonthdifference)
+					.value(selectedQ)
+					.on("slide", function(evt, value) {
+						// run a function to update map layers with new dates
+						selectedQ = value;
+						// add formated dates selected to area right below slider
+						$('.printQuarterM1').html(moment(selectedQ).format("MMM"));
+						var addtwomonths = moment(selectedQ).add(2, 'months').format("MMM");
+						$('.printQuarterM2').html(addtwomonths);
+						$('.printQuarterY').html(moment(selectedQ).format("YYYY"));
+
+						DNAinfoCHIZillow.updateMapFromForm();
+
+					});
+
+	d3.select('#timeSlider').call(mapSlider);
+
+	// add formated dates selected to area right below slider
+	$('.printQuarterM1').html(moment(quarter).format("MMM"));
+	var addtwomonths = moment(quarter).add(2, 'months').format("MMM");
+	$('.printQuarterM2').html(addtwomonths);
+	$('.printQuarterY').html(moment(quarter).format("YYYY"));
+
+}
+
+
 DNAinfoCHIZillow.updateMapFromForm = function (){
 	// close popups
 	MY_MAP.map.closePopup();
 
-	// pull year picked
-	var monthyear = $( "#monthyear option:selected" ).val();
-	var printMY = moment(monthyear).format("MMMM YYYY")
-	$(".navbar-text").html("Zillow Home and Rental Prices for " + printMY)
-
+	// change selectedQ into something we can pass to the api
+	var apidate = moment(selectedQ).startOf('month').format("MMMM D, YYYY");
 
 	// which radio button is checked?
 	if ($('#optionsRadios1').is(':checked')) {
@@ -273,7 +337,7 @@ DNAinfoCHIZillow.updateMapFromForm = function (){
 	}
 
 
-	d3.json('/chizillowzipapi/?monthyear=' + monthyear, function(data) {
+	d3.json('/chizillowzipapi/?quarter=' + apidate, function(data) {
 		polygonData = data;
 		attachDataToTopojson(polygonData);
 	});
@@ -286,7 +350,7 @@ DNAinfoCHIZillow.updateMapFromForm = function (){
 				$.each(polygonData, function(zip, value) {
 					if (feature.properties.ZIP == zip) {
 						value.zip = zip;
-						value.monthyear = dateFormat.parse(value.monthyear);
+						value.quarter = dateFormat.parse(value.quarter);
 						feature.properties = value;
 					}
 				});

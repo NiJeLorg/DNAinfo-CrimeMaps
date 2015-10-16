@@ -9,6 +9,8 @@
 var ZIPS = null;
 var activeLayer = 'sale';
 var MY_MAP = null;
+var selectedQ = moment(quarter).toDate();
+
 
 $().ready(new function(){
     var myMap = new DNAinfoCHIZillow();

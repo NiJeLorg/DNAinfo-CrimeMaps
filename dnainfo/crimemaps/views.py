@@ -1095,21 +1095,19 @@ def chineighview(request, neighborhoodID=None):
 
 
 def chizillowzip(request):
-	today = datetime.datetime.now()
-	today_str = today.strftime("%M/%Y")
-	monthYearGet = request.GET.get("monthyear",today_str)
-	#ensure date is a datetime object
-	monthYearGet = monthYearGet.split("/")
-	monthDayYear = monthYearGet[1] + '-' + monthYearGet[0] + '-1'
-	monthyear = dateutil.parser.parse(monthDayYear).date()
+	quarter = request.GET.get("quarter","")
+	if quarter:
+		#ensure date is a datetime object
+		# quarter is of the for MMM-MMM YYYY
+		quarter = quarter.split("-")
+		quarteryear = quarter[1].split(" ")
+		#using the first month create a date object that uses the first day of the quarter 
+		quarter = quarter[0] + ' 1, ' + quarteryear[1]
+		quarter = dateutil.parser.parse(quarter).date()
+	else:
+		quarter = datetime.datetime.now().date()
 
-	#select a distinct list of end dates from the system
-	dates = []
-	dateList = CHIZIPZillowData.objects.values('monthyear',).distinct().order_by('-monthyear')
-	for date in dateList:
-		dates.append(date)
-
-	return render(request, 'crimemaps/chizillowzip.html', {'monthyear':monthyear, 'dates':dates})
+	return render(request, 'crimemaps/chizillowzip.html', {'quarter':quarter})
 
 
 def chizillowzipapi(request):
@@ -1118,22 +1116,22 @@ def chizillowzipapi(request):
 
 	if request.method == 'GET':
 		#gather potential filter variables
-		monthyear = request.GET.get("monthyear","")
+		quarter = request.GET.get("quarter","")
 
 		# create data objects from start and end dates
-		monthyearparsed = dateutil.parser.parse(monthyear).date()
+		quarterparsed = dateutil.parser.parse(quarter).date()
 
 		#add kwargs and hour query
 		kwargs = {}
 		# show date range selected
-		kwargs['monthyear__exact'] = monthyearparsed
+		kwargs['quarter__exact'] = quarterparsed
 
 		#pull shootings data
 		datas = CHIZIPZillowData.objects.filter(**kwargs)
 		for data in datas:
 			zip = data.zip
 			response[zip] = {}
-			response[zip]['monthyear'] = monthyearparsed
+			response[zip]['quarter'] = quarterparsed
 			response[zip]['neighborhoodscovered'] = data.neighborhoodscovered
 			response[zip]['population2013censusestimate'] = data.population2013censusestimate
 			response[zip]['percentlivinginsamehouseoneyearago2013censusestimate'] = data.percentlivinginsamehouseoneyearago2013censusestimate
@@ -1237,12 +1235,7 @@ def nycstreeteasy(request):
 		dateperiod = datetime.datetime.now().date()
 
 
-	#select a distinct list of end dates from the system
-	# pull the earliest and latest dates for time slider
-	earliestObject = NYCStreetEasyRealEstateData.objects.earliest('dateperiod')
-	latestObject = NYCStreetEasyRealEstateData.objects.latest('dateperiod')
-
-	return render(request, 'crimemaps/nycstreeteasy.html', {'dateperiod':dateperiod, 'earliestObject':earliestObject, 'latestObject':latestObject})
+	return render(request, 'crimemaps/nycstreeteasy.html', {'dateperiod':dateperiod})
 
 
 def nycstreeteasyapi(request):
