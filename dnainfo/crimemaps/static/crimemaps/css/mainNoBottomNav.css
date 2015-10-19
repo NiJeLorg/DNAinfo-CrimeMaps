@@ -449,5 +449,9 @@ body.loading .loading-modal {
 	color: #ad1515;
 }
 
+#street-view {
+	height: 200px;
+}
+
 
 
