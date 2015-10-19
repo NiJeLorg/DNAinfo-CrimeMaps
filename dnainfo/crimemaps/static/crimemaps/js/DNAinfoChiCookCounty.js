@@ -52,12 +52,31 @@ DNAinfoChiCookCounty.onEachFeature_CHISALES = function(feature,layer){
 	var dateFormat = d3.time.format("%b %e, %Y ");
 
 	// comma number format
-	var commaFormat = d3.format(",.0");
+	var commaFormat = d3.format(",.0f");
+	var ppsfFormat = d3.format(",.2f");
 
 	if (feature.properties.amount != -99) {
 		var amount = "Sale Amount: <strong>$" + commaFormat(feature.properties.amount) + "</strong><br />";
 	} else {
 		var amount = "";
+	}
+
+	if (feature.properties.buildingsize != -99) {
+		var buildingsize = "<br />Building Sq. Footage: " + commaFormat(feature.properties.buildingsize);
+	} else {
+		var buildingsize = "";
+	}
+
+	if (feature.properties.lotsize != -99) {
+		var lotsize = "<br />Lot Sq. Footage: " + commaFormat(feature.properties.lotsize);
+	} else {
+		var lotsize = "";
+	}
+
+	if (feature.properties.pricepersqft != -99) {
+		var pricepersqft = "<br />Price per Sq. Ft.: $" + ppsfFormat(feature.properties.pricepersqft);
+	} else {
+		var pricepersqft = "";
 	}
 
 	if (L.Browser.touch) {
@@ -73,7 +92,20 @@ DNAinfoChiCookCounty.onEachFeature_CHISALES = function(feature,layer){
 		layer.setStyle(noHighlight);		
     });	
 
-	layer.bindPopup("<h5>" + feature.properties.fulladdress + "</h5><p>" + amount + "Date of Sale: " + dateFormat(feature.properties.executed) + "<br />Seller's Name: " + feature.properties.seller + "<br />Buyer's Name: " + feature.properties.buyer + "<br />PIN: <a class='popup-link' href='http://12.218.239.81/i2/default.aspx' target='_blank'>" + feature.properties.pin + "</a></p>");
+	var commaFormat = d3.format(",.0f");
+	layer.bindPopup("<h5>" + feature.properties.fulladdress + "</h5><div id=\"street-view\"></div><p>" + amount + "Date of Sale: " + dateFormat(feature.properties.executed) + "<br />Seller's Name: " + feature.properties.seller + "<br />Buyer's Name: " + feature.properties.buyer + "<br />Property Description: " + feature.properties.description + buildingsize + lotsize + pricepersqft + "<br />PIN: <a class='popup-link' href='http://12.218.239.81/i2/default.aspx' target='_blank'>" + feature.properties.pin + "</a></p>");
+
+
+    layer.on('click', function(ev) {
+		new google.maps.StreetViewPanorama(
+			document.getElementById('street-view'),
+			{
+				position: {lat: feature.geometry.coordinates[1], lng: feature.geometry.coordinates[0]},
+				pov: {heading: 0, pitch: 0},
+				zoom: 1
+			});		
+    });	
+
 
 }
 
@@ -123,6 +155,9 @@ DNAinfoChiCookCounty.prototype.loadPointLayers = function (){
 
 		// draw time slider after points are added
 		DNAinfoChiCookCounty.drawTimeSlider();
+
+		// draw price slider after points are added
+		DNAinfoChiCookCounty.drawPriceSlider();
 	});
 
 }
@@ -193,15 +228,15 @@ DNAinfoChiCookCounty.drawTimeSlider = function (){
 	var maxDate = moment().toDate();
 	var twoMonthsAgo = moment().subtract(2, 'months').startOf('month').toDate();
 	if (startDate) {
-		selectedMin = moment(startDate).toDate();
+		minTimeSelected = moment(startDate).toDate();
 	} else {
-		selectedMin = twoMonthsAgo;
+		minTimeSelected = twoMonthsAgo;
 	}
 
 	if (endDate) {
-		selectedMax = moment(endDate).toDate();
+		maxTimeSelected = moment(endDate).toDate();
 	} else {
-		selectedMax = maxDate;
+		maxTimeSelected = maxDate;
 	}
 
 	mapSlider = d3.slider()
@@ -220,32 +255,80 @@ DNAinfoChiCookCounty.drawTimeSlider = function (){
 						d3.time.scale()
 							.domain([minDate, maxDate])
 					)
-					.value( [ selectedMin, selectedMax ] )
+					.value( [ minTimeSelected, maxTimeSelected ] )
 					.on("slideend", function(evt, value) {
 						$("body").addClass("loading");
 						// run a function to update map layers with new dates
-						selectedMin = value[0];
-						selectedMax = value[1];
+						minTimeSelected = value[0];
+						maxTimeSelected = value[1];
 						DNAinfoChiCookCounty.updateMapFromSliderCombo();
 
 					})
 					.on("slide", function(evt, value) {
 						// run a function to update map layers with new dates
-						selectedMin = value[0];
-						selectedMax = value[1];
+						minTimeSelected = value[0];
+						maxTimeSelected = value[1];
 						// add formated dates selected to area right below slider
-						$('#printStartDate').html(moment(selectedMin).format("MMM D, YYYY"));
-						$('#printEndDate').html(moment(selectedMax).format("MMM D, YYYY"));
+						$('#printStartDate').html(moment(minTimeSelected).format("MMM D, YYYY"));
+						$('#printEndDate').html(moment(maxTimeSelected).format("MMM D, YYYY"));
 					});
 
 	d3.select('#timeSlider').call(mapSlider);
 
 	// add formated dates selected to area right below slider
-	$('#printStartDate').html(moment(selectedMin).format("MMM D, YYYY"));
-	$('#printEndDate').html(moment(selectedMax).format("MMM D, YYYY"));
+	$('#printStartDate').html(moment(minTimeSelected).format("MMM D, YYYY"));
+	$('#printEndDate').html(moment(maxTimeSelected).format("MMM D, YYYY"));
 
 }
 
+
+DNAinfoChiCookCounty.drawPriceSlider = function (){
+	var minPrice = 0;
+	var maxPrice = 10000000;
+	minPriceSelected = minPrice;
+	maxPriceSelected = maxPrice;
+
+	priceSlider = d3.slider()
+					.axis(
+						d3.svg.axis()
+							.orient("top")
+							.scale(
+								d3.scale.linear()
+									.domain([minPrice, maxPrice])
+							)
+							.tickSize(24, 0)
+							.tickFormat(priceFormatSlider)
+					)
+					.scale(
+						d3.scale.linear()
+							.domain([minPrice, maxPrice])
+					)
+					.step(25000)
+					.value( [ minPrice, maxPrice ] )
+					.on("slideend", function(evt, value) {
+						$("body").addClass("loading");
+						// run a function to update map layers with new dates
+						minPriceSelected = value[0];
+						maxPriceSelected = value[1];
+						DNAinfoChiCookCounty.updateMapFromSliderCombo();
+
+					})
+					.on("slide", function(evt, value) {
+						// run a function to update map layers with new dates
+						minPriceSelected = value[0];
+						maxPriceSelected = value[1];
+						// add formated dates selected to area right below slider
+						$('#printMinPrice').html(priceFormat(minPriceSelected));
+						$('#printMaxPrice').html(priceFormat(maxPriceSelected));
+					});
+
+	d3.select('#priceSlider').call(priceSlider);
+
+	// add formated dates selected to area right below slider
+	$('#printMinPrice').html(priceFormat(minPriceSelected));
+	$('#printMaxPrice').html(priceFormat(maxPriceSelected));
+
+}
 
 
 DNAinfoChiCookCounty.updateMapFromSliderCombo = function (){
@@ -253,16 +336,20 @@ DNAinfoChiCookCounty.updateMapFromSliderCombo = function (){
 	MY_MAP.map.closePopup();
 
 	// moment parses unix offsets and javascript date objects in the same way
-	var startDate = moment(selectedMin).format("YYYY-MM-DD");
-	var endDate = moment(selectedMax).format("YYYY-MM-DD");
+	var startDate = moment(minTimeSelected).format("YYYY-MM-DD");
+	var endDate = moment(maxTimeSelected).format("YYYY-MM-DD");
+
+	// checked?
+	var condo = $( "#condo" ).prop( "checked" );
+	var apartment = $( "#apartment" ).prop( "checked" );
+	var single_family = $( "#single_family" ).prop( "checked" );
+	var commercial = $( "#commercial" ).prop( "checked" );
+	var other = $( "#other" ).prop( "checked" );
+
+	// date format
 	var dateFormat = d3.time.format("%Y-%m-%d");
 
-	// combo box selections
-	var maxamount = $( "#maxamount option:selected" ).val();
-	var minamount = $( "#minamount option:selected" ).val();
-
-
-	d3.json('/chicookcountyapi/?startDate=' + startDate + '&endDate=' + endDate + '&minamount=' + minamount + '&maxamount=' + maxamount, function(data) {
+	d3.json('/chicookcountyapi/?startDate=' + startDate + '&endDate=' + endDate + '&minamount=' + minPriceSelected + '&maxamount=' + maxPriceSelected + '&condo=' + condo + '&apartment=' + apartment + '&single_family=' + single_family + '&commercial=' + commercial + '&other=' + other, function(data) {
 		geojsonData = data;
 		$.each(geojsonData.features, function(i, d){
 			d.properties.executed = dateFormat.parse(d.properties.executed);
@@ -277,9 +364,13 @@ DNAinfoChiCookCounty.updateMapFromSliderCombo = function (){
 
 	});
 
-	// update printed start and end dates
-	$('#printStartDate').html(moment(selectedMin).format("MMM D, YYYY"));
-	$('#printEndDate').html(moment(selectedMax).format("MMM D, YYYY"));
+	// add formated dates selected to area right below slider
+	$('#printStartDate').html(moment(minTimeSelected).format("MMM D, YYYY"));
+	$('#printEndDate').html(moment(maxTimeSelected).format("MMM D, YYYY"));
+
+	// add formated dates selected to area right below slider
+	$('#printMinPrice').html(priceFormat(minPriceSelected));
+	$('#printMaxPrice').html(priceFormat(maxPriceSelected));
 
 
 }

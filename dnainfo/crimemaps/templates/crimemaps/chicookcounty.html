@@ -34,38 +34,54 @@
             <div class="popup-content">
                 <div class="container-fluid">
                     <div class="row">
+                        <div class="col-sm-12">
+                          <a id="popup-expand" class="btn btn-default btn-xs pull-right" href="#" role="button">Expand this window</a>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-sm-6">
                             <h4>Filter Data:</h4>
                             <p><strong>By Date Sold:</strong></p>
                             <div id="timeSlider"></div>
                             <small>Date Range Selected: <span id="printStartDate"></span> - <span id="printEndDate"></span></small>
                             <br />
-                            <form id="filter-form" class="padding15topbottom">
-                              <div class="form-group">
-                                <label for="maxamount">By Maximum Price Sold: </label>
-                                <select class="form-control" id="maxamount">
-                                    <option value="">----</option>
-                                    <option value="50000">$50,000</option>
-                                    <option value="100000">$100,000</option>
-                                    <option value="250000">$250,000</option>
-                                    <option value="500000">$500,000</option>
-                                    <option value="1000000">$1 Million</option>
-                                    <option value="2000000">$2 Million</option>
-                                </select>
+                            <p><strong>By Price Sold:</strong></p>
+                            <div id="priceSlider"></div>
+                            <small>Price Range Selected: <span id="printMinPrice"></span> - <span id="printMaxPrice"></span></small>
+                            <br />
+                            <form id="filter-form">
+                              <p><strong>By Property Type:</strong></p>
+                              <div class="checkbox">
+                                <label>
+                                  <input type="checkbox" id="condo" value="condo" checked>
+                                  Condos
+                                </label>
                               </div>
-                              <div class="form-group">
-                                <label for="minamount">By Minumum Price Sold: </label>
-                                <select class="form-control" id="minamount">
-                                    <option value="">----</option>
-                                    <option value="50000">$50,000</option>
-                                    <option value="100000">$100,000</option>
-                                    <option value="250000">$250,000</option>
-                                    <option value="500000">$500,000</option>
-                                    <option value="1000000">$1 Million</option>
-                                    <option value="2000000">$2 Million</option>
-                                </select>
+                              <div class="checkbox">
+                                <label>
+                                  <input type="checkbox" id="apartment" value="apartment" checked>
+                                  Apartments/Mixed-Use Apartments
+                                </label>
                               </div>
-                            </form>
+                              <div class="checkbox">
+                                <label>
+                                  <input type="checkbox" id="single_family" value="single_family" checked>
+                                  Single-Family, Other Residential
+                                </label>
+                              </div>
+                              <div class="checkbox">
+                                <label>
+                                  <input type="checkbox" id="commercial" value="commercial" checked>
+                                  Commercial/Industrial
+                                </label>
+                              </div>
+                              <div class="checkbox">
+                                <label>
+                                  <input type="checkbox" id="other" value="other" checked>
+                                  Other/Unknown
+                                </label>
+                              </div>
+                            </form>                        
                         </div>
                         <div class="col-sm-6">
                             <h4>Legend</h4>
@@ -121,15 +137,17 @@
 	</script>
 	<script type="text/javascript" src="{% static 'crimemaps/js/d3.min.js' %}"></script>
 	<script type="text/javascript" src="{% static 'crimemaps/js/moment.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'crimemaps/js/d3.slider.js' %}"></script>
+  <script type="text/javascript" src="{% static 'crimemaps/js/d3.slider.js' %}"></script>
 	<script type="text/javascript" src="{% static 'crimemaps/js/leaflet.js' %}"></script>
 	<script type="text/javascript" src="{% static 'crimemaps/js/leaflet.label-src.js' %}"></script>
 	<script type="text/javascript" src="{% static 'crimemaps/js/topojson.js' %}"></script>
 	<script type="text/javascript" src="{% static 'crimemaps/js/Control.Geocoder.js' %}"></script>
-    <script type="text/javascript" src="{% static 'crimemaps/js/turf.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'crimemaps/js/turf.min.js' %}"></script>
 	<script type="text/javascript" src="{% static 'crimemaps/js/DNAinfoChiCookCounty.js' %}"></script>
 	<script type="text/javascript" src="{% static 'crimemaps/js/chicookcountyapp.js' %}"></script>
-    <script type="text/javascript" src="{% static 'crimemaps/js/chiCookCountyControllers.js' %}"></script>
+  <script type="text/javascript" src="{% static 'crimemaps/js/chiCookCountyControllers.js' %}"></script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA0mofJLHQmeTcwB0C0pkTxv-rPJ1fW4H0&signed_in=true&callback=initialize">
+  </script>
 {% endblock %}
 
 

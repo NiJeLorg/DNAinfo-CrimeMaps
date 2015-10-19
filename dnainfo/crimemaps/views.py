@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.conf import settings
 from django.http import JsonResponse
 from django.db.models import Sum, Count
+import operator
 from django.db.models import Q
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
@@ -1176,42 +1177,98 @@ def chicookcountyapi(request):
 		endDate = request.GET.get("endDate","")
 		minamount = request.GET.get("minamount","")
 		maxamount = request.GET.get("maxamount","")
+		condo = request.GET.get("condo","")
+		apartment = request.GET.get("apartment","")
+		single_family = request.GET.get("single_family","")
+		commercial = request.GET.get("commercial","")
+		other = request.GET.get("other","")
 
 		# create data objects from start and end dates
 		startDateparsed = dateutil.parser.parse(startDate).date()
 		endDateparsed = dateutil.parser.parse(endDate).date()
 
-		#add kwargs and hour query
-		kwargs = {}
+		#get empty Qs ready
+		query = Q()
+		executed_query = Q()
+		amount_query = Q()
+		minamount_query = Q()
+		maxamount_query = Q()
+		condo_query = Q()
+		apartment_query = Q()
+		single_family_query = Q()
+		commercial_query = Q()
+		other_query = Q()
+
 		# show date range selected
-		kwargs['executed__range'] = [startDateparsed,endDateparsed]
+		executed_query = Q(executed__range = [startDateparsed,endDateparsed])
 
 		# add to kwargs if filters exist
 		if minamount != '':
-			kwargs['amount__gte'] = minamount
+			minamount_query = Q(amount__gte = minamount)
 
 		if maxamount != '':
-			kwargs['amount__lte'] = maxamount			
+			maxamount_query = Q(amount__lte = maxamount)
+
+		amount_query = minamount_query & maxamount_query
+
+		#for classes, split string and search for any that match
+		# if condo == 'true':
+		# 	condo_query = Q(classNum__contains = '2-99') | Q(classNum__contains = '3-99')
+		# else:
+		# 	condo_query = ~Q(classNum__contains = '2-99') & ~Q(classNum__contains = '3-99')
+
+		# if apartment == 'true':
+		# 	if condo == 'true':
+		# 		apartment_query = Q(classNum__contains = '2-11') | Q(classNum__contains = '2-12') | Q(classNum__contains = '3-')
+		# 	else: 
+		# 		apartment_query = Q(classNum__contains = '2-11') | Q(classNum__contains = '2-12') | (Q(classNum__contains = '3-') & ~Q(classNum__contains = '3-99'))
+		# else:
+		# 	if condo == 'true':
+		# 		apartment_query = ~Q(classNum__contains = '2-11') & ~Q(classNum__contains = '2-12') & (~Q(classNum__contains = '3-') & Q(classNum__contains = '3-99'))
+		# 	else:
+		# 		apartment_query = ~Q(classNum__contains = '2-11') & ~Q(classNum__contains = '2-12') & ~Q(classNum__contains = '3-')
+
+
+		# if single_family == 'true':
+		# 	if condo == 'true':
+		# 		single_family_query = Q(classNum__contains = '9-') | Q(classNum__contains = '2-')
+		# 	else:
+		# 		single_family_query = Q(classNum__contains = '9-') | Q(classNum__contains = '2-') & ~Q(classNum__contains = '2-99')
+		# else:
+		# 	if condo == "true":
+		# 		single_family_query = ~Q(classNum__contains = '9-') & (~Q(classNum__contains = '2-') & Q(classNum__exact = '2-99'))
+		# 	else:
+		# 		single_family_query = ~Q(classNum__startswith = '9-') | ~Q(classNum__startswith = '2-')
+
+		# # if commercial == 'true':
+		# # 	commercial_query = Q(classNum__startswith = '5-') | Q(classNum__startswith = '6-') | Q(classNum__startswith = '7-') | Q(classNum__startswith = '8-')
+		# # else:
+		# # 	commercial_query = ~Q(classNum__startswith = '5-') | ~Q(classNum__startswith = '6-') | ~Q(classNum__startswith = '7-') | ~Q(classNum__startswith = '8-')
+
+		query = executed_query & amount_query & condo_query & apartment_query & single_family_query & commercial_query & other_query
+
 
 		#pull shootings data
-		datas = CHICookCountyRealEstateData.objects.filter(**kwargs)
+		datas = CHICookCountyRealEstateData.objects.filter(query)
 		for d in datas:
 			data = {}
 			data['type'] = 'Feature'
 			data['properties'] = {}
-			data['properties']['executed'] = d.executed
-			data['properties']['recorded'] = d.recorded
 			data['properties']['doc'] = d.doc
-			data['properties']['address'] = d.address
-			data['properties']['unit'] = d.unit
-			data['properties']['city'] = d.city
-			data['properties']['zip'] = d.zip
+			data['properties']['classNum'] = d.classNum
+			data['properties']['description'] = d.description
+			data['properties']['buildingsize'] = d.buildingsize
+			data['properties']['lotsize'] = d.lotsize
 			data['properties']['fulladdress'] = d.fulladdress
 			data['properties']['amount'] = d.amount
+			data['properties']['recorded'] = d.recorded
+			data['properties']['executed'] = d.executed
 			data['properties']['seller'] = d.seller
 			data['properties']['buyer'] = d.buyer
 			data['properties']['pin'] = d.pin
-			data['properties']['township'] = d.township
+			data['properties']['address'] = d.address
+			data['properties']['unit'] = d.unit
+			data['properties']['pricepersqft'] = d.pricepersqft
 			data['geometry'] = {}
 			data['geometry']['type'] = 'Point'
 			data['geometry']['coordinates'] = [d.longitude, d.latitude]

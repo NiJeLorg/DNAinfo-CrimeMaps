@@ -9,8 +9,12 @@
 var CHISALES = null;
 var COMMUNITIES = null;
 var MY_MAP = null;
-var selectedMin = null;
-var selectedMax = null;
+var minTimeSelected = null;
+var maxTimeSelected = null;
+var minPriceSelected = null;
+var maxPriceSelected = null;
+var priceFormatSlider = d3.format("$s");
+var priceFormat = d3.format("$,.0f");
 
 $().ready(new function(){
     var myMap = new DNAinfoChiCookCounty();
