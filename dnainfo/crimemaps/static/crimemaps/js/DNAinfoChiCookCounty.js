@@ -97,9 +97,7 @@ DNAinfoChiCookCounty.onEachFeature_CHISALES = function(feature,layer){
 
 
     layer.on('click', function(ev) {
-		new google.maps.StreetViewPanorama(
-			document.getElementById('street-view'),
-			{
+    	var panorama = new google.maps.StreetViewPanorama( document.getElementById('street-view'), {
 				position: {lat: feature.geometry.coordinates[1], lng: feature.geometry.coordinates[0]},
 				pov: {heading: 0, pitch: 0},
 				zoom: 1
