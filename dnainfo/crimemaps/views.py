@@ -1177,11 +1177,14 @@ def chicookcountyapi(request):
 		endDate = request.GET.get("endDate","")
 		minamount = request.GET.get("minamount","")
 		maxamount = request.GET.get("maxamount","")
-		condo = request.GET.get("condo","")
-		apartment = request.GET.get("apartment","")
-		single_family = request.GET.get("single_family","")
 		commercial = request.GET.get("commercial","")
+		industrial = request.GET.get("industrial","")
 		other = request.GET.get("other","")
+		residential_condo = request.GET.get("residential_condo","")
+		residential_multifamily = request.GET.get("residential_multifamily","")
+		residential_single_family = request.GET.get("residential_single_family","")
+		vacant = request.GET.get("vacant","")
+
 
 		# create data objects from start and end dates
 		startDateparsed = dateutil.parser.parse(startDate).date()
@@ -1193,11 +1196,13 @@ def chicookcountyapi(request):
 		amount_query = Q()
 		minamount_query = Q()
 		maxamount_query = Q()
-		condo_query = Q()
-		apartment_query = Q()
-		single_family_query = Q()
 		commercial_query = Q()
+		industrial_query = Q()
 		other_query = Q()
+		residential_condo_query = Q()
+		residential_multifamily_query = Q()
+		residential_single_family_query = Q()
+		vacant_query = Q()
 
 		# show date range selected
 		executed_query = Q(executed__range = [startDateparsed,endDateparsed])
@@ -1212,43 +1217,35 @@ def chicookcountyapi(request):
 		amount_query = minamount_query & maxamount_query
 
 		#for classes, split string and search for any that match
-		# if condo == 'true':
-		# 	condo_query = Q(classNum__contains = '2-99') | Q(classNum__contains = '3-99')
-		# else:
-		# 	condo_query = ~Q(classNum__contains = '2-99') & ~Q(classNum__contains = '3-99')
+		if commercial == 'true':
+			commercial_query = Q(classNum__contains = '2-10') | Q(classNum__contains = '7-') | Q(classNum__contains = '8-') | Q(classNum__contains = '5-17') | Q(classNum__contains = '5-22') | Q(classNum__contains = '5-23') | Q(classNum__contains = '5-29') | Q(classNum__contains = '5-30') | Q(classNum__contains = '5-31') | Q(classNum__contains = '5-90') | Q(classNum__contains = '5-91') | Q(classNum__contains = '5-92') | Q(classNum__contains = '5-97') | Q(classNum__contains = '5-99')
 
-		# if apartment == 'true':
-		# 	if condo == 'true':
-		# 		apartment_query = Q(classNum__contains = '2-11') | Q(classNum__contains = '2-12') | Q(classNum__contains = '3-')
-		# 	else: 
-		# 		apartment_query = Q(classNum__contains = '2-11') | Q(classNum__contains = '2-12') | (Q(classNum__contains = '3-') & ~Q(classNum__contains = '3-99'))
-		# else:
-		# 	if condo == 'true':
-		# 		apartment_query = ~Q(classNum__contains = '2-11') & ~Q(classNum__contains = '2-12') & (~Q(classNum__contains = '3-') & Q(classNum__contains = '3-99'))
-		# 	else:
-		# 		apartment_query = ~Q(classNum__contains = '2-11') & ~Q(classNum__contains = '2-12') & ~Q(classNum__contains = '3-')
+		if industrial == 'true':
+			industrial_query = Q(classNum__contains = '6-') | Q(classNum__contains = '5-50') | Q(classNum__contains = '5-80') | Q(classNum__contains = '5-81') | Q(classNum__contains = '5-83') | Q(classNum__contains = '5-87') | Q(classNum__contains = '5-89') | Q(classNum__contains = '5-93')
 
+		if other == 'true':
+			other_query = Q(classNum__contains = '0-00') | Q(classNum__contains = '2-24') | Q(classNum__contains = '2-36') | Q(classNum__contains = '2-90') | Q(classNum__contains = '2-97') | Q(classNum__contains = '4-') | Q(classNum__contains = 'Ex') | Q(classNum__contains = 'RR')
 
-		# if single_family == 'true':
-		# 	if condo == 'true':
-		# 		single_family_query = Q(classNum__contains = '9-') | Q(classNum__contains = '2-')
-		# 	else:
-		# 		single_family_query = Q(classNum__contains = '9-') | Q(classNum__contains = '2-') & ~Q(classNum__contains = '2-99')
-		# else:
-		# 	if condo == "true":
-		# 		single_family_query = ~Q(classNum__contains = '9-') & (~Q(classNum__contains = '2-') & Q(classNum__exact = '2-99'))
-		# 	else:
-		# 		single_family_query = ~Q(classNum__startswith = '9-') | ~Q(classNum__startswith = '2-')
+		if residential_condo == 'true':
+			residential_condo_query = Q(classNum__contains = '2-99')
 
-		# # if commercial == 'true':
-		# # 	commercial_query = Q(classNum__startswith = '5-') | Q(classNum__startswith = '6-') | Q(classNum__startswith = '7-') | Q(classNum__startswith = '8-')
-		# # else:
-		# # 	commercial_query = ~Q(classNum__startswith = '5-') | ~Q(classNum__startswith = '6-') | ~Q(classNum__startswith = '7-') | ~Q(classNum__startswith = '8-')
+		if residential_multifamily == 'true':
+			residential_multifamily_query = Q(classNum__contains = '2-11') | Q(classNum__contains = '2-12') | Q(classNum__contains = '2-13') | Q(classNum__contains = '2-25') | Q(classNum__contains = '3-13') | Q(classNum__contains = '3-14') | Q(classNum__contains = '3-15') | Q(classNum__contains = '3-18') | Q(classNum__contains = '3-90') | Q(classNum__contains = '3-96') | Q(classNum__contains = '3-97') | Q(classNum__contains = '3-99') | Q(classNum__contains = '9-')
 
-		query = executed_query & amount_query & condo_query & apartment_query & single_family_query & commercial_query & other_query
+		if residential_single_family == 'true':
+			residential_single_family_query = Q(classNum__contains = '2-02') | Q(classNum__contains = '2-03') | Q(classNum__contains = '2-04') | Q(classNum__contains = '2-05') | Q(classNum__contains = '2-06') | Q(classNum__contains = '2-07') | Q(classNum__contains = '2-08') | Q(classNum__contains = '2-09') | Q(classNum__contains = '2-10') | Q(classNum__contains = '2-34') | Q(classNum__contains = '2-78') | Q(classNum__contains = '2-88') | Q(classNum__contains = '2-95')
 
+		if vacant == 'true':
+			vacant_query = Q(classNum__contains = '1-00') | Q(classNum__contains = '1-09') | Q(classNum__contains = '2-00') | Q(classNum__contains = '2-01') | Q(classNum__contains = '2-39') | Q(classNum__contains = '2-40') | Q(classNum__contains = '2-41') | Q(classNum__contains = '3-00') | Q(classNum__contains = '3-01') | Q(classNum__contains = '5-80') | Q(classNum__contains = '5-90')
 
-		#pull shootings data
+		# if any types are selected use in query -- if not ensure none are selected
+		if commercial == 'true' or industrial == 'true' or other == 'true' or residential_condo == 'true' or residential_multifamily == 'true' or residential_single_family == 'true' or vacant == 'true':
+			query = executed_query & amount_query & (commercial_query | industrial_query | other_query | residential_condo_query | residential_multifamily_query | residential_single_family_query | vacant_query)
+		else:
+			# no data will be returned with primary key = -99
+			query = Q(pk__exact=-99)
+
+		#pull data
 		datas = CHICookCountyRealEstateData.objects.filter(query)
 		for d in datas:
 			data = {}

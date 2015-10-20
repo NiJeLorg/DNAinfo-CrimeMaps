@@ -97,7 +97,7 @@ DNAinfoChiCookCounty.onEachFeature_CHISALES = function(feature,layer){
 
 
     layer.on('click', function(ev) {
-    	var panorama = new google.maps.StreetViewPanorama( document.getElementById('street-view'), {
+    	panorama = new google.maps.StreetViewPanorama( document.getElementById('street-view'), {
 				position: {lat: feature.geometry.coordinates[1], lng: feature.geometry.coordinates[0]},
 				pov: {heading: 0, pitch: 0},
 				zoom: 1
@@ -140,7 +140,16 @@ DNAinfoChiCookCounty.prototype.loadPointLayers = function (){
 	// load points layers
 	var thismap = this;
 	var dateFormat = d3.time.format("%Y-%m-%d");
-	d3.json('/chicookcountyapi/?startDate=' + startDate + '&endDate=' + endDate, function(data) {
+	// checked?
+	var residential_condo = $( "#residential_condo" ).prop( "checked" );
+	var residential_multifamily = $( "#residential_multifamily" ).prop( "checked" );
+	var residential_single_family = $( "#residential_single_family" ).prop( "checked" );
+	var commercial = $( "#commercial" ).prop( "checked" );
+	var industrial = $( "#industrial" ).prop( "checked" );
+	var vacant = $( "#vacant" ).prop( "checked" );
+	var other = $( "#other" ).prop( "checked" );
+
+	d3.json('/chicookcountyapi/?startDate=' + startDate + '&endDate=' + endDate + '&residential_condo=' + residential_condo + '&residential_multifamily=' + residential_multifamily + '&residential_single_family=' + residential_single_family + '&commercial=' + commercial + '&industrial=' + industrial + '&other=' + other, function(data) {
 		geojsonData = data;
 		$.each(geojsonData.features, function(i, d){
 			d.properties.executed = dateFormat.parse(d.properties.executed);
@@ -186,7 +195,7 @@ DNAinfoChiCookCounty.getStyleFor_CHISALES = function (feature, latlng){
 		color: '#bdbdbd',
 		weight: 1,
 		opacity: 1,
-		fillColor: DNAinfoChiCookCounty.FillColor(feature.properties.amount),
+		fillColor: DNAinfoChiCookCounty.FillColor(feature.properties.classNum),
 		fillOpacity: 1
 	});
 	
@@ -205,7 +214,9 @@ DNAinfoChiCookCounty.getStyleFor_COMMUNITIES = function (feature){
 }
 
 DNAinfoChiCookCounty.CountRadius = function (d){
-    return d > 2000000 ? 20 :
+    return d > 10000000 ? 28 :
+		   d > 5000000 ? 24 :
+    	   d > 2000000 ? 20 :
            d > 1000000 ? 16 :
            d > 500000 ? 13 :
            d > 250000 ? 10 :
@@ -215,8 +226,39 @@ DNAinfoChiCookCounty.CountRadius = function (d){
 }
 
 DNAinfoChiCookCounty.FillColor = function (d){
-    return d > 0 ? "#931212" :
-                   "#4d4d4d" ;	
+	d = d.replace(/"/g, '');
+	var split = d.split("-");
+	if (d == '2-10' || split[0] == '7' || split[0] == '8-' || d == '5-17' || d == '5-22' || d == '5-23' || d == '5-29' || d == '5-30' || d == '5-31' || d == '5-90' || d == '5-91' || d == '5-92' || d == '5-97' || d == '5-99') {
+		return '#E41A1C';
+	}
+
+	if (split[0] == '6' || d == '5-50' || d == '5-80' || d == '5-81' || d == '5-83' || d == '5-87' || d == '5-89' || d == '5-93') {
+		return '#377EB8';
+	}
+
+	if (d == '0-00' || d == '2-24' || d == '2-36' || d == '2-90' || d == '2-97' || split[0] == '4' || d == 'Ex' || d == 'RR') {
+		return '#4DAF4A';
+	}
+
+	if (d == '2-99') {
+		return '#984EA3';
+	}
+
+	if (d == '2-11' || d == '2-12' || d == '2-13' || d == '2-25' || d == '3-13' || d == '3-14' || d == '3-15' || d == '3-18' || d == '3-90' || d == '3-96' || d == '3-97' || d == '3-99' || split[0] == '9') {
+		return '#FF7F00';
+	}
+
+	if (d == '2-02' || d == '2-03' || d == '2-04' || d == '2-05' || d == '2-06' || d == '2-07' || d == '2-08' || d == '2-09' || d == '2-10' || d == '2-34' || d == '2-78' || d == '2-88' || d == '2-95') {
+		return '#FFFF33';
+	}
+
+	if (d == '1-00' || d == '1-09' || d == '2-00' || d == '2-01' || d == '2-39' || d == '2-40' || d == '2-41' || d == '3-00' || d == '3-01' || d == '5-80' || d == '5-90') {
+		return '#A65628';
+	}
+
+    return "#4d4d4d";	
+
+
 
 }
 
@@ -338,16 +380,18 @@ DNAinfoChiCookCounty.updateMapFromSliderCombo = function (){
 	var endDate = moment(maxTimeSelected).format("YYYY-MM-DD");
 
 	// checked?
-	var condo = $( "#condo" ).prop( "checked" );
-	var apartment = $( "#apartment" ).prop( "checked" );
-	var single_family = $( "#single_family" ).prop( "checked" );
+	var residential_condo = $( "#residential_condo" ).prop( "checked" );
+	var residential_multifamily = $( "#residential_multifamily" ).prop( "checked" );
+	var residential_single_family = $( "#residential_single_family" ).prop( "checked" );
 	var commercial = $( "#commercial" ).prop( "checked" );
+	var industrial = $( "#industrial" ).prop( "checked" );
+	var vacant = $( "#vacant" ).prop( "checked" );
 	var other = $( "#other" ).prop( "checked" );
 
 	// date format
 	var dateFormat = d3.time.format("%Y-%m-%d");
 
-	d3.json('/chicookcountyapi/?startDate=' + startDate + '&endDate=' + endDate + '&minamount=' + minPriceSelected + '&maxamount=' + maxPriceSelected + '&condo=' + condo + '&apartment=' + apartment + '&single_family=' + single_family + '&commercial=' + commercial + '&other=' + other, function(data) {
+	d3.json('/chicookcountyapi/?startDate=' + startDate + '&endDate=' + endDate + '&minamount=' + minPriceSelected + '&maxamount=' + maxPriceSelected + '&residential_condo=' + residential_condo + '&residential_multifamily=' + residential_multifamily + '&residential_single_family=' + residential_single_family + '&commercial=' + commercial + '&industrial=' + industrial + '&other=' + other, function(data) {
 		geojsonData = data;
 		$.each(geojsonData.features, function(i, d){
 			d.properties.executed = dateFormat.parse(d.properties.executed);

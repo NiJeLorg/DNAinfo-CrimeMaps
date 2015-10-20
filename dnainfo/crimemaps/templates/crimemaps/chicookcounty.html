@@ -53,26 +53,38 @@
                               <p><strong>By Property Type:</strong></p>
                               <div class="checkbox">
                                 <label>
-                                  <input type="checkbox" id="condo" value="condo" checked>
-                                  Condos
+                                  <input type="checkbox" id="residential_condo" value="residential_condo" checked>
+                                  Condos 
                                 </label>
                               </div>
                               <div class="checkbox">
                                 <label>
-                                  <input type="checkbox" id="apartment" value="apartment" checked>
-                                  Apartments/Mixed-Use Apartments
+                                  <input type="checkbox" id="residential_multifamily" value="residential_multifamily" checked>
+                                  Multifamily Residential
                                 </label>
                               </div>
                               <div class="checkbox">
                                 <label>
-                                  <input type="checkbox" id="single_family" value="single_family" checked>
-                                  Single-Family, Other Residential
+                                  <input type="checkbox" id="residential_single_family" value="residential_single_family" checked>
+                                  Single-Family Residential
                                 </label>
                               </div>
                               <div class="checkbox">
                                 <label>
                                   <input type="checkbox" id="commercial" value="commercial" checked>
-                                  Commercial/Industrial
+                                  Commercial
+                                </label>
+                              </div>
+                              <div class="checkbox">
+                                <label>
+                                  <input type="checkbox" id="industrial" value="industrial" checked>
+                                  Industrial
+                                </label>
+                              </div>
+                              <div class="checkbox">
+                                <label>
+                                  <input type="checkbox" id="vacant" value="vacant" checked>
+                                  Vacant/Parking/Land
                                 </label>
                               </div>
                               <div class="checkbox">
@@ -93,16 +105,21 @@
                                     <ul>
                                       <li>$0</li>
                                       <li class="graph" style="background: #931212;"><div class="bubbles"></div></li>
-                                      <li id="legend-max-num">&gt;$2 Million</li>
+                                      <li id="legend-max-num">&gt;$10 Million</li>
                                     </ul>
                                   </div>
                                 </div>
                                 <div class="col-sm-6">
                                   <div class="legend-category">
-                                  <p>Sale Amount Recorded</p>
+                                  <p>Property Type</p>
                                       <ul>
-                                        <li><div class="bullet" style="background: #931212;"></div> Yes</li>
-                                        <li><div class="bullet" style="background: #4d4d4d;"></div> No</li>
+                                        <li><div class="bullet" style="background: #984EA3;"></div> Condos</li>
+                                        <li><div class="bullet" style="background: #FF7F00;"></div> Multifamily Residential</li>
+                                        <li><div class="bullet" style="background: #FFFF33;"></div> Single-Family Residential</li>
+                                        <li><div class="bullet" style="background: #E41A1C;"></div> Commercial</li>
+                                        <li><div class="bullet" style="background: #377EB8;"></div> Industrial</li>
+                                        <li><div class="bullet" style="background: #A65628;"></div> Vacant/Parking/Land</li>
+                                        <li><div class="bullet" style="background: #4DAF4A;"></div> Other</li>
                                       </ul>
                                   </div>
                                 </div>
