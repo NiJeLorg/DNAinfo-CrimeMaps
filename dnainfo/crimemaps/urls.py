@@ -61,5 +61,8 @@ urlpatterns = [
     url(r'^chicookcountyapi/$', views.chicookcountyapi, name='chicookcountyapi'),
     url(r'^nycstreeteasy/$', views.nycstreeteasy, name='nycstreeteasy'),
     url(r'^nycstreeteasyapi/$', views.nycstreeteasyapi, name='nycstreeteasyapi'),
+    url(r'^traindemo/$', views.traindemo, name='traindemo'),
+    url(r'^traindemo-half-full/$', views.traindemo_half_full, name='traindemo_half_full'),
+    url(r'^traindemo-full/$', views.traindemo_full, name='traindemo_full'),
 
 ]

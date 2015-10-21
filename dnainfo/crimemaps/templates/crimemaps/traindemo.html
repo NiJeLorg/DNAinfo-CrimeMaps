@@ -1,0 +1,103 @@
+{% extends 'crimemaps/baseNoBottomNavCHI.html' %}
+{% load staticfiles %}
+
+{% block title %}Red Line Chicago Demo | DNAinfo{% endblock %}
+
+
+{% block css_block %}
+    <link rel="stylesheet" type="text/css" href="{% static 'crimemaps/css/traindemo.css' %}">    
+{% endblock %}
+
+{% block head_js_block %}
+{% endblock %}
+	
+{% block body_block %}
+
+    <!-- Map Content -->
+    <div class="container">
+      <div class="row margin30top">
+        <div class="col-md-12">
+          <h2>Where do you prefer to sit?</h2>
+        </div>
+      </div>
+      <div class="row margin30top">
+        <div class="col-md-12">
+          <img id="chi_redline_subway_A_car" src="{% static 'crimemaps/css/images/chi_redline_subway_A_car.png' %}" width="1997" height="371" usemap="#chi_redline_subway_A_car" border="0">
+          <map name="chi_redline_subway_A_car">
+            <area data-key="1" shape="rect" coords="628,237,776,336" href="#" >
+            <area data-key="2" shape="rect" coords="633,37,775,129" href="#" >
+            <area data-key="3" shape="rect" coords="1295,37,1459,131" href="#" >
+            <area data-key="4" shape="rect" coords="1294,239,1458,333" href="#" >
+            <area data-key="5" shape="rect" coords="462,237,626,331" href="#" >
+            <area data-key="6" shape="rect" coords="463,37,627,131" href="#" >
+            <area data-key="7" shape="rect" coords="1234,136,1490,234" href="#" >
+            <area data-key="8" shape="rect" coords="1491,136,1747,234" href="#" >
+            <area data-key="9" shape="rect" coords="1747,136,1872,234" href="#" >
+            <area data-key="10" shape="rect" coords="976,136,1232,234" href="#" >
+            <area data-key="11" shape="rect" coords="719,136,975,234" href="#" >
+            <area data-key="12" shape="rect" coords="462,136,718,234" href="#" >
+            <area data-key="13" shape="rect" coords="204,136,460,234" href="#" >
+            <area data-key="14" shape="rect" coords="51,138,203,236" href="#" >
+            <area data-key="15" shape="rect" coords="788,289,867,347" href="#" >
+            <area data-key="16" shape="rect" coords="786,232,865,290" href="#" >
+            <area data-key="17" shape="rect" coords="788,82,867,140" href="#" >
+            <area data-key="18" shape="rect" coords="786,25,865,83" href="#" >
+            <area data-key="19" shape="rect" coords="1761,262,1819,337" href="#" >
+            <area data-key="20" shape="rect" coords="1584,261,1642,336" href="#" >
+            <area data-key="21" shape="rect" coords="1644,261,1702,336" href="#" >
+            <area data-key="22" shape="rect" coords="1701,260,1759,335" href="#" >
+            <area data-key="23" shape="rect" coords="1526,261,1584,336" href="#" >
+            <area data-key="24" shape="rect" coords="1467,262,1525,337" href="#" >
+            <area data-key="25" shape="rect" coords="1760,33,1818,108" href="#" >
+            <area data-key="26" shape="rect" coords="1466,33,1524,108" href="#" >
+            <area data-key="27" shape="rect" coords="1525,32,1583,107" href="#" >
+            <area data-key="28" shape="rect" coords="1583,32,1641,107" href="#" >
+            <area data-key="29" shape="rect" coords="1643,32,1701,107" href="#" >
+            <area data-key="30" shape="rect" coords="1700,31,1758,106" href="#" >
+            <area data-key="31" shape="rect" coords="880,270,938,345" href="#" >
+            <area data-key="32" shape="rect" coords="939,269,997,344" href="#" >
+            <area data-key="33" shape="rect" coords="997,269,1055,344" href="#" >
+            <area data-key="34" shape="rect" coords="1057,269,1115,344" href="#" >
+            <area data-key="35" shape="rect" coords="1114,268,1172,343" href="#" >
+            <area data-key="36" shape="rect" coords="1173,261,1231,336" href="#" >
+            <area data-key="37" shape="rect" coords="1230,260,1288,335" href="#" >
+            <area data-key="38" shape="rect" coords="1228,33,1286,108" href="#" >
+            <area data-key="39" shape="rect" coords="1171,34,1229,109" href="#" >
+            <area data-key="40" shape="rect" coords="1112,26,1170,101" href="#" >
+            <area data-key="41" shape="rect" coords="878,28,936,103" href="#" >
+            <area data-key="42" shape="rect" coords="937,27,995,102" href="#" >
+            <area data-key="43" shape="rect" coords="995,27,1053,102" href="#" >
+            <area data-key="44" shape="rect" coords="1055,27,1113,102" href="#" >
+            <area data-key="45" shape="rect" coords="399,34,457,109" href="#" >
+            <area data-key="46" shape="rect" coords="339,34,397,109" href="#" >
+            <area data-key="47" shape="rect" coords="281,34,339,109" href="#" >
+            <area data-key="48" shape="rect" coords="222,35,280,110" href="#" >
+            <area data-key="49" shape="rect" coords="399,260,457,335" href="#" >
+            <area data-key="50" shape="rect" coords="339,260,397,335" href="#" >
+            <area data-key="51" shape="rect" coords="281,260,339,335" href="#" >
+            <area data-key="52" shape="rect" coords="221,260,279,335" href="#" >
+          </map>
+        </div>
+      </div>
+      <div class="row margin30top">
+        <div class="col-md-11">
+          <a class="btn btn-default pull-right" href="{% url 'traindemo_half_full' %}" role="button">Save and Continue</a>
+        </div>
+      </div>
+
+    </div>
+
+{% endblock %}
+
+{% block modal_block %}
+{% endblock %}
+
+{% block js_block %}
+	<script type="text/javascript" src="{% static 'crimemaps/js/jquery.imagemapster.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'crimemaps/js/traindemo.js' %}"></script>
+{% endblock %}
+
+
+	
+	
+

@@ -1319,3 +1319,13 @@ def nycstreeteasyapi(request):
 
 	return JsonResponse(response)
 
+
+def traindemo(request):
+	return render(request, 'crimemaps/traindemo.html', {})
+
+def traindemo_half_full(request):
+	return render(request, 'crimemaps/traindemo_half_full.html', {})
+
+def traindemo_full(request):
+	return render(request, 'crimemaps/traindemo_full.html', {})
+
