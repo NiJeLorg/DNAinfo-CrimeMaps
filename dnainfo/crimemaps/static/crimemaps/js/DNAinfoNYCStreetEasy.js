@@ -105,12 +105,14 @@ DNAinfoNYCStreetEasy.onEachFeature_ZIPS = function(feature,layer){
 
 	} else {
 
-		if (isNaN(feature.properties.medianaskingrentchcange) || feature.properties.medianaskingrentchcange == -99) {
-			var headingTotalText = "Data not available for change in<br /> median asking rent over the previous<br />year for this area.";
-		} else if (feature.properties.medianaskingrentchcange > 0) {
-			var headingTotalText = "<strong><span class='increaseTextPopupRE'>"+ Math.abs(feature.properties.medianaskingrentchcange) +"% increase</span></strong> in the<br />median asking rent over<br />the previous year.";
+		var M1 = moment(selectedQ).format("MMM");
+		var M2 = moment(selectedQ).add(2, 'months').format("MMM");
+		var Y  = moment(selectedQ).format("YYYY");
+
+		if (isNaN(feature.properties.medianaskingrent) || feature.properties.medianaskingrent == -99) {
+			var headingTotalText = "Data not available for median<br />asking rent for this area.";
 		} else {
-			var headingTotalText = "<strong><span class='decreaseTextPopup'>"+ Math.abs(feature.properties.medianaskingrentchcange) +"% decrease</span></strong> in the<br />median asking rent over<br />the previous year.";
+			var headingTotalText = "Median asking rent in " + feature.properties.name + "<br />was <strong>$" + commaFormat(feature.properties.medianaskingrent) + "</strong> in " + M1 + "-" + M2 + ", " + Y + ".";
 		}	
 
 		if (L.Browser.touch) {
@@ -131,15 +133,19 @@ DNAinfoNYCStreetEasy.onEachFeature_ZIPS = function(feature,layer){
 		if (isNaN(feature.properties.medianaskingrent) || feature.properties.medianaskingrent == -99) {
 			var medianaskingrent = "";
 		} else {
-			var M1 = moment(selectedQ).format("MMM");
-			var M2 = moment(selectedQ).add(2, 'months').format("MMM");
-			var Y  = moment(selectedQ).format("YYYY");
-
-
-			var medianaskingrent = "Median asking rent here was <strong>$" + commaFormat(feature.properties.medianaskingrent) + "</strong> in " + M1 + "-" + M2 + ", " + Y + ".";
+			var medianaskingrent = "Median asking rent was <strong>$" + commaFormat(feature.properties.medianaskingrent) + "</strong> in " + M1 + "-" + M2 + ", " + Y + ".<br />";
 		}
 
-	    layer.bindPopup("<h5>" + feature.properties.name + "</h5><p>" + medianaskingrent + "</p>");
+		if (isNaN(feature.properties.medianaskingrentchcange) || feature.properties.medianaskingrentchcange == -99) {
+			var medianaskingrentchcange = "";
+		} else if (feature.properties.medianaskingrentchcange > 0) {
+			var medianaskingrentchcange = "Median asking rent <strong><span class='increaseTextPopupRE'>increased " + twodecFormat(feature.properties.medianaskingrentchcange) + "%</span></strong> between this quarter and the same quarter in the previous year.";
+		} else {
+			var medianaskingrentchcange = "Median asking rent <strong><span class='increaseTextPopupRE'>decreased " + twodecFormat(feature.properties.medianaskingrentchcange) + "%</span></strong> between this quarter and the same quarter in the previous year.";
+		}
+
+
+	    layer.bindPopup("<h5>" + feature.properties.name + "</h5><p>" + medianaskingrent + medianaskingrentchcange + "</p>");
 
 
 	}
@@ -193,7 +199,7 @@ DNAinfoNYCStreetEasy.getStyleFor_ZIPS = function (feature){
 	if (activeLayer == "sale") {
 		var property = feature.properties.medianppsfchange;
 	} else {
-		var property = feature.properties.medianaskingrentchcange;
+		var property = feature.properties.medianaskingrent;
 	}
     return {
         weight: 1,
@@ -205,15 +211,20 @@ DNAinfoNYCStreetEasy.getStyleFor_ZIPS = function (feature){
 }
 
 DNAinfoNYCStreetEasy.fillColor_ZIPS = function (d){
-    return d > 10   ? '#4291c3' :
-           d > 5    ? '#77beea' :
-           d > 0    ? '#a4d4f2' :
-           d > -5   ? '#e0e0e0' :
-           d > -10  ? '#999999' :
-           d == -99 ? '#ffffff' :
-           isNaN(d) ? '#ffffff' :
-                      '#4d4d4d';	
+    return d > 4000   ? '#08306B' :
+           d > 3500   ? '#08519C' :
+           d > 3000   ? '#2171B5' :
+           d > 2500   ? '#4292C6' :
+           d > 2000   ? '#6BAED6' :
+           d > 1500   ? '#9ECAE1' :
+           d > 1000   ? '#C6DBEF' :
+           d > 500    ? '#DEEBF7' :
+           d > 0      ? '#F7FBFF' :
+           d == -99   ? '#ffffff' :
+           isNaN(d)   ? '#ffffff' :
+                        '#4d4d4d';	
 }
+
 
 DNAinfoNYCStreetEasy.fillOpacity_ZIPS = function (d){
     return d > -99  ? 0.75 :

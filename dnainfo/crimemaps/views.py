@@ -1218,7 +1218,7 @@ def chicookcountyapi(request):
 
 		#for classes, split string and search for any that match
 		if commercial == 'true':
-			commercial_query = Q(classNum__contains = '2-10') | Q(classNum__contains = '7-') | Q(classNum__contains = '8-') | Q(classNum__contains = '5-17') | Q(classNum__contains = '5-22') | Q(classNum__contains = '5-23') | Q(classNum__contains = '5-29') | Q(classNum__contains = '5-30') | Q(classNum__contains = '5-31') | Q(classNum__contains = '5-90') | Q(classNum__contains = '5-91') | Q(classNum__contains = '5-92') | Q(classNum__contains = '5-97') | Q(classNum__contains = '5-99')
+			commercial_query = Q(classNum__contains = '2-01') | Q(classNum__contains = '7-') | Q(classNum__contains = '8-') | Q(classNum__contains = '5-17') | Q(classNum__contains = '5-22') | Q(classNum__contains = '5-23') | Q(classNum__contains = '5-29') | Q(classNum__contains = '5-30') | Q(classNum__contains = '5-31') | Q(classNum__contains = '5-90') | Q(classNum__contains = '5-91') | Q(classNum__contains = '5-92') | Q(classNum__contains = '5-97') | Q(classNum__contains = '5-99')
 
 		if industrial == 'true':
 			industrial_query = Q(classNum__contains = '6-') | Q(classNum__contains = '5-50') | Q(classNum__contains = '5-80') | Q(classNum__contains = '5-81') | Q(classNum__contains = '5-83') | Q(classNum__contains = '5-87') | Q(classNum__contains = '5-89') | Q(classNum__contains = '5-93')
@@ -1236,7 +1236,7 @@ def chicookcountyapi(request):
 			residential_single_family_query = Q(classNum__contains = '2-02') | Q(classNum__contains = '2-03') | Q(classNum__contains = '2-04') | Q(classNum__contains = '2-05') | Q(classNum__contains = '2-06') | Q(classNum__contains = '2-07') | Q(classNum__contains = '2-08') | Q(classNum__contains = '2-09') | Q(classNum__contains = '2-10') | Q(classNum__contains = '2-34') | Q(classNum__contains = '2-78') | Q(classNum__contains = '2-88') | Q(classNum__contains = '2-95')
 
 		if vacant == 'true':
-			vacant_query = Q(classNum__contains = '1-00') | Q(classNum__contains = '1-09') | Q(classNum__contains = '2-00') | Q(classNum__contains = '2-01') | Q(classNum__contains = '2-39') | Q(classNum__contains = '2-40') | Q(classNum__contains = '2-41') | Q(classNum__contains = '3-00') | Q(classNum__contains = '3-01') | Q(classNum__contains = '5-80') | Q(classNum__contains = '5-90')
+			vacant_query = Q(classNum__contains = '1-00') | Q(classNum__contains = '1-09') | Q(classNum__contains = '2-00') | Q(classNum__contains = '2-39') | Q(classNum__contains = '2-40') | Q(classNum__contains = '2-41') | Q(classNum__contains = '3-00') | Q(classNum__contains = '3-01') | Q(classNum__contains = '5-80') | Q(classNum__contains = '5-90')
 
 		# if any types are selected use in query -- if not ensure none are selected
 		if commercial == 'true' or industrial == 'true' or other == 'true' or residential_condo == 'true' or residential_multifamily == 'true' or residential_single_family == 'true' or vacant == 'true':

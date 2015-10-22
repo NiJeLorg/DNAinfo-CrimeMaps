@@ -24,7 +24,7 @@
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="collapse">
-      <p class="navbar-text">Cook County Real Estate Sales</p>
+      <p class="navbar-text">Chicago Real Estate Sales</p>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
@@ -40,60 +40,28 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
-                            <h4>Filter Data:</h4>
+                            <h4>Filter Results:</h4>
+                            <form id="filter-form">
+                              <p><strong>Search by Property Type</strong></p>
+                              <select class="form-control" id="propertyType">
+                                <option value="all">All Properties</option>
+                                <option value="all_residential">All Residential</option>
+                                <option value="residential_condo">Condos</option>
+                                <option value="residential_multifamily">Multifamily Residential</option>
+                                <option value="residential_single_family">Single-Family Residential</option>
+                                <option value="commercial_industrial">Commercial/Industrial</option>
+                                <option value="vacant">Vacant/Parking</option>
+                              </select>
+                            </form>
+                            <br />                        
                             <p><strong>By Date Sold:</strong></p>
                             <div id="timeSlider"></div>
                             <small>Date Range Selected: <span id="printStartDate"></span> - <span id="printEndDate"></span></small>
-                            <br />
+                            <br /><br />
                             <p><strong>By Price Sold:</strong></p>
                             <div id="priceSlider"></div>
                             <small>Price Range Selected: <span id="printMinPrice"></span> - <span id="printMaxPrice"></span></small>
                             <br />
-                            <form id="filter-form">
-                              <p><strong>By Property Type:</strong></p>
-                              <div class="checkbox">
-                                <label>
-                                  <input type="checkbox" id="residential_condo" value="residential_condo" checked>
-                                  Condos 
-                                </label>
-                              </div>
-                              <div class="checkbox">
-                                <label>
-                                  <input type="checkbox" id="residential_multifamily" value="residential_multifamily" checked>
-                                  Multifamily Residential
-                                </label>
-                              </div>
-                              <div class="checkbox">
-                                <label>
-                                  <input type="checkbox" id="residential_single_family" value="residential_single_family" checked>
-                                  Single-Family Residential
-                                </label>
-                              </div>
-                              <div class="checkbox">
-                                <label>
-                                  <input type="checkbox" id="commercial" value="commercial" checked>
-                                  Commercial
-                                </label>
-                              </div>
-                              <div class="checkbox">
-                                <label>
-                                  <input type="checkbox" id="industrial" value="industrial" checked>
-                                  Industrial
-                                </label>
-                              </div>
-                              <div class="checkbox">
-                                <label>
-                                  <input type="checkbox" id="vacant" value="vacant" checked>
-                                  Vacant/Parking/Land
-                                </label>
-                              </div>
-                              <div class="checkbox">
-                                <label>
-                                  <input type="checkbox" id="other" value="other" checked>
-                                  Other/Unknown
-                                </label>
-                              </div>
-                            </form>                        
                         </div>
                         <div class="col-sm-6">
                             <h4>Legend</h4>

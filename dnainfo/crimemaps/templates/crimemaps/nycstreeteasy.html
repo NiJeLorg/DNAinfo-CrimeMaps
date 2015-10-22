@@ -34,35 +34,38 @@
         <div id="popup-wrapper" class="popup-wrapper popup-wrapper-open">
             <div class="popup-content">
                 <div class="container-fluid">
-                    <div class="row">
+                    <!--<div class="row">
                         <div class="col-sm-12">
                           <a id="popup-expand" class="btn btn-default btn-xs pull-right" href="#" role="button">Expand this window</a>
                         </div>
-                    </div>
+                    </div>-->
                     <div class="row">
                       <div class="col-sm-6">
                         <h4>Filter Data:</h4>
                         <p><strong>By Date: </strong></p>
                         <div id="timeSlider"></div>
-                        <small>Ouarter Selected: <span class="printQuarterM1"></span>-<span class="printQuarterM2"></span>, <span class="printQuarterY"></span></small>
+                        <small>Quarter Selected: <span class="printQuarterM1"></span>-<span class="printQuarterM2"></span>, <span class="printQuarterY"></span></small>
                         <br />
                       </div>
                       <div class="col-sm-6">
                         <h4>Legend</h4>
                             <div id="legend">
                                 <div class="legend-cloropleth">
-                                    <p id="legend-title">Change in Median Price per Square Foot Over Previous Year</p>
+                                    <p id="legend-title">Median Asking Rent by Neighborhood</p>
                                     <ul>
-                                        <li class="min">&gt;10% decrease</li>
-                                        <li class="max">&gt;10% increase</li>
+                                        <li class="min">$0 per month</li>
+                                        <li class="max">&gt;$4,000 per month</li>
                                         <li class="graph">
                                             <div class="colors">
-                                                <div class="quartile" style="background-color:#4d4d4d"></div>
-                                                <div class="quartile" style="background-color:#999999"></div>
-                                                <div class="quartile" style="background-color:#e0e0e0"></div>
-                                                <div class="quartile" style="background-color:#a4d4f2"></div>
-                                                <div class="quartile" style="background-color:#77beea"></div>
-                                                <div class="quartile" style="background-color:#4291c3"></div>
+                                                <div class="quartile" style="background-color:#F7FBFF"></div>
+                                                <div class="quartile" style="background-color:#DEEBF7"></div>
+                                                <div class="quartile" style="background-color:#C6DBEF"></div>
+                                                <div class="quartile" style="background-color:#9ECAE1"></div>
+                                                <div class="quartile" style="background-color:#6BAED6"></div>
+                                                <div class="quartile" style="background-color:#4292C6"></div>
+                                                <div class="quartile" style="background-color:#2171B5"></div>
+                                                <div class="quartile" style="background-color:#08519C"></div>
+                                                <div class="quartile" style="background-color:#08306B"></div>
                                             </div>
                                         </li>
                                     </ul>
