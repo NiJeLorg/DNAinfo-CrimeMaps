@@ -5,6 +5,8 @@
 
 
 $( document ).ready(function() {
+	// pick the data combo on page load from url
+	$( "#monthYear" ).val(monthYear);
 
 	// update map when combo box is picked
 	$( "#filter-form" ).change(function() {

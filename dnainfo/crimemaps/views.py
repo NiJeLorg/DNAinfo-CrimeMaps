@@ -1150,20 +1150,29 @@ def chizillowzipapi(request):
 
 
 def chicookcounty(request):
-	firstOfMonth = date(date.today().year, date.today().month, 1)
-	lastOfMonth = firstOfMonth + relativedelta(days=-1, months=1)
-	firstOfMonth_str = firstOfMonth.strftime("%x")
-	lastOfMonth_str = lastOfMonth.strftime("%x")
-	startDate = request.GET.get("startDate",firstOfMonth_str)
-	endDate = request.GET.get("endDate",lastOfMonth_str)
-	#ensure startDate and endDate are datetime objects
-	startDate = dateutil.parser.parse(startDate).date()
-	endDate = dateutil.parser.parse(endDate).date()
+	#form of monthYear is Jan-2015
+	monthYearGet = request.GET.get("monthYear","")
+	if monthYearGet:
+		#ensure date is a datetime object
+		monthYear = monthYearGet
+	else:
+		monthYear = datetime.datetime.now()
+		monthYear = monthYear.strftime("%b-%Y")
 
-	# pull the earliest date for time slider
+
 	earliestSale = CHICookCountyRealEstateData.objects.earliest('executed')
+	now = datetime.datetime.now()
 
-	return render(request, 'crimemaps/chicookcounty.html', {'startDate':startDate, 'endDate':endDate, 'earliestSale':earliestSale})
+	# get array of dates for combo box creation
+	dates = []
+	for dt in rrule.rrule(rrule.MONTHLY, dtstart=earliestSale.executed, until=now):
+		my = dt.strftime("%b-%Y")
+		dates.append(my)
+
+	dates = reversed(dates)
+
+	return render(request, 'crimemaps/chicookcounty.html', {'monthYear':monthYear, 'dates':dates})
+
 
 def chicookcountyapi(request):
 	#add in the items geojson requires 
@@ -1173,8 +1182,7 @@ def chicookcountyapi(request):
 
 	if request.method == 'GET':
 		#gather potential filter variables
-		startDate = request.GET.get("startDate","")
-		endDate = request.GET.get("endDate","")
+		monthYearGet = request.GET.get("monthYear","")
 		minamount = request.GET.get("minamount","")
 		maxamount = request.GET.get("maxamount","")
 		commercial = request.GET.get("commercial","")
@@ -1186,9 +1194,11 @@ def chicookcountyapi(request):
 		vacant = request.GET.get("vacant","")
 
 
-		# create data objects from start and end dates
+		# create data objects from month dates
+		monthYearArray = monthYearGet.split("-")
+		startDate = monthYearArray[0] + ' 1, ' + monthYearArray[1]
 		startDateparsed = dateutil.parser.parse(startDate).date()
-		endDateparsed = dateutil.parser.parse(endDate).date()
+		endDateparsed = startDateparsed + relativedelta(days=-1, months=1)
 
 		#get empty Qs ready
 		query = Q()

@@ -52,16 +52,41 @@
                                 <option value="commercial_industrial">Commercial/Industrial</option>
                                 <option value="vacant">Vacant/Parking</option>
                               </select>
+                              <br />
+                              <p><strong>By Date Sold:</strong></p>
+                              <select class="form-control" id="monthYear">
+                                {% for date in dates %}
+                                  <option value="{{ date }}">{{ date }}</option>
+                                {% endfor %}
+                              </select>
+                              <br />
+                              <p><strong>By Minimum Sale Price:</strong></p>
+                              <select class="form-control" id="minamount">
+                                <option value="0">$0</option>
+                                <option value="50000">$50,000</option>
+                                <option value="100000">$100,000</option>
+                                <option value="250000">$250,000</option>
+                                <option value="500000">$500,000</option>
+                                <option value="1000000">$1 Million</option>
+                                <option value="2000000">$2 Million</option>
+                                <option value="5000000">$5 Million</option>
+                                <option value="10000000">$10 Million</option>
+                              </select>
+                              <br />
+                              <p><strong>By Maximum Sale Price:</strong></p>
+                              <select class="form-control" id="maxamount">
+                                <option value="1000000000000">Greater than $10 Million</option>
+                                <option value="10000000">$10 Million</option>
+                                <option value="5000000">$5 Million</option>
+                                <option value="2000000">$2 Million</option>
+                                <option value="1000000">$1 Million</option>
+                                <option value="500000">$500,000</option>
+                                <option value="250000">$250,000</option>
+                                <option value="100000">$100,000</option>
+                                <option value="50000">$50,000</option>
+                              </select>
                             </form>
                             <br />                        
-                            <p><strong>By Date Sold:</strong></p>
-                            <div id="timeSlider"></div>
-                            <small>Date Range Selected: <span id="printStartDate"></span> - <span id="printEndDate"></span></small>
-                            <br /><br />
-                            <p><strong>By Price Sold:</strong></p>
-                            <div id="priceSlider"></div>
-                            <small>Price Range Selected: <span id="printMinPrice"></span> - <span id="printMaxPrice"></span></small>
-                            <br />
                         </div>
                         <div class="col-sm-6">
                             <h4>Legend</h4>
@@ -72,7 +97,7 @@
                                     <p>Sale Amount</p>
                                     <ul>
                                       <li>$0</li>
-                                      <li class="graph" style="background: #931212;"><div class="bubbles"></div></li>
+                                      <li class="graph-re"><div class="bubbles-re"></div></li>
                                       <li id="legend-max-num">&gt;$10 Million</li>
                                     </ul>
                                   </div>
@@ -94,7 +119,7 @@
                               </div>
                               <div class="row">
                                 <div class="col-sm-12">
-                                    <p><small>Source: Cook County Recorder of Deeds</small></p>
+                                    <p><small>Source: Cook County Recorder of Deeds and Cook County Property Tax Portal</small></p>
                                 </div>
                               </div> 
                             </div>
@@ -116,8 +141,7 @@
 
 {% block js_block %}
 	<script type="text/javascript">
-        var startDate = '{{ startDate }}';
-        var endDate = '{{ endDate }}';
+        var monthYear = '{{ monthYear }}';
         var chiCommunities = "{% static 'crimemaps/data/chi_acs_2013_commareas_commute.topojson' %}";
 	</script>
 	<script type="text/javascript" src="{% static 'crimemaps/js/d3.min.js' %}"></script>
@@ -131,7 +155,7 @@
 	<script type="text/javascript" src="{% static 'crimemaps/js/DNAinfoChiCookCounty.js' %}"></script>
 	<script type="text/javascript" src="{% static 'crimemaps/js/chicookcountyapp.js' %}"></script>
   <script type="text/javascript" src="{% static 'crimemaps/js/chiCookCountyControllers.js' %}"></script>
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA0mofJLHQmeTcwB0C0pkTxv-rPJ1fW4H0">
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA0mofJLHQmeTcwB0C0pkTxv-rPJ1fW4H0">
   </script>
 {% endblock %}
 

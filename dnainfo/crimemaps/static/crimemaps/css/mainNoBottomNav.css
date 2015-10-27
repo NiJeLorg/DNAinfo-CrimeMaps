@@ -298,6 +298,19 @@ body.loading .loading-modal {
 	height: 40px;
 }
 
+.legend-bubbles ul li.graph-re {
+	top: 0;
+	width: 166px;
+	height: 40px;
+	margin: 0 10px;
+}
+
+.legend-bubbles ul li.graph-re .bubbles-re {
+	background: url("images/bubbles_real_estate.png") no-repeat 0 0;
+	width: 166px;
+	height: 40px;
+}
+
 /*
 * Leaflet overrides
 */

@@ -81,7 +81,7 @@ DNAinfoChiCookCounty.onEachFeature_CHISALES = function(feature,layer){
 
 	if (L.Browser.touch) {
 	} else {
-		layer.bindLabel("<strong>" + feature.properties.fulladdress + "</strong><br />" + amount + "Click for more info", { direction:'auto' });
+		layer.bindLabel("<strong>" + feature.properties.fulladdress + "</strong><br />" + amount + "Click this dot for more info.", { direction:'auto' });
 	}
 	
     layer.on('mouseover', function(ev) {	
@@ -93,15 +93,19 @@ DNAinfoChiCookCounty.onEachFeature_CHISALES = function(feature,layer){
     });	
 
 	var commaFormat = d3.format(",.0f");
-	layer.bindPopup("<h5>" + feature.properties.fulladdress + "</h5><div id=\"street-view\"></div><p>" + amount + "Date of Sale: " + dateFormat(feature.properties.executed) + "<br />Seller's Name: " + feature.properties.seller + "<br />Buyer's Name: " + feature.properties.buyer + "<br />Property Description: " + feature.properties.description + buildingsize + lotsize + pricepersqft + "<br />PIN: <a class='popup-link' href='http://12.218.239.81/i2/default.aspx' target='_blank'>" + feature.properties.pin + "</a></p>");
+	layer.bindPopup("<h5>" + feature.properties.fulladdress + "</h5><div id=\"street-view\"></div><p>" + amount + "Date of Sale: " + dateFormat(feature.properties.executed) + "<br />Seller's Name: " + feature.properties.seller + "<br />Buyer's Name: " + feature.properties.buyer + "<br />Property Description: " + feature.properties.description + buildingsize + lotsize + pricepersqft + "<br /><a class='popup-link' href='http://www.cookcountypropertyinfo.com/Pages/Pin-Results.aspx?pin=" + feature.properties.pin + "' target='_blank'>Learn more about this property.</a></p>");
 
 
     layer.on('click', function(ev) {
-    	panorama = new google.maps.StreetViewPanorama( document.getElementById('street-view'), {
-				position: {lat: feature.geometry.coordinates[1], lng: feature.geometry.coordinates[0]},
-				pov: {heading: 0, pitch: 0},
-				zoom: 1
-			});		
+	    if (L.Browser.touch) {
+		} else {
+	    	panorama = new google.maps.StreetViewPanorama( document.getElementById('street-view'), {
+					position: {lat: feature.geometry.coordinates[1], lng: feature.geometry.coordinates[0]},
+					pov: {heading: 0, pitch: 0},
+					zoom: 1
+				});	
+		}
+	
     });	
 
 
@@ -149,7 +153,7 @@ DNAinfoChiCookCounty.prototype.loadPointLayers = function (){
 	var vacant = 'true';		
 
 
-	d3.json('/chicookcountyapi/?startDate=' + startDate + '&endDate=' + endDate + '&residential_condo=' + residential_condo + '&residential_multifamily=' + residential_multifamily + '&residential_single_family=' + residential_single_family + '&commercial=' + commercial + '&industrial=' + industrial, function(data) {
+	d3.json('/chicookcountyapi/?monthYear=' + monthYear + '&residential_condo=' + residential_condo + '&residential_multifamily=' + residential_multifamily + '&residential_single_family=' + residential_single_family + '&commercial=' + commercial + '&industrial=' + industrial, function(data) {
 		geojsonData = data;
 		$.each(geojsonData.features, function(i, d){
 			d.properties.executed = dateFormat.parse(d.properties.executed);
@@ -161,10 +165,10 @@ DNAinfoChiCookCounty.prototype.loadPointLayers = function (){
 		}).addTo(thismap.map);
 
 		// draw time slider after points are added
-		DNAinfoChiCookCounty.drawTimeSlider();
+		//DNAinfoChiCookCounty.drawTimeSlider();
 
 		// draw price slider after points are added
-		DNAinfoChiCookCounty.drawPriceSlider();
+		//DNAinfoChiCookCounty.drawPriceSlider();
 	});
 
 }
@@ -375,9 +379,13 @@ DNAinfoChiCookCounty.updateMapFromSliderCombo = function (){
 	// close popups
 	MY_MAP.map.closePopup();
 
-	// moment parses unix offsets and javascript date objects in the same way
-	var startDate = moment(minTimeSelected).format("YYYY-MM-DD");
-	var endDate = moment(maxTimeSelected).format("YYYY-MM-DD");
+	// parse selected date
+	var dateSelected = $( "#monthYear option:selected" ).val();
+	var monthYear = moment(dateSelected).format("MMM-YYYY");
+
+	// get minimum/maximum sale price selected
+	var minPriceSelected = $( "#minamount option:selected" ).val();
+	var maxPriceSelected = $( "#maxamount option:selected" ).val();
 
 	var residential_condo = 'false';
 	var residential_multifamily = 'false';
@@ -415,7 +423,7 @@ DNAinfoChiCookCounty.updateMapFromSliderCombo = function (){
 	// date format
 	var dateFormat = d3.time.format("%Y-%m-%d");
 
-	d3.json('/chicookcountyapi/?startDate=' + startDate + '&endDate=' + endDate + '&minamount=' + minPriceSelected + '&maxamount=' + maxPriceSelected + '&residential_condo=' + residential_condo + '&residential_multifamily=' + residential_multifamily + '&residential_single_family=' + residential_single_family + '&commercial=' + commercial + '&industrial=' + industrial, function(data) {
+	d3.json('/chicookcountyapi/?monthYear=' + monthYear + '&minamount=' + minPriceSelected + '&maxamount=' + maxPriceSelected + '&residential_condo=' + residential_condo + '&residential_multifamily=' + residential_multifamily + '&residential_single_family=' + residential_single_family + '&commercial=' + commercial + '&industrial=' + industrial, function(data) {
 		geojsonData = data;
 		$.each(geojsonData.features, function(i, d){
 			d.properties.executed = dateFormat.parse(d.properties.executed);
@@ -430,13 +438,13 @@ DNAinfoChiCookCounty.updateMapFromSliderCombo = function (){
 
 	});
 
-	// add formated dates selected to area right below slider
-	$('#printStartDate').html(moment(minTimeSelected).format("MMM D, YYYY"));
-	$('#printEndDate').html(moment(maxTimeSelected).format("MMM D, YYYY"));
+	// // add formated dates selected to area right below slider
+	// $('#printStartDate').html(moment(minTimeSelected).format("MMM D, YYYY"));
+	// $('#printEndDate').html(moment(maxTimeSelected).format("MMM D, YYYY"));
 
-	// add formated dates selected to area right below slider
-	$('#printMinPrice').html(priceFormat(minPriceSelected));
-	$('#printMaxPrice').html(priceFormat(maxPriceSelected));
+	// // add formated dates selected to area right below slider
+	// $('#printMinPrice').html(priceFormat(minPriceSelected));
+	// $('#printMaxPrice').html(priceFormat(maxPriceSelected));
 
 
 }
