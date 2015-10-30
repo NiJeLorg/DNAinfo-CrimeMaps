@@ -213,7 +213,7 @@ DNAinfoNYCStreetEasy.getStyleFor_ZIPS = function (feature){
         weight: 1,
         opacity: 0.75,
         color: '#f1f1f1',
-        fillOpacity: DNAinfoNYCStreetEasy.fillOpacity_ZIPS(property),
+        fillOpacity: 0.75,
         fillColor: DNAinfoNYCStreetEasy.fillColor_ZIPS(property)
     }
 }
@@ -228,9 +228,9 @@ DNAinfoNYCStreetEasy.fillColor_ZIPS = function (d){
            d > 1000   ? '#C6DBEF' :
            d > 500    ? '#DEEBF7' :
            d > 0      ? '#F7FBFF' :
-           d == -99   ? '#ffffff' :
-           isNaN(d)   ? '#ffffff' :
-                        '#4d4d4d';	
+           d == -99   ? '#aaaaaa' :
+           isNaN(d)   ? '#aaaaaa' :
+                        '#aaaaaa';	
 }
 
 

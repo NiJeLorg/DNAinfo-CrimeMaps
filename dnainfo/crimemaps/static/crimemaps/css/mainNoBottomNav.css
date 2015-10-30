@@ -256,6 +256,10 @@ body.loading .loading-modal {
 	border: 1px solid #b3b3b3;
 }
 
+.legend-cloropleth li.graph.half {
+	width: 22.22%;
+}
+
 .legend-cloropleth li.graph .colors {
 	display: table-row;
 }
