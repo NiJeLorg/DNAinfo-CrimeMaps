@@ -120,6 +120,10 @@ body.loading .loading-modal {
 	color: #bdbdbd;
 }
 
+.decreaseTextPopupRE {
+	color: #e4b1b1;
+}
+
 .margin10top {
 	margin-top: 10px;
 }
@@ -469,6 +473,5 @@ body.loading .loading-modal {
 #street-view {
 	height: 200px;
 }
-
 
 

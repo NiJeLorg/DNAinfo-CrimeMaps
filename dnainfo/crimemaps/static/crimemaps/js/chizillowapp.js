@@ -9,7 +9,7 @@
 var ZIPS = null;
 var activeLayer = 'sale';
 var MY_MAP = null;
-var selectedQ = moment(quarter).toDate();
+var selectedQ = moment(quarter, "MMM. DD, YYYY").toDate();
 
 
 $().ready(new function(){

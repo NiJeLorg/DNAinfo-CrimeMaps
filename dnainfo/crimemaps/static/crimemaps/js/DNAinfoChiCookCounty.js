@@ -93,11 +93,16 @@ DNAinfoChiCookCounty.onEachFeature_CHISALES = function(feature,layer){
     });	
 
 	var commaFormat = d3.format(",.0f");
-	layer.bindPopup("<h5>" + feature.properties.fulladdress + "</h5><div id=\"street-view\"></div><p>" + amount + "Date of Sale: " + dateFormat(feature.properties.executed) + "<br />Seller's Name: " + feature.properties.seller + "<br />Buyer's Name: " + feature.properties.buyer + "<br />Property Description: " + feature.properties.description + buildingsize + lotsize + pricepersqft + "<br /><a class='popup-link' href='http://www.cookcountypropertyinfo.com/Pages/Pin-Results.aspx?pin=" + feature.properties.pin + "' target='_blank'>Learn more about this property.</a></p>");
+    if (L.Browser.mobile) {
+    	var streetView = "";
+	} else {
+		var streetView = "<div id=\"street-view\"></div>";
+	}	
+	layer.bindPopup("<h5>" + feature.properties.fulladdress + "</h5>" + streetView + "<p>" + amount + "Date of Sale: " + dateFormat(feature.properties.executed) + "<br />Seller's Name: " + feature.properties.seller + "<br />Buyer's Name: " + feature.properties.buyer + "<br />Property Description: " + feature.properties.description + buildingsize + lotsize + pricepersqft + "<br /><a class='popup-link' href='http://www.cookcountypropertyinfo.com/Pages/Pin-Results.aspx?pin=" + feature.properties.pin + "' target='_blank'>Learn more about this property.</a></p>");
 
 
     layer.on('click', function(ev) {
-	    if (L.Browser.touch) {
+	    if (L.Browser.mobile) {
 		} else {
 	    	panorama = new google.maps.StreetViewPanorama( document.getElementById('street-view'), {
 					position: {lat: feature.geometry.coordinates[1], lng: feature.geometry.coordinates[0]},
@@ -380,8 +385,7 @@ DNAinfoChiCookCounty.updateMapFromSliderCombo = function (){
 	MY_MAP.map.closePopup();
 
 	// parse selected date
-	var dateSelected = $( "#monthYear option:selected" ).val();
-	var monthYear = moment(dateSelected).format("MMM-YYYY");
+	var monthYear = $( "#monthYear option:selected" ).val();
 
 	// get minimum/maximum sale price selected
 	var minPriceSelected = $( "#minamount option:selected" ).val();

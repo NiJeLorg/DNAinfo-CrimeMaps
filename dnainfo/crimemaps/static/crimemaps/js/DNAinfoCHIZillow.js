@@ -77,7 +77,7 @@ DNAinfoCHIZillow.onEachFeature_ZIPS = function(feature,layer){
 		} else if (feature.properties.changeinvaluesquarefootoverpreviousyear > 0) {
 			var headingTotalText = "<strong><span class='increaseTextPopupRE'>"+ Math.abs(feature.properties.changeinvaluesquarefootoverpreviousyear) +"% increase"+ price +"sale price per square foot<br />over the previous year.";
 		} else {
-			var headingTotalText = "<strong><span class='decreaseTextPopup'>"+ Math.abs(feature.properties.changeinvaluesquarefootoverpreviousyear) +"% decrease"+ price +"sale price per square foot<br />over the previous year.";
+			var headingTotalText = "<strong><span class='decreaseTextPopupRE'>"+ Math.abs(feature.properties.changeinvaluesquarefootoverpreviousyear) +"% decrease"+ price +"sale price per square foot<br />over the previous year.";
 		}	
 
 		if (L.Browser.touch) {
@@ -123,11 +123,13 @@ DNAinfoCHIZillow.onEachFeature_ZIPS = function(feature,layer){
 			var estimatedvalueofallhomes = "<li>The estimated value of all homes is <strong>$" + commaFormat(feature.properties.estimatedvalueofallhomes) + "</strong>.</li>";
 		}
 
+		/*
 		if (isNaN(feature.properties.medianlistprice) || feature.properties.medianlistprice == -99) {
 			var medianlistprice = "";
 		} else {
 			var medianlistprice = "<li>The median list price of sales is <strong>$" + commaFormat(feature.properties.medianlistprice) + "</strong>.</li>";
 		}
+		*/
 
 		if (isNaN(feature.properties.percentofhomessoldinpastyear) || feature.properties.percentofhomessoldinpastyear == -99) {
 			var percentofhomessoldinpastyear = "";
@@ -136,7 +138,7 @@ DNAinfoCHIZillow.onEachFeature_ZIPS = function(feature,layer){
 		}
 
 
-	    layer.bindPopup("<h5>" + feature.properties.neighborhoodscovered + " | Zip Code: " + feature.properties.zip + "</h5><ul>" + percentlivinginsamehouseoneyearago2013censusestimate + medianhouseholdincome2013censusestimate + estimatedvaluesquarefoot + estimatedvalueofallhomes + medianlistprice + percentofhomessoldinpastyear + "</ul>");
+	    layer.bindPopup("<h5>" + feature.properties.neighborhoodscovered + " | Zip Code: " + feature.properties.zip + "</h5><ul>" + percentlivinginsamehouseoneyearago2013censusestimate + medianhouseholdincome2013censusestimate + estimatedvaluesquarefoot + estimatedvalueofallhomes + percentofhomessoldinpastyear + "</ul>");
 
 	} else {
 
@@ -149,9 +151,9 @@ DNAinfoCHIZillow.onEachFeature_ZIPS = function(feature,layer){
 		if (isNaN(feature.properties.changeavgrentsqfootoverpreviousyear) || feature.properties.changeavgrentsqfootoverpreviousyear == -99) {
 			var headingTotalText = "Data not available for the change in<br />average rent per square foot over<br />the previous year for this zipcode.";
 		} else if (feature.properties.changeavgrentsqfootoverpreviousyear > 0) {
-			var headingTotalText = "<strong><span class='increaseTextPopupRE'>"+ Math.abs(feature.properties.changeavgrentsqfootoverpreviousyear) +"% increase" + price + "</span></strong> in average<br />rent per square foot over the<br />previous year.";
+			var headingTotalText = "<strong><span class='increaseTextPopupRE'>"+ Math.abs(feature.properties.changeavgrentsqfootoverpreviousyear) +"% increase" + price + "</span></strong> in<br />average rent per square foot<br />over the previous year.";
 		} else {
-			var headingTotalText = "<strong><span class='decreaseTextPopup'>"+ Math.abs(feature.properties.changeavgrentsqfootoverpreviousyear) +"% decrease" + price + "</span></strong> in average<br />rent per square foot over the<br />previous year.";
+			var headingTotalText = "<strong><span class='decreaseTextPopupRE'>"+ Math.abs(feature.properties.changeavgrentsqfootoverpreviousyear) +"% decrease" + price + "</span></strong> in<br />average rent per square foot<br />over the previous year.";
 		}	
 
 		if (L.Browser.touch) {
@@ -272,7 +274,7 @@ DNAinfoCHIZillow.fillColor_ZIPS = function (d){
 
 
 DNAinfoCHIZillow.drawTimeSlider = function (){
-	var minDate = new Date(2011,0,1);
+	var minDate = new Date(2012,0,1);
 	var maxDate = moment().toDate();
 
 	// three month calc
@@ -290,6 +292,16 @@ DNAinfoCHIZillow.drawTimeSlider = function (){
 							.ticks(d3.time.year)
 							.tickSize(24, 0)
 							.tickFormat(d3.time.format("%Y"))
+					)
+					.axis2(
+						d3.svg.axis()
+							.orient("top")
+							.scale(
+								d3.time.scale()
+									.domain([minDate, maxDate])
+							)
+							.ticks(d3.time.month, 3)
+							.tickFormat('')						
 					)
 					.scale(
 						d3.time.scale()
@@ -313,10 +325,10 @@ DNAinfoCHIZillow.drawTimeSlider = function (){
 	d3.select('#timeSlider').call(mapSlider);
 
 	// add formated dates selected to area right below slider
-	$('.printQuarterM1').html(moment(quarter).format("MMM"));
-	var addtwomonths = moment(quarter).add(2, 'months').format("MMM");
+	$('.printQuarterM1').html(moment(quarter, "MMM. DD, YYYY").format("MMM"));
+	var addtwomonths = moment(quarter, "MMM. DD, YYYY").add(2, 'months').format("MMM");
 	$('.printQuarterM2').html(addtwomonths);
-	$('.printQuarterY').html(moment(quarter).format("YYYY"));
+	$('.printQuarterY').html(moment(quarter, "MMM. DD, YYYY").format("YYYY"));
 
 }
 

@@ -9,7 +9,7 @@
 var ZIPS = null;
 var activeLayer = 'rent';
 var MY_MAP = null;
-var selectedQ = moment(dateperiod).toDate();
+var selectedQ = moment(dateperiod, "MMM. DD, YYYY").toDate();
 
 $().ready(new function(){
     var myMap = new DNAinfoNYCStreetEasy();

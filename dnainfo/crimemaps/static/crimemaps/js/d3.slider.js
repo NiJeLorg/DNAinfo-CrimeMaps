@@ -32,6 +32,7 @@ return function module() {
       animate = true,
       orientation = "horizontal",
       axis = false,
+      axis2 = false,
       margin = 50,
       value,
       active = 1,
@@ -39,7 +40,9 @@ return function module() {
       scale;
 
   // Private variables
-  var axisScale,
+  var svg, 
+      axisScale,
+      axisScale2,
       dispatch = d3.dispatch("slide", "slideend"),
       formatPercent = d3.format(".2%"),
       tickFormat = d3.format(".0"),
@@ -146,6 +149,9 @@ return function module() {
         createAxis(div);
       }
 
+      if (axis2) {
+        createAxis2();
+      }
 
       function createAxis(dom) {
 
@@ -164,7 +170,7 @@ return function module() {
           axis.scale(axisScale);
 
           // Create SVG axis container
-        var svg = dom.append("svg")
+        svg = dom.append("svg")
             .classed("d3-slider-axis d3-slider-axis-" + axis.orient(), true)
             .on("click", stopPropagation);
 
@@ -206,6 +212,58 @@ return function module() {
         }
 
         g.call(axis)
+          .selectAll(".tick text")
+          .style("text-anchor", "start")
+          .attr("x", 8)
+          .attr("y", -8);
+
+      }
+
+
+      function createAxis2() {
+
+        // Copy slider scale to move from percentages to pixels
+        axisScale2 = scale.ticks ? scale.copy().range([0, sliderLength]) : scale.copy().rangePoints([0, sliderLength], 0.5);
+          axis2.scale(axisScale2);
+
+        var g = svg.append("g");
+
+        // Horizontal axis
+        if (orientation === "horizontal") {
+
+          svg.style("margin-left", -margin + "px");
+
+          svg.attr({
+            width: sliderLength + margin * 2,
+            height: margin
+          });
+
+          if (axis2.orient() === "top") {
+            svg.style("top", -margin + "px");
+            g.attr("transform", "translate(" + margin + "," + margin + ")");
+          } else { // bottom
+            g.attr("transform", "translate(" + margin + ",0)");
+          }
+
+        } else { // Vertical
+
+          svg.style("top", -margin + "px");
+
+          svg.attr({
+            width: margin,
+            height: sliderLength + margin * 2
+          });
+
+          if (axis2.orient() === "left") {
+            svg.style("left", -margin + "px");
+            g.attr("transform", "translate(" + margin + "," + margin + ")");
+          } else { // right          
+            g.attr("transform", "translate(" + 0 + "," + margin + ")");
+          }
+
+        }
+
+        g.call(axis2)
           .selectAll(".tick text")
           .style("text-anchor", "start")
           .attr("x", 8)
@@ -394,6 +452,12 @@ return function module() {
   slider.axis = function(_) {
     if (!arguments.length) return axis;
     axis = _;
+    return slider;
+  };
+
+  slider.axis2 = function(_) {
+    if (!arguments.length) return axis2;
+    axis2 = _;
     return slider;
   };
 

@@ -110,25 +110,18 @@ DNAinfoNYCStreetEasy.onEachFeature_ZIPS = function(feature,layer){
 		var Y  = moment(selectedQ).format("YYYY");
 
 		if (isNaN(feature.properties.medianaskingrent) || feature.properties.medianaskingrent == -99) {
-			var headingTotalText = "Data not available for median<br />asking rent for this area.";
+			var hoverRentText = "Data not available for median<br />asking rent for this area.";
 		} else {
-			var headingTotalText = "Median asking rent in " + feature.properties.name + "<br />was <strong>$" + commaFormat(feature.properties.medianaskingrent) + "</strong> in " + M1 + "-" + M2 + ", " + Y + ".";
+			var hoverRentText = "Median asking rent in " + feature.properties.name + "<br />was <strong>$" + commaFormat(feature.properties.medianaskingrent) + "</strong> between " + M1 + "-" + M2 + ", " + Y + ".";
 		}	
 
-		if (L.Browser.touch) {
+		if (isNaN(feature.properties.medianaskingrentchcange) || feature.properties.medianaskingrentchcange == -99) {
+			var hoverChangeText = "<br />Data not available for change in<br />median asking rent for this area.";
+		} else if (feature.properties.medianaskingrentchcange > 0) {
+			var hoverChangeText = "<br />Median asking rent <strong><span class='increaseTextPopupRE'>increased " + twodecFormat(feature.properties.medianaskingrentchcange) + "%</span></strong><br />between this quarter and the same<br />quarter in the previous year.";
 		} else {
-			layer.bindLabel("<strong>" + feature.properties.name + "</strong><br />​"+ headingTotalText +"<br />Click for more info" , { direction:'auto' });
-		} 
-
-	    layer.on('mouseover', function(ev) {
-	 
-			layer.setStyle(highlight);
-
-	    });
-
-	    layer.on('mouseout', function(ev) {
-			layer.setStyle(noHighlight);		
-	    });	
+			var hoverChangeText = "<br />Median asking rent <strong><span class='decreaseTextPopupRE'>decreased " + twodecFormat(Math.abs(feature.properties.medianaskingrentchcange)) + "%</span></strong><br />between this quarter and the same<br />quarter in the previous year.";
+		}
 
 		if (isNaN(feature.properties.medianaskingrent) || feature.properties.medianaskingrent == -99) {
 			var medianaskingrent = "";
@@ -141,11 +134,26 @@ DNAinfoNYCStreetEasy.onEachFeature_ZIPS = function(feature,layer){
 		} else if (feature.properties.medianaskingrentchcange > 0) {
 			var medianaskingrentchcange = "Median asking rent <strong><span class='increaseTextPopupRE'>increased " + twodecFormat(feature.properties.medianaskingrentchcange) + "%</span></strong> between this quarter and the same quarter in the previous year.";
 		} else {
-			var medianaskingrentchcange = "Median asking rent <strong><span class='increaseTextPopupRE'>decreased " + twodecFormat(feature.properties.medianaskingrentchcange) + "%</span></strong> between this quarter and the same quarter in the previous year.";
+			var medianaskingrentchcange = "Median asking rent <strong><span class='decreaseTextPopupRE'>decreased " + twodecFormat(feature.properties.medianaskingrentchcange) + "%</span></strong> between this quarter and the same quarter in the previous year.";
 		}
 
 
-	    layer.bindPopup("<h5>" + feature.properties.name + "</h5><p>" + medianaskingrent + medianaskingrentchcange + "</p>");
+		if (L.Browser.touch) {
+		    layer.bindPopup("<h5>" + feature.properties.name + "</h5><p>" + medianaskingrent + medianaskingrentchcange + "</p>");
+		} else {
+			layer.bindLabel("<strong>" + feature.properties.name + "</strong><br />​"+ hoverRentText + hoverChangeText , { direction:'auto' });
+		} 
+
+	    layer.on('mouseover', function(ev) {
+	 
+			layer.setStyle(highlight);
+
+	    });
+
+	    layer.on('mouseout', function(ev) {
+			layer.setStyle(noHighlight);		
+	    });	
+
 
 
 	}
@@ -254,6 +262,16 @@ DNAinfoNYCStreetEasy.drawTimeSlider = function (){
 							.tickSize(24, 0)
 							.tickFormat(d3.time.format("%Y"))
 					)
+					.axis2(
+						d3.svg.axis()
+							.orient("top")
+							.scale(
+								d3.time.scale()
+									.domain([minDate, maxDate])
+							)
+							.ticks(d3.time.month, 3)
+							.tickFormat('')						
+					)
 					.scale(
 						d3.time.scale()
 							.domain([minDate, maxDate])
@@ -276,10 +294,10 @@ DNAinfoNYCStreetEasy.drawTimeSlider = function (){
 	d3.select('#timeSlider').call(mapSlider);
 
 	// add formated dates selected to area right below slider
-	$('.printQuarterM1').html(moment(dateperiod).format("MMM"));
-	var addtwomonths = moment(dateperiod).add(2, 'months').format("MMM");
+	$('.printQuarterM1').html(moment(dateperiod, "MMM. DD, YYYY").format("MMM"));
+	var addtwomonths = moment(dateperiod, "MMM. DD, YYYY").add(2, 'months').format("MMM");
 	$('.printQuarterM2').html(addtwomonths);
-	$('.printQuarterY').html(moment(dateperiod).format("YYYY"));
+	$('.printQuarterY').html(moment(dateperiod, "MMM. DD, YYYY").format("YYYY"));
 
 }
 

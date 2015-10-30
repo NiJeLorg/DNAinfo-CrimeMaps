@@ -1156,21 +1156,23 @@ def chicookcounty(request):
 		#ensure date is a datetime object
 		monthYear = monthYearGet
 	else:
-		monthYear = datetime.datetime.now()
+		monthYear = datetime.datetime.now() + relativedelta(months=-4)
 		monthYear = monthYear.strftime("%b-%Y")
 
 
 	earliestSale = CHICookCountyRealEstateData.objects.earliest('executed')
 	now = datetime.datetime.now()
 
+	fourmonthsago = now + relativedelta(months=-4)
+
 	# get array of dates for combo box creation
 	dates = []
-	for dt in rrule.rrule(rrule.MONTHLY, dtstart=earliestSale.executed, until=now):
-		my = dt.strftime("%b-%Y")
+	for dt in rrule.rrule(rrule.MONTHLY, dtstart=earliestSale.executed, until=fourmonthsago):
+		my = (dt.strftime("%b-%Y"), dt.strftime("%b %Y"))
 		dates.append(my)
 
 	dates = reversed(dates)
-
+		
 	return render(request, 'crimemaps/chicookcounty.html', {'monthYear':monthYear, 'dates':dates})
 
 
