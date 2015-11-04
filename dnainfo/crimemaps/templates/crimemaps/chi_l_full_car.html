@@ -1,0 +1,139 @@
+{% extends 'crimemaps/baseNoBottomNavCHI_TrainApp.html' %}
+{% load staticfiles %}
+{% load bootstrap_tags %}
+
+{% block title %}Where do you stand or sit on the train? | DNAinfo{% endblock %}
+
+{% block css_block %}
+{% endblock %}
+
+{% block head_js_block %}
+{% endblock %}
+	
+{% block body_block %}
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="collapse navbar-collapse pull-left" id="collapse">
+        <div class="navbar-header" style="background-color: #e1344b;">
+            <p class="navbar-brand">Red Line</a>
+        </div>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="navbar-sliver" style="background-color: #e1344b;"></div>
+    <p id="heading" class="navbar-text">Where do you prefer to stand?</p>
+  </div><!-- /.container-fluid -->
+</nav>
+
+    <!-- Content -->
+    <div class="container">
+        <div class="row margin30top">
+            <h2>Direction of Travel <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span></h2>
+        </div>
+        <div class="row margin30top">
+            <div class="col-sm-12">
+              <img id="chi_redline_subway_A_car" src="{% static 'crimemaps/css/images/chi_redline_subway_A_car.png' %}" width="1997" height="371" usemap="#chi_redline_subway_A_car" border="0">
+              <map name="chi_redline_subway_A_car">
+                <area data-key="1,side-standing" shape="rect" coords="628,237,776,336" href="#" >
+                <area data-key="2,side-standing" shape="rect" coords="633,37,775,129" href="#" >
+                <area data-key="3,door-standing" shape="rect" coords="1295,37,1459,131" href="#" >
+                <area data-key="4,door-standing" shape="rect" coords="1294,239,1458,333" href="#" >
+                <area data-key="5,door-standing" shape="rect" coords="462,237,626,331" href="#" >
+                <area data-key="6,door-standing" shape="rect" coords="463,37,627,131" href="#" >
+                <area data-key="7,middle-door-standing" shape="rect" coords="1234,136,1490,234" href="#" >
+                <area data-key="8,middle-standing" shape="rect" coords="1491,136,1747,234" href="#" >
+                <area data-key="9,end-standing" shape="rect" coords="1747,136,1872,234" href="#" >
+                <area data-key="10,middle-standing" shape="rect" coords="976,136,1232,234" href="#" >
+                <area data-key="11,middle-standing" shape="rect" coords="719,136,975,234" href="#" >
+                <area data-key="12,middle-door-standing" shape="rect" coords="462,136,718,234" href="#" >
+                <area data-key="13,middle-standing" shape="rect" coords="204,136,460,234" href="#" >
+                <area data-key="14,end-standing" shape="rect" coords="51,138,203,236" href="#" >
+                <area data-key="15,window-seat" shape="rect" coords="788,289,867,347" href="#" >
+                <area data-key="16,asile-seat" shape="rect" coords="786,232,865,290" href="#" >
+                <area data-key="17,asile-seat" shape="rect" coords="788,82,867,140" href="#" >
+                <area data-key="18,window-seat" shape="rect" coords="786,25,865,83" href="#" >
+                <area data-key="19,edge-seat" shape="rect" coords="1761,262,1819,337" href="#" >
+                <area data-key="20,middle-seat" shape="rect" coords="1584,261,1642,336" href="#" >
+                <area data-key="21,middle-seat" shape="rect" coords="1644,261,1702,336" href="#" >
+                <area data-key="22,middle-seat" shape="rect" coords="1701,260,1759,335" href="#" >
+                <area data-key="23,edge-seat" shape="rect" coords="1526,261,1584,336" href="#" >
+                <area data-key="24,edge-seat" shape="rect" coords="1467,262,1525,337" href="#" >
+                <area data-key="25,edge-seat" shape="rect" coords="1760,33,1818,108" href="#" >
+                <area data-key="26,edge-seat" shape="rect" coords="1466,33,1524,108" href="#" >
+                <area data-key="27,edge-seat" shape="rect" coords="1525,32,1583,107" href="#" >
+                <area data-key="28,middle-seat" shape="rect" coords="1583,32,1641,107" href="#" >
+                <area data-key="29,middle-seat" shape="rect" coords="1643,32,1701,107" href="#" >
+                <area data-key="30,middle-seat" shape="rect" coords="1700,31,1758,106" href="#" >
+                <area data-key="31,edge-seat" shape="rect" coords="880,270,938,345" href="#" >
+                <area data-key="32,middle-seat" shape="rect" coords="939,269,997,344" href="#" >
+                <area data-key="33,middle-seat" shape="rect" coords="997,269,1055,344" href="#" >
+                <area data-key="34,middle-seat" shape="rect" coords="1057,269,1115,344" href="#" >
+                <area data-key="35,middle-seat" shape="rect" coords="1114,268,1172,343" href="#" >
+                <area data-key="36,edge-seat" shape="rect" coords="1173,261,1231,336" href="#" >
+                <area data-key="37,edge-seat" shape="rect" coords="1230,260,1288,335" href="#" >
+                <area data-key="38,edge-seat" shape="rect" coords="1228,33,1286,108" href="#" >
+                <area data-key="39,edge-seat" shape="rect" coords="1171,34,1229,109" href="#" >
+                <area data-key="40,middle-seat" shape="rect" coords="1112,26,1170,101" href="#" >
+                <area data-key="41,edge-seat" shape="rect" coords="878,28,936,103" href="#" >
+                <area data-key="42,middle-seat" shape="rect" coords="937,27,995,102" href="#" >
+                <area data-key="43,middle-seat" shape="rect" coords="995,27,1053,102" href="#" >
+                <area data-key="44,middle-seat" shape="rect" coords="1055,27,1113,102" href="#" >
+                <area data-key="45,edge-seat" shape="rect" coords="399,34,457,109" href="#" >
+                <area data-key="46,middle-seat" shape="rect" coords="339,34,397,109" href="#" >
+                <area data-key="47,middle-seat" shape="rect" coords="281,34,339,109" href="#" >
+                <area data-key="48,edge-seat" shape="rect" coords="222,35,280,110" href="#" >
+                <area data-key="49,edge-seat" shape="rect" coords="399,260,457,335" href="#" >
+                <area data-key="50,middle-seat" shape="rect" coords="339,260,397,335" href="#" >
+                <area data-key="51,middle-seat" shape="rect" coords="281,260,339,335" href="#" >
+                <area data-key="52,edge-seat" shape="rect" coords="221,260,279,335" href="#" >
+              </map>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <h3 class="platform">Platform</h3>
+            </div>
+        </div>
+        <div class="row formContainer">
+            <div class="col-xs-2 col-xs-offset-1">
+                <img class="imgLegend" src="{% static 'crimemaps/css/images/legend_you.png' %}" />
+            </div>
+            <div class="col-xs-2">
+                <img class="imgLegend" src="{% static 'crimemaps/css/images/legend_other.png' %}" />
+            </div>
+            <div class="col-xs-6 col-xs-offset-1">
+                <h2 class="platformText">All Seats Are Taken. Where Do You Stand?</h2>
+                <form method="post" action=".">
+                    <div id="form" class="hidden">
+                        {% csrf_token %}
+                        {{ form|as_bootstrap }}
+                    </div>
+                    <div id="formButton" class="hidden">
+                        <input type="submit" class="btn btn-default btn-lg" value="Save and Continue" />
+                    </div>
+                </form>
+            </div>                            
+
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block modal_block %}
+{% endblock %}
+
+{% block js_block %}
+    <script type="text/javascript">
+        var positionOne = "{{ positionOne }}";
+        var positionTwo = "{{ positionTwo }}";
+    </script>
+    <script type="text/javascript" src="{% static 'crimemaps/js/jquery.imagemapster.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'crimemaps/js/chi_l_full_car.js' %}"></script>
+{% endblock %}
+
+
+	
+	
+

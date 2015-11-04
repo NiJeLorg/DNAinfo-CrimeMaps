@@ -24,151 +24,151 @@ $(document).ready(function () {
         areas:[ 
 	        {
 	          key: '48',
-	          staticState: false
+	          isSelectable: false
 	      	},
 	        {
 	          key: '47',
-	          staticState: false
+	          isSelectable: false
 	      	},
 	        {
 	          key: '46',
-	          staticState: false
+	          isSelectable: false
 	      	},
 	        {
 	          key: '45',
-	          staticState: false
+	          isSelectable: false
 	      	},
 	        {
 	          key: '17',
-	          staticState: false
+	          isSelectable: false
 	      	},
 	        {
 	          key: '18',
-	          staticState: false
+	          isSelectable: false
 	      	},
 	        {
 	          key: '41',
-	          staticState: false
+	          isSelectable: false
 	      	},
 	        {
 	          key: '42',
-	          staticState: false
+	          isSelectable: false
 	      	},
 	        {
 	          key: '43',
-	          staticState: false
+	          isSelectable: false
 	      	},
 	        {
 	          key: '44',
-	          staticState: false
+	          isSelectable: false
 	      	},
 	        {
 	          key: '40',
-	          staticState: false
+	          isSelectable: false
 	      	},
 	        {
 	          key: '39',
-	          staticState: false
+	          isSelectable: false
 	      	},
 	        {
 	          key: '38',
-	          staticState: false
+	          isSelectable: false
 	      	},
 	        {
 	          key: '26',
-	          staticState: false
+	          isSelectable: false
 	      	},
 	        {
 	          key: '27',
-	          staticState: false
+	          isSelectable: false
 	      	},
 	        {
 	          key: '28',
-	          staticState: false
+	          isSelectable: false
 	      	},
 	        {
 	          key: '29',
-	          staticState: false
+	          isSelectable: false
 	      	},
 	        {
 	          key: '25',
-	          staticState: false
+	          isSelectable: false
 	      	},
 	        {
 	          key: '52',
-	          staticState: false
+	          isSelectable: false
 	      	},
 	        {
 	          key: '51',
-	          staticState: false
+	          isSelectable: false
 	      	},
 	        {
 	          key: '50',
-	          staticState: false
+	          isSelectable: false
 	      	},
 	        {
 	          key: '49',
-	          staticState: false
+	          isSelectable: false
 	      	},
 	        {
 	          key: '16',
-	          staticState: false
+	          isSelectable: false
 	      	},
 	        {
 	          key: '15',
-	          staticState: false
+	          isSelectable: false
 	      	},
 	        {
 	          key: '31',
-	          staticState: false
+	          isSelectable: false
 	      	},
 	        {
 	          key: '32',
-	          staticState: false
+	          isSelectable: false
 	      	},
 	        {
 	          key: '33',
-	          staticState: false
+	          isSelectable: false
 	      	},
 	        {
 	          key: '34',
-	          staticState: false
+	          isSelectable: false
 	      	},
 	        {
 	          key: '35',
-	          staticState: false
+	          isSelectable: false
 	      	},
 	        {
 	          key: '36',
-	          staticState: false
+	          isSelectable: false
 	      	},
 	        {
 	          key: '37',
-	          staticState: false
+	          isSelectable: false
 	      	},
 	        {
 	          key: '23',
-	          staticState: false
+	          isSelectable: false
 	      	},
 	        {
 	          key: '20',
-	          staticState: false
+	          isSelectable: false
 	      	},
 	        {
 	          key: '21',
-	          staticState: false
+	          isSelectable: false
 	      	},
 	        {
 	          key: '22',
-	          staticState: false
+	          isSelectable: false
 	      	},
 	        {
 	          key: '19',
-	          staticState: false
+	          isSelectable: false
 	      	},
 	        {
 	          key: '24',
-	          staticState: false
+	          isSelectable: false
 	      	},
 	     ]
 

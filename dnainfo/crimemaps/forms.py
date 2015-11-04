@@ -37,6 +37,31 @@ YEAR_CHOICES = (
     ('100', 'More than 100 years'),
 )
 
+TRAINS_CHI = (
+    ('Red', 'Red Line'),
+    ('Blue', 'Blue Line'),
+    ('Green', 'Green Line'),
+    ('Yellow', 'Yellow Line'),
+    ('Orange', 'Orange Line'),
+    ('Brown', 'Brown Line'),
+    ('Purple', 'Purple Line'),
+    ('Pink', 'Pink Line'),
+)
+
+WHEN_RIDE = (
+    ('Midnight to 7 a.m.', 'Midnight to 7 a.m.'),
+    ('7 a.m. to 10 a.m.', '7 a.m. to 10 a.m.'),
+    ('10 a.m. to 4 p.m.', '10 a.m. to 4 p.m.'),
+    ('4 p.m. to 7 p.m.', '4 p.m. to 7 p.m.'),
+    ('7 p.m. to Midnight', '7 p.m. to Midnight'),
+)
+
+HOW_LONG_RIDE = (
+    ('1 - 15 minutes', '1 - 15 minutes'),
+    ('15 - 45 minutes', '15 - 45 minutes'),
+    ('More than 45 minutes', 'More than 45 minutes'),
+)
+
 
 
 class nycNeighDrawForm(forms.ModelForm):
@@ -94,3 +119,34 @@ class chiNeighViewForm(forms.ModelForm):
             'neighborhoodLive': widgets.Select2Widget(),
         }
         
+
+class CHITrainTimeForm(forms.ModelForm):
+    rideTime= forms.ChoiceField(choices=WHEN_RIDE, label="", widget=forms.widgets.RadioSelect)
+
+    class Meta:
+        model = CHItrainSitStand
+        fields = ('rideTime', )
+
+
+class CHITrainLengthForm(forms.ModelForm):
+    rideLength= forms.ChoiceField(choices=HOW_LONG_RIDE, label="", widget=forms.widgets.RadioSelect)
+
+    class Meta:
+        model = CHItrainSitStand
+        fields = ('rideLength', )
+
+
+class CHITrainEmptyTrainForm(forms.ModelForm):
+    class Meta:
+        model = CHItrainSitStand
+        fields = ('positionOne', 'positionOneType', )
+
+class CHITrainHalfFullTrainForm(forms.ModelForm):
+    class Meta:
+        model = CHItrainSitStand
+        fields = ('positionTwo', 'positionTwoType', )
+
+class CHITrainFullTrainForm(forms.ModelForm):
+    class Meta:
+        model = CHItrainSitStand
+        fields = ('positionThree', 'positionThreeType', )

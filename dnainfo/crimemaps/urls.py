@@ -64,5 +64,12 @@ urlpatterns = [
     url(r'^traindemo/$', views.traindemo, name='traindemo'),
     url(r'^traindemo-half-full/$', views.traindemo_half_full, name='traindemo_half_full'),
     url(r'^traindemo-full/$', views.traindemo_full, name='traindemo_full'),
+    url(r'^chi-l/arrived/$', views.chi_l_arrived, name='chi_l_arrived'),
+    url(r'^chi-l/arrived/(?P<id>\d+)/$', views.chi_l_arrived, name='chi_l_arrived'),
+    url(r'^chi-l/length/(?P<id>\d+)/$', views.chi_l_length, name='chi_l_length'),
+    url(r'^chi-l/empty-car/(?P<id>\d+)/$', views.chi_l_empty_car, name='chi_l_empty_car'),
+    url(r'^chi-l/half-full-car/(?P<id>\d+)/$', views.chi_l_half_full_car, name='chi_l_half_full_car'),
+    url(r'^chi-l/full-car/(?P<id>\d+)/$', views.chi_l_full_car, name='chi_l_full_car'),
+    url(r'^chi-l/results/(?P<id>\d+)/$', views.chi_l_results, name='chi_l_results'),
 
 ]

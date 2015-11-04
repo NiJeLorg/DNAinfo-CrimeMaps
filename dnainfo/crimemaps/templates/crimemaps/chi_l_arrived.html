@@ -1,0 +1,66 @@
+{% extends 'crimemaps/baseNoBottomNavCHI_TrainApp.html' %}
+{% load staticfiles %}
+{% load bootstrap_tags %}
+
+{% block title %}Where do you stand or sit on the train? | DNAinfo{% endblock %}
+
+{% block css_block %}
+{% endblock %}
+
+{% block head_js_block %}
+{% endblock %}
+	
+{% block body_block %}
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="collapse navbar-collapse pull-left" id="collapse">
+        <div class="navbar-header" style="background-color: #e1344b;">
+            <p class="navbar-brand">Red Line</a>
+        </div>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="navbar-sliver" style="background-color: #e1344b;"></div>
+    <p id="heading" class="navbar-text">Your Train Has Arrived</p>
+  </div><!-- /.container-fluid -->
+</nav>
+
+    <ul id="background">
+      <li></li>
+    </ul>
+
+    <!-- Content -->
+    <div class="container main-container">
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-3 formBackground hidden">
+                <form method="post" action=".">
+                    {% csrf_token %}
+                    {{ form|as_bootstrap }}
+                    <input type="submit" class="btn btn-default btn-lg" value="Continue" />
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block modal_block %}
+{% endblock %}
+
+{% block js_block %}
+<script type="text/javascript">
+    $( document ).ready(function() {
+        setTimeout(function(){
+            $('#heading').text("What Time Do You Ride?");
+            $('.hidden').removeClass('hidden');
+        },2500);
+    });
+</script>
+{% endblock %}
+
+
+	
+	
+

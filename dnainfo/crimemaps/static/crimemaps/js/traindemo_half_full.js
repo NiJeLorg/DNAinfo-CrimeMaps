@@ -13,7 +13,6 @@ $(document).ready(function () {
  	var image = $('#chi_redline_subway_A_car');
 
 	image.mapster({
-        fillColor: 'f08b9d',
         fillOpacity: 0.5,
         singleSelect: true,
 		mapKey: 'data-key',
@@ -21,102 +20,106 @@ $(document).ready(function () {
             altImage: '/static/crimemaps/css/images/chi_redline_subway_A_car_where_you_sit.png',
             fillOpacity: 1
         },
+        render_highlight: {
+            altImage: '/static/crimemaps/css/images/chi_redline_subway_A_car_where_you_sit.png',
+            fillOpacity: 0.5
+        },
         areas:[ 
 	        {
 	          key: '47',
-	          staticState: false
+	          isSelectable: false
 	      	},
 	        {
 	          key: '45',
-	          staticState: false
+	          isSelectable: false
 	      	},
 	        {
 	          key: '17',
-	          staticState: false
+	          isSelectable: false
 	      	},
 	        {
 	          key: '41',
-	          staticState: false
+	          isSelectable: false
 	      	},
 	        {
 	          key: '44',
-	          staticState: false
+	          isSelectable: false
 	      	},
 	        {
 	          key: '40',
-	          staticState: false
+	          isSelectable: false
 	      	},
 	        {
 	          key: '38',
-	          staticState: false
+	          isSelectable: false
 	      	},
 	        {
 	          key: '26',
-	          staticState: false
+	          isSelectable: false
 	      	},
 	        {
 	          key: '27',
-	          staticState: false
+	          isSelectable: false
 	      	},
 	        {
 	          key: '28',
-	          staticState: false
+	          isSelectable: false
 	      	},
 	        {
 	          key: '25',
-	          staticState: false
+	          isSelectable: false
 	      	},
 	        {
 	          key: '52',
-	          staticState: false
+	          isSelectable: false
 	      	},
 	        {
 	          key: '50',
-	          staticState: false
+	          isSelectable: false
 	      	},
 	        {
 	          key: '49',
-	          staticState: false
+	          isSelectable: false
 	      	},
 	        {
 	          key: '16',
-	          staticState: false
+	          isSelectable: false
 	      	},
 	        {
 	          key: '15',
-	          staticState: false
+	          isSelectable: false
 	      	},
 	        {
 	          key: '32',
-	          staticState: false
+	          isSelectable: false
 	      	},
 	        {
 	          key: '33',
-	          staticState: false
+	          isSelectable: false
 	      	},
 	        {
 	          key: '35',
-	          staticState: false
+	          isSelectable: false
 	      	},
 	        {
 	          key: '36',
-	          staticState: false
+	          isSelectable: false
 	      	},
 	        {
 	          key: '37',
-	          staticState: false
+	          isSelectable: false
 	      	},
 	        {
 	          key: '23',
-	          staticState: false
+	          isSelectable: false
 	      	},
 	        {
 	          key: '20',
-	          staticState: false
+	          isSelectable: false
 	      	},
 	        {
 	          key: '21',
-	          staticState: false
+	          isSelectable: false
 	      	},
 	     ]
 
