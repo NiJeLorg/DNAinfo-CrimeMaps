@@ -67,17 +67,17 @@ DNAinfoCHIZillow.onEachFeature_ZIPS = function(feature,layer){
 	if (activeLayer == 'sale') {
 
 		if (isNaN(feature.properties.mediansaleprice) || feature.properties.mediansaleprice == -99) {
-			var price = "</span></strong> in home<br />";
+			var price = "</span></strong> in<br />";
 		} else {
 			var price = " to $" + commaFormat(feature.properties.mediansaleprice) + " </span></strong>in<br />home ";
 		}
 
 		if (isNaN(feature.properties.changeinvaluesquarefootoverpreviousyear) || feature.properties.changeinvaluesquarefootoverpreviousyear == -99) {
-			var headingTotalText = "Data not available for home<br />sale price per square foot over<br />the previous year for this zipcode.";
+			var headingTotalText = "Data not available for median<br />home value for this zipcode.";
 		} else if (feature.properties.changeinvaluesquarefootoverpreviousyear > 0) {
-			var headingTotalText = "<strong><span class='increaseTextPopupRE'>"+ Math.abs(feature.properties.changeinvaluesquarefootoverpreviousyear) +"% increase"+ price +"sale price per square foot<br />over the previous year.";
+			var headingTotalText = "<strong><span class='increaseTextPopupRE'>"+ Math.abs(feature.properties.changeinvaluesquarefootoverpreviousyear) +"% increase"+ price +"median home value.";
 		} else {
-			var headingTotalText = "<strong><span class='decreaseTextPopupRE'>"+ Math.abs(feature.properties.changeinvaluesquarefootoverpreviousyear) +"% decrease"+ price +"sale price per square foot<br />over the previous year.";
+			var headingTotalText = "<strong><span class='decreaseTextPopupRE'>"+ Math.abs(feature.properties.changeinvaluesquarefootoverpreviousyear) +"% decrease"+ price +"median home value.";
 		}	
 
 		if (L.Browser.touch) {

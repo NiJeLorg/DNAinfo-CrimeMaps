@@ -108,7 +108,7 @@ $(document).ready(function () {
                 maskKeys.push({key: f, isMask: true});
             });           
         });
-        rebind();
+        setTimeout(function(){rebind()},100);
     }
 
     function rebind() {
