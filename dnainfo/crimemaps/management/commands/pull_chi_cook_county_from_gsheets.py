@@ -29,7 +29,7 @@ class Command(BaseCommand):
     def truncate_table(self):
     	cursor = connection.cursor()
     	CHICookCountyRealEstateData.objects.all().delete()
-    	cursor.execute("ALTER TABLE crimemaps_chicookcountyrealestatedata AUTO_INCREMENT = 0")
+    	CHICookCountyRealEstateData.objects.raw("ALTER TABLE crimemaps_chicookcountyrealestatedata AUTO_INCREMENT = 0")
 
     def load_data(self):
         keys = ['1Z-zzZ7qvjkpnz1683Yq4ibigVQ5sIeExj9I3xpTty3w']
