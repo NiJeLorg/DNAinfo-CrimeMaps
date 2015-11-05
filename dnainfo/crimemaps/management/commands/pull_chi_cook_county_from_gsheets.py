@@ -10,6 +10,7 @@ from django.utils import timezone
 import dateutil.parser
 import dateutil.tz
 import pytz
+from django.db import connection
 
 
 """
@@ -24,6 +25,11 @@ def is_number(s):
         return False
 
 class Command(BaseCommand):
+
+    def truncate_table(self):
+    	cursor = connection.cursor()
+    	CHICookCountyRealEstateData.objects.all().delete()
+    	cursor.execute("ALTER TABLE crimemaps_chicookcountyrealestatedata AUTO_INCREMENT = 0")
 
     def load_data(self):
         keys = ['1Z-zzZ7qvjkpnz1683Yq4ibigVQ5sIeExj9I3xpTty3w']
@@ -84,6 +90,8 @@ class Command(BaseCommand):
 
 
     def handle(self, *args, **options):
+        print "Truncate Table...."
+    	#self.truncate_table()
         print "Loading Chicago Cook County Data...."
         self.load_data()
         print "Done."
