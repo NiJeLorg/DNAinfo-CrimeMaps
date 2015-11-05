@@ -91,7 +91,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         print "Truncate Table...."
-    	#self.truncate_table()
+    	self.truncate_table()
         print "Loading Chicago Cook County Data...."
         self.load_data()
         print "Done."
