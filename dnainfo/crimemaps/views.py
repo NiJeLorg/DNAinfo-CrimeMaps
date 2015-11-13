@@ -137,7 +137,7 @@ def blotterPage(request):
 	# time zone
 	time_zone = pytz.timezone('America/New_York')
 
-	today = datetime.datetime.now()
+	today = timezone.now()
 	DD = datetime.timedelta(days=7)
 	earlier = today - DD
 	today_str = today.strftime("%x")

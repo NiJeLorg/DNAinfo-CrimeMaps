@@ -85,7 +85,9 @@ class Command(BaseCommand):
             for data in data['feed']['entry']:
                 #get data ready to be added
                 dateTime = data['gsx$date']['$t'] + ' ' + data['gsx$time']['$t']
+                print dateTime
                 notz = dateutil.parser.parse(dateTime, ignoretz=True)
+                print notz
                 DateTimeObject = pytz.timezone("America/New_York").localize(notz, is_dst=None)
                 print DateTimeObject
                 justDate = DateTimeObject.date()
