@@ -7,8 +7,16 @@
 $(document).ready(function () {
 
 	// get width 
-	var w = $('.col-sm-12').width();
- 
+	var w = $('body').width();
+
+    if (w <= 1200) {
+        var elem = document.getElementById("trainLineImage"); 
+        var elemWidth = elem.scrollWidth;
+        var elemVisibleWidth = elem.offsetWidth;
+        elem.scrollLeft = (elemWidth - elemVisibleWidth) / 2;
+    }
+
+
  	// bind image
  	var image = $('#chi_redline_subway_A_car');
 
@@ -26,8 +34,6 @@ $(document).ready(function () {
         },
         onClick: click,
 	});
-	// resize image
-    image.mapster('resize', w, 0, 0);
 
     function click(data) {
         // set form data based on click
@@ -36,8 +42,7 @@ $(document).ready(function () {
         $('#id_positionOne').val(data.key);        
         $('#id_positionOneType').val(splitKeys[1]);
 
-        // hide text in platform, show continue button
-        $('.platformText').addClass('hidden');
+        // show continue button
         $('#formButton').removeClass('hidden');
 
     }

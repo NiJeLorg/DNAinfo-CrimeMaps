@@ -21,9 +21,6 @@ $(document).ready(function () {
         }
 	});
 
-	// resize image
-    image.mapster('resize', w, 0, 0);
-
     // select seats from the last two rounds
     image.mapster('set',true,positionOne);
     image.mapster('set',true,positionTwo);

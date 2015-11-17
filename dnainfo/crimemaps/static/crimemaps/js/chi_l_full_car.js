@@ -1,13 +1,20 @@
 /**
- * chi_l_half_full_car.js
+ * chi_l_full_car.js
  * Author: NiJeL
  */
 
 
 $(document).ready(function () {
 
-	// get width 
-	var w = $('.col-sm-12').width();
+    // get width 
+    var w = $('body').width();
+
+    if (w <= 1200) {
+        var elem = document.getElementById("trainLineImage"); 
+        var elemWidth = elem.scrollWidth;
+        var elemVisibleWidth = elem.offsetWidth;
+        elem.scrollLeft = (elemWidth - elemVisibleWidth) / 2;
+    }
  
  	// bind image
  	var image = $('#chi_redline_subway_A_car');
@@ -35,9 +42,6 @@ $(document).ready(function () {
         },
         onConfigured: getKeys
 	});
-
-	// resize image
-    image.mapster('resize', w, 0, 0);
 
     // select seats from the last two rounds
     image.mapster('set',true,positionOne);

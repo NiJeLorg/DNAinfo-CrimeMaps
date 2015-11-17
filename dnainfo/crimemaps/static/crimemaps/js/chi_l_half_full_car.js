@@ -6,8 +6,15 @@
 
 $(document).ready(function () {
 
-	// get width 
-	var w = $('.col-sm-12').width();
+    // get width 
+    var w = $('body').width();
+
+    if (w <= 1200) {
+        var elem = document.getElementById("trainLineImage"); 
+        var elemWidth = elem.scrollWidth;
+        var elemVisibleWidth = elem.offsetWidth;
+        elem.scrollLeft = (elemWidth - elemVisibleWidth) / 2;
+    }
  
  	// bind image
  	var image = $('#chi_redline_subway_A_car');
@@ -16,12 +23,12 @@ $(document).ready(function () {
     var maskAreas = [];
     var maskKeys = [];
 
-    maskAreas.push(positionOneType);
-
     // set others closely alligned
     if (positionOneType == "side-standing" || positionOneType == "door-standing" || positionOneType == "middle-door-standing" || positionOneType == "end-standing" || positionOneType == "middle-standing") {
         maskAreas.push("asile-seat");
         maskAreas.push("edge-seat");
+    } else {
+        maskAreas.push(positionOneType);
     }
 
     if (positionOneType == "asile-seat") {
@@ -53,16 +60,14 @@ $(document).ready(function () {
         onConfigured: getKeys
 	});
 
-	// resize image
-    image.mapster('resize', w, 0, 0);
-
-    // set selection based on the seat the user selected last round
-    image.mapster('set',true,positionOneType);
 
     // set others closely alligned
     if (positionOneType == "side-standing" || positionOneType == "door-standing" || positionOneType == "middle-door-standing" || positionOneType == "end-standing" || positionOneType == "middle-standing") {
         image.mapster('set',true,"asile-seat");
         image.mapster('set',true,"edge-seat");
+    } else {
+        // set selection based on the seat the user selected last round
+        image.mapster('set',true,positionOneType);
     }
 
     if (positionOneType == "asile-seat") {
@@ -94,7 +99,6 @@ $(document).ready(function () {
         $('#id_positionTwoType').val(splitKeys[1]);
 
         // hide text in platform, show continue button
-        $('.platformText').addClass('hidden');
         $('#formButton').removeClass('hidden');
 
     }

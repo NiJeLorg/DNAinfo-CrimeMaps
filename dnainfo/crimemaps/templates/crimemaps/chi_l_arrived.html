@@ -12,37 +12,43 @@
 	
 {% block body_block %}
 
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="collapse navbar-collapse pull-left" id="collapse">
-        <div class="navbar-header" style="background-color: #e1344b;">
-            <p class="navbar-brand">Red Line</a>
-        </div>
-    </div>
-
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="navbar-sliver" style="background-color: #e1344b;"></div>
-    <p id="heading" class="navbar-text">Your Train Has Arrived</p>
-  </div><!-- /.container-fluid -->
-</nav>
-
     <ul id="background">
       <li></li>
     </ul>
 
     <!-- Content -->
-    <div class="container main-container">
-        <div class="row">
-            <div class="col-sm-6 col-sm-offset-3 formBackground hidden">
-                <form method="post" action=".">
-                    {% csrf_token %}
-                    {{ form|as_bootstrap }}
-                    <input type="submit" class="btn btn-default btn-lg" value="Continue" />
-                </form>
+    <form method="post" action=".">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3 formBackground hidden">
+                    <h3 id="trainLine" class="text-center text-uppercase trainLineHeading"></h3>
+                    <h1 class="text-center">What time do you ride?</h1>
+                    <div class="margin30top margin30left">
+                        {% csrf_token %}
+                        {{ form|as_bootstrap }}
+                    </div>
+                    
+                </div>
             </div>
+            <nav id="bottomNav" class="navbar navbar-default navbar-fixed-bottom hidden">
+              <div class="container-fluid">
+                <ol class="stationDots">
+                    <li class="active"></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ol>
+                <p class="text-center margin30top">
+                    <a href="#" class="btn btn-default btn-lg">Back</a>
+                    <input type="submit" class="btn btn-primary btn-lg" value="Next" />
+                </p>
+
+              </div> <!-- /.container-fluid -->
+            </nav>
         </div>
-    </div>
+    </form>
 
 {% endblock %}
 
@@ -51,11 +57,18 @@
 
 {% block js_block %}
 <script type="text/javascript">
+    var lineSelected = "Red Line";
+    var color = "red";
+    var bottomNavColor = "redBorder";
+    var stationDotColor = "redDot";
     $( document ).ready(function() {
         setTimeout(function(){
-            $('#heading').text("What Time Do You Ride?");
+            $('#trainLine').text(lineSelected);
+            $('#trainLine').addClass(color);
+            $('#bottomNav').addClass(bottomNavColor);
+            $('.stationDots .active').addClass(stationDotColor)
             $('.hidden').removeClass('hidden');
-        },2500);
+        },2000);
     });
 </script>
 {% endblock %}

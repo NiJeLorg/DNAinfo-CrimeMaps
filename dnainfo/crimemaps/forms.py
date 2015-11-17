@@ -57,9 +57,9 @@ WHEN_RIDE = (
 )
 
 HOW_LONG_RIDE = (
-    ('1 - 15 minutes', '1 - 15 minutes'),
-    ('15 - 45 minutes', '15 - 45 minutes'),
-    ('More than 45 minutes', 'More than 45 minutes'),
+    ('1 - 3 Stops', '1 - 3 Stops'),
+    ('4 - 7 Stops', '4 - 7 Stops'),
+    ('8 or More Stops', '8 or More Stops'),
 )
 
 

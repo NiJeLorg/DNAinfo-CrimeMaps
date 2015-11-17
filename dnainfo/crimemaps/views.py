@@ -1364,7 +1364,7 @@ def chi_l_arrived(request, id=None):
 
 	# Bad form (or form details), no form supplied...
 	# Render the form with error messages (if any).
-	return render(request, 'crimemaps/chi_l_arrived.html', {'form':form})
+	return render(request, 'crimemaps/chi_l_arrived.html', {'form':form, 'CHItrainSitStandObject': CHItrainSitStandObject})
 
 
 def chi_l_length(request, id=None):
@@ -1392,7 +1392,7 @@ def chi_l_length(request, id=None):
 
 	# Bad form (or form details), no form supplied...
 	# Render the form with error messages (if any).
-	return render(request, 'crimemaps/chi_l_length.html', {'form':form})
+	return render(request, 'crimemaps/chi_l_length.html', {'form':form, 'CHItrainSitStandObject': CHItrainSitStandObject})
 
 
 def chi_l_empty_car(request, id=None):
@@ -1420,7 +1420,7 @@ def chi_l_empty_car(request, id=None):
 
 	# Bad form (or form details), no form supplied...
 	# Render the form with error messages (if any).
-	return render(request, 'crimemaps/chi_l_empty_car.html', {'form':form})
+	return render(request, 'crimemaps/chi_l_empty_car.html', {'form':form, 'CHItrainSitStandObject': CHItrainSitStandObject})
 
 
 def chi_l_half_full_car(request, id=None):
@@ -1450,7 +1450,7 @@ def chi_l_half_full_car(request, id=None):
 
 	# Bad form (or form details), no form supplied...
 	# Render the form with error messages (if any).
-	return render(request, 'crimemaps/chi_l_half_full_car.html', {'form':form, 'positionOneType': positionOneType})
+	return render(request, 'crimemaps/chi_l_half_full_car.html', {'form':form, 'positionOneType': positionOneType, 'CHItrainSitStandObject': CHItrainSitStandObject})
 
 def chi_l_full_car(request, id=None):
 	if id:
@@ -1482,7 +1482,7 @@ def chi_l_full_car(request, id=None):
 
 	# Bad form (or form details), no form supplied...
 	# Render the form with error messages (if any).
-	return render(request, 'crimemaps/chi_l_full_car.html', {'form':form, 'positionOne': positionOne, 'positionTwo': positionTwo})
+	return render(request, 'crimemaps/chi_l_full_car.html', {'form':form, 'positionOne': positionOne, 'positionTwo': positionTwo, 'CHItrainSitStandObject': CHItrainSitStandObject})
 
 def chi_l_results(request, id=None):
 	if id:
