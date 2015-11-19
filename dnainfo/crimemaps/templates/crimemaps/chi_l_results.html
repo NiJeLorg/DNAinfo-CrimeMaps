@@ -16,12 +16,46 @@
     <div class="container-fluid grey-background">
         <div class="row margin30top">
             <div class="col-sm-8 col-sm-offset-2">
-                <h3 id="trainLine" class="text-center text-uppercase trainLineHeading"></h3>
-                <h1 class="text-center">These are the favorite spots of other people who ride the [TRAIN LINE] with you.</h1>
+                <h3 id="trainLine" class="text-center text-uppercase trainLineHeading trainLine"></h3>
+                <h1 class="text-center">These are the favorite spots of other people who ride the <span class="trainLine"></span> with you.</h1>
                 <h2 class="text-center"><small><em>
-                    Hover over or tap on the map below to see the percentage of [TRAIN LINE] riders that chose a particular seat or standing area, including those who agree with you.
+                    Hover over or tap on the map below to see the percentage of <span class="trainLine"></span> riders that chose a particular seat or standing area, including those who agree with you.
                 </em></small></h2>                
                 <h2 class="text-center"><small><em><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Direction of Travel</em></small></h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <form id="filter-form" class="text-center form-inline">  
+                    <div class="form-group">
+                      <label for="propertyType">Time of Day</label>
+                      <select class="form-control" id="rideTime">
+                        <option value="">Anytime</option>
+                        <option value="Midnight to 7 a.m.">Midnight to 7 a.m.</option>
+                        <option value="7 a.m. to 10 a.m.">7 a.m. to 10 a.m.</option>
+                        <option value="10 a.m. to 4 p.m.">10 a.m. to 4 p.m.</option>
+                        <option value="4 p.m. to 7 p.m.">4 p.m. to 7 p.m.</option>
+                        <option value="7 p.m. to Midnight">7 p.m. to Midnight</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="rideLength">Ride Length</label>
+                      <select class="form-control" id="rideLength">
+                        <option value="">Any Number of Stops</option>
+                        <option value="1 - 3 Stops">1 - 3 Stops</option>
+                        <option value="4 - 7 Stops">4 - 7 Stops</option>
+                        <option value="8 or More Stops">8 or More Stops</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="capacity">Seating Availability </label>
+                      <select class="form-control" id="capacity">
+                        <option value="empty">All Seats Available</option>
+                        <option value="half-full">Some Seats Available</option>
+                        <option value="full">Standing Room Only</option>
+                      </select>
+                    </div>
+                </form>                
             </div>
         </div>        
         <div class="row">
@@ -106,7 +140,6 @@
             <p class="text-center margin30top">
                 <a href="/chi-l/" class="btn btn-primary btn-lg">Ride Another Train</a>
             </p>
-            </p>
           </div> <!-- /.container-fluid -->
         </nav>
 
@@ -132,7 +165,7 @@
     var bottomNavColor = "redBorder";
     var stationDotColor = "redDot";
     $( document ).ready(function() {
-        $('#trainLine').text(lineSelected);
+        $('.trainLine').text(lineSelected);
         $('#trainLine').addClass(color);
         $('#bottomNav').addClass(bottomNavColor);
         $('.stationDots .active').addClass(stationDotColor);

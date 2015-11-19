@@ -104,7 +104,6 @@ $(document).ready(function () {
     }
 
     function getKeys() {
-        console.log(maskAreas);
         $.each(maskAreas, function( i, d ) {
             var keys = image.mapster('keys',d,true);
             var keysArray = keys.split(',');

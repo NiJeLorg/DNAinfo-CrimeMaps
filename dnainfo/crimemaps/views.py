@@ -1491,3 +1491,76 @@ def chi_l_results(request, id=None):
 		CHItrainSitStandObject = CHItrainSitStand()
 
 	return render(request, 'crimemaps/chi_l_results.html', {'CHItrainSitStandObject':CHItrainSitStandObject})
+
+
+def chi_l_results_api(request):
+	#add in the items geojson requires 
+	response = {}
+	response['seats'] = {}
+	response['seat_types'] = {}
+
+	if request.method == 'GET':
+		#gather potential filter variables
+		train = request.GET.get("train","")
+		rideTime = request.GET.get("rideTime","")
+		rideLength = request.GET.get("rideLength","")
+		capacity = request.GET.get("capacity","empty")
+
+		#add kwargs and query terms
+		kwargs = {}
+		# show date range selected
+		if train:
+			kwargs['train__exact'] = train
+
+		if rideTime:
+			kwargs['rideTime__exact'] = rideTime
+
+		if rideLength:
+			kwargs['rideLength__exact'] = rideLength
+
+		respondents = CHItrainSitStand.objects.filter(**kwargs).count()
+		response['respondents'] = respondents
+
+		if capacity == "empty":
+			# get count of exact seat locations
+			countPositionOne = CHItrainSitStand.objects.filter(**kwargs).values("positionOne").annotate(Count('positionOne'))
+			for count in countPositionOne:
+				key = count['positionOne']
+				response['seats'][key] = count['positionOne__count']
+
+			#get count of type of seat selected
+			countPositionOneType = CHItrainSitStand.objects.filter(**kwargs).values("positionOneType").annotate(Count('positionOneType'))
+			for count in countPositionOneType:
+				key = count['positionOneType']
+				response['seat_types'][key] = count['positionOneType__count']
+
+
+		if capacity == "half-full":
+			countPositionTwo = CHItrainSitStand.objects.filter(**kwargs).values("positionTwo").annotate(Count('positionTwo'))
+			for count in countPositionTwo:
+				key = count['positionTwo']
+				response['seats'][key] = count['positionTwo__count']
+
+			#get count of type of seat selected
+			countPositionTwoType = CHItrainSitStand.objects.filter(**kwargs).values("positionTwoType").annotate(Count('positionTwoType'))
+			for count in countPositionTwoType:
+				key = count['positionTwoType']
+				response['seat_types'][key] = count['positionTwoType__count']
+
+
+		if capacity == "full":
+			countPositionThree = CHItrainSitStand.objects.filter(**kwargs).values("positionThree").annotate(Count('positionThree'))
+			for count in countPositionThree:
+				key = count['positionThree']
+				response['seats'][key] = count['positionThree__count']
+
+			#get count of type of seat selected
+			countPositionThreeType = CHItrainSitStand.objects.filter(**kwargs).values("positionThreeType").annotate(Count('positionThreeType'))
+			for count in countPositionThreeType:
+				key = count['positionThreeType']
+				response['seat_types'][key] = count['positionThreeType__count']
+
+
+	return JsonResponse(response)
+
+
