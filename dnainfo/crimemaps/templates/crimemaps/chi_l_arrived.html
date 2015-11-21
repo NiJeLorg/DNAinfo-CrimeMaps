@@ -21,8 +21,8 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-6 col-sm-offset-3 formBackground hidden">
-                    <h3 id="trainLine" class="text-center text-uppercase trainLineHeading"></h3>
-                    <h1 class="text-center">What time do you ride?</h1>
+                    <p id="trainLine" class="text-center text-uppercase trainLineHeading"></p>
+                    <p class="text-center heading">What time do you ride?</p>
                     <div class="margin30top margin30left">
                         {% csrf_token %}
                         {{ form|as_bootstrap }}
@@ -41,10 +41,9 @@
                     <li></li>
                 </ol>
                 <p class="text-center margin30top">
-                    <a href="#" class="btn btn-default btn-lg">Back</a>
-                    <input type="submit" class="btn btn-primary btn-lg" value="Next" />
+                    <a href="#" class="btn btn-primary btn-lg">Back</a>
+                    <input type="submit" class="btn btn-primary btn-lg disabled" value="Next" />
                 </p>
-
               </div> <!-- /.container-fluid -->
             </nav>
         </div>
@@ -62,13 +61,24 @@
     var bottomNavColor = "redBorder";
     var stationDotColor = "redDot";
     $( document ).ready(function() {
-        setTimeout(function(){
-            $('#trainLine').text(lineSelected);
-            $('#trainLine').addClass(color);
-            $('#bottomNav').addClass(bottomNavColor);
-            $('.stationDots .active').addClass(stationDotColor)
-            $('.hidden').removeClass('hidden');
-        },2000);
+        $('#trainLine').text(lineSelected);
+        $('#trainLine').addClass(color);
+        $('#bottomNav').addClass(bottomNavColor);
+        $('.stationDots .active').addClass(stationDotColor)
+
+        if ($("input:radio[name='rideTime']").is(":checked")) {
+        	$('.hidden').removeClass('hidden');
+        	$('.btn').removeClass('disabled');
+        } else {
+	        setTimeout(function(){
+	            $('.hidden').removeClass('hidden');
+	        },2000);        	
+        }
+
+        $( ".form-group" ).change(function() {
+        	$('.btn').removeClass('disabled');
+        });
+
     });
 </script>
 {% endblock %}

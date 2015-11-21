@@ -99,7 +99,7 @@ $(document).ready(function () {
         $('#id_positionTwoType').val(splitKeys[1]);
 
         // hide text in platform, show continue button
-        $('#formButton').removeClass('hidden');
+        $('#formButton').removeClass('disabled');
 
     }
 
@@ -129,7 +129,17 @@ $(document).ready(function () {
             },
             onClick: click,
             areas: maskKeys
-        });       
+        });  
+
+        // select a seat if user came back and alredy picked one
+        if (seatSelectedAlready > 0) {
+            image.mapster('set',true,seatSelectedAlready);
+            // show continue button
+            $('#formButton').removeClass('disabled');
+        }
+
+
+
     }
 
 });

@@ -35,6 +35,15 @@ $(document).ready(function () {
         onClick: click,
 	});
 
+    // select a seat if user came back and alredy picked one
+    if (seatSelectedAlready > 0) {
+        console.log("hello!");
+        image.mapster('set',true,seatSelectedAlready);
+        // show continue button
+        $('#formButton').removeClass('disabled');
+    }
+
+
     function click(data) {
         // set form data based on click
         var keys = image.mapster('keys',data.key,true);
@@ -43,7 +52,7 @@ $(document).ready(function () {
         $('#id_positionOneType').val(splitKeys[1]);
 
         // show continue button
-        $('#formButton').removeClass('hidden');
+        $('#formButton').removeClass('disabled');
 
     }
 

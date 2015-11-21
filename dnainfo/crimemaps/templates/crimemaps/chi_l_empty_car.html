@@ -14,14 +14,14 @@
 
     <!-- Content -->
     <div class="container-fluid grey-background">
-        <div class="row margin30top">
+        <div class="row">
             <div class="col-sm-8 col-sm-offset-2">
-                <h3 id="trainLine" class="text-center text-uppercase trainLineHeading"></h3>
-                <h1 class="text-center">You get on an empty train car. Where will you ride?</h1>
-                <h2 class="text-center"><small><em>
+                <p id="trainLine" class="text-center text-uppercase trainLineHeading"></p>
+                <p class="text-center heading">You get on an empty train car. Where will you ride?</p>
+                <p class="text-center subheading"><em>
                     Click or tap on your favorite seat. If you prefer to stand, click on your preferred spot.
-                </em></small></h2>                
-                <h2 class="text-center"><small><em><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Direction of Travel</em></small></h2>
+                </em></p>                
+                <p class="text-center subheading"><em><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Direction of Travel</em></p>
             </div>
         </div>        
         <div class="row">
@@ -85,8 +85,6 @@
                         <area data-key="54,end-standing" href="#" shape="rect" coords="1055,116,1158,177" />
                     </map>
 
-
-
                 </div>
             </div>
         </div>
@@ -110,8 +108,8 @@
                         {{ form }}
                     </div>
                     <p class="text-center margin30top">
-                        <a href="/chi-l/length/{{ CHItrainSitStandObject.id }}/" class="btn btn-default btn-lg">Back</a>
-                        <input id="formButton" type="submit" class="btn btn-primary btn-lg hidden" value="Next" />
+                        <a href="/chi-l/length/{{ CHItrainSitStandObject.id }}/" class="btn btn-primary btn-lg">Back</a>
+                        <input id="formButton" type="submit" class="btn btn-primary btn-lg disabled" value="Next" />
                     </p>
                 </form>
             </p>
@@ -126,14 +124,12 @@
 {% endblock %}
 
 {% block js_block %}
-    <script type="text/javascript" src="{% static 'crimemaps/js/jquery.imagemapster.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'crimemaps/js/chi_l_empty_car.js' %}"></script>
-
 <script type="text/javascript">
     var lineSelected = "Red Line";
     var color = "red";
     var bottomNavColor = "redBorder";
     var stationDotColor = "redDot";
+    var seatSelectedAlready = "{{ CHItrainSitStandObject.positionOne }}";
     $( document ).ready(function() {
         $('#trainLine').text(lineSelected);
         $('#trainLine').addClass(color);
@@ -141,6 +137,8 @@
         $('.stationDots .active').addClass(stationDotColor);
     });
 </script>
+<script type="text/javascript" src="{% static 'crimemaps/js/jquery.imagemapster.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'crimemaps/js/chi_l_empty_car.js' %}"></script>
 {% endblock %}
 
 

@@ -5,23 +5,47 @@
 {% block title %}Where do you stand or sit on the train? | DNAinfo{% endblock %}
 
 {% block css_block %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 {% endblock %}
 
 {% block head_js_block %}
+<meta property="fb:app_id" content="406014149589534" /> 
+<meta property="og:type"   content="website" /> 
+<meta property="og:url"    content="https://visualizations.dnainfo.com/chi-l/results/{{ id }}/" /> 
+<meta property="og:description" content="Everyone has a favorite seat or spot to stand on the Red Line. See how your fellow Chicagoans compare to you." />
+<meta property="og:title"  content="This is how I ride the Red Line." /> 
+<meta property="og:image"  content="https://visualizations.dnainfo.com/static/crimemaps/css/images/DNA_DYOM_NYC_1.png" />
+<script type="text/javascript">
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '406014149589534',
+      xfbml      : true,
+      version    : 'v2.4'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
 {% endblock %}
 	
 {% block body_block %}
 
     <!-- Content -->
     <div class="container-fluid grey-background">
-        <div class="row margin30top">
+        <div class="row">
             <div class="col-sm-8 col-sm-offset-2">
-                <h3 id="trainLine" class="text-center text-uppercase trainLineHeading trainLine"></h3>
-                <h1 class="text-center">These are the favorite spots of other people who ride the <span class="trainLine"></span> with you.</h1>
-                <h2 class="text-center"><small><em>
+                <p id="trainLine" class="text-center text-uppercase trainLineHeading trainLine"></p>
+                <p class="text-center heading">These are the favorite spots of other people who ride the <span class="trainLine"></span> with you.</p>
+                <p class="text-center subheading"><em>
                     Hover over or tap on the map below to see the percentage of <span class="trainLine"></span> riders that chose a particular seat or standing area, including those who agree with you.
-                </em></small></h2>                
-                <h2 class="text-center"><small><em><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Direction of Travel</em></small></h2>
+                </em></p>                
+                <p class="text-center subheading"><em><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Direction of Travel</em></p>
             </div>
         </div>
         <div class="row">
@@ -138,7 +162,9 @@
                 <li class="active"></li>
             </ol>
             <p class="text-center margin30top">
-                <a href="/chi-l/" class="btn btn-primary btn-lg">Ride Another Train</a>
+                <a href="/chi-l/" class="btn btn-primary">Ride Another Train</a>
+                <a id="showShareFB" class="btn btn-primary share" href="#" role="button" target="_blank"><i class="fa fa-facebook-official fa-lg"></i></a>
+                <a id="showShareTwitter" class="btn btn-info share" href="#" role="button" target="_blank"><i class="fa fa-twitter fa-lg"></i></a>
             </p>
           </div> <!-- /.container-fluid -->
         </nav>
@@ -151,15 +177,8 @@
 {% endblock %}
 
 {% block js_block %}
-    <script type="text/javascript">
-        var positionOne = "{{ CHItrainSitStandObject.positionOne }}";
-        var positionTwo = "{{ CHItrainSitStandObject.positionTwo }}";
-        var positionThree = "{{ CHItrainSitStandObject.positionThree }}";
-    </script>
-    <script type="text/javascript" src="{% static 'crimemaps/js/jquery.imagemapster.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'crimemaps/js/chi_l_results.js' %}"></script>
-
 <script type="text/javascript">
+    var id = '{{ id }}';
     var lineSelected = "Red Line";
     var color = "red";
     var bottomNavColor = "redBorder";
@@ -170,7 +189,14 @@
         $('#bottomNav').addClass(bottomNavColor);
         $('.stationDots .active').addClass(stationDotColor);
     });
+    var positionOne = "{{ CHItrainSitStandObject.positionOne }}";
+    var positionTwo = "{{ CHItrainSitStandObject.positionTwo }}";
+    var positionThree = "{{ CHItrainSitStandObject.positionThree }}";
 </script>
+<script type="text/javascript" src="{% static 'crimemaps/js/jquery.imagemapster.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'crimemaps/js/chi_l_results.js' %}"></script>
+
+
 {% endblock %}
 
 

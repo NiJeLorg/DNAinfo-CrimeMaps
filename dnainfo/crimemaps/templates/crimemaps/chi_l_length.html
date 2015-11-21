@@ -21,8 +21,8 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-6 col-sm-offset-3 formBackground">
-                    <h3 id="trainLine" class="text-center text-uppercase trainLineHeading"></h3>
-                    <h1 class="text-center">How long is your ride?</h1>
+                    <p id="trainLine" class="text-center text-uppercase trainLineHeading"></p>
+                    <p class="text-center heading">How long is your ride?</p>
                     <div class="margin30top margin30left">
                         {% csrf_token %}
                         {{ form|as_bootstrap }}
@@ -41,8 +41,8 @@
                     <li></li>
                 </ol>
                 <p class="text-center margin30top">
-                    <a href="/chi-l/arrived/{{ CHItrainSitStandObject.id }}/" class="btn btn-default btn-lg">Back</a>
-                    <input type="submit" class="btn btn-primary btn-lg" value="Next" />
+                    <a href="/chi-l/arrived/{{ CHItrainSitStandObject.id }}/" class="btn btn-primary btn-lg">Back</a>
+                    <input type="submit" class="btn btn-primary btn-lg disabled" value="Next" />
                 </p>
               </div> <!-- /.container-fluid -->
             </nav>
@@ -64,7 +64,21 @@
         $('#trainLine').text(lineSelected);
         $('#trainLine').addClass(color);
         $('#bottomNav').addClass(bottomNavColor);
-        $('.stationDots .active').addClass(stationDotColor)
+        $('.stationDots .active').addClass(stationDotColor);
+
+        if ($("input:radio[name='rideLength']").is(":checked")) {
+            $('.hidden').removeClass('hidden');
+            $('.btn').removeClass('disabled');
+        } else {
+            setTimeout(function(){
+                $('.hidden').removeClass('hidden');
+            },2000);            
+        }
+
+        $( ".form-group" ).change(function() {
+            $('.btn').removeClass('disabled');
+        });
+
     });
 </script>
 {% endblock %}

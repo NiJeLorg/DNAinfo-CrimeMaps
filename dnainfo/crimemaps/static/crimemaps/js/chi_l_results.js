@@ -117,6 +117,21 @@ $(document).ready(function () {
     });
 
 
+    // facebook and twitter link creation and appending
+    var app_id = '406014149589534';
+    var fbcaption = 'Everyone has a favorite seat or spot to stand on the '+ lineSelected +'. See how your fellow Chicagoans compare to you: https://visualizations.dnainfo.com/nycneigh/ via https://www.facebook.com/DNAinfoChicago/';
+    var fblink = 'https://visualizations.dnainfo.com/chi-l/results/'+ id +'/';
+    var fbUrl = 'https://www.facebook.com/dialog/feed?app_id=' + app_id + '&display=popup&caption='+ encodeURIComponent(fbcaption) + '&link=' + encodeURIComponent(fblink) + '&redirect_uri=' + encodeURIComponent(fblink);
+    $('#showShareFB').attr("href", fbUrl);
+
+
+    var twitterlink = 'https://visualizations.dnainfo.com/chi-l/results/'+ id +'/';
+    var via = 'DNAinfoCHI';
+    var twittercaption = 'This is how I ride the '+ lineSelected +'. How do you do it?';
+    var twitterUrl = 'https://twitter.com/share?url=' + encodeURIComponent(twitterlink) + '&via='+ encodeURIComponent(via) + '&text=' + encodeURIComponent(twittercaption);
+    $('#showShareTwitter').attr("href", twitterUrl);
+
+
 
 
 

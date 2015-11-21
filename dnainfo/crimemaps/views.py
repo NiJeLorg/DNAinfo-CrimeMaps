@@ -1490,7 +1490,7 @@ def chi_l_results(request, id=None):
 	else:
 		CHItrainSitStandObject = CHItrainSitStand()
 
-	return render(request, 'crimemaps/chi_l_results.html', {'CHItrainSitStandObject':CHItrainSitStandObject})
+	return render(request, 'crimemaps/chi_l_results.html', {'CHItrainSitStandObject':CHItrainSitStandObject, 'id': id})
 
 
 def chi_l_results_api(request):
