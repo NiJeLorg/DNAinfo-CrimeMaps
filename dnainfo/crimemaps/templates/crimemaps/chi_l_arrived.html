@@ -8,6 +8,12 @@
 {% endblock %}
 
 {% block head_js_block %}
+<script src="/static/crimemaps/js/jquery.responsiveiframe.js"></script>
+<script>
+	var ri = responsiveIframe();
+	ri.allowResponsiveEmbedding();
+	window.addEventListener("message", ri.messageParent, false);
+</script>
 {% endblock %}
 	
 {% block body_block %}
