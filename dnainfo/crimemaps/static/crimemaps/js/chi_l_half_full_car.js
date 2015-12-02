@@ -9,15 +9,14 @@ $(document).ready(function () {
     // get width 
     var w = $('body').width();
 
+    /*
     if (w <= 1200) {
         var elem = document.getElementById("trainLineImage"); 
         var elemWidth = elem.scrollWidth;
         var elemVisibleWidth = elem.offsetWidth;
         elem.scrollLeft = (elemWidth - elemVisibleWidth) / 2;
     }
- 
- 	// bind image
- 	var image = $('#chi_redline_subway_A_car');
+    */
 
     // catch keys
     var maskAreas = [];
@@ -54,7 +53,7 @@ $(document).ready(function () {
 	image.mapster({
         mapKey: 'data-key',
         render_select: {
-            altImage: '/static/crimemaps/css/images/chi_redline_subway_A_car_full_standing.png',
+            altImage: altImageFull,
             fillOpacity: 1
         },
         onConfigured: getKeys
@@ -120,11 +119,11 @@ $(document).ready(function () {
             singleSelect: true,
             mapKey: 'data-key',
             render_select: {
-                altImage: '/static/crimemaps/css/images/chi_redline_subway_A_car_where_you_sit.png',
+                altImage: altImage,
                 fillOpacity: 1
             },
             render_highlight: {
-                altImage: '/static/crimemaps/css/images/chi_redline_subway_A_car_where_you_sit.png',
+                altImage: altImage,
                 fillOpacity: 0.5
             },
             onClick: click,
@@ -138,8 +137,23 @@ $(document).ready(function () {
             $('#formButton').removeClass('disabled');
         }
 
-
-
     }
+
+    // add scrolling after train pulls in
+    setTimeout(function(){
+        $(".trainLineImage").addClass("imageOverflow");
+    },1200);
+
+    // have train slide out then submit form
+    $('#formButton').click(function(event){
+        event.preventDefault();
+        $(".trainLineImage").removeClass("imageOverflow");
+        $(".trainLineImage").addClass("slide-out");
+        // submit the form
+        setTimeout(function(){
+            $( "#target" ).submit();
+        },1000);        
+    });
+
 
 });

@@ -1,0 +1,103 @@
+{% extends 'crimemaps/baseNoBottomNavCHI_TrainApp.html' %}
+{% load staticfiles %}
+{% load bootstrap_tags %}
+
+{% block title %}Where do you stand or sit on the train? | DNAinfo{% endblock %}
+
+{% block css_block %}
+{% endblock %}
+
+{% block head_js_block %}
+{% endblock %}
+	
+{% block body_block %}
+
+    <ul id="backgroundGIF">
+      <li></li>
+    </ul>
+
+    <!-- Content -->
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3 formBackground">
+                    <p id="trainLine" class="text-center text-uppercase trainLineHeading"></p>
+                    <p class="text-center heading">Calculating Results!</p>
+                </div>
+            </div>
+            <nav id="bottomNav" class="navbar navbar-default navbar-fixed-bottom">
+              <div class="container-fluid">
+                <ol class="stationDots">
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li class="active"></li>
+                </ol>
+              </div> <!-- /.container-fluid -->
+            </nav>
+        </div>
+
+{% endblock %}
+
+{% block modal_block %}
+{% endblock %}
+
+{% block js_block %}
+<script type="text/javascript">
+    var lineSelected = "{{ CHItrainSitStandObject.train }}";
+    if (lineSelected == "Red Line") {
+        var color = "red";
+        var bottomNavColor = "redBorder";
+        var stationDotColor = "redDot";  
+    } else if (lineSelected == "Blue Line") {
+        var color = "blue";
+        var bottomNavColor = "blueBorder";
+        var stationDotColor = "blueDot";          
+    } else if (lineSelected == "Green Line") {
+        var color = "green";
+        var bottomNavColor = "greenBorder";
+        var stationDotColor = "greenDot";          
+    } else if (lineSelected == "Yellow Line") {
+        var color = "yellow";
+        var bottomNavColor = "yellowBorder";
+        var stationDotColor = "yellowDot";          
+    } else if (lineSelected == "Orange Line") {
+        var color = "orange";
+        var bottomNavColor = "orangeBorder";
+        var stationDotColor = "orangeDot";          
+    } else if (lineSelected == "Brown Line") {
+        var color = "brown";
+        var bottomNavColor = "brownBorder";
+        var stationDotColor = "brownDot";          
+    } else if (lineSelected == "Purple Line") {
+        var color = "purple";
+        var bottomNavColor = "purpleBorder";
+        var stationDotColor = "purpleDot";          
+    } else if (lineSelected == "Pink Line") {
+        var color = "pink";
+        var bottomNavColor = "pinkBorder";
+        var stationDotColor = "pinkDot";          
+    }
+
+    $( document ).ready(function() {
+        $('#trainLine').text(lineSelected);
+        $('#trainLine').addClass(color);
+        $('#bottomNav').addClass(bottomNavColor);
+        $('.stationDots .active').addClass(stationDotColor);
+
+        setTimeout(function(){
+            var id = '{{ id }}';
+            var url = window.location.protocol + "//" + window.location.host + "/chi-l/results/" + id + "/";
+            window.location.href = url;
+        },2500);        	
+
+    });
+</script>
+{% endblock %}
+
+
+	
+	
+

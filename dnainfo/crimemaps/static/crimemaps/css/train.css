@@ -18,7 +18,7 @@ html, body {
   left: 0; 
   right: 0; 
   bottom: 0; 
-  background: url('images/redline.gif');
+  background: url('images/CHI_Train_Background.png');
   background-color: transparent; 
   background-size: cover; 
   background-position: center center; 
@@ -26,6 +26,26 @@ html, body {
 }
 
 #background { 
+  z-index: -1;
+  margin: 0; 
+  padding: 0; 
+}
+
+/* full screen background image */
+#backgroundGIF, #backgroundGIF li { 
+  position: absolute; 
+  top: 0; 
+  left: 0; 
+  right: 0; 
+  bottom: 0; 
+  background: url('images/purple.gif');
+  background-color: transparent; 
+  background-size: cover; 
+  background-position: center center; 
+  background-repeat: no-repeat; 
+}
+
+#backgroundGIF { 
   z-index: -1;
   margin: 0; 
   padding: 0; 
@@ -61,9 +81,114 @@ html, body {
 * Train Line colors and station dots
 */
 
-.redBorder {
-	border-top: 6px solid #e1344b;
+.red {
+	color: #c60c30;
 }
+
+.redBorder {
+	border-top: 6px solid #c60c30;
+}
+
+.redDot {
+	border: 4px solid #c60c30;
+}
+
+.blue {
+	color: #00a1de;
+}
+
+.blueBorder {
+	border-top: 6px solid #00a1de;
+}
+
+.blueDot {
+	border: 4px solid #00a1de;
+}
+
+.brown {
+	color: #62361b;
+}
+
+.brownBorder {
+	border-top: 6px solid #62361b;
+}
+
+.brownDot {
+	border: 4px solid #62361b;
+}
+
+.green {
+	color: #009b3a;
+}
+
+.greenBorder {
+	border-top: 6px solid #009b3a;
+}
+
+.greenDot {
+	border: 4px solid #009b3a;
+}
+
+.orange {
+	color: #f9461c;
+}
+
+.orangeBorder {
+	border-top: 6px solid #f9461c;
+}
+
+.orangeDot {
+	border: 4px solid #f9461c;
+}
+
+.purple {
+	color: #522398;
+}
+
+.purpleBorder {
+	border-top: 6px solid #522398;
+}
+
+.purpleDot {
+	border: 4px solid #522398;
+}
+
+.pink {
+	color: #e27ea6;
+}
+
+.pinkBorder {
+	border-top: 6px solid #e27ea6;
+}
+
+.pinkDot {
+	border: 4px solid #e27ea6;
+}
+
+.yellow {
+	color: #f9e300;
+}
+
+.yellowBorder {
+	border-top: 6px solid #f9e300;
+}
+
+.yellowDot {
+	border: 4px solid #f9e300;
+}
+
+.grey {
+	color: #565a5c;
+}
+
+.greyBorder {
+	border-top: 6px solid #565a5c;
+}
+
+.greyDot {
+	border: 4px solid #565a5c;
+}
+
 
 .stationDots {
     position: absolute;
@@ -93,8 +218,44 @@ html, body {
     height: 14px;  
 }
 
-.redDot {
-	border: 4px solid #e1344b;
+
+
+
+/*
+* train CSS transitions to show train pulling in to the station from the left
+*/
+
+.trainLineImage {
+    transform: translateX(-500%);
+    -webkit-transform: translateX(-500%);
+}
+
+.slide-in {
+    animation: slide-in 1.5s forwards;
+    -webkit-animation: slide-in 1.5s forwards;
+}
+
+.slide-out {
+    animation: slide-out 1.5s forwards;
+    -webkit-animation: slide-out 1.5s forwards;
+}
+    
+@keyframes slide-in {
+    100% { transform: translateX(0%); }
+}
+
+@-webkit-keyframes slide-in {
+    100% { -webkit-transform: translateX(0%); }
+}
+    
+@keyframes slide-out {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(200%); }
+}
+
+@-webkit-keyframes slide-out {
+    0% { -webkit-transform: translateX(0%); }
+    100% { -webkit-transform: translateX(200%); }
 }
 
 
@@ -106,7 +267,7 @@ html, body {
 .formBackground {
 	margin-top: 50px;
 	background-color: #f1f1f1;
-	font-size: 14px;
+	font-size: 18px;
 	border-radius: 0px; 
 	padding-top: 10px;
 	padding-bottom: 20px;
@@ -141,13 +302,13 @@ html, body {
 	margin-left: 30px;
 }
 
-.red {
-	color: #e1344b;
-}
-
 .trainLineImage {
 	width: 100%;
 	height: 304px;
+	cursor: ew-resize; 
+}
+
+.imageOverflow {
 	overflow-x: auto;
 	overflow-y: hidden;
 }
@@ -159,7 +320,7 @@ html, body {
 	background-color: #a0c8e1;
 	color: #ffffff;
 	font-weight: 800;
-	height: 300px;
+	height: 100px;
 }
 
 .formContainer {
@@ -207,9 +368,6 @@ html, body {
 	    margin-bottom: 10px;
 	}
 
-	.formBackground {
-		font-size: 18px;
-	}
 
 }
 

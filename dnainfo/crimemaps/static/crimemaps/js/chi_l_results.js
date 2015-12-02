@@ -9,25 +9,23 @@ $(document).ready(function () {
     // get width 
     var w = $('body').width();
 
+    /*
     if (w <= 1200) {
         var elem = document.getElementById("trainLineImage"); 
         var elemWidth = elem.scrollWidth;
         var elemVisibleWidth = elem.offsetWidth;
         elem.scrollLeft = (elemWidth - elemVisibleWidth) / 2;
     }
- 
- 	// bind image
- 	var image = $('#chi_redline_subway_A_car');
+    */
 
     // run intitialze function
     initialize();
-
 
     function initialize() {
 
         $.ajax({
             type: "GET",
-            url: "/chi-l/resultsapi/" ,
+            url: "/chi-l/resultsapi/?train=" + lineSelected ,
             success: function(data){
                 update(data);
             }
@@ -36,52 +34,67 @@ $(document).ready(function () {
     }
 
     function update(data) {
+        var selectedSeats = [];
         var seatKeys = [];
+        var findMax = [];
+
+        // create array of slected seats with images for render select
+        selectedSeats.push({key: positionOne, render_select: {altImage: altImageFC,fillOpacity: 1}});
+        selectedSeats.push({key: positionTwo, render_select: {altImage: altImageSC,fillOpacity: 1}});
+        selectedSeats.push({key: positionThree, render_select: {altImage: altImageTC,fillOpacity: 1}});
 
         // create array for area tooltips
         $.each(data.seats, function( i, d ) {
             var pct = ((d/data.respondents)*100).toFixed(1);
-            var tooltip = pct + "% ("+ d +") of respondents picked this spot.";
+            var tooltip = pct + "% ("+ d +") of respondents picked this spot as their first choice.";
             seatKeys.push({key: i, toolTip: tooltip});
+            // piggyback on this loop to create max array
+            findMax.push(d);
         }); 
+
+        // set up a d3 color scale
+        var max = d3.max(findMax, function(d) { return d; });
+
+        var color = d3.scale.linear()
+                        .domain([0.99, max])
+                        .range(["#4291c3", "#e1344b"]);
 
         // bind image and set initial selections
         image.mapster({
             mapKey: 'data-key',
-            render_select: {
-                altImage: '/static/crimemaps/css/images/chi_redline_subway_A_car_where_you_sit.png',
-                fillOpacity: 1
-            },
+            areas: selectedSeats,
         });
 
         // select seats from visitor picked
         image.mapster('set',true,positionOne);
         image.mapster('set',true,positionTwo);
         image.mapster('set',true,positionThree);
-
         image.mapster('snapshot',true);
+
 
         // create array for area tooltips and
         // loop through each seat, rebinding the image and setting the opacity of a selection based on the percentage of people who picked that seat
         $.each(data.seats, function( i, d ) {
             var frac = d/data.respondents;
-            // rebind with the fill opacity based on 
+            // if 
+            var c = color(d);
+            // strip hash sign
+            c = c.replace("#", "");
+            // rebind with the fill opacity
             image.mapster('rebind', {
                 mapKey: 'data-key',
                 fill: true,
-                fillColor:'e1344b',
-                fillOpacity: frac,
+                fillColor: c,
+                fillOpacity: 0.7,
                 stroke: false,
             });            
 
             image.mapster('set',true,i);
             image.mapster('snapshot',true);
 
-            // create tooltip content while we're at it.
-            var pct = ((frac)*100).toFixed(1);
-            var tooltip = pct + "% of respondents picked this seat.";
-            seatKeys.push({key: i, toolTip: tooltip});
         }); 
+
+        
 
         // rebind with the tooltips
         image.mapster('rebind', {
@@ -105,7 +118,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: "GET",
-            url: "/chi-l/resultsapi/?rideTime=" + rideTime + "&rideLength=" + rideLength + "&capacity=" + capacity,
+            url: "/chi-l/resultsapi/?train=" + lineSelected + "&rideTime=" + rideTime + "&rideLength=" + rideLength + "&capacity=" + capacity,
             success: function(data){
                 // clear the previous image and update
                 image.mapster('unbind');
@@ -131,6 +144,11 @@ $(document).ready(function () {
     var twitterUrl = 'https://twitter.com/share?url=' + encodeURIComponent(twitterlink) + '&via='+ encodeURIComponent(via) + '&text=' + encodeURIComponent(twittercaption);
     $('#showShareTwitter').attr("href", twitterUrl);
 
+
+    // add scrolling after train pulls in
+    setTimeout(function(){
+        $(".trainLineImage").addClass("imageOverflow");
+    },1200);
 
 
 

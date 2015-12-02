@@ -1339,6 +1339,33 @@ def traindemo_half_full(request):
 def traindemo_full(request):
 	return render(request, 'crimemaps/traindemo_full.html', {})
 
+def chi_l_line(request, id=None):
+	if id:
+		CHItrainSitStandObject = CHItrainSitStand.objects.get(pk=id)
+	else:
+		CHItrainSitStandObject = CHItrainSitStand()
+
+	# A HTTP POST?
+	if request.method == 'POST':
+		form = CHITrainLineForm(request.POST, instance=CHItrainSitStandObject)
+
+		# Have we been provided with a valid form?
+		if form.is_valid():
+			# Save the new data to the database.
+			f = form.save()
+			lookupObject = CHItrainSitStand.objects.get(pk=f.pk)
+			return HttpResponseRedirect(reverse('chi_l_arrived', args=(lookupObject.pk,)))
+		else:
+			# The supplied form contained errors - just print them to the terminal.
+			print form.errors
+	else:
+		# If the request was not a POST, display the form to enter details.
+		form = CHITrainLineForm(instance=CHItrainSitStandObject)
+
+	# Bad form (or form details), no form supplied...
+	# Render the form with error messages (if any).
+	return render(request, 'crimemaps/chi_l_line.html', {'form':form, 'CHItrainSitStandObject': CHItrainSitStandObject})
+
 def chi_l_arrived(request, id=None):
 	if id:
 		CHItrainSitStandObject = CHItrainSitStand.objects.get(pk=id)
@@ -1472,7 +1499,7 @@ def chi_l_full_car(request, id=None):
 			# Save the new data to the database.
 			f = form.save()
 			lookupObject = CHItrainSitStand.objects.get(pk=f.pk)
-			return HttpResponseRedirect(reverse('chi_l_results', args=(lookupObject.pk,)))
+			return HttpResponseRedirect(reverse('chi_l_calculating', args=(lookupObject.pk,)))
 		else:
 			# The supplied form contained errors - just print them to the terminal.
 			print form.errors
@@ -1483,6 +1510,15 @@ def chi_l_full_car(request, id=None):
 	# Bad form (or form details), no form supplied...
 	# Render the form with error messages (if any).
 	return render(request, 'crimemaps/chi_l_full_car.html', {'form':form, 'positionOne': positionOne, 'positionTwo': positionTwo, 'CHItrainSitStandObject': CHItrainSitStandObject})
+
+def chi_l_calculating(request, id=None):
+	if id:
+		CHItrainSitStandObject = CHItrainSitStand.objects.get(pk=id)
+	else:
+		CHItrainSitStandObject = CHItrainSitStand()
+
+	return render(request, 'crimemaps/chi_l_calculating.html', {'CHItrainSitStandObject':CHItrainSitStandObject, 'id': id})
+
 
 def chi_l_results(request, id=None):
 	if id:
