@@ -1,0 +1,80 @@
+{% extends 'crimemaps/baseNoBottomNavCHI_TrainApp.html' %}
+{% load staticfiles %}
+{% load bootstrap_tags %}
+
+{% block title %}Where do you stand or sit on the train? | DNAinfo{% endblock %}
+
+{% block css_block %}
+{% endblock %}
+
+{% block head_js_block %}
+{% endblock %}
+	
+{% block body_block %}
+
+    <ul id="background">
+      <li></li>
+    </ul>
+
+    <!-- Content -->
+    <form method="post" action=".">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3 formBackground">
+                    <p id="trainLine" class="text-center text-uppercase trainLineHeading"></p>
+                    <p class="text-center heading">Which L train line do you ride most often?</p>
+                    <div class="margin30top margin30left">
+                        {% csrf_token %}
+                        {{ form|as_bootstrap }}
+                    </div>
+                    
+                </div>
+            </div>
+            <nav id="bottomNav" class="navbar navbar-default navbar-fixed-bottom">
+              <div class="container-fluid">
+                <ol class="stationDots">
+                    <li class="active"></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ol>
+                <p class="text-center margin30top">
+                    <input type="submit" class="btn btn-primary btn-lg disabled" value="Next" />
+                </p>
+              </div> <!-- /.container-fluid -->
+            </nav>
+        </div>
+    </form>
+
+{% endblock %}
+
+{% block modal_block %}
+{% endblock %}
+
+{% block js_block %}
+<script type="text/javascript">
+    var bottomNavColor = "greyBorder";
+    var stationDotColor = "greyDot";
+    $( document ).ready(function() {
+        $('#bottomNav').addClass(bottomNavColor);
+        $('.stationDots .active').addClass(stationDotColor)
+
+        if ($("input:radio[name='train']").is(":checked")) {
+            $('.btn').removeClass('disabled');
+        } 
+
+        $( ".form-group" ).change(function() {
+        	$('.btn').removeClass('disabled');
+        });
+
+    });
+</script>
+{% endblock %}
+
+
+	
+	
+

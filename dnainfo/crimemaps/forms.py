@@ -38,14 +38,14 @@ YEAR_CHOICES = (
 )
 
 TRAINS_CHI = (
-    ('Red', 'Red Line'),
-    ('Blue', 'Blue Line'),
-    ('Green', 'Green Line'),
-    ('Yellow', 'Yellow Line'),
-    ('Orange', 'Orange Line'),
-    ('Brown', 'Brown Line'),
-    ('Purple', 'Purple Line'),
-    ('Pink', 'Pink Line'),
+    ('Red Line', 'Red Line'),
+    ('Blue Line', 'Blue Line'),
+    ('Green Line', 'Green Line'),
+    ('Yellow Line', 'Yellow Line'),
+    ('Orange Line', 'Orange Line'),
+    ('Brown Line', 'Brown Line'),
+    ('Purple Line', 'Purple Line'),
+    ('Pink Line', 'Pink Line'),
 )
 
 WHEN_RIDE = (
@@ -119,6 +119,14 @@ class chiNeighViewForm(forms.ModelForm):
             'neighborhoodLive': widgets.Select2Widget(),
         }
         
+
+class CHITrainLineForm(forms.ModelForm):
+    train = forms.ChoiceField(choices=TRAINS_CHI, label="", widget=forms.widgets.RadioSelect)
+
+    class Meta:
+        model = CHItrainSitStand
+        fields = ('train', )
+
 
 class CHITrainTimeForm(forms.ModelForm):
     rideTime= forms.ChoiceField(choices=WHEN_RIDE, label="", widget=forms.widgets.RadioSelect)

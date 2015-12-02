@@ -34,6 +34,7 @@
               <div class="container-fluid">
                 <ol class="stationDots">
                     <li></li>
+                    <li></li>
                     <li class="active"></li>
                     <li></li>
                     <li></li>
@@ -56,10 +57,41 @@
 
 {% block js_block %}
 <script type="text/javascript">
-    var lineSelected = "Red Line";
-    var color = "red";
-    var bottomNavColor = "redBorder";
-    var stationDotColor = "redDot";
+    var lineSelected = "{{ CHItrainSitStandObject.train }}";
+    if (lineSelected == "Red Line") {
+        var color = "red";
+        var bottomNavColor = "redBorder";
+        var stationDotColor = "redDot";  
+    } else if (lineSelected == "Blue Line") {
+        var color = "blue";
+        var bottomNavColor = "blueBorder";
+        var stationDotColor = "blueDot";          
+    } else if (lineSelected == "Green Line") {
+        var color = "green";
+        var bottomNavColor = "greenBorder";
+        var stationDotColor = "greenDot";          
+    } else if (lineSelected == "Yellow Line") {
+        var color = "yellow";
+        var bottomNavColor = "yellowBorder";
+        var stationDotColor = "yellowDot";          
+    } else if (lineSelected == "Orange Line") {
+        var color = "orange";
+        var bottomNavColor = "orangeBorder";
+        var stationDotColor = "orangeDot";          
+    } else if (lineSelected == "Brown Line") {
+        var color = "brown";
+        var bottomNavColor = "brownBorder";
+        var stationDotColor = "brownDot";          
+    } else if (lineSelected == "Purple Line") {
+        var color = "purple";
+        var bottomNavColor = "purpleBorder";
+        var stationDotColor = "purpleDot";          
+    } else if (lineSelected == "Pink Line") {
+        var color = "pink";
+        var bottomNavColor = "pinkBorder";
+        var stationDotColor = "pinkDot";          
+    }
+
     $( document ).ready(function() {
         $('#trainLine').text(lineSelected);
         $('#trainLine').addClass(color);
@@ -67,12 +99,7 @@
         $('.stationDots .active').addClass(stationDotColor);
 
         if ($("input:radio[name='rideLength']").is(":checked")) {
-            $('.hidden').removeClass('hidden');
             $('.btn').removeClass('disabled');
-        } else {
-            setTimeout(function(){
-                $('.hidden').removeClass('hidden');
-            },2000);            
         }
 
         $( ".form-group" ).change(function() {
