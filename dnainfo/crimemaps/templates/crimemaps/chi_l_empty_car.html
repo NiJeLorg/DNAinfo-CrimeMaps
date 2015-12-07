@@ -12,16 +12,24 @@
 	
 {% block body_block %}
 
+    <ul id="backgroundColor">
+      <li></li>
+    </ul>
+
+
     <!-- Content -->
     <div class="container-fluid grey-background">
         <div class="row">
             <div class="col-sm-10 col-sm-offset-1">
                 <p id="trainLine" class="text-center text-uppercase trainLineHeading"></p>
-                <p class="text-center heading">You get on an empty train car. Where will you ride?</p>
+                <p class="text-center heading">The Train Is Empty. Click Your Favorite Spot.</p>
                 <p class="text-center subheading"><em>
                     Click or tap on your favorite seat. If you prefer to stand, click on your preferred spot.
                 </em></p>                
-                <p class="text-center subheading"><em>Direction of Travel</em> <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span></p>
+                <p id="scrollText" class="text-center subheading"><em>
+                    <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Scroll to See Ends of Train Car <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
+                </em></p>                
+                <!--<p class="text-center subheading"><em>Direction of Travel</em> <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span></p>-->
             </div>
         </div>        
         <div class="row">
@@ -90,12 +98,12 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <!--<div class="row">
             <h3 class="platform text-center text-uppercase">Platform</h3>
-        </div>
+        </div>-->
         <nav id="bottomNav" class="navbar navbar-default navbar-fixed-bottom">
           <div class="container-fluid">
-            <ol class="stationDots">
+            <!--<ol class="stationDots">
                 <li></li>
                 <li></li>
                 <li></li>
@@ -103,7 +111,7 @@
                 <li></li>
                 <li></li>
                 <li></li>
-            </ol>
+            </ol>-->
             <p class="text-center margin30top">
                 <form id="target" method="post" action=".">
                     <div id="form" class="hidden">
@@ -203,6 +211,7 @@
         $('.stationDots .active').addClass(stationDotColor);
     });
 </script>
+<script type="text/javascript" src="{% static 'crimemaps/js/modernizr-touch-pointer.js' %}"></script>
 <script type="text/javascript" src="{% static 'crimemaps/js/jquery.imagemapster.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'crimemaps/js/chi_l_empty_car.js' %}"></script>
 {% endblock %}

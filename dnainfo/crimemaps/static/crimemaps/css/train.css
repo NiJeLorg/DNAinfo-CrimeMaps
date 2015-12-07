@@ -51,6 +51,25 @@ html, body {
   padding: 0; 
 }
 
+/* full screen background image */
+#backgroundColor, #backgroundColor li { 
+  position: absolute; 
+  top: 0; 
+  left: 0; 
+  right: 0; 
+  bottom: 0; 
+  background-color: #f1f1f1; 
+  background-size: cover; 
+  background-position: center center; 
+  background-repeat: no-repeat; 
+}
+
+#backgroundColor { 
+  z-index: -1;
+  margin: 0; 
+  padding: 0; 
+}
+
 .grey-background {
 	background-color: #f1f1f1;
 }
@@ -309,7 +328,7 @@ html, body {
 }
 
 .imageOverflow {
-	overflow-x: auto;
+	overflow-x: scroll;
 	overflow-y: hidden;
 }
 
@@ -380,6 +399,10 @@ html, body {
 	.trainLineImage {
 		width: 1200px;
 		height: 304px;
+	}
+
+	#scrollText {
+		display: none;
 	}	
 }
 

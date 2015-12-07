@@ -22,7 +22,7 @@
             <div class="row">
                 <div class="col-sm-6 col-sm-offset-3 formBackground">
                     <p id="trainLine" class="text-center text-uppercase trainLineHeading"></p>
-                    <p class="text-center heading">Which L train line do you ride most often?</p>
+                    <p class="text-center heading">Which "L" train line do you ride most often?</p>
                     <div class="margin30top margin30left">
                         {% csrf_token %}
                         {{ form|as_bootstrap }}
@@ -32,7 +32,7 @@
             </div>
             <nav id="bottomNav" class="navbar navbar-default navbar-fixed-bottom">
               <div class="container-fluid">
-                <ol class="stationDots">
+                <!--<ol class="stationDots">
                     <li class="active"></li>
                     <li></li>
                     <li></li>
@@ -40,7 +40,7 @@
                     <li></li>
                     <li></li>
                     <li></li>
-                </ol>
+                </ol>-->
                 <p class="text-center margin30top">
                     <input type="submit" class="btn btn-primary btn-lg disabled" value="Next" />
                 </p>

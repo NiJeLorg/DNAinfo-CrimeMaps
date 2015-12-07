@@ -7,7 +7,14 @@
 $(document).ready(function () {
 
     // get width 
-    var w = $('body').width();
+    var w = $('.col-sm-12').width();
+
+    // add scrolling after train pulls in
+    if (w <= 1200) {
+        setTimeout(function(){
+            $(".trainLineImage").addClass("imageOverflow");
+        },1200);
+    }
 
     /*
     if (w <= 1200) {
@@ -143,14 +150,6 @@ $(document).ready(function () {
     var twittercaption = 'This is how I ride the '+ lineSelected +'. How do you do it?';
     var twitterUrl = 'https://twitter.com/share?url=' + encodeURIComponent(twitterlink) + '&via='+ encodeURIComponent(via) + '&text=' + encodeURIComponent(twittercaption);
     $('#showShareTwitter').attr("href", twitterUrl);
-
-
-    // add scrolling after train pulls in
-    setTimeout(function(){
-        $(".trainLineImage").addClass("imageOverflow");
-    },1200);
-
-
 
 
 });
