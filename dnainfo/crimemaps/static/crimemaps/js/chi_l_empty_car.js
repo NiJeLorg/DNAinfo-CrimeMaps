@@ -9,6 +9,13 @@ $(document).ready(function () {
     // get width 
     var w = $('body').width();
 
+    // add scrolling after train pulls in
+    if (w <= 1200) {
+        setTimeout(function(){
+            $(".trainLineImage").addClass("imageOverflow");
+        },1200);
+    }
+
     /*
     if (w <= 1200) {
         var elem = document.getElementById("trainLineImage"); 
@@ -18,6 +25,15 @@ $(document).ready(function () {
     }
     */
 
+    if (Modernizr.touchevents || Modernizr.pointerevents) {
+        // if we detect touch or pointer events, disable hover
+        var highLight = true;
+        var renderHighlight = { altImage: altImage, fillOpacity: 0.5 };
+    } else {
+        var highLight = false;
+        var renderHighlight = {};    
+    }
+
     // bind image
     image.mapster({
         singleSelect: true,
@@ -26,10 +42,8 @@ $(document).ready(function () {
             altImage: altImage,
             fillOpacity: 1
         },
-        render_highlight : {
-            altImage: altImage,
-            fillOpacity: 0.5
-        },
+        highlight: highLight,
+        render_highlight : renderHighlight,
         onClick: click,
     });
 
@@ -52,11 +66,6 @@ $(document).ready(function () {
         $('#formButton').removeClass('disabled');
 
     }
-
-    // add scrolling after train pulls in
-    setTimeout(function(){
-        $(".trainLineImage").addClass("imageOverflow");
-    },1200);
 
     // have train slide out then submit form
     $('#formButton').click(function(event){

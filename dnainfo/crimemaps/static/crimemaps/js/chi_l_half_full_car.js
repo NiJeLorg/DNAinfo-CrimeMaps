@@ -9,6 +9,13 @@ $(document).ready(function () {
     // get width 
     var w = $('body').width();
 
+    // add scrolling after train pulls in
+    if (w <= 1200) {
+        setTimeout(function(){
+            $(".trainLineImage").addClass("imageOverflow");
+        },1200);
+    }
+
     /*
     if (w <= 1200) {
         var elem = document.getElementById("trainLineImage"); 
@@ -138,11 +145,6 @@ $(document).ready(function () {
         }
 
     }
-
-    // add scrolling after train pulls in
-    setTimeout(function(){
-        $(".trainLineImage").addClass("imageOverflow");
-    },1200);
 
     // have train slide out then submit form
     $('#formButton').click(function(event){
