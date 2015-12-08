@@ -1827,7 +1827,11 @@ A jQuery plugin to enhance image maps.
                 return m.hasVml.value;
             };
 
-            m.isTouch = !!document.documentElement.ontouchstart;
+            if (Modernizr.touchevents || Modernizr.pointerevents) {
+                m.isTouch = true;   
+            } else {
+                m.isTouch = false;   
+            }
 
             $.extend(m.defaults, m.render_defaults,m.shared_defaults);
             $.extend(m.area_defaults, m.render_defaults,m.shared_defaults);
