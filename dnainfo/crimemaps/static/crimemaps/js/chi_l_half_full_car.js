@@ -6,6 +6,9 @@
 
 $(document).ready(function () {
 
+    // add slide in class to train car when dom is ready
+    $(".trainLineImage").addClass("slide-in");
+
     // get width 
     var w = $('body').width();
 
@@ -13,7 +16,7 @@ $(document).ready(function () {
     if (w <= 1200) {
         setTimeout(function(){
             $(".trainLineImage").addClass("imageOverflow");
-        },1200);
+        },1500);
     }
 
     /*
@@ -122,6 +125,15 @@ $(document).ready(function () {
 
     function rebind() {
 
+        if (Modernizr.touchevents || Modernizr.pointerevents) {
+            // if we detect touch or pointer events, disable hover
+            var highLight = false;
+            var renderHighlight = {};    
+        } else {
+            var highLight = true;
+            var renderHighlight = { altImage: altImage, fillOpacity: 0.5 };
+        }
+
         image.mapster('rebind', {
             singleSelect: true,
             mapKey: 'data-key',
@@ -129,10 +141,8 @@ $(document).ready(function () {
                 altImage: altImage,
                 fillOpacity: 1
             },
-            render_highlight: {
-                altImage: altImage,
-                fillOpacity: 0.5
-            },
+            highlight: highLight,
+            render_highlight: renderHighlight,
             onClick: click,
             areas: maskKeys
         });  

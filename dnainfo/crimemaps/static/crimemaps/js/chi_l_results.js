@@ -6,6 +6,12 @@
 
 $(document).ready(function () {
 
+    // global vars
+    var max;
+
+    // add slide in class to train car when dom is ready
+    $(".trainLineImage").addClass("slide-in");
+
     // get width 
     var w = $('.col-sm-12').width();
 
@@ -13,7 +19,8 @@ $(document).ready(function () {
     if (w <= 1200) {
         setTimeout(function(){
             $(".trainLineImage").addClass("imageOverflow");
-        },1200);
+        },1500);
+
     }
 
     /*
@@ -46,9 +53,9 @@ $(document).ready(function () {
         var findMax = [];
 
         // create array of slected seats with images for render select
-        selectedSeats.push({key: positionOne, render_select: {altImage: altImageFC,fillOpacity: 1}});
-        selectedSeats.push({key: positionTwo, render_select: {altImage: altImageSC,fillOpacity: 1}});
-        selectedSeats.push({key: positionThree, render_select: {altImage: altImageTC,fillOpacity: 1}});
+        selectedSeats.push({key: positionOne, render_select: {altImage: altImageFC,altImageOpacity: 0.5}});
+        selectedSeats.push({key: positionTwo, render_select: {altImage: altImageSC,altImageOpacity: 0.5}});
+        selectedSeats.push({key: positionThree, render_select: {altImage: altImageTC,altImageOpacity: 0.5}});
 
         // create array for area tooltips
         $.each(data.seats, function( i, d ) {
@@ -60,7 +67,7 @@ $(document).ready(function () {
         }); 
 
         // set up a d3 color scale
-        var max = d3.max(findMax, function(d) { return d; });
+        max = d3.max(findMax, function(d) { return d; });
 
         var color = d3.scale.linear()
                         .domain([0.99, max])
@@ -70,6 +77,7 @@ $(document).ready(function () {
         image.mapster({
             mapKey: 'data-key',
             areas: selectedSeats,
+            onConfigured: createHeatmap(data),
         });
 
         // select seats from visitor picked
@@ -81,6 +89,7 @@ $(document).ready(function () {
 
         // create array for area tooltips and
         // loop through each seat, rebinding the image and setting the opacity of a selection based on the percentage of people who picked that seat
+        /*
         $.each(data.seats, function( i, d ) {
             var frac = d/data.respondents;
             // if 
@@ -100,8 +109,8 @@ $(document).ready(function () {
             image.mapster('snapshot',true);
 
         }); 
-
-        
+        */
+       
 
         // rebind with the tooltips
         image.mapster('rebind', {
@@ -109,10 +118,79 @@ $(document).ready(function () {
             fill: false,
             showToolTip: true,
             toolTipContainer: '<div style="max-width: 200px; padding: 3px 8px; margin: 4px; border-radius: 4px; opacity: 1; display: block; position: absolute; left: 31px; top: 328px; z-index: 9999; color: #fff; background-color: #000; text-align: center;"></div>',
-            areas: seatKeys,
-
+            areas: seatKeys
         });   
         
+    }
+
+    function createHeatmap(data) {
+        // set up heatmap instance
+        var heatmapInstance = h337.create({
+            // only container is required, the rest will be defaults
+            container: document.querySelector('#heatmap'),
+            radius: 50,
+            maxOpacity: 0.5,
+            minOpacity: 0,
+            blur: 0.75
+        });
+
+        // now create points for heatmap
+        var points = [];
+
+        $.each(data.seats, function( i, d ) {
+            // look up center
+            var area = document.getElementById(i);
+            var center = getAreaCenter(area.getAttribute('shape'), area.getAttribute('coords'));
+            var point = {
+                x: center[0],
+                y: center[1],
+                value: d
+            };
+            points.push(point);
+        });
+
+        // heatmap data format
+        var data = { 
+          max: max, 
+          min: 1,
+          data: points 
+        };
+        // if you have a set of datapoints always use setData instead of addData
+        // for data initialization
+        heatmapInstance.setData(data);         
+
+    }
+
+    function getAreaCenter(shape, coords) {
+        var coordsArray = coords.split(','),
+            center = [];
+        if (shape == 'circle') {
+            // For circle areas the center is given by the first two values
+            center = [coordsArray[0], coordsArray[1]];
+        } else {
+            // For rect and poly areas we need to loop through the coordinates
+            var coord,
+                minX = maxX = parseInt(coordsArray[0], 10),
+                minY = maxY = parseInt(coordsArray[1], 10);
+            for (var i = 0, l = coordsArray.length; i < l; i++) {
+                coord = parseInt(coordsArray[i], 10);
+                if (i%2 == 0) { // Even values are X coordinates
+                    if (coord < minX) {
+                        minX = coord;
+                    } else if (coord > maxX) {
+                        maxX = coord;
+                    }
+                } else { // Odd values are Y coordinates
+                    if (coord < minY) {
+                        minY = coord;
+                    } else if (coord > maxY) {
+                        maxY = coord;
+                    }
+                }
+            }
+            center = [parseInt((minX + maxX) / 2, 10), parseInt((minY + maxY) / 2, 10)];
+        }
+        return(center);
     }
 
     // create listener to update image run when the form changes

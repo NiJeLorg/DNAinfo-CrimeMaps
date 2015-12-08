@@ -50,7 +50,7 @@
                     Hover over or tap on the map below to see the percentage of <span class="trainLine"></span> riders that chose a particular seat or standing area, including those who agree with you.
                 </em></p>                
                 <p id="scrollText" class="text-center subheading"><em>
-                    <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span> Scroll to See Ends of Train Car <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+                    <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Scroll to See Ends of Train Car <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
                 </em></p>                
                 <!--<p class="text-center subheading"><em>Direction of Travel</em> <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span></p>-->
             </div>
@@ -93,67 +93,69 @@
         -->       
         <div class="row">
             <div class="col-sm-12">
-                <div id="trainLineImage" class="trainLineImage center-block slide-in">
-                {% if CHItrainSitStandObject.train == "Green Line" or CHItrainSitStandObject.train == "Pink Line" or CHItrainSitStandObject.train == "Red Line" or CHItrainSitStandObject.train == "Yellow Line" or CHItrainSitStandObject.train == "Purple Line" %}
-                    <img id="CHI_L_GPRYP_Lines" src="{% static 'crimemaps/css/images/CHI_L_GPRYP_Lines_Empty_Car.png' %}" usemap="#CHI_L_GPRYP_Lines">
-                    <map name="CHI_L_GPRYP_Lines">
-                        <area data-key="1,edge-seat" href="#" shape="rect" coords="146,40,182,90" />
-                        <area data-key="2,middle-seat" href="#" shape="rect" coords="181,40,217,90" />
-                        <area data-key="3,middle-seat" href="#" shape="rect" coords="216,40,252,90" />
-                        <area data-key="4,edge-seat" href="#" shape="rect" coords="251,40,287,90" />
-                        <area data-key="5,window-seat" href="#" shape="rect" coords="488,33,539,70" />
-                        <area data-key="6,asile-seat" href="#" shape="rect" coords="488,69,539,106" />
-                        <area data-key="7,edge-seat" href="#" shape="rect" coords="551,34,588,84" />
-                        <area data-key="8,middle-seat" href="#" shape="rect" coords="586,34,624,84" />
-                        <area data-key="9,middle-seat" href="#" shape="rect" coords="621,34,658,84" />
-                        <area data-key="10,middle-seat" href="#" shape="rect" coords="656,34,694,84" />
-                        <area data-key="11,middle-seat" href="#" shape="rect" coords="691,34,729,84" />
-                        <area data-key="12,middle-seat" href="#" shape="rect" coords="726,40,763,90" />
-                        <area data-key="13,edge-seat" href="#" shape="rect" coords="762,40,799,90" />
-                        <area data-key="14,edge-seat" href="#" shape="rect" coords="911,40,948,90" />
-                        <area data-key="15,middle-seat" href="#" shape="rect" coords="947,40,984,90" />
-                        <area data-key="16,middle-seat" href="#" shape="rect" coords="982,40,1019,90" />
-                        <area data-key="17,middle-seat" href="#" shape="rect" coords="1017,40,1054,90" />
-                        <area data-key="18,middle-seat" href="#" shape="rect" coords="1051,40,1088,90" />
-                        <area data-key="19,edge-seat" href="#" shape="rect" coords="1087,40,1124,90" />
-                        <area data-key="20,edge-seat" href="#" shape="rect" coords="1087,179,1124,229" />
-                        <area data-key="21,middle-seat" href="#" shape="rect" coords="1051,179,1088,229" />
-                        <area data-key="22,middle-seat" href="#" shape="rect" coords="1017,179,1054,229" />
-                        <area data-key="23,middle-seat" href="#" shape="rect" coords="982,179,1019,229" />
-                        <area data-key="24,middle-seat" href="#" shape="rect" coords="947,179,984,229" />
-                        <area data-key="25,edge-seat" href="#" shape="rect" coords="912,179,949,229" />
-                        <area data-key="26,edge-seat" href="#" shape="rect" coords="762,179,799,229" />
-                        <area data-key="27,middle-seat" href="#" shape="rect" coords="726,179,763,229" />
-                        <area data-key="28,middle-seat" href="#" shape="rect" coords="691,185,728,235" />
-                        <area data-key="29,middle-seat" href="#" shape="rect" coords="656,185,693,235" />
-                        <area data-key="30,middle-seat" href="#" shape="rect" coords="621,185,658,235" />
-                        <area data-key="31,middle-seat" href="#" shape="rect" coords="586,185,623,235" />
-                        <area data-key="32,edge-seat" href="#" shape="rect" coords="550,185,587,235" />
-                        <area data-key="33,asile-seat" href="#" shape="rect" coords="489,163,545,200" />
-                        <area data-key="34,window-seat" href="#" shape="rect" coords="489,199,545,236" />
-                        <area data-key="35,edge-seat" href="#" shape="rect" coords="252,178,289,229" />
-                        <area data-key="36,middle-seat" href="#" shape="rect" coords="216,178,253,229" />
-                        <area data-key="37,middle-seat" href="#" shape="rect" coords="181,178,218,229" />
-                        <area data-key="38,edge-seat" href="#" shape="rect" coords="146,178,183,229" />
-                        <area data-key="39,end-standing" href="#" shape="rect" coords="48,163,117,226" />
-                        <area data-key="40,end-standing" href="#" shape="rect" coords="45,107,139,161" />
-                        <area data-key="41,middle-standing" href="#" shape="rect" coords="142,108,290,162" />
-                        <area data-key="42,door-standing" href="#" shape="rect" coords="294,35,393,91" />
-                        <area data-key="43,middle-door-standing" href="#" shape="rect" coords="293,91,392,178" />
-                        <area data-key="44,door-standing" href="#" shape="rect" coords="293,179,392,234" />
-                        <area data-key="45,side-standing" href="#" shape="rect" coords="394,50,484,105" />
-                        <area data-key="46,middle-standing" href="#" shape="rect" coords="394,108,544,163" />
-                        <area data-key="47,side-standing" href="#" shape="rect" coords="393,164,483,220" />
-                        <area data-key="48,middle-standing" href="#" shape="rect" coords="548,101,657,168" />
-                        <area data-key="49,middle-standing" href="#" shape="rect" coords="659,102,797,169" />
-                        <area data-key="50,door-standing" href="#" shape="rect" coords="804,32,904,89" />
-                        <area data-key="51,middle-door-standing" href="#" shape="rect" coords="804,90,903,177" />
-                        <area data-key="52,door-standing" href="#" shape="rect" coords="806,178,902,233" />
-                        <area data-key="53,middle-standing" href="#" shape="rect" coords="914,102,1051,168" />
-                        <area data-key="54,end-standing" href="#" shape="rect" coords="1052,101,1152,168" />
-                    </map>
-                {% else %}
-                {% endif %}
+                <div id="trainLineImage" class="trainLineImage center-block">
+                    <div id="heatmap">
+                    {% if CHItrainSitStandObject.train == "Green Line" or CHItrainSitStandObject.train == "Pink Line" or CHItrainSitStandObject.train == "Red Line" or CHItrainSitStandObject.train == "Yellow Line" or CHItrainSitStandObject.train == "Purple Line" %}
+                        <img id="CHI_L_GPRYP_Lines" src="{% static 'crimemaps/css/images/CHI_L_GPRYP_Lines_Empty_Car.png' %}" usemap="#CHI_L_GPRYP_Lines">
+                        <map name="CHI_L_GPRYP_Lines">
+                            <area id="1" data-key="1,edge-seat" href="#" shape="rect" coords="146,40,182,90" />
+                            <area id="2" data-key="2,middle-seat" href="#" shape="rect" coords="181,40,217,90" />
+                            <area id="3" data-key="3,middle-seat" href="#" shape="rect" coords="216,40,252,90" />
+                            <area id="4" data-key="4,edge-seat" href="#" shape="rect" coords="251,40,287,90" />
+                            <area id="5" data-key="5,window-seat" href="#" shape="rect" coords="488,33,539,70" />
+                            <area id="6" data-key="6,asile-seat" href="#" shape="rect" coords="488,69,539,106" />
+                            <area id="7" data-key="7,edge-seat" href="#" shape="rect" coords="551,34,588,84" />
+                            <area id="8" data-key="8,middle-seat" href="#" shape="rect" coords="586,34,624,84" />
+                            <area id="9" data-key="9,middle-seat" href="#" shape="rect" coords="621,34,658,84" />
+                            <area id="10" data-key="10,middle-seat" href="#" shape="rect" coords="656,34,694,84" />
+                            <area id="11" data-key="11,middle-seat" href="#" shape="rect" coords="691,34,729,84" />
+                            <area id="12" data-key="12,middle-seat" href="#" shape="rect" coords="726,40,763,90" />
+                            <area id="13" data-key="13,edge-seat" href="#" shape="rect" coords="762,40,799,90" />
+                            <area id="14" data-key="14,edge-seat" href="#" shape="rect" coords="911,40,948,90" />
+                            <area id="15" data-key="15,middle-seat" href="#" shape="rect" coords="947,40,984,90" />
+                            <area id="16" data-key="16,middle-seat" href="#" shape="rect" coords="982,40,1019,90" />
+                            <area id="17" data-key="17,middle-seat" href="#" shape="rect" coords="1017,40,1054,90" />
+                            <area id="18" data-key="18,middle-seat" href="#" shape="rect" coords="1051,40,1088,90" />
+                            <area id="19" data-key="19,edge-seat" href="#" shape="rect" coords="1087,40,1124,90" />
+                            <area id="20" data-key="20,edge-seat" href="#" shape="rect" coords="1087,179,1124,229" />
+                            <area id="21" data-key="21,middle-seat" href="#" shape="rect" coords="1051,179,1088,229" />
+                            <area id="22" data-key="22,middle-seat" href="#" shape="rect" coords="1017,179,1054,229" />
+                            <area id="23" data-key="23,middle-seat" href="#" shape="rect" coords="982,179,1019,229" />
+                            <area id="24" data-key="24,middle-seat" href="#" shape="rect" coords="947,179,984,229" />
+                            <area id="25" data-key="25,edge-seat" href="#" shape="rect" coords="912,179,949,229" />
+                            <area id="26" data-key="26,edge-seat" href="#" shape="rect" coords="762,179,799,229" />
+                            <area id="27" data-key="27,middle-seat" href="#" shape="rect" coords="726,179,763,229" />
+                            <area id="28" data-key="28,middle-seat" href="#" shape="rect" coords="691,185,728,235" />
+                            <area id="29" data-key="29,middle-seat" href="#" shape="rect" coords="656,185,693,235" />
+                            <area id="30" data-key="30,middle-seat" href="#" shape="rect" coords="621,185,658,235" />
+                            <area id="31" data-key="31,middle-seat" href="#" shape="rect" coords="586,185,623,235" />
+                            <area id="32" data-key="32,edge-seat" href="#" shape="rect" coords="550,185,587,235" />
+                            <area id="33" data-key="33,asile-seat" href="#" shape="rect" coords="489,163,545,200" />
+                            <area id="34" data-key="34,window-seat" href="#" shape="rect" coords="489,199,545,236" />
+                            <area id="35" data-key="35,edge-seat" href="#" shape="rect" coords="252,178,289,229" />
+                            <area id="36" data-key="36,middle-seat" href="#" shape="rect" coords="216,178,253,229" />
+                            <area id="37" data-key="37,middle-seat" href="#" shape="rect" coords="181,178,218,229" />
+                            <area id="38" data-key="38,edge-seat" href="#" shape="rect" coords="146,178,183,229" />
+                            <area id="39" data-key="39,end-standing" href="#" shape="rect" coords="48,163,117,226" />
+                            <area id="40" data-key="40,end-standing" href="#" shape="rect" coords="45,107,139,161" />
+                            <area id="41" data-key="41,middle-standing" href="#" shape="rect" coords="142,108,290,162" />
+                            <area id="42" data-key="42,door-standing" href="#" shape="rect" coords="294,35,393,91" />
+                            <area id="43" data-key="43,middle-door-standing" href="#" shape="rect" coords="293,91,392,178" />
+                            <area id="44" data-key="44,door-standing" href="#" shape="rect" coords="293,179,392,234" />
+                            <area id="45" data-key="45,side-standing" href="#" shape="rect" coords="394,50,484,105" />
+                            <area id="46" data-key="46,middle-standing" href="#" shape="rect" coords="394,108,544,163" />
+                            <area id="47" data-key="47,side-standing" href="#" shape="rect" coords="393,164,483,220" />
+                            <area id="48" data-key="48,middle-standing" href="#" shape="rect" coords="548,101,657,168" />
+                            <area id="49" data-key="49,middle-standing" href="#" shape="rect" coords="659,102,797,169" />
+                            <area id="50" data-key="50,door-standing" href="#" shape="rect" coords="804,32,904,89" />
+                            <area id="51" data-key="51,middle-door-standing" href="#" shape="rect" coords="804,90,903,177" />
+                            <area id="52" data-key="52,door-standing" href="#" shape="rect" coords="806,178,902,233" />
+                            <area id="53" data-key="53,middle-standing" href="#" shape="rect" coords="914,102,1051,168" />
+                            <area id="54" data-key="54,end-standing" href="#" shape="rect" coords="1052,101,1152,168" />
+                        </map>
+                    {% else %}
+                    {% endif %}
+                    </div>
                 </div>
             </div>
         </div>
@@ -291,6 +293,7 @@
     var positionThree = "{{ CHItrainSitStandObject.positionThree }}";
 </script>
 <script type="text/javascript" src="{% static 'crimemaps/js/modernizr-touch-pointer.js' %}"></script>
+<script type="text/javascript" src="{% static 'crimemaps/js/heatmap.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'crimemaps/js/jquery.imagemapster.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'crimemaps/js/d3.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'crimemaps/js/chi_l_results.js' %}"></script>

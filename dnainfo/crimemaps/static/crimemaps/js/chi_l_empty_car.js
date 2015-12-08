@@ -6,6 +6,9 @@
 
 $(document).ready(function () {
 
+    // add slide in class to train car when dom is ready
+    $(".trainLineImage").addClass("slide-in");
+
     // get width 
     var w = $('body').width();
 
@@ -13,7 +16,7 @@ $(document).ready(function () {
     if (w <= 1200) {
         setTimeout(function(){
             $(".trainLineImage").addClass("imageOverflow");
-        },1200);
+        },1500);
     }
 
     /*
