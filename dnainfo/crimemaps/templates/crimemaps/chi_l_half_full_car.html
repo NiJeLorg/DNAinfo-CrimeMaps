@@ -26,14 +26,14 @@
                     Click or tap to make your choice. If you prefer to stand, click on your preferred spot.
                 </em></p>                
                 <p id="scrollText" class="text-center subheading"><em>
-                    <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span> Scroll to See Ends of Train Car <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+                    <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Scroll to See Ends of Train Car <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
                 </em></p>                
                 <!--<p class="text-center subheading"><em>Direction of Travel</em> <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span></p>-->
             </div>
         </div>        
         <div class="row">
             <div class="col-sm-12">
-                <div id="trainLineImage" class="trainLineImage center-block slide-in">
+                <div id="trainLineImage" class="trainLineImage center-block">
                 {% if CHItrainSitStandObject.train == "Green Line" or CHItrainSitStandObject.train == "Pink Line" or CHItrainSitStandObject.train == "Red Line" or CHItrainSitStandObject.train == "Yellow Line" or CHItrainSitStandObject.train == "Purple Line" %}
                     <img id="CHI_L_GPRYP_Lines" src="{% static 'crimemaps/css/images/CHI_L_GPRYP_Lines_Empty_Car.png' %}" usemap="#CHI_L_GPRYP_Lines">
                     <map name="CHI_L_GPRYP_Lines">
