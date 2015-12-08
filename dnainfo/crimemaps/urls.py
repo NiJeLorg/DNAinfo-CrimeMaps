@@ -72,7 +72,7 @@ urlpatterns = [
     url(r'^chi-l/half-full-car/(?P<id>\d+)/$', views.chi_l_half_full_car, name='chi_l_half_full_car'),
     url(r'^chi-l/full-car/(?P<id>\d+)/$', views.chi_l_full_car, name='chi_l_full_car'),
     url(r'^chi-l/calculating/(?P<id>\d+)/$', views.chi_l_calculating, name='chi_l_calculating'),
-    url(r'^chi-l/results/(?P<id>\d+)/$', views.chi_l_results, name='chi_l_results'),
+    url(r'^chi-l/line/results/(?P<id>\d+)/$', views.chi_l_results, name='chi_l_results'),
     url(r'^chi-l/resultsapi/$', views.chi_l_results_api, name='chi_l_results_api'),
 
 ]
