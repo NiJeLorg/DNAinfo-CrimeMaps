@@ -139,7 +139,9 @@ $(document).ready(function () {
 
         $.each(data.seats, function( i, d ) {
             // look up center
+            console.log(i);
             var area = document.getElementById(i);
+            console.log(area);
             var center = getAreaCenter(area.getAttribute('shape'), area.getAttribute('coords'));
             var point = {
                 x: center[0],
