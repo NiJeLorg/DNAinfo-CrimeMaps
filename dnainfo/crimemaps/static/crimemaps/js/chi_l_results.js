@@ -142,13 +142,15 @@ $(document).ready(function () {
             console.log(i);
             var area = document.getElementById(i);
             console.log(area);
-            var center = getAreaCenter(area.getAttribute('shape'), area.getAttribute('coords'));
-            var point = {
-                x: center[0],
-                y: center[1],
-                value: d
-            };
-            points.push(point);
+            if (typeof area !== "undefined" && area) {
+                var center = getAreaCenter(area.getAttribute('shape'), area.getAttribute('coords'));
+                var point = {
+                    x: center[0],
+                    y: center[1],
+                    value: d
+                };
+                points.push(point);
+            }
         });
 
         // heatmap data format
