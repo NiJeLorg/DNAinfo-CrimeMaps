@@ -53,25 +53,29 @@ $(document).ready(function () {
         var findMax = [];
 
         // create array of slected seats with images for render select
-        selectedSeats.push({key: positionOne, render_select: {altImage: altImageFC,altImageOpacity: 0.5}});
-        selectedSeats.push({key: positionTwo, render_select: {altImage: altImageSC,altImageOpacity: 0.5}});
-        selectedSeats.push({key: positionThree, render_select: {altImage: altImageTC,altImageOpacity: 0.5}});
+        selectedSeats.push({key: positionOne, render_select: {altImage: altImageFC,altImageOpacity: 0.8}});
+        selectedSeats.push({key: positionTwo, render_select: {altImage: altImageSC,altImageOpacity: 0.8}});
+        selectedSeats.push({key: positionThree, render_select: {altImage: altImageTC,altImageOpacity: 0.8}});
 
         // create array for area tooltips
         $.each(data.seats, function( i, d ) {
             var pct = ((d/data.respondents)*100).toFixed(1);
             var tooltip = pct + "% ("+ d +") of respondents picked this spot as their first choice.";
-            seatKeys.push({key: i, toolTip: tooltip});
+            seatKeys.push({key: i, toolTip: tooltip});                
+            
             // piggyback on this loop to create max array
             findMax.push(d);
         }); 
 
-        // set up a d3 color scale
+        // calc max value for heatmap
         max = d3.max(findMax, function(d) { return d; });
 
+        /*
+        // set up a d3 color scale 
         var color = d3.scale.linear()
                         .domain([0.99, max])
                         .range(["#4291c3", "#e1344b"]);
+        */
 
         // bind image and set initial selections
         image.mapster({
@@ -110,16 +114,25 @@ $(document).ready(function () {
 
         }); 
         */
+
+        console.log(seatKeys);
        
 
         // rebind with the tooltips
         image.mapster('rebind', {
             mapKey: 'data-key',
             fill: false,
+            stroke: true,
+            strokeColor: '545454',
+            strokeOpacity: 1,
+            strokeWidth: 2,
+            isSelectable: false,
             showToolTip: true,
-            toolTipContainer: '<div style="max-width: 200px; padding: 3px 8px; margin: 4px; border-radius: 4px; opacity: 1; display: block; position: absolute; left: 31px; top: 328px; z-index: 9999; color: #fff; background-color: #000; text-align: center;"></div>',
+            toolTipContainer: '<div style="max-width: 200px; padding: 3px 8px; margin: 4px; border-radius: 4px; opacity: 1; display: block; position: absolute; left: 31px; top: 328px; z-index: 9999; color: #fff; background-color: #252525; text-align: center;"></div>',
             areas: seatKeys
-        });   
+        }); 
+ 
+ 
         
     }
 
@@ -129,7 +142,7 @@ $(document).ready(function () {
             // only container is required, the rest will be defaults
             container: document.querySelector('#heatmap'),
             radius: 50,
-            maxOpacity: 0.5,
+            maxOpacity: 1,
             minOpacity: 0,
             blur: 0.75
         });
@@ -228,7 +241,7 @@ $(document).ready(function () {
     var twitterlink = 'http://www.dnainfo.com/chicago/visualizations/where-i-sit-stand-train?results='+ id;
     var via = 'DNAinfoCHI';
     var twittercaption = 'This is how I ride the '+ lineSelected +'. How do you do it?';
-    var twitterUrl = 'https://twitter.com/share?url=' + encodeURIComponent(twitterlink) + '&via='+ encodeURIComponent(via) + '&text=' + encodeURIComponent(twittercaption);
+    var twitterUrl = 'https://twitter.com/intent/tweet?url=' + encodeURIComponent(twitterlink) + '&via='+ encodeURIComponent(via) + '&text=' + encodeURIComponent(twittercaption);
     $('#showShareTwitter').attr("href", twitterUrl);
 
 

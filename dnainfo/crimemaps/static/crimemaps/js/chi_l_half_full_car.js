@@ -33,9 +33,10 @@ $(document).ready(function () {
     var maskKeys = [];
 
     // set others closely alligned
-    if (positionOneType == "side-standing" || positionOneType == "door-standing" || positionOneType == "middle-door-standing" || positionOneType == "end-standing" || positionOneType == "middle-standing") {
+    if (positionOneType == "3-side-standing" || positionOneType == "5-door-standing" || positionOneType == "7-door-standing" || positionOneType == "6-middle-door-standing" || positionOneType == "1-end-standing" || positionOneType == "2-middle-standing" || positionOneType == "4-middle-standing") {
         maskAreas.push("asile-seat");
         maskAreas.push("edge-seat");
+        maskAreas.push(positionOneType);
     } else {
         maskAreas.push(positionOneType);
     }
@@ -71,9 +72,10 @@ $(document).ready(function () {
 
 
     // set others closely alligned
-    if (positionOneType == "side-standing" || positionOneType == "door-standing" || positionOneType == "middle-door-standing" || positionOneType == "end-standing" || positionOneType == "middle-standing") {
+    if (positionOneType == "3-side-standing" || positionOneType == "5-door-standing" || positionOneType == "7-door-standing" || positionOneType == "6-middle-door-standing" || positionOneType == "1-end-standing" || positionOneType == "2-middle-standing" || positionOneType == "4-middle-standing") {
         image.mapster('set',true,"asile-seat");
         image.mapster('set',true,"edge-seat");
+        image.mapster('set',true,positionOneType);
     } else {
         // set selection based on the seat the user selected last round
         image.mapster('set',true,positionOneType);

@@ -1499,7 +1499,7 @@ def chi_l_full_car(request, id=None):
 			# Save the new data to the database.
 			f = form.save()
 			lookupObject = CHItrainSitStand.objects.get(pk=f.pk)
-			return HttpResponseRedirect(reverse('chi_l_calculating', args=(lookupObject.pk,)))
+			return HttpResponseRedirect(reverse('chi_l_results', args=(lookupObject.pk,)))
 		else:
 			# The supplied form contained errors - just print them to the terminal.
 			print form.errors
