@@ -348,7 +348,7 @@ html, body {
 
 .trainLineImage {
 	width: 100%;
-	height: 304px;
+	height: auto;
 	cursor: ew-resize; 
 }
 
@@ -441,7 +441,7 @@ html, body {
 @media (min-width: 1200px) { 
 	.trainLineImage {
 		width: 1200px;
-		height: 304px;
+		height: auto;
 	}
 
 	#heatmap {
