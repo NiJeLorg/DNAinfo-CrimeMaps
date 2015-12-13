@@ -167,7 +167,7 @@ $(document).ready(function () {
         // heatmap data format
         var data = { 
           max: max, 
-          min: 1,
+          min: 0,
           data: points 
         };
         // if you have a set of datapoints always use setData instead of addData
