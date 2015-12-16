@@ -21,6 +21,13 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 	  <script type="text/javascript" src="{% static 'crimemaps/js/jquery-1.11.1.min.js' %}"></script>
+    <script src="js/jquery.responsiveiframe.js"></script>
+    <script>
+      var ri = responsiveIframe();
+      ri.allowResponsiveEmbedding();
+      window.addEventListener("message", ri.messageParent, false);
+    </script>
+
   {% block head_js_block %}
   {% endblock %}
 		
