@@ -296,7 +296,7 @@ html, body {
 }
 
 .radio label, .checkbox label {
-    min-height: 40px;
+    min-height: 30px;
     font-weight: 300;
 }
 

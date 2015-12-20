@@ -32,32 +32,203 @@ $(document).ready(function () {
     var maskAreas = [];
     var maskKeys = [];
 
-    // set others closely alligned
-    if (positionOneType == "3-side-standing" || positionOneType == "5-door-standing" || positionOneType == "7-door-standing" || positionOneType == "6-middle-door-standing" || positionOneType == "1-end-standing" || positionOneType == "2-middle-standing" || positionOneType == "4-middle-standing") {
-        maskAreas.push("asile-seat");
-        maskAreas.push("edge-seat");
-        maskAreas.push(positionOneType);
+    // set masks and selected seats by train car type
+    if (carType == "GPRYP") {
+        // set others closely alligned
+        if (positionOneType == "3-side-standing" || positionOneType == "5-door-standing" || positionOneType == "7-door-standing" || positionOneType == "6-middle-door-standing" || positionOneType == "1-end-standing" || positionOneType == "2-middle-standing" || positionOneType == "4-middle-standing") {
+            maskAreas.push("asile-seat");
+            maskAreas.push("edge-seat");
+            maskAreas.push(positionOneType);
+        } else {
+            maskAreas.push(positionOneType);
+        }
+
+        if (positionOneType == "asile-seat") {
+            maskAreas.push("window-seat");
+            maskAreas.push("edge-seat");
+        }
+
+        if (positionOneType == "window-seat") {
+            maskAreas.push("asile-seat");
+            maskAreas.push("edge-seat");
+        }
+
+        if (positionOneType == "edge-seat") {
+            maskAreas.push("window-seat");
+        }
+
+        if (positionOneType == "middle-seat") {
+            maskAreas.push("asile-seat");
+        }
+
+    } else if (carType == "BO") {
+
+        // set others closely alligned
+        if (positionOneType == "3-side-standing" || positionOneType == "5-door-standing" || positionOneType == "7-door-standing" || positionOneType == "6-middle-door-standing" || positionOneType == "1-end-standing" || positionOneType == "2-middle-standing" || positionOneType == "4-middle-standing") {
+            maskAreas.push("6-seat");
+            maskAreas.push("4-seat");
+            maskAreas.push("1-seat");
+            maskAreas.push(positionOneType);
+        } else {
+            // set selection based on the seat the user selected last round
+            maskAreas.push(positionOneType);
+        }
+
+        if (positionOneType == "1-seat" || positionOneType == "7-seat") {
+            maskAreas.push("1-seat");
+            maskAreas.push("3-seat");
+            maskAreas.push("4-seat");
+            maskAreas.push("5-seat");
+            maskAreas.push("7-seat");
+            maskAreas.push("8-seat");
+        }
+
+        if (positionOneType == "2-seat") {
+            maskAreas.push("1-seat");
+            maskAreas.push("3-seat");
+            maskAreas.push("4-seat");
+            maskAreas.push("5-seat");
+            maskAreas.push("6-seat");
+            maskAreas.push("8-seat");
+        }
+
+        if (positionOneType == "3-seat") {
+            maskAreas.push("1-seat");
+            maskAreas.push("3-seat");
+            maskAreas.push("5-seat");
+            maskAreas.push("6-seat");
+            maskAreas.push("7-seat");
+            maskAreas.push("8-seat");
+        }
+
+        if (positionOneType == "4-seat" || positionOneType == "5-seat") {
+            maskAreas.push("1-seat");
+            maskAreas.push("2-seat");
+            maskAreas.push("3-seat");
+            maskAreas.push("4-seat");
+            maskAreas.push("5-seat");
+            maskAreas.push("6-seat");
+        }
+
+        if (positionOneType == "6-seat") {
+            maskAreas.push("2-seat");
+            maskAreas.push("4-seat");
+            maskAreas.push("6-seat");
+            maskAreas.push("7-seat");
+            maskAreas.push("8-seat");
+            maskAreas.push("9-seat");
+        }
+
+        if (positionOneType == "8-seat") {
+            maskAreas.push("1-seat");
+            maskAreas.push("3-seat");
+            maskAreas.push("4-seat");
+            maskAreas.push("7-seat");
+            maskAreas.push("8-seat");
+        }
+
+        if (positionOneType == "9-seat") {
+            maskAreas.push("1-seat");
+            maskAreas.push("3-seat");
+            maskAreas.push("4-seat");
+            maskAreas.push("6-seat");
+            maskAreas.push("7-seat");
+            maskAreas.push("8-seat");
+        }
+
     } else {
-        maskAreas.push(positionOneType);
+
+        // set others closely alligned
+        if (positionOneType == "3-side-standing" || positionOneType == "5-door-standing" || positionOneType == "7-door-standing" || positionOneType == "6-middle-door-standing" || positionOneType == "1-end-standing" || positionOneType == "2-middle-standing" || positionOneType == "4-middle-standing") {
+            maskAreas.push("6-seat");
+            maskAreas.push("8-seat");
+            maskAreas.push("5-seat");
+            maskAreas.push("2-seat");
+            maskAreas.push("1-seat");
+            maskAreas.push(positionOneType);
+        } else {
+            // set selection based on the seat the user selected last round
+            maskAreas.push(positionOneType);
+        }
+
+        if (positionOneType == "1-seat" || positionOneType == "2-seat") {
+            maskAreas.push("1-seat");
+            maskAreas.push("2-seat");
+            maskAreas.push("4-seat");
+            maskAreas.push("6-seat");
+            maskAreas.push("9-seat");
+        }
+
+        if (positionOneType == "3-seat") {
+            maskAreas.push("1-seat");
+            maskAreas.push("2-seat");
+            maskAreas.push("3-seat");
+            maskAreas.push("4-seat");
+            maskAreas.push("6-seat");
+            maskAreas.push("9-seat");
+        }
+
+        if (positionOneType == "4-seat") {
+            maskAreas.push("1-seat");
+            maskAreas.push("2-seat");
+            maskAreas.push("4-seat");
+            maskAreas.push("5-seat");
+            maskAreas.push("7-seat");
+            maskAreas.push("10-seat");
+        }
+
+        if (positionOneType == "5-seat") {
+            maskAreas.push("1-seat");
+            maskAreas.push("4-seat");
+            maskAreas.push("5-seat");
+            maskAreas.push("6-seat");
+            maskAreas.push("8-seat");
+        }
+
+        if (positionOneType == "6-seat") {
+            maskAreas.push("1-seat");
+            maskAreas.push("3-seat");
+            maskAreas.push("4-seat");
+            maskAreas.push("5-seat");
+            maskAreas.push("6-seat");
+            maskAreas.push("8-seat");
+        }
+
+        if (positionOneType == "7-seat") {
+            maskAreas.push("1-seat");
+            maskAreas.push("3-seat");
+            maskAreas.push("4-seat");
+            maskAreas.push("5-seat");
+            maskAreas.push("9-seat");
+        }
+
+        if (positionOneType == "8-seat") {
+            maskAreas.push("1-seat");
+            maskAreas.push("3-seat");
+            maskAreas.push("5-seat");
+            maskAreas.push("8-seat");
+            maskAreas.push("9-seat");
+        }
+
+        if (positionOneType == "9-seat") {
+            maskAreas.push("1-seat");
+            maskAreas.push("4-seat");
+            maskAreas.push("6-seat");
+            maskAreas.push("7-seat");
+            maskAreas.push("8-seat");
+            maskAreas.push("9-seat");
+        }
+
+        if (positionOneType == "10-seat") {
+            maskAreas.push("1-seat");
+            maskAreas.push("2-seat");
+            maskAreas.push("4-seat");
+            maskAreas.push("5-seat");
+            maskAreas.push("6-seat");
+        }
     }
 
-    if (positionOneType == "asile-seat") {
-        maskAreas.push("window-seat");
-        maskAreas.push("edge-seat");
-    }
 
-    if (positionOneType == "window-seat") {
-        maskAreas.push("asile-seat");
-        maskAreas.push("edge-seat");
-    }
-
-    if (positionOneType == "edge-seat") {
-        maskAreas.push("window-seat");
-    }
-
-    if (positionOneType == "middle-seat") {
-        maskAreas.push("asile-seat");
-    }
    
 
  	// bind image and set initial selections
@@ -71,33 +242,204 @@ $(document).ready(function () {
 	});
 
 
-    // set others closely alligned
-    if (positionOneType == "3-side-standing" || positionOneType == "5-door-standing" || positionOneType == "7-door-standing" || positionOneType == "6-middle-door-standing" || positionOneType == "1-end-standing" || positionOneType == "2-middle-standing" || positionOneType == "4-middle-standing") {
-        image.mapster('set',true,"asile-seat");
-        image.mapster('set',true,"edge-seat");
-        image.mapster('set',true,positionOneType);
+    if (carType == "GPRYP") {
+        // set others closely alligned
+        if (positionOneType == "3-side-standing" || positionOneType == "5-door-standing" || positionOneType == "7-door-standing" || positionOneType == "6-middle-door-standing" || positionOneType == "1-end-standing" || positionOneType == "2-middle-standing" || positionOneType == "4-middle-standing") {
+            image.mapster('set',true,"asile-seat");
+            image.mapster('set',true,"edge-seat");
+            image.mapster('set',true,positionOneType);
+        } else {
+            // set selection based on the seat the user selected last round
+            image.mapster('set',true,positionOneType);
+        }
+
+        if (positionOneType == "asile-seat") {
+            image.mapster('set',true,"window-seat");
+            image.mapster('set',true,"edge-seat");
+        }
+
+        if (positionOneType == "window-seat") {
+            image.mapster('set',true,"asile-seat");
+            image.mapster('set',true,"edge-seat");
+        }
+
+        if (positionOneType == "edge-seat") {
+            image.mapster('set',true,"window-seat");
+        }
+
+        if (positionOneType == "middle-seat") {
+            image.mapster('set',true,"asile-seat");
+        }
+
+    } else if (carType == "BO") {
+
+        // set others closely alligned
+        if (positionOneType == "3-side-standing" || positionOneType == "5-door-standing" || positionOneType == "7-door-standing" || positionOneType == "6-middle-door-standing" || positionOneType == "1-end-standing" || positionOneType == "2-middle-standing" || positionOneType == "4-middle-standing") {
+            image.mapster('set',true,"6-seat");
+            image.mapster('set',true,"4-seat");
+            image.mapster('set',true,"1-seat");
+            image.mapster('set',true,positionOneType);
+        } else {
+            // set selection based on the seat the user selected last round
+            image.mapster('set',true,positionOneType);
+        }
+
+        if (positionOneType == "1-seat" || positionOneType == "7-seat") {
+            image.mapster('set',true,"1-seat");
+            image.mapster('set',true,"3-seat");
+            image.mapster('set',true,"4-seat");
+            image.mapster('set',true,"5-seat");
+            image.mapster('set',true,"7-seat");
+            image.mapster('set',true,"8-seat");
+        }
+
+        if (positionOneType == "2-seat") {
+            image.mapster('set',true,"1-seat");
+            image.mapster('set',true,"3-seat");
+            image.mapster('set',true,"4-seat");
+            image.mapster('set',true,"5-seat");
+            image.mapster('set',true,"6-seat");
+            image.mapster('set',true,"8-seat");
+        }
+
+        if (positionOneType == "3-seat") {
+            image.mapster('set',true,"1-seat");
+            image.mapster('set',true,"3-seat");
+            image.mapster('set',true,"5-seat");
+            image.mapster('set',true,"6-seat");
+            image.mapster('set',true,"7-seat");
+            image.mapster('set',true,"8-seat");
+        }
+
+        if (positionOneType == "4-seat" || positionOneType == "5-seat") {
+            image.mapster('set',true,"1-seat");
+            image.mapster('set',true,"2-seat");
+            image.mapster('set',true,"3-seat");
+            image.mapster('set',true,"4-seat");
+            image.mapster('set',true,"5-seat");
+            image.mapster('set',true,"6-seat");
+        }
+
+        if (positionOneType == "6-seat") {
+            image.mapster('set',true,"2-seat");
+            image.mapster('set',true,"4-seat");
+            image.mapster('set',true,"6-seat");
+            image.mapster('set',true,"7-seat");
+            image.mapster('set',true,"8-seat");
+            image.mapster('set',true,"9-seat");
+        }
+
+        if (positionOneType == "8-seat") {
+            image.mapster('set',true,"1-seat");
+            image.mapster('set',true,"3-seat");
+            image.mapster('set',true,"4-seat");
+            image.mapster('set',true,"7-seat");
+            image.mapster('set',true,"8-seat");
+        }
+
+        if (positionOneType == "9-seat") {
+            image.mapster('set',true,"1-seat");
+            image.mapster('set',true,"3-seat");
+            image.mapster('set',true,"4-seat");
+            image.mapster('set',true,"6-seat");
+            image.mapster('set',true,"7-seat");
+            image.mapster('set',true,"8-seat");
+        }
+
     } else {
-        // set selection based on the seat the user selected last round
-        image.mapster('set',true,positionOneType);
+
+        // set others closely alligned
+        if (positionOneType == "3-side-standing" || positionOneType == "5-door-standing" || positionOneType == "7-door-standing" || positionOneType == "6-middle-door-standing" || positionOneType == "1-end-standing" || positionOneType == "2-middle-standing" || positionOneType == "4-middle-standing") {
+            image.mapster('set',true,"6-seat");
+            image.mapster('set',true,"8-seat");
+            image.mapster('set',true,"5-seat");
+            image.mapster('set',true,"2-seat");
+            image.mapster('set',true,"1-seat");
+            image.mapster('set',true,positionOneType);
+        } else {
+            // set selection based on the seat the user selected last round
+            image.mapster('set',true,positionOneType);
+        }
+
+        if (positionOneType == "1-seat" || positionOneType == "2-seat") {
+            image.mapster('set',true,"1-seat");
+            image.mapster('set',true,"2-seat");
+            image.mapster('set',true,"4-seat");
+            image.mapster('set',true,"6-seat");
+            image.mapster('set',true,"9-seat");
+        }
+
+        if (positionOneType == "3-seat") {
+            image.mapster('set',true,"1-seat");
+            image.mapster('set',true,"2-seat");
+            image.mapster('set',true,"3-seat");
+            image.mapster('set',true,"4-seat");
+            image.mapster('set',true,"6-seat");
+            image.mapster('set',true,"9-seat");
+        }
+
+        if (positionOneType == "4-seat") {
+            image.mapster('set',true,"1-seat");
+            image.mapster('set',true,"2-seat");
+            image.mapster('set',true,"4-seat");
+            image.mapster('set',true,"5-seat");
+            image.mapster('set',true,"7-seat");
+            image.mapster('set',true,"10-seat");
+        }
+
+        if (positionOneType == "5-seat") {
+            image.mapster('set',true,"1-seat");
+            image.mapster('set',true,"4-seat");
+            image.mapster('set',true,"5-seat");
+            image.mapster('set',true,"6-seat");
+            image.mapster('set',true,"8-seat");
+        }
+
+        if (positionOneType == "6-seat") {
+            image.mapster('set',true,"1-seat");
+            image.mapster('set',true,"3-seat");
+            image.mapster('set',true,"4-seat");
+            image.mapster('set',true,"5-seat");
+            image.mapster('set',true,"6-seat");
+            image.mapster('set',true,"8-seat");
+        }
+
+        if (positionOneType == "7-seat") {
+            image.mapster('set',true,"1-seat");
+            image.mapster('set',true,"3-seat");
+            image.mapster('set',true,"4-seat");
+            image.mapster('set',true,"5-seat");
+            image.mapster('set',true,"9-seat");
+        }
+
+        if (positionOneType == "8-seat") {
+            image.mapster('set',true,"1-seat");
+            image.mapster('set',true,"3-seat");
+            image.mapster('set',true,"5-seat");
+            image.mapster('set',true,"8-seat");
+            image.mapster('set',true,"9-seat");
+        }
+
+        if (positionOneType == "9-seat") {
+            image.mapster('set',true,"1-seat");
+            image.mapster('set',true,"4-seat");
+            image.mapster('set',true,"6-seat");
+            image.mapster('set',true,"7-seat");
+            image.mapster('set',true,"8-seat");
+            image.mapster('set',true,"9-seat");
+        }
+
+        if (positionOneType == "10-seat") {
+            image.mapster('set',true,"1-seat");
+            image.mapster('set',true,"2-seat");
+            image.mapster('set',true,"4-seat");
+            image.mapster('set',true,"5-seat");
+            image.mapster('set',true,"6-seat");
+        }
+        
     }
 
-    if (positionOneType == "asile-seat") {
-        image.mapster('set',true,"window-seat");
-        image.mapster('set',true,"edge-seat");
-    }
 
-    if (positionOneType == "window-seat") {
-        image.mapster('set',true,"asile-seat");
-        image.mapster('set',true,"edge-seat");
-    }
-
-    if (positionOneType == "edge-seat") {
-        image.mapster('set',true,"window-seat");
-    }
-
-    if (positionOneType == "middle-seat") {
-        image.mapster('set',true,"asile-seat");
-    }
 
     // snapshot image with selected areas
     image.mapster('snapshot');

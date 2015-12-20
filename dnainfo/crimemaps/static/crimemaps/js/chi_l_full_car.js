@@ -39,10 +39,34 @@ $(document).ready(function () {
     maskKeys.push({key: positionTwo, isMask: true});
 
     // mask all seating areas
-    maskAreas.push("asile-seat");
-    maskAreas.push("edge-seat");
-    maskAreas.push("window-seat");
-    maskAreas.push("middle-seat");
+    if (carType == "GPRYP") {
+        maskAreas.push("asile-seat");
+        maskAreas.push("edge-seat");
+        maskAreas.push("window-seat");
+        maskAreas.push("middle-seat");
+    } else if (carType == "BO") {
+        maskAreas.push("1-seat");
+        maskAreas.push("2-seat");
+        maskAreas.push("3-seat");
+        maskAreas.push("4-seat");
+        maskAreas.push("5-seat");
+        maskAreas.push("6-seat");
+        maskAreas.push("7-seat");
+        maskAreas.push("8-seat");
+        maskAreas.push("9-seat");
+    } else {
+        maskAreas.push("1-seat");
+        maskAreas.push("2-seat");
+        maskAreas.push("3-seat");
+        maskAreas.push("4-seat");
+        maskAreas.push("5-seat");
+        maskAreas.push("6-seat");
+        maskAreas.push("7-seat");
+        maskAreas.push("8-seat");
+        maskAreas.push("9-seat");
+        maskAreas.push("10-seat");
+
+    }
    
  	// bind image and set initial selections
 	image.mapster({
@@ -59,11 +83,33 @@ $(document).ready(function () {
     image.mapster('set',true,positionTwo);
 
     // select all seats
-    image.mapster('set',true,"asile-seat");
-    image.mapster('set',true,"edge-seat");
-    image.mapster('set',true,"window-seat");
-    image.mapster('set',true,"middle-seat");
-
+    if (carType == "GPRYP") {
+        image.mapster('set',true,"asile-seat");
+        image.mapster('set',true,"edge-seat");
+        image.mapster('set',true,"window-seat");
+        image.mapster('set',true,"middle-seat");
+    } else if (carType == "BO") {
+        image.mapster('set',true,"1-seat");
+        image.mapster('set',true,"2-seat");
+        image.mapster('set',true,"3-seat");
+        image.mapster('set',true,"4-seat");
+        image.mapster('set',true,"5-seat");
+        image.mapster('set',true,"6-seat");
+        image.mapster('set',true,"7-seat");
+        image.mapster('set',true,"8-seat");
+        image.mapster('set',true,"9-seat");
+    } else {
+        image.mapster('set',true,"1-seat");
+        image.mapster('set',true,"2-seat");
+        image.mapster('set',true,"3-seat");
+        image.mapster('set',true,"4-seat");
+        image.mapster('set',true,"5-seat");
+        image.mapster('set',true,"6-seat");
+        image.mapster('set',true,"7-seat");
+        image.mapster('set',true,"8-seat");
+        image.mapster('set',true,"9-seat");
+        image.mapster('set',true,"10-seat");
+    }
     // snapshot image with selected areas
     image.mapster('snapshot');
 
