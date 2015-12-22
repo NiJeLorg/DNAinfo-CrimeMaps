@@ -21,7 +21,8 @@
         <div class="row">
             <div class="col-sm-10 col-sm-offset-1">
                 <p id="trainLine" class="text-center text-uppercase trainLineHeading"></p>
-                <p class="text-center heading">Now all seats and your favorite spots are taken. Where will you stand?</p>
+                <p id="largeHeading" class="text-center heading">Now all seats and your favorite spots are taken. Where will you stand?</p>
+                <p id="smallHeading" class="text-center heading">Now all seats and your favorite spots are taken. Drag the arrows to the right to see more train car, and choose another spot.</p>
                 <!--<p class="text-center subheading"><em>
                     Click or tap to select your preferred standing spot.
                 </em></h2>-->                
@@ -31,9 +32,9 @@
         <div class="row">
             <div class="col-sm-12">
                 <div id="trainLineImage" class="trainLineImage center-block">
-                <p id="scrollText" class="text-center subheading"><em>
-                    Tap here and pull right to see more train car <span class="arrow"></span>
-                </em></p>         
+                <p id="scrollText" class="text-center subheading">
+                    <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span>
+                </p>         
                 {% if CHItrainSitStandObject.train == "Green Line" or CHItrainSitStandObject.train == "Pink Line" or CHItrainSitStandObject.train == "Red Line" or CHItrainSitStandObject.train == "Yellow Line" or CHItrainSitStandObject.train == "Purple Line" %}
                     <img id="CHI_L_GPRYP_Lines" src="{% static 'crimemaps/css/images/CHI_L_GPRYP_Lines_Empty_Car.png' %}" usemap="#CHI_L_GPRYP_Lines">
                     <map name="CHI_L_GPRYP_Lines">
