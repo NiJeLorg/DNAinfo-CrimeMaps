@@ -358,6 +358,10 @@ html, body {
 	margin-left: 30px;
 }
 
+.trainLineWrap {
+	overflow: scroll;
+}
+
 .trainLineImage {
 	width: 100%;
 	height: auto;
