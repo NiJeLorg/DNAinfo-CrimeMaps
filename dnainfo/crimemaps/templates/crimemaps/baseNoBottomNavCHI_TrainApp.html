@@ -22,23 +22,6 @@
     <![endif]-->
 
 	<script type="text/javascript" src="{% static 'crimemaps/js/jquery-1.11.1.min.js' %}"></script>
-  <script type="text/javascript">
-    function fixioswidth(event) {
-      // Only accept messages from urls ending in dnainfo.com, with or without a port specified.
-      if(!event.origin.match(/dnainfo\.com(?:\:\d+)?$/)) {
-        return;
-      }
-
-      // Only accept messages that are numbers.
-      if(isNaN(event.data)) {
-        return;
-      }
-
-      // Set the body width to the number specified in the message.
-      jQuery('body').width(event.data);
-    }
-    window.addEventListener("message",fixioswidth,false);
-  </script>
 
   {% block head_js_block %}
   {% endblock %}
