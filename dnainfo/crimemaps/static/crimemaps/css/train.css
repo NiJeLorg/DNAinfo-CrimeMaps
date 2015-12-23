@@ -308,6 +308,11 @@ html, body {
     margin-bottom: 0px;
 }
 
+#largeHeading {
+	display: none;
+}
+
+
 .heading {
 	font-weight: 300;
 	color: #545454;
@@ -323,8 +328,14 @@ html, body {
 	margin-bottom: 5px;
 }
 
+#scrollText {
+	display: block;
+	height: 24px;
+}
+
 .arrow { 
-	position: absolute; 
+	position: relative; 
+	display: inline-block;
 	margin-left: 10px;
 	margin-top: 4px;
 	background-image: url('images/arrow-sm.png');
@@ -430,7 +441,8 @@ html, body {
 	}
 
 	.arrow { 
-		position: absolute; 
+		position: relative; 
+		display: inline-block;
 		margin-left: 10px;
 		margin-top: 0px;
 		background-image: url('images/arrow.png');
@@ -456,7 +468,15 @@ html, body {
 
 	#scrollText {
 		display: none;
-	}	
+	}
+
+	#smallHeading {
+		display: none;
+	}
+
+	#largeHeading {
+		display: block;
+	}
 }
 
 
