@@ -361,10 +361,7 @@ html, body {
 }
 
 .trainLineWrap {
-	overflow: auto;
-	-webkit-overflow-scrolling: touch;
-	width: 1px;
-	min-width: 100vw;
+
 }
 
 .trainLineImage {
