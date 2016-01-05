@@ -11,7 +11,7 @@
 {% block head_js_block %}
 <meta property="fb:app_id" content="406014149589534" /> 
 <meta property="og:type"   content="website" /> 
-<meta property="og:url"    content="http://sprnt-1965-visualizations-branch-two.build.qa.dnainfo.com/chicago/visualizations/where-i-sit-stand-train?results={{ id }}" /> 
+<meta property="og:url"    content="{{ bitlyURL.url }}" /> 
 <meta property="og:description" content='Everyone has a favorite seat or spot to stand on the "L". See how your fellow Chicagoans compare to you.' />
 <meta property="og:title"  content='This is how I ride the "L".' /> 
 <meta property="og:image"  content="https://visualizations.dnainfo.com/static/crimemaps/css/images/DNAinfo_FB_CHI_L_Train.png" />
@@ -292,8 +292,8 @@
             </ol>-->
             <p class="text-center margin25top">
                 <a href="http://sprnt-1965-visualizations-branch-two.build.qa.dnainfo.com/chicago/visualizations/where-i-sit-stand-train" class="btn btn-primary btn-lg" target="_top">Ride Another Train</a>
-                <a id="showShareFB" class="btn btn-primary btn-lg share" href="#" role="button" target="_blank"><i class="fa fa-facebook-official fa-lg"></i></a>
-                <a id="showShareTwitter" class="btn btn-info btn-lg share" href="#" role="button" target="_blank"><i class="fa fa-twitter fa-lg"></i></a>
+                <a id="showShareFB" class="btn btn-primary btn-lg share" href="#" role="button" onclick="#"><i class="fa fa-facebook-official fa-lg"></i></a>
+                <a id="showShareTwitter" class="btn btn-info btn-lg share" href="#" role="button" onclick="#"><i class="fa fa-twitter fa-lg"></i></a>
             </p>
           </div> <!-- /.container-fluid -->
         </nav>
@@ -309,6 +309,7 @@
 {% block js_block %}
 <script type="text/javascript">
     var id = '{{ id }}';
+    var bitlyURL = '{{ bitlyURL.url }}';
     var lineSelected = "{{ CHItrainSitStandObject.train }}";
     if (lineSelected == "Red Line") {
         var color = "red";

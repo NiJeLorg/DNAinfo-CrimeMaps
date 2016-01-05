@@ -29,6 +29,9 @@ from django.utils import timezone
 #CSRF decorator
 from django.views.decorators.csrf import ensure_csrf_cookie
 
+# bitly API
+import bitly_api
+
 
 # views for DNAinfo crime maps
 def index(request):
@@ -1523,10 +1526,17 @@ def chi_l_calculating(request, id=None):
 def chi_l_results(request, id=None):
 	if id:
 		CHItrainSitStandObject = CHItrainSitStand.objects.get(pk=id)
+
+		url = "http://sprnt-1965-visualizations-branch-two.build.qa.dnainfo.com/chicago/visualizations/where-i-sit-stand-train?results=" + str(id)
+		# connect to Bitly API
+		c = bitly_api.Connection('ondnainfo', 'R_cdbdcaaef8d04d97b363b989f2fba3db')
+		bitlyURL = c.shorten(url)
+
 	else:
 		CHItrainSitStandObject = CHItrainSitStand()
+		bitlyURL = {}
 
-	return render(request, 'crimemaps/chi_l_results.html', {'CHItrainSitStandObject':CHItrainSitStandObject, 'id': id})
+	return render(request, 'crimemaps/chi_l_results.html', {'CHItrainSitStandObject':CHItrainSitStandObject, 'id': id, 'bitlyURL': bitlyURL})
 
 
 def chi_l_results_api(request):
