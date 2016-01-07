@@ -32,12 +32,35 @@
 
 	{% block body_block %}
 	{% endblock %}
+  <button id="helpButton" class="btn btn-danger" data-toggle="modal" data-target="#help">Help!</button>
+
 
   <!-- ajax loading page modal -->
   <div class="loading-modal"></div>
 
 	{% block modal_block %}
 	{% endblock %}
+
+  <div class="modal fade" id="help" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body modalContent">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h3 class="text-center text-uppercase">Help Text</h3>
+          <p>
+            Help text to come.
+          </p>
+          <p>
+          </p>
+          <p>
+          </p>
+
+          <div class="clearfix"></div>
+          <button class="btn btn-danger btn-lg center-block" type="submit" data-dismiss="modal" aria-label="Close">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
 	
     <!--  javascript
     ================================================== -->
