@@ -238,7 +238,15 @@ html, body {
     height: 14px;  
 }
 
+/*
+* help button position
+*/
 
+#helpButton {
+	position: absolute;
+	top: 10px;
+	right: 10px;	
+}
 
 
 /*

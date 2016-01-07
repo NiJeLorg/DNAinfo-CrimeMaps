@@ -54,13 +54,18 @@ $(document).ready(function () {
 
         // create array of slected seats with images for render select
         selectedSeats.push({key: positionOne, render_select: {altImage: altImageFC,altImageOpacity: 0.8}});
-        selectedSeats.push({key: positionTwo, render_select: {altImage: altImageSC,altImageOpacity: 0.8}});
-        selectedSeats.push({key: positionThree, render_select: {altImage: altImageTC,altImageOpacity: 0.8}});
+        //selectedSeats.push({key: positionTwo, render_select: {altImage: altImageSC,altImageOpacity: 0.8}});
+        //selectedSeats.push({key: positionThree, render_select: {altImage: altImageTC,altImageOpacity: 0.8}});
 
         // create array for area tooltips
         $.each(data.seats, function( i, d ) {
             var pct = ((d/data.respondents)*100).toFixed(1);
-            var tooltip = pct + "% ("+ d +") of respondents picked this spot as their first choice.";
+            if (i == positionOne) {
+                var tooltip = "My first choice. "+ pct + "% ("+ d +") of all respondents, including me, picked this spot as their first choice.";
+
+            } else {
+                var tooltip = pct + "% ("+ d +") of respondents picked this spot as their first choice.";
+            }
             seatKeys.push({key: i, toolTip: tooltip});                
             
             // piggyback on this loop to create max array
@@ -86,8 +91,8 @@ $(document).ready(function () {
 
         // select seats from visitor picked
         image.mapster('set',true,positionOne);
-        image.mapster('set',true,positionTwo);
-        image.mapster('set',true,positionThree);
+        //image.mapster('set',true,positionTwo);
+        //image.mapster('set',true,positionThree);
         image.mapster('snapshot',true);
 
 
@@ -232,7 +237,7 @@ $(document).ready(function () {
 
     // facebook and twitter link creation and appending
     var app_id = '406014149589534';
-    var fbcaption = 'Everyone has a favorite seat or spot to stand on the '+ lineSelected +'. See how your fellow Chicagoans compare to you: http://sprnt-1965-visualizations-branch-two.build.qa.dnainfo.com/chicago/visualizations/where-i-sit-stand-train via https://www.facebook.com/DNAinfoChicago/';
+    var fbcaption = 'This is my favorite spot on the '+ lineSelected +' train. What\'s yours? http://sprnt-1965-visualizations-branch-two.build.qa.dnainfo.com/chicago/visualizations/where-i-sit-stand-train via https://www.facebook.com/DNAinfoChicago/';
     var fblink = "http://sprnt-1965-visualizations-branch-two.build.qa.dnainfo.com/chicago/visualizations/where-i-sit-stand-train?results=" + id;
     var fbUrl = 'https://www.facebook.com/dialog/feed?app_id=' + app_id + '&display=popup&caption='+ encodeURIComponent(fbcaption) + '&link=' + encodeURIComponent(bitlyURL);
     var fbOnclick = "window.open('" + fbUrl + "','facebook-share-dialog','width=626,height=436');return false;";
@@ -240,14 +245,40 @@ $(document).ready(function () {
     $('#showShareFB').attr("onclick", fbOnclick);
 
 
-
     var twitterlink = bitlyURL;
     var via = 'DNAinfoCHI';
-    var twittercaption = 'This is how I ride the '+ lineSelected +'. How do you do it?';
+    var twittercaption = 'This is my favorite spot on the '+ lineSelected +' train. What\'s yours?';
     var twitterUrl = 'https://twitter.com/intent/tweet?url=' + encodeURIComponent(twitterlink) + '&via='+ encodeURIComponent(via) + '&text=' + encodeURIComponent(twittercaption);
     var twitterOnclick = "window.open('" + twitterUrl + "','twitter-share-dialog','width=626,height=436');return false;";
     $('#showShareTwitter').attr("href", twitterUrl);
     $('#showShareTwitter').attr("onclick", twitterOnclick);
+
+
+    // swap out text if referrer is not DNAinfo
+    // endsWith polyfill
+    if (!String.prototype.endsWith) {
+      String.prototype.endsWith = function(searchString, position) {
+          var subjectString = this.toString();
+          if (typeof position !== 'number' || !isFinite(position) || Math.floor(position) !== position || position > subjectString.length) {
+            position = subjectString.length;
+          }
+          position -= searchString.length;
+          var lastIndex = subjectString.indexOf(searchString, position);
+          return lastIndex !== -1 && lastIndex === position;
+      };
+    }
+
+    var referrer = document.referrer.split('/')[2];
+
+    if (!referrer.endsWith('dnainfo.com')) {
+        $('.trainLine').text("Everyone's favorite spots on the " + lineSelected + ".");
+        $('.heading').html('');
+        $('#smallHeading').html('<em>Click on the heat map below to see the percentage of riders who chose that spot. Drag the arrows to the right to see more train car. Then pick your seat by hitting the button below.</em>');
+        $('#largeHeading').html('<em>Click on the heat map below to see the percentage of riders who chose that spot. Then pick your seat by hitting the button below.</em>');
+        $('#newTrain').text('Pick Your Seat');
+        $('#showShareFB').addClass('hidden');    
+        $('#showShareTwitter').addClass('hidden');    
+    }
 
 
 
