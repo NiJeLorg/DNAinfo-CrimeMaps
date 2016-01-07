@@ -10,8 +10,29 @@
 {% endblock %}
 
 {% block head_js_block %}
+<meta property="fb:app_id" content="406014149589534" /> 
+<meta property="og:type"   content="website" /> 
+<meta property="og:url"    content="{{ bitlyURL.url }}" /> 
+<meta property="og:description" content='Everyone has a favorite seat or spot to stand on the "L". See how your fellow Chicagoans compare to you.' />
+<meta property="og:title"  content='This is how I ride the "L".' /> 
+<meta property="og:image"  content="https://visualizations.dnainfo.com/static/crimemaps/css/images/DNAinfo_FB_CHI_L_Train.png" />
+<script type="text/javascript">
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '406014149589534',
+      xfbml      : true,
+      version    : 'v2.4'
+    });
+  };
 
-
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
 {% endblock %}
 	
 {% block body_block %}
@@ -25,10 +46,9 @@
         <div class="row">
             <div class="col-sm-8 col-sm-offset-2">
                 <p id="trainLine" class="text-center text-uppercase trainLineHeading trainLine"></p>
-
-
-                <p id="largeHeading" class="text-center subheading"><em>Click on the heat map below to see the percentage of riders who chose that spot. Then pick your seat by hitting the button below.</em></p>
-                <p id="smallHeading" class="text-center subheading"><em>Click on the heat map below to see the percentage of riders who chose that spot. Drag to the right to see more train car. Then pick your seat by hitting the button below.</em></p>
+                <p class="text-center heading">This is how your favorite spot compares to others.</p>
+                <p id="largeHeading" class="text-center subheading"><em>Click on the heat map below to see the percentage of riders who picked that spot.</em></p>
+                <p id="smallHeading" class="text-center subheading"><em>Click on the heat map below to see the percentage of riders who picked that spot. Drag to the right to see more train car.</em></p>
                 <!--<p class="text-center subheading"><em>Direction of Travel</em> <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span></p>-->
             </div>
         </div>
@@ -273,9 +293,9 @@
                 <li class="active"></li>
             </ol>-->
             <p class="text-center margin25top">
-                <a id="newTrain" href="http://sprnt-1965-visualizations-branch-two.build.qa.dnainfo.com/chicago/visualizations/where-i-sit-stand-train" class="btn btn-primary btn-lg" target="_top">Pick Your Seat</a>
- 
- 
+                <a id="newTrain" href="http://sprnt-1965-visualizations-branch-two.build.qa.dnainfo.com/chicago/visualizations/where-i-sit-stand-train" class="btn btn-primary btn-lg" target="_top">Ride Another Train</a>
+                <a id="showShareFB" class="btn btn-primary btn-lg share" href="#" role="button" onclick="#"><i class="fa fa-facebook-official fa-lg"></i></a>
+                <a id="showShareTwitter" class="btn btn-info btn-lg share" href="#" role="button" onclick="#"><i class="fa fa-twitter fa-lg"></i></a>
             </p>
           </div> <!-- /.container-fluid -->
         </nav>
@@ -384,7 +404,7 @@
     }
     
     $( document ).ready(function() {
-        $('.trainLine').text("Everyone's favorite spots on the " + lineSelected + ".");
+        $('.trainLine').text(lineSelected);
         $('#trainLine').addClass(color);
         $('#bottomNav').addClass(bottomNavColor);
         $('.stationDots .active').addClass(stationDotColor);
@@ -399,7 +419,7 @@
 <script type="text/javascript" src="{% static 'crimemaps/js/d3.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'crimemaps/js/jquery-ui.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'crimemaps/js/jquery.doubleScroll.js' %}"></script>
-<script type="text/javascript" src="{% static 'crimemaps/js/chi_l_results.js' %}"></script>
+<script type="text/javascript" src="{% static 'crimemaps/js/chi_l_end.js' %}"></script>
 
 
 {% endblock %}

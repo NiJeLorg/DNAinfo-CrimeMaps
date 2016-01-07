@@ -1502,7 +1502,7 @@ def chi_l_full_car(request, id=None):
 			# Save the new data to the database.
 			f = form.save()
 			lookupObject = CHItrainSitStand.objects.get(pk=f.pk)
-			return HttpResponseRedirect(reverse('chi_l_results', args=(lookupObject.pk,)))
+			return HttpResponseRedirect(reverse('chi_l_end', args=(lookupObject.pk,)))
 		else:
 			# The supplied form contained errors - just print them to the terminal.
 			print form.errors
@@ -1523,7 +1523,7 @@ def chi_l_calculating(request, id=None):
 	return render(request, 'crimemaps/chi_l_calculating.html', {'CHItrainSitStandObject':CHItrainSitStandObject, 'id': id})
 
 
-def chi_l_results(request, id=None):
+def chi_l_end(request, id=None):
 	if id:
 		CHItrainSitStandObject = CHItrainSitStand.objects.get(pk=id)
 
@@ -1536,8 +1536,18 @@ def chi_l_results(request, id=None):
 		CHItrainSitStandObject = CHItrainSitStand()
 		bitlyURL = {}
 
-	return render(request, 'crimemaps/chi_l_results.html', {'CHItrainSitStandObject':CHItrainSitStandObject, 'id': id, 'bitlyURL': bitlyURL})
+	return render(request, 'crimemaps/chi_l_end.html', {'CHItrainSitStandObject':CHItrainSitStandObject, 'id': id, 'bitlyURL': bitlyURL})
 
+def chi_l_results(request, id=None):
+	if id:
+		CHItrainSitStandObject = CHItrainSitStand.objects.get(pk=id)
+
+
+	else:
+		CHItrainSitStandObject = CHItrainSitStand()
+		bitlyURL = {}
+
+	return render(request, 'crimemaps/chi_l_results.html', {'CHItrainSitStandObject':CHItrainSitStandObject, 'id': id})
 
 def chi_l_results_api(request):
 	#add in the items geojson requires 
