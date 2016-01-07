@@ -47,7 +47,7 @@
                 <p id="trainLine" class="text-center text-uppercase trainLineHeading trainLine"></p>
                 <p class="text-center heading">This is how your favorite spot compares to others.</p>
                 <p id="largeHeading" class="text-center subheading"><em>Click on the heat map below to see the percentage of riders who picked that spot.</em></p>
-                <p id="smallHeading" class="text-center subheading"><em>Click on the heat map below to see the percentage of riders who picked that spot. Drag the arrows to the right to see more train car.</em></p>
+                <p id="smallHeading" class="text-center subheading"><em>Click on the heat map below to see the percentage of riders who picked that spot. Drag to the right to see more train car.</em></p>
                 <!--<p class="text-center subheading"><em>Direction of Travel</em> <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span></p>-->
             </div>
         </div>
@@ -90,9 +90,9 @@
         <div class="row trainLineWrap">
             <div class="col-sm-12">
                 <div id="trainLineImage" class="trainLineImage center-block">
-                    <p id="scrollText" class="text-center subheading">
+                    <!--<p id="scrollText" class="text-center subheading">
                         <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span>
-                    </p>        
+                    </p>-->        
                     <div id="heatmap">
                     {% if CHItrainSitStandObject.train == "Green Line" or CHItrainSitStandObject.train == "Pink Line" or CHItrainSitStandObject.train == "Red Line" or CHItrainSitStandObject.train == "Yellow Line" or CHItrainSitStandObject.train == "Purple Line" %}
                         <img class="raiseImage" id="CHI_L_GPRYP_Lines" src="{% static 'crimemaps/css/images/CHI_L_GPRYP_Lines_Empty_Car.png' %}" usemap="#CHI_L_GPRYP_Lines">
