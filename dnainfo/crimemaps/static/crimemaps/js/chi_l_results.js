@@ -239,7 +239,7 @@ $(document).ready(function () {
     var app_id = '406014149589534';
     var fbcaption = 'This is my favorite spot on the '+ lineSelected +' train. What\'s yours? http://sprnt-1965-visualizations-branch-two.build.qa.dnainfo.com/chicago/visualizations/where-i-sit-stand-train via https://www.facebook.com/DNAinfoChicago/';
     var fblink = "http://sprnt-1965-visualizations-branch-two.build.qa.dnainfo.com/chicago/visualizations/where-i-sit-stand-train?results=" + id;
-    var fbUrl = 'https://www.facebook.com/dialog/feed?app_id=' + app_id + '&display=popup&caption='+ encodeURIComponent(fbcaption) + '&link=' + encodeURIComponent(bitlyURL);
+    var fbUrl = 'https://www.facebook.com/dialog/feed?app_id=' + app_id + '&display=popup&caption='+ encodeURIComponent(fbcaption) + '&link=' + encodeURIComponent(bitlyURL) + '&redirect_uri=' + encodeURIComponent(fblink);
     var fbOnclick = "window.open('" + fbUrl + "','facebook-share-dialog','width=626,height=436');return false;";
     $('#showShareFB').attr("href", fbUrl);
     $('#showShareFB').attr("onclick", fbOnclick);
@@ -270,10 +270,12 @@ $(document).ready(function () {
 
     var referrer = document.referrer.split('/')[2];
 
+    console.log(referrer);
+
     if (!referrer.endsWith('dnainfo.com')) {
         $('.trainLine').text("Everyone's favorite spots on the " + lineSelected + ".");
         $('.heading').html('');
-        $('#smallHeading').html('<em>Click on the heat map below to see the percentage of riders who chose that spot. Drag the arrows to the right to see more train car. Then pick your seat by hitting the button below.</em>');
+        $('#smallHeading').html('<em>Click on the heat map below to see the percentage of riders who chose that spot. Drag to the right to see more train car. Then pick your seat by hitting the button below.</em>');
         $('#largeHeading').html('<em>Click on the heat map below to see the percentage of riders who chose that spot. Then pick your seat by hitting the button below.</em>');
         $('#newTrain').text('Pick Your Seat');
         $('#showShareFB').addClass('hidden');    
