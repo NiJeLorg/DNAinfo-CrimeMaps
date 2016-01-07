@@ -5,6 +5,7 @@
 {% block title %}Where do you stand or sit on the train? | DNAinfo{% endblock %}
 
 {% block css_block %}
+    <link rel="stylesheet" href="{% static 'crimemaps/css/jquery-ui.min.css' %}">
 {% endblock %}
 
 {% block head_js_block %}
@@ -31,6 +32,7 @@
         </div>        
         <div class="row trainLineWrap">
             <div class="col-sm-12">
+                <div class="div20pxtall"></div>
                 <div id="trainLineImage" class="trainLineImage center-block">
                 <!--<p id="scrollText" class="text-center subheading">
                     <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span>
@@ -347,6 +349,8 @@
 </script>
 <script type="text/javascript" src="{% static 'crimemaps/js/modernizr-touch-pointer.js' %}"></script>
 <script type="text/javascript" src="{% static 'crimemaps/js/jquery.imagemapster.js' %}"></script>
+<script type="text/javascript" src="{% static 'crimemaps/js/jquery-ui.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'crimemaps/js/jquery.doubleScroll.js' %}"></script>
 <script type="text/javascript" src="{% static 'crimemaps/js/chi_l_half_full_car.js' %}"></script>
 
 

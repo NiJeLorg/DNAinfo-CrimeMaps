@@ -375,6 +375,11 @@ html, body {
 	min-width: 100vw;
 }
 
+.div20pxtall {
+	height: 20px;
+	width: 1px;
+}
+
 .trainLineImage {
 	width: 100%;
 	height: auto;

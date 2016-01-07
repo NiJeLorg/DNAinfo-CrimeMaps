@@ -6,6 +6,7 @@
 
 {% block css_block %}
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'crimemaps/css/jquery-ui.min.css' %}">
 {% endblock %}
 
 {% block head_js_block %}
@@ -89,6 +90,7 @@
         -->       
         <div class="row trainLineWrap">
             <div class="col-sm-12">
+                <div class="div20pxtall"></div>
                 <div id="trainLineImage" class="trainLineImage center-block">
                     <!--<p id="scrollText" class="text-center subheading">
                         <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span>
@@ -415,6 +417,8 @@
 <script type="text/javascript" src="{% static 'crimemaps/js/heatmap.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'crimemaps/js/jquery.imagemapster.js' %}"></script>
 <script type="text/javascript" src="{% static 'crimemaps/js/d3.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'crimemaps/js/jquery-ui.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'crimemaps/js/jquery.doubleScroll.js' %}"></script>
 <script type="text/javascript" src="{% static 'crimemaps/js/chi_l_results.js' %}"></script>
 
 
