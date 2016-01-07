@@ -231,7 +231,7 @@ DNAinfoChiShootings.prototype.loadPointLayers = function (){
 		findCenterandFire();
 
 		// draw time slider after points are added
-		DNAinfoChiShootings.drawTimeSlider();
+		// DNAinfoChiShootings.drawTimeSlider();
 	});
 
 	function findCenterandFire() {
@@ -320,7 +320,8 @@ DNAinfoChiShootings.FillColor = function (d){
 
 }
 
-
+// commented out -- removed slider
+/*
 DNAinfoChiShootings.drawTimeSlider = function (){
 	var minDate = new Date(2010,0,1);
 	var maxDate = moment().toDate();
@@ -359,7 +360,7 @@ DNAinfoChiShootings.drawTimeSlider = function (){
 						// run a function to update map layers with new dates
 						selectedMin = value[0];
 						selectedMax = value[1];
-						DNAinfoChiShootings.updateMapFromSliderCombo();
+						DNAinfoChiShootings.updateMap();
 
 					})
 					.on("slide", function(evt, value) {
@@ -378,7 +379,7 @@ DNAinfoChiShootings.drawTimeSlider = function (){
 	$('#printEndDate').html(moment(selectedMax).format("MMM D, YYYY"));
 
 }
-
+*/
 
 DNAinfoChiShootings.drawChart = function(feature,layer){
 	// remove any charts if they exist
@@ -797,13 +798,14 @@ DNAinfoChiShootings.updateCitywideChart = function(dataset){
 }
 
 
-DNAinfoChiShootings.updateMapFromSliderCombo = function (){
+DNAinfoChiShootings.updateMap = function (){
 	// close popups
 	MY_MAP.map.closePopup();
 
 	// moment parses unix offsets and javascript date objects in the same way
-	var startDate = moment(selectedMin).format("YYYY-MM-DD");
-	var endDate = moment(selectedMax).format("YYYY-MM-DD");
+	console.log(selectedMax);
+	var startDate = moment(selectedMin, "M/D/YYYY").format("YYYY-MM-DD");
+	var endDate = moment(selectedMax, "M/D/YYYY").format("YYYY-MM-DD");
 	var dateFormat = d3.time.format("%Y-%m-%dT%X");
 
 	// combo box selections
@@ -868,8 +870,8 @@ DNAinfoChiShootings.updateMapFromSliderCombo = function (){
 	});
 
 	// update printed start and end dates
-	$('#printStartDate').html(moment(selectedMin).format("MMM D, YYYY"));
-	$('#printEndDate').html(moment(selectedMax).format("MMM D, YYYY"));
+	//$('#printStartDate').html(moment(selectedMin).format("MMM D, YYYY"));
+	//$('#printEndDate').html(moment(selectedMax).format("MMM D, YYYY"));
 
 
 }

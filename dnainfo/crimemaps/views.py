@@ -180,10 +180,10 @@ def blotterPage(request):
 def chiShootingsPage(request):
 	#set up dates and times for initial filtering and for time slider set up
 	today = datetime.datetime.now()
-	firstOfYear = date(date.today().year, 1, 1)
+	sixMonthsAgo = today + relativedelta(months=-6)
 	today_str = today.strftime("%x")
-	firstOfYear_str = firstOfYear.strftime("%x")
-	startDate = request.GET.get("startDate",firstOfYear_str)
+	sixMonthsAgo_str = sixMonthsAgo.strftime("%x")
+	startDate = request.GET.get("startDate",sixMonthsAgo_str)
 	endDate = request.GET.get("endDate",today_str)
 	center = request.GET.get("center","")
 	#ensure startDate and endDate are datetime objects

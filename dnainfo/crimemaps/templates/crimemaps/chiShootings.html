@@ -2,277 +2,290 @@
 {% load staticfiles %}
 
 {% block css_block %}
-    <link rel="stylesheet" type="text/css" href="{% static 'crimemaps/css/leaflet.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'crimemaps/css/leaflet.label.css' %}">	
-    <link rel="stylesheet" type="text/css" href="{% static 'crimemaps/css/Control.Geocoder.css' %}">	
-    <link rel="stylesheet" type="text/css" href="{% static 'crimemaps/css/d3.slider.css' %}">    
+	<link rel="stylesheet" type="text/css" href="{% static 'crimemaps/css/bootstrap-datepicker.min.css' %}">    
+	<link rel="stylesheet" type="text/css" href="{% static 'crimemaps/css/leaflet.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'crimemaps/css/leaflet.label.css' %}">	
+	<link rel="stylesheet" type="text/css" href="{% static 'crimemaps/css/Control.Geocoder.css' %}">
+	<!--<link rel="stylesheet" type="text/css" href="{% static 'crimemaps/css/d3.slider.css' %}">-->    
 {% endblock %}
 
 {% block head_js_block %}
 {% endblock %}
 	
 {% block body_block %}
-    <nav class="navbar navbar-default">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <div class="navbar-brand">DNAinfo Chicago</div>
-        </div>
-      </div> 
-    </nav>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="collapse navbar-collapse pull-left" id="collapse">
+      <div class="navbar-header">
+          <a class="navbar-brand" href="http://www.dnainfo.com/chicago/"><img src="{% static 'crimemaps/css/images/DNACHILogo.png' %}" class="navbar-brand-img-chi"/></a>
+      </div>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <p class="navbar-text"></p>
+  </div><!-- /.container-fluid -->
+</nav>
 
 
-        <!-- #popup-wrapper-->
-        <div id="popup-wrapper" class="popup-wrapper">
-            <div class="popup-content">
-                <div class="container-fluid">
+
+		<!-- #popup-wrapper-->
+		<div id="popup-wrapper" class="popup-wrapper">
+			<div class="popup-content">
+				<div class="container-fluid">
                     <div class="row">
                         <div class="col-sm-12">
-                            <button type="button" class="close right" id="popup-close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                          <a id="popup-expand" class="btn btn-default btn-xs pull-right" href="#" role="button">Expand this window</a>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <p><strong>Filter Shootings (Map Only):</strong></p>
-                            <div id="timeSlider"></div>
-                            <small>Date Range Selected: <span id="printStartDate"></span> - <span id="printEndDate"></span></small>
-                            <br />
-                            <button class="btn btn-default margin10top" id="yearToDate">Year to Date</button>
-                            <button class="btn btn-default margin10top" id="previousSixMonths">Previous Six Months</button>
-                            <button class="btn btn-default margin10top" id="previousYear">Previous Year</button>
-                            <form class="form-inline padding15topbottom">
-                            <!--
-                              <div class="form-group">
-                                <label for="district">Police District: </label>
-                                <select class="form-control" id="district">
-                                    <option value="">-</option>
-                                {% for district in districts %}
-                                    {% if district.District %}
-                                        <option value="{{ district.District }}">{{ district.District }}</option>
-                                    {% endif %}
-                                {% endfor %}
-                                </select>
-                              </div>
-                            -->
-                              <div class="form-group">
-                                <label for="communityno">Community Area: </label>
-                                <select class="form-control" id="communityno">
-                                    <option value="">--</option>
-                                {% for communityno in communitynos %}
-                                    {% if communityno.CommunityName %}
-                                        <option value="{{ communityno.CommunityNo }}">{{ communityno.CommunityName }}</option>
-                                    {% endif %}
-                                {% endfor %}
-                                </select>
-                              </div>
-                              <!--
-                              <div class="form-group">
-                                <label for="location">Crime Scene Type: </label>
-                                <select class="form-control" id="location">
-                                    <option value="">-</option>
-                                {% for location in locations %}
-                                    {% if location.Location %}
-                                        <option value="{{ location.Location }}">{{ location.Location }}</option>
-                                    {% endif %}   
-                                {% endfor %}
-                                </select>
-                              </div>
-                              -->
-                              <div class="form-group">
-                                <label for="dayofweek">Day of Week: </label>
-                                <select class="form-control" id="dayofweek">
-                                    <option value="">--</option>
-                                    <option value="Monday">Monday</option>
-                                    <option value="Tuesday">Tuesday</option>
-                                    <option value="Wednesday">Wednesday</option>
-                                    <option value="Thursday">Thursday</option>
-                                    <option value="Friday">Friday</option>
-                                    <option value="Saturday">Saturday</option>
-                                    <option value="Sunday">Sunday</option>
-                                </select>
-                              </div>
-                              <div class="form-group">
-                                <label for="hour">Time of Day: </label>
-                                <select class="form-control" id="hour">
-                                    <option value="">--</option>
-                                    <option value="8,9,10,11,12,13,14,15,16">Daytime (8am - 5pm)</option>
-                                    <option value="17,18,19,20,21,22,23">Evening (5pm - 12am)</option>
-                                    <option value="0,1,2,3,4,5,6,7">Overnight (12am - 8am)</option>
-                                    <option value="6,7,8,16,17,18">Commute (6-9am; 4-7pm)</option>
-                                    <option value="18,19,20,21,22,23,0,1,2">Nighttime (6pm - 3am)</option>
-                                </select>
-                                <!--
-                                <select class="form-control" id="minhour">
-                                    <option value="">-</option>
-                                    <option value="0">12am</option>
-                                    <option value="1">1am</option>
-                                    <option value="2">2am</option>
-                                    <option value="3">3am</option>
-                                    <option value="4">4am</option>
-                                    <option value="5">5am</option>
-                                    <option value="6">6am</option>
-                                    <option value="7">7am</option>
-                                    <option value="8">8am</option>
-                                    <option value="9">9am</option>
-                                    <option value="10">10am</option>
-                                    <option value="11">11am</option>
-                                    <option value="12">12pm</option>
-                                    <option value="13">1pm</option>
-                                    <option value="14">2pm</option>
-                                    <option value="15">3pm</option>
-                                    <option value="16">4pm</option>
-                                    <option value="17">5pm</option>
-                                    <option value="18">6pm</option>
-                                    <option value="19">7pm</option>
-                                    <option value="20">8pm</option>
-                                    <option value="21">9pm</option>
-                                    <option value="22">10pm</option>
-                                    <option value="23">11pm</option>
-                                </select>
-                                 to
-                                <select class="form-control" id="maxhour">
-                                    <option value="">-</option>
-                                    <option value="0">12am</option>
-                                    <option value="1">1am</option>
-                                    <option value="2">2am</option>
-                                    <option value="3">3am</option>
-                                    <option value="4">4am</option>
-                                    <option value="5">5am</option>
-                                    <option value="6">6am</option>
-                                    <option value="7">7am</option>
-                                    <option value="8">8am</option>
-                                    <option value="9">9am</option>
-                                    <option value="10">10am</option>
-                                    <option value="11">11am</option>
-                                    <option value="12">12pm</option>
-                                    <option value="13">1pm</option>
-                                    <option value="14">2pm</option>
-                                    <option value="15">3pm</option>
-                                    <option value="16">4pm</option>
-                                    <option value="17">5pm</option>
-                                    <option value="18">6pm</option>
-                                    <option value="19">7pm</option>
-                                    <option value="20">8pm</option>
-                                    <option value="21">9pm</option>
-                                    <option value="22">10pm</option>
-                                    <option value="23">11pm</option>
-                                </select>
-                                -->
-                              </div>
-                              <!--
-                              <div class="form-group">
-                                <label for="dateofweek">Number of Victims:</label>
-                                <select class="form-control" id="mintotalvict">
-                                    <option value="">-</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
-                                    <option value="10">10</option>
-                                </select>
-                                 to
-                                <select class="form-control" id="maxtotalvict">
-                                    <option value="">-</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
-                                    <option value="10">10</option>
-                                </select>
-                              </div>
-                              <div class="form-group">
-                                <label for="dateofweek">Number of Homicides:</label>
-                                <select class="form-control" id="minhomvics">
-                                    <option value="">-</option>
-                                    <option value="0">0</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
-                                    <option value="10">10</option>
-                                </select>
-                                 to
-                                <select class="form-control" id="maxhomvics">
-                                    <option value="">-</option>
-                                    <option value="0">0</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
-                                    <option value="10">10</option>
-                                </select>
-                              </div>
-                              -->
-                            </form>
-                        </div>
-                        <div class="col-sm-6">
-                            <div id="chartTitle"></div>
-                            <div id="barChart"></div>
-                        </div>
-                    </div>
-                    <div class="row margin10top">
-                        <div class="col-sm-6">
-                            <div id="descriptionTitle"></div>
-                            <div id="description"></div>
-                        </div>
-                        <div class="col-sm-6">
-                            <p><strong>Legend</strong></p>
-                            <div id="legend">
-                              <div class="row">
-                                <div class="col-sm-6">
-                                  <div class="legend-bubbles">
-                                    <p>Number of Shooting Victims</p>
-                                    <ul>
-                                      <li>1</li>
-                                      <li class="graph" style="background: #931212;"><div class="bubbles"></div></li>
-                                      <li>&gt;5</li>
-                                    </ul>
-                                  </div>
-                                </div>
-                                <div class="col-sm-6">
-                                  <div class="legend-category">
-                                  <p>Homicide Victims</p>
-                                      <ul>
-                                        <li><div class="bullet" style="background: #4d4d4d;"></div> 0</li><li>
-                                        <div class="bullet" style="background: #931212;"></div> 1 or more</li>
-                                      </ul>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="row">
-                                <div class="col-sm-12">
-                                    <p><small>Data compiled by DNAinfo</small></p>
-                                </div>
-                              </div> 
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- /#popup-wrapper-->
+					<div class="row">
+						<div class="col-sm-6">
+							<p><strong>Filter Shootings (Map Only):</strong></p>
+							<div class="input-daterange input-group" id="datepicker">
+								<input type="text" class="input-sm form-control no-margin" name="start" id="startDate"/>
+								<span class="input-group-addon">to</span>
+								<input type="text" class="input-sm form-control no-margin" name="end" id="endDate"/>
+							</div>
+							<!--<small>Date Range Selected: <span id="printStartDate"></span> - <span id="printEndDate"></span></small>
+							<br />
+							<button class="btn btn-default margin10top" id="yearToDate">Year to Date</button>
+							<button class="btn btn-default margin10top" id="previousSixMonths">Previous Six Months</button>
+							<button class="btn btn-default margin10top" id="previousYear">Previous Year</button>-->
+							<form class="form-inline padding15topbottom">
+							<!--
+							  <div class="form-group">
+								<label for="district">Police District: </label>
+								<select class="form-control" id="district">
+									<option value="">-</option>
+								{% for district in districts %}
+									{% if district.District %}
+										<option value="{{ district.District }}">{{ district.District }}</option>
+									{% endif %}
+								{% endfor %}
+								</select>
+							  </div>
+							-->
+							  <div class="form-group">
+								<label for="communityno">Community Area: </label>
+								<select class="form-control" id="communityno">
+									<option value="">--</option>
+								{% for communityno in communitynos %}
+									{% if communityno.CommunityName %}
+										<option value="{{ communityno.CommunityNo }}">{{ communityno.CommunityName }}</option>
+									{% endif %}
+								{% endfor %}
+								</select>
+							  </div>
+							  <!--
+							  <div class="form-group">
+								<label for="location">Crime Scene Type: </label>
+								<select class="form-control" id="location">
+									<option value="">-</option>
+								{% for location in locations %}
+									{% if location.Location %}
+										<option value="{{ location.Location }}">{{ location.Location }}</option>
+									{% endif %}   
+								{% endfor %}
+								</select>
+							  </div>
+							  -->
+							  <div class="form-group">
+								<label for="dayofweek">Day of Week: </label>
+								<select class="form-control" id="dayofweek">
+									<option value="">--</option>
+									<option value="Monday">Monday</option>
+									<option value="Tuesday">Tuesday</option>
+									<option value="Wednesday">Wednesday</option>
+									<option value="Thursday">Thursday</option>
+									<option value="Friday">Friday</option>
+									<option value="Saturday">Saturday</option>
+									<option value="Sunday">Sunday</option>
+								</select>
+							  </div>
+							  <div class="form-group">
+								<label for="hour">Time of Day: </label>
+								<select class="form-control" id="hour">
+									<option value="">--</option>
+									<option value="8,9,10,11,12,13,14,15,16">Daytime (8am - 5pm)</option>
+									<option value="17,18,19,20,21,22,23">Evening (5pm - 12am)</option>
+									<option value="0,1,2,3,4,5,6,7">Overnight (12am - 8am)</option>
+									<option value="6,7,8,16,17,18">Commute (6-9am; 4-7pm)</option>
+									<option value="18,19,20,21,22,23,0,1,2">Nighttime (6pm - 3am)</option>
+								</select>
+								<!--
+								<select class="form-control" id="minhour">
+									<option value="">-</option>
+									<option value="0">12am</option>
+									<option value="1">1am</option>
+									<option value="2">2am</option>
+									<option value="3">3am</option>
+									<option value="4">4am</option>
+									<option value="5">5am</option>
+									<option value="6">6am</option>
+									<option value="7">7am</option>
+									<option value="8">8am</option>
+									<option value="9">9am</option>
+									<option value="10">10am</option>
+									<option value="11">11am</option>
+									<option value="12">12pm</option>
+									<option value="13">1pm</option>
+									<option value="14">2pm</option>
+									<option value="15">3pm</option>
+									<option value="16">4pm</option>
+									<option value="17">5pm</option>
+									<option value="18">6pm</option>
+									<option value="19">7pm</option>
+									<option value="20">8pm</option>
+									<option value="21">9pm</option>
+									<option value="22">10pm</option>
+									<option value="23">11pm</option>
+								</select>
+								 to
+								<select class="form-control" id="maxhour">
+									<option value="">-</option>
+									<option value="0">12am</option>
+									<option value="1">1am</option>
+									<option value="2">2am</option>
+									<option value="3">3am</option>
+									<option value="4">4am</option>
+									<option value="5">5am</option>
+									<option value="6">6am</option>
+									<option value="7">7am</option>
+									<option value="8">8am</option>
+									<option value="9">9am</option>
+									<option value="10">10am</option>
+									<option value="11">11am</option>
+									<option value="12">12pm</option>
+									<option value="13">1pm</option>
+									<option value="14">2pm</option>
+									<option value="15">3pm</option>
+									<option value="16">4pm</option>
+									<option value="17">5pm</option>
+									<option value="18">6pm</option>
+									<option value="19">7pm</option>
+									<option value="20">8pm</option>
+									<option value="21">9pm</option>
+									<option value="22">10pm</option>
+									<option value="23">11pm</option>
+								</select>
+								-->
+							  </div>
+							  <!--
+							  <div class="form-group">
+								<label for="dateofweek">Number of Victims:</label>
+								<select class="form-control" id="mintotalvict">
+									<option value="">-</option>
+									<option value="1">1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+									<option value="5">5</option>
+									<option value="6">6</option>
+									<option value="7">7</option>
+									<option value="8">8</option>
+									<option value="9">9</option>
+									<option value="10">10</option>
+								</select>
+								 to
+								<select class="form-control" id="maxtotalvict">
+									<option value="">-</option>
+									<option value="1">1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+									<option value="5">5</option>
+									<option value="6">6</option>
+									<option value="7">7</option>
+									<option value="8">8</option>
+									<option value="9">9</option>
+									<option value="10">10</option>
+								</select>
+							  </div>
+							  <div class="form-group">
+								<label for="dateofweek">Number of Homicides:</label>
+								<select class="form-control" id="minhomvics">
+									<option value="">-</option>
+									<option value="0">0</option>
+									<option value="1">1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+									<option value="5">5</option>
+									<option value="6">6</option>
+									<option value="7">7</option>
+									<option value="8">8</option>
+									<option value="9">9</option>
+									<option value="10">10</option>
+								</select>
+								 to
+								<select class="form-control" id="maxhomvics">
+									<option value="">-</option>
+									<option value="0">0</option>
+									<option value="1">1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+									<option value="5">5</option>
+									<option value="6">6</option>
+									<option value="7">7</option>
+									<option value="8">8</option>
+									<option value="9">9</option>
+									<option value="10">10</option>
+								</select>
+							  </div>
+							  -->
+							</form>
+							<div id="descriptionTitle"></div>
+							<div id="description"></div>
+						</div>
+						<div class="col-sm-6">
+							<div id="chartTitle"></div>
+							<div id="barChart"></div>
+						</div>
+					</div>
+					<div class="row margin10top">
+						<div class="col-sm-6 col-sm-offset-6">
+							<p><strong>Legend</strong></p>
+							<div id="legend">
+							  <div class="row">
+								<div class="col-sm-12">
+								  <div class="legend-bubbles">
+									<p>Number of Shooting Victims</p>
+									<ul>
+									  <li>1</li>
+									  <li class="graph" style="background: #931212;"><div class="bubbles"></div></li>
+									  <li>&gt;5</li>
+									</ul>
+								  </div>
+								</div>
+							  </div>
+							  <div class="row">
+								<div class="col-sm-12">
+								  <div class="legend-category">
+								  <p>Homicide Victims</p>
+									  <ul>
+										<li><div class="bullet" style="background: #4d4d4d;"></div> 0</li><li>
+										<div class="bullet" style="background: #931212;"></div> 1 or more</li>
+									  </ul>
+								  </div>
+								</div>
+							  </div>
 
-        <!-- Map Content -->
-        <div id="map" class="map"></div>
+							  <div class="row">
+								<div class="col-sm-12">
+									<p><small>Data compiled by DNAinfo</small></p>
+								</div>
+							  </div> 
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /#popup-wrapper-->
+
+		<!-- Map Content -->
+		<div id="map" class="map"></div>
 
 
 {% endblock %}
@@ -281,33 +294,34 @@
 {% endblock %}
 
 {% block js_block %}
-    <script type="text/javascript">
-      //add loading class to body
-      $("body").addClass("loading");
-      // remove when widdow is fully loaded
-      window.onload = function() {
-        $("body").removeClass("loading");
-      }
-    </script>
+	<script type="text/javascript">
+	  //add loading class to body
+	  $("body").addClass("loading");
+	  // remove when window is fully loaded
+	  window.onload = function() {
+		$("body").removeClass("loading");
+	  }
+	</script>
 	<!-- create locations geojsons-->
 	<script type="text/javascript">
-    var startDate = '{{ startDate|date:"c" }}';
-    var endDate = '{{ endDate|date:"c" }}';
-    var center = '{{ center }}';
-    var chiCommunities = "{% static 'crimemaps/data/chi_acs_2013_commareas_commute.topojson' %}";
+	var startDate = '{{ startDate|date:"c" }}';
+	var endDate = '{{ endDate|date:"c" }}';
+	var center = '{{ center }}';
+	var chiCommunities = "{% static 'crimemaps/data/chi_acs_2013_commareas_commute.topojson' %}";
 	</script>
 	<script type="text/javascript" src="{% static 'crimemaps/js/d3.min.js' %}"></script>
 	<script type="text/javascript" src="{% static 'crimemaps/js/moment.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'crimemaps/js/d3.slider.js' %}"></script>
+	<script type="text/javascript" src="{% static 'crimemaps/js/bootstrap-datepicker.min.js' %}"></script>
+	<!--<script type="text/javascript" src="{% static 'crimemaps/js/d3.slider.js' %}"></script>-->
 	<script type="text/javascript" src="{% static 'crimemaps/js/leaflet.js' %}"></script>
 	<script type="text/javascript" src="{% static 'crimemaps/js/leaflet.label-src.js' %}"></script>
 	<script type="text/javascript" src="{% static 'crimemaps/js/topojson.js' %}"></script>
 	<script type="text/javascript" src="{% static 'crimemaps/js/Control.Geocoder.js' %}"></script>
-    <script type="text/javascript" src="{% static 'crimemaps/js/turf.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'crimemaps/js/turf.min.js' %}"></script>
 	<script type="text/javascript" src="{% static 'crimemaps/js/DNAinfoChiShootings.js' %}"></script>
 	<script type="text/javascript" src="{% static 'crimemaps/js/chiShootingsApp.js' %}"></script>
 	<script type="text/javascript" src="{% static 'crimemaps/js/controllers.js' %}"></script>
-    <script type="text/javascript" src="{% static 'crimemaps/js/chiShootingsListeners.js' %}"></script>
+	<script type="text/javascript" src="{% static 'crimemaps/js/chiShootingsListeners.js' %}"></script>
 {% endblock %}
 
 
