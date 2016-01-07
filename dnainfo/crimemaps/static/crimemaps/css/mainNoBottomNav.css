@@ -144,6 +144,10 @@ body.loading .loading-modal {
 	margin: 2px;
 }
 
+.no-margin {
+	margin: 0px;
+}
+
 /*
 * Legend CSS
 */

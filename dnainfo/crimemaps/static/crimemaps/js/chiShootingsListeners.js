@@ -6,19 +6,59 @@
 
 $( document ).ready(function() {
 
+	// populate start and end date box
+	$('#startDate').val(moment(startDate).format("M/D/YYYY"));
+	$('#endDate').val(moment(endDate).format("M/D/YYYY"));
+
 	// update map when combo box is picked
 	$( ".form-inline" ).change(function() {
 		$("body").addClass("loading");
-		DNAinfoChiShootings.updateMapFromSliderCombo();
+		selectedMin = $('#startDate').val();
+		selectedMax = $('#endDate').val();
+		DNAinfoChiShootings.updateMap();
 	});
 
-	// update slider and map afte button clicks
-	$( "#yearToDate" ).click(function() {
+	// adding bootstrap date picker in lieu of date range slider
+	$('.input-daterange').datepicker({
+		format: 'm/d/yyyy',
+	    todayHighlight: true,
+	    endDate: "today",
+	    todayBtn: true,
+	    clearBtn: false,
+	    startView: 3
+	});
+
+	$('.input-daterange').change(function() {
+		// get start and end dates
+		$("body").addClass("loading");
+		selectedMin = $('#startDate').val();
+		selectedMax = $('#endDate').val();
+		DNAinfoChiShootings.updateMap();
+	});
+
+	$('body').on('click', '#viewCitywide', function () {
+		DNAinfoChiShootings.drawCitywideChart();	    
+	});
+
+	// expand/contract lower tray
+	$('#popup-expand').click(function() {
+		$( ".popup-wrapper" ).toggleClass("popup-wrapper-open");
+		$( ".popup-wrapper" ).toggleClass("popup-wrapper-75pct");
+		$( ".map" ).toggleClass("map-popup-wrapper-open");
+		$( ".map" ).toggleClass("map-popup-wrapper-75pct");
+		var text = $('#popup-expand').text();
+		$('#popup-expand').text(text == "Expand this window" ? "Contract this window" : "Expand this window");
+	});
+
+
+	// update slider and map after button clicks
+	// removed buttons -- keeping code to put back if neccesary
+/*	$( "#yearToDate" ).click(function() {
 		$("body").addClass("loading");
 		selectedMin = moment().startOf('year').toDate();
 		selectedMax = moment().toDate();
 		updateSlider();
-		DNAinfoChiShootings.updateMapFromSliderCombo();
+		DNAinfoChiShootings.updateMap();
 	});
 
 	$( "#previousSixMonths" ).click(function() {
@@ -26,7 +66,7 @@ $( document ).ready(function() {
 		selectedMin = moment().subtract(6, 'months').toDate();
 		selectedMax = moment().toDate();
 		updateSlider();
-		DNAinfoChiShootings.updateMapFromSliderCombo();
+		DNAinfoChiShootings.updateMap();
 	});
 
 	$( "#previousYear" ).click(function() {
@@ -34,10 +74,10 @@ $( document ).ready(function() {
 		selectedMin = moment().subtract(1, 'years').toDate();
 		selectedMax = moment().toDate();
 		updateSlider();
-		DNAinfoChiShootings.updateMapFromSliderCombo();
-	});
+		DNAinfoChiShootings.updateMap();
+	});*/
 
-	function updateSlider() {
+/*	function updateSlider() {
 
 		var minDate = new Date(2010,0,1);
 		var maxDate = moment().toDate();
@@ -68,7 +108,7 @@ $( document ).ready(function() {
 					// run a function to update map layers with new dates
 					selectedMin = value[0];
 					selectedMax = value[1];
-					DNAinfoChiShootings.updateMapFromSliderCombo();
+					DNAinfoChiShootings.updateMap();
 					// add formated dates selected to area right below slider
 					$('#printStartDate').html(moment(selectedMin).format("MMM D, YYYY"));
 					$('#printEndDate').html(moment(selectedMax).format("MMM D, YYYY"));
@@ -85,11 +125,8 @@ $( document ).ready(function() {
 
 		d3.select('#timeSlider').call(mapSlider);
 
-	}
+	}*/
 
-	$('body').on('click', '#viewCitywide', function () {
-		DNAinfoChiShootings.drawCitywideChart();	    
-	});
 
 
 });
