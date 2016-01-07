@@ -16,7 +16,10 @@ $(document).ready(function () {
     if (w <= 1200) {
         setTimeout(function(){
             $(".trainLineImage").addClass("imageOverflow");
-        },1500);
+            // enable double scroll on train
+            $('.div20pxtall').addClass('hidden');
+            $('.trainLineImage').doubleScroll();
+        },1700);
     }
 
 

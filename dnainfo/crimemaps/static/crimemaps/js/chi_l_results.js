@@ -19,8 +19,10 @@ $(document).ready(function () {
     if (w <= 1200) {
         setTimeout(function(){
             $(".trainLineImage").addClass("imageOverflow");
-        },1500);
-
+            // enable double scroll on train
+            $('.div20pxtall').addClass('hidden');
+            $('.trainLineImage').doubleScroll();
+        },1700);
     }
 
     /*
@@ -75,6 +77,8 @@ $(document).ready(function () {
         // calc max value for heatmap
         max = d3.max(findMax, function(d) { return d; });
 
+        console.log(max);
+
         /*
         // set up a d3 color scale 
         var color = d3.scale.linear()
@@ -118,10 +122,7 @@ $(document).ready(function () {
             image.mapster('snapshot',true);
 
         }); 
-        */
-
-        console.log(seatKeys);
-       
+        */       
 
         // rebind with the tooltips
         image.mapster('rebind', {
@@ -155,7 +156,10 @@ $(document).ready(function () {
         // now create points for heatmap
         var points = [];
 
+        console.log(data);
+
         $.each(data.seats, function( i, d ) {
+            console.log(d);
             // look up center
             var area = document.getElementById(i);
             if (typeof area !== "undefined" && area) {
@@ -170,14 +174,15 @@ $(document).ready(function () {
         });
 
         // heatmap data format
-        var data = { 
+        var data1 = { 
           max: max, 
           min: 0,
           data: points 
         };
+        console.log(data1);
         // if you have a set of datapoints always use setData instead of addData
         // for data initialization
-        heatmapInstance.setData(data);         
+        heatmapInstance.setData(data1);         
 
     }
 
@@ -272,7 +277,7 @@ $(document).ready(function () {
 
     console.log(referrer);
 
-    if (!referrer.endsWith('dnainfo.com')) {
+    if (typeof referrer === "undefined" || !referrer.endsWith('dnainfo.com')) {
         $('.trainLine').text("Everyone's favorite spots on the " + lineSelected + ".");
         $('.heading').html('');
         $('#smallHeading').html('<em>Click on the heat map below to see the percentage of riders who chose that spot. Drag to the right to see more train car. Then pick your seat by hitting the button below.</em>');
@@ -281,7 +286,5 @@ $(document).ready(function () {
         $('#showShareFB').addClass('hidden');    
         $('#showShareTwitter').addClass('hidden');    
     }
-
-
 
 });
