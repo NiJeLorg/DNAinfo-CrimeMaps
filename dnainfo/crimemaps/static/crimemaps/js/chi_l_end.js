@@ -77,9 +77,6 @@ $(document).ready(function () {
         // calc max value for heatmap
         max = d3.max(findMax, function(d) { return d; });
 
-
-
-
         /*
         // set up a d3 color scale 
         var color = d3.scale.linear()
@@ -157,10 +154,7 @@ $(document).ready(function () {
         // now create points for heatmap
         var points = [];
 
-        console.log(data);
-
         $.each(data.seats, function( i, d ) {
-            console.log(d);
             // look up center
             var area = document.getElementById(i);
             if (typeof area !== "undefined" && area) {
@@ -180,7 +174,6 @@ $(document).ready(function () {
           min: 0,
           data: points 
         };
-        console.log(data1);
         // if you have a set of datapoints always use setData instead of addData
         // for data initialization
         heatmapInstance.setData(data1);         
@@ -243,19 +236,19 @@ $(document).ready(function () {
 
     // facebook and twitter link creation and appending
     var app_id = '406014149589534';
-    var fbcaption = 'This is my favorite spot on the '+ lineSelected +' train. What\'s yours? http://sprnt-1965-visualizations-branch-two.build.qa.dnainfo.com/chicago/visualizations/where-i-sit-stand-train via https://www.facebook.com/DNAinfoChicago/';
+    var fbcaption = "This is my favorite spot on the "+ lineSelected +" train. What\'s yours? http://sprnt-1965-visualizations-branch-two.build.qa.dnainfo.com/chicago/visualizations/where-i-sit-stand-train via https://www.facebook.com/DNAinfoChicago/";
     var fblink = "http://sprnt-1965-visualizations-branch-two.build.qa.dnainfo.com/chicago/visualizations/where-i-sit-stand-train?results=" + id;
     var fbUrl = 'https://www.facebook.com/dialog/feed?app_id=' + app_id + '&display=popup&caption='+ encodeURIComponent(fbcaption) + '&link=' + encodeURIComponent(bitlyURL) + '&redirect_uri=' + encodeURIComponent(fblink);
-    var fbOnclick = "window.open('" + fbUrl + "','facebook-share-dialog','width=626,height=436');return false;";
+    var fbOnclick = 'window.open("' + fbUrl + '","facebook-share-dialog","width=626,height=436");return false;';
     //$('#showShareFB').attr("href", fbUrl);
     $('#showShareFB').attr("onclick", fbOnclick);
 
 
     var twitterlink = bitlyURL;
     var via = 'DNAinfoCHI';
-    var twittercaption = 'This is my favorite spot on the '+ lineSelected +' train. What\'s yours?';
+    var twittercaption = "This is my favorite spot on the "+ lineSelected +" train. What\'s yours?";
     var twitterUrl = 'https://twitter.com/intent/tweet?url=' + encodeURIComponent(twitterlink) + '&via='+ encodeURIComponent(via) + '&text=' + encodeURIComponent(twittercaption);
-    var twitterOnclick = "window.open('" + twitterUrl + "','twitter-share-dialog','width=626,height=436');return false;";
+    var twitterOnclick = 'window.open("' + twitterUrl + '","twitter-share-dialog","width=626,height=436");return false;';
     //$('#showShareTwitter').attr("href", twitterUrl);
     $('#showShareTwitter').attr("onclick", twitterOnclick);
 
