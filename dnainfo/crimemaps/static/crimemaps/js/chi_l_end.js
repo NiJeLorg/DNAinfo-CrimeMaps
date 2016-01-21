@@ -236,8 +236,8 @@ $(document).ready(function () {
 
     // facebook and twitter link creation and appending
     var app_id = '406014149589534';
-    var fbcaption = "This is my favorite spot on the "+ lineSelected +" train. What\'s yours? http://sprnt-1965-visualizations-branch-two.build.qa.dnainfo.com/chicago/visualizations/where-i-sit-stand-train via https://www.facebook.com/DNAinfoChicago/";
-    var fblink = "http://sprnt-1965-visualizations-branch-two.build.qa.dnainfo.com/chicago/visualizations/where-i-sit-stand-train?results=" + id;
+    var fbcaption = "This is my favorite spot on the "+ lineSelected +" train. What\'s yours? https://sprnt-1965-visualizations-branch-two.build.qa.dnainfo.com/chicago/visualizations/where-i-sit-stand-train via https://www.facebook.com/DNAinfoChicago/";
+    var fblink = "https://sprnt-1965-visualizations-branch-two.build.qa.dnainfo.com/chicago/visualizations/where-i-sit-stand-train?results=" + id;
     var fbUrl = 'https://www.facebook.com/dialog/feed?app_id=' + app_id + '&display=popup&caption='+ encodeURIComponent(fbcaption) + '&link=' + encodeURIComponent(bitlyURL) + '&redirect_uri=' + encodeURIComponent(fblink);
     var fbOnclick = 'window.open("' + fbUrl + '","facebook-share-dialog","width=626,height=436");return false;';
     //$('#showShareFB').attr("href", fbUrl);
