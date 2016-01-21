@@ -10,6 +10,8 @@ from django.utils import timezone
 import dateutil.parser
 import dateutil.tz
 import pytz
+#for email
+from django.core.mail import send_mail
 
 
 """
@@ -83,53 +85,65 @@ class Command(BaseCommand):
             response = urllib.urlopen(url)
             data = json.loads(response.read())
             for data in data['feed']['entry']:
-                #get data ready to be added
-                dateTime = data['gsx$date']['$t'] + ' ' + data['gsx$time']['$t']
-                print dateTime
-                notz = dateutil.parser.parse(dateTime, ignoretz=True)
-                print notz
-                DateTimeObject = pytz.timezone("America/New_York").localize(notz, is_dst=None)
-                print DateTimeObject
-                justDate = DateTimeObject.date()
+                try:
+                    # try updating database
+                    #get data ready to be added
+                    dateTime = data['gsx$date']['$t'] + ' ' + data['gsx$time']['$t']
+                    #print dateTime
+                    notz = dateutil.parser.parse(dateTime, ignoretz=True)
+                    #print notz
+                    DateTimeObject = pytz.timezone("America/New_York").localize(notz, is_dst=None)
+                    #print DateTimeObject
+                    justDate = DateTimeObject.date()
 
-                if hasattr(data, 'gsx$arrest'):
-                    if data['gsx$arrests']['$t'] == 'Yes':
-                        arrest = True
-                    elif data['gsx$arrests']['$t'] == 'No':
-                        arrest = False
+                    if hasattr(data, 'gsx$arrest'):
+                        if data['gsx$arrests']['$t'] == 'Yes':
+                            arrest = True
+                        elif data['gsx$arrests']['$t'] == 'No':
+                            arrest = False
+                        else:
+                            arrest = None
                     else:
                         arrest = None
-                else:
-                    arrest = None
 
-                if hasattr(data, 'gsx$crimetype'):
-                    crimeType = data['gsx$crimetype']['$t']
-                else:
-                    crimeType = None
+                    if hasattr(data, 'gsx$crimetype'):
+                        crimeType = data['gsx$crimetype']['$t']
+                    else:
+                        crimeType = None
 
-                if data['gsx$precinct']['$t'] != '':
-                    precinctNum = int(data['gsx$precinct']['$t'])
-                else:
-                    precinctNum = 0
+                    if data['gsx$precinct']['$t'] != '':
+                        precinctNum = int(data['gsx$precinct']['$t'])
+                    else:
+                        precinctNum = 0
 
-                if data['gsx$latitude']['$t'] == '':
-                    lat = 0                    
-                else:
-                    lat = float(data['gsx$latitude']['$t'])
+                    if data['gsx$latitude']['$t'] == '':
+                        lat = 0                    
+                    else:
+                        lat = float(data['gsx$latitude']['$t'])
 
-                if data['gsx$latitude']['$t'] == '':
-                    lon = 0                    
-                else:
-                    lon = float(data['gsx$longitude']['$t'])
+                    if data['gsx$latitude']['$t'] == '':
+                        lon = 0                    
+                    else:
+                        lon = float(data['gsx$longitude']['$t'])
 
-                #use get or create to only create records for objects newly added to the spreadsheets
-                updated_values = {'BlotterWeek':justDate, 'CrimeType':crimeType, 'PoliceSaid':data['gsx$policesaid']['$t'], 'Arrest': arrest, 'Latitude':lat, 'Longitude':lon, 'JSDate': justDate }
-                obj, created = blotter.objects.update_or_create(Precinct=precinctNum, Address=data['gsx$address']['$t'], DateTime=DateTimeObject,defaults=updated_values)
+                    #use get or create to only create records for objects newly added to the spreadsheets
+                    updated_values = {'BlotterWeek':justDate, 'CrimeType':crimeType, 'PoliceSaid':data['gsx$policesaid']['$t'], 'Arrest': arrest, 'Latitude':lat, 'Longitude':lon, 'JSDate': justDate }
+                    obj, created = blotter.objects.update_or_create(Precinct=precinctNum, Address=data['gsx$address']['$t'], DateTime=DateTimeObject,defaults=updated_values)
+
+                except Exception: 
+                    # if error, send email
+                    subject = "There's a problem importing data into the blotter."
+                    html_message = "Please check the <a href='https://docs.google.com/spreadsheets/d/1WZsIEkHVy8YUrfYaBEkk3z0xy1bikYySqNcXE8NRxMY/edit'>blotter spreadsheet</a> to check for possible data errors in the following record:<br /><br />Date: "+ data['gsx$date']['$t'] +"<br />Time: " + data['gsx$time']['$t'] + "<br />Address: " + data['gsx$address']['$t'] + "<br />Latitude: " + data['gsx$latitude']['$t'] + "<br />Longitude: " + data['gsx$longitude']['$t'] + "<br />Police Said: " + data['gsx$policesaid']['$t'] + "<br />Precinct: " + data['gsx$precinct']['$t']
+                    message = ""
+
+                    send_mail(subject, message, 'dcommunity@cdad-online.org', ['jd@nijel.org','nchiwaya@dnainfo.com'], fail_silently=True, html_message=html_message)
+
+
 
 
     def handle(self, *args, **options):
-        print "Loading Blotter Data...."
-        self.load_blotter_data()
+        #print "Loading Blotter Data...."
+        #self.load_blotter_data()
         print "Loading Blotter Data from the Consolidated Sheet...."
         self.load_blotter_data_consolidated_sheet()
         print "Done."
