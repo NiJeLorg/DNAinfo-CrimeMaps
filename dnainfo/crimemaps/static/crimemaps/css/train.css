@@ -96,6 +96,12 @@ html, body {
     border-color: #2e6da4;
 }
 
+.bottomNavTaller {
+	min-height: 160px;
+    max-height: 160px;
+}
+
+
 
 /*
 * Train Line colors and station dots
