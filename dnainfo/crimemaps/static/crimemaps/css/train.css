@@ -97,8 +97,7 @@ html, body {
 }
 
 .bottomNavTaller {
-	min-height: 160px;
-    max-height: 160px;
+	padding-bottom: 60px;
 }
 
 
