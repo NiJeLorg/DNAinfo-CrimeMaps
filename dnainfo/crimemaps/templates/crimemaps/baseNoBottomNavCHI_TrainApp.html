@@ -67,7 +67,8 @@
     $( document ).ready(function() {
 	  	var iPhone = /iPhone|iPod/.test(navigator.platform);
 	  	if (iPhone) {
-	  		 $('#bottomNav').addClass("bottomNavTaller");
+	  		$('body').addClass("bottomNavTaller");
+	  		$('#bottomNav').addClass("bottomNavTaller");
 	  	}
     });
 
