@@ -97,8 +97,12 @@ html, body {
 }
 
 .iOSHeightFix {
-	max-height: 80vh;
+	max-height: 65vh;
 	overflow-y: auto;
+}
+
+.iOSPaddingFix {
+	padding-bottom: 40%;
 }
 
 
