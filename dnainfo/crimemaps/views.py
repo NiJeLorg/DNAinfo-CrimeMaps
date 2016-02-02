@@ -1527,7 +1527,7 @@ def chi_l_end(request, id=None):
 	if id:
 		CHItrainSitStandObject = CHItrainSitStand.objects.get(pk=id)
 
-		url = "https://sprnt-1965-visualizations-branch-two.build.qa.dnainfo.com/chicago/visualizations/where-i-sit-stand-train?results=" + str(id)
+		url = "https://qa.dnainfo.com/chicago/visualizations/where-i-sit-stand-train?results=" + str(id)
 		# connect to Bitly API
 		c = bitly_api.Connection('ondnainfo', 'R_cdbdcaaef8d04d97b363b989f2fba3db')
 		bitlyURL = c.shorten(url)
