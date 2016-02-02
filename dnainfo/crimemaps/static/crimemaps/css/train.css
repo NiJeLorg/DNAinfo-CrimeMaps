@@ -81,7 +81,7 @@ html, body {
 
 .navbar {
 	min-height: 100px;
-	max-height: 100px;
+	max-height: 160px;
 	margin-bottom: 0px;
 	border-radius: 0px; 
 }
