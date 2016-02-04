@@ -82,8 +82,8 @@ $(document).ready(function () {
 	});
 
     // select seats from the last two rounds
-    image.mapster('set',true,positionOne);
-    image.mapster('set',true,positionTwo);
+    //image.mapster('set',true,positionOne);
+    //image.mapster('set',true,positionTwo);
 
     // select all seats
     if (carType == "GPRYP") {
@@ -137,7 +137,7 @@ $(document).ready(function () {
                 maskKeys.push({key: f, isMask: true});
             });           
         });
-        setTimeout(function(){rebind()},100);
+        setTimeout(function(){rebind()},1000);
         
     }
 
