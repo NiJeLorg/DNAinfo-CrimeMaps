@@ -43,7 +43,7 @@ $(document).ready(function () {
 
     // mask all seating areas
     if (carType == "GPRYP") {
-        maskAreas.push("asile-seat");
+        //maskAreas.push("asile-seat");
         maskAreas.push("edge-seat");
         maskAreas.push("window-seat");
         maskAreas.push("middle-seat");
@@ -87,7 +87,7 @@ $(document).ready(function () {
 
     // select all seats
     if (carType == "GPRYP") {
-        image.mapster('set',true,"asile-seat");
+        //image.mapster('set',true,"asile-seat");
         image.mapster('set',true,"edge-seat");
         image.mapster('set',true,"window-seat");
         image.mapster('set',true,"middle-seat");
@@ -129,7 +129,6 @@ $(document).ready(function () {
     }
 
     function getKeys() {
-        console.log(maskAreas);
         $.each(maskAreas, function( i, d ) {
             var keys = image.mapster('keys',d,true);
             var keysArray = keys.split(',');
