@@ -38,8 +38,8 @@ $(document).ready(function () {
     var maskKeys = [];
 
     // add chosen areas to mask keys
-    //maskKeys.push({key: positionOne, isMask: true});
-    //maskKeys.push({key: positionTwo, isMask: true});
+    maskKeys.push({key: positionOne, isMask: true});
+    maskKeys.push({key: positionTwo, isMask: true});
 
     // mask all seating areas
     if (carType == "GPRYP") {
@@ -82,8 +82,8 @@ $(document).ready(function () {
 	});
 
     // select seats from the last two rounds
-    //image.mapster('set',true,positionOne);
-    //image.mapster('set',true,positionTwo);
+    image.mapster('set',true,positionOne);
+    image.mapster('set',true,positionTwo);
 
     // select all seats
     if (carType == "GPRYP") {
