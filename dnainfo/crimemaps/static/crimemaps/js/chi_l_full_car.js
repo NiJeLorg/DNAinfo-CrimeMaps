@@ -145,7 +145,7 @@ $(document).ready(function () {
         if (Modernizr.touchevents || Modernizr.pointerevents) {
             // if we detect touch or pointer events, disable hover
             var highLight = false;
-            var renderHighlight = { fillOpacity: 0 };  
+            var renderHighlight = { fill: false, stroke: false };  
         } else {
             var highLight = true;
             var renderHighlight = { altImage: altImage, fillOpacity: 0.5 };
