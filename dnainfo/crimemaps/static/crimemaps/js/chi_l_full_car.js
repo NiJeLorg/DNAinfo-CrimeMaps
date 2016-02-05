@@ -38,12 +38,12 @@ $(document).ready(function () {
     var maskKeys = [];
 
     // add chosen areas to mask keys
-    maskKeys.push({key: positionOne, isMask: true});
-    maskKeys.push({key: positionTwo, isMask: true});
+    //maskKeys.push({key: positionOne, isMask: true});
+    //maskKeys.push({key: positionTwo, isMask: true});
 
     // mask all seating areas
     if (carType == "GPRYP") {
-        //maskAreas.push("asile-seat");
+        maskAreas.push("asile-seat");
         maskAreas.push("edge-seat");
         maskAreas.push("window-seat");
         maskAreas.push("middle-seat");
@@ -87,7 +87,7 @@ $(document).ready(function () {
 
     // select all seats
     if (carType == "GPRYP") {
-        //image.mapster('set',true,"asile-seat");
+        image.mapster('set',true,"asile-seat");
         image.mapster('set',true,"edge-seat");
         image.mapster('set',true,"window-seat");
         image.mapster('set',true,"middle-seat");
@@ -136,7 +136,7 @@ $(document).ready(function () {
                 maskKeys.push({key: f, isMask: true});
             });           
         });
-        setTimeout(function(){rebind()},1000);
+        setTimeout(function(){rebind()},100);
         
     }
 
