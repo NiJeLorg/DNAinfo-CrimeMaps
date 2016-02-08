@@ -64,6 +64,7 @@
 	{% endblock %}
   <script>
     $( document ).ready(function() {
+      // test for iPhone
 	  	var iPhone = /iPhone|iPod/.test(navigator.platform);
 	  	if (iPhone) {
 	  		$('#mainContent').addClass("iOSHeightFix");
