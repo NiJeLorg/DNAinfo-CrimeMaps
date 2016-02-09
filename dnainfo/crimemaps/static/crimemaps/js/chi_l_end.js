@@ -25,6 +25,11 @@ $(document).ready(function () {
         },1700);
     }
 
+    // add to more link a show 
+    $("#more").click(function() {
+        $(".subheading").toggleClass("hidden");
+    });
+
     /*
     if (w <= 1200) {
         var elem = document.getElementById("trainLineImage"); 
