@@ -25,6 +25,12 @@ $(document).ready(function () {
         },1700);
     }
 
+    // add to more link a show 
+    $("#more").click(function() {
+        $(".subheading").toggleClass("hidden");
+    });
+
+
     /*
     if (w <= 1200) {
         var elem = document.getElementById("trainLineImage"); 
@@ -155,7 +161,6 @@ $(document).ready(function () {
         var points = [];
 
         $.each(data.seats, function( i, d ) {
-            console.log(d);
             // look up center
             var area = document.getElementById(i);
             if (typeof area !== "undefined" && area) {
