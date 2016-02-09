@@ -242,7 +242,11 @@
                         {{ form }}
                     </div>
                     <p class="text-center">
-                        <a href="/chi-l/length/{{ CHItrainSitStandObject.id }}/" class="btn btn-primary btn-lg">Back</a>
+                        {% if CHItrainSitStandObject.train == "Yellow Line" %}
+                            <a href="/chi-l/arrived/{{ CHItrainSitStandObject.id }}/" class="btn btn-primary btn-lg">Back</a>
+                        {% else %}
+                            <a href="/chi-l/length/{{ CHItrainSitStandObject.id }}/" class="btn btn-primary btn-lg">Back</a>
+                        {% endif %}
                         <input id="formButton" type="submit" class="btn btn-primary btn-lg disabled" value="Next" />
                     </p>
                 </form>
