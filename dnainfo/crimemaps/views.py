@@ -1400,6 +1400,8 @@ def chi_l_arrived(request, id=None):
 def chi_l_length(request, id=None):
 	if id:
 		CHItrainSitStandObject = CHItrainSitStand.objects.get(pk=id)
+		if CHItrainSitStandObject.train == "Yellow Line":
+			return HttpResponseRedirect(reverse('chi_l_empty_car', args=(CHItrainSitStandObject.pk,)))
 	else:
 		CHItrainSitStandObject = CHItrainSitStand()
 
