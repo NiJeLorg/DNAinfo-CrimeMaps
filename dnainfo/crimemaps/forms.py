@@ -48,6 +48,33 @@ TRAINS_CHI = (
     ('Pink Line', 'Pink Line'),
 )
 
+TRAINS_NYC = (
+    ('A', 'A'),
+    ('B', 'B'),
+    ('C', 'C'),
+    ('D', 'D'),
+    ('E', 'E'),
+    ('F', 'F'),
+    ('G', 'G'),
+    ('J', 'J'),
+    ('L', 'L'),
+    ('M', 'M'),
+    ('N', 'N'),
+    ('Q', 'Q'),
+    ('R', 'R'),
+    ('S - 42nd St. Shuttle', 'S - 42nd St. Shuttle'),
+    ('S - Rockaway Shuttle', 'S - Rockaway Shuttle'),
+    ('S - Franklin Ave. Shuttle', 'S - Franklin Ave. Shuttle'),
+    ('Z', 'Z'),
+    ('1', '1'),
+    ('2', '2'),
+    ('3', '3'),
+    ('4', '4'),
+    ('5', '5'),
+    ('6', '6'),
+    ('7', '7'),
+)
+
 WHEN_RIDE = (
     ('Midnight to 7 a.m.', 'Midnight to 7 a.m.'),
     ('7 a.m. to 10 a.m.', '7 a.m. to 10 a.m.'),
@@ -60,6 +87,12 @@ HOW_LONG_RIDE = (
     ('1 - 3 Stops', '1 - 3 Stops'),
     ('4 - 7 Stops', '4 - 7 Stops'),
     ('8 or More Stops', '8 or More Stops'),
+)
+
+HOW_LONG_RIDE_NYC = (
+    ('Less than 15 minutes', 'Less than 15 minutes'),
+    ('15 to 45 minutes', '15 to 45 minutes'),
+    ('More than 45 minutes', 'More than 45 minutes'),
 )
 
 
@@ -157,4 +190,45 @@ class CHITrainHalfFullTrainForm(forms.ModelForm):
 class CHITrainFullTrainForm(forms.ModelForm):
     class Meta:
         model = CHItrainSitStand
+        fields = ('positionThree', 'positionThreeType', )
+
+
+
+class NYCTrainLineForm(forms.ModelForm):
+    train = forms.ChoiceField(choices=TRAINS_NYC, label="", widget=forms.widgets.RadioSelect)
+
+    class Meta:
+        model = NYCtrainSitStand
+        fields = ('train', )
+
+
+class NYCTrainTimeForm(forms.ModelForm):
+    rideTime= forms.ChoiceField(choices=WHEN_RIDE, label="", widget=forms.widgets.RadioSelect)
+
+    class Meta:
+        model = NYCtrainSitStand
+        fields = ('rideTime', )
+
+
+class NYCTrainLengthForm(forms.ModelForm):
+    rideLength= forms.ChoiceField(choices=HOW_LONG_RIDE_NYC, label="", widget=forms.widgets.RadioSelect)
+
+    class Meta:
+        model = NYCtrainSitStand
+        fields = ('rideLength', )
+
+
+class NYCTrainEmptyTrainForm(forms.ModelForm):
+    class Meta:
+        model = NYCtrainSitStand
+        fields = ('positionOne', 'positionOneType', )
+
+class NYCTrainHalfFullTrainForm(forms.ModelForm):
+    class Meta:
+        model = NYCtrainSitStand
+        fields = ('positionTwo', 'positionTwoType', )
+
+class NYCTrainFullTrainForm(forms.ModelForm):
+    class Meta:
+        model = NYCtrainSitStand
         fields = ('positionThree', 'positionThreeType', )

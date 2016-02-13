@@ -193,3 +193,17 @@ class CHItrainSitStand(models.Model):
 	positionTwoType = models.CharField(max_length=255, default='', blank=True, null=True)
 	positionThree = models.IntegerField(default=0, blank=True, null=True)
 	positionThreeType = models.CharField(max_length=255, default='', blank=True, null=True)
+
+
+#model for where to people riding the NYC Subway like to sit/stand
+class NYCtrainSitStand(models.Model):
+	created = models.DateTimeField(auto_now=True)
+	train = models.CharField(max_length=255, default='', blank=True, null=True)
+	rideTime = models.CharField(max_length=255, default='', blank=True, null=True)
+	rideLength = models.CharField(max_length=255, default='', blank=True, null=True)
+	positionOne = models.IntegerField(default=0, blank=True, null=True)
+	positionOneType = models.CharField(max_length=255, default='', blank=True, null=True)
+	positionTwo = models.IntegerField(default=0, blank=True, null=True)
+	positionTwoType = models.CharField(max_length=255, default='', blank=True, null=True)
+	positionThree = models.IntegerField(default=0, blank=True, null=True)
+	positionThreeType = models.CharField(max_length=255, default='', blank=True, null=True)

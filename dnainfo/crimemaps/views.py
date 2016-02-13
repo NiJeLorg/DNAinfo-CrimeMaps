@@ -1622,3 +1622,277 @@ def chi_l_results_api(request):
 	return JsonResponse(response)
 
 
+
+def nyc_subway_line(request, id=None):
+	if id:
+		NYCtrainSitStandObject = NYCtrainSitStand.objects.get(pk=id)
+	else:
+		NYCtrainSitStandObject = NYCtrainSitStand()
+
+	# A HTTP POST?
+	if request.method == 'POST':
+		form = NYCTrainLineForm(request.POST, instance=NYCtrainSitStandObject)
+
+		# Have we been provided with a valid form?
+		if form.is_valid():
+			# Save the new data to the database.
+			f = form.save()
+			lookupObject = NYCtrainSitStand.objects.get(pk=f.pk)
+			return HttpResponseRedirect(reverse('nyc_subway_arrived', args=(lookupObject.pk,)))
+		else:
+			# The supplied form contained errors - just print them to the terminal.
+			print form.errors
+	else:
+		# If the request was not a POST, display the form to enter details.
+		form = NYCTrainLineForm(instance=NYCtrainSitStandObject)
+
+	# Bad form (or form details), no form supplied...
+	# Render the form with error messages (if any).
+	return render(request, 'crimemaps/nyc_subway_line.html', {'form':form, 'NYCtrainSitStandObject': NYCtrainSitStandObject})
+
+
+def nyc_subway_arrived(request, id=None):
+	if id:
+		NYCtrainSitStandObject = NYCtrainSitStand.objects.get(pk=id)
+	else:
+		NYCtrainSitStandObject = NYCtrainSitStand()
+
+	# A HTTP POST?
+	if request.method == 'POST':
+		form = NYCTrainTimeForm(request.POST, instance=NYCtrainSitStandObject)
+
+		# Have we been provided with a valid form?
+		if form.is_valid():
+			# Save the new data to the database.
+			f = form.save()
+			lookupObject = NYCtrainSitStand.objects.get(pk=f.pk)
+			return HttpResponseRedirect(reverse('nyc_subway_length', args=(lookupObject.pk,)))
+		else:
+			# The supplied form contained errors - just print them to the terminal.
+			print form.errors
+	else:
+		# If the request was not a POST, display the form to enter details.
+		form = NYCTrainTimeForm(instance=NYCtrainSitStandObject)
+
+	# Bad form (or form details), no form supplied...
+	# Render the form with error messages (if any).
+	return render(request, 'crimemaps/nyc_subway_arrived.html', {'form':form, 'NYCtrainSitStandObject': NYCtrainSitStandObject})
+
+
+def nyc_subway_length(request, id=None):
+	if id:
+		NYCtrainSitStandObject = NYCtrainSitStand.objects.get(pk=id)
+		if NYCtrainSitStandObject.train == "Yellow Line":
+			return HttpResponseRedirect(reverse('NYC_l_empty_car', args=(NYCtrainSitStandObject.pk,)))
+	else:
+		NYCtrainSitStandObject = NYCtrainSitStand()
+
+	# A HTTP POST?
+	if request.method == 'POST':
+		form = NYCTrainLengthForm(request.POST, instance=NYCtrainSitStandObject)
+
+		# Have we been provided with a valid form?
+		if form.is_valid():
+			# Save the new data to the database.
+			f = form.save()
+			lookupObject = NYCtrainSitStand.objects.get(pk=f.pk)
+			return HttpResponseRedirect(reverse('nyc_subway_empty_car', args=(lookupObject.pk,)))
+		else:
+			# The supplied form contained errors - just print them to the terminal.
+			print form.errors
+	else:
+		# If the request was not a POST, display the form to enter details.
+		form = NYCTrainLengthForm(instance=NYCtrainSitStandObject)
+
+	# Bad form (or form details), no form supplied...
+	# Render the form with error messages (if any).
+	return render(request, 'crimemaps/nyc_subway_length.html', {'form':form, 'NYCtrainSitStandObject': NYCtrainSitStandObject})
+
+
+def nyc_subway_empty_car(request, id=None):
+	if id:
+		NYCtrainSitStandObject = NYCtrainSitStand.objects.get(pk=id)
+	else:
+		NYCtrainSitStandObject = NYCtrainSitStand()
+
+	# A HTTP POST?
+	if request.method == 'POST':
+		form = NYCTrainEmptyTrainForm(request.POST, instance=NYCtrainSitStandObject)
+
+		# Have we been provided with a valid form?
+		if form.is_valid():
+			# Save the new data to the database.
+			f = form.save()
+			lookupObject = NYCtrainSitStand.objects.get(pk=f.pk)
+			return HttpResponseRedirect(reverse('nyc_subway_half_full_car', args=(lookupObject.pk,)))
+		else:
+			# The supplied form contained errors - just print them to the terminal.
+			print form.errors
+	else:
+		# If the request was not a POST, display the form to enter details.
+		form = NYCTrainEmptyTrainForm(instance=NYCtrainSitStandObject)
+
+	# Bad form (or form details), no form supplied...
+	# Render the form with error messages (if any).
+	return render(request, 'crimemaps/nyc_subway_empty_car.html', {'form':form, 'NYCtrainSitStandObject': NYCtrainSitStandObject})
+
+
+
+def nyc_subway_half_full_car(request, id=None):
+	if id:
+		NYCtrainSitStandObject = NYCtrainSitStand.objects.get(pk=id)
+		positionOneType = NYCtrainSitStandObject.positionOneType
+	else:
+		NYCtrainSitStandObject = NYCtrainSitStand()
+		positionOneType = ''
+
+	# A HTTP POST?
+	if request.method == 'POST':
+		form = NYCTrainHalfFullTrainForm(request.POST, instance=NYCtrainSitStandObject)
+
+		# Have we been provided with a valid form?
+		if form.is_valid():
+			# Save the new data to the database.
+			f = form.save()
+			lookupObject = NYCtrainSitStand.objects.get(pk=f.pk)
+			return HttpResponseRedirect(reverse('nyc_subway_full_car', args=(lookupObject.pk,)))
+		else:
+			# The supplied form contained errors - just print them to the terminal.
+			print form.errors
+	else:
+		# If the request was not a POST, display the form to enter details.
+		form = NYCTrainHalfFullTrainForm(instance=NYCtrainSitStandObject)
+
+	# Bad form (or form details), no form supplied...
+	# Render the form with error messages (if any).
+	return render(request, 'crimemaps/nyc_subway_half_full_car.html', {'form':form, 'positionOneType': positionOneType, 'NYCtrainSitStandObject': NYCtrainSitStandObject})
+
+
+def nyc_subway_full_car(request, id=None):
+	if id:
+		NYCtrainSitStandObject = NYCtrainSitStand.objects.get(pk=id)
+		positionOne = NYCtrainSitStandObject.positionOne
+		positionTwo = NYCtrainSitStandObject.positionTwo
+	else:
+		NYCtrainSitStandObject = NYCtrainSitStand()
+		positionOne = ''
+		positionTwo = ''
+
+
+	# A HTTP POST?
+	if request.method == 'POST':
+		form = NYCTrainFullTrainForm(request.POST, instance=NYCtrainSitStandObject)
+
+		# Have we been provided with a valid form?
+		if form.is_valid():
+			# Save the new data to the database.
+			f = form.save()
+			lookupObject = NYCtrainSitStand.objects.get(pk=f.pk)
+			return HttpResponseRedirect(reverse('nyc_subway_end', args=(lookupObject.pk,)))
+		else:
+			# The supplied form contained errors - just print them to the terminal.
+			print form.errors
+	else:
+		# If the request was not a POST, display the form to enter details.
+		form = NYCTrainFullTrainForm(instance=NYCtrainSitStandObject)
+
+	# Bad form (or form details), no form supplied...
+	# Render the form with error messages (if any).
+	return render(request, 'crimemaps/nyc_subway_full_car.html', {'form':form, 'positionOne': positionOne, 'positionTwo': positionTwo, 'NYCtrainSitStandObject': NYCtrainSitStandObject})
+
+
+def nyc_subway_end(request, id=None):
+	if id:
+		NYCtrainSitStandObject = NYCtrainSitStand.objects.get(pk=id)
+
+		url = "https://www.dnainfo.com/new-york/visualizations/where-i-sit-stand-train?results=" + str(id)
+		# connect to Bitly API
+		c = bitly_api.Connection('ondnainfo', 'R_cdbdcaaef8d04d97b363b989f2fba3db')
+		bitlyURL = c.shorten(url)
+
+	else:
+		NYCtrainSitStandObject = NYCtrainSitStand()
+		bitlyURL = {}
+
+	return render(request, 'crimemaps/nyc_subway_end.html', {'NYCtrainSitStandObject':NYCtrainSitStandObject, 'id': id, 'bitlyURL': bitlyURL})
+
+def nyc_subway_results(request, id=None):
+	if id:
+		NYCtrainSitStandObject = NYCtrainSitStand.objects.get(pk=id)
+
+	else:
+		NYCtrainSitStandObject = NYCtrainSitStand()
+		bitlyURL = {}
+
+	return render(request, 'crimemaps/nyc_subway_results.html', {'NYCtrainSitStandObject':NYCtrainSitStandObject, 'id': id})
+
+def nyc_subway_results_api(request):
+	#add in the items geojson requires 
+	response = {}
+	response['seats'] = {}
+	response['seat_types'] = {}
+
+	if request.method == 'GET':
+		#gather potential filter variables
+		train = request.GET.get("train","")
+		rideTime = request.GET.get("rideTime","")
+		rideLength = request.GET.get("rideLength","")
+		capacity = request.GET.get("capacity","empty")
+
+		#add kwargs and query terms
+		kwargs = {}
+		# show date range selected
+		if train:
+			kwargs['train__exact'] = train
+
+		if rideTime:
+			kwargs['rideTime__exact'] = rideTime
+
+		if rideLength:
+			kwargs['rideLength__exact'] = rideLength
+
+		respondents = NYCtrainSitStand.objects.filter(**kwargs).count()
+		response['respondents'] = respondents
+
+		if capacity == "empty":
+			# get count of exact seat locations
+			countPositionOne = NYCtrainSitStand.objects.filter(**kwargs).values("positionOne").annotate(Count('positionOne'))
+			for count in countPositionOne:
+				key = count['positionOne']
+				response['seats'][key] = count['positionOne__count']
+
+			#get count of type of seat selected
+			countPositionOneType = NYCtrainSitStand.objects.filter(**kwargs).values("positionOneType").annotate(Count('positionOneType'))
+			for count in countPositionOneType:
+				key = count['positionOneType']
+				response['seat_types'][key] = count['positionOneType__count']
+
+
+		if capacity == "half-full":
+			countPositionTwo = NYCtrainSitStand.objects.filter(**kwargs).values("positionTwo").annotate(Count('positionTwo'))
+			for count in countPositionTwo:
+				key = count['positionTwo']
+				response['seats'][key] = count['positionTwo__count']
+
+			#get count of type of seat selected
+			countPositionTwoType = NYCtrainSitStand.objects.filter(**kwargs).values("positionTwoType").annotate(Count('positionTwoType'))
+			for count in countPositionTwoType:
+				key = count['positionTwoType']
+				response['seat_types'][key] = count['positionTwoType__count']
+
+
+		if capacity == "full":
+			countPositionThree = NYCtrainSitStand.objects.filter(**kwargs).values("positionThree").annotate(Count('positionThree'))
+			for count in countPositionThree:
+				key = count['positionThree']
+				response['seats'][key] = count['positionThree__count']
+
+			#get count of type of seat selected
+			countPositionThreeType = NYCtrainSitStand.objects.filter(**kwargs).values("positionThreeType").annotate(Count('positionThreeType'))
+			for count in countPositionThreeType:
+				key = count['positionThreeType']
+				response['seat_types'][key] = count['positionThreeType__count']
+
+
+	return JsonResponse(response)
+

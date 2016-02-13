@@ -1,0 +1,610 @@
+{% extends 'crimemaps/baseNoBottomNavNYC_TrainApp.html' %}
+{% load staticfiles %}
+{% load bootstrap_tags %}
+
+{% block title %}Where do you stand or sit on the train? | DNAinfo{% endblock %}
+
+{% block css_block %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'crimemaps/css/jquery-ui.min.css' %}">
+{% endblock %}
+
+{% block head_js_block %}
+<meta property="fb:app_id" content="406014149589534" /> 
+<meta property="og:type"   content="website" /> 
+<meta property="og:url"    content="{{ bitlyURL.url }}" /> 
+<meta property="og:description" content='Everyone has a favorite seat or spot to stand on the subway. See how your fellow New Yorkers compare to you.' />
+<meta property="og:title"  content='This is how I ride the subway.' /> 
+<meta property="og:image"  content="https://visualizations.dnainfo.com/static/crimemaps/css/images/DNAinfo_FB_CHI_L_Train.png" />
+<script type="text/javascript">
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '406014149589534',
+      xfbml      : true,
+      version    : 'v2.4'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+{% endblock %}
+	
+{% block body_block %}
+
+    <ul id="backgroundColor">
+      <li></li>
+    </ul>
+
+    <!-- Content -->
+    <div class="container-fluid grey-background">
+        <div id="mainContent">
+            <div class="row">
+                <div class="col-sm-8 col-sm-offset-2">
+                    <p id="trainLine" class="text-center text-uppercase trainLineHeading trainLine"></p>
+                    <p class="text-center heading">This is how your favorite spot compares to others. <span class="subheading"><small><a id="more" href="#">More</a></small></span></p>
+                    <p id="largeHeading" class="text-center subheading hidden"><em>Click on the heat map below to see the percentage of riders who picked that spot.</em></p>
+                    <p id="smallHeading" class="text-center subheading hidden"><em>Tap on the heat map to see the percentage of riders who picked a spot. Drag the car right, or drag this text up, to see more train car.</em></p>
+                    <!--<p class="text-center subheading"><em>Direction of Travel</em> <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span></p>-->
+                </div>
+            </div>
+            <!--
+            <div class="row">
+                <div class="col-sm-12">
+                    <form id="filter-form" class="text-center form-inline">  
+                        <div class="form-group">
+                          <label for="propertyType">Time of Day</label>
+                          <select class="form-control" id="rideTime">
+                            <option value="">Anytime</option>
+                            <option value="Midnight to 7 a.m.">Midnight to 7 a.m.</option>
+                            <option value="7 a.m. to 10 a.m.">7 a.m. to 10 a.m.</option>
+                            <option value="10 a.m. to 4 p.m.">10 a.m. to 4 p.m.</option>
+                            <option value="4 p.m. to 7 p.m.">4 p.m. to 7 p.m.</option>
+                            <option value="7 p.m. to Midnight">7 p.m. to Midnight</option>
+                          </select>
+                        </div>
+                        <div class="form-group">
+                          <label for="rideLength">Ride Length</label>
+                          <select class="form-control" id="rideLength">
+                            <option value="">Any Number of Stops</option>
+                            <option value="1 - 3 Stops">1 - 3 Stops</option>
+                            <option value="4 - 7 Stops">4 - 7 Stops</option>
+                            <option value="8 or More Stops">8 or More Stops</option>
+                          </select>
+                        </div>
+                        <div class="form-group">
+                          <label for="capacity">Seating Availability </label>
+                          <select class="form-control" id="capacity">
+                            <option value="empty">All Seats Available</option>
+                            <option value="half-full">Some Seats Available</option>
+                            <option value="full">Standing Room Only</option>
+                          </select>
+                        </div>
+                    </form>                
+                </div>
+            </div> 
+            -->       
+            <div class="row trainLineWrap">
+                <div class="col-sm-12">
+                    <div class="div20pxtall"></div>
+                    <div id="trainLineImage" class="trainLineImage center-block">
+                        <!--<p id="scrollText" class="text-center subheading">
+                            <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span> <span class="arrow"></span>
+                        </p>-->        
+                        <div id="heatmap">
+                        {% if NYCtrainSitStandObject.train == "E" or NYCtrainSitStandObject.train == "F" or NYCtrainSitStandObject.train == "J" or NYCtrainSitStandObject.train == "L" or NYCtrainSitStandObject.train == "M" or NYCtrainSitStandObject.train == "Q" or NYCtrainSitStandObject.train == "Z" %}
+                            <img class="raiseImage" id="C_Type" src="{% static 'crimemaps/css/images/C_Type_Empty_Car.png' %}" usemap="#C_Type">
+                            <map name="C_Type">
+                                <area shape="rect" coords="1044,178,1109,209" id="77" data-key="77,2-end" href="#">
+                                <area shape="rect" coords="1043,143,1108,174" id="76" data-key="76,2-end" href="#">
+                                <area shape="rect" coords="1045,105,1110,136" id="75" data-key="75,2-end" href="#">
+                                <area shape="rect" coords="873,140,978,173" id="73" data-key="73,2-middle" href="#">
+                                <area shape="rect" coords="873,103,978,136" id="72" data-key="72,2-middle" href="#">
+                                <area shape="rect" coords="874,176,979,209" id="74" data-key="74,2-middle" href="#">
+                                <area shape="rect" coords="765,140,870,173" id="70" data-key="70,2-middle" href="#">
+                                <area shape="rect" coords="765,103,870,136" id="69" data-key="69,2-middle" href="#">
+                                <area shape="rect" coords="766,176,871,209" id="71" data-key="71,2-middle" href="#">
+                                <area shape="rect" coords="598,142,703,175" id="67" data-key="67,2-middle" href="#">
+                                <area shape="rect" coords="598,105,703,138" id="66" data-key="66,2-middle" href="#">
+                                <area shape="rect" coords="599,178,704,211" id="68" data-key="68,2-middle" href="#">
+                                <area shape="rect" coords="490,141,595,174" id="64" data-key="64,2-middle" href="#">
+                                <area shape="rect" coords="490,104,595,137" id="63" data-key="63,2-middle" href="#">
+                                <area shape="rect" coords="491,177,596,210" id="65" data-key="65,2-middle" href="#">
+                                <area shape="rect" coords="323,140,428,173" id="61" data-key="61,2-middle" href="#">
+                                <area shape="rect" coords="323,103,428,136" id="60" data-key="60,2-middle" href="#">
+                                <area shape="rect" coords="324,176,429,209" id="62" data-key="62,2-middle" href="#">
+                                <area shape="rect" coords="216,177,321,210" id="59" data-key="59,2-middle" href="#">
+                                <area shape="rect" coords="215,141,320,174" id="58" data-key="58,2-middle" href="#">
+                                <area shape="rect" coords="102,188,152,248" id="56" data-key="56,1-end" href="#">
+                                <area shape="rect" coords="101,127,151,187" id="55" data-key="55,1-end" href="#">
+                                <area shape="rect" coords="981,130,1037,186" id="53" data-key="53,1-middle" href="#">
+                                <area shape="rect" coords="706,127,762,187" id="52" data-key="52,1-middle" href="#">
+                                <area shape="rect" coords="431,128,487,187" id="51" data-key="51,1-middle" href="#">
+                                <area shape="rect" coords="155,126,211,186" id="50" data-key="50,1-middle" href="#">
+                                <area shape="rect" coords="982,190,1038,256" id="49" data-key="49,2-door" href="#">
+                                <area shape="rect" coords="706,189,762,255" id="48" data-key="48,2-door" href="#">
+                                <area shape="rect" coords="431,190,487,254" id="47" data-key="47,2-door" href="#">
+                                <area shape="rect" coords="155,190,211,253" id="46" data-key="46,2-door" href="#">
+                                <area shape="rect" coords="981,62,1037,125" id="45" data-key="45,1-door" href="#">
+                                <area shape="rect" coords="706,61,762,124" id="44" data-key="44,1-door" href="#">
+                                <area shape="rect" coords="432,61,488,124" id="43" data-key="43,1-door" href="#">
+                                <area shape="rect" coords="1042,215,1078,255" id="40" data-key="40,1-seat" href="#">
+                                <area shape="rect" coords="1077,215,1113,255" id="41" data-key="41,3-seat" href="#">
+                                <area shape="rect" coords="1040,60,1076,100" id="37" data-key="37,1-seat" href="#">
+                                <area shape="rect" coords="1077,60,1111,100" id="38" data-key="38,3-seat" href="#">
+                                <area shape="rect" coords="872,64,907,99" id="28" data-key="28,4-seat" href="#">
+                                <area shape="rect" coords="909,64,945,99" id="29" data-key="29,2-seat" href="#">
+                                <area shape="rect" coords="768,64,803,99" id="25" data-key="25,1-seat" href="#">
+                                <area shape="rect" coords="943,64,977,99" id="30" data-key="30,1-seat" href="#">
+                                <area shape="rect" coords="803,64,838,99" id="26" data-key="26,2-seat" href="#">
+                                <area shape="rect" coords="837,64,873,99" id="27" data-key="27,4-seat" href="#">
+                                <area shape="rect" coords="837,215,872,255" id="21" data-key="21,4-seat" href="#">
+                                <area shape="rect" coords="801,215,837,255" id="20" data-key="20,2-seat" href="#">
+                                <area shape="rect" coords="942,215,979,255" id="24" data-key="24,1-seat" href="#">
+                                <area shape="rect" coords="767,215,802,255" id="19" data-key="19,1-seat" href="#">
+                                <area shape="rect" coords="908,215,944,255" id="23" data-key="23,2-seat" href="#">
+                                <area shape="rect" coords="873,215,906,255" id="22" data-key="22,4-seat" href="#">
+                                <area shape="rect" coords="597,215,631,255" id="16" data-key="16,4-seat" href="#">
+                                <area shape="rect" coords="633,215,669,255" id="17" data-key="17,2-seat" href="#">
+                                <area shape="rect" coords="492,215,527,255" id="13" data-key="13,1-seat" href="#">
+                                <area shape="rect" coords="668,215,702,255" id="18" data-key="18,1-seat" href="#">
+                                <area shape="rect" coords="526,215,561,255" id="14" data-key="14,2-seat" href="#">
+                                <area shape="rect" coords="561,215,597,255" id="15" data-key="15,4-seat" href="#">
+                                <area shape="rect" coords="669,64,704,99" id="36" data-key="36,1-seat" href="#">
+                                <area shape="rect" coords="562,64,596,99" id="33" data-key="33,4-seat" href="#">
+                                <area shape="rect" coords="527,64,562,99" id="32" data-key="32,2-seat" href="#">
+                                <area shape="rect" coords="492,64,527,99" id="31" data-key="31,1-seat" href="#">
+                                <area shape="rect" coords="596,64,633,99" id="34" data-key="34,4-seat" href="#">
+                                <area shape="rect" coords="634,64,669,99" id="35" data-key="35,2-seat" href="#">
+                                <area shape="rect" coords="394,214,428,255" id="12" data-key="12,1-seat" href="#">
+                                <area shape="rect" coords="288,214,321,255" id="9" data-key="9,4-seat" href="#">
+                                <area shape="rect" coords="253,214,288,255" id="8" data-key="8,2-seat" href="#">
+                                <area shape="rect" coords="216,214,251,255" id="7" data-key="7,1-seat" href="#">
+                                <area shape="rect" coords="321,214,357,255" id="10" data-key="10,4-seat" href="#">
+                                <area shape="rect" coords="357,214,393,255" id="11" data-key="11,2-seat" href="#">
+                                <area shape="rect" coords="215,104,320,137" id="57" data-key="57,2-middle" href="#">
+                                <area shape="rect" coords="393,64,427,99" id="6" data-key="6,1-seat" href="#">
+                                <area shape="rect" coords="357,64,394,99" id="5" data-key="5,2-seat" href="#">
+                                <area shape="rect" coords="323,64,359,99" id="4" data-key="4,4-seat" href="#">
+                                <area shape="rect" coords="285,64,323,99" id="3" data-key="3,4-seat" href="#">
+                                <area shape="rect" coords="252,64,287,99" id="2" data-key="2,2-seat" href="#">
+                                <area shape="rect" coords="215,64,250,99" id="1" data-key="1,1-seat" href="#">
+                                <area shape="rect" coords="157,60,213,123" id="42" data-key="42,1-door" href="#">
+                                <area shape="rect" coords="101,65,151,125" id="54" data-key="54,1-end" href="#">
+                            </map>
+                        {% elif NYCtrainSitStandObject.train == "A" or NYCtrainSitStandObject.train == "B" or NYCtrainSitStandObject.train == "D" or NYCtrainSitStandObject.train == "G" or NYCtrainSitStandObject.train == "N" or NYCtrainSitStandObject.train == "R" or NYCtrainSitStandObject.train == "S - Rockaway Shuttle" or NYCtrainSitStandObject.train == "S - Franklin Ave. Shuttle" %}
+                             <img class="raiseImage" id="D_Type" src="{% static 'crimemaps/css/images/D_Type_Empty_Car.png' %}" usemap="#D_Type">
+                             <map name="D_Type">
+                                <area shape="rect" coords="871,105,923,131" id="1" data-key="1,3-middle" href="#">
+                                <area shape="rect" coords="583,104,636,130" id="2" data-key="2,3-middle" href="#">
+                                <area shape="rect" coords="294,103,348,132" id="3" data-key="3,3-middle" href="#">
+                                <area shape="rect" coords="1021,81,1065,154" id="4" data-key="4,2-middle" href="#">
+                                <area shape="rect" coords="731,80,775,155" id="5" data-key="5,2-middle" href="#">
+                                <area shape="rect" coords="443,81,487,154" id="6" data-key="6,2-middle" href="#">
+                                <area shape="rect" coords="154,82,198,155" id="7" data-key="7,2-middle" href="#">
+                                <area shape="rect" coords="931,102,1016,133" id="8" data-key="8,1-middle" href="#">
+                                <area shape="rect" coords="932,135,1016,158" id="9" data-key="9,1-middle" href="#">
+                                <area shape="rect" coords="931,77,1015,100" id="10" data-key="10,1-middle" href="#">
+                                <area shape="rect" coords="782,77,866,100" id="11" data-key="11,1-middle" href="#">
+                                <area shape="rect" coords="781,134,865,157" id="12" data-key="12,1-middle" href="#">
+                                <area shape="rect" coords="781,102,866,131" id="13" data-key="13,1-middle" href="#">
+                                <area shape="rect" coords="643,76,727,99" id="14" data-key="14,1-middle" href="#">
+                                <area shape="rect" coords="644,135,728,158" id="15" data-key="15,1-middle" href="#">
+                                <area shape="rect" coords="642,103,727,132" id="16" data-key="16,1-middle" href="#">
+                                <area shape="rect" coords="492,101,577,132" id="17" data-key="17,1-middle" href="#">
+                                <area shape="rect" coords="492,77,577,99" id="18" data-key="18,1-middle" href="#">
+                                <area shape="rect" coords="492,136,577,158" id="19" data-key="19,1-middle" href="#">
+                                <area shape="rect" coords="353,136,438,158" id="20" data-key="20,1-middle" href="#">
+                                <area shape="rect" coords="352,102,437,132" id="21" data-key="21,1-middle" href="#">
+                                <area shape="rect" coords="352,78,437,98" id="22" data-key="22,1-middle" href="#">
+                                <area shape="rect" coords="202,78,287,98" id="23" data-key="23,1-middle" href="#">
+                                <area shape="rect" coords="202,102,287,133" id="24" data-key="24,1-middle" href="#">
+                                <area shape="rect" coords="203,136,287,157" id="25" data-key="25,1-middle" href="#">
+                                <area shape="rect" coords="103,137,150,157" id="26" data-key="26,1-middle" href="#">
+                                <area shape="rect" coords="103,103,150,133" id="27" data-key="27,1-middle" href="#">
+                                <area shape="rect" coords="103,78,150,98" id="28" data-key="28,1-middle" href="#">
+                                <area shape="rect" coords="155,158,196,195" id="29" data-key="29,2-door" href="#">
+                                <area shape="rect" coords="443,157,484,194" id="30" data-key="30,2-door" href="#">
+                                <area shape="rect" coords="732,159,775,191" id="31" data-key="31,2-door" href="#">
+                                <area shape="rect" coords="1020,157,1065,191" id="32" data-key="32,2-door" href="#">
+                                <area shape="rect" coords="1021,44,1064,78" id="33" data-key="33,1-door" href="#">
+                                <area shape="rect" coords="732,44,776,78" id="34" data-key="34,1-door" href="#">
+                                <area shape="rect" coords="443,44,490,77" id="35" data-key="35,1-door" href="#">
+                                <area shape="rect" coords="155,44,197,79" id="36" data-key="36,1-door" href="#">
+                                <area shape="rect" coords="1070,135,1116,158" id="37" data-key="37,2-end" href="#">
+                                <area shape="rect" coords="1070,101,1116,132" id="38" data-key="38,2-end" href="#">
+                                <area shape="rect" coords="1070,77,1116,98" id="39" data-key="39,2-end" href="#">
+                                <area shape="rect" coords="60,96,98,133" id="40" data-key="40,1-end" href="#">
+                                <area shape="rect" coords="1093,161,1120,190" id="41" data-key="41,5-seat" href="#">
+                                <area shape="rect" coords="1067,161,1093,190" id="42" data-key="42,1-seat" href="#">
+                                <area shape="rect" coords="1093,45,1121,74" id="43" data-key="43,5-seat" href="#">
+                                <area shape="rect" coords="1068,45,1093,74" id="44" data-key="44,1-seat" href="#">
+                                <area shape="rect" coords="938,48,965,75" id="45" data-key="45,2-seat" href="#">
+                                <area shape="rect" coords="992,48,1019,75" id="46" data-key="46,1-seat" href="#">
+                                <area shape="rect" coords="966,48,993,75" id="47" data-key="47,4-seat" href="#">
+                                <area shape="rect" coords="966,160,993,190" id="48" data-key="48,4-seat" href="#">
+                                <area shape="rect" coords="992,160,1019,190" id="49" data-key="49,1-seat" href="#">
+                                <area shape="rect" coords="938,160,965,190" id="50" data-key="50,2-seat" href="#">
+                                <area shape="rect" coords="648,161,677,190" id="51" data-key="51,2-seat" href="#">
+                                <area shape="rect" coords="702,161,729,190" id="52" data-key="52,1-seat" href="#">
+                                <area shape="rect" coords="676,161,703,190" id="53" data-key="53,4-seat" href="#">
+                                <area shape="rect" coords="676,48,703,74" id="54" data-key="54,4-seat" href="#">
+                                <area shape="rect" coords="702,48,729,74" id="55" data-key="55,1-seat" href="#">
+                                <area shape="rect" coords="648,48,677,74" id="56" data-key="56,2-seat" href="#">
+                                <area shape="rect" coords="388,161,415,190" id="57" data-key="57,4-seat" href="#">
+                                <area shape="rect" coords="414,161,441,190" id="58" data-key="58,1-seat" href="#">
+                                <area shape="rect" coords="360,161,387,190" id="59" data-key="59,2-seat" href="#">
+                                <area shape="rect" coords="414,47,441,74" id="60" data-key="60,1-seat" href="#">
+                                <area shape="rect" coords="386,47,413,74" id="61" data-key="61,4-seat" href="#">
+                                <area shape="rect" coords="360,47,387,74" id="62" data-key="62,2-seat" href="#">
+                                <area shape="rect" coords="900,136,928,162" id="63" data-key="63,3-seat" href="#">
+                                <area shape="rect" coords="899,162,928,190" id="64" data-key="64,5-seat" href="#">
+                                <area shape="rect" coords="869,136,898,162" id="65" data-key="65,3-seat" href="#">
+                                <area shape="rect" coords="869,162,898,190" id="66" data-key="66,5-seat" href="#">
+                                <area shape="rect" coords="869,73,898,100" id="67" data-key="67,3-seat" href="#">
+                                <area shape="rect" coords="869,47,898,72" id="68" data-key="68,5-seat" href="#">
+                                <area shape="rect" coords="899,47,928,74" id="69" data-key="69,5-seat" href="#">
+                                <area shape="rect" coords="899,73,928,100" id="70" data-key="70,3-seat" href="#">
+                                <area shape="rect" coords="582,74,611,99" id="71" data-key="71,3-seat" href="#">
+                                <area shape="rect" coords="581,47,609,74" id="72" data-key="72,5-seat" href="#">
+                                <area shape="rect" coords="610,47,639,73" id="73" data-key="73,5-seat" href="#">
+                                <area shape="rect" coords="610,74,639,99" id="74" data-key="74,3-seat" href="#">
+                                <area shape="rect" coords="610,163,639,190" id="75" data-key="75,5-seat" href="#">
+                                <area shape="rect" coords="580,137,609,162" id="76" data-key="76,3-seat" href="#">
+                                <area shape="rect" coords="581,163,609,190" id="77" data-key="77,5-seat" href="#">
+                                <area shape="rect" coords="610,137,639,162" id="78" data-key="78,3-seat" href="#">
+                                <area shape="rect" coords="291,162,321,190" id="79" data-key="79,5-seat" href="#">
+                                <area shape="rect" coords="321,162,350,190" id="80" data-key="80,5-seat" href="#">
+                                <area shape="rect" coords="320,47,350,74" id="81" data-key="81,5-seat" href="#">
+                                <area shape="rect" coords="292,47,321,74" id="82" data-key="82,5-seat" href="#">
+                                <area shape="rect" coords="291,136,321,163" id="83" data-key="83,3-seat" href="#">
+                                <area shape="rect" coords="321,136,349,163" id="84" data-key="84,3-seat" href="#">
+                                <area shape="rect" coords="320,73,351,100" id="85" data-key="85,3-seat" href="#">
+                                <area shape="rect" coords="292,74,321,101" id="86" data-key="86,3-seat" href="#">
+                                <area shape="rect" coords="833,160,860,190" id="87" data-key="87,2-seat" href="#">
+                                <area shape="rect" coords="806,160,834,190" id="88" data-key="88,4-seat" href="#">
+                                <area shape="rect" coords="778,160,807,190" id="89" data-key="89,1-seat" href="#">
+                                <area shape="rect" coords="778,47,805,74" id="90" data-key="90,1-seat" href="#">
+                                <area shape="rect" coords="805,47,832,74" id="91" data-key="91,4-seat" href="#">
+                                <area shape="rect" coords="832,47,860,74" id="92" data-key="92,2-seat" href="#">
+                                <area shape="rect" coords="543,46,570,75" id="93" data-key="93,2-seat" href="#">
+                                <area shape="rect" coords="516,46,542,75" id="94" data-key="94,4-seat" href="#">
+                                <area shape="rect" coords="489,46,516,75" id="95" data-key="95,1-seat" href="#">
+                                <area shape="rect" coords="489,161,516,190" id="96" data-key="96,1-seat" href="#">
+                                <area shape="rect" coords="516,161,543,190" id="97" data-key="97,4-seat" href="#">
+                                <area shape="rect" coords="542,161,568,190" id="98" data-key="98,2-seat" href="#">
+                                <area shape="rect" coords="254,159,282,190" id="99" data-key="99,2-seat" href="#">
+                                <area shape="rect" coords="227,159,254,190" id="100" data-key="100,4-seat" href="#">
+                                <area shape="rect" coords="200,159,227,190" id="101" data-key="101,1-seat" href="#">
+                                <area shape="rect" coords="254,47,281,76" id="102" data-key="102,2-seat" href="#">
+                                <area shape="rect" coords="227,47,254,76" id="103" data-key="103,4-seat" href="#">
+                                <area shape="rect" coords="199,47,226,76" id="104" data-key="104,1-seat" href="#">
+                                <area shape="rect" coords="55,162,86,190" id="105" data-key="105,5-seat" href="#">
+                                <area shape="rect" coords="55,136,86,163" id="106" data-key="106,3-seat" href="#">
+                                <area shape="rect" coords="124,161,153,190" id="107" data-key="107,1-seat" href="#">
+                                <area shape="rect" coords="97,161,124,190" id="108" data-key="108,4-seat" href="#">
+                                <area shape="rect" coords="125,46,152,75" id="109" data-key="109,1-seat" href="#">
+                                <area shape="rect" coords="97,46,124,75" id="110" data-key="110,4-seat" href="#">
+                            </map>
+                        {% else %}
+                            <img class="raiseImage" id="E_Type" src="{% static 'crimemaps/css/images/E_Type_Empty_Car.png' %}" usemap="#E_Type">
+                            <map name="E_Type">
+                                 <area shape="rect" coords="339,107,459,153" id="1" data-key="1,1-middle" href="#">
+                                <area shape="rect" coords="462,106,582,153" id="2" data-key="2,1-middle" href="#">
+                                <area shape="rect" coords="811,108,931,152" id="3" data-key="3,1-middle" href="#">
+                                <area shape="rect" coords="689,109,809,153" id="4" data-key="4,1-middle" href="#">
+                                <area shape="rect" coords="743,162,863,206" id="5" data-key="5,2-middle" href="#">
+                                <area shape="rect" coords="620,163,740,207" id="6" data-key="6,2-middle" href="#">
+                                <area shape="rect" coords="395,161,515,205" id="7" data-key="7,2-middle" href="#">
+                                <area shape="rect" coords="271,161,391,205" id="8" data-key="8,2-middle" href="#">
+                                <area shape="rect" coords="170,162,265,207" id="9" data-key="9,2-doormiddle" href="#">
+                                <area shape="rect" coords="519,164,614,209" id="10" data-key="10,2-doormiddle" href="#">
+                                <area shape="rect" coords="865,161,960,206" id="11" data-key="11,2-doormiddle" href="#">
+                                <area shape="rect" coords="936,106,1031,151" id="12" data-key="12,1-doormiddle" href="#">
+                                <area shape="rect" coords="587,108,682,153" id="13" data-key="13,1-doormiddle" href="#">
+                                <area shape="rect" coords="240,107,335,152" id="14" data-key="14,1-doormiddle" href="#">
+                                <area shape="rect" coords="100,161,164,208" id="15" data-key="15,2-end" href="#">
+                                <area shape="rect" coords="966,160,1101,207" id="16" data-key="16,2-end" href="#">
+                                <area shape="rect" coords="1035,105,1100,151" id="17" data-key="17,1-end" href="#">
+                                <area shape="rect" coords="100,107,238,153" id="18" data-key="18,1-end" href="#">
+                                <area shape="rect" coords="866,212,961,255" id="19" data-key="19,2-door" href="#">
+                                <area shape="rect" coords="520,212,615,255" id="20" data-key="20,2-door" href="#">
+                                <area shape="rect" coords="171,212,266,255" id="21" data-key="21,2-door" href="#">
+                                <area shape="rect" coords="934,57,1029,100" id="22" data-key="22,1-door" href="#">
+                                <area shape="rect" coords="586,59,681,102" id="23" data-key="23,1-door" href="#">
+                                <area shape="rect" coords="239,58,334,101" id="24" data-key="24,1-door" href="#">
+                                <area shape="rect" coords="1071,212,1107,249" id="25" data-key="25,2-seat" href="#">
+                                <area shape="rect" coords="1036,212,1071,249" id="26" data-key="26,3-seat" href="#">
+                                <area shape="rect" coords="1002,212,1037,249" id="27" data-key="27,3-seat" href="#">
+                                <area shape="rect" coords="968,213,1001,250" id="28" data-key="28,1-seat" href="#">
+                                <area shape="rect" coords="1036,62,1072,99" id="29" data-key="29,1-seat" href="#">
+                                <area shape="rect" coords="1070,62,1107,99" id="30" data-key="30,2-seat" href="#">
+                                <area shape="rect" coords="687,65,723,102" id="31" data-key="31,1-seat" href="#">
+                                <area shape="rect" coords="756,64,791,101" id="32" data-key="32,4-seat" href="#">
+                                <area shape="rect" coords="722,65,757,102" id="33" data-key="33,3-seat" href="#">
+                                <area shape="rect" coords="790,64,825,101" id="34" data-key="34,4-seat" href="#">
+                                <area shape="rect" coords="826,65,859,102" id="35" data-key="35,4-seat" href="#">
+                                <area shape="rect" coords="895,64,931,101" id="36" data-key="36,1-seat" href="#">
+                                <area shape="rect" coords="861,64,894,101" id="37" data-key="37,3-seat" href="#">
+                                <area shape="rect" coords="793,211,828,249" id="38" data-key="38,3-seat" href="#">
+                                <area shape="rect" coords="827,211,863,249" id="39" data-key="39,1-seat" href="#">
+                                <area shape="rect" coords="758,212,793,249" id="40" data-key="40,4-seat" href="#">
+                                <area shape="rect" coords="724,211,757,249" id="41" data-key="41,4-seat" href="#">
+                                <area shape="rect" coords="656,212,689,249" id="42" data-key="42,3-seat" href="#">
+                                <area shape="rect" coords="690,211,723,249" id="43" data-key="43,4-seat" href="#">
+                                <area shape="rect" coords="619,212,655,249" id="44" data-key="44,1-seat" href="#">
+                                <area shape="rect" coords="272,211,308,249" id="45" data-key="45,1-seat" href="#">
+                                <area shape="rect" coords="340,210,376,249" id="46" data-key="46,4-seat" href="#">
+                                <area shape="rect" coords="306,211,342,249" id="47" data-key="47,3-seat" href="#">
+                                <area shape="rect" coords="377,210,410,249" id="48" data-key="48,4-seat" href="#">
+                                <area shape="rect" coords="411,211,444,249" id="49" data-key="49,4-seat" href="#">
+                                <area shape="rect" coords="480,210,516,249" id="50" data-key="50,1-seat" href="#">
+                                <area shape="rect" coords="446,210,479,249" id="51" data-key="51,3-seat" href="#">
+                                <area shape="rect" coords="547,64,583,101" id="52" data-key="52,1-seat" href="#">
+                                <area shape="rect" coords="513,64,548,101" id="53" data-key="53,3-seat" href="#">
+                                <area shape="rect" coords="478,65,513,102" id="54" data-key="54,4-seat" href="#">
+                                <area shape="rect" coords="444,64,477,101" id="55" data-key="55,4-seat" href="#">
+                                <area shape="rect" coords="410,64,443,101" id="56" data-key="56,4-seat" href="#">
+                                <area shape="rect" coords="339,65,375,102" id="57" data-key="57,1-seat" href="#">
+                                <area shape="rect" coords="376,65,409,102" id="58" data-key="58,3-seat" href="#">
+                                <area shape="rect" coords="133,212,166,249" id="59" data-key="59,1-seat" href="#">
+                                <area shape="rect" coords="98,212,132,249" id="60" data-key="60,2-seat" href="#">
+                                <area shape="rect" coords="200,65,236,102" id="61" data-key="61,1-seat" href="#">
+                                <area shape="rect" coords="166,64,201,101" id="62" data-key="62,3-seat" href="#">
+                                <area shape="rect" coords="132,65,167,102" id="63" data-key="63,3-seat" href="#">
+                                <area shape="rect" coords="95,65,131,102" id="64" data-key="64,2-seat" href="#">
+                            </map>
+                        {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--<div class="row">
+            <h3 class="platform text-center text-uppercase">Platform</h3>
+        </div>-->
+        <nav id="bottomNav" class="navbar navbar-default navbar-fixed-bottom">
+          <div class="container-fluid">
+            <!--<ol class="stationDots">
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li class="active"></li>
+            </ol>-->
+            <p class="text-center margin25top">
+                <a id="newTrain" href="https://www.dnainfo.com/new-york/visualizations/where-i-sit-stand-train" class="btn btn-primary btn-lg" target="_top">Ride Another Train</a>
+                <a id="showShareFB" class="btn btn-primary btn-lg share" href="#" role="button" onclick="#"><i class="fa fa-facebook-official fa-lg"></i></a>
+                <a id="showShareTwitter" class="btn btn-info btn-lg share" href="#" role="button" onclick="#"><i class="fa fa-twitter fa-lg"></i></a>
+            </p>
+          </div> <!-- /.container-fluid -->
+        </nav>
+
+    </div>
+
+{% endblock %}
+
+{% block modal_block %}
+    <div id="fb-root"></div>
+{% endblock %}
+
+{% block js_block %}
+<script type="text/javascript">
+    var id = '{{ id }}';
+    var bitlyURL = '{{ bitlyURL.url }}';
+    var lineSelected = "{{ NYCtrainSitStandObject.train }}";
+    if (lineSelected == "1" || lineSelected == "2" || lineSelected == "3") {
+        var color = "c123";
+        var bottomNavColor = "c123Border";
+        var stationDotColor = "c123Dot";  
+        // bind image
+        var image = $('#E_Type'); 
+        // alt image
+        var altImageFC = '/static/crimemaps/css/images/E_Type_First_Choice.png';
+        var altImageSC = '/static/crimemaps/css/images/E_Type_Second_Choice.png';
+        var altImageTC = '/static/crimemaps/css/images/E_Type_Third_Choice.png';
+        var altImageFull = '/static/crimemaps/css/images/E_Type_Full_Car.png';
+        var carType = "E_Type";
+    } else if (lineSelected == "4" || lineSelected == "5" || lineSelected == "6") {
+        var color = "c456";
+        var bottomNavColor = "c456Border";
+        var stationDotColor = "c456Dot";          
+        // bind image
+        var image = $('#E_Type'); 
+        // alt image
+        var altImageFC = '/static/crimemaps/css/images/E_Type_First_Choice.png';
+        var altImageSC = '/static/crimemaps/css/images/E_Type_Second_Choice.png';
+        var altImageTC = '/static/crimemaps/css/images/E_Type_Third_Choice.png';
+        var altImageFull = '/static/crimemaps/css/images/E_Type_Full_Car.png';
+        var carType = "E_Type";
+    } else if (lineSelected == "7") {
+        var color = "c7";
+        var bottomNavColor = "c7Border";
+        var stationDotColor = "c7Dot";          
+         // bind image
+        var image = $('#E_Type'); 
+        // alt image
+        var altImageFC = '/static/crimemaps/css/images/E_Type_First_Choice.png';
+        var altImageSC = '/static/crimemaps/css/images/E_Type_Second_Choice.png';
+        var altImageTC = '/static/crimemaps/css/images/E_Type_Third_Choice.png';
+        var altImageFull = '/static/crimemaps/css/images/E_Type_Full_Car.png';
+        var carType = "E_Type";
+    } else if (lineSelected == "A") {
+        var color = "ACE";
+        var bottomNavColor = "ACEBorder";
+        var stationDotColor = "ACEDot";          
+         // bind image
+        var image = $('#D_Type'); 
+        // alt image
+        var altImageFC = '/static/crimemaps/css/images/D_Type_First_Choice.png';
+        var altImageSC = '/static/crimemaps/css/images/D_Type_Second_Choice.png';
+        var altImageTC = '/static/crimemaps/css/images/D_Type_Third_Choice.png';
+        var altImageFull = '/static/crimemaps/css/images/D_Type_Full_Car.png';
+        var carType = "D_Type";
+    } else if (lineSelected == "C") {
+        var color = "ACE";
+        var bottomNavColor = "ACEBorder";
+        var stationDotColor = "ACEDot";          
+         // bind image
+        var image = $('#E_Type'); 
+        // alt image
+        var altImageFC = '/static/crimemaps/css/images/E_Type_First_Choice.png';
+        var altImageSC = '/static/crimemaps/css/images/E_Type_Second_Choice.png';
+        var altImageTC = '/static/crimemaps/css/images/E_Type_Third_Choice.png';
+        var altImageFull = '/static/crimemaps/css/images/E_Type_Full_Car.png';
+        var carType = "E_Type";
+    } else if (lineSelected == "E") {
+        var color = "ACE";
+        var bottomNavColor = "ACEBorder";
+        var stationDotColor = "ACEDot";          
+         // bind image
+        var image = $('#C_Type'); 
+        // alt image
+        var altImageFC = '/static/crimemaps/css/images/C_Type_First_Choice.png';
+        var altImageSC = '/static/crimemaps/css/images/C_Type_Second_Choice.png';
+        var altImageTC = '/static/crimemaps/css/images/C_Type_Third_Choice.png';
+        var altImageFull = '/static/crimemaps/css/images/C_Type_Full_Car.png';
+        var carType = "C_Type";
+    } else if (lineSelected == "B" || lineSelected == "D") {
+        var color = "BDFM";
+        var bottomNavColor = "BDFMBorder";
+        var stationDotColor = "BDFMDot";          
+         // bind image
+        var image = $('#D_Type'); 
+        // alt image
+        var altImageFC = '/static/crimemaps/css/images/D_Type_First_Choice.png';
+        var altImageSC = '/static/crimemaps/css/images/D_Type_Second_Choice.png';
+        var altImageTC = '/static/crimemaps/css/images/D_Type_Third_Choice.png';
+        var altImageFull = '/static/crimemaps/css/images/D_Type_Full_Car.png';
+        var carType = "D_Type";
+    } else if (lineSelected == "F" || lineSelected == "M") {
+        var color = "BDFM";
+        var bottomNavColor = "BDFMBorder";
+        var stationDotColor = "BDFMDot";          
+         // bind image
+        var image = $('#C_Type'); 
+        // alt image
+        var altImageFC = '/static/crimemaps/css/images/C_Type_First_Choice.png';
+        var altImageSC = '/static/crimemaps/css/images/C_Type_Second_Choice.png';
+        var altImageTC = '/static/crimemaps/css/images/C_Type_Third_Choice.png';
+        var altImageFull = '/static/crimemaps/css/images/C_Type_Full_Car.png';
+        var carType = "C_Type";
+    } else if (lineSelected == "N" || lineSelected == "R") {
+        var color = "NQR";
+        var bottomNavColor = "NQRBorder";
+        var stationDotColor = "NQRDot";          
+         // bind image
+        var image = $('#D_Type'); 
+        // alt image
+        var altImageFC = '/static/crimemaps/css/images/D_Type_First_Choice.png';
+        var altImageSC = '/static/crimemaps/css/images/D_Type_Second_Choice.png';
+        var altImageTC = '/static/crimemaps/css/images/D_Type_Third_Choice.png';
+        var altImageFull = '/static/crimemaps/css/images/D_Type_Full_Car.png';
+        var carType = "D_Type";
+    } else if (lineSelected == "Q") {
+        var color = "NQR";
+        var bottomNavColor = "NQRBorder";
+        var stationDotColor = "NQRDot";          
+         // bind image
+        var image = $('#C_Type'); 
+        // alt image
+        var altImageFC = '/static/crimemaps/css/images/C_Type_First_Choice.png';
+        var altImageSC = '/static/crimemaps/css/images/C_Type_Second_Choice.png';
+        var altImageTC = '/static/crimemaps/css/images/C_Type_Third_Choice.png';
+        var altImageFull = '/static/crimemaps/css/images/C_Type_Full_Car.png';
+        var carType = "C_Type";
+    } else if (lineSelected == "G") {
+        var color = "G";
+        var bottomNavColor = "GBorder";
+        var stationDotColor = "GDot";          
+         // bind image
+        var image = $('#D_Type'); 
+        // alt image
+        var altImageFC = '/static/crimemaps/css/images/D_Type_First_Choice.png';
+        var altImageSC = '/static/crimemaps/css/images/D_Type_Second_Choice.png';
+        var altImageTC = '/static/crimemaps/css/images/D_Type_Third_Choice.png';
+        var altImageFull = '/static/crimemaps/css/images/D_Type_Full_Car.png';
+        var carType = "D_Type";
+    } else if (lineSelected == "J" || lineSelected == "M" || lineSelected == "Z") {
+        var color = "JMZ";
+        var bottomNavColor = "JMZBorder";
+        var stationDotColor = "JMZDot";          
+         // bind image
+        var image = $('#C_Type'); 
+        // alt image
+        var altImageFC = '/static/crimemaps/css/images/C_Type_First_Choice.png';
+        var altImageSC = '/static/crimemaps/css/images/C_Type_Second_Choice.png';
+        var altImageTC = '/static/crimemaps/css/images/C_Type_Third_Choice.png';
+        var altImageFull = '/static/crimemaps/css/images/C_Type_Full_Car.png';
+        var carType = "C_Type";
+    } else if (lineSelected == "L") {
+        var color = "L";
+        var bottomNavColor = "LBorder";
+        var stationDotColor = "LDot";          
+         // bind image
+        var image = $('#C_Type'); 
+        // alt image
+        var altImageFC = '/static/crimemaps/css/images/C_Type_First_Choice.png';
+        var altImageSC = '/static/crimemaps/css/images/C_Type_Second_Choice.png';
+        var altImageTC = '/static/crimemaps/css/images/C_Type_Third_Choice.png';
+        var altImageFull = '/static/crimemaps/css/images/C_Type_Full_Car.png';
+        var carType = "C_Type";
+    } else if (lineSelected == "S - Rockaway Shuttle" || lineSelected == "S - Franklin Ave. Shuttle") {
+        var color = "S";
+        var bottomNavColor = "SBorder";
+        var stationDotColor = "SDot";          
+         // bind image
+        var image = $('#D_Type'); 
+        // alt image
+        var altImageFC = '/static/crimemaps/css/images/D_Type_First_Choice.png';
+        var altImageSC = '/static/crimemaps/css/images/D_Type_Second_Choice.png';
+        var altImageTC = '/static/crimemaps/css/images/D_Type_Third_Choice.png';
+        var altImageFull = '/static/crimemaps/css/images/D_Type_Full_Car.png';
+        var carType = "D_Type";
+    } else if (lineSelected == "S - 42nd St. Shuttle") {
+        var color = "S";
+        var bottomNavColor = "SBorder";
+        var stationDotColor = "SDot";          
+         // bind image
+        var image = $('#E_Type'); 
+        // alt image
+        var altImageFC = '/static/crimemaps/css/images/E_Type_First_Choice.png';
+        var altImageSC = '/static/crimemaps/css/images/E_Type_Second_Choice.png';
+        var altImageTC = '/static/crimemaps/css/images/E_Type_Third_Choice.png';
+        var altImageFull = '/static/crimemaps/css/images/E_Type_Full_Car.png';
+        var carType = "E_Type";
+    }
+
+
+    $( document ).ready(function() {
+        $('.trainLine').text(lineSelected + " Train");
+        $('#trainLine').addClass(color);
+        $('#bottomNav').addClass(bottomNavColor);
+        $('.stationDots .active').addClass(stationDotColor);
+    });
+    var positionOne = "{{ NYCtrainSitStandObject.positionOne }}";
+    var positionTwo = "{{ NYCtrainSitStandObject.positionTwo }}";
+    var positionThree = "{{ NYCtrainSitStandObject.positionThree }}";
+</script>
+<script type="text/javascript" src="{% static 'crimemaps/js/modernizr-touch-pointer.js' %}"></script>
+<script type="text/javascript" src="{% static 'crimemaps/js/heatmap.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'crimemaps/js/jquery.imagemapster.js' %}"></script>
+<script type="text/javascript" src="{% static 'crimemaps/js/d3.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'crimemaps/js/jquery-ui.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'crimemaps/js/jquery.doubleScroll.js' %}"></script>
+<script type="text/javascript" src="{% static 'crimemaps/js/nyc_subway_end.js' %}"></script>
+
+
+{% endblock %}
+
+
+	
+	
+
