@@ -75,5 +75,17 @@ urlpatterns = [
     url(r'^chi-l/line/end/(?P<id>\d+)/$', views.chi_l_end, name='chi_l_end'),
     url(r'^chi-l/line/results/(?P<id>\d+)/$', views.chi_l_results, name='chi_l_results'),
     url(r'^chi-l/resultsapi/$', views.chi_l_results_api, name='chi_l_results_api'),
+    url(r'^nyc-subway/line/$', views.nyc_subway_line, name='nyc_subway_line'),
+    url(r'^nyc-subway/line/(?P<id>\d+)/$', views.nyc_subway_line, name='nyc_subway_line'),
+    url(r'^nyc-subway/arrived/(?P<id>\d+)/$', views.nyc_subway_arrived, name='nyc_subway_arrived'),
+    url(r'^nyc-subway/length/(?P<id>\d+)/$', views.nyc_subway_length, name='nyc_subway_length'),
+    url(r'^nyc-subway/empty-car/(?P<id>\d+)/$', views.nyc_subway_empty_car, name='nyc_subway_empty_car'),
+    url(r'^nyc-subway/half-full-car/(?P<id>\d+)/$', views.nyc_subway_half_full_car, name='nyc_subway_half_full_car'),
+    url(r'^nyc-subway/full-car/(?P<id>\d+)/$', views.nyc_subway_full_car, name='nyc_subway_full_car'),
+    url(r'^nyc-subway/line/end/(?P<id>\d+)/$', views.nyc_subway_end, name='nyc_subway_end'),
+    url(r'^nyc-subway/line/results/(?P<id>\d+)/$', views.nyc_subway_results, name='nyc_subway_results'),
+    url(r'^nyc-subway/resultsapi/$', views.nyc_subway_results_api, name='nyc_subway_results_api'),
+
+
 
 ]

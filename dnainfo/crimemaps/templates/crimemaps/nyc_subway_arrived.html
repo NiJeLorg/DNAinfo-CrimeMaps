@@ -1,0 +1,128 @@
+{% extends 'crimemaps/baseNoBottomNavNYC_TrainApp.html' %}
+{% load staticfiles %}
+{% load bootstrap_tags %}
+
+{% block title %}Where do you stand or sit on the train? | DNAinfo{% endblock %}
+
+{% block css_block %}
+{% endblock %}
+
+{% block head_js_block %}
+{% endblock %}
+	
+{% block body_block %}
+
+    <ul id="background">
+      <li></li>
+    </ul>
+
+    <button id="helpButton" class="btn btn-danger" data-toggle="modal" data-target="#help">Help!</button>
+
+    <!-- Content -->
+    <form method="post" action=".">
+        <div class="container-fluid">
+            <div id="mainContent" class="row">
+                <div class="col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1 formBackground">
+                    <p id="trainLine" class="text-center text-uppercase trainLineHeading"></p>
+                    <p class="text-center heading">What time do you ride?</p>
+                    <div class="margin30top margin30left">
+                        {% csrf_token %}
+                        {{ form|as_bootstrap }}
+                    </div>
+                    
+                </div>
+            </div>
+            <nav id="bottomNav" class="navbar navbar-default navbar-fixed-bottom">
+              <div class="container-fluid">
+                <!--<ol class="stationDots">
+                    <li></li>
+                    <li class="active"></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ol>-->
+                <p class="text-center margin25top">
+                    <a href="/nyc-subway/line/{{ NYCtrainSitStandObject.id }}/" class="btn btn-primary btn-lg">Back</a>
+                    <input type="submit" class="btn btn-primary btn-lg disabled" value="Next" />
+                </p>
+              </div> <!-- /.container-fluid -->
+            </nav>
+        </div>
+    </form>
+
+
+{% endblock %}
+
+{% block modal_block %}
+{% endblock %}
+
+{% block js_block %}
+<script type="text/javascript">
+    var lineSelected = "{{ NYCtrainSitStandObject.train }}";
+    if (lineSelected == "1" || lineSelected == "2" || lineSelected == "3") {
+        var color = "c123";
+        var bottomNavColor = "c123Border";
+        var stationDotColor = "c123Dot";  
+    } else if (lineSelected == "4" || lineSelected == "5" || lineSelected == "6") {
+        var color = "c456";
+        var bottomNavColor = "c456Border";
+        var stationDotColor = "c456Dot";          
+    } else if (lineSelected == "7") {
+        var color = "c7";
+        var bottomNavColor = "c7Border";
+        var stationDotColor = "c7Dot";          
+    } else if (lineSelected == "A" || lineSelected == "C" || lineSelected == "E") {
+        var color = "ACE";
+        var bottomNavColor = "ACEBorder";
+        var stationDotColor = "ACEDot";          
+    } else if (lineSelected == "B" || lineSelected == "D" || lineSelected == "F" || lineSelected == "M") {
+        var color = "BDFM";
+        var bottomNavColor = "BDFMBorder";
+        var stationDotColor = "BDFMDot";          
+    } else if (lineSelected == "N" || lineSelected == "Q" || lineSelected == "R") {
+        var color = "NQR";
+        var bottomNavColor = "NQRBorder";
+        var stationDotColor = "NQRDot";          
+    } else if (lineSelected == "G") {
+        var color = "G";
+        var bottomNavColor = "GBorder";
+        var stationDotColor = "GDot";          
+    } else if (lineSelected == "J" || lineSelected == "M" || lineSelected == "Z") {
+        var color = "JMZ";
+        var bottomNavColor = "JMZBorder";
+        var stationDotColor = "JMZDot";          
+    } else if (lineSelected == "L") {
+        var color = "L";
+        var bottomNavColor = "LBorder";
+        var stationDotColor = "LDot";          
+    } else if (lineSelected == "S - Rockaway Shuttle" || lineSelected == "S - Franklin Ave. Shuttle" || lineSelected == "S - 42nd St. Shuttle") {
+        var color = "S";
+        var bottomNavColor = "SBorder";
+        var stationDotColor = "SDot";          
+    }
+
+
+    $( document ).ready(function() {
+        $('#trainLine').text(lineSelected + " Train");
+        $('#trainLine').addClass(color);
+        $('#bottomNav').addClass(bottomNavColor);
+        $('.stationDots .active').addClass(stationDotColor)
+
+        if ($("input:radio[name='rideTime']").is(":checked")) {
+        	$('.btn').removeClass('disabled');
+        } 
+
+        $( ".form-group" ).change(function() {
+        	$('.btn').removeClass('disabled');
+        });
+
+    });
+</script>
+{% endblock %}
+
+
+	
+	
+
