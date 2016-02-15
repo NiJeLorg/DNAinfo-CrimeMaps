@@ -503,6 +503,8 @@
         $('#trainLine').addClass(color);
         $('#bottomNav').addClass(bottomNavColor);
         $('.stationDots .active').addClass(stationDotColor);
+        // set body background color to grey
+        $('body').css( "background-color", "#f1f1f1" );       
     });
     var positionOneType = "{{ positionOneType }}";
     var seatSelectedAlready = "{{ NYCtrainSitStandObject.positionTwo }}";
