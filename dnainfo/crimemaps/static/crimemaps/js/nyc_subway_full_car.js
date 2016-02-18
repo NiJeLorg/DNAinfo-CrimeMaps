@@ -97,6 +97,7 @@ $(document).ready(function () {
     image.mapster('snapshot');
 
     function click(data) {
+        var clicked = this;
         // set form data based on click
         var keys = image.mapster('keys',data.key,true);
         splitKeys = keys.split(',');
@@ -104,7 +105,18 @@ $(document).ready(function () {
         $('#id_positionThreeType').val(splitKeys[1]);
 
         // hide text in platform, show continue button
-        $('#formButton').removeClass('disabled');
+        //$('#formButton').removeClass('disabled');
+
+        // remove all other clicks to submit overlays unless this one has a click to submit class
+        if (!$(this).hasClass('clickToSubmit')) {
+            $('.clickToSubmit').removeClass('clickToSubmit');
+        }
+
+        // add clickable overlay that submits on click
+        setTimeout(function(){
+            $(clicked).addClass('clickToSubmit');
+        },100); 
+
 
     }
 
@@ -148,19 +160,31 @@ $(document).ready(function () {
         if (seatSelectedAlready > 0) {
             image.mapster('set',true,seatSelectedAlready);
             // show continue button
-            $('#formButton').removeClass('disabled');
+            //$('#formButton').removeClass('disabled');
+            // set this seat ready to click to submit
+            $('#'+seatSelectedAlready).addClass('clickToSubmit');
         }               
     }
 
-    // have train slide out then submit form
-    $('#formButton').click(function(event){
-        event.preventDefault();
+    // // have train slide out then submit form
+    // $('#formButton').click(function(event){
+    //     event.preventDefault();
+    //     $(".trainLineImage").removeClass("imageOverflow");
+    //     $(".trainLineImage").addClass("slide-out");
+    //     // submit the form
+    //     setTimeout(function(){
+    //         $( "#target" ).submit();
+    //     },1000);        
+    // });
+
+    $(document).on('click', '.clickToSubmit', function(e) {
+        e.preventDefault();
         $(".trainLineImage").removeClass("imageOverflow");
         $(".trainLineImage").addClass("slide-out");
         // submit the form
         setTimeout(function(){
             $( "#target" ).submit();
-        },1000);        
+        },1000); 
     });
 
 });

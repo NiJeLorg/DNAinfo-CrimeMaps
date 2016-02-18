@@ -274,10 +274,38 @@ html, body {
 }
 
 /*
-* help button position
+* help / back / share button position
 */
 
 #helpButton {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	z-index: 1;	
+}
+
+#backButton {
+	position: absolute;
+	top: 10px;
+	right: 70px;
+	z-index: 1;	
+}
+
+#newTrain {
+	position: absolute;
+	top: 10px;
+	right: 95px;
+	z-index: 1;	
+}
+
+#showShareFB {
+	position: absolute;
+	top: 10px;
+	right: 53px;
+	z-index: 1;	
+}
+
+#showShareTwitter {
 	position: absolute;
 	top: 10px;
 	right: 10px;
@@ -348,7 +376,7 @@ html, body {
 	font-weight: 800;
 	letter-spacing: 1px;
 	font-size: 18px;
-	margin-top: 20px;
+	margin-top: 50px;
     margin-bottom: 0px;
 }
 

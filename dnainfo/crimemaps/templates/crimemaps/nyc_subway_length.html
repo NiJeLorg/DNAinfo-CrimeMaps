@@ -18,8 +18,10 @@
 
     <button id="helpButton" class="btn btn-danger" data-toggle="modal" data-target="#help">Help!</button>
 
+    <a id="backButton" href="/nyc-subway/arrived/{{ NYCtrainSitStandObject.id }}/" class="btn btn-primary">Back</a>
+
     <!-- Content -->
-    <form method="post" action=".">
+    <form id="target" method="post" action=".">
         <div class="container-fluid">
             <div id="mainContent" class="row">
                 <div class="col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1 formBackground">
@@ -32,9 +34,9 @@
                     
                 </div>
             </div>
-            <nav id="bottomNav" class="navbar navbar-default navbar-fixed-bottom">
+<!--             <nav id="bottomNav" class="navbar navbar-default navbar-fixed-bottom">
               <div class="container-fluid">
-                <!--<ol class="stationDots">
+                <ol class="stationDots">
                     <li></li>
                     <li></li>
                     <li class="active"></li>
@@ -42,13 +44,13 @@
                     <li></li>
                     <li></li>
                     <li></li>
-                </ol>-->
+                </ol>
                 <p class="text-center margin25top">
                     <a href="/nyc-subway/arrived/{{ NYCtrainSitStandObject.id }}/" class="btn btn-primary btn-lg">Back</a>
                     <input type="submit" class="btn btn-primary btn-lg disabled" value="Next" />
                 </p>
-              </div> <!-- /.container-fluid -->
-            </nav>
+              </div>
+            </nav> -->
         </div>
     </form>
 
@@ -108,12 +110,15 @@
         $('#bottomNav').addClass(bottomNavColor);
         $('.stationDots .active').addClass(stationDotColor);
 
-        if ($("input:radio[name='rideLength']").is(":checked")) {
-            $('.btn').removeClass('disabled');
-        }
+        // if ($("input:radio[name='rideLength']").is(":checked")) {
+        //     $('.btn').removeClass('disabled');
+        // }
 
         $( ".form-group" ).change(function() {
-            $('.btn').removeClass('disabled');
+            //$('.btn').removeClass('disabled');
+            // submit form when user chooses an option
+            $( "#target" ).submit();
+
         });
 
     });
