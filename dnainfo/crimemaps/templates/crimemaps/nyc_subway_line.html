@@ -27,7 +27,7 @@
                     <p class="text-center heading">Which subway train do you ride most?</p>
                     <div class="margin30top margin30left">
                         {% csrf_token %}
-                        <div id="div_id_train" class="form-group  ">
+                        <div id="div_id_train" class="form-group">
                             <div class="col-xs-4">
                                 <div class="radio">
                                     <label>
@@ -220,7 +220,7 @@
             $('.btn').removeClass('disabled');
         } */
 
-        $( ".form-group" ).change(function() {
+        $( ".form-group" ).click(function() {
         	//$('.btn').removeClass('disabled');
             // submit form when user chooses an option
             $( "#target" ).submit();
