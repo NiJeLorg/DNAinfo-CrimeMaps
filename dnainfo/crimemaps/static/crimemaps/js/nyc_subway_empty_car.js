@@ -58,16 +58,14 @@ $(document).ready(function () {
     // select a seat if user came back and alredy picked one
     if (seatSelectedAlready > 0) {
         image.mapster('set',true,seatSelectedAlready);
-//
         // show continue button
-        $('#formButton').removeClass('disabled');
+        //$('#formButton').removeClass('disabled');
         // set this seat ready to click to submit
         $('#'+seatSelectedAlready).addClass('clickToSubmit');
     }
 
 
     function click(data) {
-        console.log(this);
         var clicked = this;
         // set form data based on click
         var keys = image.mapster('keys',data.key,true);
@@ -76,7 +74,7 @@ $(document).ready(function () {
         $('#id_positionOneType').val(splitKeys[1]);
 
         // show continue button
-        $('#formButton').removeClass('disabled');
+        //$('#formButton').removeClass('disabled');
 
         // remove all other clicks to submit overlays unless this one has a click to submit class
         if (!$(this).hasClass('clickToSubmit')) {
@@ -92,15 +90,15 @@ $(document).ready(function () {
     }
 
     // have train slide out then submit form
-    $('#formButton').click(function(event){
-        event.preventDefault();
-        $(".trainLineImage").removeClass("imageOverflow");
-        $(".trainLineImage").addClass("slide-out");
-        // submit the form
-        setTimeout(function(){
-            $( "#target" ).submit();
-        },1000);        
-    });
+    // $('#formButton').click(function(event){
+    //     event.preventDefault();
+    //     $(".trainLineImage").removeClass("imageOverflow");
+    //     $(".trainLineImage").addClass("slide-out");
+    //     // submit the form
+    //     setTimeout(function(){
+    //         $( "#target" ).submit();
+    //     },1000);        
+    // });
 
     $(document).on('click', '.clickToSubmit', function(e) {
         e.preventDefault();

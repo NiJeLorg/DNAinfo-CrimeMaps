@@ -19,6 +19,8 @@
 
     <button id="helpButton" class="btn btn-danger" data-toggle="modal" data-target="#help">Help!</button>
 
+    <a id="backButton" href="/nyc-subway/length/{{ NYCtrainSitStandObject.id }}/" class="btn btn-primary">Back</a>
+
     <!-- Content -->
     <div class="container-fluid grey-background">
         <div id="mainContent">
@@ -310,9 +312,9 @@
         <!--<div class="row">
             <h3 class="platform text-center text-uppercase">Platform</h3>
         </div>-->
-        <nav id="bottomNav" class="navbar navbar-default navbar-fixed-bottom">
+<!--         <nav id="bottomNav" class="navbar navbar-default navbar-fixed-bottom">
           <div class="container-fluid">
-            <!--<ol class="stationDots">
+            <ol class="stationDots">
                 <li></li>
                 <li></li>
                 <li></li>
@@ -320,7 +322,7 @@
                 <li></li>
                 <li></li>
                 <li></li>
-            </ol>-->
+            </ol>
             <p class="text-center margin25top">
                 <form id="target" method="post" action=".">
                     <div id="form" class="hidden">
@@ -333,9 +335,15 @@
                     </p>
                 </form>
             </p>
-          </div> <!-- /.container-fluid -->
-        </nav>
+          </div>
+        </nav> -->
 
+        <form id="target" method="post" action=".">
+            <div id="form" class="hidden">
+                {% csrf_token %}
+                {{ form }}
+            </div>
+        </form>
 
 
     </div>
