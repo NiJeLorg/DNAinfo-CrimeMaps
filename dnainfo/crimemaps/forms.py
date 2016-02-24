@@ -195,7 +195,7 @@ class CHITrainFullTrainForm(forms.ModelForm):
 
 
 class NYCTrainLineForm(forms.ModelForm):
-    train = forms.ChoiceField(choices=TRAINS_NYC, label="", widget=forms.widgets.RadioSelect)
+    train = forms.ChoiceField(choices=TRAINS_NYC, label="")
 
     class Meta:
         model = NYCtrainSitStand
@@ -203,7 +203,7 @@ class NYCTrainLineForm(forms.ModelForm):
 
 
 class NYCTrainTimeForm(forms.ModelForm):
-    rideTime= forms.ChoiceField(choices=WHEN_RIDE, label="", widget=forms.widgets.RadioSelect)
+    rideTime= forms.ChoiceField(choices=WHEN_RIDE, label="")
 
     class Meta:
         model = NYCtrainSitStand
@@ -211,7 +211,7 @@ class NYCTrainTimeForm(forms.ModelForm):
 
 
 class NYCTrainLengthForm(forms.ModelForm):
-    rideLength= forms.ChoiceField(choices=HOW_LONG_RIDE_NYC, label="", widget=forms.widgets.RadioSelect)
+    rideLength= forms.ChoiceField(choices=HOW_LONG_RIDE_NYC, label="")
 
     class Meta:
         model = NYCtrainSitStand
