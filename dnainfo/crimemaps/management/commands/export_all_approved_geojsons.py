@@ -19,9 +19,16 @@ class Command(BaseCommand):
 	def export_geojsons(self):
 		#set BASE_DIR and make geojson directory if it doesn't exist
 		BASE_DIR = settings.BASE_DIR
-		geojsonsPath = os.path.join(BASE_DIR, 'crimemaps/static/crimemaps/neigh_drawn_geojsons')
-		if not os.path.exists(geojsonsPath):
-			os.makedirs(geojsonsPath)
+
+		# NYC directory
+		geojsonsPathNYC = os.path.join(BASE_DIR, 'crimemaps/static/crimemaps/neigh_drawn_geojsons_nyc')
+		if not os.path.exists(geojsonsPathNYC):
+			os.makedirs(geojsonsPathNYC)
+
+		# CHI Directory
+		geojsonsPathCHI = os.path.join(BASE_DIR, 'crimemaps/static/crimemaps/neigh_drawn_geojsons_chi')
+		if not os.path.exists(geojsonsPathCHI):
+			os.makedirs(geojsonsPathCHI)
 
 		# Pull all neighborhoods NYC
 		NYCneighborhoods = neighborhoodNYC.objects.all()
@@ -30,7 +37,7 @@ class Command(BaseCommand):
 			NYCdrawings = neighborhoodDrawNYC.objects.filter(neighborhoodLive=NYCneighborhood, approved=True)
 			if len(NYCdrawings) > 0:
 				print NYCneighborhood.name	
-				__location__ = os.path.join(geojsonsPath, NYCneighborhood.dnaurl)
+				__location__ = os.path.join(geojsonsPathNYC, NYCneighborhood.dnaurl)
 
 				if not os.path.exists(__location__):
 					os.makedirs(__location__)
@@ -51,7 +58,7 @@ class Command(BaseCommand):
 			if len(CHIdrawings) > 0:
 				print CHIneighborhood.name
 				chipath = "chi-" + CHIneighborhood.dnaurl
-				__location__ = os.path.join(geojsonsPath, chipath)
+				__location__ = os.path.join(geojsonsPathCHI, chipath)
 
 				if not os.path.exists(__location__):
 					os.makedirs(__location__)
