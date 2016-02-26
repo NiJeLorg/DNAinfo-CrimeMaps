@@ -718,7 +718,7 @@ DNAinfoNYCNeighView.neighborhoodBabyName = function (neighborhood){
 		'bensonhurst': 'Bensonhurst',
 		'bergen-beach': 'Bergen Beach',
 		'bloomfield': 'Bloomfield',
-		'boerum-hill': 'Boreum Hill',
+		'boerum-hill': 'Boerum Hill',
 		'borough-park': 'Borough Park',
 		'breezy-point': 'Breezy Point',
 		'briarwood': 'Briarwood',
