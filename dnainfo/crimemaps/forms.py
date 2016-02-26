@@ -49,6 +49,7 @@ TRAINS_CHI = (
 )
 
 TRAINS_NYC = (
+    ('', 'Select a line...'),
     ('A', 'A'),
     ('B', 'B'),
     ('C', 'C'),
@@ -76,6 +77,7 @@ TRAINS_NYC = (
 )
 
 WHEN_RIDE = (
+    ('', 'Select a time...'),
     ('Midnight to 7 a.m.', 'Midnight to 7 a.m.'),
     ('7 a.m. to 10 a.m.', '7 a.m. to 10 a.m.'),
     ('10 a.m. to 4 p.m.', '10 a.m. to 4 p.m.'),
@@ -90,6 +92,7 @@ HOW_LONG_RIDE = (
 )
 
 HOW_LONG_RIDE_NYC = (
+    ('', 'Select a length...'),    
     ('Less than 15 minutes', 'Less than 15 minutes'),
     ('15 to 45 minutes', '15 to 45 minutes'),
     ('More than 45 minutes', 'More than 45 minutes'),
