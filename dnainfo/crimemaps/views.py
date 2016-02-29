@@ -1805,7 +1805,7 @@ def nyc_subway_end(request, id=None):
 	if id:
 		NYCtrainSitStandObject = NYCtrainSitStand.objects.get(pk=id)
 
-		url = "https://www.dnainfo.com/new-york/visualizations/where-i-sit-stand-train?results=" + str(id)
+		url = "https://cda-4268-where-do-i-sit-nyc.build.qa.dnainfo.com/new-york/visualizations/where-i-sit-stand-train?results=" + str(id)
 		# connect to Bitly API
 		c = bitly_api.Connection('ondnainfo', 'R_cdbdcaaef8d04d97b363b989f2fba3db')
 		bitlyURL = c.shorten(url)
