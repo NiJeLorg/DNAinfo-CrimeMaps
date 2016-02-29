@@ -35,11 +35,11 @@ $(document).ready(function () {
         // if we detect touch or pointer events, disable hover
         var highLight = false;
         var renderHighlight = { fill: false, stroke: false };
-        $('#largeHeadingDesktop').addClass('hidden');    
+        $('#largeHeadingTouch').removeClass('hidden');    
     } else {
         var highLight = true;
         var renderHighlight = { altImage: altImage, fillOpacity: 0.5 };
-        $('#largeHeadingTouch').addClass('hidden');    
+        $('#largeHeadingDesktop').removeClass('hidden');    
     }
 
     // bind image
