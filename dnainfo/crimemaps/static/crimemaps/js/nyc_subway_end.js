@@ -242,7 +242,7 @@ $(document).ready(function () {
     // facebook and twitter link creation and appending
     var app_id = '406014149589534';
     var fbcaption = "This is my favorite spot on the "+ lineSelected +" train. What\'s yours? "+ bitlyURL +" via https://www.facebook.com/DNAinfo/";
-    var fblink = "https://cda-4268-where-do-i-sit-nyc.build.qa.dnainfo.com/new-york/visualizations/where-i-sit-stand-train?results=" + id;
+    var fblink = "https://www.dnainfo.com/new-york/visualizations/where-i-sit-stand-train?results=" + id;
     var fbUrl = 'https://www.facebook.com/dialog/feed?app_id=' + app_id + '&display=popup&caption='+ encodeURIComponent(fbcaption) + '&link=' + encodeURIComponent(bitlyURL) + '&redirect_uri=' + encodeURIComponent(fblink);
     var fbOnclick = 'window.open("' + fbUrl + '","facebook-share-dialog","width=626,height=436");return false;';
     //$('#showShareFB').attr("href", fbUrl);
