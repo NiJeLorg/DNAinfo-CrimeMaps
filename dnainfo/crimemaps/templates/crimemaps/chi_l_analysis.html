@@ -27,14 +27,14 @@
                         Where people sit on the                       
                         <span class="form-group">
                           <select class="form-control" id="lineSelected">
-                            <option value="Red Line">Red Line</option>
                             <option value="Blue Line">Blue Line</option>
-                            <option value="Green Line">Green Line</option>
-                            <option value="Yellow Line">Yellow Line</option>
-                            <option value="Orange Line">Orange Line</option>
                             <option value="Brown Line">Brown Line</option>
-                            <option value="Purple Line">Purple Line</option>
+                            <option value="Green Line">Green Line</option>
+                            <option value="Orange Line">Orange Line</option>
                             <option value="Pink Line">Pink Line</option>
+                            <option value="Purple Line">Purple Line</option>
+                            <option value="Red Line">Red Line</option>
+                            <option value="Yellow Line">Yellow Line</option>
                           </select>
                         </span>
                     </p>
@@ -281,11 +281,9 @@
     var rideLength = decodeURIComponent(getUrlVars()["rideLength"]);
     var capacity = decodeURIComponent(getUrlVars()["capacity"]).replace(/#/i, '');
 
-    console.log(typeof rideTime);
     // set if undefined
     if (typeof rideTime === "undefined" || rideTime === "undefined") {
         rideTime = "";
-         console.log(rideTime);
     }
 
     if (typeof rideLength === "undefined" || rideLength === "undefined") {
