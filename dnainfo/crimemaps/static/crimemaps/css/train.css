@@ -105,8 +105,6 @@ html, body {
 	padding-bottom: 30vh;
 }
 
-
-
 /*
 * Train Line colors and station dots
 */
@@ -484,6 +482,10 @@ html, body {
 
 	#scrollText {
 		height: 34px;
+	}
+
+	.form-inline .form-group {
+		margin: 4px;
 	}
 
 
