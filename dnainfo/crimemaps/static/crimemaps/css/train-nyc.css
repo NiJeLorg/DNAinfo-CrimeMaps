@@ -539,6 +539,10 @@ html, body {
 		height: 34px;
 	}
 
+	.form-inline .form-group {
+		margin: 4px;
+	}
+
 
 }
 

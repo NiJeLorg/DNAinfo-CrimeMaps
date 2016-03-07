@@ -1,5 +1,5 @@
 /**
- * nyc_subway_end.js
+ * chi_l_analysis.js
  * Author: NiJeL
  */
 
@@ -30,23 +30,21 @@ $(document).ready(function () {
         $(".subheading").toggleClass("hidden");
     });
 
-    /*
-    if (w <= 1200) {
-        var elem = document.getElementById("trainLineImage"); 
-        var elemWidth = elem.scrollWidth;
-        var elemVisibleWidth = elem.offsetWidth;
-        elem.scrollLeft = (elemWidth - elemVisibleWidth) / 2;
-    }
-    */
-
     // run intitialze function
     initialize();
 
     function initialize() {
+        // set up image mapster
+        image.mapster({
+            mapKey: 'data-key'
+        });
+
+        // snapshot for rebinding in the update function
+        image.mapster('snapshot',true);
 
         $.ajax({
             type: "GET",
-            url: "/nyc-subway/resultsapi/?train=" + lineSelected ,
+            url: "/chi-l/resultsapi/?train=" + encodeURIComponent(lineSelected) + "&rideTime=" + encodeURIComponent(rideTime) + "&rideLength=" + encodeURIComponent(rideLength) + "&capacity=" + encodeURIComponent(capacity),
             success: function(data){
                 update(data);
             }
@@ -55,24 +53,22 @@ $(document).ready(function () {
     }
 
     function update(data) {
-        var selectedSeats = [];
         var seatKeys = [];
         var findMax = [];
 
-        // create array of slected seats with images for render select
-        selectedSeats.push({key: positionOne, render_select: {altImage: altImageFC,altImageOpacity: 0.8}});
-        //selectedSeats.push({key: positionTwo, render_select: {altImage: altImageSC,altImageOpacity: 0.8}});
-        //selectedSeats.push({key: positionThree, render_select: {altImage: altImageTC,altImageOpacity: 0.8}});
+        // pick denominator
+        if (capacity == 'empty') {
+            var respondents = data.respondentsPositionOne;
+        } else if (capacity == 'half-full') {
+            var respondents = data.respondentsPositionTwo;
+        } else {
+            var respondents = data.respondentsPositionThree;            
+        }
 
         // create array for area tooltips
         $.each(data.seats, function( i, d ) {
-            var pct = ((d/data.respondentsPositionOne)*100).toFixed(1);
-            if (i == positionOne) {
-                var tooltip = "My first choice. "+ pct + "% ("+ d +") of all respondents, including me, picked this spot as their first choice.";
-
-            } else {
-                var tooltip = pct + "% ("+ d +") of respondents picked this spot as their first choice.";
-            }
+            var pct = ((d/respondents)*100).toFixed(1);
+            var tooltip = pct + "% ("+ d +") of respondents picked this spot.";
             seatKeys.push({key: i, toolTip: tooltip});                
             
             // piggyback on this loop to create max array
@@ -81,51 +77,6 @@ $(document).ready(function () {
 
         // calc max value for heatmap
         max = d3.max(findMax, function(d) { return d; });
-
-        /*
-        // set up a d3 color scale 
-        var color = d3.scale.linear()
-                        .domain([0.99, max])
-                        .range(["#4291c3", "#e1344b"]);
-        */
-
-        // bind image and set initial selections
-        image.mapster({
-            mapKey: 'data-key',
-            areas: selectedSeats,
-            onConfigured: createHeatmap(data),
-        });
-
-        // select seats from visitor picked
-        image.mapster('set',true,positionOne);
-        //image.mapster('set',true,positionTwo);
-        //image.mapster('set',true,positionThree);
-        image.mapster('snapshot',true);
-
-
-        // create array for area tooltips and
-        // loop through each seat, rebinding the image and setting the opacity of a selection based on the percentage of people who picked that seat
-        /*
-        $.each(data.seats, function( i, d ) {
-            var frac = d/data.respondents;
-            // if 
-            var c = color(d);
-            // strip hash sign
-            c = c.replace("#", "");
-            // rebind with the fill opacity
-            image.mapster('rebind', {
-                mapKey: 'data-key',
-                fill: true,
-                fillColor: c,
-                fillOpacity: 0.7,
-                stroke: false,
-            });            
-
-            image.mapster('set',true,i);
-            image.mapster('snapshot',true);
-
-        }); 
-        */       
 
         // rebind with the tooltips
         image.mapster('rebind', {
@@ -138,14 +89,17 @@ $(document).ready(function () {
             isSelectable: false,
             showToolTip: true,
             toolTipContainer: '<div style="max-width: 200px; padding: 3px 8px; margin: 4px; border-radius: 4px; opacity: 1; display: block; position: absolute; left: 31px; top: 328px; z-index: 9999; color: #fff; background-color: #252525; text-align: center;"></div>',
-            areas: seatKeys
+            areas: seatKeys,
+            onConfigured: createHeatmap(data),
         }); 
- 
- 
         
     }
 
     function createHeatmap(data) {
+        // clar heatmap if one existed
+        $('.heatmap-canvas').remove();
+    
+
         // set up heatmap instance
         var heatmapInstance = h337.create({
             // only container is required, the rest will be defaults
@@ -172,6 +126,7 @@ $(document).ready(function () {
                 points.push(point);
             }
         });
+
         // heatmap data format
         var data1 = { 
           max: max, 
@@ -180,8 +135,7 @@ $(document).ready(function () {
         };
         // if you have a set of datapoints always use setData instead of addData
         // for data initialization
-        heatmapInstance.setData(data1); 
-         console.log(data1);        
+        heatmapInstance.setData(data1);         
 
     }
 
@@ -225,39 +179,35 @@ $(document).ready(function () {
         var rideLength = $( "#rideLength option:selected" ).val();
         var capacity = $( "#capacity option:selected" ).val();
 
-        $.ajax({
-            type: "GET",
-            url: "/nyc-subway/resultsapi/?train=" + lineSelected + "&rideTime=" + rideTime + "&rideLength=" + rideLength + "&capacity=" + capacity,
-            success: function(data){
-                // clear the previous image and update
-                image.mapster('unbind');
-                update(data);
-            }
-        });
+        // refresh page with new line if the a new line is selected
+        var newLineSelected = $( "#lineSelected option:selected" ).val();
 
+        if (lineSelected == newLineSelected) {
+            // line hasn't changed, so pull new data from api and update train image
+            $.ajax({
+                type: "GET",
+                url: "/chi-l/resultsapi/?train=" + encodeURIComponent(lineSelected) + "&rideTime=" + encodeURIComponent(rideTime) + "&rideLength=" + encodeURIComponent(rideLength) + "&capacity=" + encodeURIComponent(capacity),
+                success: function(data){
+                    // clear the previous image and update
+                    //image.mapster('unbind');
+                    update(data);
+                }
+            });
+
+        } else {
+            // line has change, so refresh page with new train line
+            var url = "/chi-l/analysis/" + encodeURIComponent(newLineSelected) + "/?rideTime=" + encodeURIComponent(rideTime) + "&rideLength=" + encodeURIComponent(rideLength) + "&capacity=" + encodeURIComponent(capacity);
+
+            $(".trainLineImage").removeClass("imageOverflow");
+            $(".trainLineImage").addClass("slide-out");
+            // submit the form
+            setTimeout(function(){
+                window.location = url;
+            },1000);  
+
+        }
         
     });
-
-
-    // facebook and twitter link creation and appending
-    var app_id = '406014149589534';
-    var fbcaption = "This is my favorite spot on the "+ lineSelected +" train. What\'s yours? "+ bitlyURL +" via https://www.facebook.com/DNAinfo/";
-    var fblink = "https://www.dnainfo.com/new-york/visualizations/where-i-sit-stand-train?results=" + id;
-    var fbUrl = 'https://www.facebook.com/dialog/feed?app_id=' + app_id + '&display=popup&caption='+ encodeURIComponent(fbcaption) + '&link=' + encodeURIComponent(bitlyURL) + '&redirect_uri=' + encodeURIComponent(fblink);
-    var fbOnclick = 'window.open("' + fbUrl + '","facebook-share-dialog","width=626,height=436");return false;';
-    //$('#showShareFB').attr("href", fbUrl);
-    $('#showShareFB').attr("onclick", fbOnclick);
-
-
-    var twitterlink = bitlyURL;
-    var via = 'DNAinfo';
-    var twittercaption = "This is my favorite spot on the "+ lineSelected +" train. What\'s yours?";
-    var twitterUrl = 'https://twitter.com/intent/tweet?url=' + encodeURIComponent(twitterlink) + '&via='+ encodeURIComponent(via) + '&text=' + encodeURIComponent(twittercaption);
-    var twitterOnclick = 'window.open("' + twitterUrl + '","twitter-share-dialog","width=626,height=436");return false;';
-    //$('#showShareTwitter').attr("href", twitterUrl);
-    $('#showShareTwitter').attr("onclick", twitterOnclick);
-
-
 
 
 

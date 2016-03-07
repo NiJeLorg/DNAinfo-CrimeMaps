@@ -66,7 +66,7 @@ $(document).ready(function () {
 
         // create array for area tooltips
         $.each(data.seats, function( i, d ) {
-            var pct = ((d/data.respondents)*100).toFixed(1);
+            var pct = ((d/data.respondentsPositionOne)*100).toFixed(1);
             if (i == positionOne) {
                 var tooltip = "My first choice. "+ pct + "% ("+ d +") of all respondents, including me, picked this spot as their first choice.";
 
@@ -230,7 +230,7 @@ $(document).ready(function () {
             url: "/chi-l/resultsapi/?train=" + lineSelected + "&rideTime=" + rideTime + "&rideLength=" + rideLength + "&capacity=" + capacity,
             success: function(data){
                 // clear the previous image and update
-                image.mapster('unbind');
+                //image.mapster('unbind');
                 update(data);
             }
         });

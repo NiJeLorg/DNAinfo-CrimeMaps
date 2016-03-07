@@ -1551,6 +1551,11 @@ def chi_l_results(request, id=None):
 
 	return render(request, 'crimemaps/chi_l_results.html', {'CHItrainSitStandObject':CHItrainSitStandObject, 'id': id})
 
+def chi_l_analysis(request, lineSelected="Red Line"):
+
+	return render(request, 'crimemaps/chi_l_analysis.html', {'lineSelected':lineSelected})
+
+
 def chi_l_results_api(request):
 	#add in the items geojson requires 
 	response = {}
@@ -1576,44 +1581,50 @@ def chi_l_results_api(request):
 		if rideLength:
 			kwargs['rideLength__exact'] = rideLength
 
-		respondents = CHItrainSitStand.objects.filter(**kwargs).count()
-		response['respondents'] = respondents
+		respondentsPositionOne = CHItrainSitStand.objects.filter(**kwargs).exclude(positionOne=0).count()
+		response['respondentsPositionOne'] = respondentsPositionOne
+
+		respondentsPositionTwo = CHItrainSitStand.objects.filter(**kwargs).exclude(positionTwo=0).count()
+		response['respondentsPositionTwo'] = respondentsPositionTwo
+
+		respondentsPositionThree = CHItrainSitStand.objects.filter(**kwargs).exclude(positionThree=0).count()
+		response['respondentsPositionThree'] = respondentsPositionThree
 
 		if capacity == "empty":
 			# get count of exact seat locations
-			countPositionOne = CHItrainSitStand.objects.filter(**kwargs).values("positionOne").annotate(Count('positionOne'))
+			countPositionOne = CHItrainSitStand.objects.filter(**kwargs).exclude(positionOne=0).values("positionOne").annotate(Count('positionOne'))
 			for count in countPositionOne:
 				key = count['positionOne']
 				response['seats'][key] = count['positionOne__count']
 
 			#get count of type of seat selected
-			countPositionOneType = CHItrainSitStand.objects.filter(**kwargs).values("positionOneType").annotate(Count('positionOneType'))
+			countPositionOneType = CHItrainSitStand.objects.filter(**kwargs).exclude(positionOne=0).values("positionOneType").annotate(Count('positionOneType'))
 			for count in countPositionOneType:
 				key = count['positionOneType']
 				response['seat_types'][key] = count['positionOneType__count']
 
 
 		if capacity == "half-full":
-			countPositionTwo = CHItrainSitStand.objects.filter(**kwargs).values("positionTwo").annotate(Count('positionTwo'))
+			countPositionTwo = CHItrainSitStand.objects.filter(**kwargs).exclude(positionTwo=0).values("positionTwo").annotate(Count('positionTwo'))
 			for count in countPositionTwo:
 				key = count['positionTwo']
 				response['seats'][key] = count['positionTwo__count']
 
 			#get count of type of seat selected
-			countPositionTwoType = CHItrainSitStand.objects.filter(**kwargs).values("positionTwoType").annotate(Count('positionTwoType'))
+			countPositionTwoType = CHItrainSitStand.objects.filter(**kwargs).exclude(positionTwo=0).values("positionTwoType").annotate(Count('positionTwoType'))
 			for count in countPositionTwoType:
 				key = count['positionTwoType']
 				response['seat_types'][key] = count['positionTwoType__count']
 
 
 		if capacity == "full":
-			countPositionThree = CHItrainSitStand.objects.filter(**kwargs).values("positionThree").annotate(Count('positionThree'))
+			countPositionThree = CHItrainSitStand.objects.filter(**kwargs).exclude(positionThree=0).values("positionThree").annotate(Count('positionThree'))
 			for count in countPositionThree:
 				key = count['positionThree']
 				response['seats'][key] = count['positionThree__count']
 
 			#get count of type of seat selected
-			countPositionThreeType = CHItrainSitStand.objects.filter(**kwargs).values("positionThreeType").annotate(Count('positionThreeType'))
+			countPositionThreeType = CHItrainSitStand.objects.filter(**kwargs).exclude(positionThree=0).values("positionThreeType").annotate(Count('positionThreeType'))
 			for count in countPositionThreeType:
 				key = count['positionThreeType']
 				response['seat_types'][key] = count['positionThreeType__count']
@@ -1826,6 +1837,11 @@ def nyc_subway_results(request, id=None):
 
 	return render(request, 'crimemaps/nyc_subway_results.html', {'NYCtrainSitStandObject':NYCtrainSitStandObject, 'id': id})
 
+
+def nyc_subway_analysis(request, lineSelected="A"):
+
+	return render(request, 'crimemaps/nyc_subway_analysis.html', {'lineSelected':lineSelected})
+
 def nyc_subway_results_api(request):
 	#add in the items geojson requires 
 	response = {}
@@ -1851,44 +1867,52 @@ def nyc_subway_results_api(request):
 		if rideLength:
 			kwargs['rideLength__exact'] = rideLength
 
-		respondents = NYCtrainSitStand.objects.filter(**kwargs).count()
-		response['respondents'] = respondents
+
+		respondentsPositionOne = NYCtrainSitStand.objects.filter(**kwargs).exclude(positionOne=0).count()
+		response['respondentsPositionOne'] = respondentsPositionOne
+
+		respondentsPositionTwo = NYCtrainSitStand.objects.filter(**kwargs).exclude(positionTwo=0).count()
+		response['respondentsPositionTwo'] = respondentsPositionTwo
+
+		respondentsPositionThree = NYCtrainSitStand.objects.filter(**kwargs).exclude(positionThree=0).count()
+		response['respondentsPositionThree'] = respondentsPositionThree
+
 
 		if capacity == "empty":
 			# get count of exact seat locations
-			countPositionOne = NYCtrainSitStand.objects.filter(**kwargs).values("positionOne").annotate(Count('positionOne'))
+			countPositionOne = NYCtrainSitStand.objects.filter(**kwargs).exclude(positionOne=0).values("positionOne").annotate(Count('positionOne'))
 			for count in countPositionOne:
 				key = count['positionOne']
 				response['seats'][key] = count['positionOne__count']
 
 			#get count of type of seat selected
-			countPositionOneType = NYCtrainSitStand.objects.filter(**kwargs).values("positionOneType").annotate(Count('positionOneType'))
+			countPositionOneType = NYCtrainSitStand.objects.filter(**kwargs).exclude(positionOne=0).values("positionOneType").annotate(Count('positionOneType'))
 			for count in countPositionOneType:
 				key = count['positionOneType']
 				response['seat_types'][key] = count['positionOneType__count']
 
 
 		if capacity == "half-full":
-			countPositionTwo = NYCtrainSitStand.objects.filter(**kwargs).values("positionTwo").annotate(Count('positionTwo'))
+			countPositionTwo = NYCtrainSitStand.objects.filter(**kwargs).exclude(positionTwo=0).values("positionTwo").annotate(Count('positionTwo'))
 			for count in countPositionTwo:
 				key = count['positionTwo']
 				response['seats'][key] = count['positionTwo__count']
 
 			#get count of type of seat selected
-			countPositionTwoType = NYCtrainSitStand.objects.filter(**kwargs).values("positionTwoType").annotate(Count('positionTwoType'))
+			countPositionTwoType = NYCtrainSitStand.objects.filter(**kwargs).exclude(positionTwo=0).values("positionTwoType").annotate(Count('positionTwoType'))
 			for count in countPositionTwoType:
 				key = count['positionTwoType']
 				response['seat_types'][key] = count['positionTwoType__count']
 
 
 		if capacity == "full":
-			countPositionThree = NYCtrainSitStand.objects.filter(**kwargs).values("positionThree").annotate(Count('positionThree'))
+			countPositionThree = NYCtrainSitStand.objects.filter(**kwargs).exclude(positionThree=0).values("positionThree").annotate(Count('positionThree'))
 			for count in countPositionThree:
 				key = count['positionThree']
 				response['seats'][key] = count['positionThree__count']
 
 			#get count of type of seat selected
-			countPositionThreeType = NYCtrainSitStand.objects.filter(**kwargs).values("positionThreeType").annotate(Count('positionThreeType'))
+			countPositionThreeType = NYCtrainSitStand.objects.filter(**kwargs).exclude(positionThree=0).values("positionThreeType").annotate(Count('positionThreeType'))
 			for count in countPositionThreeType:
 				key = count['positionThreeType']
 				response['seat_types'][key] = count['positionThreeType__count']
