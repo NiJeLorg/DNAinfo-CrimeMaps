@@ -68,7 +68,7 @@ $(document).ready(function () {
         // create array for area tooltips
         $.each(data.seats, function( i, d ) {
             var pct = ((d/respondents)*100).toFixed(1);
-            var tooltip = pct + "% ("+ d +") of respondents picked this spot.";
+            var tooltip = pct + "% ("+ numberWithCommas(d) +") of respondents picked this spot.";
             seatKeys.push({key: i, toolTip: tooltip});                
             
             // piggyback on this loop to create max array
@@ -208,6 +208,10 @@ $(document).ready(function () {
         }
         
     });
+
+    function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
 
 
 
