@@ -1551,7 +1551,7 @@ def chi_l_results(request, id=None):
 
 	return render(request, 'crimemaps/chi_l_results.html', {'CHItrainSitStandObject':CHItrainSitStandObject, 'id': id})
 
-def chi_l_analysis(request, lineSelected="Red Line"):
+def chi_l_analysis(request, lineSelected="Blue Line"):
 
 	return render(request, 'crimemaps/chi_l_analysis.html', {'lineSelected':lineSelected})
 
