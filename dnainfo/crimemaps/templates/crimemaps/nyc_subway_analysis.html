@@ -5,10 +5,34 @@
 {% block title %}Where do you stand or sit on the train? | DNAinfo{% endblock %}
 
 {% block css_block %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{% static 'crimemaps/css/jquery-ui.min.css' %}">
 {% endblock %}
 
 {% block head_js_block %}
+<meta property="fb:app_id" content="406014149589534" /> 
+<meta property="og:type"   content="website" /> 
+<meta property="og:url"    content="https://www.dnainfo.com/new-york/" /> 
+<meta property="og:description" content='Everyone has a favorite seat or spot to stand on the subway. See how your fellow New Yorkers compare to you.' />
+<meta property="og:title"  content='The best spots on my train.' /> 
+<meta property="og:image"  content="https://editorial-ny.dnainfo.com/interactives/2016/d-train-seat.png" />
+<script type="text/javascript">
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '406014149589534',
+      xfbml      : true,
+      version    : 'v2.4'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
 {% endblock %}
 	
 {% block body_block %}
@@ -16,6 +40,10 @@
     <ul id="backgroundColor">
       <li></li>
     </ul>
+
+    <a id="newTrain" href="https://www.dnainfo.com/new-york/visualizations/where-i-sit-stand-train" class="btn btn-primary" target="_top">Ride A Train</a>
+    <a id="showShareFB" class="btn btn-primary share" href="#" role="button" onclick="#"><i class="fa fa-facebook-official"></i></a>
+    <a id="showShareTwitter" class="btn btn-info share" href="#" role="button" onclick="#"><i class="fa fa-twitter"></i></a>   
     
     <!-- Content -->
     <div class="container-fluid grey-background">
@@ -23,7 +51,7 @@
              <form id="filter-form" class="text-center form-inline">  
             <div class="row">
                 <div class="col-sm-8 col-sm-offset-2">
-                    <p id="trainLine" class="text-center text-uppercase trainLineHeading trainLine">
+                    <h1 class="analysisHeading text-center">
                         Where people sit on the                       
                         <span class="form-group">
                           <select class="form-control" id="lineSelected">
@@ -53,46 +81,58 @@
                             <option value="7">7 Train</option>
                           </select>
                         </span>
-                    </p>
+                    </h1>
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-12">
-                        <div class="form-group">
-                          <label for="rideTime">Time of Day</label>
-                          <select class="form-control" id="rideTime">
-                            <option value="">Anytime</option>
-                            <option value="Midnight to 7 a.m.">Midnight to 7 a.m.</option>
-                            <option value="7 a.m. to 10 a.m.">7 a.m. to 10 a.m.</option>
-                            <option value="10 a.m. to 4 p.m.">10 a.m. to 4 p.m.</option>
-                            <option value="4 p.m. to 7 p.m.">4 p.m. to 7 p.m.</option>
-                            <option value="7 p.m. to Midnight">7 p.m. to Midnight</option>
-                          </select>
+                <div class="col-sm-8 col-sm-offset-2">
+                    <div class="row heroLabels hidden-xs">
+                        <div class="col-sm-4">
+                            <p class="text-left noMarginBottom"><strong>Time of Day</strong></p>
                         </div>
-                        <div class="form-group">
-                          <label for="rideLength">Ride Length</label>
-                          <select class="form-control" id="rideLength">
-                            <option value="">Any Amount of Time</option>
-                            <option value="Less than 15 minutes">Less than 15 minutes</option>
-                            <option value="15 to 45 minutes">15 to 45 minutes</option>
-                            <option value="More than 45 minutes">More than 45 minutes</option>
-                          </select>
+                        <div class="col-sm-4">
+                            <p class="text-left noMarginBottom"><strong>Ride Length</strong></p>
                         </div>
-                        <div class="form-group">
-                          <label for="capacity">Seating Availability</label>
-                          <select class="form-control" id="capacity">
-                            <option value="empty">All Seats Available</option>
-                            <option value="half-full">Some Seats Available</option>
-                            <option value="full">Standing Room Only</option>
-                          </select>
-                        </div>         
+                        <div class="col-sm-4">
+                            <p class="text-left noMarginBottom"><strong>Seating Availability</strong></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                              <select class="form-control" id="rideTime">
+                                <option value="">Anytime</option>
+                                <option value="Midnight to 7 a.m.">Midnight to 7 a.m.</option>
+                                <option value="7 a.m. to 10 a.m.">7 a.m. to 10 a.m.</option>
+                                <option value="10 a.m. to 4 p.m.">10 a.m. to 4 p.m.</option>
+                                <option value="4 p.m. to 7 p.m.">4 p.m. to 7 p.m.</option>
+                                <option value="7 p.m. to Midnight">7 p.m. to Midnight</option>
+                              </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                              <select class="form-control" id="rideLength">
+                                <option value="">Any Amount of Time</option>
+                                <option value="Less than 15 minutes">Less than 15 minutes</option>
+                                <option value="15 to 45 minutes">15 to 45 minutes</option>
+                                <option value="More than 45 minutes">More than 45 minutes</option>
+                              </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                              <select class="form-control" id="capacity">
+                                <option value="empty">All Seats Available</option>
+                                <option value="half-full">Some Seats Available</option>
+                                <option value="full">Standing Room Only</option>
+                              </select>
+                            </div>    
+                        </div>
+                    </div>
                 </div>
             </div>
             </form> 
-            <div class="row">
-                <p id="largeHeading" class="text-center subheading"><em>Explanation Text</em></p>
-                <p id="smallHeading" class="text-center subheading"><em>Explanation Text</em></p>
-            </div>     
             <div class="row trainLineWrap">
                 <div class="col-sm-12">
                     <div class="div20pxtall"></div>
@@ -363,14 +403,23 @@
                         {% endif %}
                         </div>
                     </div>
+                    <div class="text-center lessThanTen">
+                        <h2>Rats! Fewer than 10 people have ridden this train at this time and capacity. Ride this train to see the results.</h2>
+                        <a href="https://www.dnainfo.com/new-york/visualizations/where-i-sit-stand-train" class="btn btn-primary" target="_top">Ride A Train</a>
+                    </div>
                 </div>
             </div>
+            <div class="row">
+                <p id="largeHeading" class="text-center subheading"><em>Explanation Text</em></p>
+                <p id="smallHeading" class="text-center subheading"><em>Explanation Text</em></p>
+            </div>     
         </div>
     </div>
 
 {% endblock %}
 
 {% block modal_block %}
+    <div id="fb-root"></div>
 {% endblock %}
 
 {% block js_block %}
@@ -474,11 +523,15 @@
          // bind image
         var image = $('#D_Type'); 
         var carType = "D_Type";
+        // disable menu for time selection for shuttles
+        var disableRideLength = true;
     } else if (lineSelected == "S - 42nd St. Shuttle") {
         var color = "S";
          // bind image
         var image = $('#E_Type'); 
         var carType = "E_Type";
+        // disable menu for time selection for shuttles
+        var disableRideLength = true;
     }
 
 
@@ -486,11 +539,20 @@
         $('#trainLine').addClass(color);
         // set body background color to grey
         $('body').css( "background-color", "#f1f1f1" );   
+        // set width of dropdowns
+        var w = ($('.col-sm-8 .col-sm-4').width()) - 20;
+        if (w > 0) {
+            $('.form-control').width(w);
+        }
         // set dropdown menus
         $( "#lineSelected" ).val(lineSelected);
         $( "#rideTime" ).val(rideTime);
         $( "#rideLength" ).val(rideLength);
         $( "#capacity" ).val(capacity);
+        // disable rideLenght menu is shuttle selected
+        if(disableRideLength) {
+            $( "#rideLength" ).prop("disabled", true);
+        }
     
     });
 </script>

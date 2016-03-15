@@ -89,6 +89,7 @@ urlpatterns = [
     url(r'^nyc-subway/analysis/$', views.nyc_subway_analysis, name='nyc_subway_analysis'),
     url(r'^nyc-subway/analysis/(?P<lineSelected>.*)/$', views.nyc_subway_analysis, name='nyc_subway_analysis'),
     url(r'^nyc-subway/resultsapi/$', views.nyc_subway_results_api, name='nyc_subway_results_api'),
+    url(r'^nyc-subway/createNYCTrainBitlyLink/$', views.createNYCTrainBitlyLink, name='createNYCTrainBitlyLink'),
 
 
 
