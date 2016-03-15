@@ -65,6 +65,19 @@ $(document).ready(function () {
             var respondents = data.respondentsPositionThree;            
         }
 
+        // if respondents are less than 10, hide train line image and show text asking for participation
+
+        if (respondents < 10) {
+            $(".trainLineImage").addClass("hidden");
+            $(".subheading").addClass("hidden");
+            $(".lessThanTen").removeClass("hidden");
+        } else {
+            $(".trainLineImage").removeClass("hidden");
+            $(".subheading").removeClass("hidden");
+            $(".lessThanTen").addClass("hidden");            
+        }
+        
+
         // create array for area tooltips
         $.each(data.seats, function( i, d ) {
             var pct = ((d/respondents)*100).toFixed(1);
@@ -182,6 +195,11 @@ $(document).ready(function () {
         // refresh page with new line if the a new line is selected
         var newLineSelected = $( "#lineSelected option:selected" ).val();
 
+        // set rideLength to empty string if shuttle train is selected
+        if (newLineSelected == "S - 42nd St. Shuttle" || newLineSelected == "S - Rockaway Shuttle" || newLineSelected == "S - Franklin Ave. Shuttle") {
+            rideLength = '';
+        }
+
         if (lineSelected == newLineSelected) {
             // line hasn't changed, so pull new data from api and update train image
             $.ajax({
@@ -193,6 +211,9 @@ $(document).ready(function () {
                     update(data);
                 }
             });
+
+            // set FB and twitter urls
+            createFBandTwitterURLs();
 
         } else {
             // line has change, so refresh page with new train line
@@ -213,6 +234,45 @@ $(document).ready(function () {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
 
+
+    function createFBandTwitterURLs() {
+
+        // get full url based on what's selected and bind that to the twitter and facebook click
+        // get variables
+        var rideTime = $( "#rideTime option:selected" ).val();
+        var rideLength = $( "#rideLength option:selected" ).val();
+        var capacity = $( "#capacity option:selected" ).val();
+
+        $.ajax({
+            type: "GET",
+            url: "/nyc-subway/createNYCTrainBitlyLink/?train=" + encodeURIComponent(lineSelected) + "&rideTime=" + encodeURIComponent(rideTime) + "&rideLength=" + encodeURIComponent(rideLength) + "&capacity=" + encodeURIComponent(capacity),
+            success: function(bitlyURL){
+
+                // facebook and twitter link creation and appending
+                var app_id = '406014149589534';
+                var fbcaption = "These are the most coveted spots on the "+ lineSelected +" train. What\'s yours? "+ bitlyURL +" via https://www.facebook.com/DNAinfo/";
+                var fblink = "https://www.dnainfo.com/new-york/visualizations/";
+                var fbUrl = 'https://www.facebook.com/dialog/feed?app_id=' + app_id + '&display=popup&caption='+ encodeURIComponent(fbcaption) + '&link=' + encodeURIComponent(bitlyURL) + '&redirect_uri=' + encodeURIComponent(fblink);
+                var fbOnclick = 'window.open("' + fbUrl + '","facebook-share-dialog","width=626,height=436");return false;';
+                //$('#showShareFB').attr("href", fbUrl);
+                $('#showShareFB').attr("onclick", fbOnclick);
+
+
+                var twitterlink = bitlyURL;
+                var via = 'DNAinfo';
+                var twittercaption = "These are the most coveted spots on the "+ lineSelected +" train. What\'s yours?";
+                var twitterUrl = 'https://twitter.com/intent/tweet?url=' + encodeURIComponent(twitterlink) + '&via='+ encodeURIComponent(via) + '&text=' + encodeURIComponent(twittercaption);
+                var twitterOnclick = 'window.open("' + twitterUrl + '","twitter-share-dialog","width=626,height=436");return false;';
+                //$('#showShareTwitter').attr("href", twitterUrl);
+                $('#showShareTwitter').attr("onclick", twitterOnclick);
+
+            }
+        });
+
+    }
+
+    // set FB and twitter urls
+    createFBandTwitterURLs();
 
 
 });

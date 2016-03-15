@@ -105,6 +105,17 @@ html, body {
 	padding-bottom: 30vh;
 }
 
+#lineSelected {
+	margin-bottom: 10px; 
+}
+
+.noMarginBottom {
+	margin-bottom: 0px;
+}
+
+.analysisHeading {
+	margin-top: 50px;
+}
 
 
 /*
@@ -446,7 +457,6 @@ html, body {
 
 .trainLineImage {
 	width: 100%;
-	height: 400px;
 	cursor: ew-resize;
 	z-index: 2; 
 }
@@ -495,6 +505,11 @@ html, body {
 /*
 * Media queries
 */
+@media (min-width: 768px) {
+	.analysisHeading {
+		margin-top: 20px;
+	}
+}
 
 @media (min-width: 600px) {
 
@@ -537,10 +552,6 @@ html, body {
 
 	#scrollText {
 		height: 34px;
-	}
-
-	.form-inline .form-group {
-		margin: 4px;
 	}
 
 
