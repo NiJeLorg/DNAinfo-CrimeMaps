@@ -77,6 +77,7 @@ urlpatterns = [
     url(r'^chi-l/analysis/$', views.chi_l_analysis, name='chi_l_analysis'),
     url(r'^chi-l/analysis/(?P<lineSelected>.*)/$', views.chi_l_analysis, name='chi_l_analysis'),
     url(r'^chi-l/resultsapi/$', views.chi_l_results_api, name='chi_l_results_api'),
+    url(r'^chi-l/createCHITrainBitlyLink/$', views.createCHITrainBitlyLink, name='createCHITrainBitlyLink'),
     url(r'^nyc-subway/line/$', views.nyc_subway_line, name='nyc_subway_line'),
     url(r'^nyc-subway/line/(?P<id>\d+)/$', views.nyc_subway_line, name='nyc_subway_line'),
     url(r'^nyc-subway/arrived/(?P<id>\d+)/$', views.nyc_subway_arrived, name='nyc_subway_arrived'),

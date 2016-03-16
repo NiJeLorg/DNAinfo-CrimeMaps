@@ -3,7 +3,7 @@
  */
 
 html, body {
-    height: auto;
+    height: 100%;
     width: 100%;
     font-family:"Titillium Web", Helvetica, Sans-Serif;
     color: #252525;
@@ -457,6 +457,7 @@ html, body {
 
 .trainLineImage {
 	width: 100%;
+	height: auto;
 	cursor: ew-resize;
 	z-index: 2; 
 }

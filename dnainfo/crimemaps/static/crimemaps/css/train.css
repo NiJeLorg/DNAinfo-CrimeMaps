@@ -3,7 +3,7 @@
  */
 
 html, body {
-    height: auto;
+    height: 100%;
     width: 100%;
     font-family:"Titillium Web", Helvetica, Sans-Serif;
     color: #252525;
@@ -104,6 +104,19 @@ html, body {
 .iOSPaddingFix {
 	padding-bottom: 30vh;
 }
+
+#lineSelected {
+	margin-bottom: 10px; 
+}
+
+.noMarginBottom {
+	margin-bottom: 0px;
+}
+
+.analysisHeading {
+	margin-top: 50px;
+}
+
 
 /*
 * Train Line colors and station dots
@@ -251,6 +264,27 @@ html, body {
 */
 
 #helpButton {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	z-index: 1;	
+}
+
+.newTrain {
+	position: absolute;
+	top: 10px;
+	right: 95px;
+	z-index: 1;	
+}
+
+.showShareFB {
+	position: absolute;
+	top: 10px;
+	right: 53px;
+	z-index: 1;	
+}
+
+.showShareTwitter {
 	position: absolute;
 	top: 10px;
 	right: 10px;
@@ -441,6 +475,13 @@ html, body {
 * Media queries
 */
 
+@media (min-width: 768px) {
+	.analysisHeading {
+		margin-top: 20px;
+	}
+}
+
+
 @media (min-width: 600px) {
 
 	.stationDots {
@@ -483,11 +524,6 @@ html, body {
 	#scrollText {
 		height: 34px;
 	}
-
-	.form-inline .form-group {
-		margin: 4px;
-	}
-
 
 }
 

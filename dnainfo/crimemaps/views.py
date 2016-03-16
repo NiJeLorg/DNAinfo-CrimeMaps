@@ -1941,3 +1941,24 @@ def createNYCTrainBitlyLink(request):
 
 	return HttpResponse(output)
 
+
+def createCHITrainBitlyLink(request):
+	if request.method == 'GET':
+		#gather potential filter variables
+		train = request.GET.get("train","")
+		rideTime = request.GET.get("rideTime","")
+		rideLength = request.GET.get("rideLength","")
+		capacity = request.GET.get("capacity","empty")
+
+		url = "https://visualizations.dnainfo.com/chi-l/analysis/" + train + "/" + "?rideTime=" + rideTime + "&rideLength=" + rideLength + "&capacity=" + capacity
+		# connect to Bitly API
+		c = bitly_api.Connection('ondnainfo', 'R_cdbdcaaef8d04d97b363b989f2fba3db')
+		bitlyURL = c.shorten(url)
+
+		output = bitlyURL['url']
+
+	else:
+		output = ''
+
+	return HttpResponse(output)
+
