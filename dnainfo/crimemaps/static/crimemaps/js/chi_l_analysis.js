@@ -257,7 +257,7 @@ $(document).ready(function () {
 
 
                 var twitterlink = bitlyURL;
-                var via = 'DNAinfo';
+                var via = 'DNAinfoCHI';
                 var twittercaption = "These are the most coveted spots on the "+ lineSelected +". What\'s yours?";
                 var twitterUrl = 'https://twitter.com/intent/tweet?url=' + encodeURIComponent(twitterlink) + '&via='+ encodeURIComponent(via) + '&text=' + encodeURIComponent(twittercaption);
                 var twitterOnclick = 'window.open("' + twitterUrl + '","twitter-share-dialog","width=626,height=436");return false;';
