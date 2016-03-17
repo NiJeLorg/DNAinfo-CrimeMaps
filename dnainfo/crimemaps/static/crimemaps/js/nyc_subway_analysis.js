@@ -47,8 +47,28 @@ $(document).ready(function () {
             url: "/nyc-subway/resultsapi/?train=" + encodeURIComponent(lineSelected) + "&rideTime=" + encodeURIComponent(rideTime) + "&rideLength=" + encodeURIComponent(rideLength) + "&capacity=" + encodeURIComponent(capacity),
             success: function(data){
                 update(data);
+                setText(data);
             }
         });
+
+    }
+
+    function setText(data) {
+        console.log(data);
+        // which capacity do we care about
+        // pick denominator
+        if (capacity == 'empty') {
+            var respondents = data.respondentsPositionOne;
+        } else if (capacity == 'half-full') {
+            var respondents = data.respondentsPositionTwo;
+        } else {
+            var respondents = data.respondentsPositionThree;            
+        } 
+        
+
+
+        // set text
+              
 
     }
 
@@ -69,11 +89,11 @@ $(document).ready(function () {
 
         if (respondents < 10) {
             $(".trainLineImage").addClass("hidden");
-            $(".subheading").addClass("hidden");
+            $(".subheadingSmall").addClass("hidden");
             $(".lessThanTen").removeClass("hidden");
         } else {
             $(".trainLineImage").removeClass("hidden");
-            $(".subheading").removeClass("hidden");
+            $(".subheadingSmall").removeClass("hidden");
             $(".lessThanTen").addClass("hidden");            
         }
         
@@ -209,6 +229,7 @@ $(document).ready(function () {
                     // clear the previous image and update
                     //image.mapster('unbind');
                     update(data);
+                    setText(data);
                 }
             });
 

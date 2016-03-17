@@ -11,8 +11,8 @@ class Command(BaseCommand):
     
     def create_dummy_train_data(self):
         for x in xrange(500):
-            m = NYCtrainSitStand()
-            m.train = "D"
+            m = CHItrainSitStand()
+            m.train = "Blue Line"
             m.positionOne = random.randint(1, 110)
             m.positionTwo = random.randint(1, 110)
             m.positionThree = random.randint(1, 110)

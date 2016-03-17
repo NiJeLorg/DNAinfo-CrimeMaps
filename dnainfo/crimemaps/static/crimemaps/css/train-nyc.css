@@ -411,6 +411,13 @@ html, body {
 	margin-bottom: 5px;
 }
 
+.subheadingSmall {
+	color: #9d9d9d;
+	font-family: Georgia, Times, serif;
+	font-size: 14px;
+	margin-bottom: 5px;
+}
+
 #scrollText {
 	display: block;
 	width: 1200px;
@@ -531,6 +538,12 @@ html, body {
 	.subheading {
 		color: #9d9d9d;
 		font-size: 20px;
+	    margin-bottom: 10px;
+	}
+
+	.subheadingSmall {
+		color: #9d9d9d;
+		font-size: 18px;
 	    margin-bottom: 10px;
 	}
 
