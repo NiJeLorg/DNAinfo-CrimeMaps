@@ -47,8 +47,473 @@ $(document).ready(function () {
             url: "/chi-l/resultsapi/?train=" + encodeURIComponent(lineSelected) + "&rideTime=" + encodeURIComponent(rideTime) + "&rideLength=" + encodeURIComponent(rideLength) + "&capacity=" + encodeURIComponent(capacity),
             success: function(data){
                 update(data);
+                setText(data);
             }
         });
+
+    }
+
+    function setText(data) {
+        console.log(data);
+        // which capacity do we care about
+        // pick denominator
+        if (capacity == 'empty') {
+            var respondents = data.respondentsPositionOne;
+        } else if (capacity == 'half-full') {
+            var respondents = data.respondentsPositionTwo;
+        } else {
+            var respondents = data.respondentsPositionThree;            
+        } 
+
+        // invert dataset to set up for key access
+        var inverted = _.invert(data.seats); 
+        // get modal value
+        var mode = _.max(data.seats);
+        // get key of modal value
+        var mode_key = inverted[mode]; 
+        // get percent that perferred to ride in this seat
+        var locationPct = ((mode/respondents)*100).toFixed(1);
+
+        // which train?
+        if (lineSelected == "Brown Line") {
+            // set "location" text depending on modal seat selected
+            switch (mode_key) {
+                case "8":
+                case "10":
+                    var location = "a backward-facing aisle seat in the middle of the train car";
+                    break;
+                case "18":
+                case "20":
+                    var location = "a backward-facing aisle seat near the front of the train car";
+                    break;
+                case "12":
+                    var location = "a backward-facing single seat in the middle of the car";
+                    break;
+                case "11":
+                    var location = "a backward-facing single seat in the middle of the train car";
+                    break;
+                case "23":
+                case "24":
+                    var location = "a backward-facing single seat near the front of the train car";
+                    break;
+                case "7":
+                case "9":
+                    var location = "a backward-facing window seat in the middle of the train car";
+                    break;
+                case "17":
+                case "19":
+                    var location = "a backward-facing window seat near the front of the train car";
+                    break;
+                case "2":
+                case "36":
+                    var location = "a forward-facing aisle seat near the back of the train car";
+                    break;
+                case "1":
+                case "37":
+                    var location = "a forward-facing window seat near the back of the train car";
+                    break;
+                case "29":
+                case "31":
+                    var location = "a front-facing aisle seat in the middle of the train car";
+                    break;
+                case "29":
+                case "31":
+                    var location = "a front-facing aisle seat in the middle of the train car";
+                    break;
+                case "33":
+                case "34":
+                    var location = "a front-facing single seat in the middle of the train car";
+                    break;
+                case "30":
+                case "32":
+                    var location = "a front-facing window seat in the middle of the train car";
+                    break;
+                case "4":
+                case "5":
+                    var location = "a sideways-facing seat by the back door";
+                    break;
+                case "13":
+                case "16":
+                case "25":
+                case "28":
+                    var location = "a sideways-facing seat next to a seat by a front door";
+                    break;
+                case "14":
+                case "15":
+                    var location = "a sideways-facing seat next to the closed front door";
+                    break;
+                case "26":
+                case "27":
+                    var location = "a sideways-facing seat next to the open front door";
+                    break;
+                case "3":
+                case "6":
+                    var location = "a sideways-facing seat next to the seat by the back door";
+                    break;
+                case "3":
+                case "6":
+                    var location = "a sideways-facing seat next to the seat by the back door";
+                    break;
+                case "21":
+                case "22":
+                    var location = "a sideways-facing single seat near the front of the train car";
+                    break;
+                case "44":
+                case "45":
+                case "46":
+                case "47":
+                    var location = "a standing area in the middle of the train car";
+                    break;
+                case "50":
+                case "51":
+                    var location = "a standing area near the front of the train car";
+                    break;
+                case "38":
+                    var location = "the alcove aisle seat";
+                    break;
+                case "40":
+                    var location = "the alcove standing area";
+                    break;
+                case "39":
+                    var location = "the alcove window seat";
+                    break;
+                case "35":
+                    var location = "the sideways-facing single seat by the back door";
+                    break;
+                case "41":
+                    var location = "the sizable standing area next to the back doors";
+                    break;
+                case "52":
+                    var location = "the standing area at the front end of the train car";
+                    break;
+                case "48":
+                    var location = "the standing area right at the closed front door";
+                    break;
+                case "49":
+                    var location = "the standing area right at the open front door";
+                    break;
+                case "42":
+                    var location = "the standing area right in front of the closed back door";
+                    break;
+                case "43":
+                    var location = "the standing area right in front of the open back door";
+                    break;
+                default:
+                    var location = "unknown";
+
+            }
+
+            // loop through each seat type and count the number that elected to stand in the doorway
+            var standers = 0;
+            var doorers = 0;
+            $.each(data.seat_types, function( i, d ) {
+                // add doorers
+                if (i == "6-seat" || i == "3-side-standing" || i == "5-door-standing" || i == "7-door-standing") {
+                    doorers = doorers + d;
+                }
+                // add standers
+                if (i == "1-end-standing" || i == "2-middle-standing" || i == "3-side-standing" || i == "5-door-standing" || i == "7-door-standing" || i == "4-middle-standing") {
+                    standers = standers + d;
+                }
+            }); 
+
+            var doorPct = ((doorers/respondents)*100).toFixed(1);
+            var standPct = ((standers/respondents)*100).toFixed(1);
+
+
+        } else if (lineSelected == "Blue Line" || lineSelected == "Orange Line") {
+
+            switch (mode_key) {
+                case "6":
+                case "8":
+                case "10":
+                case "12":
+                    var location = "a backward-facing aisle seat in the middle of the train car";
+                    break;
+                case "18":
+                case "20":
+                case "22":
+                case "24":
+                    var location = "a backward-facing aisle seat near the front train car";
+                    break;
+                case "5":
+                case "7":
+                case "9":
+                case "11":
+                    var location = "a backward-facing window seat in the middle of the train car";
+                    break;
+                case "17":
+                case "19":
+                case "23":
+                case "25":
+                    var location = "a backward-facing window seat near the front train car";
+                    break;
+                case "42":
+                    var location = "a front-facing aisle seat near the back end of the train car";
+                    break;
+                case "30":
+                case "32":
+                case "34":
+                case "36":
+                    var location = "a front-facing aisle seat on a two-person bench in the middle of the train";
+                    break;
+                case "31":
+                case "33":
+                case "35":
+                case "37":
+                    var location = "a front-facing window seat on a two-person bench in the middle of the train";
+                    break;
+                case "31":
+                case "33":
+                case "35":
+                case "37":
+                    var location = "a front-facing window seat on a two-person bench in the middle of the train";
+                    break;
+                case "4":
+                case "38":
+                    var location = "a sideways seat next to one next to the back doors";
+                    break;
+                case "13":
+                case "16":
+                case "26":
+                case "29":
+                    var location = "a sideways seat next to one next to the front doors";
+                    break;
+                case "3":
+                case "39":
+                    var location = "a sideways seat next to the back doors";
+                    break;
+                case "14":
+                case "15":
+                case "27":
+                case "28":
+                    var location = "a sideways seat next to one next to the front doors";
+                    break;
+                case "49":
+                    var location = "a standing area in front of the door";
+                    break;
+                case "44":
+                    var location = "the alcove aisle seat";
+                    break;
+                case "46":
+                    var location = "the alcove standing area";
+                    break;
+                case "45":
+                    var location = "the alcove window seat";
+                    break;
+                case "58":
+                    var location = "the corner standing area near the front of the train car";
+                    break;
+                case "2":
+                    var location = "the front-facing aisle seat, with leg room, near the back end of the train car";
+                    break;
+                case "43":
+                    var location = "the front-facing window seat near the back end of the train car";
+                    break;
+                case "1":
+                    var location = "the front-facing window seat, with leg room, near the back end of the train car";
+                    break;
+                case "40":
+                    var location = "the sideways seat near the back of the train car that's next to the door";
+                    break;
+                case "41":
+                    var location = "the sideways seat near the back of the train car that's not next to the door";
+                    break;
+                case "21":
+                    var location = "the sideways single seat near the front of the train car";
+                    break;
+                case "57":
+                    var location = "the standing area in the aisle near the front of the train car";
+                    break;
+                case "56":
+                    var location = "the standing area in the front of the train car near the doors";
+                    break;
+                case "52":
+                    var location = "the standing area in the middle of the train";
+                    break;
+                case "47":
+                    var location = "the standing area leading to the alcove";
+                    break;
+                case "54":
+                    var location = "the standing area opposite the open doors in the front of the train car";
+                    break;
+                case "50":
+                    var location = "the standing area right inside the open doors in the back of the train car";
+                    break;
+                case "55":
+                    var location = "the standing area right inside the open doors in the front of the train car";
+                    break;
+                case "48":
+                    var location = "the standing area sectioned off from the door";
+                    break;
+                case "51":
+                    var location = "the standing area toward the middle of the car closer to the back doors";
+                    break;
+                case "53":
+                    var location = "the standing area toward the middle of the car closer to the front doors";
+                    break;
+                default:
+                    var location = "unknown";
+            }
+
+            // loop through each seat type and count the number that elected to stand in the doorway
+            var standers = 0;
+            var doorers = 0;
+            $.each(data.seat_types, function( i, d ) {
+                // add doorers
+                if (i == "1-seat" || i == "3-side-standing" || i == "5-door-standing" || i == "7-door-standing") {
+                    doorers = doorers + d;
+                }
+                // add standers
+                if (i == "1-end-standing" || i == "2-middle-standing" || i == "3-side-standing" || i == "5-door-standing" || i == "7-door-standing" || i == "4-middle-standing") {
+                    standers = standers + d;
+                }
+            }); 
+
+            var doorPct = ((doorers/respondents)*100).toFixed(1);
+            var standPct = ((standers/respondents)*100).toFixed(1);
+
+        } else {
+
+            switch (mode_key) {
+                case "4":
+                case "35":
+                    var location = "a corner seat by one of the back doors";
+                    break;
+                case "14":
+                case "25":
+                    var location = "a corner seat by the front doors";
+                    break;
+                case "1":
+                case "38":
+                    var location = "a corner seat in the back of the train car";
+                    break;
+                case "19":
+                case "20":
+                    var location = "a corner seat in the front of the train car";
+                    break;
+                case "7":
+                case "13":
+                case "26":
+                case "32":
+                    var location = "a corner seat in the middle of the train car";
+                    break;
+                case "45":
+                    var location = "a standing area reserved for people who are handicapped";
+                    break;
+                case "46":
+                case "49":
+                    var location = "a standing area toward the middle of the train";
+                    break;
+                case "6":
+                case "33":
+                    var location = "backward-facing aisle seat reserved for people who are handicapped";
+                    break;
+                case "5":
+                case "34":
+                    var location = "backward-facing window seat reserved for people who are handicapped";
+                    break;
+                case "2":
+                case "3":
+                case "36":
+                case "37":
+                    var location = "one of the middle seats in the back of the train car";
+                    break;
+                case "15":
+                case "16":
+                case "17":
+                case "18":
+                case "21":
+                case "22":
+                case "23":
+                case "24":
+                    var location = "one of the middle seats in the front of the train car";
+                    break;
+                case "8":
+                case "9":
+                case "10":
+                case "11":
+                case "12":
+                case "27":
+                case "28":
+                case "29":
+                case "30":
+                case "31":
+                    var location = "one of the middle seats in the middle of the train car";
+                    break;
+                case "39":
+                    var location = "the corner standing area in the alcove";
+                    break;
+                case "43":
+                    var location = "the standing area halfway between the back doors";
+                    break;
+                case "51":
+                    var location = "the standing area halfway between the front doors";
+                    break;
+                case "40":
+                    var location = "the standing area in the entrance of the alcove";
+                    break;
+                case "48":
+                    var location = "the standing area in the middle of the train car";
+                    break;
+                case "41":
+                    var location = "the standing area near the back of the train car";
+                    break;
+                case "41":
+                    var location = "the standing area near the back of the train car";
+                    break;
+                case "54":
+                    var location = "the standing area near the front of the train car";
+                    break;
+                case "42":
+                    var location = "the standing area next to the closed back door";
+                    break;
+                case "50":
+                    var location = "the standing area next to the closed front door";
+                    break;
+                case "47":
+                    var location = "the standing area reserved for people who are handicapped next to the open back door";
+                    break;
+                case "44":
+                    var location = "the standing area right inside the open back door";
+                    break;
+                case "52":
+                    var location = "the standing area right inside the open front door";
+                    break;
+                case "53":
+                    var location = "the standing area toward the front of the train car";
+                    break;
+                default:
+                    var location = "unknown";
+            }
+
+            // loop through each seat type and count the number that elected to stand in the doorway
+            var standers = 0;
+            var doorers = 0;
+            $.each(data.seat_types, function( i, d ) {
+                // add doorers
+                if (i == "edge-seat" || i == "3-side-standing" || i == "5-door-standing" || i == "7-door-standing" || i == "6-middle-door-standing") {
+                    doorers = doorers + d;
+                }
+                // add standers
+                if (i == "1-end-standing" || i == "2-middle-standing" || i == "3-side-standing" || i == "5-door-standing" || i == "7-door-standing" || i == "4-middle-standing" || i == "6-middle-door-standing") {
+                    standers = standers + d;
+                }
+            }); 
+
+            var doorPct = ((doorers/respondents)*100).toFixed(1);
+            var standPct = ((standers/respondents)*100).toFixed(1);
+
+
+        }
+
+
+        // set text
+        if (capacity == "empty" || capacity == "half-full") {
+            $('.subheadingSmall').html("<em>The most popular spot is "+ location +", with "+ locationPct +" percent of commuters preferring to ride here. "+ doorPct +" percent of riders choose to stand or sit right by the doors. "+ standPct +" percent of riders would stand anywhere on this train.</em>");
+        } else {
+            $('.subheadingSmall').html("<em>The most popular spot to stand is "+ location +", with "+ locationPct +" percent of commuters preferring to ride here. "+ doorPct +" percent of riders choose to stand right by the doors.</em>");            
+        }
 
     }
 
@@ -210,6 +675,7 @@ $(document).ready(function () {
                     // clear the previous image and update
                     //image.mapster('unbind');
                     update(data);
+                    setText(data);
                 }
             });
 
