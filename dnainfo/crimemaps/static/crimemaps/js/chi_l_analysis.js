@@ -74,6 +74,10 @@ $(document).ready(function () {
         // get percent that perferred to ride in this seat
         var locationPct = ((mode/respondents)*100).toFixed(1);
 
+        // set standers and doorers to 0
+        var standers = 0;
+        var doorers = 0;
+
         // which train?
         if (lineSelected == "Brown Line") {
             // set "location" text depending on modal seat selected
@@ -204,11 +208,9 @@ $(document).ready(function () {
             }
 
             // loop through each seat type and count the number that elected to stand in the doorway
-            var standers = 0;
-            var doorers = 0;
             $.each(data.seat_types, function( i, d ) {
                 // add doorers
-                if (i == "6-seat" || i == "3-side-standing" || i == "5-door-standing" || i == "7-door-standing") {
+                if (i == "1-seat" || i == "6-seat" || i == "3-side-standing" || i == "5-door-standing" || i == "7-door-standing") {
                     doorers = doorers + d;
                 }
                 // add standers
@@ -357,8 +359,6 @@ $(document).ready(function () {
             }
 
             // loop through each seat type and count the number that elected to stand in the doorway
-            var standers = 0;
-            var doorers = 0;
             $.each(data.seat_types, function( i, d ) {
                 // add doorers
                 if (i == "1-seat" || i == "3-side-standing" || i == "5-door-standing" || i == "7-door-standing") {
@@ -488,8 +488,6 @@ $(document).ready(function () {
             }
 
             // loop through each seat type and count the number that elected to stand in the doorway
-            var standers = 0;
-            var doorers = 0;
             $.each(data.seat_types, function( i, d ) {
                 // add doorers
                 if (i == "edge-seat" || i == "3-side-standing" || i == "5-door-standing" || i == "7-door-standing" || i == "6-middle-door-standing") {
