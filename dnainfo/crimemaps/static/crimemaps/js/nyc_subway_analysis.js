@@ -683,9 +683,9 @@ $(document).ready(function () {
     $( "#filter-form" ).change(function() {
 
         // get variables
-        var rideTime = $( "#rideTime option:selected" ).val();
-        var rideLength = $( "#rideLength option:selected" ).val();
-        var capacity = $( "#capacity option:selected" ).val();
+        rideTime = $( "#rideTime option:selected" ).val();
+        rideLength = $( "#rideLength option:selected" ).val();
+        capacity = $( "#capacity option:selected" ).val();
 
         // refresh page with new line if the a new line is selected
         var newLineSelected = $( "#lineSelected option:selected" ).val();
@@ -735,9 +735,9 @@ $(document).ready(function () {
 
         // get full url based on what's selected and bind that to the twitter and facebook click
         // get variables
-        var rideTime = $( "#rideTime option:selected" ).val();
-        var rideLength = $( "#rideLength option:selected" ).val();
-        var capacity = $( "#capacity option:selected" ).val();
+        rideTime = $( "#rideTime option:selected" ).val();
+        rideLength = $( "#rideLength option:selected" ).val();
+        capacity = $( "#capacity option:selected" ).val();
 
         $.ajax({
             type: "GET",
