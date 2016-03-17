@@ -54,7 +54,6 @@ $(document).ready(function () {
     }
 
     function setText(data) {
-        console.log(data);
         // which capacity do we care about
         // pick denominator
         if (capacity == 'empty') {
@@ -539,36 +538,41 @@ $(document).ready(function () {
             $(".trainLineImage").removeClass("hidden");
             $(".subheadingSmall").removeClass("hidden");
             $(".lessThanTen").addClass("hidden");            
+            tenOrMore();
         }
 
+        function tenOrMore() {
 
-        // create array for area tooltips
-        $.each(data.seats, function( i, d ) {
-            var pct = ((d/respondents)*100).toFixed(1);
-            var tooltip = pct + "% ("+ numberWithCommas(d) +") of respondents picked this spot.";
-            seatKeys.push({key: i, toolTip: tooltip});                
-            
-            // piggyback on this loop to create max array
-            findMax.push(d);
-        }); 
+            // create array for area tooltips
+            $.each(data.seats, function( i, d ) {
+                var pct = ((d/respondents)*100).toFixed(1);
+                var tooltip = pct + "% ("+ numberWithCommas(d) +") of respondents picked this spot.";
+                seatKeys.push({key: i, toolTip: tooltip});                
+                
+                // piggyback on this loop to create max array
+                findMax.push(d);
+            }); 
 
-        // calc max value for heatmap
-        max = d3.max(findMax, function(d) { return d; });
+            // calc max value for heatmap
+            max = d3.max(findMax, function(d) { return d; });
 
-        // rebind with the tooltips
-        image.mapster('rebind', {
-            mapKey: 'data-key',
-            fill: false,
-            stroke: true,
-            strokeColor: '545454',
-            strokeOpacity: 1,
-            strokeWidth: 2,
-            isSelectable: false,
-            showToolTip: true,
-            toolTipContainer: '<div style="max-width: 200px; padding: 3px 8px; margin: 4px; border-radius: 4px; opacity: 1; display: block; position: absolute; left: 31px; top: 328px; z-index: 9999; color: #fff; background-color: #252525; text-align: center;"></div>',
-            areas: seatKeys,
-            onConfigured: createHeatmap(data),
-        }); 
+            // rebind with the tooltips
+            image.mapster('rebind', {
+                mapKey: 'data-key',
+                fill: false,
+                stroke: true,
+                strokeColor: '545454',
+                strokeOpacity: 1,
+                strokeWidth: 2,
+                isSelectable: false,
+                showToolTip: true,
+                toolTipContainer: '<div style="max-width: 200px; padding: 3px 8px; margin: 4px; border-radius: 4px; opacity: 1; display: block; position: absolute; left: 31px; top: 328px; z-index: 9999; color: #fff; background-color: #252525; text-align: center;"></div>',
+                areas: seatKeys,
+                onConfigured: createHeatmap(data),
+            });
+
+        }
+
         
     }
 
