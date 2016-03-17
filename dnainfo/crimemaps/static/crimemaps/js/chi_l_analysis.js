@@ -533,11 +533,11 @@ $(document).ready(function () {
 
         if (respondents < 10) {
             $(".trainLineImage").addClass("hidden");
-            $(".subheading").addClass("hidden");
+            $(".subheadingSmall").addClass("hidden");
             $(".lessThanTen").removeClass("hidden");
         } else {
             $(".trainLineImage").removeClass("hidden");
-            $(".subheading").removeClass("hidden");
+            $(".subheadingSmall").removeClass("hidden");
             $(".lessThanTen").addClass("hidden");            
         }
 
