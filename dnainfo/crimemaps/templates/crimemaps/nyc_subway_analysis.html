@@ -48,12 +48,12 @@
     <!-- Content -->
     <div class="container-fluid grey-background">
         <div id="mainContent">
-            <form id="filter-form" class="text-center form-inline">  
+            <form id="filter-form" class="text-center">  
             <div class="row">
                 <div class="col-sm-8 col-sm-offset-2">
                     <h1 class="analysisHeading text-center">
                         Where people sit on the                       
-                        <span class="form-group">
+                        <span class="form-group inline-field">
                           <select class="form-control" id="lineSelected">
                             <option value="A">A Train</option>
                             <option value="B">B Train</option>
@@ -85,7 +85,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-8 col-sm-offset-2">
+                <div class="col-sm-12 col-md-8 col-md-offset-2">
                     <div class="row hidden-xs">
                         <div class="col-sm-4">
                             <p class="text-left noMarginBottom"><strong>Time of Day</strong></p>
@@ -540,11 +540,6 @@
         $('#trainLine').addClass(color);
         // set body background color to grey
         $('body').css( "background-color", "#f1f1f1" );   
-        // set width of dropdowns
-        var w = ($('.col-sm-8 .col-sm-4').width()) - 20;
-        if (w > 0) {
-            $('.form-control').width(w);
-        }
         // set dropdown menus
         $( "#lineSelected" ).val(lineSelected);
         $( "#rideTime" ).val(rideTime);
