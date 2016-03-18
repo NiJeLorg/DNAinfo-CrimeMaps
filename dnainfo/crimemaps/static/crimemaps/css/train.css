@@ -115,6 +115,11 @@ html, body {
 
 .analysisHeading {
 	margin-top: 50px;
+	font-size: 24px;
+}
+
+.notEnoughRiders {
+	font-size: 20px;
 }
 
 
@@ -476,20 +481,27 @@ html, body {
 	height: 100px;
 }
 
+.inline-field {
+	display: inline-block;
+	vertical-align: top;
+	margin-bottom: 0px;
+}
+
 
 
 /*
 * Media queries
 */
 
-@media (min-width: 768px) {
-	.analysisHeading {
-		margin-top: 20px;
-	}
-}
-
-
 @media (min-width: 600px) {
+
+	.analysisHeading {
+		font-size: 36px;
+	}
+
+	.notEnoughRiders {
+		font-size: 30px;
+	}
 
 	.stationDots {
 		bottom: 126px;
@@ -541,6 +553,10 @@ html, body {
 }
 
 @media (min-width: 1200px) { 
+	.analysisHeading {
+		margin-top: 40px;
+	}
+
 	.trainLineImage {
 		width: 1200px;
 		height: auto;
