@@ -1,4 +1,4 @@
-{% extends 'crimemaps/baseNoBottomNavCHI_TrainApp.html' %}
+{% extends 'crimemaps/baseNoBottomNavCHI_TrainApp_Analysis.html' %}
 {% load staticfiles %}
 {% load bootstrap_tags %}
 
@@ -389,14 +389,6 @@
     }
 
     $( document ).ready(function() {
-        // remove the iPhone fix classes from this page
-        $('#mainContent').removeClass("iOSHeightFix");
-        $('#bottomNav').removeClass("iOSPaddingFix");
-        // reset padding for window
-        $('html').css({"padding": "0px"});
-        $('body').css({"padding": "0px"});
-        $('.trainLineWrap').css({"overflow": "hidden"});
-
         $('#trainLine').addClass(color);
         // set body background color to grey
         $('body').css( "background-color", "#f1f1f1" );   
