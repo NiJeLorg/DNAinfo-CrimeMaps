@@ -389,7 +389,9 @@ html, body {
 	color: #9d9d9d;
 	font-family: Georgia, Times, serif;
 	font-size: 14px;
+	margin-top: -30px;
 	margin-bottom: 5px;
+	background-color: #f1f1f1;
 }
 
 #scrollText {
