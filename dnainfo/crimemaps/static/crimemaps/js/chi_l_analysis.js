@@ -76,9 +76,12 @@ $(document).ready(function () {
         // set standers and doorers to 0
         var standers = 0;
         var doorers = 0;
+        var singleseaters = 0;
+        var singleseatersPct = 0;
 
         // which train?
-        if (lineSelected == "Brown Line") {
+        if (lineSelected == "Brown Line") {            
+
             // set "location" text depending on modal seat selected
             switch (mode_key) {
                 case "8":
@@ -206,6 +209,14 @@ $(document).ready(function () {
 
             }
 
+            // loop though seats and count all the ones that are single seats
+            $.each(data.seats, function( i, d ) {
+                // add doorers
+                if (i == "21" || i == "22" || i == "23" || i == "24" || i == "33" || i == "34" || i == "35" || i == "11" || i == "12") {
+                    singleseaters = singleseaters + d;
+                }
+            });
+
             // loop through each seat type and count the number that elected to stand in the doorway
             $.each(data.seat_types, function( i, d ) {
                 // add doorers
@@ -220,6 +231,7 @@ $(document).ready(function () {
 
             var doorPct = ((doorers/respondents)*100).toFixed(1);
             var standPct = ((standers/respondents)*100).toFixed(1);
+            singleseatersPct = ((singleseaters/respondents)*100).toFixed(1);
 
 
         } else if (lineSelected == "Blue Line" || lineSelected == "Orange Line") {
@@ -506,8 +518,14 @@ $(document).ready(function () {
 
 
         // set text
-        console.log(capacity);
-        if (capacity == "empty" || capacity == "half-full") {
+        var singleseatText = '';
+        if (singleseatersPct > 0) {
+            singleseatText = " " + singleseatersPct + " percent of riders choose a single seat with no chance of sitting by anyone else."
+        }
+
+        if (capacity == "empty") {
+            $('.subheadingSmall').html("<em>The most popular spot is "+ location +", with "+ locationPct +" percent of commuters preferring to ride here. "+ doorPct +" percent of riders choose to stand or sit right by the doors. "+ standPct +" percent of riders would stand anywhere on this train. "+ singleseatText +"</em>");
+        } else if (capacity == "half-full") {
             $('.subheadingSmall').html("<em>The most popular spot is "+ location +", with "+ locationPct +" percent of commuters preferring to ride here. "+ doorPct +" percent of riders choose to stand or sit right by the doors. "+ standPct +" percent of riders would stand anywhere on this train.</em>");
         } else {
             $('.subheadingSmall').html("<em>The most popular spot to stand is "+ location +", with "+ locationPct +" percent of commuters preferring to ride here. "+ doorPct +" percent of riders choose to stand right by the doors.</em>");            

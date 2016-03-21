@@ -114,8 +114,9 @@ html, body {
 }
 
 .analysisHeading {
-	margin-top: 50px;
-	font-size: 24px;
+	margin-top: 55px;
+    margin-bottom: 0px;
+	font-size: 18px;
 }
 
 .notEnoughRiders {
@@ -515,8 +516,12 @@ html, body {
 
 .inline-field {
 	display: inline-block;
-	vertical-align: top;
 	margin-bottom: 0px;
+	width: 75px;
+}
+
+.formGroupBottomMargin {
+	margin-bottom: 5px;
 }
 
 
@@ -526,8 +531,18 @@ html, body {
 
 @media (min-width: 600px) {
 
+	.formGroupBottomMargin {
+		margin-bottom: 15px;
+	}
+
+	.inline-field {
+		vertical-align: top;
+		width: auto;
+	}
+
 	.analysisHeading {
 		font-size: 36px;
+		margin-bottom: 10px;
 	}
 
 	.stationDots {
