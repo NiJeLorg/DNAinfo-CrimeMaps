@@ -114,7 +114,7 @@ html, body {
 }
 
 .analysisHeading {
-	margin-top: 55px;
+	margin-top: 49px;
     margin-bottom: 0px;
 	font-size: 18px;
 }
@@ -421,10 +421,13 @@ html, body {
 	color: #9d9d9d;
 	font-family: Georgia, Times, serif;
 	font-size: 14px;
-	margin-top: -30px;
 	margin-bottom: 5px;
-	background-color: #252525;
+	background-color: #f1f1f1;
+}
 
+.subheadingMobileMargin {
+	margin-top: -41px;
+	z-index: 1000;
 }
 
 #scrollText {
@@ -533,6 +536,11 @@ html, body {
 */
 
 @media (min-width: 600px) {
+
+	.subheadingMobileMargin {
+		margin-top: 0px;
+		z-index: 1;
+	}
 
 	.formGroupBottomMargin {
 		margin-bottom: 15px;
