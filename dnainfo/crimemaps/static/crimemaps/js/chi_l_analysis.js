@@ -501,11 +501,11 @@ $(document).ready(function () {
             // loop through each seat type and count the number that elected to stand in the doorway
             $.each(data.seat_types, function( i, d ) {
                 // add doorers
-                if (i == "edge-seat,door" || i == "3-side-standing,door" || i == "5-door-standing,door" || i == "7-door-standing,door" || i == "6-middle-door-standing,door") {
+                if (i == "edge-seat,door" || i == "3-side-standing" || i == "5-door-standing" || i == "7-door-standing" || i == "6-middle-door-standing") {
                     doorers = doorers + d;
                 }
                 // add standers
-                if (i == "1-end-standing" || i == "2-middle-standing" || i == "3-side-standing" || i == "5-door-standing" || i == "7-door-standing" || i == "4-middle-standing" || i == "6-middle-door-standing" || i == "3-side-standing,door" || i == "5-door-standing,door" || i == "7-door-standing,door" || i == "6-middle-door-standing,door") {
+                if (i == "1-end-standing" || i == "2-middle-standing" || i == "3-side-standing" || i == "5-door-standing" || i == "7-door-standing" || i == "4-middle-standing" || i == "6-middle-door-standing") {
                     standers = standers + d;
                 }
             }); 
