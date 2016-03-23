@@ -735,7 +735,7 @@ $(document).ready(function () {
 
                 // facebook and twitter link creation and appending
                 var app_id = '406014149589534';
-                var fbcaption = "These are the most coveted spots on the "+ lineSelected +". What\'s yours? "+ bitlyURL +" via https://www.facebook.com/DNAinfoChicago/";
+                var fbcaption = "This is the most popular place to sit, stand and ride on the "+ lineSelected +" (according to you) "+ bitlyURL +" via https://www.facebook.com/DNAinfoChicago/";
                 var fblink = "https://www.dnainfo.com/chicago/visualizations/";
                 var fbUrl = 'https://www.facebook.com/dialog/feed?app_id=' + app_id + '&display=popup&caption='+ encodeURIComponent(fbcaption) + '&link=' + encodeURIComponent(bitlyURL) + '&redirect_uri=' + encodeURIComponent(fblink);
                 var fbOnclick = 'window.open("' + fbUrl + '","facebook-share-dialog","width=626,height=436");return false;';
@@ -745,7 +745,7 @@ $(document).ready(function () {
 
                 var twitterlink = bitlyURL;
                 var via = 'DNAinfoCHI';
-                var twittercaption = "These are the most coveted spots on the "+ lineSelected +". What\'s yours?";
+                var twittercaption = "This is the most popular place to sit, stand and ride on the "+ lineSelected +" (according to you)";
                 var twitterUrl = 'https://twitter.com/intent/tweet?url=' + encodeURIComponent(twitterlink) + '&via='+ encodeURIComponent(via) + '&text=' + encodeURIComponent(twittercaption);
                 var twitterOnclick = 'window.open("' + twitterUrl + '","twitter-share-dialog","width=626,height=436");return false;';
                 //$('#showShareTwitter').attr("href", twitterUrl);
