@@ -501,7 +501,7 @@ $(document).ready(function () {
             // loop through each seat type and count the number that elected to stand in the doorway
             $.each(data.seat_types, function( i, d ) {
                 // add doorers
-                if (i == "edge-seat,door" || i == "3-side-standing" || i == "5-door-standing" || i == "7-door-standing" || i == "6-middle-door-standing") {
+                if (i == "edge-seat-door" || i == "3-side-standing" || i == "5-door-standing" || i == "7-door-standing" || i == "6-middle-door-standing") {
                     doorers = doorers + d;
                 }
                 // add standers
