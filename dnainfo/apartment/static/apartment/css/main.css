@@ -1,0 +1,479 @@
+/*!
+ * Main css for DNAinfo My First Apartment
+ */
+
+html, body {
+    height: 100%;
+    font-family:"Titillium Web", Helvetica, Sans-Serif;
+    color: #686868;
+}
+
+/* full screen background image */
+#background, #background li { 
+  position: absolute; 
+  top: 0; 
+  left: 0; 
+  right: 0; 
+  bottom: 0; 
+  background: url('images/Illustration_FULL.svg');
+  background-color: transparent; 
+  background-size: cover; 
+  background-position: center center; 
+  background-repeat: no-repeat; 
+}
+
+#background { 
+  z-index: -1;
+  margin: 0; 
+  padding: 0; 
+}
+
+
+/* Typography */
+.introHeading {
+	color: #686868;
+	font-size: 17px;
+	line-height: 1.529;
+	margin-top: 30px;
+	margin-bottom: 40px;
+}
+
+.questionHeading {
+	color: #686868;
+	font-size: 32px;
+	font-weight: 100;
+	line-height: 1.3125;
+	margin-top: 30px;
+	margin-bottom: 65px;
+}
+
+.pagesCompleted {
+	color: #686868;
+	font-size: 14px;
+	font-weight: 100;
+	margin-top: 30px;
+	margin-bottom: 65px;	
+}
+
+.formField {
+	margin-bottom: 0px;	
+}
+
+.formFieldYearMoved {
+  margin-bottom: 20px;
+}
+
+/* Buttons */
+
+.bottomButtonGroup {
+	position: absolute; 
+	bottom: 25px;
+}
+
+.bottomButtonGroupMap {
+  position: absolute; 
+  bottom: 25px;
+}
+
+.btn-dna-primary {
+  font-weight: bold;
+  color: #ffffff;
+  background-color: #4291c3;
+  border-color: #4291c3;
+  border-radius: 2px;
+  height: 50px;
+  width: 130px;
+  padding: 14px 14px;
+}
+.btn-dna-primary:hover,
+.btn-dna-primary:focus,
+.btn-dna-primary.focus,
+.btn-dna-primary:active,
+.btn-dna-primary.active,
+.open > .dropdown-toggle.btn-dna-primary {
+  color: #ffffff;
+  background-color: #286090;
+  border-color: #204d74;
+}
+.btn-dna-primary:active,
+.btn-dna-primary.active,
+.open > .dropdown-toggle.btn-dna-primary {
+  background-image: none;
+}
+.btn-dna-primary.disabled,
+.btn-dna-primary[disabled],
+fieldset[disabled] .btn-dna-primary,
+.btn-dna-primary.disabled:hover,
+.btn-dna-primary[disabled]:hover,
+fieldset[disabled] .btn-dna-primary:hover,
+.btn-dna-primary.disabled:focus,
+.btn-dna-primary[disabled]:focus,
+fieldset[disabled] .btn-dna-primary:focus,
+.btn-dna-primary.disabled.focus,
+.btn-dna-primary[disabled].focus,
+fieldset[disabled] .btn-dna-primary.focus,
+.btn-dna-primary.disabled:active,
+.btn-dna-primary[disabled]:active,
+fieldset[disabled] .btn-dna-primary:active,
+.btn-dna-primary.disabled.active,
+.btn-dna-primary[disabled].active,
+fieldset[disabled] .btn-dna-primary.active {
+  background-color: #adaeb0;
+  border-color: #adaeb0;
+}
+.btn-dna-primary .badge {
+  color: #337ab7;
+  background-color: #ffffff;
+}
+
+/* arrows in buttons */
+.backArrow {
+    position: absolute;
+	  top: 19px;
+    width: 15px;
+    height: 12px;
+    margin-left: -24px;
+    background: url('images/Arrow_ICON2.svg');
+    background-color: transparent;
+    background-position: left center;
+    background-repeat: no-repeat;
+
+}
+
+.forwardArrow {
+    position: absolute;
+    top: 19px;
+    width: 15px;
+    height: 12px;
+    margin-left: 10px;
+    background: url('images/Arrow_ICON_NEXT.svg');
+    background-color: transparent;
+    background-position: left center;
+    background-repeat: no-repeat;
+
+}
+
+
+
+
+
+/* input add on areas */
+.input-group-addon {
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1;
+    text-align: center;
+    background-color: #eeeeee;
+    border: 0px;
+    border-radius: 4px;
+}
+
+.input-group-addon.left {
+	padding-left: 20px;
+}
+
+.input-group-addon.leftBedroom {
+  padding-left: 20px;
+  width: 38px;
+}
+
+.input-group-addon.right {
+	padding: 0px 41px;
+}
+
+/* icons in rigth input areas */
+.minusStepper {
+	cursor: pointer;
+	position: absolute;
+	top: 0px;
+    width: 41px;
+    height: 45px;
+    margin-left: -31px;
+    background: url('images/Stepper_Minus_ICON2.svg');
+    background-color: transparent;
+    background-position: left center;
+    background-repeat: no-repeat;
+}
+
+.plusStepper {
+	cursor: pointer;
+	position: absolute;
+	top: 0px;
+    width: 41px;
+    height: 45px;
+    margin-left: 0px;
+    background: url('images/Stepper_Plus_ICON2.svg');
+    background-color: transparent;
+    background-position: left center;
+    background-repeat: no-repeat;
+}
+
+
+
+/* icons in left input areas */
+.calendarIcon {
+	position: absolute;
+	top: 0px;
+    width: 22px;
+    height: 45px;
+    margin-left: -10px;
+    background: url('images/Calendar_ICON2.svg');
+    background-color: transparent;
+    background-position: left center;
+    background-repeat: no-repeat;
+}
+
+.locationIcon {
+  position: absolute;
+  top: 0px;
+    width: 22px;
+    height: 45px;
+    margin-left: -10px;
+    background: url('images/Location_ICON2.svg');
+    background-color: transparent;
+    background-position: left center;
+    background-repeat: no-repeat;
+}
+
+.bedroomIcon {
+  position: absolute;
+  top: 0px;
+    width: 25px;
+    height: 45px;
+    margin-left: -10px;
+    background: url('images/Bedroom_ICON2.svg');
+    background-color: transparent;
+    background-position: left center;
+    background-repeat: no-repeat;
+}
+
+.peopleIcon {
+  position: absolute;
+  top: 0px;
+    width: 22px;
+    height: 45px;
+    margin-left: -10px;
+    background: url('images/People_ICON2.svg');
+    background-color: transparent;
+    background-position: left center;
+    background-repeat: no-repeat;
+}
+
+
+/* form controls */
+.form-control {
+	  height: 45px;
+    background-color: #eeeeee;
+    background-image: none;
+    border: 0px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    -webkit-transition: none;
+    -o-transition: none;
+    transition: none;
+}
+
+
+/* Select 2 control css */
+.form-control.select2-container {
+  height: 45px !important;
+}
+
+.select2-search {
+  padding: 0px;
+}
+
+.select2-search input {
+  height: 45px !important;
+  padding-left: 11px;
+  font-family: inherit;
+  font-size: inherit;
+  border: 0px;
+  background-color: #eeeeee;
+  background-image: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  -webkit-transition: none;
+  -o-transition: none;
+  transition: none;
+}
+
+.select2-drop {
+  margin-top: -45px;
+  -webkit-box-shadow: none; 
+  box-shadow: none;
+}
+
+.select2-drop-active {
+  border: 1px solid #eeeeee;
+  border-radius: 4px;
+}
+
+.select2-results {
+  padding: 0px;
+  margin: 0px;
+}
+
+.select2-results li {
+  height: 45px;
+  max-height: 45px;
+}
+
+.select2-results .select2-no-results, .select2-results .select2-searching, .select2-results .select2-ajax-error, .select2-results .select2-selection-limit {
+    background: #eeeeee;
+    padding: 13px 11px;
+}
+
+.select2-results .select2-result-label {
+    padding: 13px 11px 4px;
+}
+
+.select2-results .select2-highlighted {
+    background: #eeeeee;
+    color: #686868;
+}
+
+.select2-results li em {
+    background: inherit;
+    font-style: italic;
+}
+
+.select2-no-results {
+  cursor: pointer;
+}
+
+
+/* Fade effects */
+.fadein {
+	display: none;
+}
+
+/* Map CSS */
+#map {
+  height: 100vh;
+}
+
+.absolutePostionedDiv {
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0; 
+}
+
+/* radio button css */
+input[type="radio"] {
+    display:none;
+}
+input[type="radio"] + label {    
+    font-family:"Titillium Web", Helvetica, Sans-Serif;
+    color: #686868;
+    font-size: 18px;
+    font-weight: normal;
+}
+input[type="radio"] + label span {
+    display:inline-block;
+    width:14px;
+    height:14px;
+    margin:-1px 4px 0 0;
+    vertical-align:middle;
+    cursor:pointer;
+    -moz-border-radius:  50%;
+    border-radius:  50%;
+    border: 1px solid #4291c3;
+}
+
+input[type="radio"] + label span {
+     background-color: none;
+}
+
+input[type="radio"]:checked + label span{
+     background-color: #4291c3;
+}
+
+input[type="radio"] + label span,
+input[type="radio"]:checked + label span {
+  -webkit-transition:background-color 0.4s linear;
+  -o-transition:background-color 0.4s linear;
+  -moz-transition:background-color 0.4s linear;
+  transition:background-color 0.4s linear;
+}
+
+.marginBottom20 {
+  margin-bottom: 20px;
+}
+
+.marginBottom40 {
+  margin-bottom: 40px;
+}
+
+
+/* Media Queries */
+@media (min-width: 600px) {
+	.introHeading {
+		font-size: 30px;
+		line-height: 1.5;
+    	margin-top: 125px;
+    	margin-bottom: 100px;
+	}
+
+	.questionHeading {
+		font-size: 57px;
+		line-height: 1.228;
+		margin-top: 125px;
+		margin-bottom: 125px;
+	}
+
+	.pagesCompleted {
+		color: #686868;
+		font-size: 22px;
+		font-weight: 100;
+		margin-top: 125px;
+		margin-bottom: 125px;
+	}
+
+	.bottomButtonGroup {
+		bottom: 200px;
+	}
+
+}
+
+
+@media (min-width: 1200px) {
+	.introHeading {
+		font-size: 30px;
+		line-height: 1.5;
+    	margin-top: 120px;
+    	margin-bottom: 100px;
+	}
+
+	.questionHeading {
+		font-size: 57px;
+		line-height: 1.228;
+		margin-top: 125px;
+		margin-bottom: 90px;
+	}
+
+	.pagesCompleted {
+		color: #686868;
+		font-size: 22px;
+		font-weight: 100;
+		margin-top: 125px;
+		margin-bottom: 90px;
+	}
+
+	.formField {
+		margin-bottom: 90px;	
+	}
+
+	.bottomButtonGroup {
+		position: relative;
+		bottom: 0;
+	}
+
+
+}
+
+

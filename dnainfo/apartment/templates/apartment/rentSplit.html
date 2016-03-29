@@ -1,0 +1,38 @@
+<!-- Content -->
+<div class="container-fluid">
+    <form id="rentSplitForm" method="post" action=".">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-xs-10 col-sm-6 col-sm-offset-2">
+                <h2 class="questionHeading">
+                    How many ways was the rent split?
+                </h2>
+            </div>
+            <div class="col-xs-2 col-sm-3 col-sm-offset-1">
+                <p class="pagesCompleted">6/8</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-8 col-sm-offset-2">
+                <div class="form-group formField">
+                    <div class="input-group">
+                      <div class="input-group-addon left"><span class="peopleIcon"></span></div>
+                       {{ form }}
+                      <div class="input-group-addon right"><span id="peopleMinus" class="minusStepper"></span><span id="peoplePlus" class="plusStepper"></span></div>
+                    </div>
+                    <div class="alert alert-warning hidden" role="alert">Please enter a valid number of roommates (between 0 and 20) above to continue.</div>
+                    {{ form.errors }}
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-8 col-sm-offset-2 bottomButtonGroup">
+                <button id="backBedrooms" class="btn btn-dna-primary" type="submit"><span class="backArrow"></span>Back</button>
+                <button id="nextiPaid" class="btn btn-dna-primary" type="submit">Next<span class="forwardArrow"></span></button>
+            </div>
+        </div>
+    </form>
+</div>
+	
+
