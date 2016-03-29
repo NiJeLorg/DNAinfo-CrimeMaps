@@ -1,0 +1,40 @@
+{% extends 'apartment/baseNYC.html' %}
+{% load staticfiles %}
+{% load bootstrap_tags %}
+{% load django_select2_tags %}
+
+{% block title %}My First Apartment | DNAinfo{% endblock %}
+
+{% block css_block %}
+{% import_django_select2_css %}
+<link rel="stylesheet" type="text/css" href="{% static 'apartment/css/leaflet.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'apartment/css/leaflet.draw.css' %}">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+{% endblock %}
+
+{% block head_js_block %}
+{% endblock %}
+	
+{% block body_block %}
+<div id="content" class="fadein">
+    {% include 'apartment/introTemplate.html' %}
+</div>
+{% endblock %}
+
+{% block modal_block %}   
+{% endblock %}
+
+{% block js_block %}
+{% import_django_select2_js %}
+<script type="text/javascript" src="{% static 'apartment/js/jquery.cookie.js' %}"></script>
+<script type="text/javascript" src="{% static 'apartment/js/leaflet.js' %}"></script>
+<script type="text/javascript" src="{% static 'apartment/js/leaflet.draw.js' %}"></script>
+<script type="text/javascript" src="{% static 'apartment/js/controllers.js' %}"></script>
+<script type="text/javascript" src="{% static 'apartment/js/ajax.js' %}"></script>
+<script type="text/javascript" src="{% static 'apartment/js/map.js' %}"></script>
+{% endblock %}
+
+
+	
+	
+
