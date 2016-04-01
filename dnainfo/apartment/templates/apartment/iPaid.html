@@ -1,0 +1,38 @@
+<!-- Content -->
+<div class="container-fluid">
+    <form id="iPaidForm" method="post" action=".">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-xs-10 col-sm-6 col-sm-offset-2">
+                <h2 class="questionHeading">
+                    How much did you individually pay in rent per month?
+                </h2>
+            </div>
+            <div class="col-xs-2 col-sm-3 col-sm-offset-1">
+                <p class="pagesCompleted">7/8</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-8 col-sm-offset-2">
+                <div class="form-group formField">
+                    <div class="input-group">
+                      <div class="input-group-addon left"><span class="moneyIcon"></span></div>
+                       {{ form }}
+                      <div class="input-group-addon rightMoney"><span class="verifyIcon hidden"></span><span class="warningIcon hidden"></span></div>
+                    </div>
+                    <div class="alert alert-warning hidden" role="alert">Please enter a valid dollar amount between $0 and $50,000.</div>
+                    {{ form.errors }}
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-8 col-sm-offset-2 bottomButtonGroup">
+                <button id="backBedrooms" class="btn btn-dna-primary" type="submit"><span class="backArrow"></span>Back</button>
+                <button id="nextAllPaid" class="btn btn-dna-primary" type="submit" disabled="disabled">Next<span class="forwardArrow"></span></button>
+            </div>
+        </div>
+    </form>
+</div>
+	
+

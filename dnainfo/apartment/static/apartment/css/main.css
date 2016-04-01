@@ -47,12 +47,34 @@ html, body {
 	margin-bottom: 65px;
 }
 
+.questionHeadingExact {
+  display: none;
+}
+
+.questionHeadingExactSmall {
+  display: block;
+  color: #686868;
+  font-size: 32px;
+  font-weight: 100;
+  line-height: 1.3125;
+  margin-top: 30px;
+  margin-bottom: 65px;
+}
+
 .pagesCompleted {
 	color: #686868;
 	font-size: 14px;
 	font-weight: 100;
 	margin-top: 30px;
 	margin-bottom: 65px;	
+}
+
+.monthlyRentText {
+  color: #686868;
+  font-size: 17px;
+  line-height: 1.5294;
+  font-weight: 100;
+  margin-bottom: 20px;    
 }
 
 .formField {
@@ -182,6 +204,10 @@ fieldset[disabled] .btn-dna-primary.active {
 	padding: 0px 41px;
 }
 
+.input-group-addon.rightMoney {
+  padding: 0px 15px;
+}
+
 /* icons in rigth input areas */
 .minusStepper {
 	cursor: pointer;
@@ -259,6 +285,45 @@ fieldset[disabled] .btn-dna-primary.active {
     background-position: left center;
     background-repeat: no-repeat;
 }
+
+.moneyIcon {
+  position: absolute;
+  top: 0px;
+    width: 10px;
+    height: 45px;
+    margin-left: -10px;
+    background: url('images/Money_ICON2.svg');
+    background-color: transparent;
+    background-position: left center;
+    background-repeat: no-repeat;
+}
+
+.verifyIcon {
+  cursor: pointer;
+  position: absolute;
+  top: 0px;
+    width: 24px;
+    height: 45px;
+    margin-left: -15px;
+    background: url('images/Check_Circle_ICON-01_2.svg');
+    background-color: transparent;
+    background-position: left center;
+    background-repeat: no-repeat;
+}
+
+.warningIcon {
+  cursor: pointer;
+  position: absolute;
+  top: 0px;
+    width: 24px;
+    height: 45px;
+    margin-left: -15px;
+    background: url('images/X_Circle_ICON2.svg');
+    background-color: transparent;
+    background-position: left center;
+    background-repeat: no-repeat;
+}
+
 
 
 /* form controls */
@@ -367,7 +432,8 @@ fieldset[disabled] .btn-dna-primary.active {
 input[type="radio"] {
     display:none;
 }
-input[type="radio"] + label {    
+input[type="radio"] + label {   
+    cursor: pointer; 
     font-family:"Titillium Web", Helvetica, Sans-Serif;
     color: #686868;
     font-size: 18px;
@@ -438,6 +504,14 @@ input[type="radio"]:checked + label span {
 		bottom: 200px;
 	}
 
+  .questionHeadingExactSmall {
+    display: block;
+    font-size: 57px;
+    line-height: 1.228;
+    margin-top: 125px;
+    margin-bottom: 125px;
+  }
+
 }
 
 
@@ -472,6 +546,18 @@ input[type="radio"]:checked + label span {
 		position: relative;
 		bottom: 0;
 	}
+
+  .questionHeadingExact {
+    display: block;
+    font-size: 57px;
+    line-height: 1.228;
+    margin-top: 125px;
+    margin-bottom: 90px;
+  }
+
+  .questionHeadingExactSmall {
+    display: none;
+  }
 
 
 }

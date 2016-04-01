@@ -1,0 +1,38 @@
+<!-- Content -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-8 col-sm-offset-2">
+            <h2 class="questionHeading">
+                Here's how your apartment's value compares to today:
+            </h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-8 col-sm-offset-2">
+            <div id="visContainer"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-8 col-sm-offset-2 bottomButtonGroup">
+            <button id="backiPaid" class="btn btn-dna-primary" type="submit"><span class="backArrow"></span>Back</button>
+            <button id="nextCalc" class="btn btn-dna-primary" type="submit" disabled="disabled">Next<span class="forwardArrow"></span></button>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+var allPaidOrigNum = parseFloat("{{ allPaid }}").toFixed(2);
+var allPaid = numberWithCommas(allPaidOrigNum);
+
+$( document ).ready(function() {
+    $("#allPaidHeading").text(allPaid);
+    $('#id_allPaid').val(allPaidOrigNum);
+});
+
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+
+</script>	
+

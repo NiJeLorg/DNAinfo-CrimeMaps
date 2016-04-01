@@ -20,3 +20,7 @@ class NYCmyFirstApartment(models.Model):
 	rentSplit = models.IntegerField(default=0, blank=False, null=False)
 	iPaid = models.FloatField(default=0, blank=False, null=False)
 	allPaid = models.FloatField(default=0, blank=False, null=False)
+
+class cpi(models.Model):
+	year = models.IntegerField(default=0, blank=False, null=False)
+	cpi = models.FloatField(max_length=255, default='', blank=False, null=False)

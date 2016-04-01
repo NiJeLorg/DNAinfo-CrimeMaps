@@ -40,3 +40,14 @@ class NYCrentSplitForm(forms.ModelForm):
     class Meta:
         model = NYCmyFirstApartment
         fields = ('rentSplit',)
+
+class NYCiPaidForm(forms.ModelForm):
+    class Meta:
+        model = NYCmyFirstApartment
+        fields = ('iPaid',)
+
+class NYCallPaidForm(forms.ModelForm):
+    class Meta:
+        model = NYCmyFirstApartment
+        fields = ('allPaid',)
+

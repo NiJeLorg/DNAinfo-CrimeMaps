@@ -11,6 +11,9 @@ urlpatterns = [
     url(r'^yearMoved/(?P<id>\d+)/$', views.yearMoved, name='yearMoved'),
     url(r'^bedrooms/(?P<id>\d+)/$', views.bedrooms, name='bedrooms'),
     url(r'^rentSplit/(?P<id>\d+)/$', views.rentSplit, name='rentSplit'),
+    url(r'^iPaid/(?P<id>\d+)/$', views.iPaid, name='iPaid'),
+    url(r'^allPaid/(?P<id>\d+)/$', views.allPaid, name='allPaid'),
+    url(r'^results/(?P<id>\d+)/$', views.results, name='results'),
 
 ]
 
