@@ -16,14 +16,16 @@ mapApplication.initialize = function () {
     
     this.map = new L.Map('map', {
 		minZoom:11,
-		maxZoom:20,
+		maxZoom:18,
     	center: this.center,
    	 	zoom: this.zoom
 	});
 
 	// set a tile layer to be CartoDB tiles 
-	var CartoDBTiles = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png',{attribution: 'Map Data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> Contributors, Map Tiles &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
+	var CartoDBTiles = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png',{attribution: 'Map tiles by <a href="http://cartodb.com/attributions#basemaps">CartoDB</a>, under <a href="https://creativecommons.org/licenses/by/3.0/" target="_blank">CC BY 3.0</a>. Data by <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap</a>, under ODbL.'
 	});
+
+
 
 	// add these tiles to our map
 	this.map.addLayer(CartoDBTiles);
