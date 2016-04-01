@@ -176,8 +176,8 @@ ajaxApplication.nextRentSplit = function () {
 					// add a form-control class to the input, disabled attribute and placeholder text
 					$('#id_rentSplit').addClass("form-control");
 					$('#id_rentSplit').prop("disabled", true);
-					$('#id_rentSplit').val(0);
-					$('#id_rentSplit').prop("min", 0);
+					$('#id_rentSplit').val(1);
+					$('#id_rentSplit').prop("min", 1);
 					$('#id_rentSplit').prop("max", 20);
 					$(".fadein").fadeIn("slow");
 		        }
@@ -204,15 +204,69 @@ ajaxApplication.nextiPaid = function () {
 				url: "/rentSplit/"+ objectID +"/",
 				data: f.serialize(),
 				success: function(data){
+					$('#content').html(data);
+					//remove labels
+					$('label').remove();
+					// add a form-control class to the input, disabled attribute and placeholder text
+					$('#id_iPaid').addClass("form-control");
+					$('#id_iPaid').val('');
+					$('#id_iPaid').prop("min", 0);
+					$('#id_iPaid').prop("max", 50000);
+					$(".fadein").fadeIn("slow");
+		        }
+			});
+		});
+
+		//trigger form submit
+		f.submit();
+
+	}
+}
+
+ajaxApplication.nextAllPaid = function () {
+	var timeout = window.setTimeout(slow, 200);
+	function slow() {
+		var f = $("#iPaidForm");
+		//create on submit listener
+		f.on('submit', function(e) {
+			e.preventDefault();
+			$.ajax({
+				type: "POST",
+				url: "/iPaid/"+ objectID +"/",
+				data: f.serialize(),
+				success: function(data){
+					$('#content').html(data);
+					//remove labels
+					$("label[for='id_allPaid']").remove();
+					// add a form-control class to the input, disabled attribute and placeholder text
+					$('#id_allPaid').addClass("form-control");
+					$('#id_allPaid').prop("min", 0);
+					$('#id_allPaid').prop("max", 50000);
+					$(".fadein").fadeIn("slow");
+		        }
+			});
+		});
+
+		//trigger form submit
+		f.submit();
+
+	}
+}
+
+
+ajaxApplication.nextCalc = function () {
+	var timeout = window.setTimeout(slow, 200);
+	function slow() {
+		var f = $("#allPaidForm");
+		//create on submit listener
+		f.on('submit', function(e) {
+			e.preventDefault();
+			$.ajax({
+				type: "POST",
+				url: "/allPaid/"+ objectID +"/",
+				data: f.serialize(),
+				success: function(data){
 					$('#content').html("<h1>Stopping Here</h1>");
-					// remove labels
-					// $('label').remove();
-					// // add a form-control class to the input, disabled attribute and placeholder text
-					// $('#id_rentSplit').addClass("form-control");
-					// $('#id_rentSplit').prop("disabled", true);
-					// $('#id_rentSplit').val(0);
-					// $('#id_rentSplit').prop("min", 0);
-					// $('#id_rentSplit').prop("max", 20);
 					$(".fadein").fadeIn("slow");
 		        }
 			});

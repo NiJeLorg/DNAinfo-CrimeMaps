@@ -18,8 +18,7 @@ mapApplication.initialize = function () {
 		minZoom:11,
 		maxZoom:17,
     	center: this.center,
-   	 	zoom: this.zoom,
-   	 	zoomControl: false,
+   	 	zoom: this.zoom
 	});
 
 	// set a tile layer to be CartoDB tiles 

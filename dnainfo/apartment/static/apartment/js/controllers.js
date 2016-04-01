@@ -119,7 +119,7 @@ $( document ).ready(function() {
 		}
 
 		// check is value is between 1900 and 2016
-		if (rentSplit < 0 || rentSplit > 20) {
+		if (rentSplit < 1 || rentSplit > 20) {
 			$(".alert").removeClass("hidden");
 			return;
 		}
@@ -127,7 +127,48 @@ $( document ).ready(function() {
 		//fade out, submit form, then fade back in
 		$(".fadein").fadeOut("fast");
 		ajaxApplication.nextiPaid();
-	});			
+	});	
+
+
+	$(document).on('click', '#nextAllPaid', function(e) {
+		e.preventDefault();
+		// check if field is empty
+		var iPaid = $('#id_iPaid').val();
+		var checkNull = isNull(iPaid);
+		if (checkNull) {
+			return;
+		}
+
+		// check is value is between 0 and 50000
+		if (iPaid < 0 || iPaid > 50000) {
+			$(".alert").removeClass("hidden");
+			return;
+		}
+
+		//fade out, submit form, then fade back in
+		$(".fadein").fadeOut("fast");
+		ajaxApplication.nextAllPaid();
+	});
+
+	$(document).on('click', '#nextCalc', function(e) {
+		e.preventDefault();
+		// check if field is empty
+		var allPaidOut = $('#id_allPaid').val();
+		var checkNull = isNull(allPaidOut);
+		if (checkNull) {
+			return;
+		}
+
+		// check is value is between 0 and 50000
+		if (allPaidOut < 0 || allPaidOut > 50000) {
+			$(".alert").removeClass("hidden");
+			return;
+		}
+
+		//fade out, submit form, then fade back in
+		$(".fadein").fadeOut("fast");
+		ajaxApplication.nextCalc();
+	});					
 
 	// listen for whereMoved changes and update placeholder text
 	$(document).on('change', '#id_whereMoved', function(e) {
@@ -168,6 +209,63 @@ $( document ).ready(function() {
 	$(document).on('click', '#radio02', function(e) {
 		$('#id_exactYearMoved').val('');
 		$('#nextBedrooms').prop("disabled", false);
+	});
+
+
+	// enable next and check yes if change in input field
+	$(document).on('keyup', '#id_iPaid', function(e) {
+		// check is value is between 0 and 50000
+		var iPaid = $('#id_iPaid').val();
+		if (iPaid < 0 || iPaid > 50000 || iPaid == '') {
+			$(".alert").removeClass("hidden");
+			$(".warningIcon").removeClass("hidden");
+			$(".verifyIcon").addClass("hidden");
+			$('#nextAllPaid').prop("disabled", true);
+
+		} else {
+			$(".alert").addClass("hidden");
+			$(".warningIcon").addClass("hidden");			
+			$(".verifyIcon").removeClass("hidden");
+			$('#nextAllPaid').prop("disabled", false);
+		}
+	});
+
+	// if NO radio button is clicked, set val to nothing and show the form field
+	$(document).on('click', '#radio02allPaid', function(e) {
+		$('#id_allPaid').val('');
+		$(".formField").removeClass("hidden");
+		$(".alert").addClass("hidden");
+		$(".warningIcon").addClass("hidden");			
+		$(".verifyIcon").removeClass("hidden");
+
+	});
+
+	// if Yes radio button is clicked, enable next button
+	$(document).on('click', '#radio01allPaid', function(e) {
+		$('#nextCalc').prop("disabled", false);
+		// set orginal value into field
+    	$('#id_allPaid').val(allPaidOrigNum);
+    	// hide form field
+    	$(".formField").addClass("hidden");
+
+	});
+
+	// enable next and check no if change in input field
+	$(document).on('keyup', '#id_allPaid', function(e) {
+		// check is value is between 0 and 50000
+		var allPaidUpdate = $('#id_allPaid').val();
+		if (allPaidUpdate < 0 || allPaidUpdate > 50000 || allPaidUpdate == '') {
+			$(".alert").removeClass("hidden");
+			$(".warningIcon").removeClass("hidden");
+			$(".verifyIcon").addClass("hidden");
+			$('#nextCalc').prop("disabled", true);
+
+		} else {
+			$(".alert").addClass("hidden");
+			$(".warningIcon").addClass("hidden");			
+			$(".verifyIcon").removeClass("hidden");
+			$('#nextCalc').prop("disabled", false);
+		}
 	});
 	
 
@@ -238,7 +336,6 @@ $( document ).ready(function() {
 		}
 
 	});	
-
 
 	$(document).on('click', '#yearMovedMinus', function(e) {
 		// remove disabled next button attribute if there
