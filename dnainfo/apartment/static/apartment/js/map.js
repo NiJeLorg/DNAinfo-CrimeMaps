@@ -11,12 +11,12 @@ mapApplication.initialize = function () {
 	if (iDontSeeMyNeighborhood == "True"){
 		this.zoom = 11;
 	} else {
-		this.zoom = 14;
+		this.zoom = 15;
 	}
     
     this.map = new L.Map('map', {
 		minZoom:11,
-		maxZoom:17,
+		maxZoom:20,
     	center: this.center,
    	 	zoom: this.zoom
 	});
