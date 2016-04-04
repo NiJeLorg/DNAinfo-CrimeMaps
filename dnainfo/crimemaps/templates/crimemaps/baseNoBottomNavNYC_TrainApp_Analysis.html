@@ -12,7 +12,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'crimemaps/css/bootstrap.css' %}">
 	{% block css_block %}
 	{% endblock %}
-  <link rel="stylesheet" type="text/css" href="{% static 'crimemaps/css/train.css' %}">    
+  <link rel="stylesheet" type="text/css" href="{% static 'crimemaps/css/train-nyc.css' %}">    
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -47,7 +47,7 @@
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           <h3 class="text-center text-uppercase">NOTE:</h3>
           <p>
-            This interactive is not compatible with iOS versions 8 and earlier. If you are unable to scroll this train, we recommend trying it on desktop. The results at the end of this interactive are preliminary riding preferences. We will collect preferences on riding the "L" from you and your fellow Chicago commuters and release results when there's a critical mass of responses. Some CTA lines have multiple types of trains running on them. In those cases, we chose the train type that most often runs on a given line.
+            This interactive is not compatible with iOS versions 8 and earlier. If you are unable to scroll this train, we recommend trying it on desktop. The results at the end of this interactive are preliminary riding preferences. We will collect preferences on riding the subway from you and your fellow NYC commuters and release results when there's a critical mass of responses. Some subway lines have multiple types of trains running on them. In those cases, we chose the train type that most often runs on a given line.
           </p>
           <div class="clearfix"></div>
           <button class="btn btn-danger center-block" type="submit" data-dismiss="modal" aria-label="Close">Close</button>
@@ -64,13 +64,13 @@
 	{% endblock %}
   <script>
 
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-    ga('create', 'UA-11547945-5', 'auto');
-    ga('send', 'pageview');
+   ga('create', 'UA-11547945-4', 'auto');
+   ga('send', 'pageview');
 
   </script>
 		
