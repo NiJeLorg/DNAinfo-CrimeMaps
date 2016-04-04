@@ -708,9 +708,6 @@ $(document).ready(function () {
                 }
             });
 
-            // set FB and twitter urls
-            createFBandTwitterURLs();
-
         } else {
             // line has change, so refresh page with new train line
             var url = "/nyc-subway/analysis/" + encodeURIComponent(newLineSelected) + "/?rideTime=" + encodeURIComponent(rideTime) + "&rideLength=" + encodeURIComponent(rideLength) + "&capacity=" + encodeURIComponent(capacity);
@@ -735,19 +732,29 @@ $(document).ready(function () {
 
         // get full url based on what's selected and bind that to the twitter and facebook click
         // get variables
-        rideTime = $( "#rideTime option:selected" ).val();
-        rideLength = $( "#rideLength option:selected" ).val();
-        capacity = $( "#capacity option:selected" ).val();
+        // rideTime = $( "#rideTime option:selected" ).val();
+        // rideLength = $( "#rideLength option:selected" ).val();
+        // capacity = $( "#capacity option:selected" ).val();
+
+        if (lineSelected == "S - Rockaway Shuttle") {
+            var lineSelectedShareURL = "s-rockaway";
+        } else if (lineSelected == "S - Franklin Ave. Shuttle") {
+            var lineSelectedShareURL = "s-franklin-avenue";
+        } else if (lineSelected == "S - 42nd St. Shuttle") {
+            var lineSelectedShareURL = "s-42nd-street";
+        } else {
+            var lineSelectedShareURL = lineSelected;
+        }
 
         $.ajax({
             type: "GET",
-            url: "/nyc-subway/createNYCTrainBitlyLink/?train=" + encodeURIComponent(lineSelected) + "&rideTime=" + encodeURIComponent(rideTime) + "&rideLength=" + encodeURIComponent(rideLength) + "&capacity=" + encodeURIComponent(capacity),
+            url: "/nyc-subway/createNYCTrainBitlyLink/?train=" + encodeURIComponent(lineSelectedShareURL),
             success: function(bitlyURL){
 
                 // facebook and twitter link creation and appending
                 var app_id = '406014149589534';
                 var fbcaption = "Survey Results: This is the most popular spot on the "+ lineSelected +" train. "+ bitlyURL +" via https://www.facebook.com/DNAinfo/";
-                var fblink = "https://www.dnainfo.com/new-york/visualizations/";
+                var fblink = "https://sprnt-2180-chrome-new-visualizations.build.qa.dnainfo.com/new-york/visualizations/where-i-sit-stand-train/analysis";
                 var fbUrl = 'https://www.facebook.com/dialog/feed?app_id=' + app_id + '&display=popup&caption='+ encodeURIComponent(fbcaption) + '&link=' + encodeURIComponent(bitlyURL) + '&redirect_uri=' + encodeURIComponent(fblink);
                 var fbOnclick = 'window.open("' + fbUrl + '","facebook-share-dialog","width=626,height=436");return false;';
                 //$('#showShareFB').attr("href", fbUrl);
