@@ -724,19 +724,19 @@ $(document).ready(function () {
 
         // get full url based on what's selected and bind that to the twitter and facebook click
         // get variables
-        rideTime = $( "#rideTime option:selected" ).val();
-        rideLength = $( "#rideLength option:selected" ).val();
-        capacity = $( "#capacity option:selected" ).val();
+        // rideTime = $( "#rideTime option:selected" ).val();
+        // rideLength = $( "#rideLength option:selected" ).val();
+        // capacity = $( "#capacity option:selected" ).val();
 
         $.ajax({
             type: "GET",
-            url: "/chi-l/createCHITrainBitlyLink/?train=" + encodeURIComponent(lineSelected) + "&rideTime=" + encodeURIComponent(rideTime) + "&rideLength=" + encodeURIComponent(rideLength) + "&capacity=" + encodeURIComponent(capacity),
+            url: "/chi-l/createCHITrainBitlyLink/?train=" + encodeURIComponent(color + "-line"),
             success: function(bitlyURL){
 
                 // facebook and twitter link creation and appending
                 var app_id = '406014149589534';
                 var fbcaption = "The most popular places to sit, stand and ride on the "+ lineSelected +" (according to you) "+ bitlyURL +" via https://www.facebook.com/DNAinfoChicago/";
-                var fblink = "https://www.dnainfo.com/chicago/visualizations/";
+                var fblink = "https://sprnt-2180-chrome-new-visualizations.build.qa.dnainfo.com/chicago/visualizations/where-i-sit-stand-train/analysis";
                 var fbUrl = 'https://www.facebook.com/dialog/feed?app_id=' + app_id + '&display=popup&caption='+ encodeURIComponent(fbcaption) + '&link=' + encodeURIComponent(bitlyURL) + '&redirect_uri=' + encodeURIComponent(fblink);
                 var fbOnclick = 'window.open("' + fbUrl + '","facebook-share-dialog","width=626,height=436");return false;';
                 //$('#showShareFB').attr("href", fbUrl);
