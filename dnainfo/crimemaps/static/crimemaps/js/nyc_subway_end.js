@@ -13,7 +13,7 @@ $(document).ready(function () {
     $(".trainLineImage").addClass("slide-in");
 
     // get width 
-    var w = $('.col-sm-12').width();
+    var w = $('#mainContent').width();
 
     // add scrolling after train pulls in
     if (w <= 1200) {
@@ -48,7 +48,9 @@ $(document).ready(function () {
             type: "GET",
             url: "/nyc-subway/resultsapi/?train=" + lineSelected ,
             success: function(data){
-                update(data);
+                setTimeout(function(){
+                    update(data);
+                },1700);                
             }
         });
 
@@ -181,7 +183,7 @@ $(document).ready(function () {
         // if you have a set of datapoints always use setData instead of addData
         // for data initialization
         heatmapInstance.setData(data1); 
-         console.log(data1);        
+        $(".heatmap-canvas").fadeIn("slow");        
 
     }
 
