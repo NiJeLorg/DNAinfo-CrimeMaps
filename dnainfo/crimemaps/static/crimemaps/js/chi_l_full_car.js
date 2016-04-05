@@ -45,6 +45,7 @@ $(document).ready(function () {
     if (carType == "GPRYP") {
         maskAreas.push("asile-seat");
         maskAreas.push("edge-seat");
+        maskAreas.push("edge-seat-door");
         maskAreas.push("window-seat");
         maskAreas.push("middle-seat");
     } else if (carType == "BO") {
@@ -89,6 +90,7 @@ $(document).ready(function () {
     if (carType == "GPRYP") {
         image.mapster('set',true,"asile-seat");
         image.mapster('set',true,"edge-seat");
+        image.mapster('set',true,"edge-seat-door");
         image.mapster('set',true,"window-seat");
         image.mapster('set',true,"middle-seat");
     } else if (carType == "BO") {

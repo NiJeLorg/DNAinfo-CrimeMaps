@@ -49,7 +49,9 @@ $(document).ready(function () {
             type: "GET",
             url: "/nyc-subway/resultsapi/?train=" + lineSelected ,
             success: function(data){
-                update(data);
+                setTimeout(function(){
+                    update(data);
+                },1700);                
             }
         });
 
@@ -183,7 +185,7 @@ $(document).ready(function () {
         // if you have a set of datapoints always use setData instead of addData
         // for data initialization
         heatmapInstance.setData(data1);         
-
+        $(".heatmap-canvas").fadeIn("slow");
     }
 
     function getAreaCenter(shape, coords) {

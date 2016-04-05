@@ -41,6 +41,7 @@ $(document).ready(function () {
         if (positionOneType == "3-side-standing" || positionOneType == "5-door-standing" || positionOneType == "7-door-standing" || positionOneType == "6-middle-door-standing" || positionOneType == "1-end-standing" || positionOneType == "2-middle-standing" || positionOneType == "4-middle-standing") {
             maskAreas.push("asile-seat");
             maskAreas.push("edge-seat");
+            maskAreas.push("edge-seat-door");
             maskAreas.push(positionOneType);
         } else {
             maskAreas.push(positionOneType);
@@ -49,16 +50,24 @@ $(document).ready(function () {
         if (positionOneType == "asile-seat") {
             maskAreas.push("window-seat");
             maskAreas.push("edge-seat");
+            maskAreas.push("edge-seat-door");
         }
 
         if (positionOneType == "window-seat") {
             maskAreas.push("asile-seat");
             maskAreas.push("edge-seat");
+            maskAreas.push("edge-seat-door");
         }
 
         if (positionOneType == "edge-seat") {
+            maskAreas.push("edge-seat-door");
             maskAreas.push("window-seat");
         }
+
+        if (positionOneType == "edge-seat-door") {
+            maskAreas.push("edge-seat");
+            maskAreas.push("window-seat");
+        }        
 
         if (positionOneType == "middle-seat") {
             maskAreas.push("asile-seat");
@@ -259,14 +268,22 @@ $(document).ready(function () {
         if (positionOneType == "asile-seat") {
             image.mapster('set',true,"window-seat");
             image.mapster('set',true,"edge-seat");
+            image.mapster('set',true,"edge-seat-door");
         }
 
         if (positionOneType == "window-seat") {
             image.mapster('set',true,"asile-seat");
             image.mapster('set',true,"edge-seat");
+            image.mapster('set',true,"edge-seat-door");
         }
 
         if (positionOneType == "edge-seat") {
+            image.mapster('set',true,"edge-seat-door");
+            image.mapster('set',true,"window-seat");
+        }
+
+        if (positionOneType == "edge-seat-door") {
+            image.mapster('set',true,"edge-seat");
             image.mapster('set',true,"window-seat");
         }
 
