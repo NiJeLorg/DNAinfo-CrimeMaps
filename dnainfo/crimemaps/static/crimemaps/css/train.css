@@ -437,8 +437,7 @@ html, body {
 .trainLineWrap {
 	overflow: auto;
 	-webkit-overflow-scrolling: touch;
-	width: 1px;
-	min-width: 100vw;
+	width: auto;
 }
 
 .div20pxtall {
@@ -462,6 +461,7 @@ html, body {
 .heatmap-canvas {
 	pointer-events: none;
 	z-index: -1;
+	display: none;
 }
 
 .raiseImage {
@@ -495,7 +495,7 @@ html, body {
 
 .inline-field {
 	display: inline-block;
-	margin-bottom: 0px;
+	margin-bottom: -2px;
 }
 
 .formGroupBottomMargin {
@@ -520,7 +520,7 @@ html, body {
 	}
 
 	.inline-field {
-		vertical-align: top;
+		vertical-align: text-bottom;
 	}
 
 	.analysisHeading {

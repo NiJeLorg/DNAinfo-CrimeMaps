@@ -13,7 +13,7 @@ $(document).ready(function () {
     $(".trainLineImage").addClass("slide-in");
 
     // get width 
-    var w = $('.col-sm-12').width();
+    var w = $('#mainContent').width();
 
     // add scrolling after train pulls in
     if (w <= 1200) {
@@ -46,8 +46,13 @@ $(document).ready(function () {
             type: "GET",
             url: "/nyc-subway/resultsapi/?train=" + encodeURIComponent(lineSelected) + "&rideTime=" + encodeURIComponent(rideTime) + "&rideLength=" + encodeURIComponent(rideLength) + "&capacity=" + encodeURIComponent(capacity),
             success: function(data){
-                update(data);
-                setText(data);
+                var check = checkRespondents(data);
+                if (check) {
+                    setText(data);
+                    setTimeout(function(){
+                        tenOrMore(data);
+                    },1700);                    
+                }
             }
         });
 
@@ -532,9 +537,7 @@ $(document).ready(function () {
 
         }
 
-
         // set text
-        console.log(capacity);
         if (capacity == "empty" || capacity == "half-full") {
             $('.subheadingSmall').html("<em>The most popular spot is "+ location +", with "+ locationPct +" percent of commuters preferring to ride here. "+ doorPct +" percent of riders choose to stand or sit right by the doors. "+ standPct +" percent of riders would stand anywhere on this train.</em>");
         } else {
@@ -543,7 +546,34 @@ $(document).ready(function () {
 
     }
 
-    function update(data) {
+    function checkRespondents(data) {
+
+        // pick denominator
+        if (capacity == 'empty') {
+            var respondents = data.respondentsPositionOne;
+        } else if (capacity == 'half-full') {
+            var respondents = data.respondentsPositionTwo;
+        } else {
+            var respondents = data.respondentsPositionThree;            
+        }
+
+        // if respondents are less than 10, hide train line image and show text asking for participation
+        if (respondents < 10) {
+            $(".trainLineImage").addClass("hidden");
+            $(".subheadingSmall").addClass("hidden");
+            $(".lessThanTen").removeClass("hidden");
+            return false;
+        } else {
+            $(".trainLineImage").removeClass("hidden");
+            $(".subheadingSmall").removeClass("hidden");
+            $(".lessThanTen").addClass("hidden");            
+            return true;
+        }
+        return false;
+    }
+    
+    function tenOrMore(data) {
+
         var seatKeys = [];
         var findMax = [];
 
@@ -556,51 +586,35 @@ $(document).ready(function () {
             var respondents = data.respondentsPositionThree;            
         }
 
-        // if respondents are less than 10, hide train line image and show text asking for participation
 
-        if (respondents < 10) {
-            $(".trainLineImage").addClass("hidden");
-            $(".subheadingSmall").addClass("hidden");
-            $(".lessThanTen").removeClass("hidden");
-        } else {
-            $(".trainLineImage").removeClass("hidden");
-            $(".subheadingSmall").removeClass("hidden");
-            $(".lessThanTen").addClass("hidden");            
-            tenOrMore();
-        }
-        
-        function tenOrMore() {
+        // create array for area tooltips
+        $.each(data.seats, function( i, d ) {
+            var pct = ((d/respondents)*100).toFixed(1);
+            var tooltip = pct + "% ("+ numberWithCommas(d) +") of respondents picked this spot.";
+            seatKeys.push({key: i, toolTip: tooltip});                
+            
+            // piggyback on this loop to create max array
+            findMax.push(d);
+        }); 
 
-            // create array for area tooltips
-            $.each(data.seats, function( i, d ) {
-                var pct = ((d/respondents)*100).toFixed(1);
-                var tooltip = pct + "% ("+ numberWithCommas(d) +") of respondents picked this spot.";
-                seatKeys.push({key: i, toolTip: tooltip});                
-                
-                // piggyback on this loop to create max array
-                findMax.push(d);
-            }); 
+        // calc max value for heatmap
+        max = d3.max(findMax, function(d) { return d; });
 
-            // calc max value for heatmap
-            max = d3.max(findMax, function(d) { return d; });
+        // rebind with the tooltips
+        image.mapster('rebind', {
+            mapKey: 'data-key',
+            fill: false,
+            stroke: true,
+            strokeColor: '545454',
+            strokeOpacity: 1,
+            strokeWidth: 2,
+            isSelectable: false,
+            showToolTip: true,
+            toolTipContainer: '<div style="max-width: 200px; padding: 3px 8px; margin: 4px; border-radius: 4px; opacity: 1; display: block; position: absolute; left: 31px; top: 328px; z-index: 9999; color: #fff; background-color: #252525; text-align: center;"></div>',
+            areas: seatKeys,
+            onConfigured: createHeatmap(data),
+        });
 
-            // rebind with the tooltips
-            image.mapster('rebind', {
-                mapKey: 'data-key',
-                fill: false,
-                stroke: true,
-                strokeColor: '545454',
-                strokeOpacity: 1,
-                strokeWidth: 2,
-                isSelectable: false,
-                showToolTip: true,
-                toolTipContainer: '<div style="max-width: 200px; padding: 3px 8px; margin: 4px; border-radius: 4px; opacity: 1; display: block; position: absolute; left: 31px; top: 328px; z-index: 9999; color: #fff; background-color: #252525; text-align: center;"></div>',
-                areas: seatKeys,
-                onConfigured: createHeatmap(data),
-            });
-
-        }
-        
     }
 
     function createHeatmap(data) {
@@ -644,6 +658,7 @@ $(document).ready(function () {
         // if you have a set of datapoints always use setData instead of addData
         // for data initialization
         heatmapInstance.setData(data1);         
+        $(".heatmap-canvas").fadeIn("slow");        
 
     }
 
@@ -701,10 +716,11 @@ $(document).ready(function () {
                 type: "GET",
                 url: "/nyc-subway/resultsapi/?train=" + encodeURIComponent(lineSelected) + "&rideTime=" + encodeURIComponent(rideTime) + "&rideLength=" + encodeURIComponent(rideLength) + "&capacity=" + encodeURIComponent(capacity),
                 success: function(data){
-                    // clear the previous image and update
-                    //image.mapster('unbind');
-                    update(data);
-                    setText(data);
+                    var check = checkRespondents(data);
+                    if (check) {
+                        tenOrMore(data);
+                        setText(data);
+                    }
                 }
             });
 
