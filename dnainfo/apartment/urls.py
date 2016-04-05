@@ -14,6 +14,7 @@ urlpatterns = [
     url(r'^iPaid/(?P<id>\d+)/$', views.iPaid, name='iPaid'),
     url(r'^allPaid/(?P<id>\d+)/$', views.allPaid, name='allPaid'),
     url(r'^calc/(?P<id>\d+)/$', views.calc, name='calc'),
+    url(r'^my-first-apartment/end/(?P<id>\d+)/$', views.end, name='end'),
     url(r'^my-first-apartment/results/(?P<id>\d+)/$', views.results, name='results'),
 
 ]

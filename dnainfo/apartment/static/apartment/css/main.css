@@ -41,7 +41,7 @@ html, body {
 .questionHeading {
 	color: #686868;
 	font-size: 32px;
-	font-weight: 100;
+	font-weight: 200;
 	line-height: 1.3125;
 	margin-top: 30px;
 	margin-bottom: 65px;
@@ -55,7 +55,7 @@ html, body {
   display: block;
   color: #686868;
   font-size: 32px;
-  font-weight: 100;
+  font-weight: 200;
   line-height: 1.3125;
   margin-top: 30px;
   margin-left: 35px;
@@ -65,7 +65,7 @@ html, body {
 .resultsHeading {
   color: #686868;
   font-size: 32px;
-  font-weight: 100;
+  font-weight: 200;
   line-height: 1.3125;
   margin-top: 30px;
   margin-bottom: 30px;  
@@ -74,7 +74,7 @@ html, body {
 .pagesCompleted {
 	color: #686868;
 	font-size: 14px;
-	font-weight: 100;
+	font-weight: 200;
 	margin-top: 30px;
 	margin-bottom: 65px;	
 }
@@ -83,7 +83,7 @@ html, body {
   color: #686868;
   font-size: 17px;
   line-height: 1.5294;
-  font-weight: 100;
+  font-weight: 200;
   margin-bottom: 20px;    
 }
 
@@ -464,7 +464,7 @@ fieldset[disabled] .btn-dna-twitter.active {
   cursor: pointer;
   position: absolute;
   top: 0px;
-    width: 24px;
+    width: 25px;
     height: 45px;
     margin-left: -20px;
     background: url('images/X_Circle_ICON2_BLACK.svg');
@@ -644,7 +644,7 @@ input[type="radio"]:checked + label span {
 	.pagesCompleted {
 		color: #686868;
 		font-size: 22px;
-		font-weight: 100;
+		font-weight: 200;
 		margin-top: 125px;
 		margin-bottom: 125px;
 	}
@@ -690,7 +690,7 @@ input[type="radio"]:checked + label span {
 	.pagesCompleted {
 		color: #686868;
 		font-size: 22px;
-		font-weight: 100;
+		font-weight: 200;
 		margin-top: 125px;
 		margin-bottom: 90px;
 	}

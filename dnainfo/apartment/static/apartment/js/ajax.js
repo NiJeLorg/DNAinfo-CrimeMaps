@@ -286,7 +286,7 @@ ajaxApplication.nextResults = function (id) {
 	function slow() {
 		$.ajax({
 			type: "GET",
-			url: "/my-first-apartment/results/"+id+"/",
+			url: "/my-first-apartment/end/"+id+"/",
 			success: function(data){
 				$('#content').html(data);
 				$(".fadein").fadeIn("slow");
