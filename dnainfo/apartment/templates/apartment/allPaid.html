@@ -29,7 +29,7 @@
                        {{ form }}
                       <div class="input-group-addon rightMoney"><span class="verifyIcon hidden"></span><span class="warningIcon hidden"></span></div>
                     </div>
-                    <div class="alert alert-warning hidden" role="alert">Please enter a valid dollar amount between $0 and $50,000.</div>
+                    <p class="text-danger hidden">Please enter a valid dollar amount between $0 and $50,000.</p>
                     {{ form.errors }}
 
                 </div>
@@ -45,6 +45,7 @@
 </div>
 
 <script type="text/javascript">
+var objectID = "{{ NYCmyFirstApartmentObject.id }}";
 var allPaidOrigNum = parseFloat("{{ allPaid }}").toFixed(2);
 var allPaid = numberWithCommas(allPaidOrigNum);
 

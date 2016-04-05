@@ -58,7 +58,17 @@ html, body {
   font-weight: 100;
   line-height: 1.3125;
   margin-top: 30px;
+  margin-left: 35px;
   margin-bottom: 65px;
+}
+
+.resultsHeading {
+  color: #686868;
+  font-size: 32px;
+  font-weight: 100;
+  line-height: 1.3125;
+  margin-top: 30px;
+  margin-bottom: 30px;  
 }
 
 .pagesCompleted {
@@ -85,8 +95,29 @@ html, body {
   margin-bottom: 20px;
 }
 
-/* Buttons */
+.methods {
+  color: #8b8b8b;
+  font-size: 12px;
+  text-decoration: none;
+}
 
+.methods:active, .methods:hover {
+  color: #8b8b8b;
+  text-decoration: underline;
+}
+
+
+/* Modal Override */
+.modal-content {
+  border-radius: 2px;
+}
+
+.modal-header {
+  border-bottom: 0px;
+}
+
+
+/* Buttons */
 .bottomButtonGroup {
 	position: absolute; 
 	bottom: 25px;
@@ -115,7 +146,7 @@ html, body {
 .open > .dropdown-toggle.btn-dna-primary {
   color: #ffffff;
   background-color: #286090;
-  border-color: #204d74;
+  border-color: #286090;
 }
 .btn-dna-primary:active,
 .btn-dna-primary.active,
@@ -144,6 +175,110 @@ fieldset[disabled] .btn-dna-primary.active {
   border-color: #adaeb0;
 }
 .btn-dna-primary .badge {
+  color: #337ab7;
+  background-color: #ffffff;
+}
+
+
+.btn-dna-facebook {
+  font-weight: bold;
+  color: #e8e8e8;
+  background-color: #24588d;
+  border-color: #24588d;
+  border-radius: 2px;
+  height: 50px;
+  width: 50px;
+  padding: 11px 13px;
+}
+.btn-dna-facebook:hover,
+.btn-dna-facebook:focus,
+.btn-dna-facebook.focus,
+.btn-dna-facebook:active,
+.btn-dna-facebook.active,
+.open > .dropdown-toggle.btn-dna-facebook {
+  color: #e8e8e8;
+  background-color: #1d4872;
+  border-color: #1d4872;
+}
+.btn-dna-facebook:active,
+.btn-dna-facebook.active,
+.open > .dropdown-toggle.btn-dna-facebook {
+  background-image: none;
+}
+.btn-dna-facebook.disabled,
+.btn-dna-facebook[disabled],
+fieldset[disabled] .btn-dna-facebook,
+.btn-dna-facebook.disabled:hover,
+.btn-dna-facebook[disabled]:hover,
+fieldset[disabled] .btn-dna-facebook:hover,
+.btn-dna-facebook.disabled:focus,
+.btn-dna-facebook[disabled]:focus,
+fieldset[disabled] .btn-dna-facebook:focus,
+.btn-dna-facebook.disabled.focus,
+.btn-dna-facebook[disabled].focus,
+fieldset[disabled] .btn-dna-facebook.focus,
+.btn-dna-facebook.disabled:active,
+.btn-dna-facebook[disabled]:active,
+fieldset[disabled] .btn-dna-facebook:active,
+.btn-dna-facebook.disabled.active,
+.btn-dna-facebook[disabled].active,
+fieldset[disabled] .btn-dna-facebook.active {
+  background-color: #adaeb0;
+  border-color: #adaeb0;
+}
+.btn-dna-facebook .badge {
+  color: #337ab7;
+  background-color: #ffffff;
+}
+
+
+.btn-dna-twitter {
+  font-weight: bold;
+  color: #e8e8e8;
+  background-color: #4291c3;
+  border-color: #4291c3;
+  border-radius: 2px;
+  height: 50px;
+  width: 50px;
+  padding: 11px 12px;
+}
+.btn-dna-twitter:hover,
+.btn-dna-twitter:focus,
+.btn-dna-twitter.focus,
+.btn-dna-twitter:active,
+.btn-dna-twitter.active,
+.open > .dropdown-toggle.btn-dna-twitter {
+  color: #e8e8e8;
+  background-color: #286090;
+  border-color: #286090;
+}
+.btn-dna-twitter:active,
+.btn-dna-twitter.active,
+.open > .dropdown-toggle.btn-dna-twitter {
+  background-image: none;
+}
+.btn-dna-twitter.disabled,
+.btn-dna-twitter[disabled],
+fieldset[disabled] .btn-dna-twitter,
+.btn-dna-twitter.disabled:hover,
+.btn-dna-twitter[disabled]:hover,
+fieldset[disabled] .btn-dna-twitter:hover,
+.btn-dna-twitter.disabled:focus,
+.btn-dna-twitter[disabled]:focus,
+fieldset[disabled] .btn-dna-twitter:focus,
+.btn-dna-twitter.disabled.focus,
+.btn-dna-twitter[disabled].focus,
+fieldset[disabled] .btn-dna-twitter.focus,
+.btn-dna-twitter.disabled:active,
+.btn-dna-twitter[disabled]:active,
+fieldset[disabled] .btn-dna-twitter:active,
+.btn-dna-twitter.disabled.active,
+.btn-dna-twitter[disabled].active,
+fieldset[disabled] .btn-dna-twitter.active {
+  background-color: #adaeb0;
+  border-color: #adaeb0;
+}
+.btn-dna-twitter .badge {
   color: #337ab7;
   background-color: #ffffff;
 }
@@ -210,10 +345,11 @@ fieldset[disabled] .btn-dna-primary.active {
 
 /* icons in rigth input areas */
 .minusStepper {
+  z-index: 1000;
 	cursor: pointer;
 	position: absolute;
 	top: 0px;
-    width: 41px;
+    width: 36px;
     height: 45px;
     margin-left: -31px;
     background: url('images/Stepper_Minus_ICON2.svg');
@@ -319,6 +455,19 @@ fieldset[disabled] .btn-dna-primary.active {
     height: 45px;
     margin-left: -15px;
     background: url('images/X_Circle_ICON2.svg');
+    background-color: transparent;
+    background-position: left center;
+    background-repeat: no-repeat;
+}
+
+.xIcon {
+  cursor: pointer;
+  position: absolute;
+  top: 0px;
+    width: 24px;
+    height: 45px;
+    margin-left: -20px;
+    background: url('images/X_Circle_ICON2_BLACK.svg');
     background-color: transparent;
     background-position: left center;
     background-repeat: no-repeat;
@@ -509,7 +658,15 @@ input[type="radio"]:checked + label span {
     font-size: 57px;
     line-height: 1.228;
     margin-top: 125px;
+    margin-left: 0px;
     margin-bottom: 125px;
+  }
+
+  .resultsHeading {
+    font-size: 57px;
+    line-height: 1.228;
+    margin-top: 125px;
+    margin-bottom: 30px;
   }
 
 }
@@ -557,6 +714,13 @@ input[type="radio"]:checked + label span {
 
   .questionHeadingExactSmall {
     display: none;
+  }
+
+  .resultsHeading {
+    font-size: 57px;
+    line-height: 1.228;
+    margin-top: 125px;
+    margin-bottom: 30px;
   }
 
 

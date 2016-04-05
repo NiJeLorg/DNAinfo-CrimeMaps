@@ -2,8 +2,8 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-8 col-sm-offset-2">
-            <h2 class="questionHeading">
-                Here's how your apartment's value compares to today:
+            <h2 class="resultsHeading">
+                Here's how much you'd pay to live in <span id="headingRegionName"></span> today:
             </h2>
         </div>
     </div>
@@ -12,27 +12,62 @@
             <div id="visContainer"></div>
         </div>
     </div>
+    <div class="row marginBottom20">
+        <div class="col-sm-8 col-sm-offset-2">
+            <a class="methods" href="#" data-toggle="modal" data-target="#methodology">Methodology</a>
+        </div>
+    </div>
     <div class="row">
-        <div class="col-sm-8 col-sm-offset-2 bottomButtonGroup">
-            <button id="backiPaid" class="btn btn-dna-primary" type="submit"><span class="backArrow"></span>Back</button>
-            <button id="nextCalc" class="btn btn-dna-primary" type="submit" disabled="disabled">Next<span class="forwardArrow"></span></button>
+        <div class="col-xs-12 col-sm-8 col-sm-offset-2 bottomButtonGroup">
+            <a id="letsGoAgain" class="btn btn-dna-primary" href="/my-first-apartment/" role="button">Let's Go Again!</a>
+            <span class="pull-right">
+                <a id="showShareFB" class="btn btn-dna-facebook" href="#" role="button" onclick="#"><i class="fa fa-facebook-official fa-2x"></i></a>
+                <a id="showShareTwitter" class="btn btn-dna-twitter" href="#" role="button" onclick="#"><i class="fa fa-twitter fa-2x"></i></a>
+            </span>
         </div>
     </div>
 </div>
 
 <script type="text/javascript">
-var allPaidOrigNum = parseFloat("{{ allPaid }}").toFixed(2);
-var allPaid = numberWithCommas(allPaidOrigNum);
+    var allPaid = parseFloat("{{ NYCmyFirstApartmentObject.allPaid }}").toFixed(0);
+    var withInflation = parseFloat("{{ NYCmyFirstApartmentObject.withInflation }}").toFixed(0);
+    var today = parseFloat("{{ NYCmyFirstApartmentObject.today }}").toFixed(0);
+    var bedrooms = parseInt("{{ NYCmyFirstApartmentObject.bedrooms }}");
+    var todayType = "{{ NYCmyFirstApartmentObject.todayType }}".replace("&#39;", "'");
+    var year = "{{ NYCmyFirstApartmentObject.year }}";
+    var bitlyURL = "{{ bitlyURL.url }}";
+    $( document ).ready(function() {
+        if (todayType == "Citywide") {
+            $("#headingRegionName").text("New York City");
+        } else {
+            $("#headingRegionName").text(todayType);            
+        }
+        
+        window.setTimeout(function() { 
+            drawBars.initialize();
+        }, 1);
 
-$( document ).ready(function() {
-    $("#allPaidHeading").text(allPaid);
-    $('#id_allPaid').val(allPaidOrigNum);
-});
+        // set up modal
+        $('#methodology').modal('hide');
 
-function numberWithCommas(x) {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}
+        // set up twitter and facebook URLs
+        var app_id = '406014149589534';
+        var fbcaption = "I paid $"+ drawBars.numberWithCommas(allPaid) +" to live in "+"{{ NYCmyFirstApartmentObject.whereMoved.name }}".replace("&#39;", "'") + " in "+ year +". Here's how rents compare now: "+ bitlyURL +" via https://www.facebook.com/DNAinfo/";
+        var fblink = "https://visualizations.dnainfo.com/my-first-apartment/";
+        var fbUrl = 'https://www.facebook.com/dialog/feed?app_id=' + app_id + '&display=popup&caption='+ encodeURIComponent(fbcaption) + '&link=' + encodeURIComponent(bitlyURL) + '&redirect_uri=' + encodeURIComponent(fblink);
+        var fbOnclick = 'window.open("' + fbUrl + '","facebook-share-dialog","width=626,height=436");return false;';
+        //$('#showShareFB').attr("href", fbUrl);
+        $('#showShareFB').attr("onclick", fbOnclick);
 
+
+        var twitterlink = bitlyURL;
+        var via = 'DNAinfo';
+        var twittercaption = "I paid $"+ drawBars.numberWithCommas(allPaid) +" to live in "+"{{ NYCmyFirstApartmentObject.whereMoved.name }}".replace("&#39;", "'") + " in "+ year +". Here's how rents compare now:";
+        var twitterUrl = 'https://twitter.com/intent/tweet?url=' + encodeURIComponent(twitterlink) + '&via='+ encodeURIComponent(via) + '&text=' + encodeURIComponent(twittercaption);
+        var twitterOnclick = 'window.open("' + twitterUrl + '","twitter-share-dialog","width=626,height=436");return false;';
+        //$('#showShareTwitter').attr("href", twitterUrl);
+        $('#showShareTwitter').attr("onclick", twitterOnclick);
+    });
 
 </script>	
 

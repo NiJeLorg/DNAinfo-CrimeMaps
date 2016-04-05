@@ -13,6 +13,29 @@
 {% endblock %}
 
 {% block head_js_block %}
+<meta property="fb:app_id" content="406014149589534" /> 
+<meta property="og:type"   content="website" /> 
+<meta property="og:url"    content="https://www.dnainfo.com/new-york/" /> 
+<meta property="og:description" content="How rents compare." />
+<meta property="og:title"  content="How rents compare." /> 
+<meta property="og:image"  content="" />
+<script type="text/javascript">
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '406014149589534',
+      xfbml      : true,
+      version    : 'v2.4'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
 {% endblock %}
 	
 {% block body_block %}
@@ -22,16 +45,31 @@
 {% endblock %}
 
 {% block modal_block %}   
+  <div class="modal fade" id="methodology" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class="xIcon"></span></button>
+        </div>
+        <div class="modal-body modalContent">
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock %}
 
 {% block js_block %}
 {% import_django_select2_js %}
-<script type="text/javascript" src="{% static 'apartment/js/jquery.cookie.js' %}"></script>
 <script type="text/javascript" src="{% static 'apartment/js/leaflet.js' %}"></script>
 <script type="text/javascript" src="{% static 'apartment/js/leaflet.draw.js' %}"></script>
+<script type="text/javascript" src="{% static 'apartment/js/d3.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'apartment/js/controllers.js' %}"></script>
 <script type="text/javascript" src="{% static 'apartment/js/ajax.js' %}"></script>
 <script type="text/javascript" src="{% static 'apartment/js/map.js' %}"></script>
+<script type="text/javascript" src="{% static 'apartment/js/bar.js' %}"></script>
 {% endblock %}
 
 
