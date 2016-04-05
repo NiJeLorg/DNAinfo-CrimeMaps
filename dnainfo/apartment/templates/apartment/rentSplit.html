@@ -20,7 +20,7 @@
                        {{ form }}
                       <div class="input-group-addon right"><span id="peopleMinus" class="minusStepper"></span><span id="peoplePlus" class="plusStepper"></span></div>
                     </div>
-                    <div class="alert alert-warning hidden" role="alert">Please enter a valid number of roommates (between 0 and 20) above to continue.</div>
+                    <p class="text-danger hidden">Please enter a valid number of roommates (between 0 and 20) above to continue.</p>
                     {{ form.errors }}
 
                 </div>
@@ -35,4 +35,7 @@
     </form>
 </div>
 	
+<script type="text/javascript">
+    var objectID = "{{ NYCmyFirstApartmentObject.id }}";
+</script>
 

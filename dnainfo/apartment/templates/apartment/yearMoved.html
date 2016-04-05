@@ -24,7 +24,7 @@
                        {{ form }}
                       <div class="input-group-addon right"><span id="yearMovedMinus" class="minusStepper"></span><span id="yearMovedPlus" class="plusStepper"></span></div>
                     </div>
-                    <div class="alert alert-warning hidden" role="alert">Please enter a valid year (between 1900 and 2016) above to continue.</div>
+                    <p class="text-danger hidden">Please enter a valid year (between 1900 and 2016) above to continue.</p>
                     {{ form.errors }}
                 </div>
                 <div class="marginBottom40">
@@ -41,5 +41,47 @@
         </div>
     </form>
 </div>
+
+<script type="text/javascript">
+    var objectID = "{{ NYCmyFirstApartmentObject.id }}";
+    var whenMovedCheck = "{{ NYCmyFirstApartmentObject.whenMoved }}";
+    switch (whenMovedCheck) {
+        case "2010 - Present":
+            var minYear = 2010;
+            var maxYear = 2016;
+            var fillYes = 2010;
+            break;
+        case "2000 - 2009":
+            var minYear = 2000;
+            var maxYear = 2009;
+            var fillYes = 2000;
+            break;
+        case "1990 - 1999":
+            var minYear = 1990;
+            var maxYear = 1999;
+            var fillYes = 1990;
+            break;
+        case "1980 - 1989":
+            var minYear = 1980;
+            var maxYear = 1989;
+            var fillYes = 1980;
+            break;
+        case "1970 - 1979":
+            var minYear = 1970;
+            var maxYear = 1979;
+            var fillYes = 1970;
+            break;
+        case "1960 - 1969":
+            var minYear = 1960;
+            var maxYear = 1969;
+            var fillYes = 1960;
+            break;
+        default:
+            var minYear = 1900;
+            var maxYear = 1959;
+            var fillYes = 1950;
+            break;
+    }
+</script>
 	
 

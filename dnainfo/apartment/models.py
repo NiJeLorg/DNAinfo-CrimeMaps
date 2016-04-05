@@ -24,3 +24,14 @@ class NYCmyFirstApartment(models.Model):
 class cpi(models.Model):
 	year = models.IntegerField(default=0, blank=False, null=False)
 	cpi = models.FloatField(max_length=255, default='', blank=False, null=False)
+
+class zillowMedianRentListPrice(models.Model):
+	RegionName = models.CharField(max_length=255, default='', blank=True, null=True)
+	City = models.CharField(max_length=255, default='', blank=True, null=True)
+	State = models.CharField(max_length=255, default='', blank=True, null=True)
+	Metro = models.CharField(max_length=255, default='', blank=True, null=True)
+	CountyName = models.CharField(max_length=255, default='', blank=True, null=True)
+	SizeRank = models.CharField(max_length=255, default='', blank=True, null=True)
+	Cost = models.FloatField(default=0, blank=False, null=False)
+	bedrooms = models.IntegerField(default=0, blank=False, null=False)
+

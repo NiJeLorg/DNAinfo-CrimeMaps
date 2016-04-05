@@ -20,7 +20,7 @@
                        {{ form }}
                       <div class="input-group-addon rightMoney"><span class="verifyIcon hidden"></span><span class="warningIcon hidden"></span></div>
                     </div>
-                    <div class="alert alert-warning hidden" role="alert">Please enter a valid dollar amount between $0 and $50,000.</div>
+                    <p class="text-danger hidden">Please enter a valid dollar amount between $0 and $50,000.</p>
                     {{ form.errors }}
 
                 </div>
@@ -28,11 +28,14 @@
         </div>
         <div class="row">
             <div class="col-sm-8 col-sm-offset-2 bottomButtonGroup">
-                <button id="backBedrooms" class="btn btn-dna-primary" type="submit"><span class="backArrow"></span>Back</button>
+                <button id="backRentSplit" class="btn btn-dna-primary" type="submit"><span class="backArrow"></span>Back</button>
                 <button id="nextAllPaid" class="btn btn-dna-primary" type="submit" disabled="disabled">Next<span class="forwardArrow"></span></button>
             </div>
         </div>
     </form>
 </div>
 	
+<script type="text/javascript">
+    var objectID = "{{ NYCmyFirstApartmentObject.id }}";
+</script>
 

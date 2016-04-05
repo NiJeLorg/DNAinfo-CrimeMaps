@@ -13,7 +13,8 @@ urlpatterns = [
     url(r'^rentSplit/(?P<id>\d+)/$', views.rentSplit, name='rentSplit'),
     url(r'^iPaid/(?P<id>\d+)/$', views.iPaid, name='iPaid'),
     url(r'^allPaid/(?P<id>\d+)/$', views.allPaid, name='allPaid'),
-    url(r'^results/(?P<id>\d+)/$', views.results, name='results'),
+    url(r'^calc/(?P<id>\d+)/$', views.calc, name='calc'),
+    url(r'^my-first-apartment/results/(?P<id>\d+)/$', views.results, name='results'),
 
 ]
 

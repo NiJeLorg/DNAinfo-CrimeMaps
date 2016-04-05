@@ -32,10 +32,9 @@ $( document ).ready(function() {
 		e.preventDefault();
 		// check if field is empty
 		var whereMoved = $('#id_whereMoved').val();
-		var placeholder = $('#s2id_autogen1').prop("placeholder");
 		var checked = $('#id_iDontSeeMyNeighborhood').is(":checked");
 		if (!whereMoved && !checked) {
-			$(".alert").removeClass("hidden");
+			$(".text-danger").removeClass("hidden");
 			return;
 		}
 
@@ -64,27 +63,17 @@ $( document ).ready(function() {
 		e.preventDefault();
 		// is No checked? if so set submitted value to 0
 		var checked = $('#radio02').is(":checked");
-		if (checked) {
-			$('#id_exactYearMoved').val(0);			
-		}
 		// check if field is empty
 		var exactYearMoved = $('#id_exactYearMoved').val();
-		var checkNull = isNull(exactYearMoved);
-		if (checkNull) {
-			return;
-		}
-
-		// check is value is between 1900 and 2016
-		if (exactYearMoved == 0) {
-			// do nothing
-		} else if (exactYearMoved < 1900 || exactYearMoved > 2016) {
-			$(".alert").removeClass("hidden");
+		if (!exactYearMoved && !checked) {
+			console.log("what?");
+			$(".text-danger").removeClass("hidden");
 			return;
 		}
 
 		//fade out, submit form, then fade back in
 		$(".fadein").fadeOut("fast");
-		ajaxApplication.nextBedrooms();
+		ajaxApplication.nextBedrooms(checked);
 	});
 
 
@@ -99,7 +88,7 @@ $( document ).ready(function() {
 
 		// check is value is between 1900 and 2016
 		if (bedrooms < 0 || bedrooms > 20) {
-			$(".alert").removeClass("hidden");
+			$(".text-danger").removeClass("hidden");
 			return;
 		}
 
@@ -120,7 +109,7 @@ $( document ).ready(function() {
 
 		// check is value is between 1900 and 2016
 		if (rentSplit < 1 || rentSplit > 20) {
-			$(".alert").removeClass("hidden");
+			$(".text-danger").removeClass("hidden");
 			return;
 		}
 
@@ -141,7 +130,7 @@ $( document ).ready(function() {
 
 		// check is value is between 0 and 50000
 		if (iPaid < 0 || iPaid > 50000) {
-			$(".alert").removeClass("hidden");
+			$(".text-danger").removeClass("hidden");
 			return;
 		}
 
@@ -160,8 +149,8 @@ $( document ).ready(function() {
 		}
 
 		// check is value is between 0 and 50000
-		if (allPaidOut < 0 || allPaidOut > 50000) {
-			$(".alert").removeClass("hidden");
+		if (allPaidOut < 0) {
+			$(".text-danger").removeClass("hidden");
 			return;
 		}
 
@@ -170,11 +159,61 @@ $( document ).ready(function() {
 		ajaxApplication.nextCalc();
 	});					
 
+	// listeners for back buttons
+	$(document).on('click', '#backIntro', function(e) {
+		e.preventDefault();
+		$(".fadein").fadeOut("fast");
+		ajaxApplication.backIntro();
+	});
+
+	$(document).on('click', '#backFirstMove', function(e) {
+		e.preventDefault();
+		$(".fadein").fadeOut("fast");
+		ajaxApplication.backFirstMove(objectID);
+	});
+
+	$(document).on('click', '#backNeighborhood', function(e) {
+		e.preventDefault();
+		$(".fadein").fadeOut("fast");
+		ajaxApplication.backNeighborhood(objectID);
+	});
+
+	$(document).on('click', '#backLocation', function(e) {
+		e.preventDefault();
+		$(".fadein").fadeOut("fast");
+		ajaxApplication.backLocation(objectID);
+	});
+
+	$(document).on('click', '#backYearMoved', function(e) {
+		e.preventDefault();
+		$(".fadein").fadeOut("fast");
+		ajaxApplication.backYearMoved(objectID);
+	});
+
+	$(document).on('click', '#backBedrooms', function(e) {
+		e.preventDefault();
+		$(".fadein").fadeOut("fast");
+		ajaxApplication.backBedrooms(objectID);
+	});
+
+	$(document).on('click', '#backRentSplit', function(e) {
+		e.preventDefault();
+		$(".fadein").fadeOut("fast");
+		ajaxApplication.backRentSplit(objectID);
+	});
+
+	$(document).on('click', '#backiPaid', function(e) {
+		e.preventDefault();
+		$(".fadein").fadeOut("fast");
+		ajaxApplication.backiPaid(objectID);
+	});
+
+
 	// listen for whereMoved changes and update placeholder text
 	$(document).on('change', '#id_whereMoved', function(e) {
 		// get placeholder text and place this into the select 2 input
 		var placeholder = $(this).find('option:selected').text();
-		$('#s2id_autogen1').prop("placeholder", placeholder);
+		$('.select2-focusser').prop("placeholder", placeholder);
 		// remove disabled button for next
 		$('#nextLocation').prop("disabled", false);
 		// ensure that iDontSeeMyNeighborhood is unchecked
@@ -187,10 +226,10 @@ $( document ).ready(function() {
 	        $(".select2-no-results").html("<em>I don't see my neighborhood.</em>");
 	        // set listener
         	$(".select2-no-results").on('click', function(e) {
-				$('#s2id_autogen1').prop("placeholder", "I don't see my neighborhood.");
+				$('.select2-focusser').prop("placeholder", "I don't see my neighborhood.");
 				$('#id_whereMoved').val('');
         		$('#id_iDontSeeMyNeighborhood').prop("checked", true);
-				$('#s2id_autogen1').prop("disabled", false);
+				$('.select2-focusser').prop("disabled", false);
 				$('#select2-drop').select2("close");
 				$("#select2-drop-mask").select2("close");
 				$('#nextLocation').prop("disabled", false);
@@ -204,6 +243,13 @@ $( document ).ready(function() {
 		$('#radio01').prop("checked", true);
 	});
 	
+	// if Yes radio button is clicked, set val to fillYess and enable next button
+	$(document).on('click', '#radio01', function(e) {
+		if ($('#id_exactYearMoved').val() == '') {
+			$('#id_exactYearMoved').val(fillYes);
+		}
+		$('#nextBedrooms').prop("disabled", false);
+	});
 
 	// if NO radio button is clicked, set val to nothing and enable next
 	$(document).on('click', '#radio02', function(e) {
@@ -217,13 +263,13 @@ $( document ).ready(function() {
 		// check is value is between 0 and 50000
 		var iPaid = $('#id_iPaid').val();
 		if (iPaid < 0 || iPaid > 50000 || iPaid == '') {
-			$(".alert").removeClass("hidden");
+			$(".text-danger").removeClass("hidden");
 			$(".warningIcon").removeClass("hidden");
 			$(".verifyIcon").addClass("hidden");
 			$('#nextAllPaid').prop("disabled", true);
 
 		} else {
-			$(".alert").addClass("hidden");
+			$(".text-danger").addClass("hidden");
 			$(".warningIcon").addClass("hidden");			
 			$(".verifyIcon").removeClass("hidden");
 			$('#nextAllPaid').prop("disabled", false);
@@ -234,7 +280,7 @@ $( document ).ready(function() {
 	$(document).on('click', '#radio02allPaid', function(e) {
 		$('#id_allPaid').val('');
 		$(".formField").removeClass("hidden");
-		$(".alert").addClass("hidden");
+		$(".text-danger").addClass("hidden");
 		$(".warningIcon").addClass("hidden");			
 		$(".verifyIcon").removeClass("hidden");
 
@@ -255,13 +301,13 @@ $( document ).ready(function() {
 		// check is value is between 0 and 50000
 		var allPaidUpdate = $('#id_allPaid').val();
 		if (allPaidUpdate < 0 || allPaidUpdate > 50000 || allPaidUpdate == '') {
-			$(".alert").removeClass("hidden");
+			$(".text-danger").removeClass("hidden");
 			$(".warningIcon").removeClass("hidden");
 			$(".verifyIcon").addClass("hidden");
 			$('#nextCalc').prop("disabled", true);
 
 		} else {
-			$(".alert").addClass("hidden");
+			$(".text-danger").addClass("hidden");
 			$(".warningIcon").addClass("hidden");			
 			$(".verifyIcon").removeClass("hidden");
 			$('#nextCalc').prop("disabled", false);
@@ -271,13 +317,11 @@ $( document ).ready(function() {
 
 	// listeners for steppers
 	$(document).on('click', '#whenMovedMinus', function(e) {
-		// remove disabled next button attribute if there
-		$('#nextNeighborhood').prop("disabled", false);
 		// get the value of #id_whenMoved
 		var whenMoved = $('#id_whenMoved').val();
 		// step down based on last value
 		switch (whenMoved) {
-			case "2010 - 2016":
+			case "2010 - Present":
 				$('#id_whenMoved').val('2000 - 2009');
 				break;
 			case "2000 - 2009":
@@ -296,24 +340,22 @@ $( document ).ready(function() {
 				$('#id_whenMoved').val('Before 1960');
 				break;
 			default:
-				$('#id_whenMoved').val('2010 - 2016');
+				$('#id_whenMoved').val('2010 - Present');
 				break;
 		}
 
 	});	
 
 	$(document).on('click', '#whenMovedPlus', function(e) {
-		// remove disabled next button attribute if there
-		$('#nextNeighborhood').prop("disabled", false);
 		// get the value of #id_whenMoved
 		var whenMoved = $('#id_whenMoved').val();
 		// step up based on last value
 		switch (whenMoved) {
-			case "2010 - 2016":
+			case "2010 - Present":
 				$('#id_whenMoved').val('Before 1960');
 				break;
 			case "2000 - 2009":
-				$('#id_whenMoved').val('2010 - 2016');
+				$('#id_whenMoved').val('2010 - Present');
 				break;
 			case "1990 - 1999":
 				$('#id_whenMoved').val('2000 - 2009');
@@ -343,10 +385,13 @@ $( document ).ready(function() {
 		// set radio button yes to checked
 		$('#radio01').prop("checked", true);
 		// get the value of #id_whenMoved
+		if ($('#id_exactYearMoved').val() == '') {
+			$('#id_exactYearMoved').val(fillYes);
+		}
 		var yearMoved = $('#id_exactYearMoved').val();
 		if (yearMoved == '') {
-			$('#id_exactYearMoved').val(2016);
-		} else if (yearMoved == 1900) {
+			$('#id_exactYearMoved').val(fillYes);
+		} else if (yearMoved == minYear) {
 			// don't go below 1900
 		} else {
 			yearMoved--;
@@ -362,11 +407,10 @@ $( document ).ready(function() {
 		// get the value of #id_whenMoved
 		var yearMoved = $('#id_exactYearMoved').val();
 		if (yearMoved == '') {
-			$('#id_exactYearMoved').val(1900);
-		} else if (yearMoved == 2016) {
+			$('#id_exactYearMoved').val(fillYes);
+		} else if (yearMoved == maxYear) {
 			// don't go above 2016
 		} else {
-			yearMoved = parseInt(yearMoved);
 			yearMoved++;
 			$('#id_exactYearMoved').val(yearMoved);
 		}
@@ -397,8 +441,8 @@ $( document ).ready(function() {
 	$(document).on('click', '#peopleMinus', function(e) {
 		// get the value of #id_whenMoved
 		var people = $('#id_rentSplit').val();
-		if (people == 0) {
-			// don't go below 0
+		if (people == 1) {
+			// don't go below 1
 		} else {
 			people--;
 			$('#id_rentSplit').val(people);
@@ -416,13 +460,19 @@ $( document ).ready(function() {
 		}
 	});
 
+	$(document).on('click', '.xIcon', function(e) {
+		//dismiss modal
+		$('#methodology').modal('hide');
+	});
+
 	// function to check if values are null and create alert if null
 	function isNull(value) {
 		if (!value) {
-			$(".alert").removeClass("hidden");
+			$(".text-danger").removeClass("hidden");
 			return true;
 		}
 		return false;
 	}
+
 
 });
