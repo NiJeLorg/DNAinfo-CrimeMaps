@@ -251,6 +251,80 @@ def calc(request, id=None):
 
 	return render(request, 'apartment/calc.html', {'NYCmyFirstApartmentObject': NYCmyFirstApartmentObject})
 
+def end(request, id=None):
+	if id:
+		NYCmyFirstApartmentObject = NYCmyFirstApartment.objects.get(pk=id)
+	else:
+		NYCmyFirstApartmentObject = NYCmyFirstApartment()
+
+	#here we'll need to calculate the real dollar number in 2016 as well as show the zillow numbers here
+
+	#get cpi number for the year we need it
+	if NYCmyFirstApartmentObject.exactYearMoved >= 1913:
+		cpiThen = cpi.objects.get(year=NYCmyFirstApartmentObject.exactYearMoved)
+		NYCmyFirstApartmentObject.year = NYCmyFirstApartmentObject.exactYearMoved
+	elif NYCmyFirstApartmentObject.exactYearMoved >= 1900:
+		cpiThen = cpi.objects.get(year=1913)
+		NYCmyFirstApartmentObject.year = NYCmyFirstApartmentObject.exactYearMoved
+	else:
+		NYCmyFirstApartmentObject.year = NYCmyFirstApartmentObject.whenMoved
+		if NYCmyFirstApartmentObject.whenMoved == '2010 - Present':
+			cpiThen = cpi.objects.get(year=2012)
+		elif NYCmyFirstApartmentObject.whenMoved == '2000 - 2009':
+			cpiThen = cpi.objects.get(year=2005)
+		elif NYCmyFirstApartmentObject.whenMoved == '1990 - 1999':
+			cpiThen = cpi.objects.get(year=1995)
+		elif NYCmyFirstApartmentObject.whenMoved == '1980 - 1989':
+			cpiThen = cpi.objects.get(year=1985)
+		elif NYCmyFirstApartmentObject.whenMoved == '1970 - 1979':
+			cpiThen = cpi.objects.get(year=1975)
+		elif NYCmyFirstApartmentObject.whenMoved == '1960 - 1969':
+			cpiThen = cpi.objects.get(year=1965)
+		else:
+			cpiThen = cpi.objects.get(year=1955)
+
+	cpiNow = cpi.objects.get(year=2016)
+
+	# calculate CPI
+	NYCmyFirstApartmentObject.withInflation = (cpiNow.cpi/cpiThen.cpi) * NYCmyFirstApartmentObject.allPaid 
+
+	# pull today value depending on neighborhood and bedrooms
+	# bedrooms
+	if NYCmyFirstApartmentObject.bedrooms > 5:
+		bedroomsTry = 5
+	else:
+		bedroomsTry = NYCmyFirstApartmentObject.bedrooms
+
+	# try to pull a value, if nothing, pull citywide value
+	if NYCmyFirstApartmentObject.whereMoved:
+		RegionNameTry = NYCmyFirstApartmentObject.whereMoved.name
+	else:
+		RegionNameTry = "city"
+
+	
+	try:
+		zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName=RegionNameTry)
+		if RegionNameTry == "city":
+			NYCmyFirstApartmentObject.todayType = "Citywide"
+		else:
+			NYCmyFirstApartmentObject.todayType = RegionNameTry			
+		
+	except zillowMedianRentListPrice.DoesNotExist: 
+		zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="city")
+		NYCmyFirstApartmentObject.todayType = "Citywide"
+
+	NYCmyFirstApartmentObject.today = zillowNow.Cost
+
+	# social urls
+	url = "https://visualizations.dnainfo.com/my-first-apartment/results/" + str(id) + "/"
+	# connect to Bitly API
+	c = bitly_api.Connection('ondnainfo', 'R_cdbdcaaef8d04d97b363b989f2fba3db')
+	bitlyURL = c.shorten(url)
+
+
+
+	return render(request, 'apartment/end.html', {'NYCmyFirstApartmentObject': NYCmyFirstApartmentObject, "bitlyURL": bitlyURL})
+
 def results(request, id=None):
 	if id:
 		NYCmyFirstApartmentObject = NYCmyFirstApartment.objects.get(pk=id)
