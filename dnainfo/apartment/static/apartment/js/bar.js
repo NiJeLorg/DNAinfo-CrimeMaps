@@ -9,7 +9,7 @@ drawBars.initialize = function () {
 	if (bedrooms == 0) {
 		var bedroomsText = "studio";
 	} else if (bedrooms <= 4) {
-		var bedroomsText = bedroom + " bedroom";
+		var bedroomsText = bedrooms + " bedroom";
 	} else {
 		var bedroomsText = "5+ bedroom";		
 	} 
