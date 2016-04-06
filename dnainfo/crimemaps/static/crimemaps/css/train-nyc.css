@@ -470,7 +470,7 @@ html, body {
 	overflow-x: auto;
     overflow-y: hidden;
    	-webkit-overflow-scrolling: touch;
-	width: auto;
+	width: 100vw;
 }
 
 .div20pxtall {
