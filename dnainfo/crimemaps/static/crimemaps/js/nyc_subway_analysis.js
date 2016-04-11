@@ -770,7 +770,7 @@ $(document).ready(function () {
                 // facebook and twitter link creation and appending
                 var app_id = '406014149589534';
                 var fbcaption = "Survey Results: This is the most popular spot on the "+ lineSelected +" train. "+ bitlyURL +" via https://www.facebook.com/DNAinfo/";
-                var fblink = "https://sprnt-2180-chrome-new-visualizations.build.qa.dnainfo.com/new-york/visualizations/where-i-sit-stand-train/analysis";
+                var fblink = "https://www.dnainfo.com/new-york/visualizations/where-i-sit-stand-train/analysis";
                 var fbUrl = 'https://www.facebook.com/dialog/feed?app_id=' + app_id + '&display=popup&caption='+ encodeURIComponent(fbcaption) + '&link=' + encodeURIComponent(bitlyURL) + '&redirect_uri=' + encodeURIComponent(fblink);
                 var fbOnclick = 'window.open("' + fbUrl + '","facebook-share-dialog","width=626,height=436");return false;';
                 //$('#showShareFB').attr("href", fbUrl);
