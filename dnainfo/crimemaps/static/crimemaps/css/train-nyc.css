@@ -315,8 +315,22 @@ html, body {
 #newTrain {
 	position: absolute;
 	top: 10px;
+	right: 208px;
+	z-index: 1;	
+}
+
+#moreAnalysis {
+	position: absolute;
+	top: 10px;
 	right: 95px;
 	z-index: 1;	
+}
+
+#moreAnalysisResults {
+	position: absolute;
+	top: 10px;
+	right: 122px;
+	z-index: 1;		
 }
 
 #showShareFB {
@@ -568,7 +582,6 @@ html, body {
 
 	.trainLineHeading {
 		font-size: 24px;
-		margin-top: 20px;
 	}
 
 	.heading {
@@ -621,6 +634,11 @@ html, body {
 	.trainLineImage {
 		width: 1200px;
 		height: auto;
+	}
+
+	.trainLineHeading {
+		font-size: 24px;
+		margin-top: 20px;
 	}
 
 	#heatmap {
