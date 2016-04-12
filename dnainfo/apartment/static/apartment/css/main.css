@@ -567,7 +567,7 @@ fieldset[disabled] .btn-dna-twitter.active {
   -o-transition: none;
   transition: none;
 }
-/*
+
 .select2-drop {
   margin-top: -45px;
   -webkit-box-shadow: none; 
@@ -578,7 +578,7 @@ fieldset[disabled] .btn-dna-twitter.active {
   border: 1px solid #eeeeee;
   border-radius: 4px;
 }
-
+/*
 .select2-results {
   padding: 0px;
   margin: 0px;
