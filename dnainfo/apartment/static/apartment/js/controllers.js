@@ -215,6 +215,7 @@ $( document ).ready(function() {
 		var placeholder = $(this).find('option:selected').text();
 		console.log("placeholder: ", placeholder);
 		$('.select2-focusser').prop("placeholder", placeholder);
+		$('.select2-input').prop("placeholder", placeholder);
 		// remove disabled button for next
 		$('#nextLocation').prop("disabled", false);
 		// ensure that iDontSeeMyNeighborhood is unchecked
