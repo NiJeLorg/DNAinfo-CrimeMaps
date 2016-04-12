@@ -86,8 +86,8 @@ $( document ).ready(function() {
 			return;
 		}
 
-		// check is value is between 1900 and 2016
-		if (bedrooms < 0 || bedrooms > 20) {
+		// check is value is between 0 and 5
+		if (bedrooms < 0 || bedrooms > 5) {
 			$(".text-danger").removeClass("hidden");
 			return;
 		}
@@ -213,6 +213,7 @@ $( document ).ready(function() {
 	$(document).on('change', '#id_whereMoved', function(e) {
 		// get placeholder text and place this into the select 2 input
 		var placeholder = $(this).find('option:selected').text();
+		console.log("placeholder: ", placeholder);
 		$('.select2-focusser').prop("placeholder", placeholder);
 		// remove disabled button for next
 		$('#nextLocation').prop("disabled", false);
@@ -430,8 +431,8 @@ $( document ).ready(function() {
 	$(document).on('click', '#bedroomsPlus', function(e) {
 		// get the value of #id_whenMoved
 		var bedrooms = $('#id_bedrooms').val();
-		if (bedrooms == 20) {
-			// don't go above 20
+		if (bedrooms == 5) {
+			// don't go above 5
 		} else {
 			bedrooms++;
 			$('#id_bedrooms').val(bedrooms);
