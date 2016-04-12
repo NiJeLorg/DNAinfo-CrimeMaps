@@ -350,7 +350,7 @@ $( document ).ready(function() {
 
 	});	
 
-	$(document).on('click', '#whenMovedPlus', function(e) {
+	$(document).off('click', '#whenMovedPlus').on('click', '#whenMovedPlus', function(e) {
 		// get the value of #id_whenMoved
 		var whenMoved = $('#id_whenMoved').val();
 		// step up based on last value
