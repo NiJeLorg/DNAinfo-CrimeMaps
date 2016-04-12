@@ -613,6 +613,19 @@ fieldset[disabled] .btn-dna-twitter.active {
   cursor: pointer;
 }
 
+.select2-container .select2-choice {
+  height: 45px;
+  padding: 8px 0 0 10px;
+  border: 0px;
+  color: #686868;
+  background-image: none;
+  background: #eeeeee;
+}
+
+.select2-arrow {
+  display: none !important;
+}
+
 
 
 /* Fade effects */

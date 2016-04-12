@@ -44,6 +44,12 @@ ajaxApplication.nextNeighborhood = function () {
 					$('label').remove();
 					// add a form-control class to the input, disabled attribute and placeholder text
 					$('#id_whereMoved').addClass("form-control");
+					var selected = $('#id_whereMoved option:selected').val();
+					if (!selected) {
+						$('.select2-chosen').text("Neighborhood");						
+					}
+
+					$('#id_whereMoved option[value=""]').remove();
 					//$('.select2-input').prop("placeholder", "Neighborhood");
 					//$('.select2-choice').addClass('hidden');
 					//$('.select2-focusser').removeClass("select2-offscreen");
@@ -339,19 +345,24 @@ ajaxApplication.backNeighborhood = function (id) {
 			type: "GET",
 			url: "/whatNeighborhood/"+id+"/",
 			success: function(data){
-				$('#content').html(data);
+		 		$('#content').html(data);
+				// remove labels
 				$('label').remove();
 				// add a form-control class to the input, disabled attribute and placeholder text
 				$('#id_whereMoved').addClass("form-control");
-				var placeholder = $( "#id_whereMoved option:selected" ).text();
-				$('.select2-input').prop("placeholder", placeholder);
-				$('.select2-choice').remove();
-				$('.select2-focusser').removeClass("select2-offscreen");
-				$('.select2-focusser').addClass("form-control");
-				$('.select2-focusser').prop("placeholder", placeholder);
+				var selected = $('#id_whereMoved option:selected').val();
+				if (!selected) {
+					$('.select2-chosen').text("Neighborhood");						
+				}
+
+				$('#id_whereMoved option[value=""]').remove();
+				//$('.select2-input').prop("placeholder", "Neighborhood");
+				//$('.select2-choice').addClass('hidden');
+				//$('.select2-focusser').removeClass("select2-offscreen");
+				//$('.select2-focusser').addClass("form-control");
+				//$('.select2-focusser').prop("placeholder", "Neighborhood");
 				$('#id_iDontSeeMyNeighborhood').addClass("hidden");
-				$('#nextLocation').prop("disabled", false);
-				$(".fadein").fadeIn("slow");
+				$(".fadein").fadeIn("slow");    
 	        }
 		});
 	}
