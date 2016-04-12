@@ -45,7 +45,7 @@ ajaxApplication.nextNeighborhood = function () {
 					// add a form-control class to the input, disabled attribute and placeholder text
 					$('#id_whereMoved').addClass("form-control");
 					$('.select2-input').prop("placeholder", "Neighborhood");
-					$('.select2-choice').remove();
+					//$('.select2-choice').remove();
 					$('.select2-focusser').removeClass("select2-offscreen");
 					$('.select2-focusser').addClass("form-control");
 					$('.select2-focusser').prop("placeholder", "Neighborhood");
@@ -146,7 +146,7 @@ ajaxApplication.nextBedrooms = function (checked) {
 					$('#id_bedrooms').prop("disabled", true);
 					$('#id_bedrooms').val(0);
 					$('#id_bedrooms').prop("min", 0);
-					$('#id_bedrooms').prop("max", 20);
+					$('#id_bedrooms').prop("max", 5);
 					$(".fadein").fadeIn("slow");
 		        }
 			});

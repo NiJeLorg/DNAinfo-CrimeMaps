@@ -15,7 +15,8 @@ html, body {
   left: 0; 
   right: 0; 
   bottom: 0; 
-  background: url('images/Illustration_FULL.svg');
+  opacity: 0.8;
+  background: url('images/Illustration_SMALL.svg');
   background-color: transparent; 
   background-size: cover; 
   background-position: center center; 
@@ -28,11 +29,19 @@ html, body {
   padding: 0; 
 }
 
+/* Main container should have 25px right and left padding */
+
+.container-fluid {
+  padding-left: 25px;
+  padding-right: 25px;
+}
+
 
 /* Typography */
 .introHeading {
 	color: #686868;
 	font-size: 17px;
+  font-weight: 300;
 	line-height: 1.529;
 	margin-top: 30px;
 	margin-bottom: 40px;
@@ -87,9 +96,9 @@ html, body {
   margin-bottom: 20px;    
 }
 
-.formField {
+/*.formField {
 	margin-bottom: 0px;	
-}
+}*/
 
 .formFieldYearMoved {
   margin-bottom: 20px;
@@ -118,9 +127,15 @@ html, body {
 
 
 /* Buttons */
-.bottomButtonGroup {
+/*.bottomButtonGroup {
 	position: absolute; 
 	bottom: 25px;
+}*/
+
+.bottomButtonGroup {
+  position: relative;
+  margin-top: 90px;
+  margin-bottom: 25px;
 }
 
 .bottomButtonGroupMap {
@@ -137,6 +152,7 @@ html, body {
   height: 50px;
   width: 130px;
   padding: 14px 14px;
+  margin-right: 10px;
 }
 .btn-dna-primary:hover,
 .btn-dna-primary:focus,
@@ -189,6 +205,7 @@ fieldset[disabled] .btn-dna-primary.active {
   height: 50px;
   width: 50px;
   padding: 11px 13px;
+  margin-right: 10px;
 }
 .btn-dna-facebook:hover,
 .btn-dna-facebook:focus,
@@ -343,7 +360,7 @@ fieldset[disabled] .btn-dna-twitter.active {
   padding: 0px 15px;
 }
 
-/* icons in rigth input areas */
+/* icons in right input areas */
 .minusStepper {
   z-index: 1000;
 	cursor: pointer;
@@ -358,6 +375,21 @@ fieldset[disabled] .btn-dna-twitter.active {
     background-repeat: no-repeat;
 }
 
+.minusStepper:hover,
+.minusStepper:focus {
+  z-index: 1000;
+  cursor: pointer;
+  position: absolute;
+  top: 0px;
+    width: 36px;
+    height: 45px;
+    margin-left: -31px;
+    background: url('images/Stepper_Minus_ICON2_Hover.svg');
+    background-color: transparent;
+    background-position: left center;
+    background-repeat: no-repeat;
+}
+
 .plusStepper {
 	cursor: pointer;
 	position: absolute;
@@ -366,6 +398,20 @@ fieldset[disabled] .btn-dna-twitter.active {
     height: 45px;
     margin-left: 0px;
     background: url('images/Stepper_Plus_ICON2.svg');
+    background-color: transparent;
+    background-position: left center;
+    background-repeat: no-repeat;
+}
+
+.plusStepper:hover,
+.plusStepper:focus {
+  cursor: pointer;
+  position: absolute;
+  top: 0px;
+    width: 41px;
+    height: 45px;
+    margin-left: 0px;
+    background: url('images/Stepper_Plus_ICON2_Hover.svg');
     background-color: transparent;
     background-position: left center;
     background-repeat: no-repeat;
@@ -488,6 +534,15 @@ fieldset[disabled] .btn-dna-twitter.active {
     transition: none;
 }
 
+.form-control::-webkit-input-placeholder { color: #686868 !important; }
+.form-control:-moz-placeholder { color: #686868 !important; }
+.form-control::-moz-placeholder { color: #686868 !important; }
+.form-control:-ms-input-placeholder { color: #686868 !important; }
+
+.form-control[disabled], fieldset[disabled] .form-control { 
+  color: #686868;
+}
+
 
 /* Select 2 control css */
 .form-control.select2-container {
@@ -527,6 +582,7 @@ fieldset[disabled] .btn-dna-twitter.active {
 .select2-results {
   padding: 0px;
   margin: 0px;
+  max-height: 135px;
 }
 
 .select2-results li {
@@ -556,6 +612,15 @@ fieldset[disabled] .btn-dna-twitter.active {
 .select2-no-results {
   cursor: pointer;
 }
+
+/*.select2-drop-mask {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      top: 0;
+      z-index: 9998;
+}*/
 
 
 /* Fade effects */
@@ -627,6 +692,15 @@ input[type="radio"]:checked + label span {
 
 /* Media Queries */
 @media (min-width: 600px) {
+
+  #background, #background li { 
+    background: url('images/Illustration_TALL.svg');
+    background-color: transparent; 
+    background-size: cover; 
+    background-position: center center; 
+    background-repeat: no-repeat; 
+  } 
+   
 	.introHeading {
 		font-size: 30px;
 		line-height: 1.5;
@@ -649,10 +723,10 @@ input[type="radio"]:checked + label span {
 		margin-bottom: 125px;
 	}
 
-	.bottomButtonGroup {
+/*	.bottomButtonGroup {
 		bottom: 200px;
 	}
-
+*/
   .questionHeadingExactSmall {
     display: block;
     font-size: 57px;
@@ -673,6 +747,15 @@ input[type="radio"]:checked + label span {
 
 
 @media (min-width: 1200px) {
+
+  #background, #background li { 
+    background: url('images/Illustration_FULL.svg');
+    background-color: transparent; 
+    background-size: cover; 
+    background-position: center center; 
+    background-repeat: no-repeat; 
+  } 
+
 	.introHeading {
 		font-size: 30px;
 		line-height: 1.5;
@@ -695,14 +778,14 @@ input[type="radio"]:checked + label span {
 		margin-bottom: 90px;
 	}
 
-	.formField {
+/*	.formField {
 		margin-bottom: 90px;	
-	}
+	}*/
 
-	.bottomButtonGroup {
+/*	.bottomButtonGroup {
 		position: relative;
 		bottom: 0;
-	}
+	}*/
 
   .questionHeadingExact {
     display: block;
