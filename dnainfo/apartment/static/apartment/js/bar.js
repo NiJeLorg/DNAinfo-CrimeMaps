@@ -27,16 +27,22 @@ drawBars.initialize = function () {
                       {"amount":"$" + drawBars.numberWithCommas(today), "label":todayLabel, "value":+today}];
 
 	var width = $('#visContainer').width();
-	if (width < 600) {
-		var height = width;
-	} else if (width < 1200) {
-		var height = width/2.5;
+	if (width < 400) {
+		var height = width/1.5;
+		var smallFontSize = "10px";
+		var largeFontSize = "12px";
+	} else if (width < 600) {
+		var height = width/1.5;		
+		var smallFontSize = "12px";
+		var largeFontSize = "14px";
 	} else {
-		var height = width/4;		
+		var height = width/2.5;		
+		var smallFontSize = "14px";
+		var largeFontSize = "16px";
 	}
 
 	var x = d3.scale.linear()
-    	.range([0, width])
+    	.range([120, width])
     	.domain([0, d3.max(d3_dataset, function(d) { return d.value; })]);
 
 	var y = d3.scale.ordinal()
@@ -65,8 +71,8 @@ drawBars.initialize = function () {
 
 	gs.append("text")
       .attr("x", 10)
-      .attr("y", function(d) { return y(d.amount) + y.rangeBand()/2.3; })
-      .style("font-size" ,"12px")
+      .attr("y", function(d) { return y(d.amount) + y.rangeBand()/2.2; })
+      .style("font-size" ,largeFontSize)
       .style("font-family" ,"\"Titillium Web\", Helvetica, Sans-Serif")
       .style("font-weight" ,"400")
       .style("stroke" ,"#ffffff")
@@ -75,10 +81,10 @@ drawBars.initialize = function () {
 
 	gs.append("text")
       .attr("x", 10)
-      .attr("y", function(d) { return y(d.amount) + y.rangeBand()/1.7; })
-      .style("font-size" ,"10px")
+      .attr("y", function(d) { return y(d.amount) + y.rangeBand()/1.5; })
+      .style("font-size" ,smallFontSize)
       .style("font-family" ,"\"Titillium Web\", Helvetica, Sans-Serif")
-      .style("font-weight" ,"100")
+      .style("font-weight" ,"200")
       .style("stroke" ,"#ffffff")
       .style("fill" ,"#ffffff")
       .text(function(d) { return d.label });
