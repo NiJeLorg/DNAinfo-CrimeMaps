@@ -545,7 +545,7 @@ fieldset[disabled] .btn-dna-twitter.active {
 
 
 /* Select 2 control css */
-.form-control.select2-container {
+/*.form-control.select2-container {
   height: 45px !important;
 }
 
@@ -612,15 +612,7 @@ fieldset[disabled] .btn-dna-twitter.active {
 .select2-no-results {
   cursor: pointer;
 }
-
-/*.select2-drop-mask {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      top: 0;
-      z-index: 9998;
-}*/
+*/
 
 
 /* Fade effects */
