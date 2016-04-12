@@ -319,7 +319,7 @@ $( document ).ready(function() {
 	
 
 	// listeners for steppers
-	$(document).on('click', '#whenMovedMinus', function(e) {
+	$(document).off('click', '#whenMovedMinus').on('click', '#whenMovedMinus', function(e) {
 		console.log('click');
 		// get the value of #id_whenMoved
 		var whenMoved = $('#id_whenMoved').val();
