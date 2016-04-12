@@ -549,7 +549,7 @@ fieldset[disabled] .btn-dna-twitter.active {
   height: 45px !important;
 }
 
-/*.select2-search {
+.select2-search {
   padding: 0px;
 }
 
@@ -567,7 +567,7 @@ fieldset[disabled] .btn-dna-twitter.active {
   -o-transition: none;
   transition: none;
 }
-
+/*
 .select2-drop {
   margin-top: -45px;
   -webkit-box-shadow: none; 
