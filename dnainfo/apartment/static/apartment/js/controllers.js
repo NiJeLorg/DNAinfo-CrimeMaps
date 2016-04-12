@@ -212,9 +212,9 @@ $( document ).ready(function() {
 	// listen for whereMoved changes and update placeholder text
 	$(document).on('change', '#id_whereMoved', function(e) {
 		// get placeholder text and place this into the select 2 input
-		var placeholder = $(this).find('option:selected').text();
-		$('.select2-focusser').prop("placeholder", placeholder);
-		$('.select2-input').prop("placeholder", placeholder);
+		//var placeholder = $(this).find('option:selected').text();
+		//$('.select2-focusser').prop("placeholder", placeholder);
+		//$('.select2-input').prop("placeholder", placeholder);
 		//$('#select2-drop').select2("close");
 		//$("#select2-drop-mask").select2("close");
 		// remove disabled button for next
