@@ -320,6 +320,7 @@ $( document ).ready(function() {
 
 	// listeners for steppers
 	$(document).on('click', '#whenMovedMinus', function(e) {
+		console.log('click');
 		// get the value of #id_whenMoved
 		var whenMoved = $('#id_whenMoved').val();
 		// step down based on last value
