@@ -375,8 +375,7 @@ fieldset[disabled] .btn-dna-twitter.active {
     background-repeat: no-repeat;
 }
 
-.minusStepper:hover,
-.minusStepper:focus {
+.minusStepper:hover {
   z-index: 1000;
   cursor: pointer;
   position: absolute;
@@ -403,8 +402,7 @@ fieldset[disabled] .btn-dna-twitter.active {
     background-repeat: no-repeat;
 }
 
-.plusStepper:hover,
-.plusStepper:focus {
+.plusStepper:hover {
   cursor: pointer;
   position: absolute;
   top: 0px;
