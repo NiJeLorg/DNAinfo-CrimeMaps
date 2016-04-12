@@ -210,19 +210,19 @@ $( document ).ready(function() {
 
 
 	// listen for whereMoved changes and update placeholder text
-	$(document).on('change', '#id_whereMoved', function(e) {
-		$('#select2-drop').select2("close");
-		$("#select2-drop-mask").select2("close");
-		// get placeholder text and place this into the select 2 input
-		var placeholder = $(this).find('option:selected').text();
-		console.log("placeholder: ", placeholder);
-		$('.select2-focusser').prop("placeholder", placeholder);
-		$('.select2-input').prop("placeholder", placeholder);
-		// remove disabled button for next
-		$('#nextLocation').prop("disabled", false);
-		// ensure that iDontSeeMyNeighborhood is unchecked
-		$('#id_iDontSeeMyNeighborhood').prop("checked", false);
-	});
+	// $(document).on('change', '#id_whereMoved', function(e) {
+	// 	$('#select2-drop').select2("close");
+	// 	$("#select2-drop-mask").select2("close");
+	// 	// get placeholder text and place this into the select 2 input
+	// 	var placeholder = $(this).find('option:selected').text();
+	// 	console.log("placeholder: ", placeholder);
+	// 	$('.select2-focusser').prop("placeholder", placeholder);
+	// 	$('.select2-input').prop("placeholder", placeholder);
+	// 	// remove disabled button for next
+	// 	$('#nextLocation').prop("disabled", false);
+	// 	// ensure that iDontSeeMyNeighborhood is unchecked
+	// 	$('#id_iDontSeeMyNeighborhood').prop("checked", false);
+	// });
 
 	// ensure that select2-no-results says the correct text
 	$(document).on('keydown', '#s2id_autogen1_search', function(e) {
