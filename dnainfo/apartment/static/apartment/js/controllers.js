@@ -214,8 +214,9 @@ $( document ).ready(function() {
 		// get placeholder text and place this into the select 2 input
 		var placeholder = $(this).find('option:selected').text();
 		console.log("placeholder: ", placeholder);
-		$('.select2-focusser').prop("placeholder", placeholder);
 		$('.select2-input').prop("placeholder", placeholder);
+		$('#select2-drop').select2("close");
+		$("#select2-drop-mask").select2("close");
 		// remove disabled button for next
 		$('#nextLocation').prop("disabled", false);
 		// ensure that iDontSeeMyNeighborhood is unchecked
