@@ -54,7 +54,7 @@ DNAinfoBlotterMap.slightPanUp = function (){
 DNAinfoBlotterMap.onEachFeature_BLOTTER = function(feature,layer){	
 	var highlight = {
 	    weight: 2,
-	    color: '#000'
+	    color: '#2e2925'
 	};
 	var noHighlight = {
         weight: 1,
@@ -126,7 +126,7 @@ DNAinfoBlotterMap.onEachFeature_BLOTTER = function(feature,layer){
 
 DNAinfoBlotterMap.onEachFeature_POLYGONS = function(feature,layer){	
 	var highlight = {
-	    color: '#000'
+	    color: '#2e2925'
 	};
 	var noHighlight = {
         color: '#bdbdbd'
@@ -223,7 +223,7 @@ DNAinfoBlotterMap.getStyleFor_BLOTTER = function (feature, latlng){
 		color: '#bdbdbd',
 		weight: 1,
 		opacity: 1,
-		fillColor: '#931212',
+		fillColor: '#fc5158',
 		fillOpacity: 1
 	});
 	
@@ -250,7 +250,7 @@ DNAinfoBlotterMap.BLOTTERordinalCategoryColors = function (d){
            d == "BURGLARY" ? '#a6d854' :
            d == "GRAND LARCENY" ? '#ffd92f' :
            d == "GRAND LARCENY OF MOTOR VEHICLE" ? '#e5c494' :
-                    '#000';	
+                    '#2e2925';	
 }
 
 

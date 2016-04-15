@@ -7,8 +7,8 @@
 $( document ).ready(function() {
 
 	// on page load, pull open the bottom tray
-	$( ".popup-wrapper" ).toggleClass("popup-wrapper-open");
 	$( ".map" ).toggleClass("map-popup-wrapper-open");
+	$( ".popup-wrapper" ).toggleClass("popup-wrapper-open");
 
 	// close popup tray
 	$('#popup-close').click(function() {
