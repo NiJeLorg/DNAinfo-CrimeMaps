@@ -43,7 +43,7 @@ body.loading .loading-modal {
     top:0;
     bottom:0;
     width:100%;
-    margin-top: 50px;
+    margin-top: 0px;
 	overflow: hidden;
 	-webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
@@ -350,8 +350,8 @@ body.loading .loading-modal {
 }
 
 .navbar-default {
-	background-color: #2e2925;
-	border-color: #2e2925;
+	background-color: #ad1515;
+	border-color: #ad1515;
 }
 
 .navbar-default .navbar-brand {

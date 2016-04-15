@@ -1,4 +1,4 @@
-{% extends 'crimemaps/baseNoBottomNavCHI.html' %}
+{% extends 'crimemaps/baseNoBottomNavCHINoNavs.html' %}
 {% load staticfiles %}
 
 {% block title %}Cook County Real Estate Sales | DNAinfo{% endblock %}
@@ -15,19 +15,6 @@
 {% endblock %}
 	
 {% block body_block %}
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="collapse navbar-collapse pull-left" id="collapse">
-      <div class="navbar-header">
-          <a class="navbar-brand" href="http://www.dnainfo.com/chicago/"><img src="{% static 'crimemaps/css/images/DNACHILogo.png' %}" class="navbar-brand-img-chi"/></a>
-      </div>
-    </div>
-
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <p class="navbar-text">Chicago Real Estate Sales</p>
-  </div><!-- /.container-fluid -->
-</nav>
 
         <!-- #popup-wrapper-->
         <div id="popup-wrapper" class="popup-wrapper popup-wrapper-open">
