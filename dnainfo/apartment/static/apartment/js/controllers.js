@@ -209,19 +209,24 @@ $( document ).ready(function() {
 	});
 
 
-	// listen for whereMoved changes and update placeholder text
+	// listen for whereMoved changes and ensure next location button is emabled and i don't see my neighborhood is unchecked
 	$(document).on('change', '#id_whereMoved', function(e) {
-		// get placeholder text and place this into the select 2 input
-		//var placeholder = $(this).find('option:selected').text();
-		//$('.select2-focusser').prop("placeholder", placeholder);
-		//$('.select2-input').prop("placeholder", placeholder);
-		//$('#select2-drop').select2("close");
-		//$("#select2-drop-mask").select2("close");
 		// remove disabled button for next
 		$('#nextLocation').prop("disabled", false);
 		// ensure that iDontSeeMyNeighborhood is unchecked
 		$('#id_iDontSeeMyNeighborhood').prop("checked", false);
 	});
+	
+	// $(document).on('select', '#s2id_autogen1_search', function(e) {
+	// 	// get width of input group
+	// 	var w = $('.input-group').width();
+	// 	console.log(w);
+	// 	// set width 
+	// 	$('.select2-drop').css( "width", w + "px" );
+	// 	// move left
+	// 	var left = $('.select2-drop').css ("left");
+	// 	console.log(left);
+	// });
 
 	// ensure that select2-no-results says the correct text
 	$(document).on('keydown', '#s2id_autogen1_search', function(e) {

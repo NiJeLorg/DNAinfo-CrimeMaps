@@ -3,13 +3,13 @@
     <form id="allPaidForm" method="post" action=".">
         {% csrf_token %}
         <div class="row">
-            <div class="col-xs-10 col-sm-6 col-sm-offset-2">
+            <div class="col-xs-10 col-sm-7 col-sm-offset-2">
                 <h2 class="questionHeading">
                     Based on what you've told us, we estimate that the total monthly rent for your apartment was approximately $<span id="allPaidHeading"></span>. Sound right?
                 </h2>
             </div>
-            <div class="col-xs-2 col-sm-3 col-sm-offset-1">
-                <p class="pagesCompleted">8/8</p>
+            <div class="col-xs-2 col-sm-1">
+                <p class="pagesCompleted pull-right">8/8</p>
             </div>
         </div>
         <div class="row">
@@ -18,11 +18,11 @@
                     <input type="radio" id="radio01allPaid" name="radio" />
                     <label for="radio01allPaid"><span></span>Yes</label>
                 </div>
-                <div class="marginBottom20">
+                <div class="marginBottom40">
                     <input type="radio" id="radio02allPaid" name="radio" />
                     <label for="radio02allPaid"><span></span>No</label>
                 </div>
-                <div class="form-group formField hidden">
+                <div class="form-group formField marginBottom40 hidden">
                     <p class="monthlyRentText">Okay, what was the overall monthly rent for the apartment?</p>
                     <div class="input-group">
                       <div class="input-group-addon left"><span class="moneyIcon"></span></div>
@@ -36,7 +36,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-8 col-sm-offset-2 bottomButtonGroup">
+            <div class="col-sm-8 col-sm-offset-2 bottomButtonGroupRadio">
                 <button id="backiPaid" class="btn btn-dna-primary" type="submit"><span class="backArrow"></span>Back</button>
                 <button id="nextCalc" class="btn btn-dna-primary" type="submit" disabled="disabled">Next<span class="forwardArrow"></span></button>
             </div>

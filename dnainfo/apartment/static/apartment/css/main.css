@@ -77,7 +77,7 @@ html, body {
   font-weight: 200;
   line-height: 1.3125;
   margin-top: 30px;
-  margin-bottom: 30px;  
+  margin-bottom: 18px;  
 }
 
 .pagesCompleted {
@@ -115,6 +115,10 @@ html, body {
   text-decoration: underline;
 }
 
+.text-danger {
+  color: #ef383e;
+}
+
 
 /* Modal Override */
 .modal-content {
@@ -123,6 +127,10 @@ html, body {
 
 .modal-header {
   border-bottom: 0px;
+}
+
+.modal-dialog {
+  margin: 30vh 25px;
 }
 
 
@@ -142,6 +150,13 @@ html, body {
   position: absolute; 
   bottom: 25px;
 }
+
+.bottomButtonGroupRadio {
+  position: relative;
+  margin-top: 0px;
+  margin-bottom: 25px;
+}
+
 
 .btn-dna-primary {
   font-weight: bold;
@@ -522,6 +537,9 @@ fieldset[disabled] .btn-dna-twitter.active {
 /* form controls */
 .form-control {
 	  height: 45px;
+    -webkit-text-fill-color:#686868; /* Override iOS / Android font color change */
+    -webkit-opacity:1; /* Override iOS opacity change affecting text & background color */
+    color: #686868;
     background-color: #eeeeee;
     background-image: none;
     border: 0px;
@@ -532,12 +550,21 @@ fieldset[disabled] .btn-dna-twitter.active {
     transition: none;
 }
 
-.form-control::-webkit-input-placeholder { color: #686868 !important; }
-.form-control:-moz-placeholder { color: #686868 !important; }
-.form-control::-moz-placeholder { color: #686868 !important; }
-.form-control:-ms-input-placeholder { color: #686868 !important; }
 
-.form-control[disabled], fieldset[disabled] .form-control { 
+.form-control:focus {
+  border-color: #eeeeee;
+  outline: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+.form-control::-moz-placeholder {
+  color: #686868;
+  opacity: 1;
+}
+.form-control:-ms-input-placeholder {
+  color: #686868;
+}
+.form-control::-webkit-input-placeholder {
   color: #686868;
 }
 
@@ -557,6 +584,7 @@ fieldset[disabled] .btn-dna-twitter.active {
   font-family: inherit;
   font-size: inherit;
   border: 0px;
+  background: none;
   background-color: #eeeeee;
   background-image: none;
   -webkit-box-shadow: none;
@@ -618,12 +646,31 @@ fieldset[disabled] .btn-dna-twitter.active {
   color: #686868;
   background-image: none;
   background: #eeeeee;
+  box-shadow: none;
 }
 
 .select2-arrow {
   display: none !important;
 }
 
+.select2-drop.select2-drop-above.select2-drop-active {
+  border: 0px;
+  border-radius: 0px;
+  box-shadow: none;
+  -webkit-box-shadow: none;
+}
+
+.form-control.select2-container.select2-dropdown-open {
+  border: 0px;
+  border-radius: 0px;
+  box-shadow: none;
+  -webkit-box-shadow: none;
+}
+
+.select2-dropdown-open.select2-drop-above .select2-choice, .select2-dropdown-open.select2-drop-above .select2-choices {
+  border: 0px;
+  background-image: none;
+}
 
 
 /* Fade effects */
@@ -645,6 +692,18 @@ fieldset[disabled] .btn-dna-twitter.active {
   right: 0; 
 }
 
+/* remove spinners */
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+input[type=number] {
+    -moz-appearance:textfield;
+}
+
+
 /* radio button css */
 input[type="radio"] {
     display:none;
@@ -654,13 +713,14 @@ input[type="radio"] + label {
     font-family:"Titillium Web", Helvetica, Sans-Serif;
     color: #686868;
     font-size: 18px;
-    font-weight: normal;
+    font-weight: 200;
+    margin-bottom: 0px;
 }
 input[type="radio"] + label span {
     display:inline-block;
     width:14px;
     height:14px;
-    margin:-1px 4px 0 0;
+    margin:-3px 10px 0 0;
     vertical-align:middle;
     cursor:pointer;
     -moz-border-radius:  50%;
@@ -684,6 +744,9 @@ input[type="radio"]:checked + label span {
   transition:background-color 0.4s linear;
 }
 
+
+
+/* general css for margins and padding */
 .marginBottom20 {
   margin-bottom: 20px;
 }
@@ -743,8 +806,91 @@ input[type="radio"]:checked + label span {
     font-size: 57px;
     line-height: 1.228;
     margin-top: 125px;
-    margin-bottom: 30px;
+    margin-bottom: 18px;
   }
+
+  .modal-dialog {
+    margin: 30vh auto;
+  }
+
+  /* 
+  * css for larger input 
+  */
+/*  .form-control {
+    height: 60px;
+    font-size: 18px;
+  }
+
+  .input-group-addon.left {
+      padding-left: 10px;
+      width: 50px;
+  }
+*/
+  /* icons in left input areas */
+ /* .calendarIcon {
+      width: 36px;
+      height: 60px;
+      margin-left: -10px;
+      background: url('images/Calendar_ICON2_TALL.svg');
+      background-color: transparent;
+      background-position: left center;
+      background-repeat: no-repeat;
+  }*/
+
+  /* icons in right input areas */
+ /* .minusStepper {
+    z-index: 1000;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 47px;
+      width: 37px;
+      height: 40px;
+      background: url('images/Stepper_Minus_ICON2_TALL.svg');
+      background-color: transparent;
+      background-position: left center;
+      background-repeat: no-repeat;
+  }
+
+  .minusStepper:hover {
+    z-index: 1000;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 47px;
+      width: 37px;
+      height: 40px;
+      background: url('images/Stepper_Minus_ICON2_Hover_TALL.svg');
+      background-color: transparent;
+      background-position: left center;
+      background-repeat: no-repeat;
+  }
+
+  .plusStepper {
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+      width: 37px;
+      height: 40px;
+      background: url('images/Stepper_Plus_ICON2_TALL.svg');
+      background-color: transparent;
+      background-position: left center;
+      background-repeat: no-repeat;
+  }
+
+  .plusStepper:hover {
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+      width: 37px;
+      height: 40px;
+      background: url('images/Stepper_Plus_ICON2_Hover_TALL.svg');
+      background-color: transparent;
+      background-position: left center;
+      background-repeat: no-repeat;
+  }*/
 
 }
 
@@ -793,6 +939,7 @@ input[type="radio"]:checked + label span {
   .questionHeadingExact {
     display: block;
     font-size: 57px;
+    font-weight: 200;
     line-height: 1.228;
     margin-top: 125px;
     margin-bottom: 90px;
@@ -806,9 +953,12 @@ input[type="radio"]:checked + label span {
     font-size: 57px;
     line-height: 1.228;
     margin-top: 125px;
-    margin-bottom: 30px;
+    margin-bottom: 18px;
   }
 
+  .modal-dialog {
+    margin: 30vh auto;
+  }
 
 }
 
