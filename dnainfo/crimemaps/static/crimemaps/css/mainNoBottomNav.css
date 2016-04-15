@@ -398,7 +398,7 @@ body.loading .loading-modal {
 
 .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
   color: #dbdbdb;
-  background-color: #931212;
+  background-color: #2e2925;
 }
 
 @media (max-width: 767px) {
