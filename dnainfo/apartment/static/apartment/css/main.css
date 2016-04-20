@@ -30,12 +30,10 @@ html, body {
 }
 
 /* Main container should have 25px right and left padding */
-
 .container-fluid {
   padding-left: 25px;
   padding-right: 25px;
 }
-
 
 /* Typography */
 .introHeading {
@@ -69,6 +67,15 @@ html, body {
   margin-top: 30px;
   margin-left: 35px;
   margin-bottom: 65px;
+}
+
+.allPaidQuestionHeading {
+  color: #686868;
+  font-size: 32px;
+  font-weight: 200;
+  line-height: 1.3125;
+  margin-top: 30px;
+  margin-bottom: 40px;
 }
 
 .resultsHeading {
@@ -130,7 +137,15 @@ html, body {
 }
 
 .modal-dialog {
-  margin: 30vh 25px;
+  margin: 20vh 25px;
+}
+
+.modal-header .close {
+  margin-top: -2px;
+  margin-right: -10px;
+  width: 25px;
+  height: 25px;
+  padding-left: 10px;
 }
 
 
@@ -141,6 +156,7 @@ html, body {
 }*/
 
 .bottomButtonGroup {
+  text-align: center;
   position: relative;
   margin-top: 90px;
   margin-bottom: 25px;
@@ -152,22 +168,29 @@ html, body {
 }
 
 .bottomButtonGroupRadio {
+  text-align: center;
   position: relative;
   margin-top: 0px;
   margin-bottom: 25px;
 }
 
+.bottomButtonGroupResults {
+  position: relative;
+  margin-top: 75px;
+  margin-bottom: 25px;
+}
+
 
 .btn-dna-primary {
+  position: relative;
   font-weight: bold;
   color: #ffffff;
   background-color: #4291c3;
   border-color: #4291c3;
   border-radius: 2px;
   height: 50px;
-  width: 130px;
+  width: 126px;
   padding: 14px 14px;
-  margin-right: 10px;
 }
 .btn-dna-primary:hover,
 .btn-dna-primary:focus,
@@ -321,12 +344,11 @@ fieldset[disabled] .btn-dna-twitter.active {
 	  top: 19px;
     width: 15px;
     height: 12px;
-    left: 41px;
+    left: 24px;
     background: url('images/Arrow_ICON2.svg');
     background-color: transparent;
     background-position: left center;
     background-repeat: no-repeat;
-
 }
 
 .forwardArrow {
@@ -334,15 +356,13 @@ fieldset[disabled] .btn-dna-twitter.active {
     top: 19px;
     width: 15px;
     height: 12px;
-    margin-left: 10px;
+    left: 86px;   
     background: url('images/Arrow_ICON_NEXT.svg');
     background-color: transparent;
     background-position: left center;
     background-repeat: no-repeat;
 
 }
-
-
 
 
 
@@ -583,10 +603,9 @@ fieldset[disabled] .btn-dna-twitter.active {
   padding-left: 11px;
   font-family: inherit;
   font-size: inherit;
-  border: 0px;
-  background: none;
+  border: 0px; 
   background-color: #eeeeee;
-  background-image: none;
+  background-image: none !important;
   -webkit-box-shadow: none;
   box-shadow: none;
   -webkit-transition: none;
@@ -610,6 +629,11 @@ fieldset[disabled] .btn-dna-twitter.active {
   margin: 0px;
   max-height: 135px;
 }
+
+.select2-results::-webkit-scrollbar { 
+    display: none; 
+}
+
 
 .select2-results li {
   height: 45px;
@@ -755,9 +779,39 @@ input[type="radio"]:checked + label span {
   margin-bottom: 40px;
 }
 
+.marginRight10 {
+  margin-right: 10px;
+}
+
 
 /* Media Queries */
 @media (min-width: 600px) {
+
+  /* Update grid system to have 10% margins and spacing */
+  .col-sm-8 {
+    width: 80%;
+  }
+  .col-sm-7 {
+    width: 75%;    
+  }
+  .col-sm-1 {
+    width: 5%;        
+  }
+  .col-sm-offset-2 {
+    margin-left: 10%;
+  }
+
+  .btn-dna-primary {
+    width: 130px;
+  }
+
+  .backArrow {
+      left: 27px;
+  }
+
+  .forwardArrow {
+      left: 88px; 
+  }
 
   #background, #background li { 
     background: url('images/Illustration_TALL.svg');
@@ -781,6 +835,12 @@ input[type="radio"]:checked + label span {
 		margin-bottom: 125px;
 	}
 
+  .allPaidQuestionHeading {
+    font-size: 57px;
+    line-height: 1.228;
+    margin-top: 125px;
+  }
+
 	.pagesCompleted {
 		color: #686868;
 		font-size: 22px;
@@ -789,10 +849,15 @@ input[type="radio"]:checked + label span {
 		margin-bottom: 125px;
 	}
 
-/*	.bottomButtonGroup {
-		bottom: 200px;
-	}
-*/
+  .bottomButtonGroup {
+    text-align: left;
+  }
+
+  .bottomButtonGroupRadio {
+    text-align: left;
+  }
+
+
   .questionHeadingExactSmall {
     display: block;
     font-size: 57px;
@@ -805,7 +870,7 @@ input[type="radio"]:checked + label span {
   .resultsHeading {
     font-size: 57px;
     line-height: 1.228;
-    margin-top: 125px;
+    margin-top: 75px;
     margin-bottom: 18px;
   }
 
@@ -954,10 +1019,6 @@ input[type="radio"]:checked + label span {
     line-height: 1.228;
     margin-top: 125px;
     margin-bottom: 18px;
-  }
-
-  .modal-dialog {
-    margin: 30vh auto;
   }
 
 }
