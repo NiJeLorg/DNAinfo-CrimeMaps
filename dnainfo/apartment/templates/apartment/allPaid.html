@@ -4,7 +4,7 @@
         {% csrf_token %}
         <div class="row">
             <div class="col-xs-10 col-sm-7 col-sm-offset-2">
-                <h2 class="questionHeading">
+                <h2 class="allPaidQuestionHeading">
                     Based on what you've told us, we estimate that the total monthly rent for your apartment was approximately $<span id="allPaidHeading"></span>. Sound right?
                 </h2>
             </div>
@@ -18,7 +18,7 @@
                     <input type="radio" id="radio01allPaid" name="radio" />
                     <label for="radio01allPaid"><span></span>Yes</label>
                 </div>
-                <div class="marginBottom40">
+                <div id="noButton" class="marginBottom40">
                     <input type="radio" id="radio02allPaid" name="radio" />
                     <label for="radio02allPaid"><span></span>No</label>
                 </div>
@@ -37,7 +37,7 @@
         </div>
         <div class="row">
             <div class="col-sm-8 col-sm-offset-2 bottomButtonGroupRadio">
-                <button id="backiPaid" class="btn btn-dna-primary" type="submit"><span class="backArrow"></span>Back</button>
+                <button id="backiPaid" class="btn btn-dna-primary marginRight10" type="submit"><span class="backArrow"></span>Back</button>
                 <button id="nextCalc" class="btn btn-dna-primary" type="submit" disabled="disabled">Next<span class="forwardArrow"></span></button>
             </div>
         </div>

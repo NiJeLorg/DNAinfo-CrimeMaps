@@ -211,30 +211,30 @@ $( document ).ready(function() {
 
 	// listen for whereMoved changes and ensure next location button is emabled and i don't see my neighborhood is unchecked
 	$(document).on('change', '#id_whereMoved', function(e) {
+		// close keyboard
+		$('.select2-focusser').blur();
 		// remove disabled button for next
 		$('#nextLocation').prop("disabled", false);
 		// ensure that iDontSeeMyNeighborhood is unchecked
 		$('#id_iDontSeeMyNeighborhood').prop("checked", false);
 	});
 	
-	// $(document).on('select', '#s2id_autogen1_search', function(e) {
-	// 	// get width of input group
-	// 	var w = $('.input-group').width();
-	// 	console.log(w);
-	// 	// set width 
-	// 	$('.select2-drop').css( "width", w + "px" );
-	// 	// move left
-	// 	var left = $('.select2-drop').css ("left");
-	// 	console.log(left);
+	// listen on select to set width and left of search list
+	// $(document).on('select2:open', '#s2id_id_whereMoved', function(e) {
+	// 	console.log("hello");
+	// 	setWidthAndLeftOfSelect2Drop();
 	// });
 
 	// ensure that select2-no-results says the correct text
-	$(document).on('keydown', '#s2id_autogen1_search', function(e) {
+	// also list on keydown to set width and left
+	$(document).on('keydown', '.select2-input', function(e) {
+		//setWidthAndLeftOfSelect2Drop();
 		window.setTimeout(function() {  
 	        $(".select2-no-results").html("<em>I don't see my neighborhood.</em>");
 	        // set listener
         	$(".select2-no-results").on('click', function(e) {
 				$('.select2-focusser').prop("placeholder", "I don't see my neighborhood.");
+				$('.select2-chosen').text("I don't see my neighborhood.");
 				$('#id_whereMoved').val('');
         		$('#id_iDontSeeMyNeighborhood').prop("checked", true);
 				$('.select2-focusser').prop("disabled", false);
@@ -244,6 +244,7 @@ $( document ).ready(function() {
 			});
 	    }, 1);	
 	});
+
 
 	// enable next and check yes if change in input field
 	$(document).on('keydown', '#id_exactYearMoved', function(e) {
@@ -291,7 +292,8 @@ $( document ).ready(function() {
 		$(".text-danger").addClass("hidden");
 		$(".warningIcon").addClass("hidden");			
 		$(".verifyIcon").removeClass("hidden");
-
+		$("#noButton").removeClass("marginBottom40");
+		$("#noButton").addClass("marginBottom20");
 	});
 
 	// if Yes radio button is clicked, enable next button
@@ -301,6 +303,8 @@ $( document ).ready(function() {
     	$('#id_allPaid').val(allPaidOrigNum);
     	// hide form field
     	$(".formField").addClass("hidden");
+		$("#noButton").removeClass("marginBottom20");
+		$("#noButton").addClass("marginBottom40");
 
 	});
 
@@ -349,7 +353,7 @@ $( document ).ready(function() {
 				$('#id_whenMoved').val('Before 1960');
 				break;
 			default:
-				$('#id_whenMoved').val('2010 - Present');
+				$('#id_whenMoved').val('Before 1960');
 				break;
 		}
 
@@ -361,7 +365,7 @@ $( document ).ready(function() {
 		// step up based on last value
 		switch (whenMoved) {
 			case "2010 - Present":
-				$('#id_whenMoved').val('Before 1960');
+				$('#id_whenMoved').val('2010 - Present');
 				break;
 			case "2000 - 2009":
 				$('#id_whenMoved').val('2010 - Present');
@@ -481,6 +485,24 @@ $( document ).ready(function() {
 			return true;
 		}
 		return false;
+	}
+
+	function setWidthAndLeftOfSelect2Drop() {
+		// get width of input group
+		var w = $('.input-group').width();
+		// check to see if it's already been updated
+		var curW = $('.select2-drop').css("width");
+		var curWNum = parseFloat(curW.slice(0,-2));
+		console.log(w);
+		console.log(curWNum)
+		if (w != curWNum) {
+			$('.select2-drop').css( "width", w + "px" );
+			// move left
+			var left = $('.select2-drop').css("left");		
+			var leftNum = parseFloat(left.slice(0,-2)) - 32;
+			$('.select2-drop').css("left", leftNum + "px");
+		}
+
 	}
 
 
