@@ -2,11 +2,16 @@
  * Main css for DNAinfo My First Apartment
  */
 
-html, body {
-    height: 100%;
+body {
+	padding: 0;
+	margin: 0;
     font-family:"Titillium Web", Helvetica, Sans-Serif;
     color: #686868;
 }
+html, body, #map {
+	height: 100vh;
+}
+
 
 /* full screen background image */
 #background, #background li { 
@@ -703,10 +708,6 @@ fieldset[disabled] .btn-dna-twitter.active {
 }
 
 /* Map CSS */
-#map {
-  height: 100vh;
-}
-
 .absolutePostionedDiv {
   pointer-events: none;
   position: absolute;
