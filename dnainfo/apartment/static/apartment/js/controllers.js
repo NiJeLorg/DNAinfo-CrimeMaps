@@ -139,6 +139,30 @@ $( document ).ready(function() {
 		ajaxApplication.nextAllPaid();
 	});
 
+	$(document).on('keydown', '#iPaidForm', function(e) {
+		if (e.keyCode === 13) {
+			e.preventDefault();
+			// check if field is empty
+			var iPaid = $('#id_iPaid').val();
+			var checkNull = isNull(iPaid);
+			if (checkNull) {
+				return;
+			}
+
+			// check is value is between 0 and 50000
+			if (iPaid < 0 || iPaid > 50000) {
+				$(".text-danger").removeClass("hidden");
+				return;
+			}
+
+			//fade out, submit form, then fade back in
+			$(".fadein").fadeOut("fast");
+			ajaxApplication.nextAllPaid();
+
+		}
+
+	});	
+
 	$(document).on('click', '#nextCalc', function(e) {
 		e.preventDefault();
 		// check if field is empty
