@@ -243,13 +243,15 @@ $( document ).ready(function() {
 		$('#id_iDontSeeMyNeighborhood').prop("checked", false);
 	});
 
-	// listen for blur
+	// for iOS, force blur to close keyboard if clicking away from the input field
 	$(document).on('click', '#select2-drop', function(e) {
 		document.activeElement.blur();
 	});
 
-	$(document).on('blur', '#id_iPaid', function(e) {
-		document.activeElement.blur();
+	$(document).on('click', '#iPaidForm', function(e) {
+		if (e.target.id != "id_iPaid") {
+			document.activeElement.blur();
+		}
 	});
 
 
