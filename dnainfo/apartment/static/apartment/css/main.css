@@ -8,8 +8,8 @@ body {
     font-family:"Titillium Web", Helvetica, Sans-Serif;
     color: #686868;
 }
-html, body, #map {
-	height: 100vh;
+html, body, #content, #map {
+	height: 100%;
 }
 
 
