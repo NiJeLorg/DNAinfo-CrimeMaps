@@ -1,12 +1,12 @@
 /**
- * fade.js: fade in and out controls
+ * controllers.js: javascript controllers for all pages
  */
-
 
 $( document ).ready(function() {
 
 	// fade in main image and search bar
 	$(".fadein").fadeIn("slow");
+
 
 	// listeners for all forms
 	$(document).on('click', '#firstMove', function(e) {
@@ -242,17 +242,20 @@ $( document ).ready(function() {
 		// ensure that iDontSeeMyNeighborhood is unchecked
 		$('#id_iDontSeeMyNeighborhood').prop("checked", false);
 	});
-	
-	// listen on select to set width and left of search list
-	// $(document).on('select2:open', '#s2id_id_whereMoved', function(e) {
-	// 	console.log("hello");
-	// 	setWidthAndLeftOfSelect2Drop();
-	// });
+
+	// listen for blur
+	$(document).on('click', '#select2-drop', function(e) {
+		document.activeElement.blur();
+	});
+
+	$(document).on('blur', '#id_iPaid', function(e) {
+		document.activeElement.blur();
+	});
+
 
 	// ensure that select2-no-results says the correct text
 	// also list on keydown to set width and left
 	$(document).on('keydown', '.select2-input', function(e) {
-		//setWidthAndLeftOfSelect2Drop();
 		window.setTimeout(function() {  
 	        $(".select2-no-results").html("<em>I don't see my neighborhood.</em>");
 	        // set listener
@@ -517,8 +520,6 @@ $( document ).ready(function() {
 		// check to see if it's already been updated
 		var curW = $('.select2-drop').css("width");
 		var curWNum = parseFloat(curW.slice(0,-2));
-		console.log(w);
-		console.log(curWNum)
 		if (w != curWNum) {
 			$('.select2-drop').css( "width", w + "px" );
 			// move left

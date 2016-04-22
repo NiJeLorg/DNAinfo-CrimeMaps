@@ -24,7 +24,7 @@ html, body, #map {
   background: url('images/Illustration_SMALL.svg');
   background-color: transparent; 
   background-size: cover; 
-  background-position: center center; 
+  background-position: center top; 
   background-repeat: no-repeat; 
 }
 
@@ -40,10 +40,19 @@ html, body, #map {
   padding-right: 25px;
 }
 
+/* Update grid system to have 10% margins and spacing */
+.col-xs-10 {
+	width: 90%;
+}
+
+.col-xs-2 {
+	width: 10%;
+}
+
 /* Typography */
 .introHeading {
 	color: #686868;
-	font-size: 17px;
+	font-size: 19px;
   font-weight: 300;
 	line-height: 1.529;
 	margin-top: 30px;
@@ -155,25 +164,18 @@ html, body, #map {
 
 
 /* Buttons */
-/*.bottomButtonGroup {
-	position: absolute; 
-	bottom: 25px;
-}*/
-
 .bottomButtonGroup {
-  text-align: center;
   position: relative;
   margin-top: 90px;
   margin-bottom: 25px;
 }
 
 .bottomButtonGroupMap {
-  position: absolute; 
-  bottom: 25px;
+  position: relative; 
+  bottom: 85px;
 }
 
 .bottomButtonGroupRadio {
-  text-align: center;
   position: relative;
   margin-top: 0px;
   margin-bottom: 25px;
@@ -181,7 +183,7 @@ html, body, #map {
 
 .bottomButtonGroupResults {
   position: relative;
-  margin-top: 75px;
+  margin-top: 55px;
   margin-bottom: 25px;
 }
 
@@ -194,7 +196,7 @@ html, body, #map {
   border-color: #4291c3;
   border-radius: 2px;
   height: 50px;
-  width: 126px;
+  width: 130px;
   padding: 14px 14px;
 }
 .btn-dna-primary:hover,
@@ -236,6 +238,10 @@ fieldset[disabled] .btn-dna-primary.active {
 .btn-dna-primary .badge {
   color: #337ab7;
   background-color: #ffffff;
+}
+
+.btn-dna-primary.mobileWidth {
+	width: 47.5%;
 }
 
 
@@ -346,10 +352,10 @@ fieldset[disabled] .btn-dna-twitter.active {
 /* arrows in buttons */
 .backArrow {
     position: absolute;
-	  top: 19px;
+	top: 19px;
     width: 15px;
     height: 12px;
-    left: 24px;
+    margin-left: -24px;
     background: url('images/Arrow_ICON2.svg');
     background-color: transparent;
     background-position: left center;
@@ -361,7 +367,7 @@ fieldset[disabled] .btn-dna-twitter.active {
     top: 19px;
     width: 15px;
     height: 12px;
-    left: 86px;   
+    margin-left: 10px; 
     background: url('images/Arrow_ICON_NEXT.svg');
     background-color: transparent;
     background-position: left center;
@@ -597,6 +603,13 @@ fieldset[disabled] .btn-dna-twitter.active {
 /* Select 2 control css */
 .form-control.select2-container {
   height: 45px !important;
+  border-top-right-radius: 4px !important;
+  border-bottom-right-radius: 4px !important;	
+}
+
+.form-control .select2-choice {
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;	
 }
 
 .select2-search {
@@ -616,6 +629,8 @@ fieldset[disabled] .btn-dna-twitter.active {
   -webkit-transition: none;
   -o-transition: none;
   transition: none;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;	
 }
 
 .select2-drop {
@@ -802,44 +817,46 @@ input[type="radio"]:checked + label span {
     margin-left: 10%;
   }
 
-  .btn-dna-primary {
-    width: 130px;
+  .btn-dna-primary.mobileWidth {
+	width: 130px;
   }
 
   .backArrow {
       left: 27px;
+      margin-left: 0px;
   }
 
   .forwardArrow {
       left: 88px; 
+      margin-left: 0px;
   }
 
   #background, #background li { 
     background: url('images/Illustration_TALL.svg');
     background-color: transparent; 
     background-size: cover; 
-    background-position: center center; 
+    background-position: center top; 
     background-repeat: no-repeat; 
   } 
    
 	.introHeading {
 		font-size: 30px;
 		line-height: 1.5;
-    	margin-top: 125px;
+    	margin-top: 75px;
     	margin-bottom: 100px;
 	}
 
 	.questionHeading {
 		font-size: 57px;
 		line-height: 1.228;
-		margin-top: 125px;
+		margin-top: 75px;
 		margin-bottom: 125px;
 	}
 
   .allPaidQuestionHeading {
     font-size: 57px;
     line-height: 1.228;
-    margin-top: 125px;
+    margin-top: 75px;
   }
 
 	.pagesCompleted {
@@ -850,20 +867,11 @@ input[type="radio"]:checked + label span {
 		margin-bottom: 125px;
 	}
 
-  .bottomButtonGroup {
-    text-align: left;
-  }
-
-  .bottomButtonGroupRadio {
-    text-align: left;
-  }
-
-
   .questionHeadingExactSmall {
     display: block;
     font-size: 57px;
     line-height: 1.228;
-    margin-top: 125px;
+    margin-top: 75px;
     margin-left: 0px;
     margin-bottom: 125px;
   }
@@ -967,21 +975,21 @@ input[type="radio"]:checked + label span {
     background: url('images/Illustration_FULL.svg');
     background-color: transparent; 
     background-size: cover; 
-    background-position: center center; 
+    background-position: center top; 
     background-repeat: no-repeat; 
   } 
 
 	.introHeading {
 		font-size: 30px;
 		line-height: 1.5;
-    	margin-top: 120px;
+    	margin-top: 75px;
     	margin-bottom: 100px;
 	}
 
 	.questionHeading {
 		font-size: 57px;
 		line-height: 1.228;
-		margin-top: 125px;
+		margin-top: 75px;
 		margin-bottom: 90px;
 	}
 
@@ -993,21 +1001,13 @@ input[type="radio"]:checked + label span {
 		margin-bottom: 90px;
 	}
 
-/*	.formField {
-		margin-bottom: 90px;	
-	}*/
-
-/*	.bottomButtonGroup {
-		position: relative;
-		bottom: 0;
-	}*/
 
   .questionHeadingExact {
     display: block;
     font-size: 57px;
     font-weight: 200;
     line-height: 1.228;
-    margin-top: 125px;
+    margin-top: 75px;
     margin-bottom: 90px;
   }
 
@@ -1018,7 +1018,7 @@ input[type="radio"]:checked + label span {
   .resultsHeading {
     font-size: 57px;
     line-height: 1.228;
-    margin-top: 125px;
+    margin-top: 75px;
     margin-bottom: 18px;
   }
 
