@@ -63,7 +63,8 @@
 {% endblock %}
 
 {% block js_block %}
-{% import_django_select2_js %}
+<script type="text/javascript" src="{% static 'django_select2/js/select2.js' %}"></script>
+<script type="text/javascript" src="{% static 'django_select2/js/heavy_data.js' %}"></script>
 <script type="text/javascript" src="{% static 'apartment/js/leaflet.js' %}"></script>
 <script type="text/javascript" src="{% static 'apartment/js/leaflet.draw.js' %}"></script>
 <script type="text/javascript" src="{% static 'apartment/js/d3.min.js' %}"></script>
