@@ -42,7 +42,7 @@ drawBars.initialize = function () {
 		var largeFontSize = "16px";
 	} else {
 		var bottomRange = 185;
-		var height = width/2.5;		
+		var height = width/3;		
 		var smallFontSize = "16px";
 		var largeFontSize = "18px";
 	}
