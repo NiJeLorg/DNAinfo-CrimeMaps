@@ -14,7 +14,7 @@ Concourse,New York,NY,New York,Bronx,12,1150,0
 Elmhurst,New York,NY,New York,Queens,13,1500,0
 Lower East Side,New York,NY,New York,New York,16,2672.5,0
 Flushing,New York,NY,New York,Queens,18,1350,0
-Murray Hill,New York,NY,New York,Queens,19,1395,0
+Murray Hill (Queens),New York,NY,New York,Queens,19,1395,0
 Forest Hills,New York,NY,New York,Queens,20,1537,0
 East Village,New York,NY,New York,New York,21,2100,0
 Jackson Heights,New York,NY,New York,Queens,22,1495,0
@@ -36,7 +36,7 @@ Fort Hamilton,New York,NY,New York,Kings,46,1299.5,0
 Hell's Kitchen / Clinton,New York,NY,New York,New York,49,2600,0
 Financial District,New York,NY,New York,New York,50,2850,0
 Brighton Beach,New York,NY,New York,Kings,51,1400,0
-Flatiron District,New York,NY,New York,New York,52,2900,0
+Flatiron,New York,NY,New York,New York,52,2900,0
 Clinton Hill,New York,NY,New York,Kings,55,2000,0
 West Village,New York,NY,New York,New York,59,2925,0
 Kew Gardens,New York,NY,New York,Queens,60,1500,0
@@ -47,7 +47,7 @@ Turtle Bay,New York,NY,New York,New York,69,2300,0
 Midtown,New York,NY,New York,New York,70,2695,0
 Tribeca,New York,NY,New York,New York,71,3595,0
 Tudor City,New York,NY,New York,New York,74,2300,0
-Battery Park,New York,NY,New York,New York,75,2950,0
+Battery Park City,New York,NY,New York,New York,75,2950,0
 Boerum Hill,New York,NY,New York,Kings,85,2650,0
 SoHo,New York,NY,New York,New York,87,2495,0
 Hunters Point,New York,NY,New York,Queens,89,2331,0
@@ -79,7 +79,7 @@ Bensonhurst,New York,NY,New York,Kings,32,1475,1
 Soundview,New York,NY,New York,Bronx,35,1300,1
 Lower East Side,New York,NY,New York,New York,36,2690,1
 Flushing,New York,NY,New York,Queens,39,1650,1
-Murray Hill,New York,NY,New York,Queens,41,1599.5,1
+Murray Hill (Queens),New York,NY,New York,Queens,41,1599.5,1
 Sheepshead Bay,New York,NY,New York,Kings,42,1575,1
 Gravesend,New York,NY,New York,Kings,44,1550,1
 Forest Hills,New York,NY,New York,Queens,47,1885,1
@@ -92,7 +92,7 @@ Park Slope,New York,NY,New York,Kings,56,2500,1
 Gramercy,New York,NY,New York,New York,60,3304,1
 Richmond Hill,New York,NY,New York,Queens,61,1450,1
 Bay Ridge,New York,NY,New York,Kings,62,1575,1
-Tremont,New York,NY,New York,Bronx,64,1300,1
+Tremont & East Tremont,New York,NY,New York,Bronx,64,1300,1
 Kensington,New York,NY,New York,Kings,66,1800,1
 Bath Beach,New York,NY,New York,Kings,68,1450,1
 University Heights,New York,NY,New York,Bronx,70,1300,1
@@ -128,7 +128,7 @@ Hell's Kitchen / Clinton,New York,NY,New York,New York,137,3200,1
 Financial District,New York,NY,New York,New York,141,3560,1
 Briarwood,New York,NY,New York,Queens,142,1600,1
 Brighton Beach,New York,NY,New York,Kings,143,1625,1
-Flatiron District,New York,NY,New York,New York,144,3925,1
+Flatiron,New York,NY,New York,New York,144,3925,1
 Pelham Bay,New York,NY,New York,Bronx,149,1350,1
 Clinton Hill,New York,NY,New York,Kings,153,2425,1
 West Village,New York,NY,New York,New York,158,3650,1
@@ -144,7 +144,7 @@ Midtown,New York,NY,New York,New York,185,3500,1
 Tribeca,New York,NY,New York,New York,193,4400,1
 Spuyten Duyvil,New York,NY,New York,Bronx,197,1950,1
 Tudor City,New York,NY,New York,New York,202,3172.5,1
-Battery Park,New York,NY,New York,New York,204,3715,1
+Battery Park City,New York,NY,New York,New York,204,3715,1
 Jamaica Estates,New York,NY,New York,Queens,213,1650,1
 Riverdale,New York,NY,New York,Bronx,214,1800,1
 Carroll Gardens,New York,NY,New York,Kings,221,2665,1
@@ -152,7 +152,7 @@ Boerum Hill,New York,NY,New York,Kings,225,2925,1
 SoHo,New York,NY,New York,New York,235,3095,1
 Hunters Point,New York,NY,New York,Queens,236,2900,1
 Murray Hill,New York,NY,New York,New York,245,3395,1
-Downtown,New York,NY,New York,Kings,253,3080,1
+Downtown Brooklyn,New York,NY,New York,Kings,253,3080,1
 Little Italy,New York,NY,New York,New York,260,3199,1
 Windsor Terrace,New York,NY,New York,Kings,267,2400,1
 Cobble Hill,New York,NY,New York,Kings,275,2850,1
@@ -184,7 +184,7 @@ Bensonhurst,New York,NY,New York,Kings,43,1750,2
 Lower East Side,New York,NY,New York,New York,47,3500,2
 Canarsie,New York,NY,New York,Kings,48,1725,2
 Flushing,New York,NY,New York,Queens,51,2200,2
-Murray Hill,New York,NY,New York,Queens,54,2100,2
+Murray Hill (Queens),New York,NY,New York,Queens,54,2100,2
 Sheepshead Bay,New York,NY,New York,Kings,55,1950,2
 Gravesend,New York,NY,New York,Kings,57,1850,2
 Forest Hills,New York,NY,New York,Queens,60,2490,2
@@ -195,7 +195,7 @@ Midwood,New York,NY,New York,Kings,72,1995,2
 Park Slope,New York,NY,New York,Kings,76,2950,2
 Gramercy,New York,NY,New York,New York,80,3995,2
 Bay Ridge,New York,NY,New York,Kings,81,2000,2
-Tremont,New York,NY,New York,Bronx,85,1600,2
+Tremont & East Tremont,New York,NY,New York,Bronx,85,1600,2
 Kensington,New York,NY,New York,Kings,88,2200,2
 Bath Beach,New York,NY,New York,Kings,91,1785,2
 University Heights,New York,NY,New York,Bronx,97,1595,2
@@ -246,14 +246,14 @@ Midtown,New York,NY,New York,New York,247,5520,2
 Tribeca,New York,NY,New York,New York,258,6095,2
 Spuyten Duyvil,New York,NY,New York,Bronx,263,2550,2
 Tudor City,New York,NY,New York,New York,268,4700,2
-Battery Park,New York,NY,New York,New York,270,6200,2
+Battery Park City,New York,NY,New York,New York,270,6200,2
 Riverdale,New York,NY,New York,Bronx,283,2299.5,2
 Carroll Gardens,New York,NY,New York,Kings,287,3025,2
 Boerum Hill,New York,NY,New York,Kings,292,3475,2
 SoHo,New York,NY,New York,New York,305,4900,2
 Hunters Point,New York,NY,New York,Queens,307,3800,2
 Murray Hill,New York,NY,New York,New York,319,4750,2
-Downtown,New York,NY,New York,Kings,327,4270,2
+Downtown Brooklyn,New York,NY,New York,Kings,327,4270,2
 Little Italy,New York,NY,New York,New York,334,3875,2
 Windsor Terrace,New York,NY,New York,Kings,341,3200,2
 Cobble Hill,New York,NY,New York,Kings,350,4337.5,2
@@ -283,7 +283,7 @@ Bensonhurst,New York,NY,New York,Kings,39,2100,3
 Lower East Side,New York,NY,New York,New York,45,4745,3
 Canarsie,New York,NY,New York,Kings,46,2000,3
 Flushing,New York,NY,New York,Queens,52,2500,3
-Murray Hill,New York,NY,New York,Queens,54,2325,3
+Murray Hill (Queens),New York,NY,New York,Queens,54,2325,3
 Sheepshead Bay,New York,NY,New York,Kings,55,2100,3
 Gravesend,New York,NY,New York,Kings,58,2100,3
 Forest Hills,New York,NY,New York,Queens,61,2990,3
@@ -314,7 +314,7 @@ Glendale,New York,NY,New York,Queens,151,2200,3
 Prospect-Lefferts Gardens,New York,NY,New York,Kings,152,2600,3
 Fort Hamilton,New York,NY,New York,Kings,158,2500,3
 Auburndale,New York,NY,New York,Queens,163,2400,3
-Flatiron District,New York,NY,New York,New York,164,5822.5,3
+Flatiron,New York,NY,New York,New York,164,5822.5,3
 Pelham Bay,New York,NY,New York,Bronx,169,2000,3
 Clinton Hill,New York,NY,New York,Kings,173,3669,3
 West Village,New York,NY,New York,New York,175,6397.5,3
@@ -325,7 +325,7 @@ Prospect Heights,New York,NY,New York,Kings,196,3900,3
 Turtle Bay,New York,NY,New York,New York,197,5390,3
 Tribeca,New York,NY,New York,New York,205,7800,3
 Spuyten Duyvil,New York,NY,New York,Bronx,209,3125,3
-Battery Park,New York,NY,New York,New York,211,8925,3
+Battery Park City,New York,NY,New York,New York,211,8925,3
 Riverdale,New York,NY,New York,Bronx,217,3395,3
 Hunters Point,New York,NY,New York,Queens,229,4795,3
 Rockaway Beach,New York,NY,New York,Queens,240,1600,3

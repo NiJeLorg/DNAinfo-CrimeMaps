@@ -82,6 +82,17 @@
             var fillYes = 1955;
             break;
     }
+
+    // disable plus minus stepper if min/max Year is equal to the value in the form
+    $( document ).ready(function() {
+        if ($('#id_exactYearMoved') == minYear) {
+            $('.minusStepper').addClass('disabled');
+        } else if ($('#id_exactYearMoved') == maxYear) {
+            $('.plusStepper').addClass('disabled');
+        }
+
+    });
+
 </script>
 	
 

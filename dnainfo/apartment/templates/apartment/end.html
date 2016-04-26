@@ -21,8 +21,8 @@
         <div class="col-xs-12 col-sm-8 col-sm-offset-2 bottomButtonGroupResults">
             <a id="letsGoAgain" class="btn btn-dna-primary" href="/my-first-apartment/" role="button">Let's Go Again!</a>
             <span class="pull-right">
-                <a id="showShareFB" class="btn btn-dna-facebook" href="#" role="button" onclick="#"><i class="fa fa-facebook-official fa-2x"></i></a>
-                <a id="showShareTwitter" class="btn btn-dna-twitter" href="#" role="button" onclick="#"><i class="fa fa-twitter fa-2x"></i></a>
+                <a id="showShareFB" class="btn btn-dna-facebook" href="#" role="button" onclick="#"><span class="shareOn">Share on </span><i class="fa fa-facebook-official fa-2x"></i></a>
+                <a id="showShareTwitter" class="btn btn-dna-twitter" href="#" role="button" onclick="#"><span class="shareOn">Share on </span><i class="fa fa-twitter fa-2x"></i></a>
             </span>
         </div>
     </div>
@@ -33,7 +33,7 @@
     var withInflation = parseFloat("{{ NYCmyFirstApartmentObject.withInflation }}").toFixed(0);
     var today = parseFloat("{{ NYCmyFirstApartmentObject.today }}").toFixed(0);
     var bedrooms = parseInt("{{ NYCmyFirstApartmentObject.bedrooms }}");
-    var todayType = "{{ NYCmyFirstApartmentObject.todayType }}".replace("&#39;", "'");
+    var todayType = "{{ NYCmyFirstApartmentObject.todayType }}".replace("&#39;", "'").replace("&amp;", "&");
     var year = "{{ NYCmyFirstApartmentObject.year }}";
     var bitlyURL = "{{ bitlyURL.url }}";
     $( document ).ready(function() {

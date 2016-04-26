@@ -72,9 +72,7 @@ mapApplication.initialize = function () {
 	new L.Draw.Marker(this.map, this.drawControl.options.draw.marker).enable();
 
 	// hide the marker draw buttons
-
 	$('.leaflet-draw-draw-marker').addClass("hidden");
-
 
 	var thismap = this;
 	this.map.on('draw:created', function (e) {
@@ -92,6 +90,17 @@ mapApplication.initialize = function () {
 
 	   	// remove disabled state from next button
 	   	$('#nextYearMoved').prop("disabled", false);
+
+	    // make draggable
+	    thismap.DRAWNLAYER.dragging.enable();
+
+	    // set up listeners on drag events
+	    thismap.DRAWNLAYER.on('dragend', function(e) {
+		   	var geojson = thismap.DRAWNLAYER.toGeoJSON();
+		   	$('#id_firstApartmentLocation').val(JSON.stringify(geojson));
+		});
+
+
 
 	});
 
