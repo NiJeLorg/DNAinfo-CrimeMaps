@@ -25,32 +25,42 @@ drawBars.initialize = function () {
 	var todayLabelBottom = whereText;
 
 
-    var d3_dataset = [{"amount":"$" + drawBars.numberWithCommas(allPaid), "label":year + " Value", "value":+allPaid}, 
-                      {"amount":"$" + drawBars.numberWithCommas(withInflation), "label":"In Today's Dollars", "value":+withInflation}, 
-                      {"amount":"$" + drawBars.numberWithCommas(today), "label":todayLabel, "labelTop": todayLabelTop, "labelBottom": todayLabelBottom, "value":+today}];
+    // var d3_dataset = [{"amount":"$" + drawBars.numberWithCommas(allPaid), "label":year + " Value", "value":+allPaid}, 
+    //                   {"amount":"$" + drawBars.numberWithCommas(withInflation), "label":"In Today's Dollars", "value":+withInflation}, 
+    //                   {"amount":"$" + drawBars.numberWithCommas(today), "label":todayLabel, "labelTop": todayLabelTop, "labelBottom": todayLabelBottom, "value":+today}];
+
+    var d3_dataset = [{"amount":"$" + drawBars.numberWithCommas(withInflation), "label":"In Today's Dollars", "value":+withInflation}, 
+                      {"amount":"$" + drawBars.numberWithCommas(today), "label":todayLabel, "labelTop": todayLabelTop, "labelBottom": todayLabelBottom, "value":+today}];    
 
 	var width = $('#visContainer').width();
 	if (width < 400) {
 		var bottomRange = 135;
-		var height = width/1.5;
+		var height = width/2.5;
 		var smallFontSize = "10px";
 		var largeFontSize = "12px";
 	} else if (width < 600) {
 		var bottomRange = 165;
-		var height = width/1.5;		
+		var height = width/3;		
 		var smallFontSize = "14px";
 		var largeFontSize = "16px";
 	} else {
 		var bottomRange = 185;
-		var height = width/3;		
+		var height = width/4;		
 		var smallFontSize = "16px";
 		var largeFontSize = "18px";
 	}
 
 	// set up scales
+	// commented out the one where we set the smallest bar to the min value
+/*	var x = d3.scale.linear()
+    	.range([bottomRange, width])
+    	.domain([d3.min(d3_dataset, function(d) { return d.value; }), d3.max(d3_dataset, function(d) { return d.value; })]);*/
+
+    // min domain is 0 dollars
 	var x = d3.scale.linear()
     	.range([bottomRange, width])
-    	.domain([d3.min(d3_dataset, function(d) { return d.value; }), d3.max(d3_dataset, function(d) { return d.value; })]);
+    	.domain([0, d3.max(d3_dataset, function(d) { return d.value; })]);
+
 
 	var y = d3.scale.ordinal()
 	    .rangeRoundBands([0, height], 0.1)
@@ -60,7 +70,7 @@ drawBars.initialize = function () {
         .range(["#4291c3", "#e66e6e", "#ffba77",]);
 
     // test x scale for word wrap
-    if (x(+today) <= 325) {
+    if (x(+today) <= 265) {
     	var wrapText = true;
     } else {
     	var wrapText = false;

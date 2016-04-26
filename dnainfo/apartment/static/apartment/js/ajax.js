@@ -19,6 +19,8 @@ ajaxApplication.firstMove = function () {
 				$('#id_whenMoved').addClass("form-control");
 				$('#id_whenMoved').val('2010 - Present');
 				$('#id_whenMoved').prop("disabled", true);
+				// disable plus stepper
+				$('.plusStepper').addClass('disabled');
 				$(".fadein").fadeIn("slow");
 	        }
 		});
@@ -150,9 +152,9 @@ ajaxApplication.nextBedrooms = function (checked) {
 					// add a form-control class to the input, disabled attribute and placeholder text
 					$('#id_bedrooms').addClass("form-control");
 					$('#id_bedrooms').prop("disabled", true);
-					$('#id_bedrooms').val(0);
-					$('#id_bedrooms').prop("min", 0);
-					$('#id_bedrooms').prop("max", 5);
+					$('#id_bedrooms').prop("type", "text");
+					$('#id_bedrooms').val("0");
+					$('.minusStepper').addClass('disabled');
 					$(".fadein").fadeIn("slow");
 		        }
 			});
@@ -185,9 +187,9 @@ ajaxApplication.nextRentSplit = function () {
 					// add a form-control class to the input, disabled attribute and placeholder text
 					$('#id_rentSplit').addClass("form-control");
 					$('#id_rentSplit').prop("disabled", true);
-					$('#id_rentSplit').val(1);
-					$('#id_rentSplit').prop("min", 1);
-					$('#id_rentSplit').prop("max", 20);
+					$('#id_rentSplit').prop("type", "text");
+					$('#id_rentSplit').val("1");
+					$('.minusStepper').addClass('disabled');
 					$(".fadein").fadeIn("slow");
 		        }
 			});
@@ -332,6 +334,11 @@ ajaxApplication.backFirstMove = function (id) {
 				// add a form-control class to the input, disabled attribute and placeholder text
 				$('#id_whenMoved').addClass("form-control");
 				$('#id_whenMoved').prop("disabled", true);
+				if ($('#id_whenMoved').val() == "2010 - Present") {
+					$('.plusStepper').addClass('disabled');
+				} else if ($('#id_whenMoved').val() == "Before 1960") {
+					$('.minusStepper').addClass('disabled');
+				}
 				$(".fadein").fadeIn("slow");
 	        }
 		});
@@ -423,8 +430,13 @@ ajaxApplication.backBedrooms = function (id) {
 				// add a form-control class to the input, disabled attribute and placeholder text
 				$('#id_bedrooms').addClass("form-control");
 				$('#id_bedrooms').prop("disabled", true);
-				$('#id_bedrooms').prop("min", 0);
-				$('#id_bedrooms').prop("max", 20);
+				$('#id_bedrooms').prop("type", "text");
+				if ($('#id_bedrooms').val() == 5) {
+					$('#id_bedrooms').val("5 or more");
+					$('.plusStepper').addClass('disabled');
+				} else if ($('#id_bedrooms').val() == 0) {
+					$('.minusStepper').addClass('disabled');
+				}
 				$(".fadein").fadeIn("slow");
 	        }
 		});
@@ -444,8 +456,13 @@ ajaxApplication.backRentSplit = function (id) {
 				// add a form-control class to the input, disabled attribute and placeholder text
 				$('#id_rentSplit').addClass("form-control");
 				$('#id_rentSplit').prop("disabled", true);
-				$('#id_rentSplit').prop("min", 1);
-				$('#id_rentSplit').prop("max", 20);
+				$('#id_rentSplit').prop("type", "text");
+				if ($('#id_rentSplit').val() == 20) {
+					$('#id_rentSplit').val("20 or more");
+					$('.plusStepper').addClass('disabled');
+				} else if ($('#id_rentSplit').val() == 1) {
+					$('.minusStepper').addClass('disabled');
+				}
 				$(".fadein").fadeIn("slow");
 	        }
 		});

@@ -10,6 +10,9 @@ import csv
 class Command(BaseCommand):
     
     def load_zillow_data(self):
+        # remove all data previously loaded
+        zillowMedianRentListPrice.objects.all().delete()
+        
         __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
         # open LIS_Beacon_Beach_WQdata.csv and dump into BeachWQSamples table
         with open(os.path.join(__location__, 'all_nyc.csv'), 'rb') as f:

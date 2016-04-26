@@ -66,7 +66,6 @@ $( document ).ready(function() {
 		// check if field is empty
 		var exactYearMoved = $('#id_exactYearMoved').val();
 		if (!exactYearMoved && !checked) {
-			console.log("what?");
 			$(".text-danger").removeClass("hidden");
 			return;
 		}
@@ -81,9 +80,12 @@ $( document ).ready(function() {
 		e.preventDefault();
 		// check if field is empty
 		var bedrooms = $('#id_bedrooms').val();
-		var checkNull = isNull(bedrooms);
-		if (checkNull) {
-			return;
+		if (bedrooms == "5 or more") {
+			bedrooms = 5;
+			$('#id_bedrooms').val(5);
+		} else {
+			bedrooms = parseInt(bedrooms);
+			$('#id_bedrooms').val(bedrooms);
 		}
 
 		// check is value is between 0 and 5
@@ -102,9 +104,12 @@ $( document ).ready(function() {
 		e.preventDefault();
 		// check if field is empty
 		var rentSplit = $('#id_rentSplit').val();
-		var checkNull = isNull(rentSplit);
-		if (checkNull) {
-			return;
+		if (rentSplit == "20 or more") {
+			rentSplit = 20;
+			$('#id_rentSplit').val(20);
+		} else {
+			rentSplit = parseInt(rentSplit);
+			$('#id_rentSplit').val(rentSplit);
 		}
 
 		// check is value is between 1900 and 2016
@@ -365,6 +370,7 @@ $( document ).ready(function() {
 		switch (whenMoved) {
 			case "2010 - Present":
 				$('#id_whenMoved').val('2000 - 2009');
+				$('.plusStepper').removeClass('disabled');
 				break;
 			case "2000 - 2009":
 				$('#id_whenMoved').val('1990 - 1999');
@@ -380,9 +386,11 @@ $( document ).ready(function() {
 				break;
 			case "1960 - 1969":
 				$('#id_whenMoved').val('Before 1960');
+				$('.minusStepper').addClass('disabled');
 				break;
 			default:
 				$('#id_whenMoved').val('Before 1960');
+				$('.minusStepper').addClass('disabled');
 				break;
 		}
 
@@ -395,9 +403,11 @@ $( document ).ready(function() {
 		switch (whenMoved) {
 			case "2010 - Present":
 				$('#id_whenMoved').val('2010 - Present');
+				$('.plusStepper').addClass('disabled');
 				break;
 			case "2000 - 2009":
 				$('#id_whenMoved').val('2010 - Present');
+				$('.plusStepper').addClass('disabled');
 				break;
 			case "1990 - 1999":
 				$('#id_whenMoved').val('2000 - 2009');
@@ -413,9 +423,11 @@ $( document ).ready(function() {
 				break;
 			case "Before 1960":
 				$('#id_whenMoved').val('1960 - 1969');
+				$('.minusStepper').removeClass('disabled');
 				break;
 			default:
 				$('#id_whenMoved').val('Before 1960');
+				$('.minusStepper').addClass('disabled');
 				break;
 		}
 
@@ -435,10 +447,18 @@ $( document ).ready(function() {
 			$('#id_exactYearMoved').val(fillYes);
 		} else if (yearMoved == minYear) {
 			// don't go below 1900
+			$('.minusStepper').addClass('disabled');
+		} else if (yearMoved == (minYear+1)) {
+			yearMoved--;
+			$('#id_exactYearMoved').val(yearMoved);
+			// disable button
+			$('.minusStepper').addClass('disabled');		
 		} else {
 			yearMoved--;
 			$('#id_exactYearMoved').val(yearMoved);
 		}
+		// remove disabled class from plusStepper
+		$('.plusStepper').removeClass('disabled');	
 	});	
 
 	$(document).on('click', '#yearMovedPlus', function(e) {
@@ -452,54 +472,96 @@ $( document ).ready(function() {
 			$('#id_exactYearMoved').val(fillYes);
 		} else if (yearMoved == maxYear) {
 			// don't go above 2016
+			$('.plusStepper').addClass('disabled');	
+		} else if (yearMoved == (maxYear-1)) {
+			yearMoved++;
+			$('#id_exactYearMoved').val(yearMoved);
+			// disable button
+			$('.plusStepper').addClass('disabled');		
 		} else {
 			yearMoved++;
 			$('#id_exactYearMoved').val(yearMoved);
 		}
+		// remove disabled class from minusStepper
+		$('.minusStepper').removeClass('disabled');	
 	});	
 
 	$(document).on('click', '#bedroomsMinus', function(e) {
 		// get the value of #id_whenMoved
 		var bedrooms = $('#id_bedrooms').val();
-		if (bedrooms == 0) {
+		if (bedrooms == "0") {
 			// don't go below 0
+			$('.minusStepper').addClass('disabled');
+		} else if (bedrooms == "1") {
+			// disable minus stepper
+			$('.minusStepper').addClass('disabled');
+			$('#id_bedrooms').val("0");
+		} else if (bedrooms == "5 or more") {
+			$('#id_bedrooms').val("4");
 		} else {
+			bedrooms = parseInt(bedrooms);
 			bedrooms--;
 			$('#id_bedrooms').val(bedrooms);
 		}
+		// remove plus stepper disabled class
+		$('.plusStepper').removeClass('disabled');
 	});	
 
 	$(document).on('click', '#bedroomsPlus', function(e) {
 		// get the value of #id_whenMoved
 		var bedrooms = $('#id_bedrooms').val();
-		if (bedrooms == 5) {
+		if (bedrooms == "5 or more") {
 			// don't go above 5
+			$('.plusStepper').addClass('disabled');
+		} else if (bedrooms == "4") {
+			$('.plusStepper').addClass('disabled');
+			$('#id_bedrooms').val("5 or more");
 		} else {
+			bedrooms = parseInt(bedrooms);
 			bedrooms++;
 			$('#id_bedrooms').val(bedrooms);
 		}
+		// remove minus stepper disabled class
+		$('.minusStepper').removeClass('disabled');
 	});
 
 	$(document).on('click', '#peopleMinus', function(e) {
 		// get the value of #id_whenMoved
 		var people = $('#id_rentSplit').val();
-		if (people == 1) {
+		if (people == "1") {
 			// don't go below 1
+			$('.minusStepper').addClass('disabled');
+		} else if (people == "2") {
+			// disable minus stepper
+			$('.minusStepper').addClass('disabled');
+			$('#id_rentSplit').val("1");
+		} else if (people == "20 or more") {
+			$('#id_rentSplit').val("19");
 		} else {
+			people = parseInt(people);
 			people--;
 			$('#id_rentSplit').val(people);
 		}
+		// remove plus stepper disabled class
+		$('.plusStepper').removeClass('disabled');
 	});
 
 	$(document).on('click', '#peoplePlus', function(e) {
 		// get the value of #id_whenMoved
 		var people = $('#id_rentSplit').val();
-		if (people == 20) {
+		if (people == "20 or more") {
 			// don't go above 20
+			$('.plusStepper').addClass('disabled');
+		} else if (people == "19") {
+			$('.plusStepper').addClass('disabled');
+			$('#id_rentSplit').val("20 or more");
 		} else {
+			people = parseInt(people);
 			people++;
 			$('#id_rentSplit').val(people);
 		}
+		// remove minus stepper disabled class
+		$('.minusStepper').removeClass('disabled');
 	});
 
 	$(document).on('click', '.xIcon', function(e) {

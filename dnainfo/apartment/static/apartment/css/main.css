@@ -38,6 +38,9 @@ html, body, #content, #map {
 .container-fluid {
   padding-left: 25px;
   padding-right: 25px;
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 1282px;
 }
 
 /* Update grid system to have 10% margins and spacing */
@@ -252,8 +255,7 @@ fieldset[disabled] .btn-dna-primary.active {
   border-color: #24588d;
   border-radius: 2px;
   height: 50px;
-  width: 50px;
-  padding: 11px 13px;
+  padding: 11px 12px 11px 13px;
   margin-right: 10px;
 }
 .btn-dna-facebook:hover,
@@ -305,7 +307,6 @@ fieldset[disabled] .btn-dna-facebook.active {
   border-color: #4291c3;
   border-radius: 2px;
   height: 50px;
-  width: 50px;
   padding: 11px 12px;
 }
 .btn-dna-twitter:hover,
@@ -347,6 +348,11 @@ fieldset[disabled] .btn-dna-twitter.active {
 .btn-dna-twitter .badge {
   color: #337ab7;
   background-color: #ffffff;
+}
+
+/* share text in button */
+.shareOn {
+  display: none;
 }
 
 /* arrows in buttons */
@@ -435,6 +441,20 @@ fieldset[disabled] .btn-dna-twitter.active {
     background-repeat: no-repeat;
 }
 
+.minusStepper.disabled, .minusStepper.disabled:hover {
+  z-index: 1000;
+  cursor: not-allowed;
+  position: absolute;
+  top: 0px;
+    width: 36px;
+    height: 45px;
+    margin-left: -31px;
+    background: url('images/Stepper_Minus_ICON2.svg');
+    background-color: transparent;
+    background-position: left center;
+    background-repeat: no-repeat; 
+}
+
 .plusStepper {
 	cursor: pointer;
 	position: absolute;
@@ -460,6 +480,22 @@ fieldset[disabled] .btn-dna-twitter.active {
     background-position: left center;
     background-repeat: no-repeat;
 }
+
+.plusStepper.disabled, .plusStepper.disabled:hover {
+  cursor: not-allowed;
+  position: absolute;
+  top: 0px;
+    width: 41px;
+    height: 45px;
+    margin-left: 0px;
+    background: url('images/Stepper_Plus_ICON2.svg');
+    background-color: transparent;
+    background-position: left center;
+    background-repeat: no-repeat;  
+}
+
+
+
 
 
 
@@ -835,7 +871,7 @@ input[type="radio"]:checked + label span {
     background: url('images/Illustration_TALL.svg');
     background-color: transparent; 
     background-size: cover; 
-    background-position: center top; 
+    background-position: center center; 
     background-repeat: no-repeat; 
   } 
    
@@ -863,7 +899,7 @@ input[type="radio"]:checked + label span {
 		color: #686868;
 		font-size: 22px;
 		font-weight: 200;
-		margin-top: 125px;
+		margin-top: 81px;
 		margin-bottom: 125px;
 	}
 
@@ -885,6 +921,11 @@ input[type="radio"]:checked + label span {
 
   .modal-dialog {
     margin: 30vh auto;
+  }
+
+  .shareOn {
+    display: inline;
+    vertical-align: super;
   }
 
   /* 
@@ -997,7 +1038,7 @@ input[type="radio"]:checked + label span {
 		color: #686868;
 		font-size: 22px;
 		font-weight: 200;
-		margin-top: 125px;
+		margin-top: 81px;
 		margin-bottom: 90px;
 	}
 
