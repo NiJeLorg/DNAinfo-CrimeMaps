@@ -15,25 +15,13 @@
 {% endblock %}
 	
 {% block body_block %}
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
     <div id="chooseAnotherNeighborhood">
       <form class="navbar-form form-inline pull-left" method="post" action=".">
         {% csrf_token %}
         {{ form|as_bootstrap }}
-        <input type="submit" class="btn btn-default" value="Go!" />
+        <input type="submit" class="btn btn-default btn-sm" value="Go!" />
       </form>
     </div>
-   
-
-
-    <div class="collapse navbar-collapse" id="collapse">
-        <a class="navbar-brand" href="http://www.dnainfo.com/new-york/"><img src="{% static 'crimemaps/css/images/DNANYCLogo.png' %}" class="navbar-brand-img-nyc"/></a>
-		<p class="navbar-text">Composite Version of <span class="neighborhoodName"></span></p>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
-</nav>
 
 
         <!-- #popup-wrapper-->
@@ -138,7 +126,7 @@
         <!-- /#popup-wrapper-->
 
         <!-- Map Content -->
-        <div id="map" class="map map-popup-wrapper-open"></div>
+        <div id="map" class="map map-results map-popup-wrapper-open"></div>
 
 {% endblock %}
 
@@ -190,7 +178,7 @@
           }
       });
 
-      // show tect in neighborhood select header
+      // show text in neighborhood select header
       $('.select2-chosen').html("Choose Your Neighborhood");
 
 
