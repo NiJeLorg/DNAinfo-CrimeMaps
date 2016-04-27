@@ -13,8 +13,11 @@ function DNAinfoNYCNeighView() {
 		minZoom:8,
 		maxZoom:17,
     	center: this.center,
-   	 	zoom: this.zoom
+   	 	zoom: this.zoom,
+   	 	zoomControl: false
 	});
+
+	new L.Control.Zoom({ position: 'topright' }).addTo(this.map);
 
 	//this.stamenLayer = new L.StamenTileLayer("toner-lite");
 	this.stamenLayer = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.png',{
@@ -37,7 +40,7 @@ function DNAinfoNYCNeighView() {
 
 	// set up range for colorScale
 	this.colorScale = d3.scale.quantize()
-		.range(["#fee5d9","#fcbba1","#fc9272","#fb6a4a","#de2d26","#a50f15"]);
+		.range(["#fde5da","#fdc7c0","#fdaaa6","#fc8c8c","#fc6f72","#fc5158"]);
 
 }
 
