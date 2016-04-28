@@ -10,6 +10,7 @@ import csv
 class Command(BaseCommand):
     
     def load_cpi_data(self):
+        cpi.objects.all().delete()
         __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
         # open LIS_Beacon_Beach_WQdata.csv and dump into BeachWQSamples table
         with open(os.path.join(__location__, 'cpi_data.csv'), 'rb') as f:

@@ -368,24 +368,19 @@ def results(request, id=None):
 		bedroomsTry = 5
 	else:
 		bedroomsTry = NYCmyFirstApartmentObject.bedrooms
-
-	# try to pull a value, if nothing, pull citywide value
-	if NYCmyFirstApartmentObject.whereMoved:
-		RegionNameTry = NYCmyFirstApartmentObject.whereMoved.name
-	else:
-		RegionNameTry = "city"
-
 	
 	try:
-		zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName=RegionNameTry)
-		if RegionNameTry == "city":
-			NYCmyFirstApartmentObject.todayType = "Citywide"
-		else:
-			NYCmyFirstApartmentObject.todayType = RegionNameTry			
-		
+		zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName=NYCmyFirstApartmentObject.whereMoved.name)		
+		NYCmyFirstApartmentObject.todayType = NYCmyFirstApartmentObject.whereMoved.name
+
 	except zillowMedianRentListPrice.DoesNotExist: 
-		zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="city")
-		NYCmyFirstApartmentObject.todayType = "Citywide"
+		try:
+			zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName=NYCmyFirstApartmentObject.whereMoved.county)
+			NYCmyFirstApartmentObject.todayType = NYCmyFirstApartmentObject.whereMoved.county
+
+		except zillowMedianRentListPrice.DoesNotExist: 
+			zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="city")
+			NYCmyFirstApartmentObject.todayType = "Citywide"
 
 	NYCmyFirstApartmentObject.today = zillowNow.Cost
 

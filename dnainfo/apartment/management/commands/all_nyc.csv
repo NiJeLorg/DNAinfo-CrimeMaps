@@ -1,100 +1,100 @@
 RegionName,City,State,Metro,CountyName,SizeRank,Cost,Bedrooms
-Upper West Side,New York,NY,New York,New York,1,2347.5,0
+Upper West Side,New York,NY,New York,New York,1,2300,0
 Upper East Side,New York,NY,New York,New York,2,1995,0
-Washington Heights,New York,NY,New York,New York,3,1350,0
-Astoria,New York,NY,New York,Queens,4,2000,0
-Williamsburg,New York,NY,New York,Kings,5,2830,0
-Bedford-Stuyvesant,New York,NY,New York,Kings,6,1600,0
-Flatbush,New York,NY,New York,Kings,7,1450,0
-Crown Heights,New York,NY,New York,Kings,8,1772.5,0
-Jamaica,New York,NY,New York,Queens,9,1359,0
-Harlem,New York,NY,New York,New York,10,1600,0
+Washington Heights,New York,NY,New York,New York,3,1399,0
+Astoria,New York,NY,New York,Queens,4,1800,0
+Williamsburg,New York,NY,New York,Kings,5,2600,0
+Bedford-Stuyvesant,New York,NY,New York,Kings,6,1650,0
+Flatbush,New York,NY,New York,Kings,7,1495,0
+Jamaica,New York,NY,New York,Queens,9,1450,0
+Harlem,New York,NY,New York,New York,10,1550,0
 East Harlem,New York,NY,New York,New York,11,2650,0
-Concourse,New York,NY,New York,Bronx,12,1150,0
+Concourse,New York,NY,New York,Bronx,12,1250,0
 Elmhurst,New York,NY,New York,Queens,13,1500,0
-Lower East Side,New York,NY,New York,New York,16,2672.5,0
-Flushing,New York,NY,New York,Queens,18,1350,0
+Lower East Side,New York,NY,New York,New York,16,2400,0
+Flushing,New York,NY,New York,Queens,18,1375,0
 Murray Hill (Queens),New York,NY,New York,Queens,19,1395,0
-Forest Hills,New York,NY,New York,Queens,20,1537,0
-East Village,New York,NY,New York,New York,21,2100,0
-Jackson Heights,New York,NY,New York,Queens,22,1495,0
-Midwood,New York,NY,New York,Kings,23,1385,0
-Gramercy,New York,NY,New York,New York,24,2400,0
-Bay Ridge,New York,NY,New York,Kings,25,1400,0
-Kensington,New York,NY,New York,Kings,27,1500,0
-University Heights,New York,NY,New York,Bronx,28,1150,0
-Bedford Park,New York,NY,New York,Bronx,29,1200,0
-Hamilton Heights,New York,NY,New York,New York,30,1550,0
-Chelsea,New York,NY,New York,New York,31,2600,0
-Sunnyside,New York,NY,New York,Queens,34,1550,0
-Greenwich Village,New York,NY,New York,New York,35,2600,0
-Rego Park,New York,NY,New York,Queens,36,1550,0
-Fort Greene,New York,NY,New York,Kings,41,2495,0
-Greenwood,New York,NY,New York,Kings,42,1797.5,0
-Prospect-Lefferts Gardens,New York,NY,New York,Kings,43,1419,0
-Fort Hamilton,New York,NY,New York,Kings,46,1299.5,0
-Hell's Kitchen / Clinton,New York,NY,New York,New York,49,2600,0
-Financial District,New York,NY,New York,New York,50,2850,0
-Brighton Beach,New York,NY,New York,Kings,51,1400,0
+Gravesend,New York,NY,New York,Kings,18,1250,0
+Forest Hills,New York,NY,New York,Queens,20,1510.5,0
+East Village,New York,NY,New York,New York,21,2150,0
+Jackson Heights,New York,NY,New York,Queens,22,1500,0
+Midwood,New York,NY,New York,Kings,23,1275,0
+Gramercy,New York,NY,New York,New York,24,2385,0
+Bay Ridge,New York,NY,New York,Kings,25,1375,0
+Kensington,New York,NY,New York,Kings,27,1600,0
+Bedford Park,New York,NY,New York,Bronx,29,1250,0
+Chelsea,New York,NY,New York,New York,31,2625,0
+Sunnyside,New York,NY,New York,Queens,34,1650,0
+Greenwich Village,New York,NY,New York,New York,35,2650,0
+Rego Park,New York,NY,New York,Queens,36,1595,0
+Fort Greene,New York,NY,New York,Kings,41,2450,0
+Prospect-Lefferts Gardens,New York,NY,New York,Kings,43,1490,0
+Fort Hamilton,New York,NY,New York,Kings,46,1350,0
+Hell's Kitchen / Clinton,New York,NY,New York,New York,49,2525,0
+Financial District,New York,NY,New York,New York,50,2911.5,0
+Brighton Beach,New York,NY,New York,Kings,51,1387.5,0
 Flatiron,New York,NY,New York,New York,52,2900,0
 Clinton Hill,New York,NY,New York,Kings,55,2000,0
-West Village,New York,NY,New York,New York,59,2925,0
-Kew Gardens,New York,NY,New York,Queens,60,1500,0
-Brooklyn Heights,New York,NY,New York,New York,62,2400,0
-Columbus Circle,New York,NY,New York,New York,65,2660,0
-Sutton Place,New York,NY,New York,New York,66,2325,0
-Turtle Bay,New York,NY,New York,New York,69,2300,0
-Midtown,New York,NY,New York,New York,70,2695,0
-Tribeca,New York,NY,New York,New York,71,3595,0
+West Village,New York,NY,New York,New York,59,2937.5,0
+Kew Gardens,New York,NY,New York,Queens,60,1495,0
+Brooklyn Heights,New York,NY,New York,New York,62,2300,0
+Columbus Circle,New York,NY,New York,New York,65,2700,0
+Sutton Place,New York,NY,New York,New York,66,2425,0
+Turtle Bay,New York,NY,New York,New York,69,2395,0
+Midtown,New York,NY,New York,New York,70,2725,0
+Tribeca,New York,NY,New York,New York,71,3600,0
 Tudor City,New York,NY,New York,New York,74,2300,0
-Battery Park City,New York,NY,New York,New York,75,2950,0
+Battery Park City,New York,NY,New York,New York,75,2995,0
 Boerum Hill,New York,NY,New York,Kings,85,2650,0
-SoHo,New York,NY,New York,New York,87,2495,0
-Hunters Point,New York,NY,New York,Queens,89,2331,0
-Murray Hill,New York,NY,New York,New York,91,2425,0
-Downtown Brooklyn,New York,NY,New York,Kings,93,2590,0
-Garment District,New York,NY,New York,New York,100,2800,0
-city,New York,NY,New York,,,2200,0
-metro,New York,NY,New York,,,2150,0
-Upper West Side,New York,NY,New York,New York,3,3250,1
+SoHo,New York,NY,New York,New York,87,2450,0
+Hunters Point,New York,NY,New York,Queens,89,2300,0
+Murray Hill,New York,NY,New York,New York,91,2537.5,0
+Downtown Brooklyn,New York,NY,New York,Kings,93,2435,0
+Garment District,New York,NY,New York,New York,100,2750,0
+Brooklyn,,,,,,2075,0
+Queens,,,,,,1620,0
+Manhattan,,,,,,2450,0
+Bronx,,,,,,1200,0
+city,,,,,,2175,0
+Upper West Side,New York,NY,New York,New York,3,3275,1
 Upper East Side,New York,NY,New York,New York,5,2800,1
 East New York,New York,NY,New York,Kings,6,1400,1
 Washington Heights,New York,NY,New York,New York,9,1600,1
 Astoria,New York,NY,New York,Queens,11,1900,1
-Williamsburg,New York,NY,New York,Kings,15,2873,1
-Bedford-Stuyvesant,New York,NY,New York,Kings,16,1975,1
-Flatbush,New York,NY,New York,Kings,18,1600,1
-Crown Heights,New York,NY,New York,Kings,19,1962.5,1
-Jamaica,New York,NY,New York,Queens,20,1571,1
+Williamsburg,New York,NY,New York,Kings,15,2750,1
+Bedford-Stuyvesant,New York,NY,New York,Kings,16,2000,1
+Flatbush,New York,NY,New York,Kings,18,1625,1
+Crown Heights,New York,NY,New York,Kings,19,1950,1
+Jamaica,New York,NY,New York,Queens,20,1584,1
 Harlem,New York,NY,New York,New York,21,1900,1
-Williamsbridge,New York,NY,New York,Bronx,22,1300,1
-East Harlem,New York,NY,New York,New York,23,2300,1
-Bushwick,New York,NY,New York,Kings,24,1999,1
-East Flatbush,New York,NY,New York,Kings,25,1499.5,1
-Corona,New York,NY,New York,Queens,27,1675,1
-Sunset Park,New York,NY,New York,Kings,28,1650,1
-Concourse,New York,NY,New York,Bronx,29,1300,1
-Elmhurst,New York,NY,New York,Queens,31,1750,1
-Bensonhurst,New York,NY,New York,Kings,32,1475,1
-Soundview,New York,NY,New York,Bronx,35,1300,1
-Lower East Side,New York,NY,New York,New York,36,2690,1
+Williamsbridge,New York,NY,New York,Bronx,22,1350,1
+East Harlem,New York,NY,New York,New York,23,2400,1
+Bushwick,New York,NY,New York,Kings,24,1997,1
+East Flatbush,New York,NY,New York,Kings,25,1450,1
+Corona,New York,NY,New York,Queens,27,1695,1
+Sunset Park,New York,NY,New York,Kings,28,1600,1
+Concourse,New York,NY,New York,Bronx,29,1350,1
+Elmhurst,New York,NY,New York,Queens,31,1800,1
+Bensonhurst,New York,NY,New York,Kings,32,1500,1
+Soundview,New York,NY,New York,Bronx,35,1325,1
+Lower East Side,New York,NY,New York,New York,36,2675,1
 Flushing,New York,NY,New York,Queens,39,1650,1
-Murray Hill (Queens),New York,NY,New York,Queens,41,1599.5,1
+Murray Hill (Queens),New York,NY,New York,Queens,41,1650,1
 Sheepshead Bay,New York,NY,New York,Kings,42,1575,1
-Gravesend,New York,NY,New York,Kings,44,1550,1
-Forest Hills,New York,NY,New York,Queens,47,1885,1
-East Village,New York,NY,New York,New York,48,2899,1
-Ridgewood,New York,NY,New York,Queens,51,1650,1
+Gravesend,New York,NY,New York,Kings,44,1575,1
+Forest Hills,New York,NY,New York,Queens,47,1850,1
+East Village,New York,NY,New York,New York,48,2895,1
+Ridgewood,New York,NY,New York,Queens,51,1700,1
 East Elmhurst,New York,NY,New York,Queens,52,1650,1
-Jackson Heights,New York,NY,New York,Queens,53,1825,1
+Jackson Heights,New York,NY,New York,Queens,53,1820,1
 Midwood,New York,NY,New York,Kings,55,1550,1
-Park Slope,New York,NY,New York,Kings,56,2500,1
-Gramercy,New York,NY,New York,New York,60,3304,1
-Richmond Hill,New York,NY,New York,Queens,61,1450,1
-Bay Ridge,New York,NY,New York,Kings,62,1575,1
+Park Slope,New York,NY,New York,Kings,56,2450,1
+Gramercy,New York,NY,New York,New York,60,3314,1
+Richmond Hill,New York,NY,New York,Queens,61,1400,1
+Bay Ridge,New York,NY,New York,Kings,62,1600,1
 Tremont & East Tremont,New York,NY,New York,Bronx,64,1300,1
-Kensington,New York,NY,New York,Kings,66,1800,1
-Bath Beach,New York,NY,New York,Kings,68,1450,1
+Kensington,New York,NY,New York,Kings,66,1750,1
+Bath Beach,New York,NY,New York,Kings,68,1400,1
 University Heights,New York,NY,New York,Bronx,70,1300,1
 Bayside,New York,NY,New York,Queens,71,1650,1
 Bedford Park,New York,NY,New York,Bronx,72,1400,1
@@ -103,248 +103,256 @@ Hamilton Heights,New York,NY,New York,New York,76,1750,1
 Chelsea,New York,NY,New York,New York,78,3700,1
 Woodside,New York,NY,New York,Queens,80,1749,1
 Fordham,New York,NY,New York,Bronx,85,1300,1
-Sunnyside,New York,NY,New York,Queens,88,1995,1
-Greenwich Village,New York,NY,New York,New York,90,3350,1
+Sunnyside,New York,NY,New York,Queens,88,1950,1
+Greenwich Village,New York,NY,New York,New York,90,3300,1
 Rego Park,New York,NY,New York,Queens,92,1875,1
-Morningside Heights,New York,NY,New York,New York,93,2795,1
+Morningside Heights,New York,NY,New York,New York,93,2822.5,1
 Kew Gardens Hills,New York,NY,New York,Queens,94,1600,1
 Ocean Hill,New York,NY,New York,Kings,97,1600,1
 Morris Heights,New York,NY,New York,Bronx,99,1350,1
 Parkchester,New York,NY,New York,Bronx,100,1300,1
-Ocean Parkway,New York,NY,New York,Kings,101,1512.5,1
+Ocean Parkway,New York,NY,New York,Kings,101,1500,1
 Inwood,New York,NY,New York,New York,104,1450,1
-Norwood,New York,NY,New York,Bronx,105,1350,1
-Dyker Heights,New York,NY,New York,Kings,107,1375,1
+Norwood,New York,NY,New York,Bronx,105,1400,1
+Dyker Heights,New York,NY,New York,Kings,107,1437.5,1
 Wakefield,New York,NY,New York,Bronx,108,1350,1
-Morris Park,New York,NY,New York,Bronx,109,1425,1
-Fort Greene,New York,NY,New York,Kings,117,2900,1
-Greenwood,New York,NY,New York,Kings,120,2200,1
-Greenpoint,New York,NY,New York,Kings,122,2350,1
-Kingsbridge,New York,NY,New York,Bronx,123,1400,1
-Prospect-Lefferts Gardens,New York,NY,New York,Kings,126,1675,1
-Homecrest,New York,NY,New York,Kings,132,1500,1
+Morris Park,New York,NY,New York,Bronx,109,1450,1
+Fort Greene,New York,NY,New York,Kings,117,2933,1
+Greenwood,New York,NY,New York,Kings,120,2197.5,1
+Greenpoint,New York,NY,New York,Kings,122,2450,1
+Kingsbridge,New York,NY,New York,Bronx,123,1395,1
+Prospect-Lefferts Gardens,New York,NY,New York,Kings,126,1650,1
+Homecrest,New York,NY,New York,Kings,132,1550,1
 Fort Hamilton,New York,NY,New York,Kings,134,1600,1
-Hell's Kitchen / Clinton,New York,NY,New York,New York,137,3200,1
-Financial District,New York,NY,New York,New York,141,3560,1
-Briarwood,New York,NY,New York,Queens,142,1600,1
-Brighton Beach,New York,NY,New York,Kings,143,1625,1
-Flatiron,New York,NY,New York,New York,144,3925,1
-Pelham Bay,New York,NY,New York,Bronx,149,1350,1
-Clinton Hill,New York,NY,New York,Kings,153,2425,1
-West Village,New York,NY,New York,New York,158,3650,1
+Hell's Kitchen / Clinton,New York,NY,New York,New York,137,3242.5,1
+Financial District,New York,NY,New York,New York,141,3595,1
+Briarwood,New York,NY,New York,Queens,142,1625,1
+Brighton Beach,New York,NY,New York,Kings,143,1650,1
+Flatiron,New York,NY,New York,New York,144,3920,1
+Pelham Bay,New York,NY,New York,Bronx,149,1400,1
+Clinton Hill,New York,NY,New York,Kings,153,2400,1
+West Village,New York,NY,New York,New York,158,3597.5,1
 Kew Gardens,New York,NY,New York,Queens,159,1800,1
-Brooklyn Heights,New York,NY,New York,New York,164,2997,1
-Columbus Circle,New York,NY,New York,New York,168,3400,1
-Sutton Place,New York,NY,New York,New York,170,3295,1
-Wingate,New York,NY,New York,Kings,175,1500,1
-Gowanus,New York,NY,New York,Kings,178,2500,1
-Prospect Heights,New York,NY,New York,Kings,181,2300,1
-Turtle Bay,New York,NY,New York,New York,184,3250,1
+Brooklyn Heights,New York,NY,New York,New York,164,2950,1
+Columbus Circle,New York,NY,New York,New York,168,3375,1
+Sutton Place,New York,NY,New York,New York,170,3300,1
+Wingate,New York,NY,New York,Kings,175,1550,1
+Gowanus,New York,NY,New York,Kings,178,2650,1
+Prospect Heights,New York,NY,New York,Kings,181,2525,1
+Turtle Bay,New York,NY,New York,New York,184,3200,1
 Midtown,New York,NY,New York,New York,185,3500,1
-Tribeca,New York,NY,New York,New York,193,4400,1
-Spuyten Duyvil,New York,NY,New York,Bronx,197,1950,1
-Tudor City,New York,NY,New York,New York,202,3172.5,1
-Battery Park City,New York,NY,New York,New York,204,3715,1
+Tribeca,New York,NY,New York,New York,193,4445,1
+Spuyten Duyvil,New York,NY,New York,Bronx,197,1925,1
+Tudor City,New York,NY,New York,New York,202,3185,1
+Battery Park City,New York,NY,New York,New York,204,3850,1
 Jamaica Estates,New York,NY,New York,Queens,213,1650,1
-Riverdale,New York,NY,New York,Bronx,214,1800,1
-Carroll Gardens,New York,NY,New York,Kings,221,2665,1
-Boerum Hill,New York,NY,New York,Kings,225,2925,1
-SoHo,New York,NY,New York,New York,235,3095,1
-Hunters Point,New York,NY,New York,Queens,236,2900,1
-Murray Hill,New York,NY,New York,New York,245,3395,1
-Downtown Brooklyn,New York,NY,New York,Kings,253,3080,1
-Little Italy,New York,NY,New York,New York,260,3199,1
-Windsor Terrace,New York,NY,New York,Kings,267,2400,1
-Cobble Hill,New York,NY,New York,Kings,275,2850,1
-NoHo,New York,NY,New York,New York,289,3950,1
-Garment District,New York,NY,New York,New York,304,3600,1
-Central Park,New York,NY,New York,New York,333,3100,1
-DUMBO,New York,NY,New York,Kings,335,3881,1
-city,New York,NY,New York,,,2200,1
-metro,New York,NY,New York,,,2100,1
+Riverdale,New York,NY,New York,Bronx,214,1737.5,1
+Carroll Gardens,New York,NY,New York,Kings,221,2600,1
+Boerum Hill,New York,NY,New York,Kings,225,2700,1
+SoHo,New York,NY,New York,New York,235,3250,1
+Hunters Point,New York,NY,New York,Queens,236,2900.5,1
+Murray Hill,New York,NY,New York,New York,245,3400,1
+Downtown Brooklyn,New York,NY,New York,Kings,253,3095,1
+Little Italy,New York,NY,New York,New York,260,3270,1
+Windsor Terrace,New York,NY,New York,Kings,267,2372.5,1
+Cobble Hill,New York,NY,New York,Kings,275,2750,1
+NoHo,New York,NY,New York,New York,289,3995,1
+Garment District,New York,NY,New York,New York,304,3530,1
+Central Park,New York,NY,New York,New York,333,3200,1
+DUMBO,New York,NY,New York,Kings,335,3882,1
+Brooklyn,,,,,,2100,1
+Queens,,,,,,1850,1
+Manhattan,,,,,,3200,1
+Bronx,,,,,,1375,1
+Staten Island,,,,,,1200,1
+city,,,,,,2200,1
 Upper West Side,New York,NY,New York,New York,4,4500,2
-Upper East Side,New York,NY,New York,New York,7,3700,2
-East New York,New York,NY,New York,Kings,9,1600,2
+Upper East Side,New York,NY,New York,New York,7,3725,2
+East New York,New York,NY,New York,Kings,9,1699,2
 Washington Heights,New York,NY,New York,New York,12,2000,2
-Astoria,New York,NY,New York,Queens,14,2400,2
-Williamsburg,New York,NY,New York,Kings,18,3150,2
+Astoria,New York,NY,New York,Queens,14,2422,2
+Williamsburg,New York,NY,New York,Kings,18,3099,2
 Bedford-Stuyvesant,New York,NY,New York,Kings,19,2300,2
-Flatbush,New York,NY,New York,Kings,22,2050,2
-Crown Heights,New York,NY,New York,Kings,23,2395,2
-Jamaica,New York,NY,New York,Queens,24,1850,2
-Harlem,New York,NY,New York,New York,25,2350,2
-Williamsbridge,New York,NY,New York,Bronx,27,1550,2
-Bushwick,New York,NY,New York,Kings,28,2300,2
+Flatbush,New York,NY,New York,Kings,22,2000,2
+Crown Heights,New York,NY,New York,Kings,23,2400,2
+Jamaica,New York,NY,New York,Queens,24,1950,2
+Harlem,New York,NY,New York,New York,25,2464,2
+Williamsbridge,New York,NY,New York,Bronx,27,1600,2
+Bushwick,New York,NY,New York,Kings,28,2399,2
 East Flatbush,New York,NY,New York,Kings,30,1700,2
-Corona,New York,NY,New York,Queens,34,2075,2
+Corona,New York,NY,New York,Queens,34,2150,2
 Sunset Park,New York,NY,New York,Kings,35,2000,2
-Concourse,New York,NY,New York,Bronx,36,1599.5,2
-Elmhurst,New York,NY,New York,Queens,40,2200,2
+Concourse,New York,NY,New York,Bronx,36,1597.5,2
+Elmhurst,New York,NY,New York,Queens,40,2250,2
 Bensonhurst,New York,NY,New York,Kings,43,1750,2
-Lower East Side,New York,NY,New York,New York,47,3500,2
+Lower East Side,New York,NY,New York,New York,47,3495,2
 Canarsie,New York,NY,New York,Kings,48,1725,2
-Flushing,New York,NY,New York,Queens,51,2200,2
+Flushing,New York,NY,New York,Queens,51,2206,2
 Murray Hill (Queens),New York,NY,New York,Queens,54,2100,2
-Sheepshead Bay,New York,NY,New York,Kings,55,1950,2
+Sheepshead Bay,New York,NY,New York,Kings,55,1999,2
 Gravesend,New York,NY,New York,Kings,57,1850,2
-Forest Hills,New York,NY,New York,Queens,60,2490,2
-East Village,New York,NY,New York,New York,62,3350,2
-Ridgewood,New York,NY,New York,Queens,66,2000,2
+Forest Hills,New York,NY,New York,Queens,60,2450,2
+East Village,New York,NY,New York,New York,62,3400,2
+Ridgewood,New York,NY,New York,Queens,66,2095,2
 Jackson Heights,New York,NY,New York,Queens,68,2200,2
-Midwood,New York,NY,New York,Kings,72,1995,2
-Park Slope,New York,NY,New York,Kings,76,2950,2
-Gramercy,New York,NY,New York,New York,80,3995,2
-Bay Ridge,New York,NY,New York,Kings,81,2000,2
+Midwood,New York,NY,New York,Kings,72,1950,2
+Park Slope,New York,NY,New York,Kings,76,2850,2
+Gramercy,New York,NY,New York,New York,80,3895,2
+Brownsville,New York,NY,New York,Kings,81,1650,2
+Bay Ridge,New York,NY,New York,Kings,81,2050,2
 Tremont & East Tremont,New York,NY,New York,Bronx,85,1600,2
 Kensington,New York,NY,New York,Kings,88,2200,2
-Bath Beach,New York,NY,New York,Kings,91,1785,2
-University Heights,New York,NY,New York,Bronx,97,1595,2
+Bath Beach,New York,NY,New York,Kings,91,1800,2
+University Heights,New York,NY,New York,Bronx,97,1600,2
 Bayside,New York,NY,New York,Queens,99,1950,2
-Bedford Park,New York,NY,New York,Bronx,100,1650,2
-Maspeth,New York,NY,New York,Queens,102,1900,2
-Hamilton Heights,New York,NY,New York,New York,104,2350,2
-Chelsea,New York,NY,New York,New York,108,5200,2
-Woodside,New York,NY,New York,Queens,110,2175,2
-Fordham,New York,NY,New York,Bronx,117,1550,2
-Sunnyside,New York,NY,New York,Queens,121,2400,2
-Greenwich Village,New York,NY,New York,New York,123,4100,2
+Bedford Park,New York,NY,New York,Bronx,100,1600,2
+Maspeth,New York,NY,New York,Queens,102,1950,2
+Hamilton Heights,New York,NY,New York,New York,104,2300,2
+Chelsea,New York,NY,New York,New York,108,5000,2
+Woodside,New York,NY,New York,Queens,110,2097.5,2
+Fordham,New York,NY,New York,Bronx,117,1625,2
+Sunnyside,New York,NY,New York,Queens,121,2440,2
+Greenwich Village,New York,NY,New York,New York,123,4217,2
 Coney Island,New York,NY,New York,Kings,127,2250,2
-Rego Park,New York,NY,New York,Queens,130,2300,2
+Rego Park,New York,NY,New York,Queens,130,2372.5,2
 Morningside Heights,New York,NY,New York,New York,131,2650,2
 Kew Gardens Hills,New York,NY,New York,Queens,132,1950,2
 Ocean Hill,New York,NY,New York,Kings,135,1900,2
-Parkchester,New York,NY,New York,Bronx,139,1550,2
-Ocean Parkway,New York,NY,New York,Kings,141,2000,2
-Inwood,New York,NY,New York,New York,144,2100,2
-Dyker Heights,New York,NY,New York,Kings,147,1800,2
-Morris Park,New York,NY,New York,Bronx,149,1750,2
-Fort Greene,New York,NY,New York,Kings,161,3828,2
+Ocean Parkway,New York,NY,New York,Kings,141,1937.5,2
+Inwood,New York,NY,New York,New York,144,2000,2
+Dyker Heights,New York,NY,New York,Kings,147,1825,2
+Morris Park,New York,NY,New York,Bronx,149,1800,2
+Fort Greene,New York,NY,New York,Kings,161,3790,2
 Greenwood,New York,NY,New York,Kings,165,2500,2
-Greenpoint,New York,NY,New York,Kings,167,2700,2
+Greenpoint,New York,NY,New York,Kings,167,2800,2
 Kingsbridge,New York,NY,New York,Bronx,168,1750,2
 Glendale,New York,NY,New York,Queens,172,1800,2
 Prospect-Lefferts Gardens,New York,NY,New York,Kings,173,2200,2
 Homecrest,New York,NY,New York,Kings,180,1900,2
 Fort Hamilton,New York,NY,New York,Kings,182,2200,2
-Hell's Kitchen / Clinton,New York,NY,New York,New York,185,4392,2
-Financial District,New York,NY,New York,New York,190,5099,2
+Hell's Kitchen / Clinton,New York,NY,New York,New York,185,4500,2
+Financial District,New York,NY,New York,New York,190,5165,2
 Briarwood,New York,NY,New York,Queens,191,1800,2
 Brighton Beach,New York,NY,New York,Kings,193,2200,2
-Marine Park,New York,NY,New York,Kings,198,2416,2
+Marine Park,New York,NY,New York,Kings,198,2400,2
 Pelham Bay,New York,NY,New York,Bronx,201,1650,2
-Clinton Hill,New York,NY,New York,Kings,206,3114,2
-West Village,New York,NY,New York,New York,216,4597.5,2
-Kew Gardens,New York,NY,New York,Queens,217,2275,2
+Clinton Hill,New York,NY,New York,Kings,206,3300,2
+West Village,New York,NY,New York,New York,216,4500,2
+Kew Gardens,New York,NY,New York,Queens,217,2195,2
 Brooklyn Heights,New York,NY,New York,New York,224,4500,2
-Columbus Circle,New York,NY,New York,New York,228,4880,2
-Sutton Place,New York,NY,New York,New York,231,4500,2
-Belmont,New York,NY,New York,Bronx,237,1650,2
-Gowanus,New York,NY,New York,Kings,241,3225,2
-Prospect Heights,New York,NY,New York,Kings,243,2800,2
-Turtle Bay,New York,NY,New York,New York,246,4495,2
-Midtown,New York,NY,New York,New York,247,5520,2
-Tribeca,New York,NY,New York,New York,258,6095,2
+Columbus Circle,New York,NY,New York,New York,228,4915,2
+Sutton Place,New York,NY,New York,New York,231,3997.5,2
+Belmont,New York,NY,New York,Bronx,237,1550,2
+Gowanus,New York,NY,New York,Kings,241,3300,2
+Prospect Heights,New York,NY,New York,Kings,243,3000,2
+Turtle Bay,New York,NY,New York,New York,246,4450,2
+Midtown,New York,NY,New York,New York,247,5500,2
+Tribeca,New York,NY,New York,New York,258,6075,2
 Spuyten Duyvil,New York,NY,New York,Bronx,263,2550,2
-Tudor City,New York,NY,New York,New York,268,4700,2
+Tudor City,New York,NY,New York,New York,268,4600,2
 Battery Park City,New York,NY,New York,New York,270,6200,2
-Riverdale,New York,NY,New York,Bronx,283,2299.5,2
-Carroll Gardens,New York,NY,New York,Kings,287,3025,2
-Boerum Hill,New York,NY,New York,Kings,292,3475,2
-SoHo,New York,NY,New York,New York,305,4900,2
+Riverdale,New York,NY,New York,Bronx,283,2350,2
+Carroll Gardens,New York,NY,New York,Kings,287,3250,2
+Boerum Hill,New York,NY,New York,Kings,292,3625,2
 Hunters Point,New York,NY,New York,Queens,307,3800,2
-Murray Hill,New York,NY,New York,New York,319,4750,2
-Downtown Brooklyn,New York,NY,New York,Kings,327,4270,2
-Little Italy,New York,NY,New York,New York,334,3875,2
-Windsor Terrace,New York,NY,New York,Kings,341,3200,2
-Cobble Hill,New York,NY,New York,Kings,350,4337.5,2
-Garment District,New York,NY,New York,New York,379,4895,2
-Columbia Street Waterfront District,New York,NY,New York,Kings,394,2975,2
+Murray Hill,New York,NY,New York,New York,319,4775,2
+Downtown Brooklyn,New York,NY,New York,Kings,327,4412.5,2
+Little Italy,New York,NY,New York,New York,334,3900,2
+Windsor Terrace,New York,NY,New York,Kings,341,2675,2
+Cobble Hill,New York,NY,New York,Kings,350,4200,2
+Garment District,New York,NY,New York,New York,379,4300,2
+Columbia Street Waterfront District,New York,NY,New York,Kings,394,3175,2
 Central Park,New York,NY,New York,New York,402,4800,2
-DUMBO,New York,NY,New York,Kings,403,5436,2
-city,New York,NY,New York,,,2500,2
-metro,New York,NY,New York,,,2460,2
+DUMBO,New York,NY,New York,Kings,403,5495,2
+Brooklyn,,,,,,2495,2
+Queens,,,,,,2300,2
+Manhattan,,,,,,4000,2
+Bronx,,,,,,1650,2
+Staten Island,,,,,,1700,2
+city,,,,,,2550,2
 Upper West Side,New York,NY,New York,New York,4,6500,3
-Upper East Side,New York,NY,New York,New York,7,6000,3
+Upper East Side,New York,NY,New York,New York,7,6295,3
 East New York,New York,NY,New York,Kings,9,2000,3
-Washington Heights,New York,NY,New York,New York,13,2600,3
+Washington Heights,New York,NY,New York,New York,13,2595,3
 Astoria,New York,NY,New York,Queens,14,3000,3
-Williamsburg,New York,NY,New York,Kings,17,3850,3
+Williamsburg,New York,NY,New York,Kings,17,3895,3
 Bedford-Stuyvesant,New York,NY,New York,Kings,18,2750,3
 Flatbush,New York,NY,New York,Kings,22,2400,3
-Crown Heights,New York,NY,New York,Kings,23,2800,3
-Harlem,New York,NY,New York,New York,25,2900,3
-Williamsbridge,New York,NY,New York,Bronx,26,1800,3
-East Harlem,New York,NY,New York,New York,27,3300,3
+Crown Heights,New York,NY,New York,Kings,23,2895,3
+Harlem,New York,NY,New York,New York,25,2895,3
+Williamsbridge,New York,NY,New York,Bronx,26,1900,3
+East Harlem,New York,NY,New York,New York,27,3495,3
 Bushwick,New York,NY,New York,Kings,28,2800,3
-East Flatbush,New York,NY,New York,Kings,30,2062.5,3
+East Flatbush,New York,NY,New York,Kings,30,2000,3
 Corona,New York,NY,New York,Queens,34,2400,3
 Sunset Park,New York,NY,New York,Kings,35,2300,3
-Bensonhurst,New York,NY,New York,Kings,39,2100,3
-Lower East Side,New York,NY,New York,New York,45,4745,3
-Canarsie,New York,NY,New York,Kings,46,2000,3
-Flushing,New York,NY,New York,Queens,52,2500,3
-Murray Hill (Queens),New York,NY,New York,Queens,54,2325,3
-Sheepshead Bay,New York,NY,New York,Kings,55,2100,3
+Bensonhurst,New York,NY,New York,Kings,39,2075,3
+Lower East Side,New York,NY,New York,New York,45,4900,3
+Canarsie,New York,NY,New York,Kings,46,2100,3
+Flushing,New York,NY,New York,Queens,52,2499,3
+Murray Hill (Queens),New York,NY,New York,Queens,54,2400,3
+Sheepshead Bay,New York,NY,New York,Kings,55,2150,3
 Gravesend,New York,NY,New York,Kings,58,2100,3
-Forest Hills,New York,NY,New York,Queens,61,2990,3
-East Village,New York,NY,New York,New York,62,4550,3
-Ridgewood,New York,NY,New York,Queens,66,2650,3
-Flatlands,New York,NY,New York,Kings,76,2100,3
-Park Slope,New York,NY,New York,Kings,80,3600,3
-Gramercy,New York,NY,New York,New York,84,5135,3
+Forest Hills,New York,NY,New York,Queens,61,2800,3
+East Village,New York,NY,New York,New York,62,4500,3
+Ridgewood,New York,NY,New York,Queens,66,2700,3
+Flatlands,New York,NY,New York,Kings,76,2149.5,3
+Park Slope,New York,NY,New York,Kings,80,3700,3
+Gramercy,New York,NY,New York,New York,84,5200,3
 Bay Ridge,New York,NY,New York,Kings,86,2400,3
-Kensington,New York,NY,New York,Kings,90,2500,3
-Bath Beach,New York,NY,New York,Kings,93,2147.5,3
+Kensington,New York,NY,New York,Kings,90,2699,3
+Bath Beach,New York,NY,New York,Kings,93,2100,3
 Bayside,New York,NY,New York,Queens,99,2400,3
-Hamilton Heights,New York,NY,New York,New York,101,2997.5,3
-Chelsea,New York,NY,New York,New York,104,5700,3
+Hamilton Heights,New York,NY,New York,New York,101,2982.5,3
+Chelsea,New York,NY,New York,New York,104,5650,3
 Woodside,New York,NY,New York,Queens,106,2500,3
-Sunnyside,New York,NY,New York,Queens,113,3150,3
-Greenwich Village,New York,NY,New York,New York,115,5500,3
-Rego Park,New York,NY,New York,Queens,120,2975,3
+Sunnyside,New York,NY,New York,Queens,113,2925,3
+Greenwich Village,New York,NY,New York,New York,115,6400,3
+Rego Park,New York,NY,New York,Queens,120,2700,3
 Morningside Heights,New York,NY,New York,New York,122,3500,3
-Ocean Hill,New York,NY,New York,Kings,124,2317.5,3
+Ocean Hill,New York,NY,New York,Kings,124,2400,3
 Dyker Heights,New York,NY,New York,Kings,132,2200,3
 Throggs Neck,New York,NY,New York,Bronx,138,2000,3
 Whitestone,New York,NY,New York,Queens,143,2300,3
-Fort Greene,New York,NY,New York,Kings,144,3962.5,3
-Greenwood,New York,NY,New York,Kings,146,2900,3
-Greenpoint,New York,NY,New York,Kings,148,3500,3
+Fort Greene,New York,NY,New York,Kings,144,3995,3
+Greenwood,New York,NY,New York,Kings,146,2800,3
+Greenpoint,New York,NY,New York,Kings,148,3650,3
 Glendale,New York,NY,New York,Queens,151,2200,3
-Prospect-Lefferts Gardens,New York,NY,New York,Kings,152,2600,3
-Fort Hamilton,New York,NY,New York,Kings,158,2500,3
-Auburndale,New York,NY,New York,Queens,163,2400,3
-Flatiron,New York,NY,New York,New York,164,5822.5,3
+Prospect-Lefferts Gardens,New York,NY,New York,Kings,152,2500,3
+Fort Hamilton,New York,NY,New York,Kings,158,2450,3
+Flatiron,New York,NY,New York,New York,164,6012.5,3
 Pelham Bay,New York,NY,New York,Bronx,169,2000,3
-Clinton Hill,New York,NY,New York,Kings,173,3669,3
-West Village,New York,NY,New York,New York,175,6397.5,3
-Columbus Circle,New York,NY,New York,New York,184,4597.5,3
-Sutton Place,New York,NY,New York,New York,185,7800,3
-Gowanus,New York,NY,New York,Kings,192,3900,3
-Prospect Heights,New York,NY,New York,Kings,196,3900,3
-Turtle Bay,New York,NY,New York,New York,197,5390,3
-Tribeca,New York,NY,New York,New York,205,7800,3
-Spuyten Duyvil,New York,NY,New York,Bronx,209,3125,3
-Battery Park City,New York,NY,New York,New York,211,8925,3
-Riverdale,New York,NY,New York,Bronx,217,3395,3
-Hunters Point,New York,NY,New York,Queens,229,4795,3
+Clinton Hill,New York,NY,New York,Kings,173,3700,3
+Columbus Circle,New York,NY,New York,New York,184,4625,3
+Sutton Place,New York,NY,New York,New York,185,7880,3
+Gowanus,New York,NY,New York,Kings,192,3500,3
+Prospect Heights,New York,NY,New York,Kings,196,3600,3
+Turtle Bay,New York,NY,New York,New York,197,5000,3
+Battery Park City,New York,NY,New York,New York,211,9000,3
+Hunters Point,New York,NY,New York,Queens,229,4800,3
 Rockaway Beach,New York,NY,New York,Queens,240,1600,3
-city,New York,NY,New York,,,2800,3
-metro,New York,NY,New York,,,2800,3
+Brooklyn,,,,,,2800,3
+Queens,,,,,,2695,3
+Manhattan,,,,,,4995,3
+Bronx,,,,,,2000,3
+city,,,,,,2875,3
 Washington Heights,New York,NY,New York,New York,6,3200,4
-Astoria,New York,NY,New York,Queens,7,3150,4
-Williamsburg,New York,NY,New York,Kings,8,4495,4
-Bedford-Stuyvesant,New York,NY,New York,Kings,9,3450,4
-Flatbush,New York,NY,New York,Kings,11,3000,4
-Crown Heights,New York,NY,New York,Kings,12,3500,4
-Bushwick,New York,NY,New York,Kings,13,3500,4
+Astoria,New York,NY,New York,Queens,7,3000,4
+Williamsburg,New York,NY,New York,Kings,8,4995,4
+Bedford-Stuyvesant,New York,NY,New York,Kings,9,3300,4
+Flatbush,New York,NY,New York,Kings,11,3095,4
+Crown Heights,New York,NY,New York,Kings,12,3599,4
+Bushwick,New York,NY,New York,Kings,13,3600,4
 East Village,New York,NY,New York,New York,18,5500,4
-Ridgewood,New York,NY,New York,Queens,21,3500,4
-Park Slope,New York,NY,New York,Kings,23,4500,4
-Hamilton Heights,New York,NY,New York,New York,27,3547.5,4
-city,New York,NY,New York,,,3599,4
-metro,New York,NY,New York,,,4000,4
-Bedford-Stuyvesant,New York,NY,New York,Kings,2,3763.5,5
-Crown Heights,New York,NY,New York,Kings,3,4500,5
-Bushwick,New York,NY,New York,Kings,4,4298,5
-city,New York,NY,New York,,,4400,5
+Ridgewood,New York,NY,New York,Queens,21,3550,4
+Park Slope,New York,NY,New York,Kings,23,4900,4
+Hamilton Heights,New York,NY,New York,New York,27,3450,4
+Brooklyn,,,,,,3500,4
+Queens,,,,,,3200,4
+Manhattan,,,,,,6047.5,4
+Bronx,,,,,,2500,4
+city,,,,,,3599,4
+Bedford-Stuyvesant,New York,NY,New York,Kings,2,3950,5
+Bushwick,New York,NY,New York,Kings,4,4200,5
+Brooklyn,,,,,,4350,5
+city,,,,,,4500,5
