@@ -45,9 +45,11 @@
     var neighborhoodName = "{{ NYCmyFirstApartmentObject.whereMoved.dnaurl }}";
     var iDontSeeMyNeighborhood = "{{ NYCmyFirstApartmentObject.iDontSeeMyNeighborhood }}";
     $( document ).ready(function() {
+        console.log('Document ready.');
         window.setTimeout(function() {
+            console.log('Timeout set.');
             mapApplication.initialize();
-        }, 1);
+        }, 1000);
     });
 
 </script>
