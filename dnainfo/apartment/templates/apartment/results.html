@@ -23,7 +23,7 @@
         <div class="row">
             <div class="col-sm-8 col-sm-offset-2">
                 <h2 class="resultsHeading">
-                    Here's how much you'd pay to live in <span id="headingRegionName"></span> today:
+                    <span id="headingContent"></span>
                 </h2>
             </div>
         </div>
@@ -73,16 +73,25 @@
     var withInflation = parseFloat("{{ NYCmyFirstApartmentObject.withInflation }}").toFixed(0);
     var today = parseFloat("{{ NYCmyFirstApartmentObject.today }}").toFixed(0);
     var bedrooms = parseInt("{{ NYCmyFirstApartmentObject.bedrooms }}");
+    var neighborhoodCheck = "{{ NYCmyFirstApartmentObject.whereMoved.name }}".replace("&#39;", "'").replace("&amp;", "&");
     var todayType = "{{ NYCmyFirstApartmentObject.todayType }}".replace("&#39;", "'").replace("&amp;", "&");
     var year = "{{ NYCmyFirstApartmentObject.year }}";
+    var whenMoved = "{{ NYCmyFirstApartmentObject.whenMoved }}";
     var bitlyURL = "{{ bitlyURL.url }}";
     $( document ).ready(function() {
-        if (todayType == "Citywide") {
-            $("#headingRegionName").text("New York City");
-        } else {
-            $("#headingRegionName").text(todayType);            
+
+        if (!year) {
+            year = whenMoved;
         }
-        
+
+        if (todayType == "Citywide") {
+            $("#headingContent").text("Whoops! We don't have enough rental data for " + neighborhoodCheck + " , but here's how your rent compares to today's prices in New York City:");
+        } else if (todayType == "Brooklyn" || todayType == "Queens" || todayType == "Manhattan" || todayType == "Bronx" || todayType == "Staten Island"){
+            $("#headingContent").text("Whoops! We don't have enough rental data for " + neighborhoodCheck + " , but here's how your rent compares to today's prices in " + todayType + ":");
+        } else {
+            $("#headingContent").text("Here's how much you'd pay to live in " + todayType + " today:");
+        }
+
         window.setTimeout(function() { 
             drawBars.initialize();
         }, 1);

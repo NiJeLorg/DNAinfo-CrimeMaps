@@ -33,16 +33,26 @@
     var withInflation = parseFloat("{{ NYCmyFirstApartmentObject.withInflation }}").toFixed(0);
     var today = parseFloat("{{ NYCmyFirstApartmentObject.today }}").toFixed(0);
     var bedrooms = parseInt("{{ NYCmyFirstApartmentObject.bedrooms }}");
+    var neighborhoodCheck = "{{ NYCmyFirstApartmentObject.whereMoved.name }}".replace("&#39;", "'").replace("&amp;", "&");
     var todayType = "{{ NYCmyFirstApartmentObject.todayType }}".replace("&#39;", "'").replace("&amp;", "&");
     var year = "{{ NYCmyFirstApartmentObject.year }}";
+    var whenMoved = "{{ NYCmyFirstApartmentObject.whenMoved }}";
     var bitlyURL = "{{ bitlyURL.url }}";
     $( document ).ready(function() {
-        if (todayType == "Citywide") {
-            $("#headingRegionName").text("New York City");
-        } else {
-            $("#headingRegionName").text(todayType);            
+
+        if (!year) {
+            year = whenMoved;
         }
-        
+
+        if (todayType == "Citywide") {
+            $("#headingContent").text("Whoops! We don't have enough rental data for " + neighborhoodCheck + " , but here's how your rent compares to today's prices in New York City:");
+        } else if (todayType == "Brooklyn" || todayType == "Queens" || todayType == "Manhattan" || todayType == "Bronx" || todayType == "Staten Island"){
+            $("#headingContent").text("Whoops! We don't have enough rental data for " + neighborhoodCheck + " , but here's how your rent compares to today's prices in " + todayType + ":");
+        } else {
+            $("#headingContent").text("Here's how much you'd pay to live in " + todayType + " today:");
+        }
+
+
         window.setTimeout(function() { 
             drawBars.initialize();
         }, 1);
@@ -62,7 +72,7 @@
 
         var twitterlink = bitlyURL;
         var via = 'DNAinfo';
-        var twittercaption = "I paid $"+ drawBars.numberWithCommas(allPaid) +" to live in "+"{{ NYCmyFirstApartmentObject.whereMoved.name }}".replace("&#39;", "'") + " in "+ year +". Here's how rents compare now:";
+        var twittercaption = "I paid $"+ drawBars.numberWithCommas(allPaid) +" to live in " + neighborhoodCheck + " in "+ year +". Here's how rents compare now:";
         var twitterUrl = 'https://twitter.com/intent/tweet?url=' + encodeURIComponent(twitterlink) + '&via='+ encodeURIComponent(via) + '&text=' + encodeURIComponent(twittercaption);
         var twitterOnclick = 'window.open("' + twitterUrl + '","twitter-share-dialog","width=626,height=436");return false;';
         //$('#showShareTwitter').attr("href", twitterUrl);

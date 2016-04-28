@@ -24,7 +24,7 @@ html, body, #content, #map {
   background: url('images/Illustration_SMALL.svg');
   background-color: transparent; 
   background-size: cover; 
-  background-position: center top; 
+  background-position: center bottom; 
   background-repeat: no-repeat; 
 }
 
@@ -871,7 +871,7 @@ input[type="radio"]:checked + label span {
     background: url('images/Illustration_TALL.svg');
     background-color: transparent; 
     background-size: cover; 
-    background-position: center center; 
+    background-position: center bottom; 
     background-repeat: no-repeat; 
   } 
    
@@ -924,6 +924,7 @@ input[type="radio"]:checked + label span {
   }
 
   .shareOn {
+  	padding-right: 5px;
     display: inline;
     vertical-align: super;
   }
@@ -1016,7 +1017,7 @@ input[type="radio"]:checked + label span {
     background: url('images/Illustration_FULL.svg');
     background-color: transparent; 
     background-size: cover; 
-    background-position: center top; 
+    background-position: center bottom; 
     background-repeat: no-repeat; 
   } 
 
