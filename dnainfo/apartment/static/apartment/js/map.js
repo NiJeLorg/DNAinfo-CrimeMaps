@@ -5,6 +5,7 @@
 function mapApplication() {}
 
 mapApplication.initialize = function () {
+	console.log('Map initialization started.');
 	// set zoom and center for this map
 	this.center = center(neighborhoodName);
 	if (iDontSeeMyNeighborhood == "True"){
@@ -21,6 +22,7 @@ mapApplication.initialize = function () {
     	center: this.center,
    	 	zoom: this.zoom
 	});
+	console.log('Map created.');
 
 	// get bounds and set maxBounds so user can't pan outside of a certain extent
 	this.bounds = this.map.getBounds().pad(1);
@@ -30,12 +32,13 @@ mapApplication.initialize = function () {
 	var CartoDBTiles = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', { attribution: 'Map tiles by <a href=\"http://cartodb.com/attributions#basemaps\">CartoDB</a>, under <a href=\"https://creativecommons.org/licenses/by/3.0/\" target=\"_blank\">CC BY 3.0</a>. Data by <a href=\"http://www.openstreetmap.org/\" target=\"_blank\">OpenStreetMap</a>, under ODbL.'
 	});
 
-	var stamenTiles = L.tileLayer('https://stamen-tiles.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.png', {attribution: 'Map tiles by <a href=\"http://stamen.com\">Stamen Design</a>, under <a href=\"http://creativecommons.org/licenses/by/3.0\">CC BY 3.0</a>. Data by <a href=\"http://openstreetmap.org\">OpenStreetMap</a>, under <a href=\"http://www.openstreetmap.org/copyright\">ODbL</a>.'
-	});
-
+/*	var stamenTiles = L.tileLayer('https://stamen-tiles.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.png', {attribution: 'Map tiles by <a href=\"http://stamen.com\">Stamen Design</a>, under <a href=\"http://creativecommons.org/licenses/by/3.0\">CC BY 3.0</a>. Data by <a href=\"http://openstreetmap.org\">OpenStreetMap</a>, under <a href=\"http://www.openstreetmap.org/copyright\">ODbL</a>.'
+	});*/
 
 	// add these tiles to our map
-	this.map.addLayer(stamenTiles);
+	this.map.addLayer(CartoDBTiles);
+
+	console.log('Tiles added.');
 	
     // enable events
     this.map.doubleClickZoom.enable();
@@ -70,6 +73,9 @@ mapApplication.initialize = function () {
 	});
 	this.map.addControl(this.drawControl);
 
+	console.log('Draw tools added.');
+
+
 	// enable drawing immediately
 	new L.Draw.Marker(this.map, this.drawControl.options.draw.marker).enable();
 
@@ -102,9 +108,10 @@ mapApplication.initialize = function () {
 		   	$('#id_firstApartmentLocation').val(JSON.stringify(geojson));
 		});
 
-
-
 	});
+
+	console.log('Draw tool listeners ready.');
+
 
 	function center(neighborhood) {
 		var lookup = {
