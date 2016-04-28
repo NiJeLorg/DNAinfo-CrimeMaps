@@ -15,7 +15,7 @@ drawBars.initialize = function () {
 	} 
 
 	if (todayType == "Citywide") {
-		var whereText = "Citywide";
+		var whereText = " Citywide";
 	} else {
 		var whereText = " in " + todayType;
 	}
@@ -39,20 +39,29 @@ drawBars.initialize = function () {
 
 	var width = $('#visContainer').width();
 	if (width < 400) {
+		// top bar less than 210px, then wrap text
+		// bottom mar less than 275px, then wrap text
 		var bottomRange = 170;
-		var wrapTextSize = width - 80;
+		var wrapTextSizeTop = 210;
+		var wrapTextSizeBottom = 275;
 		var height = width/2.5;
 		var smallFontSize = "10px";
 		var largeFontSize = "12px";
 	} else if (width < 600) {
+		// top bar less than 285px, then wrap text
+		// bottom mar less than 380px, then wrap text
 		var bottomRange = 235;
-		var wrapTextSize = width - 80;
+		var wrapTextSizeTop = 285;
+		var wrapTextSizeBottom = 380;
 		var height = width/3;		
 		var smallFontSize = "14px";
 		var largeFontSize = "16px";
 	} else {
+		// top bar less than 325px, then wrap text
+		// bottom mar less than 430px, then wrap text
 		var bottomRange = 265;
-		var wrapTextSize = width - 200;
+		var wrapTextSizeTop = 325;
+		var wrapTextSizeBottom = 430;
 		var height = width/4;		
 		var smallFontSize = "16px";
 		var largeFontSize = "18px";
@@ -90,11 +99,21 @@ drawBars.initialize = function () {
 
 	gs.append("text")
       .attr("x", 10)
-      .attr("y", function(d) { 
-      	if (x(parseInt(d.value)) <= wrapTextSize) {
-      		return y(d.amount) + y.rangeBand()/2.8; 
+      .attr("y", function(d) {
+      	if (d.label == inflationLabel) {
+      		// top bar
+	      	if (x(parseInt(d.value)) <= wrapTextSizeTop) {
+	      		return y(d.amount) + y.rangeBand()/2.8; 
+	      	} else {
+	      		return y(d.amount) + y.rangeBand()/2.3;
+	      	}
       	} else {
-      		return y(d.amount) + y.rangeBand()/2.3;
+      		// lower bar
+	      	if (x(parseInt(d.value)) <= wrapTextSizeBottom) {
+	      		return y(d.amount) + y.rangeBand()/2.8; 
+	      	} else {
+	      		return y(d.amount) + y.rangeBand()/2.3;
+	      	}
       	}
       })
       .style("font-size" ,largeFontSize)
@@ -107,11 +126,21 @@ drawBars.initialize = function () {
 	gs.append("text")
       .attr("x", 10)
       .attr("y", function(d) { 
-      	if (x(parseInt(d.value)) <= wrapTextSize) {
-      		return y(d.amount) + y.rangeBand()/1.65;
+      	if (d.label == inflationLabel) {
+      		// top bar
+	      	if (x(parseInt(d.value)) <= wrapTextSizeTop) {
+	      		return y(d.amount) + y.rangeBand()/1.65;
+	      	} else {
+	      		return y(d.amount) + y.rangeBand()/1.45;
+	      	}      	 
       	} else {
-      		return y(d.amount) + y.rangeBand()/1.45;
-      	}      	 
+      		// lower bar
+	      	if (x(parseInt(d.value)) <= wrapTextSizeBottom) {
+	      		return y(d.amount) + y.rangeBand()/1.65;
+	      	} else {
+	      		return y(d.amount) + y.rangeBand()/1.45;
+	      	}      	 
+      	}
       })
       .style("font-size" ,smallFontSize)
       .style("font-family" ,"\"Titillium Web\", Helvetica, Sans-Serif")
@@ -119,12 +148,20 @@ drawBars.initialize = function () {
       .style("stroke" ,"#ffffff")
       .style("fill" ,"#ffffff")
       .text(function(d) { 
-      	console.log(x(parseInt(d.value)));
-      	console.log(bottomRange);
-      	if (x(parseInt(d.value)) <= wrapTextSize) {
-      		return d.labelTop;
+      	if (d.label == inflationLabel) {
+      		// top bar
+	      	if (x(parseInt(d.value)) <= wrapTextSizeTop) {
+	      		return d.labelTop;
+	      	} else {
+	      		return d.label;
+	      	}
       	} else {
-      		return d.label;
+      		// lower bar
+	      	if (x(parseInt(d.value)) <= wrapTextSizeBottom) {
+	      		return d.labelTop;
+	      	} else {
+	      		return d.label;
+	      	}
       	}
       });
 
@@ -137,11 +174,22 @@ drawBars.initialize = function () {
       .style("stroke" ,"#ffffff")
       .style("fill" ,"#ffffff")
       .text(function(d) { 
-      	if (x(parseInt(d.value)) <= wrapTextSize) {
-      		return d.labelBottom;
+      	if (d.label == inflationLabel) {
+      		// top bar
+	      	if (x(parseInt(d.value)) <= wrapTextSizeTop) {
+	      		return d.labelBottom;
+	      	} else {
+	      		return '';
+	      	}
       	} else {
-      		return '';
+      		// lower bar
+	      	if (x(parseInt(d.value)) <= wrapTextSizeBottom) {
+	      		return d.labelBottom;
+	      	} else {
+	      		return '';
+	      	}
       	}
+
       });		
 
 	bars.transition()  
