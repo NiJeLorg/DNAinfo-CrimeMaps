@@ -1,0 +1,128 @@
+RegionName,City,State,Metro,CountyName,SizeRank,Cost,Bedrooms
+Logan Square,Chicago,IL,Chicago,Cook,15,995,0
+Rogers Park,Chicago,IL,Chicago,Cook,25,750,0
+Lake View,Chicago,IL,Chicago,Cook,29,995,0
+Lake View East,Chicago,IL,Chicago,Cook,35,1032.5,0
+South Loop,Chicago,IL,Chicago,Cook,36,1487,0
+Ravenswood,Chicago,IL,Chicago,Cook,49,995,0
+Edgewater Beach,Chicago,IL,Chicago,Cook,54,825,0
+Near North,Chicago,IL,Chicago,Cook,61,1508.5,0
+Uptown,Chicago,IL,Chicago,Cook,63,895,0
+Streeterville,Chicago,IL,Chicago,Cook,66,1649.5,0
+Gold Coast,Chicago,IL,Chicago,Cook,72,1300,0
+Lincoln Park,Chicago,IL,Chicago,Cook,80,1160,0
+Buena Park,Chicago,IL,Chicago,Cook,86,925,0
+Old Town,Chicago,IL,Chicago,Cook,88,1622.5,0
+The Loop,Chicago,IL,Chicago,Cook,90,1644,0
+River North,Chicago,IL,Chicago,Cook,97,1740,0
+Sheridan Park,Chicago,IL,Chicago,Cook,98,850,0
+West Loop Gate,Chicago,IL,Chicago,Cook,100,1468.5,0
+New East Side,Chicago,IL,Chicago,Cook,101,1686.5,0
+Fulton River District,Chicago,IL,Chicago,Cook,103,1700,0
+city,,,,,,0,0
+Logan Square,Chicago,IL,Chicago,Cook,37,1200,1
+West Rogers Park,Chicago,IL,Chicago,Cook,49,950,1
+Albany Park,Chicago,IL,Chicago,Cook,59,950,1
+Rogers Park,Chicago,IL,Chicago,Cook,64,950,1
+Lake View,Chicago,IL,Chicago,Cook,80,1350,1
+South Shore,Chicago,IL,Chicago,Cook,103,775,1
+Lake View East,Chicago,IL,Chicago,Cook,113,1378.5,1
+North Center,Chicago,IL,Chicago,Cook,114,1250,1
+South Loop,Chicago,IL,Chicago,Cook,115,1850,1
+Ravenswood,Chicago,IL,Chicago,Cook,147,1195,1
+West Town,Chicago,IL,Chicago,Cook,152,2037.5,1
+Edgewater Beach,Chicago,IL,Chicago,Cook,156,1095,1
+Near North,Chicago,IL,Chicago,Cook,168,1837.5,1
+Uptown,Chicago,IL,Chicago,Cook,171,1172.5,1
+Bucktown,Chicago,IL,Chicago,Cook,179,1550,1
+Streeterville,Chicago,IL,Chicago,Cook,182,2174,1
+Gold Coast,Chicago,IL,Chicago,Cook,201,1636.5,1
+Near West Side,Chicago,IL,Chicago,Cook,210,2053,1
+Lincoln Park,Chicago,IL,Chicago,Cook,213,1655,1
+Buena Park,Chicago,IL,Chicago,Cook,235,1300,1
+The Loop,Chicago,IL,Chicago,Cook,245,2132,1
+River North,Chicago,IL,Chicago,Cook,265,2363.5,1
+Old Town Triangle,Chicago,IL,Chicago,Cook,279,1856,1
+Margate Park,Chicago,IL,Chicago,Cook,281,1175,1
+Sheridan Park,Chicago,IL,Chicago,Cook,285,950,1
+East Chatham,Chicago,IL,Chicago,Cook,289,655,1
+West Loop Gate,Chicago,IL,Chicago,Cook,296,1695,1
+New East Side,Chicago,IL,Chicago,Cook,305,2000,1
+Fulton River District,Chicago,IL,Chicago,Cook,316,1951,1
+Goose Island,Chicago,IL,Chicago,Cook,318,2275,1
+Dearborn Park,Chicago,IL,Chicago,Cook,344,1828,1
+River West,Chicago,IL,Chicago,Cook,346,1753.5,1
+city,,,,,,1595,1
+Logan Square,Chicago,IL,Chicago,Cook,48,1495,2
+West Rogers Park,Chicago,IL,Chicago,Cook,63,1285,2
+Albany Park,Chicago,IL,Chicago,Cook,76,1375,2
+Rogers Park,Chicago,IL,Chicago,Cook,83,1300,2
+South Austin,Chicago,IL,Chicago,Cook,85,980,2
+Gresham,Chicago,IL,Chicago,Cook,102,950,2
+Lake View,Chicago,IL,Chicago,Cook,110,1895,2
+Englewood,Chicago,IL,Chicago,Cook,112,865,2
+South Shore,Chicago,IL,Chicago,Cook,142,950,2
+Humboldt Park,Chicago,IL,Chicago,Cook,153,1450,2
+Lake View East,Chicago,IL,Chicago,Cook,154,1875,2
+North Center,Chicago,IL,Chicago,Cook,155,1750,2
+South Loop,Chicago,IL,Chicago,Cook,157,2500,2
+Bronzeville,Chicago,IL,Chicago,Cook,176,1200,2
+South Chicago,Chicago,IL,Chicago,Cook,195,950,2
+Ravenswood,Chicago,IL,Chicago,Cook,196,1595,2
+Edgewater Beach,Chicago,IL,Chicago,Cook,210,1599,2
+Near North,Chicago,IL,Chicago,Cook,227,2690,2
+Uptown,Chicago,IL,Chicago,Cook,231,1575,2
+Bucktown,Chicago,IL,Chicago,Cook,238,2000,2
+Streeterville,Chicago,IL,Chicago,Cook,240,3070,2
+Park Manor,Chicago,IL,Chicago,Cook,258,875,2
+University Village - Little Italy,Chicago,IL,Chicago,Cook,262,1975,2
+Gold Coast,Chicago,IL,Chicago,Cook,263,2619,2
+Irving Park,Chicago,IL,Chicago,Cook,272,1400,2
+Near West Side,Chicago,IL,Chicago,Cook,275,2719,2
+Wicker Park,Chicago,IL,Chicago,Cook,292,2125,2
+Edgewater,Chicago,IL,Chicago,Cook,303,1450,2
+Buena Park,Chicago,IL,Chicago,Cook,304,1795,2
+Old Town,Chicago,IL,Chicago,Cook,306,2780,2
+Sheffield Neighbors,Chicago,IL,Chicago,Cook,312,1957,2
+Wrightwood Neighbors,Chicago,IL,Chicago,Cook,318,2150,2
+The Loop,Chicago,IL,Chicago,Cook,319,2903,2
+River North,Chicago,IL,Chicago,Cook,338,3278,2
+Noble Square,Chicago,IL,Chicago,Cook,348,1795,2
+East Ukrainian Village,Chicago,IL,Chicago,Cook,354,2150,2
+Sheridan Park,Chicago,IL,Chicago,Cook,359,1675,2
+Ukrainian Village,Chicago,IL,Chicago,Cook,362,1687.5,2
+New East Side,Chicago,IL,Chicago,Cook,380,2896,2
+Fulton River District,Chicago,IL,Chicago,Cook,389,2673.5,2
+Ranch Triangle,Chicago,IL,Chicago,Cook,390,2400,2
+Wrigleyville,Chicago,IL,Chicago,Cook,397,1895,2
+River West,Chicago,IL,Chicago,Cook,411,2610,2
+city,,,,,,1800,2
+Logan Square,Chicago,IL,Chicago,Cook,49,1895,3
+West Rogers Park,Chicago,IL,Chicago,Cook,63,1500,3
+Albany Park,Chicago,IL,Chicago,Cook,80,1600,3
+Archer Heights,Chicago,IL,Chicago,Cook,85,1150,3
+Rogers Park,Chicago,IL,Chicago,Cook,87,1605,3
+Gresham,Chicago,IL,Chicago,Cook,100,1132.5,3
+Lake View,Chicago,IL,Chicago,Cook,105,2695,3
+Englewood,Chicago,IL,Chicago,Cook,107,1075,3
+South Shore,Chicago,IL,Chicago,Cook,128,1200,3
+Lake View East,Chicago,IL,Chicago,Cook,137,2744,3
+North Center,Chicago,IL,Chicago,Cook,139,2250,3
+South Loop,Chicago,IL,Chicago,Cook,140,3209,3
+Bronzeville,Chicago,IL,Chicago,Cook,155,1550,3
+South Chicago,Chicago,IL,Chicago,Cook,165,1095,3
+Ravenswood,Chicago,IL,Chicago,Cook,166,2100,3
+Uptown,Chicago,IL,Chicago,Cook,183,2200,3
+Bucktown,Chicago,IL,Chicago,Cook,188,2717.5,3
+Streeterville,Chicago,IL,Chicago,Cook,190,4725,3
+Park Manor,Chicago,IL,Chicago,Cook,204,1150,3
+Lincoln Park,Chicago,IL,Chicago,Cook,209,2875,3
+Woodlawn,Chicago,IL,Chicago,Cook,214,1300,3
+Grand Crossing,Chicago,IL,Chicago,Cook,219,1150,3
+Wrightwood Neighbors,Chicago,IL,Chicago,Cook,228,2925,3
+West Woodlawn,Chicago,IL,Chicago,Cook,238,1139,3
+city,,,,,,1950,3
+Lake View,Chicago,IL,Chicago,Cook,29,3000,4
+Lake View East,Chicago,IL,Chicago,Cook,37,3000,4
+city,,,,,,2400,4
+city,,,,,,1850,5
