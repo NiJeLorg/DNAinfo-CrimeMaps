@@ -10,8 +10,9 @@ ajaxApplication.firstMove = function () {
 	function slow() {
 		$.ajax({
 			type: "GET",
-			url: "/mfa-nyc/firstMove/",
+			url: "/mfa-chi/firstMove/",
 			success: function(data){
+				console.log(data);
 				$('#content').html(data);
 				// remove labels
 				$('label').remove();
@@ -38,7 +39,7 @@ ajaxApplication.nextNeighborhood = function () {
 			e.preventDefault();
 			$.ajax({
 				type: "POST",
-				url: "/mfa-nyc/firstMove/",
+				url: "/mfa-chi/firstMove/",
 				data: f.serialize(),
 				success: function(data){
 					$('#content').html(data);
@@ -80,7 +81,7 @@ ajaxApplication.nextLocation = function () {
 			e.preventDefault();
 			$.ajax({
 				type: "POST",
-				url: "/mfa-nyc/whatNeighborhood/"+ objectID +"/",
+				url: "/mfa-chi/whatNeighborhood/"+ objectID +"/",
 				data: f.serialize(),
 				success: function(data){
 					$('#content').html(data);
@@ -105,7 +106,7 @@ ajaxApplication.nextYearMoved = function () {
 			e.preventDefault();
 			$.ajax({
 				type: "POST",
-				url: "/mfa-nyc/exactLocation/"+ objectID +"/",
+				url: "/mfa-chi/exactLocation/"+ objectID +"/",
 				data: f.serialize(),
 				success: function(data){
 					$('#content').html(data);
@@ -143,7 +144,7 @@ ajaxApplication.nextBedrooms = function (checked) {
 			e.preventDefault();
 			$.ajax({
 				type: "POST",
-				url: "/mfa-nyc/yearMoved/"+ objectID +"/",
+				url: "/mfa-chi/yearMoved/"+ objectID +"/",
 				data: f.serialize(),
 				success: function(data){
 					$('#content').html(data);
@@ -178,7 +179,7 @@ ajaxApplication.nextRentSplit = function () {
 			e.preventDefault();
 			$.ajax({
 				type: "POST",
-				url: "/mfa-nyc/bedrooms/"+ objectID +"/",
+				url: "/mfa-chi/bedrooms/"+ objectID +"/",
 				data: f.serialize(),
 				success: function(data){
 					$('#content').html(data);
@@ -212,7 +213,7 @@ ajaxApplication.nextiPaid = function () {
 			e.preventDefault();
 			$.ajax({
 				type: "POST",
-				url: "/mfa-nyc/rentSplit/"+ objectID +"/",
+				url: "/mfa-chi/rentSplit/"+ objectID +"/",
 				data: f.serialize(),
 				success: function(data){
 					$('#content').html(data);
@@ -243,7 +244,7 @@ ajaxApplication.nextAllPaid = function () {
 			e.preventDefault();
 			$.ajax({
 				type: "POST",
-				url: "/mfa-nyc/iPaid/"+ objectID +"/",
+				url: "/mfa-chi/iPaid/"+ objectID +"/",
 				data: f.serialize(),
 				success: function(data){
 					$('#content').html(data);
@@ -274,7 +275,7 @@ ajaxApplication.nextCalc = function () {
 			e.preventDefault();
 			$.ajax({
 				type: "POST",
-				url: "/mfa-nyc/allPaid/"+ objectID +"/",
+				url: "/mfa-chi/allPaid/"+ objectID +"/",
 				data: f.serialize(),
 				success: function(data){
 					$('#content').html(data);
@@ -294,7 +295,7 @@ ajaxApplication.nextResults = function (id) {
 	function slow() {
 		$.ajax({
 			type: "GET",
-			url: "/mfa-nyc/end/"+id+"/",
+			url: "/mfa-chi/end/"+id+"/",
 			success: function(data){
 				$('#content').html(data);
 				$(".fadein").fadeIn("slow");
@@ -312,7 +313,7 @@ ajaxApplication.backIntro = function () {
 	function slow() {
 		$.ajax({
 			type: "GET",
-			url: "/mfa-nyc/",
+			url: "/mfa-chi/",
 			success: function(data){
 				$('#content').html(data);
 				$(".fadein").fadeIn("slow");
@@ -326,7 +327,7 @@ ajaxApplication.backFirstMove = function (id) {
 	function slow() {
 		$.ajax({
 			type: "GET",
-			url: "/mfa-nyc/firstMove/"+id+"/",
+			url: "/mfa-chi/firstMove/"+id+"/",
 			success: function(data){
 				$('#content').html(data);
 				// remove labels
@@ -350,7 +351,7 @@ ajaxApplication.backNeighborhood = function (id) {
 	function slow() {
 		$.ajax({
 			type: "GET",
-			url: "/mfa-nyc/whatNeighborhood/"+id+"/",
+			url: "/mfa-chi/whatNeighborhood/"+id+"/",
 			success: function(data){
 		 		$('#content').html(data);
 				// remove labels
@@ -380,7 +381,7 @@ ajaxApplication.backLocation = function (id) {
 	function slow() {
 		$.ajax({
 			type: "GET",
-			url: "/mfa-nyc/exactLocation/"+id+"/",
+			url: "/mfa-chi/exactLocation/"+id+"/",
 			success: function(data){
 				$('#content').html(data);
 				$(".fadein").fadeIn("slow");
@@ -394,7 +395,7 @@ ajaxApplication.backYearMoved = function (id) {
 	function slow() {
 		$.ajax({
 			type: "GET",
-			url: "/mfa-nyc/yearMoved/"+id+"/",
+			url: "/mfa-chi/yearMoved/"+id+"/",
 			success: function(data){
 				$('#content').html(data);
 				// remove label
@@ -422,7 +423,7 @@ ajaxApplication.backBedrooms = function (id) {
 	function slow() {
 		$.ajax({
 			type: "GET",
-			url: "/mfa-nyc/bedrooms/"+id+"/",
+			url: "/mfa-chi/bedrooms/"+id+"/",
 			success: function(data){
 				$('#content').html(data);
 				// remove labels
@@ -448,7 +449,7 @@ ajaxApplication.backRentSplit = function (id) {
 	function slow() {
 		$.ajax({
 			type: "GET",
-			url: "/mfa-nyc/rentSplit/"+id+"/",
+			url: "/mfa-chi/rentSplit/"+id+"/",
 			success: function(data){
 				$('#content').html(data);
 				// remove labels
@@ -474,7 +475,7 @@ ajaxApplication.backiPaid = function (id) {
 	function slow() {
 		$.ajax({
 			type: "GET",
-			url: "/mfa-nyc/iPaid/"+id+"/",
+			url: "/mfa-chi/iPaid/"+id+"/",
 			success: function(data){
 				$('#content').html(data);
 				//remove labels
