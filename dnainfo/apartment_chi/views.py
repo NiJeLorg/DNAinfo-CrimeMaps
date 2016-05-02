@@ -295,23 +295,19 @@ def end(request, id=None):
 	else:
 		bedroomsTry = CHImyFirstApartmentObject.bedrooms
 
-	# try to pull a value, if nothing, pull citywide value
-	if CHImyFirstApartmentObject.whereMoved:
-		RegionNameTry = CHImyFirstApartmentObject.whereMoved.name
-	else:
-		RegionNameTry = "city"
-
-	
 	try:
-		zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName=RegionNameTry)
-		if RegionNameTry == "city":
-			CHImyFirstApartmentObject.todayType = "Citywide"
-		else:
-			CHImyFirstApartmentObject.todayType = RegionNameTry			
-		
+		zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName=CHImyFirstApartmentObject.whereMoved.name)		
+		CHImyFirstApartmentObject.todayType = CHImyFirstApartmentObject.whereMoved.name
+
 	except zillowMedianRentListPrice.DoesNotExist: 
-		zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="city")
-		CHImyFirstApartmentObject.todayType = "Citywide"
+		try:
+			zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName=CHImyFirstApartmentObject.whereMoved.county)
+			CHImyFirstApartmentObject.todayType = CHImyFirstApartmentObject.whereMoved.county
+
+		except zillowMedianRentListPrice.DoesNotExist: 
+			zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="city")
+			CHImyFirstApartmentObject.todayType = "Citywide"
+
 
 	CHImyFirstApartmentObject.today = zillowNow.Cost
 

@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-sm-8 col-sm-offset-2">
             <h2 class="resultsHeading">
-                Here's how much you'd pay to live in <span id="headingRegionName"></span> today:
+                <span id="headingContent"></span>
             </h2>
         </div>
     </div>
@@ -52,7 +52,6 @@
             $("#headingContent").text("Here's how much you'd pay to live in " + todayType + " today:");
         }
 
-
         window.setTimeout(function() { 
             drawBars.initialize();
         }, 1);
@@ -72,7 +71,7 @@
 
         var twitterlink = bitlyURL;
         var via = 'DNAinfo';
-        var twittercaption = "I paid $"+ drawBars.numberWithCommas(allPaid) +" to live in " + neighborhoodCheck + " in "+ year +". Here's how rents compare now:";
+        var twittercaption = "I paid $"+ drawBars.numberWithCommas(allPaid) +" to live in "+"{{ NYCmyFirstApartmentObject.whereMoved.name }}".replace("&#39;", "'") + " in "+ year +". Here's how rents compare now:";
         var twitterUrl = 'https://twitter.com/intent/tweet?url=' + encodeURIComponent(twitterlink) + '&via='+ encodeURIComponent(via) + '&text=' + encodeURIComponent(twittercaption);
         var twitterOnclick = 'window.open("' + twitterUrl + '","twitter-share-dialog","width=626,height=436");return false;';
         //$('#showShareTwitter').attr("href", twitterUrl);
