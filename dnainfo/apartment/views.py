@@ -311,7 +311,7 @@ def end(request, id=None):
 	NYCmyFirstApartmentObject.today = zillowNow.Cost
 
 	# social urls
-	url = "https://visualizations.dnainfo.com/my-first-apartment/results/" + str(id) + "/"
+	url = "https://visualizations.dnainfo.com/mfa-nyc/results/" + str(id) + "/"
 	# connect to Bitly API
 	c = bitly_api.Connection('ondnainfo', 'R_cdbdcaaef8d04d97b363b989f2fba3db')
 	bitlyURL = c.shorten(url)
@@ -380,7 +380,7 @@ def results(request, id=None):
 	NYCmyFirstApartmentObject.today = zillowNow.Cost
 
 	# social urls
-	url = "https://visualizations.dnainfo.com/my-first-apartment/results/" + str(id) + "/"
+	url = "https://visualizations.dnainfo.com/mfa-nyc/results/" + str(id) + "/"
 	# connect to Bitly API
 	c = bitly_api.Connection('ondnainfo', 'R_cdbdcaaef8d04d97b363b989f2fba3db')
 	bitlyURL = c.shorten(url)
