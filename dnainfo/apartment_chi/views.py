@@ -32,7 +32,7 @@ def firstMove(request, id=None):
 			# Save the new data to the database.
 			f = form.save()
 			lookupObject = CHImyFirstApartment.objects.get(pk=f.pk)
-			return HttpResponseRedirect(reverse('whatNeighborhood', args=(lookupObject.pk,)))
+			return HttpResponseRedirect(reverse('whatNeighborhood_chi', args=(lookupObject.pk,)))
 		else:
 			# The supplied form contained errors - just print them to the terminal.
 			print form.errors
@@ -60,7 +60,7 @@ def whatNeighborhood(request, id=None):
 			# Save the new data to the database.
 			f = form.save()
 			lookupObject = CHImyFirstApartment.objects.get(pk=f.pk)
-			return HttpResponseRedirect(reverse('exactLocation', args=(lookupObject.pk,)))
+			return HttpResponseRedirect(reverse('exactLocation_chi', args=(lookupObject.pk,)))
 		else:
 			# The supplied form contained errors - just print them to the terminal.
 			print form.errors
@@ -88,7 +88,7 @@ def exactLocation(request, id=None):
 			# Save the new data to the database.
 			f = form.save()
 			lookupObject = CHImyFirstApartment.objects.get(pk=f.pk)
-			return HttpResponseRedirect(reverse('yearMoved', args=(lookupObject.pk,)))
+			return HttpResponseRedirect(reverse('yearMoved_chi', args=(lookupObject.pk,)))
 		else:
 			# The supplied form contained errors - just print them to the terminal.
 			print form.errors
@@ -116,7 +116,7 @@ def yearMoved(request, id=None):
 			# Save the new data to the database.
 			f = form.save()
 			lookupObject = CHImyFirstApartment.objects.get(pk=f.pk)
-			return HttpResponseRedirect(reverse('bedrooms', args=(lookupObject.pk,)))
+			return HttpResponseRedirect(reverse('bedrooms_chi', args=(lookupObject.pk,)))
 		else:
 			# The supplied form contained errors - just print them to the terminal.
 			print form.errors
@@ -144,7 +144,7 @@ def bedrooms(request, id=None):
 			# Save the new data to the database.
 			f = form.save()
 			lookupObject = CHImyFirstApartment.objects.get(pk=f.pk)
-			return HttpResponseRedirect(reverse('rentSplit', args=(lookupObject.pk,)))
+			return HttpResponseRedirect(reverse('rentSplit_chi', args=(lookupObject.pk,)))
 		else:
 			# The supplied form contained errors - just print them to the terminal.
 			print form.errors
@@ -172,7 +172,7 @@ def rentSplit(request, id=None):
 			# Save the new data to the database.
 			f = form.save()
 			lookupObject = CHImyFirstApartment.objects.get(pk=f.pk)
-			return HttpResponseRedirect(reverse('iPaid', args=(lookupObject.pk,)))
+			return HttpResponseRedirect(reverse('iPaid_chi', args=(lookupObject.pk,)))
 		else:
 			# The supplied form contained errors - just print them to the terminal.
 			print form.errors
@@ -200,7 +200,7 @@ def iPaid(request, id=None):
 			# Save the new data to the database.
 			f = form.save()
 			lookupObject = CHImyFirstApartment.objects.get(pk=f.pk)
-			return HttpResponseRedirect(reverse('allPaid', args=(lookupObject.pk,)))
+			return HttpResponseRedirect(reverse('allPaid_chi', args=(lookupObject.pk,)))
 		else:
 			# The supplied form contained errors - just print them to the terminal.
 			print form.errors
@@ -231,7 +231,7 @@ def allPaid(request, id=None):
 			# Save the new data to the database.
 			f = form.save()
 			lookupObject = CHImyFirstApartment.objects.get(pk=f.pk)
-			return HttpResponseRedirect(reverse('calc', args=(lookupObject.pk,)))
+			return HttpResponseRedirect(reverse('calc_chi', args=(lookupObject.pk,)))
 		else:
 			# The supplied form contained errors - just print them to the terminal.
 			print form.errors

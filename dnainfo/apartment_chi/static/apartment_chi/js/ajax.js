@@ -12,7 +12,6 @@ ajaxApplication.firstMove = function () {
 			type: "GET",
 			url: "/mfa-chi/firstMove/",
 			success: function(data){
-				console.log(data);
 				$('#content').html(data);
 				// remove labels
 				$('label').remove();
