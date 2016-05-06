@@ -207,3 +207,25 @@ class NYCtrainSitStand(models.Model):
 	positionTwoType = models.CharField(max_length=255, default='', blank=True, null=True)
 	positionThree = models.IntegerField(default=0, blank=True, null=True)
 	positionThreeType = models.CharField(max_length=255, default='', blank=True, null=True)
+
+
+#model for schools water quality data
+class NYCschoolsWaterTesting(models.Model):
+	created = models.DateTimeField(auto_now=True)
+	lc = models.CharField(max_length=255, default='', blank=True, null=True)
+	bc = models.CharField(max_length=255, default='', blank=True, null=True)
+	ln = models.CharField(max_length=255, default='', blank=True, null=True)
+	bn = models.CharField(max_length=255, default='', blank=True, null=True)
+	add = models.CharField(max_length=255, default='', blank=True, null=True)
+	cit = models.CharField(max_length=255, default='', blank=True, null=True)
+	stc = models.CharField(max_length=255, default='', blank=True, null=True)
+	zip = models.CharField(max_length=255, default='', blank=True, null=True)
+	wtp = models.CharField(max_length=255, default='', blank=True, null=True)
+	er = models.CharField(max_length=255, default='', blank=True, null=True)
+	dohm = models.CharField(max_length=255, default='', blank=True, null=True)
+	note = models.CharField(max_length=255, default='', blank=True, null=True)
+	dt = models.CharField(max_length=255, default='', blank=True, null=True)
+	st = models.CharField(max_length=255, default='', blank=True, null=True)
+	se = models.CharField(max_length=255, default='', blank=True, null=True)
+	rt = models.CharField(max_length=255, default='', blank=True, null=True)
+
