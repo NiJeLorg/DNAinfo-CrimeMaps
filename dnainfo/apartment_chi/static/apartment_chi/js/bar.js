@@ -79,7 +79,7 @@ drawBars.initialize = function () {
 	    .domain(d3_dataset.map(function(d) { return d.amount; }));
 
     var color = d3.scale.ordinal()
-        .range(["#4291c3", "#e66e6e", "#ffba77",]);
+        .range(["#0073a3", "#fc5158", "#ffba77",]);
 
 	var svg = d3.select("#visContainer").append("svg")
 	    .attr("width", width)

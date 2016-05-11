@@ -45,9 +45,9 @@
         }
 
         if (todayType == "Citywide") {
-            $("#headingContent").text("Whoops! We don't have enough rental data for " + neighborhoodCheck + " , but here's how your rent compares to today's prices in New York City:");
+            $("#headingContent").text("Whoops! We don't have enough rental data for " + neighborhoodCheck + ", but here's how your rent compares to today's prices in New York City:");
         } else if (todayType == "Brooklyn" || todayType == "Queens" || todayType == "Manhattan" || todayType == "Bronx" || todayType == "Staten Island"){
-            $("#headingContent").text("Whoops! We don't have enough rental data for " + neighborhoodCheck + " , but here's how your rent compares to today's prices in " + todayType + ":");
+            $("#headingContent").text("Whoops! We don't have enough rental data for " + neighborhoodCheck + ", but here's how your rent compares to today's prices in " + todayType + ":");
         } else {
             $("#headingContent").text("Here's how much you'd pay to live in " + todayType + " today:");
         }

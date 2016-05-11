@@ -300,13 +300,226 @@ def end(request, id=None):
 		NYCmyFirstApartmentObject.todayType = NYCmyFirstApartmentObject.whereMoved.name
 
 	except zillowMedianRentListPrice.DoesNotExist: 
-		try:
-			zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName=NYCmyFirstApartmentObject.whereMoved.county)
-			NYCmyFirstApartmentObject.todayType = NYCmyFirstApartmentObject.whereMoved.county
+		# host of exeptions!
+		if NYCmyFirstApartmentObject.whereMoved.name == 'Central Harlem':
+			try:
+				zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="Harlem")
+				NYCmyFirstApartmentObject.todayType = NYCmyFirstApartmentObject.whereMoved.name
 
-		except zillowMedianRentListPrice.DoesNotExist: 
-			zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="city")
-			NYCmyFirstApartmentObject.todayType = "Citywide"
+			except zillowMedianRentListPrice.DoesNotExist: 
+				try:
+					zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName=NYCmyFirstApartmentObject.whereMoved.county)
+					NYCmyFirstApartmentObject.todayType = NYCmyFirstApartmentObject.whereMoved.county
+
+				except zillowMedianRentListPrice.DoesNotExist: 
+					zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="city")
+					NYCmyFirstApartmentObject.todayType = "Citywide"
+
+		elif NYCmyFirstApartmentObject.whereMoved.name == 'Concourse Village':
+			try:
+				zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="Concourse")
+				NYCmyFirstApartmentObject.todayType = NYCmyFirstApartmentObject.whereMoved.name
+
+			except zillowMedianRentListPrice.DoesNotExist: 
+				try:
+					zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName=NYCmyFirstApartmentObject.whereMoved.county)
+					NYCmyFirstApartmentObject.todayType = NYCmyFirstApartmentObject.whereMoved.county
+
+				except zillowMedianRentListPrice.DoesNotExist: 
+					zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="city")
+					NYCmyFirstApartmentObject.todayType = "Citywide"
+
+		elif NYCmyFirstApartmentObject.whereMoved.name == 'Ditmars':
+			try:
+				zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="Astoria")
+				NYCmyFirstApartmentObject.todayType = NYCmyFirstApartmentObject.whereMoved.name
+
+			except zillowMedianRentListPrice.DoesNotExist: 
+				try:
+					zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName=NYCmyFirstApartmentObject.whereMoved.county)
+					NYCmyFirstApartmentObject.todayType = NYCmyFirstApartmentObject.whereMoved.county
+
+				except zillowMedianRentListPrice.DoesNotExist: 
+					zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="city")
+					NYCmyFirstApartmentObject.todayType = "Citywide"
+
+		elif NYCmyFirstApartmentObject.whereMoved.name == 'Fort George':
+			try:
+				zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="Washington Heights")
+				NYCmyFirstApartmentObject.todayType = NYCmyFirstApartmentObject.whereMoved.name
+
+			except zillowMedianRentListPrice.DoesNotExist: 
+				try:
+					zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName=NYCmyFirstApartmentObject.whereMoved.county)
+					NYCmyFirstApartmentObject.todayType = NYCmyFirstApartmentObject.whereMoved.county
+
+				except zillowMedianRentListPrice.DoesNotExist: 
+					zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="city")
+					NYCmyFirstApartmentObject.todayType = "Citywide"
+
+		elif NYCmyFirstApartmentObject.whereMoved.name == 'Hudson Heights':
+			try:
+				zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="Washington Heights")
+				NYCmyFirstApartmentObject.todayType = NYCmyFirstApartmentObject.whereMoved.name
+
+			except zillowMedianRentListPrice.DoesNotExist: 
+				try:
+					zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName=NYCmyFirstApartmentObject.whereMoved.county)
+					NYCmyFirstApartmentObject.todayType = NYCmyFirstApartmentObject.whereMoved.county
+
+				except zillowMedianRentListPrice.DoesNotExist: 
+					zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="city")
+					NYCmyFirstApartmentObject.todayType = "Citywide"
+
+		elif NYCmyFirstApartmentObject.whereMoved.name == 'Lenox Hill':
+			try:
+				zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="Upper East Side")
+				NYCmyFirstApartmentObject.todayType = NYCmyFirstApartmentObject.whereMoved.name
+
+			except zillowMedianRentListPrice.DoesNotExist: 
+				try:
+					zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName=NYCmyFirstApartmentObject.whereMoved.county)
+					NYCmyFirstApartmentObject.todayType = NYCmyFirstApartmentObject.whereMoved.county
+
+				except zillowMedianRentListPrice.DoesNotExist: 
+					zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="city")
+					NYCmyFirstApartmentObject.todayType = "Citywide"
+
+		elif NYCmyFirstApartmentObject.whereMoved.name == 'Lincoln Square':
+			try:
+				zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="Upper West Side")
+				NYCmyFirstApartmentObject.todayType = NYCmyFirstApartmentObject.whereMoved.name
+
+			except zillowMedianRentListPrice.DoesNotExist: 
+				try:
+					zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName=NYCmyFirstApartmentObject.whereMoved.county)
+					NYCmyFirstApartmentObject.todayType = NYCmyFirstApartmentObject.whereMoved.county
+
+				except zillowMedianRentListPrice.DoesNotExist: 
+					zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="city")
+					NYCmyFirstApartmentObject.todayType = "Citywide"
+
+		elif NYCmyFirstApartmentObject.whereMoved.name == 'Meatpacking District':
+			try:
+				zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="Chelsea")
+				NYCmyFirstApartmentObject.todayType = NYCmyFirstApartmentObject.whereMoved.name
+
+			except zillowMedianRentListPrice.DoesNotExist: 
+				try:
+					zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName=NYCmyFirstApartmentObject.whereMoved.county)
+					NYCmyFirstApartmentObject.todayType = NYCmyFirstApartmentObject.whereMoved.county
+
+				except zillowMedianRentListPrice.DoesNotExist: 
+					zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="city")
+					NYCmyFirstApartmentObject.todayType = "Citywide"
+
+		elif NYCmyFirstApartmentObject.whereMoved.name == 'Midtown East':
+			try:
+				zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="Midtown")
+				NYCmyFirstApartmentObject.todayType = NYCmyFirstApartmentObject.whereMoved.name
+
+			except zillowMedianRentListPrice.DoesNotExist: 
+				try:
+					zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName=NYCmyFirstApartmentObject.whereMoved.county)
+					NYCmyFirstApartmentObject.todayType = NYCmyFirstApartmentObject.whereMoved.county
+
+				except zillowMedianRentListPrice.DoesNotExist: 
+					zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="city")
+					NYCmyFirstApartmentObject.todayType = "Citywide"
+
+		elif NYCmyFirstApartmentObject.whereMoved.name == 'Midtown South':
+			try:
+				zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="Midtown")
+				NYCmyFirstApartmentObject.todayType = NYCmyFirstApartmentObject.whereMoved.name
+
+			except zillowMedianRentListPrice.DoesNotExist: 
+				try:
+					zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName=NYCmyFirstApartmentObject.whereMoved.county)
+					NYCmyFirstApartmentObject.todayType = NYCmyFirstApartmentObject.whereMoved.county
+
+				except zillowMedianRentListPrice.DoesNotExist: 
+					zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="city")
+					NYCmyFirstApartmentObject.todayType = "Citywide"
+
+		elif NYCmyFirstApartmentObject.whereMoved.name == 'Rochdale Village':
+			try:
+				zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="Rochdale")
+				NYCmyFirstApartmentObject.todayType = NYCmyFirstApartmentObject.whereMoved.name
+
+			except zillowMedianRentListPrice.DoesNotExist: 
+				try:
+					zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName=NYCmyFirstApartmentObject.whereMoved.county)
+					NYCmyFirstApartmentObject.todayType = NYCmyFirstApartmentObject.whereMoved.county
+
+				except zillowMedianRentListPrice.DoesNotExist: 
+					zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="city")
+					NYCmyFirstApartmentObject.todayType = "Citywide"
+
+		elif NYCmyFirstApartmentObject.whereMoved.name == 'Sugar Hill':
+			try:
+				zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="Harlem")
+				NYCmyFirstApartmentObject.todayType = NYCmyFirstApartmentObject.whereMoved.name
+
+			except zillowMedianRentListPrice.DoesNotExist: 
+				try:
+					zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName=NYCmyFirstApartmentObject.whereMoved.county)
+					NYCmyFirstApartmentObject.todayType = NYCmyFirstApartmentObject.whereMoved.county
+
+				except zillowMedianRentListPrice.DoesNotExist: 
+					zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="city")
+					NYCmyFirstApartmentObject.todayType = "Citywide"
+
+		elif NYCmyFirstApartmentObject.whereMoved.name == 'Times Square/ Theater District':
+			try:
+				zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="Midtown")
+				NYCmyFirstApartmentObject.todayType = NYCmyFirstApartmentObject.whereMoved.name
+
+			except zillowMedianRentListPrice.DoesNotExist: 
+				try:
+					zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName=NYCmyFirstApartmentObject.whereMoved.county)
+					NYCmyFirstApartmentObject.todayType = NYCmyFirstApartmentObject.whereMoved.county
+
+				except zillowMedianRentListPrice.DoesNotExist: 
+					zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="city")
+					NYCmyFirstApartmentObject.todayType = "Citywide"
+
+		elif NYCmyFirstApartmentObject.whereMoved.name == 'West Harlem':
+			try:
+				zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="Harlem")
+				NYCmyFirstApartmentObject.todayType = NYCmyFirstApartmentObject.whereMoved.name
+
+			except zillowMedianRentListPrice.DoesNotExist: 
+				try:
+					zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName=NYCmyFirstApartmentObject.whereMoved.county)
+					NYCmyFirstApartmentObject.todayType = NYCmyFirstApartmentObject.whereMoved.county
+
+				except zillowMedianRentListPrice.DoesNotExist: 
+					zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="city")
+					NYCmyFirstApartmentObject.todayType = "Citywide"
+
+		elif NYCmyFirstApartmentObject.whereMoved.name == 'Yorkville':
+			try:
+				zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="Upper East Side")
+				NYCmyFirstApartmentObject.todayType = NYCmyFirstApartmentObject.whereMoved.name
+
+			except zillowMedianRentListPrice.DoesNotExist: 
+				try:
+					zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName=NYCmyFirstApartmentObject.whereMoved.county)
+					NYCmyFirstApartmentObject.todayType = NYCmyFirstApartmentObject.whereMoved.county
+
+				except zillowMedianRentListPrice.DoesNotExist: 
+					zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="city")
+					NYCmyFirstApartmentObject.todayType = "Citywide"
+
+		else:
+			try:
+				zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName=NYCmyFirstApartmentObject.whereMoved.county)
+				NYCmyFirstApartmentObject.todayType = NYCmyFirstApartmentObject.whereMoved.county
+
+			except zillowMedianRentListPrice.DoesNotExist: 
+				zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="city")
+				NYCmyFirstApartmentObject.todayType = "Citywide"
+
 
 	NYCmyFirstApartmentObject.today = zillowNow.Cost
 
@@ -369,13 +582,225 @@ def results(request, id=None):
 		NYCmyFirstApartmentObject.todayType = NYCmyFirstApartmentObject.whereMoved.name
 
 	except zillowMedianRentListPrice.DoesNotExist: 
-		try:
-			zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName=NYCmyFirstApartmentObject.whereMoved.county)
-			NYCmyFirstApartmentObject.todayType = NYCmyFirstApartmentObject.whereMoved.county
+		# host of exeptions!
+		if NYCmyFirstApartmentObject.whereMoved.name == 'Central Harlem':
+			try:
+				zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="Harlem")
+				NYCmyFirstApartmentObject.todayType = NYCmyFirstApartmentObject.whereMoved.name
 
-		except zillowMedianRentListPrice.DoesNotExist: 
-			zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="city")
-			NYCmyFirstApartmentObject.todayType = "Citywide"
+			except zillowMedianRentListPrice.DoesNotExist: 
+				try:
+					zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName=NYCmyFirstApartmentObject.whereMoved.county)
+					NYCmyFirstApartmentObject.todayType = NYCmyFirstApartmentObject.whereMoved.county
+
+				except zillowMedianRentListPrice.DoesNotExist: 
+					zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="city")
+					NYCmyFirstApartmentObject.todayType = "Citywide"
+
+		elif NYCmyFirstApartmentObject.whereMoved.name == 'Concourse Village':
+			try:
+				zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="Concourse")
+				NYCmyFirstApartmentObject.todayType = NYCmyFirstApartmentObject.whereMoved.name
+
+			except zillowMedianRentListPrice.DoesNotExist: 
+				try:
+					zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName=NYCmyFirstApartmentObject.whereMoved.county)
+					NYCmyFirstApartmentObject.todayType = NYCmyFirstApartmentObject.whereMoved.county
+
+				except zillowMedianRentListPrice.DoesNotExist: 
+					zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="city")
+					NYCmyFirstApartmentObject.todayType = "Citywide"
+
+		elif NYCmyFirstApartmentObject.whereMoved.name == 'Ditmars':
+			try:
+				zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="Astoria")
+				NYCmyFirstApartmentObject.todayType = NYCmyFirstApartmentObject.whereMoved.name
+
+			except zillowMedianRentListPrice.DoesNotExist: 
+				try:
+					zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName=NYCmyFirstApartmentObject.whereMoved.county)
+					NYCmyFirstApartmentObject.todayType = NYCmyFirstApartmentObject.whereMoved.county
+
+				except zillowMedianRentListPrice.DoesNotExist: 
+					zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="city")
+					NYCmyFirstApartmentObject.todayType = "Citywide"
+
+		elif NYCmyFirstApartmentObject.whereMoved.name == 'Fort George':
+			try:
+				zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="Washington Heights")
+				NYCmyFirstApartmentObject.todayType = NYCmyFirstApartmentObject.whereMoved.name
+
+			except zillowMedianRentListPrice.DoesNotExist: 
+				try:
+					zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName=NYCmyFirstApartmentObject.whereMoved.county)
+					NYCmyFirstApartmentObject.todayType = NYCmyFirstApartmentObject.whereMoved.county
+
+				except zillowMedianRentListPrice.DoesNotExist: 
+					zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="city")
+					NYCmyFirstApartmentObject.todayType = "Citywide"
+
+		elif NYCmyFirstApartmentObject.whereMoved.name == 'Hudson Heights':
+			try:
+				zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="Washington Heights")
+				NYCmyFirstApartmentObject.todayType = NYCmyFirstApartmentObject.whereMoved.name
+
+			except zillowMedianRentListPrice.DoesNotExist: 
+				try:
+					zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName=NYCmyFirstApartmentObject.whereMoved.county)
+					NYCmyFirstApartmentObject.todayType = NYCmyFirstApartmentObject.whereMoved.county
+
+				except zillowMedianRentListPrice.DoesNotExist: 
+					zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="city")
+					NYCmyFirstApartmentObject.todayType = "Citywide"
+
+		elif NYCmyFirstApartmentObject.whereMoved.name == 'Lenox Hill':
+			try:
+				zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="Upper East Side")
+				NYCmyFirstApartmentObject.todayType = NYCmyFirstApartmentObject.whereMoved.name
+
+			except zillowMedianRentListPrice.DoesNotExist: 
+				try:
+					zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName=NYCmyFirstApartmentObject.whereMoved.county)
+					NYCmyFirstApartmentObject.todayType = NYCmyFirstApartmentObject.whereMoved.county
+
+				except zillowMedianRentListPrice.DoesNotExist: 
+					zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="city")
+					NYCmyFirstApartmentObject.todayType = "Citywide"
+
+		elif NYCmyFirstApartmentObject.whereMoved.name == 'Lincoln Square':
+			try:
+				zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="Upper West Side")
+				NYCmyFirstApartmentObject.todayType = NYCmyFirstApartmentObject.whereMoved.name
+
+			except zillowMedianRentListPrice.DoesNotExist: 
+				try:
+					zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName=NYCmyFirstApartmentObject.whereMoved.county)
+					NYCmyFirstApartmentObject.todayType = NYCmyFirstApartmentObject.whereMoved.county
+
+				except zillowMedianRentListPrice.DoesNotExist: 
+					zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="city")
+					NYCmyFirstApartmentObject.todayType = "Citywide"
+
+		elif NYCmyFirstApartmentObject.whereMoved.name == 'Meatpacking District':
+			try:
+				zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="Chelsea")
+				NYCmyFirstApartmentObject.todayType = NYCmyFirstApartmentObject.whereMoved.name
+
+			except zillowMedianRentListPrice.DoesNotExist: 
+				try:
+					zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName=NYCmyFirstApartmentObject.whereMoved.county)
+					NYCmyFirstApartmentObject.todayType = NYCmyFirstApartmentObject.whereMoved.county
+
+				except zillowMedianRentListPrice.DoesNotExist: 
+					zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="city")
+					NYCmyFirstApartmentObject.todayType = "Citywide"
+
+		elif NYCmyFirstApartmentObject.whereMoved.name == 'Midtown East':
+			try:
+				zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="Midtown")
+				NYCmyFirstApartmentObject.todayType = NYCmyFirstApartmentObject.whereMoved.name
+
+			except zillowMedianRentListPrice.DoesNotExist: 
+				try:
+					zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName=NYCmyFirstApartmentObject.whereMoved.county)
+					NYCmyFirstApartmentObject.todayType = NYCmyFirstApartmentObject.whereMoved.county
+
+				except zillowMedianRentListPrice.DoesNotExist: 
+					zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="city")
+					NYCmyFirstApartmentObject.todayType = "Citywide"
+
+		elif NYCmyFirstApartmentObject.whereMoved.name == 'Midtown South':
+			try:
+				zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="Midtown")
+				NYCmyFirstApartmentObject.todayType = NYCmyFirstApartmentObject.whereMoved.name
+
+			except zillowMedianRentListPrice.DoesNotExist: 
+				try:
+					zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName=NYCmyFirstApartmentObject.whereMoved.county)
+					NYCmyFirstApartmentObject.todayType = NYCmyFirstApartmentObject.whereMoved.county
+
+				except zillowMedianRentListPrice.DoesNotExist: 
+					zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="city")
+					NYCmyFirstApartmentObject.todayType = "Citywide"
+
+		elif NYCmyFirstApartmentObject.whereMoved.name == 'Rochdale Village':
+			try:
+				zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="Rochdale")
+				NYCmyFirstApartmentObject.todayType = NYCmyFirstApartmentObject.whereMoved.name
+
+			except zillowMedianRentListPrice.DoesNotExist: 
+				try:
+					zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName=NYCmyFirstApartmentObject.whereMoved.county)
+					NYCmyFirstApartmentObject.todayType = NYCmyFirstApartmentObject.whereMoved.county
+
+				except zillowMedianRentListPrice.DoesNotExist: 
+					zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="city")
+					NYCmyFirstApartmentObject.todayType = "Citywide"
+
+		elif NYCmyFirstApartmentObject.whereMoved.name == 'Sugar Hill':
+			try:
+				zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="Harlem")
+				NYCmyFirstApartmentObject.todayType = NYCmyFirstApartmentObject.whereMoved.name
+
+			except zillowMedianRentListPrice.DoesNotExist: 
+				try:
+					zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName=NYCmyFirstApartmentObject.whereMoved.county)
+					NYCmyFirstApartmentObject.todayType = NYCmyFirstApartmentObject.whereMoved.county
+
+				except zillowMedianRentListPrice.DoesNotExist: 
+					zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="city")
+					NYCmyFirstApartmentObject.todayType = "Citywide"
+
+		elif NYCmyFirstApartmentObject.whereMoved.name == 'Times Square/ Theater District':
+			try:
+				zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="Midtown")
+				NYCmyFirstApartmentObject.todayType = NYCmyFirstApartmentObject.whereMoved.name
+
+			except zillowMedianRentListPrice.DoesNotExist: 
+				try:
+					zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName=NYCmyFirstApartmentObject.whereMoved.county)
+					NYCmyFirstApartmentObject.todayType = NYCmyFirstApartmentObject.whereMoved.county
+
+				except zillowMedianRentListPrice.DoesNotExist: 
+					zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="city")
+					NYCmyFirstApartmentObject.todayType = "Citywide"
+
+		elif NYCmyFirstApartmentObject.whereMoved.name == 'West Harlem':
+			try:
+				zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="Harlem")
+				NYCmyFirstApartmentObject.todayType = NYCmyFirstApartmentObject.whereMoved.name
+
+			except zillowMedianRentListPrice.DoesNotExist: 
+				try:
+					zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName=NYCmyFirstApartmentObject.whereMoved.county)
+					NYCmyFirstApartmentObject.todayType = NYCmyFirstApartmentObject.whereMoved.county
+
+				except zillowMedianRentListPrice.DoesNotExist: 
+					zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="city")
+					NYCmyFirstApartmentObject.todayType = "Citywide"
+
+		elif NYCmyFirstApartmentObject.whereMoved.name == 'Yorkville':
+			try:
+				zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="Upper East Side")
+				NYCmyFirstApartmentObject.todayType = NYCmyFirstApartmentObject.whereMoved.name
+
+			except zillowMedianRentListPrice.DoesNotExist: 
+				try:
+					zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName=NYCmyFirstApartmentObject.whereMoved.county)
+					NYCmyFirstApartmentObject.todayType = NYCmyFirstApartmentObject.whereMoved.county
+
+				except zillowMedianRentListPrice.DoesNotExist: 
+					zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="city")
+					NYCmyFirstApartmentObject.todayType = "Citywide"
+
+		else:
+			try:
+				zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName=NYCmyFirstApartmentObject.whereMoved.county)
+				NYCmyFirstApartmentObject.todayType = NYCmyFirstApartmentObject.whereMoved.county
+
+			except zillowMedianRentListPrice.DoesNotExist: 
+				zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="city")
+				NYCmyFirstApartmentObject.todayType = "Citywide"
 
 	NYCmyFirstApartmentObject.today = zillowNow.Cost
 

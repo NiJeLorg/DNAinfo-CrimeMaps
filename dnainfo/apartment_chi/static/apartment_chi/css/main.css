@@ -140,7 +140,7 @@ html, body, #content, #map {
 }
 
 .text-danger {
-  color: #ef383e;
+  color: #d0343a;
 }
 
 
@@ -195,8 +195,8 @@ html, body, #content, #map {
   position: relative;
   font-weight: bold;
   color: #ffffff;
-  background-color: #4291c3;
-  border-color: #4291c3;
+  background-color: #0073a3;
+  border-color: #0073a3;
   border-radius: 2px;
   height: 50px;
   width: 130px;
@@ -209,8 +209,8 @@ html, body, #content, #map {
 .btn-dna-primary.active,
 .open > .dropdown-toggle.btn-dna-primary {
   color: #ffffff;
-  background-color: #286090;
-  border-color: #286090;
+  background-color: #005A8A;
+  border-color: #005A8A;
 }
 .btn-dna-primary:active,
 .btn-dna-primary.active,
@@ -251,8 +251,8 @@ fieldset[disabled] .btn-dna-primary.active {
 .btn-dna-facebook {
   font-weight: bold;
   color: #e8e8e8;
-  background-color: #24588d;
-  border-color: #24588d;
+  background-color: #3b5998;
+  border-color: #3b5998;
   border-radius: 2px;
   height: 50px;
   padding: 11px 12px 11px 13px;
@@ -265,8 +265,8 @@ fieldset[disabled] .btn-dna-primary.active {
 .btn-dna-facebook.active,
 .open > .dropdown-toggle.btn-dna-facebook {
   color: #e8e8e8;
-  background-color: #1d4872;
-  border-color: #1d4872;
+  background-color: #22407F;
+  border-color: #22407F;
 }
 .btn-dna-facebook:active,
 .btn-dna-facebook.active,
@@ -303,8 +303,8 @@ fieldset[disabled] .btn-dna-facebook.active {
 .btn-dna-twitter {
   font-weight: bold;
   color: #e8e8e8;
-  background-color: #4291c3;
-  border-color: #4291c3;
+  background-color: #4099ff;
+  border-color: #4099ff;
   border-radius: 2px;
   height: 50px;
   padding: 11px 12px;
@@ -316,8 +316,8 @@ fieldset[disabled] .btn-dna-facebook.active {
 .btn-dna-twitter.active,
 .open > .dropdown-toggle.btn-dna-twitter {
   color: #e8e8e8;
-  background-color: #286090;
-  border-color: #286090;
+  background-color: #2780E6;
+  border-color: #2780E6;
 }
 .btn-dna-twitter:active,
 .btn-dna-twitter.active,
@@ -801,7 +801,7 @@ input[type="radio"] + label span {
     cursor:pointer;
     -moz-border-radius:  50%;
     border-radius:  50%;
-    border: 1px solid #4291c3;
+    border: 1px solid #0073a3;
 }
 
 input[type="radio"] + label span {
@@ -809,7 +809,7 @@ input[type="radio"] + label span {
 }
 
 input[type="radio"]:checked + label span{
-     background-color: #4291c3;
+     background-color: #0073a3;
 }
 
 input[type="radio"] + label span,
