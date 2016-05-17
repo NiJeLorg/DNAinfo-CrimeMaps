@@ -295,24 +295,41 @@ def end(request, id=None):
 	else:
 		bedroomsTry = CHImyFirstApartmentObject.bedrooms
 
+	# set using zri score to false
+	CHImyFirstApartmentObject.usingzri = False
+
 	try:
 		zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName=CHImyFirstApartmentObject.whereMoved.name)		
 		CHImyFirstApartmentObject.todayType = CHImyFirstApartmentObject.whereMoved.name
 
 	except zillowMedianRentListPrice.DoesNotExist: 
-		try:
-			zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName=CHImyFirstApartmentObject.whereMoved.county)
-			CHImyFirstApartmentObject.todayType = CHImyFirstApartmentObject.whereMoved.county
+		if bedroomsTry == 0:
+			try:
+				bedroomsTry = 99
+				zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName=CHImyFirstApartmentObject.whereMoved.name)
+				CHImyFirstApartmentObject.todayType = CHImyFirstApartmentObject.whereMoved.name
+				CHImyFirstApartmentObject.usingzri = True
 
-		except zillowMedianRentListPrice.DoesNotExist: 
-			zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="city")
-			CHImyFirstApartmentObject.todayType = "Citywide"
+			except zillowMedianRentListPrice.DoesNotExist: 
+				zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="city")
+				CHImyFirstApartmentObject.todayType = "Citywide"
+				CHImyFirstApartmentObject.usingzri = False
+
+		else: 
+
+			try:
+				zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName=CHImyFirstApartmentObject.whereMoved.county)
+				CHImyFirstApartmentObject.todayType = CHImyFirstApartmentObject.whereMoved.county
+
+			except zillowMedianRentListPrice.DoesNotExist: 
+				zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="city")
+				CHImyFirstApartmentObject.todayType = "Citywide"
 
 
 	CHImyFirstApartmentObject.today = zillowNow.Cost
 
 	# social urls
-	url = "https://visualizations.dnainfo.com/my-first-apartment_chi/results/" + str(id) + "/"
+	url = "https://visualizations.dnainfo.com/mfa-chi/results/" + str(id) + "/"
 	# connect to Bitly API
 	c = bitly_api.Connection('ondnainfo', 'R_cdbdcaaef8d04d97b363b989f2fba3db')
 	bitlyURL = c.shorten(url)
@@ -363,23 +380,41 @@ def results(request, id=None):
 	else:
 		bedroomsTry = CHImyFirstApartmentObject.bedrooms
 	
+	# set using zri score to false
+	CHImyFirstApartmentObject.usingzri = False
+
 	try:
 		zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName=CHImyFirstApartmentObject.whereMoved.name)		
 		CHImyFirstApartmentObject.todayType = CHImyFirstApartmentObject.whereMoved.name
 
 	except zillowMedianRentListPrice.DoesNotExist: 
-		try:
-			zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName=CHImyFirstApartmentObject.whereMoved.county)
-			CHImyFirstApartmentObject.todayType = CHImyFirstApartmentObject.whereMoved.county
+		if bedroomsTry == 0:
+			try:
+				bedroomsTry = 99
+				zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName=CHImyFirstApartmentObject.whereMoved.name)
+				CHImyFirstApartmentObject.todayType = CHImyFirstApartmentObject.whereMoved.name
+				CHImyFirstApartmentObject.usingzri = True
 
-		except zillowMedianRentListPrice.DoesNotExist: 
-			zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="city")
-			CHImyFirstApartmentObject.todayType = "Citywide"
+			except zillowMedianRentListPrice.DoesNotExist: 
+				zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="city")
+				CHImyFirstApartmentObject.todayType = "Citywide"
+				CHImyFirstApartmentObject.usingzri = False
+
+		else: 
+
+			try:
+				zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName=CHImyFirstApartmentObject.whereMoved.county)
+				CHImyFirstApartmentObject.todayType = CHImyFirstApartmentObject.whereMoved.county
+
+			except zillowMedianRentListPrice.DoesNotExist: 
+				zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="city")
+				CHImyFirstApartmentObject.todayType = "Citywide"
+
 
 	CHImyFirstApartmentObject.today = zillowNow.Cost
 
 	# social urls
-	url = "https://visualizations.dnainfo.com/my-first-apartment_chi/results/" + str(id) + "/"
+	url = "https://visualizations.dnainfo.com/mfa-chi/results/" + str(id) + "/"
 	# connect to Bitly API
 	c = bitly_api.Connection('ondnainfo', 'R_cdbdcaaef8d04d97b363b989f2fba3db')
 	bitlyURL = c.shorten(url)
