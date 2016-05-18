@@ -61,9 +61,12 @@
 
         // set up twitter and facebook URLs
         var app_id = '406014149589534';
-        var fbcaption = "I paid $"+ drawBars.numberWithCommas(allPaid) +" to live in "+"{{ NYCmyFirstApartmentObject.whereMoved.name }}".replace("&#39;", "'") + " in "+ year +". Here's how rents compare now: "+ bitlyURL +" via https://www.facebook.com/DNAinfo/";
-        var fblink = "https://visualizations.dnainfo.com/my-first-apartment/";
-        var fbUrl = 'https://www.facebook.com/dialog/feed?app_id=' + app_id + '&display=popup&caption='+ encodeURIComponent(fbcaption) + '&link=' + encodeURIComponent(bitlyURL) + '&redirect_uri=' + encodeURIComponent(fblink);
+        var fbdescription = "I paid $"+ drawBars.numberWithCommas(allPaid) +" to live in "+"{{ NYCmyFirstApartmentObject.whereMoved.name }}".replace("&#39;", "'") + " in "+ year +". Here's how rents compare now: "+ bitlyURL +" via https://www.facebook.com/DNAinfo/";
+        var fblink = "https://visualizations.dnainfo.com/";
+        var fbpicture = "https://editorial-ny.dnainfo.com/interactives/2016/aptshare.jpeg";
+        var fbname = "Here's What My First Apartment Costs Now";
+        var fbcaption = "DNAinfo New York";
+        var fbUrl = 'https://www.facebook.com/dialog/feed?app_id=' + app_id + '&display=popup&description='+ encodeURIComponent(fbdescription) + '&link=' + encodeURIComponent(bitlyURL) + '&redirect_uri=' + encodeURIComponent(fblink) + '&name=' + encodeURIComponent(fbname) + '&caption=' + encodeURIComponent(fbcaption) + '&picture=' + encodeURIComponent(fbpicture);
         var fbOnclick = 'window.open("' + fbUrl + '","facebook-share-dialog","width=626,height=436");return false;';
         //$('#showShareFB').attr("href", fbUrl);
         $('#showShareFB').attr("onclick", fbOnclick);

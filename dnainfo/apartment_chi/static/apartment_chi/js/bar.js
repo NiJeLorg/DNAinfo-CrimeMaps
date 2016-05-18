@@ -20,9 +20,16 @@ drawBars.initialize = function () {
 		var whereText = " in " + todayType;
 	}
 
-	var todayLabel = "Current median price for a " + bedroomsText + whereText;
-	var todayLabelTop = "Current median price for a " + bedroomsText;
-	var todayLabelBottom =  "apartment" + whereText;
+	if (usingzri == "True") {
+		var todayLabel = "Current median price for all apartments" + whereText;
+		var todayLabelTop = "Current median price for all";
+		var todayLabelBottom =  "apartments" + whereText;		
+	} else {
+		var todayLabel = "Current median price for a " + bedroomsText + whereText;
+		var todayLabelTop = "Current median price for a " + bedroomsText;
+		var todayLabelBottom =  "apartment" + whereText;		
+	}
+
 
 	// Current median price for a [X]-bedroom in [Neighborhood]
 

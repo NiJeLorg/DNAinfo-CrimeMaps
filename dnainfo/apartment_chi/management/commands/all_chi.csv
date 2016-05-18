@@ -19,7 +19,6 @@ Sheridan Park,Chicago,IL,Chicago,Cook,98,850,0
 West Loop Gate,Chicago,IL,Chicago,Cook,100,1468.5,0
 New East Side,Chicago,IL,Chicago,Cook,101,1686.5,0
 Fulton River District,Chicago,IL,Chicago,Cook,103,1700,0
-city,,,,,,0,0
 Logan Square,Chicago,IL,Chicago,Cook,37,1200,1
 West Rogers Park,Chicago,IL,Chicago,Cook,49,950,1
 Albany Park,Chicago,IL,Chicago,Cook,59,950,1
@@ -126,3 +125,209 @@ Lake View,Chicago,IL,Chicago,Cook,29,3000,4
 Lake View East,Chicago,IL,Chicago,Cook,37,3000,4
 city,,,,,,2400,4
 city,,,,,,1850,5
+Logan Square,Chicago,IL,Chicago,Cook,64,1671,99
+Little Village,Chicago,IL,Chicago,Cook,87,1351,99
+West Rogers Park,Chicago,IL,Chicago,Cook,95,1554,99
+Albany Park,Chicago,IL,Chicago,Cook,133,1610,99
+Archer Heights,Chicago,IL,Chicago,Cook,139,1451,99
+Rogers Park,Chicago,IL,Chicago,Cook,142,1498,99
+South Austin,Chicago,IL,Chicago,Cook,144,1430,99
+Gresham,Chicago,IL,Chicago,Cook,172,1291,99
+Lake View,Chicago,IL,Chicago,Cook,187,2015,99
+Englewood,Chicago,IL,Chicago,Cook,189,1249,99
+Brighton Park,Chicago,IL,Chicago,Cook,198,1446,99
+Jefferson Park,Chicago,IL,Chicago,Cook,211,1792,99
+Portage Park,Chicago,IL,Chicago,Cook,215,1781,99
+Bridgeport,Chicago,IL,Chicago,Cook,245,1678,99
+South Shore,Chicago,IL,Chicago,Cook,246,1238,99
+Gage Park,Chicago,IL,Chicago,Cook,265,1327,99
+Cragin,Chicago,IL,Chicago,Cook,278,1675,99
+Humboldt Park,Chicago,IL,Chicago,Cook,285,1567,99
+Lake View East,Chicago,IL,Chicago,Cook,290,1767,99
+North Center,Chicago,IL,Chicago,Cook,296,2207,99
+Back of the Yards,Chicago,IL,Chicago,Cook,297,1292,99
+South Loop,Chicago,IL,Chicago,Cook,300,1832,99
+West Lawn,Chicago,IL,Chicago,Cook,313,1467,99
+Marquette Park,Chicago,IL,Chicago,Cook,360,1308,99
+Bronzeville,Chicago,IL,Chicago,Cook,362,1485,99
+Belmont Central,Chicago,IL,Chicago,Cook,366,1697,99
+West Pullman,Chicago,IL,Chicago,Cook,385,1248,99
+Garfield Ridge,Chicago,IL,Chicago,Cook,413,1562,99
+South Chicago,Chicago,IL,Chicago,Cook,431,1286,99
+Ravenswood,Chicago,IL,Chicago,Cook,444,1709,99
+West Englewood,Chicago,IL,Chicago,Cook,465,1241,99
+West Town,Chicago,IL,Chicago,Cook,482,2085,99
+Edgewater Beach,Chicago,IL,Chicago,Cook,509,1526,99
+North Austin,Chicago,IL,Chicago,Cook,510,1456,99
+East Garfield Park,Chicago,IL,Chicago,Cook,555,1473,99
+Near North,Chicago,IL,Chicago,Cook,571,1932,99
+Uptown,Chicago,IL,Chicago,Cook,581,1723,99
+Hermosa,Chicago,IL,Chicago,Cook,582,1560,99
+East Side,Chicago,IL,Chicago,Cook,583,1288,99
+Roseland,Chicago,IL,Chicago,Cook,599,1253,99
+Chatham,Chicago,IL,Chicago,Cook,623,1311,99
+West Elsdon,Chicago,IL,Chicago,Cook,628,1459,99
+Hyde Park,Chicago,IL,Chicago,Cook,634,1536,99
+Bucktown,Chicago,IL,Chicago,Cook,640,2204,99
+Heart of Chicago,Chicago,IL,Chicago,Cook,650,1558,99
+Streeterville,Chicago,IL,Chicago,Cook,655,2133,99
+Chicago Lawn,Chicago,IL,Chicago,Cook,678,1313,99
+Avondale,Chicago,IL,Chicago,Cook,692,1918,99
+Morgan Park,Chicago,IL,Chicago,Cook,711,1326,99
+Mount Greenwood,Chicago,IL,Chicago,Cook,758,1559,99
+O'Hare,Chicago,IL,Chicago,Cook,762,1461,99
+Clearing (W),Chicago,IL,Chicago,Cook,778,1518,99
+Park Manor,Chicago,IL,Chicago,Cook,792,1272,99
+West Garfield Park,Chicago,IL,Chicago,Cook,808,1375,99
+University Village - Little Italy,Chicago,IL,Chicago,Cook,809,1818,99
+Gold Coast,Chicago,IL,Chicago,Cook,817,2057,99
+West Humboldt Park,Chicago,IL,Chicago,Cook,856,1423,99
+Montclare,Chicago,IL,Chicago,Cook,864,1699,99
+Irving Park,Chicago,IL,Chicago,Cook,870,1879,99
+Galewood,Chicago,IL,Chicago,Cook,875,1723,99
+Ashburn,Chicago,IL,Chicago,Cook,876,1379,99
+Beverly,Chicago,IL,Chicago,Cook,877,1929,99
+Scottsdale,Chicago,IL,Chicago,Cook,878,1453,99
+McKinley Park,Chicago,IL,Chicago,Cook,879,1526,99
+Near West Side,Chicago,IL,Chicago,Cook,895,1890,99
+Lincoln Park,Chicago,IL,Chicago,Cook,943,2391,99
+Belmont Gardens,Chicago,IL,Chicago,Cook,969,1658,99
+Brainerd,Chicago,IL,Chicago,Cook,998,1296,99
+Woodlawn,Chicago,IL,Chicago,Cook,1050,1350,99
+Norwood Park East,Chicago,IL,Chicago,Cook,1059,1878,99
+Belmont Heights,Chicago,IL,Chicago,Cook,1066,1745,99
+Old Irving Park,Chicago,IL,Chicago,Cook,1080,1739,99
+Wicker Park,Chicago,IL,Chicago,Cook,1098,2337,99
+Grand Crossing,Chicago,IL,Chicago,Cook,1103,1255,99
+Park West,Chicago,IL,Chicago,Cook,1122,1791,99
+Calumet Heights,Chicago,IL,Chicago,Cook,1151,1326,99
+Pilsen,Chicago,IL,Chicago,Cook,1166,1755,99
+Edgewater,Chicago,IL,Chicago,Cook,1170,1693,99
+Buena Park,Chicago,IL,Chicago,Cook,1185,1643,99
+Hegewisch,Chicago,IL,Chicago,Cook,1187,1246,99
+Old Town,Chicago,IL,Chicago,Cook,1227,1884,99
+Edison Park,Chicago,IL,Chicago,Cook,1253,1968,99
+Sheffield Neighbors,Chicago,IL,Chicago,Cook,1270,2642,99
+Washington Park,Chicago,IL,Chicago,Cook,1285,1328,99
+Wrightwood Neighbors,Chicago,IL,Chicago,Cook,1332,2424,99
+The Loop,Chicago,IL,Chicago,Cook,1337,1923,99
+Fernwood,Chicago,IL,Chicago,Cook,1389,1246,99
+Burnside,Chicago,IL,Chicago,Cook,1407,1290,99
+Wrightwood,Chicago,IL,Chicago,Cook,1521,1436,99
+Budlong Woods,Chicago,IL,Chicago,Cook,1538,1561,99
+Rosemoor,Chicago,IL,Chicago,Cook,1569,1295,99
+Mayfair,Chicago,IL,Chicago,Cook,1593,1795,99
+River North,Chicago,IL,Chicago,Cook,1600,2077,99
+North Mayfair,Chicago,IL,Chicago,Cook,1697,1888,99
+Kenwood,Chicago,IL,Chicago,Cook,1758,1454,99
+Noble Square,Chicago,IL,Chicago,Cook,1772,2261,99
+Schorsch Village,Chicago,IL,Chicago,Cook,1848,1813,99
+Longwood Manor,Chicago,IL,Chicago,Cook,1893,1297,99
+Sauganash,Chicago,IL,Chicago,Cook,1906,2308,99
+East Ukrainian Village,Chicago,IL,Chicago,Cook,1923,2353,99
+Palmer Square,Chicago,IL,Chicago,Cook,1928,1781,99
+Dunning,Chicago,IL,Chicago,Cook,1947,1683,99
+Kilbourn Park,Chicago,IL,Chicago,Cook,1991,1727,99
+Old Town Triangle,Chicago,IL,Chicago,Cook,2005,2157,99
+Hollywood Park,Chicago,IL,Chicago,Cook,2010,1761,99
+West Woodlawn,Chicago,IL,Chicago,Cook,2016,1268,99
+Margate Park,Chicago,IL,Chicago,Cook,2032,1538,99
+Sheridan Park,Chicago,IL,Chicago,Cook,2116,1767,99
+Norwood Park West,Chicago,IL,Chicago,Cook,2151,1895,99
+Ukrainian Village,Chicago,IL,Chicago,Cook,2228,1884,99
+North Park,Chicago,IL,Chicago,Cook,2254,1820,99
+Tri-Taylor,Chicago,IL,Chicago,Cook,2274,1595,99
+East Chatham,Chicago,IL,Chicago,Cook,2288,1181,99
+Canaryville,Chicago,IL,Chicago,Cook,2348,1510,99
+Andersonville,Chicago,IL,Chicago,Cook,2453,1832,99
+West Loop Gate,Chicago,IL,Chicago,Cook,2580,2033,99
+South Deering,Chicago,IL,Chicago,Cook,2608,1249,99
+East Hyde Park,Chicago,IL,Chicago,Cook,2623,1443,99
+Washington Heights,Chicago,IL,Chicago,Cook,2679,1289,99
+Kelvin Park,Chicago,IL,Chicago,Cook,2804,1708,99
+Union Ridge,Chicago,IL,Chicago,Cook,2836,1780,99
+Arcadia Terrace,Chicago,IL,Chicago,Cook,2852,1734,99
+New Eastside,Chicago,IL,Chicago,Cook,2868,2079,99
+West Chesterfield,Chicago,IL,Chicago,Cook,2876,1318,99
+West Chatham,Chicago,IL,Chicago,Cook,2879,1289,99
+Big Oaks,Chicago,IL,Chicago,Cook,2894,1844,99
+Edgebrook,Chicago,IL,Chicago,Cook,2976,2367,99
+East Beverly,Chicago,IL,Chicago,Cook,3017,1549,99
+Irving Woods,Chicago,IL,Chicago,Cook,3048,1744,99
+Homan Square,Chicago,IL,Chicago,Cook,3059,1484,99
+Lincoln Square,Chicago,IL,Chicago,Cook,3089,1741,99
+Fulton River District,Chicago,IL,Chicago,Cook,3096,2005,99
+West Beverly,Chicago,IL,Chicago,Cook,3103,1603,99
+Ranch Triangle,Chicago,IL,Chicago,Cook,3132,2641,99
+Goose Island,Chicago,IL,Chicago,Cook,3168,2098,99
+Pulaski Park,Chicago,IL,Chicago,Cook,3177,2088,99
+Old Norwood Park,Chicago,IL,Chicago,Cook,3198,2243,99
+Bowmanville,Chicago,IL,Chicago,Cook,3210,1989,99
+Douglas Park,Chicago,IL,Chicago,Cook,3272,1480,99
+Ravenswood Manor,Chicago,IL,Chicago,Cook,3282,2383,99
+Hanson Park,Chicago,IL,Chicago,Cook,3337,1574,99
+Oriole Park,Chicago,IL,Chicago,Cook,3355,1864,99
+North Kenwood,Chicago,IL,Chicago,Cook,3376,1578,99
+Wildwood,Chicago,IL,Chicago,Cook,3472,2353,99
+Magnolia Glen,Chicago,IL,Chicago,Cook,3490,1682,99
+Oakland,Chicago,IL,Chicago,Cook,3497,1738,99
+Lathrop Homes,Chicago,IL,Chicago,Cook,3543,2227,99
+Wrigleyville,Chicago,IL,Chicago,Cook,3593,2174,99
+Vittum Park,Chicago,IL,Chicago,Cook,3622,1497,99
+Chinatown,Chicago,IL,Chicago,Cook,3635,1602,99
+Ida B. Wells - Darrow Homes,Chicago,IL,Chicago,Cook,3730,1598,99
+Lake Meadows,Chicago,IL,Chicago,Cook,3778,1325,99
+West Morgan Park,Chicago,IL,Chicago,Cook,3906,1613,99
+Marynook,Chicago,IL,Chicago,Cook,3932,1344,99
+Graceland West,Chicago,IL,Chicago,Cook,3972,1945,99
+Avalon Park,Chicago,IL,Chicago,Cook,4141,1296,99
+Belmont Terrace,Chicago,IL,Chicago,Cook,4331,1809,99
+Stony Island Park,Chicago,IL,Chicago,Cook,4383,1314,99
+West De Paul,Chicago,IL,Chicago,Cook,4438,2615,99
+Princeton Park,Chicago,IL,Chicago,Cook,4545,1287,99
+The Gap,Chicago,IL,Chicago,Cook,4556,1777,99
+The Bush,Chicago,IL,Chicago,Cook,4600,1241,99
+Edgewater Glen,Chicago,IL,Chicago,Cook,4708,1978,99
+Dearborn Park,Chicago,IL,Chicago,Cook,4723,1989,99
+Fifth City,Chicago,IL,Chicago,Cook,4728,1508,99
+Kennedy Park,Chicago,IL,Chicago,Cook,4745,1561,99
+Printers Row,Chicago,IL,Chicago,Cook,5116,1889,99
+Fuller Park,Chicago,IL,Chicago,Cook,5128,1255,99
+Pill Hill,Chicago,IL,Chicago,Cook,5244,1335,99
+Cottage Grove Heights,Chicago,IL,Chicago,Cook,5328,1285,99
+South East Ravenswood,Chicago,IL,Chicago,Cook,5336,1887,99
+LeClaire Courts,Chicago,IL,Chicago,Cook,5342,1340,99
+River West,Chicago,IL,Chicago,Cook,5409,2009,99
+Lakewood - Balmoral,Chicago,IL,Chicago,Cook,5441,2600,99
+Cabrini Green,Chicago,IL,Chicago,Cook,5564,2048,99
+Peterson Park,Chicago,IL,Chicago,Cook,5649,2015,99
+Ravenswood Gardens,Chicago,IL,Chicago,Cook,5703,1915,99
+Tally's Corner,Chicago,IL,Chicago,Cook,5795,1940,99
+East Pilsen,Chicago,IL,Chicago,Cook,5810,1855,99
+South Old Irving Park,Chicago,IL,Chicago,Cook,5812,1795,99
+Jackson Park Highlands,Chicago,IL,Chicago,Cook,5822,2613,99
+Gladstone Park,Chicago,IL,Chicago,Cook,5886,1812,99
+Pullman,Chicago,IL,Chicago,Cook,5912,1246,99
+South Commons,Chicago,IL,Chicago,Cook,6198,1317,99
+Chrysler Village,Chicago,IL,Chicago,Cook,6216,1258,99
+Parkview,Chicago,IL,Chicago,Cook,6411,1388,99
+Roscoe Village,Chicago,IL,Chicago,Cook,6422,2113,99
+Beverly Woods,Chicago,IL,Chicago,Cook,6538,1607,99
+Ford City,Chicago,IL,Chicago,Cook,6551,1287,99
+Greektown,Chicago,IL,Chicago,Cook,6711,1906,99
+Golden Gate,Chicago,IL,Chicago,Cook,6715,1150,99
+Forest Glen,Chicago,IL,Chicago,Cook,6740,2056,99
+The Island,Chicago,IL,Chicago,Cook,7069,1401,99
+Sleepy Hollow,Chicago,IL,Chicago,Cook,7100,1365,99
+Marycrest,Chicago,IL,Chicago,Cook,7109,1766,99
+Beverly View,Chicago,IL,Chicago,Cook,7174,1336,99
+Winneconna Parkway,Chicago,IL,Chicago,Cook,7201,1315,99
+Clearing (E),Chicago,IL,Chicago,Cook,7243,1532,99
+Lithuanian Plaza,Chicago,IL,Chicago,Cook,7382,1282,99
+Heart of Italy,Chicago,IL,Chicago,Cook,7606,1562,99
+The Villa,Chicago,IL,Chicago,Cook,7629,2288,99
+Stateway Gardens,Chicago,IL,Chicago,Cook,7662,1514,99
+Mount Greenwood Heights,Chicago,IL,Chicago,Cook,8314,1723,99
+Schorsch Forest View,Chicago,IL,Chicago,Cook,8959,1938,99
+Groveland Park,Chicago,IL,Chicago,Cook,9176,1340,99
+Sauganash Woods,Chicago,IL,Chicago,Cook,9442,1664,99

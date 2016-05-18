@@ -38,6 +38,8 @@
     var year = "{{ CHImyFirstApartmentObject.year }}";
     var whenMoved = "{{ CHImyFirstApartmentObject.whenMoved }}";
     var bitlyURL = "{{ bitlyURL.url }}";
+    var usingzri = "{{ CHImyFirstApartmentObject.usingzri }}";
+
     $( document ).ready(function() {
 
         if (!year) {
@@ -46,8 +48,8 @@
 
         if (todayType == "Citywide") {
             $("#headingContent").text("Whoops! We don't have enough rental data for " + neighborhoodCheck + ", but here's how your rent compares to today's prices in Chicago:");
-        } else if (todayType == "Brooklyn" || todayType == "Queens" || todayType == "Manhattan" || todayType == "Bronx" || todayType == "Staten Island"){
-            $("#headingContent").text("Whoops! We don't have enough rental data for " + neighborhoodCheck + ", but here's how your rent compares to today's prices in " + todayType + ":");
+        } else if (usingzri == "True"){
+            $("#headingContent").text("Whoops! We don't have enough rental data for " + neighborhoodCheck + ", but here's how your rent compares to today's prices there.");
         } else {
             $("#headingContent").text("Here's how much you'd pay to live in " + todayType + " today:");
         }
@@ -62,9 +64,12 @@
 
         // set up twitter and facebook URLs
         var app_id = '406014149589534';
-        var fbcaption = "I paid $"+ drawBars.numberWithCommas(allPaid) +" to live in "+"{{ CHImyFirstApartmentObject.whereMoved.name }}".replace("&#39;", "'") + " in "+ year +". Here's how rents compare now: "+ bitlyURL +" via https://www.facebook.com/DNAinfoChicago/";
-        var fblink = "https://visualizations.dnainfo.com/mfa-chi/";
-        var fbUrl = 'https://www.facebook.com/dialog/feed?app_id=' + app_id + '&display=popup&caption='+ encodeURIComponent(fbcaption) + '&link=' + encodeURIComponent(bitlyURL) + '&redirect_uri=' + encodeURIComponent(fblink);
+        var fbdescription = "I paid $"+ drawBars.numberWithCommas(allPaid) +" to live in "+"{{ CHImyFirstApartmentObject.whereMoved.name }}".replace("&#39;", "'") + " in "+ year +". Here's how rents compare now: "+ bitlyURL +" via https://www.facebook.com/DNAinfoChicago/";
+        var fblink = "https://visualizations.dnainfo.com/";
+        var fbpicture = "https://editorial-ny.dnainfo.com/interactives/2016/aptshare.jpeg";
+        var fbname = "Here's What My First Apartment Costs Now";
+        var fbcaption = "DNAinfo Chicago";
+        var fbUrl = 'https://www.facebook.com/dialog/feed?app_id=' + app_id + '&display=popup&description='+ encodeURIComponent(fbdescription) + '&link=' + encodeURIComponent(bitlyURL) + '&redirect_uri=' + encodeURIComponent(fblink) + '&name=' + encodeURIComponent(fbname) + '&caption=' + encodeURIComponent(fbcaption) + '&picture=' + encodeURIComponent(fbpicture);
         var fbOnclick = 'window.open("' + fbUrl + '","facebook-share-dialog","width=626,height=436");return false;';
         //$('#showShareFB').attr("href", fbUrl);
         $('#showShareFB').attr("onclick", fbOnclick);
