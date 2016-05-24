@@ -5,7 +5,6 @@
 function mapApplication() {}
 
 mapApplication.initialize = function () {
-	console.log('Map initialization started.');
 	// set zoom and center for this map
 	this.center = center(neighborhoodName);
 	if (iDontSeeMyNeighborhood == "True"){
@@ -20,9 +19,13 @@ mapApplication.initialize = function () {
 		minZoom:this.minZoom,
 		maxZoom:18,
     	center: this.center,
-   	 	zoom: this.zoom
+   	 	zoom: this.zoom,
+   	 	zoomControl: false,
 	});
-	console.log('Map created.');
+
+	// add zoom control to lower right
+	new L.Control.Zoom({ position: 'bottomright' }).addTo(this.map);
+
 
 	// get bounds and set maxBounds so user can't pan outside of a certain extent
 	this.bounds = this.map.getBounds().pad(1);
@@ -37,8 +40,6 @@ mapApplication.initialize = function () {
 
 	// add these tiles to our map
 	this.map.addLayer(CartoDBTiles);
-
-	console.log('Tiles added.');
 	
     // enable events
     this.map.doubleClickZoom.enable();
@@ -73,9 +74,6 @@ mapApplication.initialize = function () {
 	});
 	this.map.addControl(this.drawControl);
 
-	console.log('Draw tools added.');
-
-
 	// enable drawing immediately
 	new L.Draw.Marker(this.map, this.drawControl.options.draw.marker).enable();
 
@@ -109,9 +107,6 @@ mapApplication.initialize = function () {
 		});
 
 	});
-
-	console.log('Draw tool listeners ready.');
-
 
 	function center(neighborhood) {
 		var lookup = {
