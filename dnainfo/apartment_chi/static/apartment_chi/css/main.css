@@ -186,7 +186,7 @@ html, body, #content, #map {
 
 .bottomButtonGroupResults {
   position: relative;
-  margin-top: 55px;
+  margin-top: 25px;
   margin-bottom: 25px;
 }
 
@@ -927,6 +927,10 @@ input[type="radio"]:checked + label span {
   	padding-right: 5px;
     display: inline;
     vertical-align: super;
+  }
+
+  .bottomButtonGroupResults {
+    margin-top: 55px;
   }
 
   /* 

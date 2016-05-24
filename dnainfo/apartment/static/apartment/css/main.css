@@ -3,13 +3,13 @@
  */
 
 body {
-	padding: 0;
-	margin: 0;
+  padding: 0;
+  margin: 0;
     font-family:"Titillium Web", Helvetica, Sans-Serif;
     color: #686868;
 }
 html, body, #content, #map {
-	height: 100%;
+  height: 100%;
 }
 
 
@@ -45,30 +45,30 @@ html, body, #content, #map {
 
 /* Update grid system to have 10% margins and spacing */
 .col-xs-10 {
-	width: 90%;
+  width: 90%;
 }
 
 .col-xs-2 {
-	width: 10%;
+  width: 10%;
 }
 
 /* Typography */
 .introHeading {
-	color: #686868;
-	font-size: 19px;
+  color: #686868;
+  font-size: 19px;
   font-weight: 300;
-	line-height: 1.529;
-	margin-top: 30px;
-	margin-bottom: 40px;
+  line-height: 1.529;
+  margin-top: 30px;
+  margin-bottom: 40px;
 }
 
 .questionHeading {
-	color: #686868;
-	font-size: 32px;
-	font-weight: 200;
-	line-height: 1.3125;
-	margin-top: 30px;
-	margin-bottom: 65px;
+  color: #686868;
+  font-size: 32px;
+  font-weight: 200;
+  line-height: 1.3125;
+  margin-top: 30px;
+  margin-bottom: 65px;
 }
 
 .questionHeadingExact {
@@ -105,11 +105,11 @@ html, body, #content, #map {
 }
 
 .pagesCompleted {
-	color: #686868;
-	font-size: 14px;
-	font-weight: 200;
-	margin-top: 30px;
-	margin-bottom: 65px;	
+  color: #686868;
+  font-size: 14px;
+  font-weight: 200;
+  margin-top: 30px;
+  margin-bottom: 65px;  
 }
 
 .monthlyRentText {
@@ -121,7 +121,7 @@ html, body, #content, #map {
 }
 
 /*.formField {
-	margin-bottom: 0px;	
+  margin-bottom: 0px; 
 }*/
 
 .formFieldYearMoved {
@@ -186,7 +186,7 @@ html, body, #content, #map {
 
 .bottomButtonGroupResults {
   position: relative;
-  margin-top: 55px;
+  margin-top: 25px;
   margin-bottom: 25px;
 }
 
@@ -244,7 +244,7 @@ fieldset[disabled] .btn-dna-primary.active {
 }
 
 .btn-dna-primary.mobileWidth {
-	width: 47.5%;
+  width: 47.5%;
 }
 
 
@@ -358,7 +358,7 @@ fieldset[disabled] .btn-dna-twitter.active {
 /* arrows in buttons */
 .backArrow {
     position: absolute;
-	top: 19px;
+  top: 19px;
     width: 15px;
     height: 12px;
     margin-left: -24px;
@@ -396,7 +396,7 @@ fieldset[disabled] .btn-dna-twitter.active {
 }
 
 .input-group-addon.left {
-	padding-left: 20px;
+  padding-left: 20px;
 }
 
 .input-group-addon.leftBedroom {
@@ -405,7 +405,7 @@ fieldset[disabled] .btn-dna-twitter.active {
 }
 
 .input-group-addon.right {
-	padding: 0px 41px;
+  padding: 0px 41px;
 }
 
 .input-group-addon.rightMoney {
@@ -415,9 +415,9 @@ fieldset[disabled] .btn-dna-twitter.active {
 /* icons in right input areas */
 .minusStepper {
   z-index: 1000;
-	cursor: pointer;
-	position: absolute;
-	top: 0px;
+  cursor: pointer;
+  position: absolute;
+  top: 0px;
     width: 36px;
     height: 45px;
     margin-left: -31px;
@@ -456,9 +456,9 @@ fieldset[disabled] .btn-dna-twitter.active {
 }
 
 .plusStepper {
-	cursor: pointer;
-	position: absolute;
-	top: 0px;
+  cursor: pointer;
+  position: absolute;
+  top: 0px;
     width: 41px;
     height: 45px;
     margin-left: 0px;
@@ -501,8 +501,8 @@ fieldset[disabled] .btn-dna-twitter.active {
 
 /* icons in left input areas */
 .calendarIcon {
-	position: absolute;
-	top: 0px;
+  position: absolute;
+  top: 0px;
     width: 22px;
     height: 45px;
     margin-left: -10px;
@@ -603,7 +603,7 @@ fieldset[disabled] .btn-dna-twitter.active {
 
 /* form controls */
 .form-control {
-	  height: 45px;
+    height: 45px;
     -webkit-text-fill-color:#686868; /* Override iOS / Android font color change */
     -webkit-opacity:1; /* Override iOS opacity change affecting text & background color */
     color: #686868;
@@ -640,12 +640,12 @@ fieldset[disabled] .btn-dna-twitter.active {
 .form-control.select2-container {
   height: 45px !important;
   border-top-right-radius: 4px !important;
-  border-bottom-right-radius: 4px !important;	
+  border-bottom-right-radius: 4px !important; 
 }
 
 .form-control .select2-choice {
   border-top-right-radius: 4px;
-  border-bottom-right-radius: 4px;	
+  border-bottom-right-radius: 4px;  
 }
 
 .select2-search {
@@ -666,7 +666,7 @@ fieldset[disabled] .btn-dna-twitter.active {
   -o-transition: none;
   transition: none;
   border-top-right-radius: 4px;
-  border-bottom-right-radius: 4px;	
+  border-bottom-right-radius: 4px;  
 }
 
 .select2-drop {
@@ -755,7 +755,7 @@ fieldset[disabled] .btn-dna-twitter.active {
 
 /* Fade effects */
 .fadein {
-	display: none;
+  display: none;
 }
 
 /* Map CSS */
@@ -854,7 +854,7 @@ input[type="radio"]:checked + label span {
   }
 
   .btn-dna-primary.mobileWidth {
-	width: 130px;
+  width: 130px;
   }
 
   .backArrow {
@@ -875,19 +875,19 @@ input[type="radio"]:checked + label span {
     background-repeat: no-repeat; 
   } 
    
-	.introHeading {
-		font-size: 30px;
-		line-height: 1.5;
-    	margin-top: 75px;
-    	margin-bottom: 100px;
-	}
+  .introHeading {
+    font-size: 30px;
+    line-height: 1.5;
+      margin-top: 75px;
+      margin-bottom: 100px;
+  }
 
-	.questionHeading {
-		font-size: 57px;
-		line-height: 1.228;
-		margin-top: 75px;
-		margin-bottom: 125px;
-	}
+  .questionHeading {
+    font-size: 57px;
+    line-height: 1.228;
+    margin-top: 75px;
+    margin-bottom: 125px;
+  }
 
   .allPaidQuestionHeading {
     font-size: 57px;
@@ -895,13 +895,13 @@ input[type="radio"]:checked + label span {
     margin-top: 75px;
   }
 
-	.pagesCompleted {
-		color: #686868;
-		font-size: 22px;
-		font-weight: 200;
-		margin-top: 81px;
-		margin-bottom: 125px;
-	}
+  .pagesCompleted {
+    color: #686868;
+    font-size: 22px;
+    font-weight: 200;
+    margin-top: 81px;
+    margin-bottom: 125px;
+  }
 
   .questionHeadingExactSmall {
     display: block;
@@ -924,9 +924,13 @@ input[type="radio"]:checked + label span {
   }
 
   .shareOn {
-  	padding-right: 5px;
+    padding-right: 5px;
     display: inline;
     vertical-align: super;
+  }
+
+  .bottomButtonGroupResults {
+    margin-top: 55px;
   }
 
   /* 
@@ -1021,27 +1025,27 @@ input[type="radio"]:checked + label span {
     background-repeat: no-repeat; 
   } 
 
-	.introHeading {
-		font-size: 30px;
-		line-height: 1.5;
-    	margin-top: 75px;
-    	margin-bottom: 100px;
-	}
+  .introHeading {
+    font-size: 30px;
+    line-height: 1.5;
+      margin-top: 75px;
+      margin-bottom: 100px;
+  }
 
-	.questionHeading {
-		font-size: 57px;
-		line-height: 1.228;
-		margin-top: 75px;
-		margin-bottom: 90px;
-	}
+  .questionHeading {
+    font-size: 57px;
+    line-height: 1.228;
+    margin-top: 75px;
+    margin-bottom: 90px;
+  }
 
-	.pagesCompleted {
-		color: #686868;
-		font-size: 22px;
-		font-weight: 200;
-		margin-top: 81px;
-		margin-bottom: 90px;
-	}
+  .pagesCompleted {
+    color: #686868;
+    font-size: 22px;
+    font-weight: 200;
+    margin-top: 81px;
+    margin-bottom: 90px;
+  }
 
 
   .questionHeadingExact {
