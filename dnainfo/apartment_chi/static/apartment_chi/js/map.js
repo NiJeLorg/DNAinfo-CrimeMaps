@@ -19,12 +19,9 @@ mapApplication.initialize = function () {
 		minZoom:this.minZoom,
 		maxZoom:18,
     	center: this.center,
-   	 	zoom: this.zoom,
-   	 	zoomControl: false,
+   	 	zoom: this.zoom
 	});
 
-	// add zoom control to lower right
-	new L.Control.Zoom({ position: 'bottomright' }).addTo(this.map);
 
 
 	// get bounds and set maxBounds so user can't pan outside of a certain extent
