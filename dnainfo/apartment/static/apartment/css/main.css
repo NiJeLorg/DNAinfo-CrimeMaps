@@ -148,6 +148,12 @@ html, body, #content, #map {
 }
 
 
+/* Leaflet override */
+.leaflet-top .leaflet-control {
+  margin-top: 20px;
+  }
+
+
 /* Modal Override */
 .modal-content {
   border-radius: 2px;
