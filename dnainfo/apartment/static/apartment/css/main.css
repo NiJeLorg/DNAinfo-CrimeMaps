@@ -120,6 +120,10 @@ html, body, #content, #map {
   margin-bottom: 20px;    
 }
 
+#id_iPaid {
+  font-size: 16px;
+}
+
 /*.formField {
   margin-bottom: 0px; 
 }*/
