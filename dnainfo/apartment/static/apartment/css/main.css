@@ -165,10 +165,6 @@ html, body, #content, #map {
   padding-left: 10px;
 }
 
-/* Leaflet map override */
-.leaflet-top .leaflet-control {
-  margin-top: 70px;
-  }
 
 /* Buttons */
 .bottomButtonGroup {
