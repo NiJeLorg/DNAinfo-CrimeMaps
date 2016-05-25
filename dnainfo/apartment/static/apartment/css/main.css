@@ -642,6 +642,7 @@ fieldset[disabled] .btn-dna-twitter.active {
 
 /* Select 2 control css */
 .form-control.select2-container {
+  font-size: 16px;
   height: 45px !important;
   border-top-right-radius: 4px !important;
   border-bottom-right-radius: 4px !important; 
