@@ -120,6 +120,10 @@ html, body, #content, #map {
   margin-bottom: 20px;    
 }
 
+#id_iPaid {
+  font-size: 16px;
+}
+
 /*.formField {
   margin-bottom: 0px; 
 }*/
@@ -142,6 +146,12 @@ html, body, #content, #map {
 .text-danger {
   color: #d0343a;
 }
+
+
+/* Leaflet override */
+.leaflet-top .leaflet-control {
+  margin-top: 30px;
+  }
 
 
 /* Modal Override */
@@ -937,6 +947,12 @@ input[type="radio"]:checked + label span {
   .bottomButtonGroupResults {
     margin-top: 55px;
   }
+
+  /* Leaflet override */
+  .leaflet-top .leaflet-control {
+    margin-top: 81px;
+    }
+
 
   /* 
   * css for larger input 
