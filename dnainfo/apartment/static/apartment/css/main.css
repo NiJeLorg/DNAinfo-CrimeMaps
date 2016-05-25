@@ -150,7 +150,7 @@ html, body, #content, #map {
 
 /* Leaflet override */
 .leaflet-top .leaflet-control {
-  margin-top: 20px;
+  margin-top: 30px;
   }
 
 
@@ -947,6 +947,12 @@ input[type="radio"]:checked + label span {
   .bottomButtonGroupResults {
     margin-top: 55px;
   }
+
+  /* Leaflet override */
+  .leaflet-top .leaflet-control {
+    margin-top: 81px;
+    }
+
 
   /* 
   * css for larger input 
