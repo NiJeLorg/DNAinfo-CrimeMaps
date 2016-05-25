@@ -657,6 +657,7 @@ fieldset[disabled] .btn-dna-twitter.active {
 }
 
 .select2-search input {
+  font-size: 16px;
   height: 45px !important;
   padding-left: 11px;
   font-family: inherit;
@@ -674,6 +675,7 @@ fieldset[disabled] .btn-dna-twitter.active {
 }
 
 .select2-drop {
+  font-size: 16px;
   margin-top: -45px;
   -webkit-box-shadow: none; 
   box-shadow: none;
