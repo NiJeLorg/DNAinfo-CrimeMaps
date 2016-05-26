@@ -249,6 +249,15 @@ def calc(request, id=None):
 	else:
 		CHImyFirstApartmentObject = CHImyFirstApartment()
 
+	# keep a count of how many times this ad has been served
+	try:
+		adCountObject = adCount.objects.get(pk=1)
+	except adCount.DoesNotExist:
+		adCountObject = adCount()
+
+	adCountObject.served += 1
+	adCountObject.save()
+
 	return render(request, 'apartment_chi/calc.html', {'CHImyFirstApartmentObject': CHImyFirstApartmentObject})
 
 def end(request, id=None):
@@ -311,6 +320,7 @@ def end(request, id=None):
 				CHImyFirstApartmentObject.usingzri = True
 
 			except zillowMedianRentListPrice.DoesNotExist: 
+				bedroomsTry = 0
 				zillowNow = zillowMedianRentListPrice.objects.get(bedrooms=bedroomsTry, RegionName="city")
 				CHImyFirstApartmentObject.todayType = "Citywide"
 				CHImyFirstApartmentObject.usingzri = False

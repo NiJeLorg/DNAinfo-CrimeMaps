@@ -249,6 +249,15 @@ def calc(request, id=None):
 	else:
 		NYCmyFirstApartmentObject = NYCmyFirstApartment()
 
+	# keep a count of how many times this ad has been served
+	try:
+		adCountObject = adCount.objects.get(pk=1)
+	except adCount.DoesNotExist:
+		adCountObject = adCount()
+
+	adCountObject.served += 1
+	adCountObject.save()
+
 	return render(request, 'apartment/calc.html', {'NYCmyFirstApartmentObject': NYCmyFirstApartmentObject})
 
 def end(request, id=None):

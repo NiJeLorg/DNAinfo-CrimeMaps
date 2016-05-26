@@ -836,6 +836,17 @@ input[type="radio"]:checked + label span {
 }
 
 
+/* Ad images */
+.smallAd {
+  display: block;
+  width: 300px;
+  height: 250px;
+}
+
+.largeAd {
+  display: none;
+}
+
 
 /* general css for margins and padding */
 .marginBottom20 {
@@ -953,85 +964,16 @@ input[type="radio"]:checked + label span {
     margin-top: 81px;
     }
 
-
-  /* 
-  * css for larger input 
-  */
-/*  .form-control {
-    height: 60px;
-    font-size: 18px;
+  /* Ad images */
+  .smallAd {
+    display: none;
   }
 
-  .input-group-addon.left {
-      padding-left: 10px;
-      width: 50px;
+  .largeAd {
+    display: block;
+    width: 550px;
+    height: 480px;
   }
-*/
-  /* icons in left input areas */
- /* .calendarIcon {
-      width: 36px;
-      height: 60px;
-      margin-left: -10px;
-      background: url('images/Calendar_ICON2_TALL.svg');
-      background-color: transparent;
-      background-position: left center;
-      background-repeat: no-repeat;
-  }*/
-
-  /* icons in right input areas */
- /* .minusStepper {
-    z-index: 1000;
-    cursor: pointer;
-    position: absolute;
-    top: 10px;
-    right: 47px;
-      width: 37px;
-      height: 40px;
-      background: url('images/Stepper_Minus_ICON2_TALL.svg');
-      background-color: transparent;
-      background-position: left center;
-      background-repeat: no-repeat;
-  }
-
-  .minusStepper:hover {
-    z-index: 1000;
-    cursor: pointer;
-    position: absolute;
-    top: 10px;
-    right: 47px;
-      width: 37px;
-      height: 40px;
-      background: url('images/Stepper_Minus_ICON2_Hover_TALL.svg');
-      background-color: transparent;
-      background-position: left center;
-      background-repeat: no-repeat;
-  }
-
-  .plusStepper {
-    cursor: pointer;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-      width: 37px;
-      height: 40px;
-      background: url('images/Stepper_Plus_ICON2_TALL.svg');
-      background-color: transparent;
-      background-position: left center;
-      background-repeat: no-repeat;
-  }
-
-  .plusStepper:hover {
-    cursor: pointer;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-      width: 37px;
-      height: 40px;
-      background: url('images/Stepper_Plus_ICON2_Hover_TALL.svg');
-      background-color: transparent;
-      background-position: left center;
-      background-repeat: no-repeat;
-  }*/
 
 }
 

@@ -1,14 +1,20 @@
+{% load staticfiles %}
+
 <!-- Content -->
 <div class="container-fluid">
     <div id="mainContent">
         <div class="row">
-            <div class="col-sm-8 col-sm-offset-2">
+            <div class="col-sm-12">
                 <h2 class="resultsHeading text-center">
                     Loading in <span id="counter">5</span>...
                 </h2>
                 <p class="text-center">Advertisement</p>
-                <img id="southSide" src="http://placehold.it/550x480" class="img-responsive center-block hidden"/>
-                <img id="northSide" src="http://placehold.it/550x480" class="img-responsive center-block hidden"/>
+                <a href="http://broadwayrealty.com/" target="_blank">
+                    <img src="{% static 'apartment_chi/css/images/MG_Group_300x250_R01_2x.jpg' %}" class="center-block hidden southSide smallAd"/>
+                    <img src="{% static 'apartment_chi/css/images/MG_Group_300x250_R01_2x.jpg' %}" class="center-block hidden northSide smallAd"/>
+                    <img src="{% static 'apartment_chi/css/images/MG_Group_550x480_R01_2x.png' %}" class="center-block hidden southSide largeAd"/>
+                    <img src="{% static 'apartment_chi/css/images/MG_Group_550x480_R01_2x.png' %}" class="center-block hidden northSide largeAd"/>
+                </a>
             </div>
         </div>
     </div>
@@ -20,9 +26,9 @@
 
     // if whereMovedName is a South Side neighborhood, then 
     if (whereMovedName == "Altgeld Gardens" || whereMovedName == "Archer Heights" || whereMovedName == "Armour Square" || whereMovedName == "Ashburn" || whereMovedName == "Auburn Gresham" || whereMovedName == "Avalon Park" || whereMovedName == "Back of the Yards" || whereMovedName == "Beverly" || whereMovedName == "Brainerd" || whereMovedName == "Bridgeport" || whereMovedName == "Brighton Park" || whereMovedName == "Bronzeville" || whereMovedName == "Burnside" || whereMovedName == "The Bush" || whereMovedName == "Calumet Heights" || whereMovedName == "Canaryville" || whereMovedName == "Chatham" || whereMovedName == "Chicago Lawn" || whereMovedName == "Chinatown" || whereMovedName == "Clearing" || whereMovedName == "Douglas" || whereMovedName == "East Side" || whereMovedName == "Englewood" || whereMovedName == "Ford City" || whereMovedName == "Fuller Park" || whereMovedName == "Gage Park" || whereMovedName == "The Gap" || whereMovedName == "Garfield Ridge" || whereMovedName == "Grand Boulevard" || whereMovedName == "Grand Crossing" || whereMovedName == "Heart of Chicago" || whereMovedName == "Heart of Italy" || whereMovedName == "Hegewisch" || whereMovedName == "Hyde Park" || whereMovedName == "Jackson Highlands" || whereMovedName == "Kenwood" || whereMovedName == "Little Italy" || whereMovedName == "Little Village" || whereMovedName == "Marquette Park" || whereMovedName == "McKinley Park" || whereMovedName == "Medical District" || whereMovedName == "Midway" || whereMovedName == "Morgan Park" || whereMovedName == "Mt. Greenwood" || whereMovedName == "New City" || whereMovedName == "North Lawndale" || whereMovedName == "Oakland" || whereMovedName == "Pill Hill" || whereMovedName == "Pilsen" || whereMovedName == "Pullman" || whereMovedName == "Riverdale" || whereMovedName == "Roseland" || whereMovedName == "South Chicago" || whereMovedName == "South Deering" || whereMovedName == "South Lawndale" || whereMovedName == "South Loop" || whereMovedName == "South Shore above 79th" || whereMovedName == "South Shore" || whereMovedName == "Tri Taylor" || whereMovedName == "University Village" || whereMovedName == "Washington Heights" || whereMovedName == "Washington Park" || whereMovedName == "West Beverly" || whereMovedName == "West Elsdon" || whereMovedName == "West Englewood" || whereMovedName == "West Lawn" || whereMovedName == "West Pullman" || whereMovedName == "Woodlawn") {
-        $('#southSide').removeClass("hidden");
+        $('.southSide').removeClass("hidden");
     } else {
-        $('#northSide').removeClass("hidden");
+        $('.northSide').removeClass("hidden");
     }
 
     var count = 5;

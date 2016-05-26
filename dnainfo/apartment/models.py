@@ -36,3 +36,6 @@ class zillowMedianRentListPrice(models.Model):
 	Cost = models.FloatField(default=0, blank=False, null=False)
 	bedrooms = models.IntegerField(default=0, blank=False, null=False)
 
+class adCount(models.Model):
+	served = models.IntegerField(default=0, blank=False, null=False)
+
