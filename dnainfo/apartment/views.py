@@ -525,7 +525,7 @@ def end(request, id=None):
 
 	# social urls
 	# https://sprnt-2273-apartment-visualization.build.qa.dnainfo.com/CITY/visualizations/apartment-rent-real-estate-price-changes?results=NUMBER
-	url = "https://sprnt-2273-apartment-visualization.build.qa.dnainfo.com/new-york/visualizations/apartment-rent-real-estate-price-changes?results=" + str(id)
+	url = "https://www.dnainfo.com/new-york/visualizations/apartment-rent-real-estate-price-changes?results=" + str(id)
 	# connect to Bitly API
 	c = bitly_api.Connection('ondnainfo', 'R_cdbdcaaef8d04d97b363b989f2fba3db')
 	bitlyURL = c.shorten(url)
@@ -806,7 +806,7 @@ def results(request, id=None):
 	NYCmyFirstApartmentObject.today = zillowNow.Cost
 
 	# social urls
-	url = "https://sprnt-2273-apartment-visualization.build.qa.dnainfo.com/new-york/visualizations/apartment-rent-real-estate-price-changes?results=" + str(id) + "/"
+	url = "https://www.dnainfo.com/new-york/visualizations/apartment-rent-real-estate-price-changes?results=" + str(id) + "/"
 	# connect to Bitly API
 	c = bitly_api.Connection('ondnainfo', 'R_cdbdcaaef8d04d97b363b989f2fba3db')
 	bitlyURL = c.shorten(url)
