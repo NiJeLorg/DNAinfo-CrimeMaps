@@ -22,6 +22,8 @@ ajaxApplication.firstMove = function () {
 				// disable plus stepper
 				$('.plusStepper').addClass('disabled');
 				$(".fadein").fadeIn("slow");
+				// scroll to top
+				window.scrollTo(0,0);
 	        }
 		});
 	}
@@ -59,6 +61,8 @@ ajaxApplication.nextNeighborhood = function () {
 					//$('.select2-focusser').prop("placeholder", "Neighborhood");
 					$('#id_iDontSeeMyNeighborhood').addClass("hidden");
 					$(".fadein").fadeIn("slow");
+					// scroll to top
+					window.scrollTo(0,0);
 		        }
 			});
 		});
@@ -85,6 +89,8 @@ ajaxApplication.nextLocation = function () {
 				success: function(data){
 					$('#content').html(data);
 					$(".fadein").fadeIn("slow");
+					// scroll to top
+					window.scrollTo(0,0);
 		        }
 			});
 		});
@@ -118,6 +124,8 @@ ajaxApplication.nextYearMoved = function () {
 					$('#id_exactYearMoved').prop("min", 1900);
 					$('#id_exactYearMoved').prop("max", 2016);
 					$(".fadein").fadeIn("slow");
+					// scroll to top
+					window.scrollTo(0,0);
 		        }
 			});
 		});
@@ -156,6 +164,8 @@ ajaxApplication.nextBedrooms = function (checked) {
 					$('#id_bedrooms').val("0");
 					$('.minusStepper').addClass('disabled');
 					$(".fadein").fadeIn("slow");
+					// scroll to top
+					window.scrollTo(0,0);
 		        }
 			});
 		});
@@ -191,6 +201,8 @@ ajaxApplication.nextRentSplit = function () {
 					$('#id_rentSplit').val("1");
 					$('.minusStepper').addClass('disabled');
 					$(".fadein").fadeIn("slow");
+					// scroll to top
+					window.scrollTo(0,0);
 		        }
 			});
 		});
@@ -224,6 +236,8 @@ ajaxApplication.nextiPaid = function () {
 					$('#id_iPaid').prop("min", 0);
 					$('#id_iPaid').prop("max", 50000);
 					$(".fadein").fadeIn("slow");
+					// scroll to top
+					window.scrollTo(0,0);
 		        }
 			});
 		});
@@ -254,6 +268,8 @@ ajaxApplication.nextAllPaid = function () {
 					$('#id_allPaid').prop("min", 0);
 					$('#id_allPaid').prop("max", 50000);
 					$(".fadein").fadeIn("slow");
+					// scroll to top
+					window.scrollTo(0,0);
 		        }
 			});
 		});
@@ -279,6 +295,8 @@ ajaxApplication.nextCalc = function () {
 				success: function(data){
 					$('#content').html(data);
 					$(".fadein").fadeIn("slow");
+					// scroll to top
+					window.scrollTo(0,0);
 		        }
 			});
 		});
@@ -298,6 +316,8 @@ ajaxApplication.nextResults = function (id) {
 			success: function(data){
 				$('#content').html(data);
 				$(".fadein").fadeIn("slow");
+				// scroll to top
+				window.scrollTo(0,0);
 	        }
 		});
 	}
@@ -316,6 +336,8 @@ ajaxApplication.backIntro = function () {
 			success: function(data){
 				$('#content').html(data);
 				$(".fadein").fadeIn("slow");
+				// scroll to top
+				window.scrollTo(0,0);
 	        }
 		});
 	}
@@ -340,6 +362,8 @@ ajaxApplication.backFirstMove = function (id) {
 					$('.minusStepper').addClass('disabled');
 				}
 				$(".fadein").fadeIn("slow");
+				// scroll to top
+				window.scrollTo(0,0);
 	        }
 		});
 	}
@@ -370,6 +394,8 @@ ajaxApplication.backNeighborhood = function (id) {
 				//$('.select2-focusser').prop("placeholder", "Neighborhood");
 				$('#id_iDontSeeMyNeighborhood').addClass("hidden");
 				$(".fadein").fadeIn("slow");    
+				// scroll to top
+				window.scrollTo(0,0);
 	        }
 		});
 	}
@@ -384,6 +410,8 @@ ajaxApplication.backLocation = function (id) {
 			success: function(data){
 				$('#content').html(data);
 				$(".fadein").fadeIn("slow");
+				// scroll to top
+				window.scrollTo(0,0);
 	        }
 		});
 	}
@@ -412,6 +440,8 @@ ajaxApplication.backYearMoved = function (id) {
 					$('#radio01').prop("checked", true);			
 				}
 				$(".fadein").fadeIn("slow");
+				// scroll to top
+				window.scrollTo(0,0);
 	        }
 		});
 	}
@@ -438,6 +468,8 @@ ajaxApplication.backBedrooms = function (id) {
 					$('.minusStepper').addClass('disabled');
 				}
 				$(".fadein").fadeIn("slow");
+				// scroll to top
+				window.scrollTo(0,0);
 	        }
 		});
 	}
@@ -464,6 +496,8 @@ ajaxApplication.backRentSplit = function (id) {
 					$('.minusStepper').addClass('disabled');
 				}
 				$(".fadein").fadeIn("slow");
+				// scroll to top
+				window.scrollTo(0,0);
 	        }
 		});
 	}
@@ -488,6 +522,8 @@ ajaxApplication.backiPaid = function (id) {
 				$('#id_iPaid').val(value);
 				$('#nextAllPaid').prop("disabled", false);
 				$(".fadein").fadeIn("slow");
+				// scroll to top
+				window.scrollTo(0,0);
 	        }
 		});
 	}
