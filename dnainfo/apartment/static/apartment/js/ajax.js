@@ -24,6 +24,7 @@ ajaxApplication.firstMove = function () {
 				$(".fadein").fadeIn("slow");
 				// scroll to top
 				$('body').scrollTo(0);
+window.parent.parent.scrollTo(0,0);
 	        }
 		});
 	}
@@ -63,6 +64,7 @@ ajaxApplication.nextNeighborhood = function () {
 					$(".fadein").fadeIn("slow");
 					// scroll to top
 					$('body').scrollTo(0);
+window.parent.parent.scrollTo(0,0);
 
 		        }
 			});
@@ -92,6 +94,7 @@ ajaxApplication.nextLocation = function () {
 					$(".fadein").fadeIn("slow");
 					// scroll to top
 					$('body').scrollTo(0);
+window.parent.parent.scrollTo(0,0);
 		        }
 			});
 		});
@@ -127,6 +130,7 @@ ajaxApplication.nextYearMoved = function () {
 					$(".fadein").fadeIn("slow");
 					// scroll to top
 					$('body').scrollTo(0);
+window.parent.parent.scrollTo(0,0);
 		        }
 			});
 		});
@@ -167,9 +171,11 @@ ajaxApplication.nextBedrooms = function (checked) {
 					$(".fadein").fadeIn("slow");
 					// scroll to top
 					$('body').scrollTo(0);
+window.parent.parent.scrollTo(0,0);
 		        }
 			});
 		});
+
 
 		//trigger form submit
 		f.submit();
@@ -204,6 +210,7 @@ ajaxApplication.nextRentSplit = function () {
 					$(".fadein").fadeIn("slow");
 					// scroll to top
 					$('body').scrollTo(0);
+window.parent.parent.scrollTo(0,0);
 		        }
 			});
 		});
@@ -213,6 +220,7 @@ ajaxApplication.nextRentSplit = function () {
 
 	}
 }
+
 
 ajaxApplication.nextiPaid = function () {
 	var timeout = window.setTimeout(slow, 200);
@@ -239,6 +247,7 @@ ajaxApplication.nextiPaid = function () {
 					$(".fadein").fadeIn("slow");
 					// scroll to top
 					$('body').scrollTo(0);
+window.parent.parent.scrollTo(0,0);
 		        }
 			});
 		});
@@ -271,6 +280,7 @@ ajaxApplication.nextAllPaid = function () {
 					$(".fadein").fadeIn("slow");
 					// scroll to top
 					$('body').scrollTo(0);
+window.parent.parent.scrollTo(0,0);
 		        }
 			});
 		});
@@ -298,6 +308,7 @@ ajaxApplication.nextCalc = function () {
 					$(".fadein").fadeIn("slow");
 					// scroll to top
 					$('body').scrollTo(0);
+window.parent.parent.scrollTo(0,0);
 		        }
 			});
 		});
@@ -319,6 +330,7 @@ ajaxApplication.nextResults = function (id) {
 				$(".fadein").fadeIn("slow");
 				// scroll to top
 				$('body').scrollTo(0);
+window.parent.parent.scrollTo(0,0);
 	        }
 		});
 	}
@@ -339,6 +351,7 @@ ajaxApplication.backIntro = function () {
 				$(".fadein").fadeIn("slow");
 				// scroll to top
 				$('body').scrollTo(0);
+window.parent.parent.scrollTo(0,0);
 	        }
 		});
 	}
@@ -365,6 +378,7 @@ ajaxApplication.backFirstMove = function (id) {
 				$(".fadein").fadeIn("slow");
 				// scroll to top
 				$('body').scrollTo(0);
+window.parent.parent.scrollTo(0,0);
 	        }
 		});
 	}
@@ -397,6 +411,7 @@ ajaxApplication.backNeighborhood = function (id) {
 				$(".fadein").fadeIn("slow");    
 				// scroll to top
 				$('body').scrollTo(0);
+window.parent.parent.scrollTo(0,0);
 	        }
 		});
 	}
@@ -413,6 +428,7 @@ ajaxApplication.backLocation = function (id) {
 				$(".fadein").fadeIn("slow");
 				// scroll to top
 				$('body').scrollTo(0);
+window.parent.parent.scrollTo(0,0);
 	        }
 		});
 	}
@@ -443,6 +459,7 @@ ajaxApplication.backYearMoved = function (id) {
 				$(".fadein").fadeIn("slow");
 				// scroll to top
 				$('body').scrollTo(0);
+window.parent.parent.scrollTo(0,0);
 	        }
 		});
 	}
@@ -471,6 +488,7 @@ ajaxApplication.backBedrooms = function (id) {
 				$(".fadein").fadeIn("slow");
 				// scroll to top
 				$('body').scrollTo(0);
+window.parent.parent.scrollTo(0,0);
 	        }
 		});
 	}
@@ -499,6 +517,7 @@ ajaxApplication.backRentSplit = function (id) {
 				$(".fadein").fadeIn("slow");
 				// scroll to top
 				$('body').scrollTo(0);
+window.parent.parent.scrollTo(0,0);
 	        }
 		});
 	}
@@ -525,6 +544,7 @@ ajaxApplication.backiPaid = function (id) {
 				$(".fadein").fadeIn("slow");
 				// scroll to top
 				$('body').scrollTo(0);
+window.parent.parent.scrollTo(0,0);
 	        }
 		});
 	}
