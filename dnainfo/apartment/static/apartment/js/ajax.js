@@ -23,7 +23,7 @@ ajaxApplication.firstMove = function () {
 				$('.plusStepper').addClass('disabled');
 				$(".fadein").fadeIn("slow");
 				// scroll to top
-				window.top.scrollTo(0,0);
+				$('html, body').animate({scrollTop: $("#content").offset().top}, 1);
 	        }
 		});
 	}
@@ -62,7 +62,7 @@ ajaxApplication.nextNeighborhood = function () {
 					$('#id_iDontSeeMyNeighborhood').addClass("hidden");
 					$(".fadein").fadeIn("slow");
 					// scroll to top
-					window.top.scrollTo(0,0);
+					$('html, body').animate({scrollTop: $("#content").offset().top}, 1);
 
 		        }
 			});
@@ -91,7 +91,7 @@ ajaxApplication.nextLocation = function () {
 					$('#content').html(data);
 					$(".fadein").fadeIn("slow");
 					// scroll to top
-					window.top.scrollTo(0,0);
+					$('html, body').animate({scrollTop: $("#content").offset().top}, 1);
 		        }
 			});
 		});
@@ -126,7 +126,7 @@ ajaxApplication.nextYearMoved = function () {
 					$('#id_exactYearMoved').prop("max", 2016);
 					$(".fadein").fadeIn("slow");
 					// scroll to top
-					window.top.scrollTo(0,0);
+					$('html, body').animate({scrollTop: $("#content").offset().top}, 1);
 		        }
 			});
 		});
@@ -166,7 +166,7 @@ ajaxApplication.nextBedrooms = function (checked) {
 					$('.minusStepper').addClass('disabled');
 					$(".fadein").fadeIn("slow");
 					// scroll to top
-					window.top.scrollTo(0,0);
+					$('html, body').animate({scrollTop: $("#content").offset().top}, 1);
 		        }
 			});
 		});
@@ -203,7 +203,7 @@ ajaxApplication.nextRentSplit = function () {
 					$('.minusStepper').addClass('disabled');
 					$(".fadein").fadeIn("slow");
 					// scroll to top
-					window.top.scrollTo(0,0);
+					$('html, body').animate({scrollTop: $("#content").offset().top}, 1);
 		        }
 			});
 		});
@@ -238,7 +238,7 @@ ajaxApplication.nextiPaid = function () {
 					$('#id_iPaid').prop("max", 50000);
 					$(".fadein").fadeIn("slow");
 					// scroll to top
-					window.top.scrollTo(0,0);
+					$('html, body').animate({scrollTop: $("#content").offset().top}, 1);
 		        }
 			});
 		});
@@ -270,7 +270,7 @@ ajaxApplication.nextAllPaid = function () {
 					$('#id_allPaid').prop("max", 50000);
 					$(".fadein").fadeIn("slow");
 					// scroll to top
-					window.top.scrollTo(0,0);
+					$('html, body').animate({scrollTop: $("#content").offset().top}, 1);
 		        }
 			});
 		});
@@ -297,7 +297,7 @@ ajaxApplication.nextCalc = function () {
 					$('#content').html(data);
 					$(".fadein").fadeIn("slow");
 					// scroll to top
-					window.top.scrollTo(0,0);
+					$('html, body').animate({scrollTop: $("#content").offset().top}, 1);
 		        }
 			});
 		});
@@ -318,7 +318,7 @@ ajaxApplication.nextResults = function (id) {
 				$('#content').html(data);
 				$(".fadein").fadeIn("slow");
 				// scroll to top
-				window.top.scrollTo(0,0);
+				$('html, body').animate({scrollTop: $("#content").offset().top}, 1);
 	        }
 		});
 	}
@@ -338,7 +338,7 @@ ajaxApplication.backIntro = function () {
 				$('#content').html(data);
 				$(".fadein").fadeIn("slow");
 				// scroll to top
-				window.top.scrollTo(0,0);
+				$('html, body').animate({scrollTop: $("#content").offset().top}, 1);
 	        }
 		});
 	}
@@ -364,7 +364,7 @@ ajaxApplication.backFirstMove = function (id) {
 				}
 				$(".fadein").fadeIn("slow");
 				// scroll to top
-				window.top.scrollTo(0,0);
+				$('html, body').animate({scrollTop: $("#content").offset().top}, 1);
 	        }
 		});
 	}
@@ -396,7 +396,7 @@ ajaxApplication.backNeighborhood = function (id) {
 				$('#id_iDontSeeMyNeighborhood').addClass("hidden");
 				$(".fadein").fadeIn("slow");    
 				// scroll to top
-				window.top.scrollTo(0,0);
+				$('html, body').animate({scrollTop: $("#content").offset().top}, 1);
 	        }
 		});
 	}
@@ -412,7 +412,7 @@ ajaxApplication.backLocation = function (id) {
 				$('#content').html(data);
 				$(".fadein").fadeIn("slow");
 				// scroll to top
-				window.top.scrollTo(0,0);
+				$('html, body').animate({scrollTop: $("#content").offset().top}, 1);
 	        }
 		});
 	}
@@ -442,7 +442,7 @@ ajaxApplication.backYearMoved = function (id) {
 				}
 				$(".fadein").fadeIn("slow");
 				// scroll to top
-				window.top.scrollTo(0,0);
+				$('html, body').animate({scrollTop: $("#content").offset().top}, 1);
 	        }
 		});
 	}
@@ -470,7 +470,7 @@ ajaxApplication.backBedrooms = function (id) {
 				}
 				$(".fadein").fadeIn("slow");
 				// scroll to top
-				window.top.scrollTo(0,0);
+				$('html, body').animate({scrollTop: $("#content").offset().top}, 1);
 	        }
 		});
 	}
@@ -498,7 +498,7 @@ ajaxApplication.backRentSplit = function (id) {
 				}
 				$(".fadein").fadeIn("slow");
 				// scroll to top
-				window.top.scrollTo(0,0);
+				$('html, body').animate({scrollTop: $("#content").offset().top}, 1);
 	        }
 		});
 	}
@@ -524,7 +524,7 @@ ajaxApplication.backiPaid = function (id) {
 				$('#nextAllPaid').prop("disabled", false);
 				$(".fadein").fadeIn("slow");
 				// scroll to top
-				window.top.scrollTo(0,0);
+				$('html, body').animate({scrollTop: $("#content").offset().top}, 1);
 	        }
 		});
 	}
