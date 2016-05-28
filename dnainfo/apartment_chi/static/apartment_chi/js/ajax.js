@@ -523,7 +523,7 @@ ajaxApplication.backiPaid = function (id) {
 				$('#nextAllPaid').prop("disabled", false);
 				$(".fadein").fadeIn("slow");
 				// scroll to top
-				
+				$('#content').scrollTop(0);				
 	        }
 		});
 	}
