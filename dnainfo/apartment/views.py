@@ -60,7 +60,7 @@ def whatNeighborhood(request, id=None):
 			# Save the new data to the database.
 			f = form.save()
 			lookupObject = NYCmyFirstApartment.objects.get(pk=f.pk)
-			return HttpResponseRedirect(reverse('exactLocation', args=(lookupObject.pk,)))
+			return HttpResponseRedirect(reverse('yearMoved', args=(lookupObject.pk,)))
 		else:
 			# The supplied form contained errors - just print them to the terminal.
 			print form.errors
