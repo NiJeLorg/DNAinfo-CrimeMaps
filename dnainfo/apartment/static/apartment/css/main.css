@@ -10,7 +10,7 @@ body {
 }
 html, body, #content, #map {
   height: 100vh;
-  width: 100vh;
+  width: 100vw;
 }
 
 
