@@ -61,8 +61,7 @@ ajaxApplication.nextNeighborhood = function () {
 					//$('.select2-focusser').prop("placeholder", "Neighborhood");
 					$('#id_iDontSeeMyNeighborhood').addClass("hidden");
 					$(".fadein").fadeIn("slow");
-					// scroll to top
-					$('html, body').animate({ scrollTop: 0 }, 0);
+
 
 		        }
 			});
@@ -90,8 +89,7 @@ ajaxApplication.nextLocation = function () {
 				success: function(data){
 					$('#content').html(data);
 					$(".fadein").fadeIn("slow");
-					// scroll to top
-					$('html, body').animate({ scrollTop: 0 }, 0);
+
 		        }
 			});
 		});
@@ -125,8 +123,7 @@ ajaxApplication.nextYearMoved = function () {
 					$('#id_exactYearMoved').prop("min", 1900);
 					$('#id_exactYearMoved').prop("max", 2016);
 					$(".fadein").fadeIn("slow");
-					// scroll to top
-					$('html, body').animate({ scrollTop: 0 }, 0);
+
 		        }
 			});
 		});
@@ -165,8 +162,7 @@ ajaxApplication.nextBedrooms = function (checked) {
 					$('#id_bedrooms').val("0");
 					$('.minusStepper').addClass('disabled');
 					$(".fadein").fadeIn("slow");
-					// scroll to top
-					$('html, body').animate({ scrollTop: 0 }, 0);
+
 		        }
 			});
 		});
@@ -203,8 +199,7 @@ ajaxApplication.nextRentSplit = function () {
 					$('#id_rentSplit').val("1");
 					$('.minusStepper').addClass('disabled');
 					$(".fadein").fadeIn("slow");
-					// scroll to top
-					$('html, body').animate({ scrollTop: 0 }, 0);
+
 		        }
 			});
 		});
@@ -239,8 +234,7 @@ ajaxApplication.nextiPaid = function () {
 					$('#id_iPaid').prop("min", 0);
 					$('#id_iPaid').prop("max", 50000);
 					$(".fadein").fadeIn("slow");
-					// scroll to top
-					$('html, body').animate({ scrollTop: 0 }, 0);
+
 		        }
 			});
 		});
@@ -271,8 +265,7 @@ ajaxApplication.nextAllPaid = function () {
 					$('#id_allPaid').prop("min", 0);
 					$('#id_allPaid').prop("max", 50000);
 					$(".fadein").fadeIn("slow");
-					// scroll to top
-					$('html, body').animate({ scrollTop: 0 }, 0);
+
 		        }
 			});
 		});
@@ -298,8 +291,7 @@ ajaxApplication.nextCalc = function () {
 				success: function(data){
 					$('#content').html(data);
 					$(".fadein").fadeIn("slow");
-					// scroll to top
-					$('html, body').animate({ scrollTop: 0 }, 0);
+
 		        }
 			});
 		});

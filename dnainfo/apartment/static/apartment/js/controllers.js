@@ -30,6 +30,8 @@ $( document ).ready(function() {
 
 	$(document).on('click', '#nextLocation', function(e) {
 		e.preventDefault();
+		// force a scroll to the top 
+		$('#content').animate({ scrollTop: 0 }, 0);
 		// check if field is empty
 		var whereMoved = $('#id_whereMoved').val();
 		var checked = $('#id_iDontSeeMyNeighborhood').is(":checked");
