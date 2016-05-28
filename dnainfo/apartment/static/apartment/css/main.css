@@ -9,8 +9,8 @@ body {
     color: #686868;
 }
 html, body, #content, #map {
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  padding-bottom: 1px;
 }
 
 
