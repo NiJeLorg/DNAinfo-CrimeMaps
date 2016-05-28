@@ -61,8 +61,7 @@ ajaxApplication.nextNeighborhood = function () {
 					//$('.select2-focusser').prop("placeholder", "Neighborhood");
 					$('#id_iDontSeeMyNeighborhood').addClass("hidden");
 					$(".fadein").fadeIn("slow");
-
-
+					
 		        }
 			});
 		});
