@@ -30,8 +30,6 @@ $( document ).ready(function() {
 
 	$(document).on('click', '#nextLocation', function(e) {
 		e.preventDefault();
-		// force a scroll to the top 
-		$('iframe').scrollTop(300);
 		// check if field is empty
 		var whereMoved = $('#id_whereMoved').val();
 		var checked = $('#id_iDontSeeMyNeighborhood').is(":checked");
@@ -242,6 +240,8 @@ $( document ).ready(function() {
 
 	// listen for whereMoved changes and ensure next location button is emabled and i don't see my neighborhood is unchecked
 	$(document).on('change', '#id_whereMoved', function(e) {
+		// force a scroll to the top 
+		$('#content').scrollTop(300);
 		// close keyboard
 		$('.select2-focusser').blur();
 		// remove disabled button for next
