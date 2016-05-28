@@ -241,7 +241,8 @@ $( document ).ready(function() {
 	// listen for whereMoved changes and ensure next location button is emabled and i don't see my neighborhood is unchecked
 	$(document).on('change', '#id_whereMoved', function(e) {
 		// force a scroll to the top 
-		console.log($('#content').scrollTop());
+		console.log();
+		$('#content').scrollTop(0)
 		// close keyboard
 		$('.select2-focusser').blur();
 		// remove disabled button for next
