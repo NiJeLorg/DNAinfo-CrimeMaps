@@ -153,8 +153,12 @@ html, body, #content, #map {
   margin-top: 30px;
   }
 
+/* Bootstrap overrides */
+.col-sm-3 {
+    width: 310px;
+}
 
-/* Modal Override */
+/* Boostrap modal override */
 .modal-content {
   border-radius: 2px;
 }
