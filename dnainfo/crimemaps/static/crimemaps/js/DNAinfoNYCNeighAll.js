@@ -42,10 +42,17 @@ DNAinfoNYCNeighAll.onEachFeature_ALLDRAWNGEOJSONS = function(feature,layer){
 	var highlight = {
 	    weight: 3,
 	    opacity: 1,
+	    color: '#FF0000',
+	    fillColor: '#FF0000',
+	    fillOpacity: 0.5,
+
 	};
 	var noHighlight = {
         weight: 1.5,
         opacity: 0.75,
+        color: '#191975',
+        fillOpacity: 0,
+        fillColor: '#bdbdbd'
 	};
 
 	layer.on('mouseover', function(ev) {
