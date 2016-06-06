@@ -875,7 +875,7 @@ def allnycpolygons_lcp(request):
 def allnycgeojsons(request):
 
 	#allDrawnNeighborhoods = neighborhoodDrawNYC.objects.all()
-	allDrawnNeighborhoods = neighborhoodDrawNYC.objects.filter(id__gte=57001, id__lte=58000)
+	allDrawnNeighborhoods = neighborhoodDrawNYC.objects.filter(id__gte=61001, id__lte=62000)
 	geojsons = []
 	for drawn in allDrawnNeighborhoods:
 		changed = drawn.drawnGeojson.replace('\"properties\":{}', '\"properties\":{\"ID\":\"'+ str(drawn.id) +'\", \"neighborhoodLive\":\"'+ str(drawn.neighborhoodLive.name) +'\", \"otherNeighborhood\":\"' + strip_non_ascii(drawn.otherNeighborhood) +'\"}')
@@ -886,7 +886,7 @@ def allnycgeojsons(request):
 def allnycgeojsons_lcp(request):
 
 	#allDrawnNeighborhoods = neighborhoodDrawNYC.objects.all()
-	allDrawnNeighborhoods = neighborhoodDrawNYC.objects.filter(id__gte=58001, id__lte=59000)
+	allDrawnNeighborhoods = neighborhoodDrawNYC.objects.filter(id__gte=59001, id__lte=60000)
 	geojsons = []
 	for drawn in allDrawnNeighborhoods:
 		changed = drawn.drawnGeojson.replace('\"properties\":{}', '\"properties\":{\"ID\":\"'+ str(drawn.id) +'\", \"neighborhoodLive\":\"'+ str(drawn.neighborhoodLive.name) +'\", \"otherNeighborhood\":\"' + strip_non_ascii(drawn.otherNeighborhood) +'\"}')
