@@ -1,4 +1,4 @@
-{% extends 'crimemaps/baseNoBottomNavCHI.html' %}
+{% extends 'crimemaps/baseNoBottomNavNYC.html' %}
 {% load staticfiles %}
 
 {% block title %}Naughty Drawing Patrol{% endblock %}
@@ -16,7 +16,7 @@
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
-        <a class="navbar-brand" href="http://www.dnainfo.com/chicago/"><img src="{% static 'crimemaps/css/images/DNACHILogo.png' %}" class="navbar-brand-img-chi"/></a>
+        <a class="navbar-brand" href="http://www.dnainfo.com/new-york/"><img src="{% static 'crimemaps/css/images/DNANYCLogo.png' %}" class="navbar-brand-img-nyc"/></a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -39,9 +39,9 @@
 	<script type="text/javascript" src="{% static 'crimemaps/js/leaflet.js' %}"></script>
   <script type="text/javascript" src="{% static 'crimemaps/js/topojson.js' %}"></script>
   <script type="text/javascript" src="{% static 'crimemaps/js/leaflet.label-src.js' %}"></script>
-	<script type="text/javascript" src="{% static 'crimemaps/js/DNAinfoCHINeighAll_lcp.js' %}"></script>
-	<script type="text/javascript" src="{% static 'crimemaps/js/chineighallapp.js' %}"></script>
-  <script type="text/javascript" src="{% static 'crimemaps/js/chiallMapControllers.js' %}"></script>
+	<script type="text/javascript" src="{% static 'crimemaps/js/DNAinfoNYCNeighAll.js' %}"></script>
+	<script type="text/javascript" src="{% static 'crimemaps/js/nycneighallapp.js' %}"></script>
+  <script type="text/javascript" src="{% static 'crimemaps/js/nycallMapControllers.js' %}"></script>
 {% endblock %}
 
 
