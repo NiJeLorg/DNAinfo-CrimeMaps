@@ -871,7 +871,7 @@ def allnycpolygons(request):
 def allnycgeojsons(request):
 
 	#allDrawnNeighborhoods = neighborhoodDrawNYC.objects.all()
-	allDrawnNeighborhoods = neighborhoodDrawNYC.objects.filter(id__gte=18799, id__lte=20000)
+	allDrawnNeighborhoods = neighborhoodDrawNYC.objects.filter(id__gte=20001, id__lte=21000)
 	geojsons = []
 	for drawn in allDrawnNeighborhoods:
 		changed = drawn.drawnGeojson.replace('\"properties\":{}', '\"properties\":{\"ID\":\"'+ str(drawn.id) +'\", \"neighborhoodLive\":\"'+ str(drawn.neighborhoodLive.name) +'\", \"otherNeighborhood\":\"' + strip_non_ascii(drawn.otherNeighborhood) +'\"}')
