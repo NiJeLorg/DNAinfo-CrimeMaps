@@ -868,6 +868,10 @@ def allnycpolygons(request):
 
 	return render(request, 'crimemaps/allnycpolygons.html', {})
 
+def allnycpolygons_lcp(request):
+
+	return render(request, 'crimemaps/allnycpolygons_lcp.html', {})
+
 def allnycgeojsons(request):
 
 	#allDrawnNeighborhoods = neighborhoodDrawNYC.objects.all()
@@ -878,6 +882,17 @@ def allnycgeojsons(request):
 		geojsons.append(changed) 
 
 	return JsonResponse(geojsons, safe=False)
+
+def allnycgeojsons_lcp(request):
+
+	#allDrawnNeighborhoods = neighborhoodDrawNYC.objects.all()
+	allDrawnNeighborhoods = neighborhoodDrawNYC.objects.filter(id__gte=40001, id__lte=41000)
+	geojsons = []
+	for drawn in allDrawnNeighborhoods:
+		changed = drawn.drawnGeojson.replace('\"properties\":{}', '\"properties\":{\"ID\":\"'+ str(drawn.id) +'\", \"neighborhoodLive\":\"'+ str(drawn.neighborhoodLive.name) +'\", \"otherNeighborhood\":\"' + strip_non_ascii(drawn.otherNeighborhood) +'\"}')
+		geojsons.append(changed) 
+
+	return JsonResponse(geojsons, safe=False)	
 
 def nycpolygonsbyneigh(request, neighborhoodLive=None):
 
