@@ -1011,7 +1011,7 @@ def allchipolygons(request):
 
 def allchigeojsons(request):
 
-	allDrawnNeighborhoods = neighborhoodDrawCHI.objects.filter(id__gte=10000, id__lte=11000)
+	allDrawnNeighborhoods = neighborhoodDrawCHI.objects.filter(id__gte=11000, id__lte=12000)
 	geojsons = []
 	for drawn in allDrawnNeighborhoods:
 		changed = drawn.drawnGeojson.replace('\"properties\":{}', '\"properties\":{\"ID\":\"'+ str(drawn.id) +'\", \"neighborhoodLive\":\"'+ str(drawn.neighborhoodLive.name) +'\", \"otherNeighborhood\":\"' + strip_non_ascii(drawn.otherNeighborhood) +'\"}')
