@@ -1,0 +1,61 @@
+{% load staticfiles %}
+
+<!-- Content -->
+<div id="map"></div>
+
+<form id="exactLocationForm" method="post" action=".">
+    <div class="container-fluid absolutePostionedDiv">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-xs-10 col-sm-7 col-sm-offset-2">
+                <h2 class="questionHeadingExact">
+                    Click the building footprint where the new building will be.
+                </h2>
+                <h2 class="questionHeadingExactSmall">
+                    Tap the building footprint where the new building will be.
+                </h2>
+            </div>
+            <div class="col-xs-2 col-sm-1">
+                <p class="pagesCompleted pull-right">3/4</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-8 col-sm-offset-2">
+                <div class="form-group formField invisible">
+                    <div class="input-group">
+                      <div class="input-group-addon left"><span class="locationIcon"></span></div>
+                       {{ form }}
+                      <div class="input-group-addon"></div>
+                    </div>
+                    {{ form.errors }}                 
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">    
+        <div class="row">
+            <div class="col-sm-3 col-sm-offset-2 bottomButtonGroupMap">
+                <button id="backNeighborhood" class="btn btn-dna-primary mobileWidth marginRight10" type="submit"><span class="backArrow"></span>Back</button>
+                <button id="nextEnd" class="btn btn-dna-primary mobileWidth" type="submit" disabled="disabled">Next<span class="forwardArrow"></span></button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript">
+    var objectID = "{{ NYCskylineObject.id }}";
+    var neighborhoodName = "{{ NYCskylineObject.whereBuilding.dnaurl }}";
+    var iDontSeeMyNeighborhood = "{{ NYCskylineObject.iDontSeeMyNeighborhood }}";
+    var buildingStories = parseInt("{{ NYCskylineObject.buildingStories }}");
+    // formula from http://www.ctbuh.org/HighRiseInfo/TallestDatabase/Criteria/HeightCalculator/tabid/1007/language/en-GB/Default.aspx
+    var buildingHeight = (3.5*buildingStories) + 9.625 + (2.625 * (buildingStories/25));
+    var plutoData = "{% static 'skyline/data/pluto_subset.topojson' %}";
+    $( document ).ready(function() {
+        window.setTimeout(function() {
+            mapApplication.initialize();
+        }, 1);
+    });
+
+</script>
+	
+
