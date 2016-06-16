@@ -87,7 +87,6 @@ class Command(BaseCommand):
                 else:
                     CommunityNo = 0
 
-
                 #use get or create to only create records for objects newly added to the spreadsheets
                 updated_values = {'Date':DateTimeObject, 'Address':data['gsx$address']['$t'], 'Lat': lat, 'Long': lon, 'RD': data['gsx$rd']['$t'], 'District': data['gsx$district']['$t'], 'Beat': data['gsx$beat']['$t'], 'IUCR': data['gsx$iucr']['$t'], 'Location': data['gsx$location']['$t'], 'Status': data['gsx$status']['$t'], 'Domestic': data['gsx$domestic']['$t'], 'HomVics': HomVics, 'OtherShoo': OtherShoo, 'TotalVict': TotalVict, 'Month': Month, 'Day': Day, 'Year': Year, 'Hour': Hour, 'DayOfWeek': data['gsx$dayofweek']['$t'], 'MonthYear': data['gsx$my']['$t'], 'URL': data['gsx$url']['$t'], 'Notes': data['gsx$notes']['$t'], 'Neighborhood': data['gsx$neighborhood']['$t'], 'CommunityNo': CommunityNo, 'CommunityName': data['gsx$communityname']['$t'], 'PoliceInvolved': data['gsx$police-involved']['$t']}
                 obj, created = chiShootings.objects.update_or_create(ID=ID, defaults=updated_values)

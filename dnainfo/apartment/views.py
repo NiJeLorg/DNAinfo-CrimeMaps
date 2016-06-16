@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
 
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
+
+from django.db.models import Avg, Count
 
 #import all apartment models and forms
 from apartment.models import *
@@ -823,3 +825,70 @@ def results(request, id=None):
 
 
 	return render(request, 'apartment/results.html', {'NYCmyFirstApartmentObject': NYCmyFirstApartmentObject, "bitlyURL": bitlyURL})
+
+
+def rawdataapi(request):
+	response = {}
+
+	if request.method == 'GET':
+		kwargs = {}
+
+		datas = NYCmyFirstApartment.objects.filter(**kwargs)
+		for data in datas:
+			if data.whereMoved:
+				name = data.whereMoved.name
+			else:
+				name = ''
+			response[data.pk] = {}
+			response[data.pk]['created'] = data.created
+			response[data.pk]['whenMoved'] = data.whenMoved
+			response[data.pk]['whereMoved'] = name
+			response[data.pk]['iDontSeeMyNeighborhood'] = data.iDontSeeMyNeighborhood
+			response[data.pk]['firstApartmentLocation'] = data.firstApartmentLocation
+			response[data.pk]['exactYearMoved'] = data.exactYearMoved
+			response[data.pk]['bedrooms'] = data.bedrooms
+			response[data.pk]['rentSplit'] = data.rentSplit
+			response[data.pk]['iPaid'] = data.iPaid
+			response[data.pk]['allPaid'] = data.allPaid
+
+	return JsonResponse(response)
+
+
+def summarydataapi(request):
+	response = {}
+
+	if request.method == 'GET':
+		kwargs = {}
+
+		datas = NYCmyFirstApartment.objects.filter(**kwargs).values('whereMoved_id', 'whenMoved', 'bedrooms').annotate(Avg('allPaid'), Count('id'))
+		for data in datas:
+			if data['whereMoved_id']:
+				hood = neighborhoodNYC.objects.get(id=data['whereMoved_id'])
+				hoodname = hood.name
+			else:
+				hoodname = ''
+
+			try:
+				response[hoodname][data['whenMoved']][data['bedrooms']] = {}
+			except: 
+				response[hoodname] = {}
+				response[hoodname][data['whenMoved']] = {}
+				response[hoodname][data['whenMoved']][data['bedrooms']] = {}
+
+			response[hoodname][data['whenMoved']][data['bedrooms']]['count'] = data['id__count'] 
+			response[hoodname][data['whenMoved']][data['bedrooms']]['AverageRent'] = data['allPaid__avg'] 
+
+		datas = NYCmyFirstApartment.objects.filter(**kwargs).values('whenMoved', 'bedrooms').annotate(Avg('allPaid'), Count('id'))
+		response['Citywide'] = {}
+		for data in datas:
+			try:
+				response['Citywide'][data['whenMoved']][data['bedrooms']] = {}
+			except: 
+				response['Citywide'][data['whenMoved']] = {}
+				response['Citywide'][data['whenMoved']][data['bedrooms']] = {}
+
+			response['Citywide'][data['whenMoved']][data['bedrooms']]['count'] = data['id__count'] 
+			response['Citywide'][data['whenMoved']][data['bedrooms']]['allPaid'] = data['allPaid__avg'] 
+
+
+	return JsonResponse(response)
