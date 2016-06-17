@@ -1,7 +1,10 @@
 from django.shortcuts import render, redirect
 
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect, JsonResponse
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
+
+# python CSV library
+import csv
 
 from django.db.models import Avg, Count
 
@@ -461,6 +464,40 @@ def rawdataapi(request):
 			response[data.pk]['allPaid'] = data.allPaid
 
 	return JsonResponse(response)
+
+
+def rawdatacsv(request):
+	# Create the HttpResponse object with the appropriate CSV header.
+	response = HttpResponse(content_type='text/csv')
+	response['Content-Disposition'] = 'attachment; filename="MFA_CHI_Raw_Data.csv"'
+
+	if request.method == 'GET':
+		writer = csv.writer(response)
+		#header row
+		headerRow = ['id', 'created', 'whenMoved', 'whereMoved', 'iDontSeeMyNeighborhood', 'firstApartmentLocation', 'exactYearMoved', 'bedrooms', 'rentSplit', 'iPaid', 'allPaid']
+		writer.writerow(headerRow)
+		kwargs = {}
+		datas = CHImyFirstApartment.objects.filter(**kwargs)
+		for data in datas:
+			if data.whereMoved:
+				name = data.whereMoved.name
+			else:
+				name = ''
+			row = ['','','','','','','','','','','']
+			row[0] = data.pk
+			row[1] = data.created
+			row[2] = data.whenMoved
+			row[3] = name
+			row[4] = data.iDontSeeMyNeighborhood
+			row[5] = data.firstApartmentLocation
+			row[6] = data.exactYearMoved
+			row[7] = data.bedrooms
+			row[8] = data.rentSplit
+			row[9] = data.iPaid
+			row[10] = data.allPaid
+			writer.writerow(row)
+
+	return response
 
 
 def summarydataapi(request):

@@ -17,6 +17,7 @@ urlpatterns = [
     url(r'^mfa-nyc/end/(?P<id>\d+)/$', views.end, name='end'),
     url(r'^mfa-nyc/results/(?P<id>\d+)/$', views.results, name='results'),
     url(r'^mfa-nyc/rawdataapi/$', views.rawdataapi, name='rawdataapi'),
+    url(r'^mfa-nyc/rawdatacsv/$', views.rawdatacsv, name='rawdatacsv'),
     url(r'^mfa-nyc/summarydataapi/$', views.summarydataapi, name='summarydataapi'),
 
 ]
