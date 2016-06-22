@@ -11,4 +11,5 @@ urlpatterns = [
 	url(r'^', include('skyline.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^select2/', include('django_select2.urls')),
+    url(r'^accounts/', include('allauth.urls')),
 ]

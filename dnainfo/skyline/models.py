@@ -18,5 +18,6 @@ class NYCskyline(models.Model):
 	buildingAddress = models.CharField(max_length=255, default='', blank=False, null=False)
 	buildingBBL = models.CharField(max_length=255, default='', blank=False, null=False)
 	buildingStories = models.IntegerField(default=0, blank=False, null=False)
+	approved = models.NullBooleanField(default=None)
 
 

@@ -10,7 +10,7 @@ ajaxApplication.nextNeighborhood = function () {
 	function slow() {
 		$.ajax({
 			type: "GET",
-			url: "/nyc-skyline/whatNeighborhood/",
+			url: "/skyline/nyc/whatNeighborhood/",
 			success: function(data){
 				$('#content').html(data);
 				// remove labels
@@ -42,7 +42,7 @@ ajaxApplication.nextHeight = function () {
 			e.preventDefault();
 			$.ajax({
 				type: "POST",
-				url: "/nyc-skyline/whatNeighborhood/",
+				url: "/skyline/nyc/whatNeighborhood/",
 				data: f.serialize(),
 				success: function(data){
 					$('#content').html(data);
@@ -80,7 +80,7 @@ ajaxApplication.nextLocation = function () {
 			e.preventDefault();
 			$.ajax({
 				type: "POST",
-				url: "/nyc-skyline/buildingHeight/"+ objectID +"/",
+				url: "/skyline/nyc/buildingHeight/"+ objectID +"/",
 				data: f.serialize(),
 				success: function(data){
 					$('#content').html(data);
@@ -111,7 +111,7 @@ ajaxApplication.nextEnd = function () {
 			e.preventDefault();
 			$.ajax({
 				type: "POST",
-				url: "/nyc-skyline/exactLocation/"+ objectID +"/",
+				url: "/skyline/nyc/exactLocation/"+ objectID +"/",
 				data: f.serialize(),
 				success: function(data){
 					$('#content').html(data);
@@ -138,7 +138,7 @@ ajaxApplication.backIntro = function () {
 	function slow() {
 		$.ajax({
 			type: "GET",
-			url: "/nyc-skyline/",
+			url: "/skyline/nyc/",
 			success: function(data){
 				$('#content').html(data);
 				$(".fadein").fadeIn("slow");
