@@ -16,7 +16,7 @@ osmApplication.initialize = function () {
 	});
 
 	osmApplication.osmb = new OSMBuildings({
-		baseURL: '../static/skyline/css/images',
+		baseURL: '/static/skyline/css/images',
 		minZoom: 15,
 		maxZoom: 22,
 		style: { color: 'rgb(0, 0, 0)' },
