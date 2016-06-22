@@ -1,0 +1,68 @@
+{% extends 'skyline/baseNYC.html' %}
+
+{% block title %}Future Skyline Admin Area | DNAinfo{% endblock %}
+
+{% block css_block %}
+<link rel="stylesheet" type="text/css" href="{% static 'skyline/css/OSMBuildings.css' %}">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+{% endblock %}
+
+{% block head_js_block %}
+{% endblock %}
+	
+{% block body_block %}
+<div id="content" class="fadein">
+  <div id="osmmap"></div>
+
+  <div class="control tilt">
+    <button class="dec">&#8601;</button>
+    <button class="inc">&#8599;</button>
+  </div>
+
+  <div class="control rotation">
+    <button class="inc">&#8630;</button>
+    <button class="dec">&#8631;</button>
+  </div>
+
+  <div class="control zoom">
+    <button class="dec">-</button>
+    <button class="inc">+</button>
+  </div>
+
+  <div class="container-fluid absolutePostionedDiv">
+    <div class="row">
+        <div class="col-xs-10 col-sm-7 col-sm-offset-2">
+            <h2 class="questionHeadingExact">
+                You're done! Take the map out for a spin!
+            </h2>
+            <h2 class="questionHeadingExactSmall">
+                You're done! Take the map out for a spin!
+            </h2>
+        </div>
+        <div class="col-xs-2 col-sm-1">
+            <p class="pagesCompleted pull-right"></p>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}
+
+{% block modal_block %}   
+{% endblock %}
+
+{% block js_block %}
+<script type="text/javascript" src="{% static 'skyline/js/OSMBuildings.js' %}"></script>
+<script type="text/javascript" src="{% static 'skyline/js/admin-no-buildings-osmmap.js' %}"></script>
+<script type="text/javascript">
+    $( document ).ready(function() {
+        window.setTimeout(function() {
+            osmApplication.initialize();
+        }, 1);
+    });
+</script>
+{% endblock %}
+
+
+	
+	
+

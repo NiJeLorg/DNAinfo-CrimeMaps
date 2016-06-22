@@ -26,4 +26,9 @@ class NYCexactLocationForm(forms.ModelForm):
         model = NYCskyline
         fields = ('buildingFootprint', )
 
+class NYCapproveForm(forms.ModelForm):
+    class Meta:
+        model = NYCskyline
+        fields = ('approved', )
+
 

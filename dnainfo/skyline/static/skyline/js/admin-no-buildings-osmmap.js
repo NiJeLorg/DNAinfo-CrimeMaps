@@ -59,37 +59,8 @@ osmApplication.initialize = function () {
 		});
 	}
 
-	// get geojson
-	osmApplication.getGeojson();
-
 }
 
 
-osmApplication.getGeojson = function () {
-	$.ajax({
-		type: "GET",
-		url: "/skyline/nyc/getGeojson/"+ objectID +"/",
-		success: function(data){
-			// load the draw tools
-			if (data) {
-				var geojson = JSON.parse(data);
-				console.log(geojson);
-				var lat = geojson.features[0].geometry.coordinates[0][0][1];
-				var lon = geojson.features[0].geometry.coordinates[0][0][0];
-				// pan map
-				osmApplication.map.setPosition({ latitude:lat, longitude:lon });
-				osmApplication.osmb.addGeoJSON(geojson);
-
-			} else {
-				osmApplication.DRAWNGEOJSON = null;
-			}
-        }
-	});
-}
-
-osmApplication.destroy = function () {
-	osmApplication.osmb.destroy();
-	osmApplication.map.destroy();
-}
 
 

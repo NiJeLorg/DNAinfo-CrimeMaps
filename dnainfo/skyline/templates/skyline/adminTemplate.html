@@ -1,0 +1,71 @@
+<!-- Content -->
+<div id="osmmap"></div>
+
+<div class="control tilt">
+  <button class="dec">&#8601;</button>
+  <button class="inc">&#8599;</button>
+</div>
+
+<div class="control rotation">
+  <button class="inc">&#8630;</button>
+  <button class="dec">&#8631;</button>
+</div>
+
+<div class="control zoom">
+  <button class="dec">-</button>
+  <button class="inc">+</button>
+</div>
+
+<!-- Content -->
+<form id="adminForm" method="post" action=".">
+{% csrf_token %}
+    <div class="container-fluid absolutePostionedDiv">
+        <div class="row">
+            <div class="col-xs-10 col-sm-7 col-sm-offset-2">
+                <h2 class="questionHeadingExact">
+                    Approve or reject the rendering below.
+                </h2>
+                <h2 class="questionHeadingExactSmall">
+                    Approve or reject the rendering below.
+                </h2>
+            </div>
+            <div class="col-xs-2 col-sm-1">
+                <p class="pagesCompleted pull-right">Only {{ buildingCount }} building{{ buildingCount|pluralize }} left!</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-8 col-sm-offset-2">
+                <div class="form-group formField invisible">
+                    <div class="input-group">
+                      <div class="input-group-addon left"><span class="locationIcon"></span></div>
+                       {{ form }}
+                      <div class="input-group-addon"></div>
+                    </div>
+                    {{ form.errors }}                 
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">  
+        <div class="row">
+            <div class="col-xs-12 col-sm-8 col-sm-offset-2 bottomButtonGroupMap">
+                <div class="col-sm-3 col-sm-offset-2 bottomButtonGroupMap">
+                    <button id="reject" class="btn btn-dna-primary mobileWidth marginRight10" type="submit"><i class="fa fa-thumbs-down" aria-hidden="true"></i> Reject</button>
+                    <button id="approve" class="btn btn-dna-primary mobileWidth" type="submit">Approve <i class="fa fa-thumbs-up" aria-hidden="true"></i></button>
+                </div>
+                </span>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script type="text/javascript">
+    var objectID = "{{ NYCskylineObject.id }}"; 
+    $( document ).ready(function() {
+        window.setTimeout(function() {
+            osmApplication.initialize();
+        }, 1);
+    });
+
+</script>	
+
