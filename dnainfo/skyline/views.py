@@ -18,10 +18,10 @@ from django.contrib.auth.decorators import login_required
 def index(request):
 	return redirect('http://www.dnainfo.com/')
 
-def intro(request):
+def skyline_intro(request):
 	return render(request, 'skyline/intro.html', {})
 
-def whatNeighborhood(request, id=None):
+def skyline_whatNeighborhood(request, id=None):
 	if id:
 		NYCskylineObject = NYCskyline.objects.get(pk=id)
 	else:
@@ -49,7 +49,7 @@ def whatNeighborhood(request, id=None):
 	return render(request, 'skyline/whatNeighborhood.html', {'form':form, 'NYCskylineObject': NYCskylineObject})
 
 
-def buildingHeight(request, id=None):
+def skyline_buildingHeight(request, id=None):
 	if id:
 		NYCskylineObject = NYCskyline.objects.get(pk=id)
 	else:
@@ -77,7 +77,7 @@ def buildingHeight(request, id=None):
 	return render(request, 'skyline/buildingHeight.html', {'form':form, 'NYCskylineObject': NYCskylineObject})
 
 
-def exactLocation(request, id=None):
+def skyline_exactLocation(request, id=None):
 	if id:
 		NYCskylineObject = NYCskyline.objects.get(pk=id)
 	else:
@@ -105,14 +105,14 @@ def exactLocation(request, id=None):
 	return render(request, 'skyline/exactLocation.html', {'form':form, 'NYCskylineObject': NYCskylineObject})
 
 
-def getGeojson(request, id=None):
+def skyline_getGeojson(request, id=None):
 
 	NYCskylineObject = NYCskyline.objects.get(pk=id)
 
 	return JsonResponse(NYCskylineObject.buildingFootprint, safe=False)
 
 
-def end(request, id=None):
+def skyline_end(request, id=None):
 	if id:
 		NYCskylineObject = NYCskyline.objects.get(pk=id)
 	else:
@@ -126,7 +126,7 @@ def end(request, id=None):
 
 	return render(request, 'skyline/end.html', {'NYCskylineObject': NYCskylineObject, "bitlyURL": bitlyURL})
 
-def results(request, id=None):
+def skyline_results(request, id=None):
 	if id:
 		NYCskylineObject = NYCskyline.objects.get(pk=id)
 	else:
