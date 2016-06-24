@@ -36,7 +36,7 @@ def skyline_whatNeighborhood(request, id=None):
 			# Save the new data to the database.
 			f = form.save()
 			lookupObject = NYCskyline.objects.get(pk=f.pk)
-			return HttpResponseRedirect(reverse('buildingHeight', args=(lookupObject.pk,)))
+			return HttpResponseRedirect(reverse('skyline_buildingHeight', args=(lookupObject.pk,)))
 		else:
 			# The supplied form contained errors - just print them to the terminal.
 			print form.errors
@@ -64,7 +64,7 @@ def skyline_buildingHeight(request, id=None):
 			# Save the new data to the database.
 			f = form.save()
 			lookupObject = NYCskyline.objects.get(pk=f.pk)
-			return HttpResponseRedirect(reverse('exactLocation', args=(lookupObject.pk,)))
+			return HttpResponseRedirect(reverse('skyline_exactLocation', args=(lookupObject.pk,)))
 		else:
 			# The supplied form contained errors - just print them to the terminal.
 			print form.errors
@@ -92,7 +92,7 @@ def skyline_exactLocation(request, id=None):
 			# Save the new data to the database.
 			f = form.save()
 			lookupObject = NYCskyline.objects.get(pk=f.pk)
-			return HttpResponseRedirect(reverse('end', args=(lookupObject.pk,)))
+			return HttpResponseRedirect(reverse('skyline_end', args=(lookupObject.pk,)))
 		else:
 			# The supplied form contained errors - just print them to the terminal.
 			print form.errors
