@@ -9,6 +9,7 @@ urlpatterns = [
 	url(r'^', include('apartment.urls')),
 	url(r'^', include('apartment_chi.urls')),
 	url(r'^', include('skyline.urls')),
+    url(r'^', include('draw_redux.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^select2/', include('django_select2.urls')),
     url(r'^accounts/', include('allauth.urls')),

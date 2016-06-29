@@ -1,0 +1,59 @@
+{% extends 'skyline/baseNYC.html' %}
+{% load staticfiles %}
+{% load bootstrap_tags %}
+{% load django_select2_tags %}
+
+{% block title %}{% endblock %}
+
+{% block css_block %}
+{% import_django_select2_css %}
+<link rel="stylesheet" type="text/css" href="{% static 'draw_redux/css/leaflet.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'draw_redux/css/leaflet.label.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'draw_redux/css/Control.Geocoder.css' %}">
+{% endblock %}
+
+{% block head_js_block %}
+<script type="text/javascript" src="{% static 'draw_redux/js/controllers.js' %}"></script>
+{% endblock %}
+	
+{% block body_block %}
+<div id="content" class="fadein">
+    {% include 'draw_redux/introTemplate.html' %}
+</div>
+{% endblock %}
+
+{% block modal_block %}   
+  <div class="modal fade" id="methodology" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class="xIcon"></span></button>
+        </div>
+        <div class="modal-body modalContent">
+          <p>
+            Project methods here.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block js_block %}
+<script type="text/javascript" src="{% static 'draw_redux/js/d3.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'draw_redux/js/jquery.scrollTo.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'django_select2/js/select2.js' %}"></script>
+<script type="text/javascript" src="{% static 'django_select2/js/heavy_data.js' %}"></script>
+<script type="text/javascript" src="{% static 'draw_redux/js/leaflet.js' %}"></script>
+<script type="text/javascript" src="{% static 'draw_redux/js/leaflet.label-src.js' %}"></script>
+<script type="text/javascript" src="{% static 'draw_redux/js/topojson.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'draw_redux/js/Control.Geocoder.js' %}"></script>
+<script type="text/javascript" src="{% static 'draw_redux/js/ajax.js' %}"></script>
+<script type="text/javascript" src="{% static 'draw_redux/js/map.js' %}"></script>
+<script type="text/javascript" src="{% static 'draw_redux/js/resultsMap.js' %}"></script>
+{% endblock %}
+
+
+	
+	
+

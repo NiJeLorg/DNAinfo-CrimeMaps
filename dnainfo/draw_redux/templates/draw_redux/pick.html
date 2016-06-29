@@ -1,0 +1,63 @@
+{% load staticfiles %}
+
+<!-- Content -->
+<div id="map"></div>
+
+<form id="pickForm" method="post" action=".">
+    <div class="container-fluid absolutePostionedDiv">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-xs-10 col-sm-7 col-sm-offset-2">
+                <h2 class="questionHeadingExact">
+                    We've marked all the city blocks with broad concensus. Click the blocks you think are in {{ NYCInOrOutObject.whatNeighborhood.name }}.
+                </h2>
+                <h2 class="questionHeadingExactSmall">
+                    We've marked all the city blocks with broad concensus. Tap the blocks you think are in {{ NYCInOrOutObject.whatNeighborhood.name }}.
+                </h2>
+            </div>
+            <div class="col-xs-2 col-sm-1">
+                <p class="pagesCompleted pull-right">2/3</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-8 col-sm-offset-2">
+                <div class="form-group formField invisible">
+                    <div class="input-group">
+                      <div class="input-group-addon left"><span class="locationIcon"></span></div>
+                       {{ form }}
+                      <div class="input-group-addon"></div>
+                    </div>
+                    {{ form.errors }}                 
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">    
+        <div class="row">
+            <div class="col-sm-3 col-sm-offset-2 bottomButtonGroupMap">
+                <button id="backNeighborhood" class="btn btn-dna-primary mobileWidth marginRight10" type="submit"><span class="backArrow"></span>Back</button>
+                <button id="nextEnd" class="btn btn-dna-primary mobileWidth" type="submit" disabled="disabled">Next<span class="forwardArrow"></span></button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript">
+    var objectID = "{{ NYCInOrOutObject.id }}";
+    var neighborhoodName = "{{ NYCInOrOutObject.whatNeighborhood.dnaurl }}";
+    var hoodName = "{{ NYCInOrOutObject.whatNeighborhood.name }}";
+    {% for hood in NYCneighborhoods %}
+        {% if hood.name == NYCInOrOutObject.whatNeighborhood.name %}
+            var hoodBlocks = "/static/draw_redux/data/{{ hood.dnaurl }}_count.topojson";
+            var hoodCount = "{{ hood.drawingCount }}";
+        {% endif %}
+    {% endfor %}
+    $( document ).ready(function() {
+        window.setTimeout(function() {
+            mapApplication.initialize();
+        }, 1);
+    });
+
+</script>
+	
+
