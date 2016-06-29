@@ -20,7 +20,7 @@ class Command(BaseCommand):
             for row in reader:
                 if row[0] != 'dnaurl': # Ignore the header row, import everything else
 
-                    instance = neighborhoodNYC()
+                    instance = neighborhoodNYC_redux()
                     instance.dnaurl = row[0]
                     instance.name = row[1]
                     instance.county = row[2]
