@@ -48,7 +48,7 @@
     var hoodName = "{{ NYCInOrOutObject.whatNeighborhood.name }}";
     {% for hood in NYCneighborhoods %}
         {% if hood.name == NYCInOrOutObject.whatNeighborhood.name %}
-            var hoodBlocks = "/static/draw_redux/data/{{ hood.dnaurl }}_count.topojson";
+            var hoodBlocks = "/static/draw_redux/data/joined_{{ hood.dnaurl }}.topojson";
             var hoodCount = "{{ hood.drawingCount }}";
         {% endif %}
     {% endfor %}
