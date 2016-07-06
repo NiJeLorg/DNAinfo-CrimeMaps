@@ -19,7 +19,7 @@ class NYCwhatNeighborhoodForm(forms.ModelForm):
 class NYCinOrOutForm(forms.ModelForm):
     class Meta:
         model = NYCInOrOut
-        fields = ('inOrOut', )
+        fields = ('added', 'removed', )
 
 
 

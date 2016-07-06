@@ -13,6 +13,7 @@ class neighborhoodNYC_redux(models.Model):
 class NYCInOrOut(models.Model):
 	created = models.DateTimeField(auto_now=True)
 	whatNeighborhood = models.ForeignKey(neighborhoodNYC_redux, blank=True, null=True)
-	inOrOut = models.TextField(default='')
+	added = models.TextField(default='', blank=True, null=True)
+	removed = models.TextField(default='', blank=True, null=True)
 
 

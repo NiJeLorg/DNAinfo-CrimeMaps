@@ -88,11 +88,18 @@ def draw_redux_pick(request, id=None):
 	return render(request, 'draw_redux/pick.html', {'form':form, 'NYCInOrOutObject': NYCInOrOutObject, 'NYCneighborhoods':NYCneighborhoods})
 
 
-def draw_redux_getResult(request, id=None):
+def draw_redux_getAdded(request, id=None):
 
 	NYCInOrOutObject = NYCInOrOut.objects.get(pk=id)
 
-	return JsonResponse(NYCInOrOutObject.inOrOut, safe=False)
+	return JsonResponse(NYCInOrOutObject.added, safe=False)
+
+
+def draw_redux_getRemoved(request, id=None):
+
+	NYCInOrOutObject = NYCInOrOut.objects.get(pk=id)
+
+	return JsonResponse(NYCInOrOutObject.removed, safe=False)
 
 
 def draw_redux_end(request, id=None):

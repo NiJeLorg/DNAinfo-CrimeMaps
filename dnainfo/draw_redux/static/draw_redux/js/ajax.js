@@ -62,9 +62,6 @@ ajaxApplication.nextPick = function () {
 ajaxApplication.nextEnd = function () {
 	var timeout = window.setTimeout(slow, 200);
 	function slow() {
-		// enable id_buildingStories so we can include it in from submission
-		$('#id_buildingFootprint').prop("disabled", false);
-
 		var f = $("#pickForm");
 		//create on submit listener
 		f.on('submit', function(e) {
@@ -74,6 +71,7 @@ ajaxApplication.nextEnd = function () {
 				url: "/in-or-out/nyc/pick/"+ objectID +"/",
 				data: f.serialize(),
 				success: function(data){
+					console.log(data);
 					$('#content').html(data);
 					$(".fadein").fadeIn("slow");
 					// scroll to top

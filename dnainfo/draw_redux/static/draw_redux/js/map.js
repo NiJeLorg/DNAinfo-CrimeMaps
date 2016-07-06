@@ -90,45 +90,72 @@ mapApplication.onEachFeature_HOOD = function(feature,layer){
 	var pctConcensus = ((feature.properties.count / parseInt(hoodCount)) * 100).toFixed(1);
 
 	if (pctConcensus >= 75) {
-		layer.bindLabel("<strong>" + pctConcensus + "% agree this block is in "+ hoodName +"</strong>", { direction:'auto' });
+		layer.bindLabel("<strong>" + pctConcensus + "% agree this block is in "+ hoodName +". Click to remove it!</strong>", { direction:'auto' });
+
 	} else {
 		layer.bindLabel("<strong>Only "+ pctConcensus + "% agree this block is in "+ hoodName +". Click to add it!</strong>", { direction:'auto' });
 	}
 	
     layer.on('mouseover', function(ev) {
+    	// have remove hover interaction if a concensus block (pctConcensus >= 75), and an add hover interaction if outside of the concensus
 
-    	// do nothing if pctConcensus is over 75
-    	if (pctConcensus < 75) {
-  			// loop through clicked array and see if this layer has been clicked. Only se style if it hasn't been clicked
+    	if (pctConcensus >= 75) {
+  			// loop through clicked array and see if this layer has been clicked. Only set style if it hasn't been clicked
   			var clicked = false;
-    		for (var i = mapApplication.layers.length - 1; i >= 0; i--) {
-    			if (layer.feature.properties.BCTCB2010 == mapApplication.layers[i]) {
+    		for (var i = mapApplication.removed.length - 1; i >= 0; i--) {
+    			if (layer.feature.properties.BCTCB2010 == mapApplication.removed[i]) {
     				clicked = true;
     			}
     		}
     		if (!clicked) {
 				// set style
-	    		layer.setStyle(mapApplication.hovered);
+	    		layer.setStyle(mapApplication.hoverRemove);
     		}
+    	} else {
+  			// loop through clicked array and see if this layer has been clicked. Only set style if it hasn't been clicked
+  			var clicked = false;
+    		for (var i = mapApplication.added.length - 1; i >= 0; i--) {
+    			if (layer.feature.properties.BCTCB2010 == mapApplication.added[i]) {
+    				clicked = true;
+    			}
+    		}
+    		if (!clicked) {
+				// set style
+	    		layer.setStyle(mapApplication.hoverAdd);
+    		}
+
     	}
 
     });
 		
     layer.on('mouseout', function(ev) {
-    	if (pctConcensus < 75) {
+    	// have remove hover interaction if a concensus block (pctConcensus >= 75), and an add hover interaction if outside of the concensus
 
-  			// loop through clicked array and see if this layer has been clicked. Only reset style if it hasn't been clicked
+    	if (pctConcensus >= 75) {
+  			// loop through clicked array and see if this layer has been clicked. Only set style if it hasn't been clicked
   			var clicked = false;
-    		for (var i = mapApplication.layers.length - 1; i >= 0; i--) {
-    			if (layer.feature.properties.BCTCB2010 == mapApplication.layers[i]) {
+    		for (var i = mapApplication.removed.length - 1; i >= 0; i--) {
+    			if (layer.feature.properties.BCTCB2010 == mapApplication.removed[i]) {
     				clicked = true;
     			}
     		}
     		if (!clicked) {
-				// reset style
-    			mapApplication.HOOD.resetStyle(ev.target);
+				// set style
+	    		mapApplication.HOOD.resetStyle(ev.target);
     		}
-    		
+    	} else {
+  			// loop through clicked array and see if this layer has been clicked. Only set style if it hasn't been clicked
+  			var clicked = false;
+    		for (var i = mapApplication.added.length - 1; i >= 0; i--) {
+    			if (layer.feature.properties.BCTCB2010 == mapApplication.added[i]) {
+    				clicked = true;
+    			}
+    		}
+    		if (!clicked) {
+				// set style
+	    		mapApplication.HOOD.resetStyle(ev.target);
+    		}
+
     	}
 				
     });	
@@ -136,27 +163,32 @@ mapApplication.onEachFeature_HOOD = function(feature,layer){
 
     layer.on('click', function(ev) {
 
-    	// do nothing if pctConcensus is over 75
-    	if (pctConcensus < 75) {
+    	// add to removed list if above 75% concensus and to add list if otherwise
+    	if (pctConcensus >= 75) {
 
-	    	// search array to see if clicked
+	    	// search array to see if clicked, and if so, set style to hovered and remove from removed array
 	    	var removed = false;
-	    	for (var i = mapApplication.layers.length - 1; i >= 0; i--) {
+	    	for (var i = mapApplication.removed.length - 1; i >= 0; i--) {
 	    		// first, already clicked and in array
-	    		if (layer.feature.properties.BCTCB2010 == mapApplication.layers[i]) {
+	    		if (layer.feature.properties.BCTCB2010 == mapApplication.removed[i]) {
 	    			// set style
-	    			layer.setStyle(mapApplication.hovered);
+	    			layer.setStyle(mapApplication.hoverRemove);
 	    			// remove from array
-	    			mapApplication.layers[i] = null;
+	    			mapApplication.removed[i] = null;
 	    			removed = true;
 	    		} 
 	    	}
 
 	    	if (!removed) {
 	    		// set style and add to array
-	    		layer.setStyle(mapApplication.clicked);
-	    		mapApplication.layers.push(layer.feature.properties.BCTCB2010);
+	    		layer.setStyle(mapApplication.clickRemove);
+	    		mapApplication.removed.push(layer.feature.properties.BCTCB2010);
 
+	    		layer.unbindLabel();
+	    		layer.bindLabel("<strong>You removed this block from "+ hoodName +". Click to add it back!</strong>", { direction:'auto' });
+	    	} else {
+	    		layer.unbindLabel();
+				layer.bindLabel("<strong>" + pctConcensus + "% agree this block is in "+ hoodName +". Click to remove it!</strong>", { direction:'auto' });
 	    	}
 			
 			// bring to front
@@ -164,17 +196,45 @@ mapApplication.onEachFeature_HOOD = function(feature,layer){
 		        layer.bringToFront();
 		    }
 
-		   	$('#id_inOrOut').val(JSON.stringify(mapApplication.layers));
+		   	$('#id_removed').val(JSON.stringify(mapApplication.removed));
 
-	        // remove disable from next button
-	        if ($('#nextEnd').prop("disabled")) {
-	            $('#nextEnd').prop("disabled", false);
-	        }
+
+    	} else {
+
+	    	// search array to see if clicked, and if so, set style to hovered and remove from added array
+	    	var removed = false;
+	    	for (var i = mapApplication.added.length - 1; i >= 0; i--) {
+	    		// first, already clicked and in array
+	    		if (layer.feature.properties.BCTCB2010 == mapApplication.added[i]) {
+	    			// set style
+	    			layer.setStyle(mapApplication.hoverAdd);
+	    			// remove from array
+	    			mapApplication.added[i] = null;
+	    			removed = true;
+	    		} 
+	    	}
+
+	    	if (!removed) {
+	    		// set style and add to array
+	    		layer.setStyle(mapApplication.clickAdd);
+	    		mapApplication.layers.push(layer.feature.properties.BCTCB2010);
+
+	    		layer.unbindLabel();
+	    		layer.bindLabel("<strong>You added this block to "+ hoodName +". Click to remove it!</strong>", { direction:'auto' });
+	    	} else {
+	    		layer.unbindLabel();
+				layer.bindLabel("<strong>" + pctConcensus + "% agree this block is in "+ hoodName +". Click to add it!</strong>", { direction:'auto' });
+	    	}
+			
+			// bring to front
+			if (!L.Browser.ie && !L.Browser.opera) {
+		        layer.bringToFront();
+		    }
+
+		   	$('#id_added').val(JSON.stringify(mapApplication.added));
 
 
     	}
-
-
 
 
     });	
@@ -496,7 +556,7 @@ mapApplication.initStyle = {
 
     };
 
-mapApplication.hovered = {
+mapApplication.hoverAdd = {
         weight: 0,
         opacity: 0,
         color: '#bdbdbd',
@@ -504,7 +564,15 @@ mapApplication.hovered = {
         fillColor: '#fc5158'
     };
 
-mapApplication.clicked = {
+mapApplication.hoverRemove = {
+        weight: 0,
+        opacity: 0,
+        color: '#bdbdbd',
+        fillOpacity: 0.8,
+        fillColor: '#aaa'
+    };
+
+mapApplication.clickAdd = {
 		weight: 2,
 		opacity: 1,
 	    color: '#555',		
@@ -512,12 +580,20 @@ mapApplication.clicked = {
         fillColor: '#fc5158'
     };
 
+mapApplication.clickRemove = {
+		weight: 2,
+		opacity: 1,
+	    color: '#555',		
+        fillOpacity: 0.8,
+        fillColor: '#aaa'
+    };
 
 
 /* Vars */
 mapApplication.map;
 // create an array to push selected ids into
-mapApplication.layers = [];
+mapApplication.added = [];
+mapApplication.removed = [];
 
 
 
