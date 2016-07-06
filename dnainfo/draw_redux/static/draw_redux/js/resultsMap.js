@@ -38,31 +38,54 @@ resultsMapApplication.initialize = function () {
 	
 
 	// get geojson
-	resultsMapApplication.getResult();
+	resultsMapApplication.getAdded();
 
 
 }
 
-resultsMapApplication.getResult = function () {
+resultsMapApplication.getAdded = function () {
 	$.ajax({
 		type: "GET",
-		url: "/in-or-out/nyc/getResult/"+ objectID +"/",
+		url: "/in-or-out/nyc/getAdded/"+ objectID +"/",
 		success: function(data){
 			// load the draw tools
 			if (data) {
 				var results = JSON.parse(data);
 				console.log(results);
-				resultsMapApplication.layers = results;
+				resultsMapApplication.added = results;
 
 			} else {
-				resultsMapApplication.layers = [];
+				resultsMapApplication.added = [];
 			}
 
-			//add neighborhood poly
+			//get removed
+			resultsMapApplication.getRemoved();
+        }
+	});
+}
+
+resultsMapApplication.getRemoved = function () {
+	$.ajax({
+		type: "GET",
+		url: "/in-or-out/nyc/getRemoved/"+ objectID +"/",
+		success: function(data){
+			// load the draw tools
+			if (data) {
+				var results = JSON.parse(data);
+				console.log(results);
+				resultsMapApplication.removed = results;
+
+			} else {
+				resultsMapApplication.removeded = [];
+			}
+
+			//get removed
 			resultsMapApplication.loadHood();
         }
 	});
 }
+
+
 
 
 resultsMapApplication.loadHood = function () {
@@ -86,14 +109,26 @@ resultsMapApplication.getStyleFor_HOOD = function (feature){
 	// return style for blocks within the concensus (>=75%) 
 	var pctConcensus = ((feature.properties.count / parseInt(hoodCount)) * 100);
 
-	for (var i = resultsMapApplication.layers.length - 1; i >= 0; i--) {
-		if (feature.properties.BCTCB2010 == resultsMapApplication.layers[i]) {
+	for (var i = resultsMapApplication.added.length - 1; i >= 0; i--) {
+		if (feature.properties.BCTCB2010 == resultsMapApplication.added[i]) {
 			return {
 				weight: 2,
 				opacity: 1,
 			    color: '#555',		
 		        fillOpacity: 0.8,
 		        fillColor: '#fc5158'
+		    };
+		}
+	}
+
+	for (var i = resultsMapApplication.removed.length - 1; i >= 0; i--) {
+		if (feature.properties.BCTCB2010 == resultsMapApplication.removed[i]) {
+			return {
+				weight: 2,
+				opacity: 1,
+			    color: '#555',		
+		        fillOpacity: 0.8,
+		        fillColor: '#aaa'
 		    };
 		}
 	}
@@ -129,9 +164,17 @@ resultsMapApplication.onEachFeature_HOOD = function(feature,layer){
 		layer.bindLabel("<strong>Only "+ pctConcensus + "% agree this block is in "+ hoodName +".</strong>", { direction:'auto' });
 	}
 
-	for (var i = resultsMapApplication.layers.length - 1; i >= 0; i--) {
-		if (feature.properties.BCTCB2010 == resultsMapApplication.layers[i]) {
+	for (var i = resultsMapApplication.added.length - 1; i >= 0; i--) {
+		if (feature.properties.BCTCB2010 == resultsMapApplication.added[i]) {
+			layer.unbindLabel();
 			layer.bindLabel("<strong>You added this block to " + hoodName + ". " + pctConcensus + "% agree with you!</strong>", { direction:'auto' });
+		}
+	}
+
+	for (var i = resultsMapApplication.removed.length - 1; i >= 0; i--) {
+		if (feature.properties.BCTCB2010 == resultsMapApplication.removed[i]) {
+			layer.unbindLabel();
+			layer.bindLabel("<strong>You removed this block from " + hoodName + ". " + pctConcensus + "% disagree with you.</strong>", { direction:'auto' });
 		}
 	}
 
@@ -441,38 +484,12 @@ resultsMapApplication.center = function (neighborhood) {
 }
 
 
-/* Style states */
-resultsMapApplication.initStyle = {
-        weight: 0,
-        opacity: 0,
-        color: '#bdbdbd',
-        fillOpacity: 0.5,
-        fillColor: '#aaa'
-
-    };
-
-resultsMapApplication.hovered = {
-        weight: 0,
-        opacity: 0,
-        color: '#bdbdbd',
-        fillOpacity: 0.8,
-        fillColor: '#fc5158'
-    };
-
-resultsMapApplication.clicked = {
-		weight: 2,
-		opacity: 1,
-	    color: '#555',		
-        fillOpacity: 0.8,
-        fillColor: '#fc5158'
-    };
-
-
 
 /* Vars */
 resultsMapApplication.map;
 // create an array to push selected ids into
-resultsMapApplication.layers = [];
+resultsMapApplication.added = [];
+resultsMapApplication.removed = [];
 
 
 
