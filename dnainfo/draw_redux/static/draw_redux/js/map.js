@@ -217,7 +217,7 @@ mapApplication.onEachFeature_HOOD = function(feature,layer){
 	    	if (!removed) {
 	    		// set style and add to array
 	    		layer.setStyle(mapApplication.clickAdd);
-	    		mapApplication.layers.push(layer.feature.properties.BCTCB2010);
+	    		mapApplication.added.push(layer.feature.properties.BCTCB2010);
 
 	    		layer.unbindLabel();
 	    		layer.bindLabel("<strong>You added this block to "+ hoodName +". Click to remove it!</strong>", { direction:'auto' });
