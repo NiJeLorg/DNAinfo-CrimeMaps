@@ -114,17 +114,13 @@ mapApplication.onEachFeature_PLUTO = function(feature,layer){
 	    // clear previous layers
 	    mapApplication.SELECTED.clearLayers();
 
-	    // add properties for OSM buildings
-/*		properties: {
-	      color: '#ff0000',
-	      roofColor: '#cc0000',
-	      height: 50,
-	      minHeight: 0
-	    },
-*/
-	    layer.feature.properties.color = "#fc5158";
-	    layer.feature.properties.roofColor = "#fc5158";
+	    layer.feature.properties.color = "#ffcf2d";
+	    layer.feature.properties.roofColor = "#ffcf2d";
 	    layer.feature.properties.height = buildingHeight;
+	    layer.feature.properties.name = buildingName;
+	    layer.feature.properties.printAddress = buildingAddress;
+	    layer.feature.properties.text = buildingText;
+	    layer.feature.properties.image = buildingImage;
 	    layer.feature.properties.minHeight = 0;
 
 
@@ -134,10 +130,6 @@ mapApplication.onEachFeature_PLUTO = function(feature,layer){
 
 
         // remove disable from next button
-        if ($('#nextEnd').prop("disabled")) {
-            $('#nextEnd').prop("disabled", false);
-        }
-
         if ($('#sponsoredNextEnd').prop("disabled")) {
             $('#sponsoredNextEnd').prop("disabled", false);
         }

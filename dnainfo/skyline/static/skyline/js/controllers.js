@@ -79,6 +79,8 @@ $( document ).ready(function() {
 		$('.select2-focusser').blur();
 		// remove disabled button for next
 		$('#nextHeight').prop("disabled", false);
+		// sneak in disabling next building height
+		$('#sponsoredNextBuildingHeight').prop("disabled", false);
 		// ensure that iDontSeeMyNeighborhood is unchecked
 		$('#id_iDontSeeMyNeighborhood').prop("checked", false);
 	});
@@ -104,6 +106,7 @@ $( document ).ready(function() {
 				$('#select2-drop').select2("close");
 				$("#select2-drop-mask").select2("close");
 				$('#nextHeight').prop("disabled", false);
+				$('#sponsoredNextBuildingHeight').prop("disabled", false);
 			});
 	    }, 1);	
 	});

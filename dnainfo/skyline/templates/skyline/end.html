@@ -1,6 +1,7 @@
-<!-- Content -->
+<!-- Map -->
 <div id="osmmap"></div>
 
+<!-- Buttons -->
 <div class="control tilt">
   <button class="dec">&#8601;</button>
   <button class="inc">&#8599;</button>
@@ -16,7 +17,20 @@
   <button class="inc">+</button>
 </div>
 
-<!-- Content -->
+<!-- Hidden Div -->
+<div id="tooltip" class="tooltip hidden">
+    <p class="sponsored">SPONSORED</p>
+    <h4 id="property-name" class="tooltip-title"></h4>
+    <button type="button" class="close sponsored-close" aria-label="Close"><span aria-hidden="true" class="xIcon"></span></button>
+    <div class="clearfix"></div>
+    <hr />
+    <img id='property-image' class='property-image pull-right' src="" />
+    <p id="property-description" class='property-text'></p>
+    <p id='property-address' class='property-text'></p>
+</div>
+
+
+<!-- Overlays -->
 <div class="container-fluid absolutePostionedDiv">
     <div class="row">
         <div class="col-xs-10 col-sm-7 col-sm-offset-2">

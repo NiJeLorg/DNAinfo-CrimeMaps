@@ -1,5 +1,7 @@
-from django.conf.urls import include, url
+from django.conf import settings
+from django.conf.urls import include, url, patterns
 from django.contrib import admin
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
     # Examples:
@@ -14,3 +16,12 @@ urlpatterns = [
     url(r'^select2/', include('django_select2.urls')),
     url(r'^accounts/', include('allauth.urls')),
 ]
+
+urlpatterns += staticfiles_urlpatterns()
+
+if settings.DEBUG:
+    urlpatterns += patterns(
+        'django.views.static',
+        (r'media/(?P<path>.*)',
+        'serve',
+        {'document_root': settings.MEDIA_ROOT}), )
