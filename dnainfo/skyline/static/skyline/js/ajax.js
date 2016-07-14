@@ -17,7 +17,7 @@ ajaxApplication.nextNeighborhood = function () {
 				$('label').remove();
 				// add a form-control class to the input, disabled attribute and placeholder text
 				$('#id_whereBuilding').addClass("form-control");
-				var selected = $('#id_whereMoved option:selected').val();
+				var selected = $('#id_whereBuilding option:selected').val();
 				if (!selected) {
 					$('.select2-chosen').text("Neighborhood");						
 				}

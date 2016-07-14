@@ -814,6 +814,55 @@ fieldset[disabled] .btn-dna-twitter.active {
   cursor: pointer;
 }
 
+/* Simple tooltip div */
+.tooltip {
+  font-family:"Titillium Web", Helvetica, Sans-Serif;
+  width: 300px;
+  height: 250px;
+  max-height: 250px;
+  margin: 0;
+  padding: 10px;
+  border: 1px solid #ffcf2d;
+  background: #ffffff;
+  opacity: 1;
+  border-radius: 4px;
+  overflow: auto;
+}
+
+.tooltip .sponsored {
+  padding: 8px 0px 3px 14px;
+  color: #fff;
+  background: #ffcf2d;
+  margin: -15px -15px 0px -15px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.tooltip .sponsored-close {
+  position: absolute;
+  right: 10px;
+  top: 20px;
+}
+
+.tooltip .tooltip-title {
+  margin-bottom: 0px;
+}
+
+.tooltip .property-text {
+  color: #c1c1c1;
+  font-size: 16px;
+}
+
+.tooltip .property-image {
+  width: 110px;
+  height: auto;
+  margin-left: 10px;
+}
+
+canvas {
+  cursor: pointer;
+}
+
 
 /* remove spinners */
 input[type=number]::-webkit-inner-spin-button, 

@@ -1,0 +1,55 @@
+{% extends 'skyline/baseNYC.html' %}
+{% load staticfiles %}
+{% load bootstrap_tags %}
+
+{% block css_block %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+{% endblock %}
+
+{% block head_js_block %}
+<script type="text/javascript" src="{% static 'skyline/js/admin-controllers.js' %}"></script>
+{% endblock %}
+
+{% block body_block %}
+<div id="content" class="fadein">
+    <!-- Content -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-10 col-sm-7 col-sm-offset-2">
+                <h2 class="questionHeading">
+                    Edit or remove these sponsored buildings.
+                </h2>
+            </div>
+            <div class="col-xs-2 col-sm-1">
+                <p class="pagesCompleted pull-right"><a class="btn btn-primary" href="{% url 'skyline_AdminDashboard' %}" role="button">Home</a></p>
+            </div>
+        </div>
+        {% for obj in NYCSponsoredBuildingsObjects %}
+        <div class="row marginBottom20">
+            <div class="col-sm-4 col-sm-offset-2">
+                <img class='img-responsive' src="/skyline/media/{{ obj.buildingImage }}" />
+            </div>
+            <div class="col-sm-6">
+                <h4>{{ obj.buildingName }}</h4>
+                <p>
+                    {{ obj.buildingAddress }}<br />
+                    {{ obj.buildingStories }} stor{{ obj.buildingStories|pluralize:"y,ies" }}<br />
+                    {{ obj.buildingText }}<br />
+                </p>
+                <a class="btn btn-primary marginRight10" href="{% url 'skyline_sponsoredWhatNeighborhood' id=obj.id %}" role="button">Edit</a>
+                <a class="btn btn-danger marginRight10" href="{% url 'skyline_sponsoredRemove' id=obj.id %}" role="button">Remove</a>
+                <a class="btn btn-default marginRight10" href="{% url 'skyline_sponsoredEnd' id=obj.id %}" role="button">3D View</a>
+            </div>
+        </div>
+        <hr />
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock %}
+
+{% block js_block %}
+{% endblock %}
+
+
+

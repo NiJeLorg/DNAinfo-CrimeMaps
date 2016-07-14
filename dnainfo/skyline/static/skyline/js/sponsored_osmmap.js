@@ -16,7 +16,7 @@ osmApplication.initialize = function () {
 		state: false,
 		effects: ['shadows'],
 		attribution: '© 3D <a href="https://osmbuildings.org/copyright/">OSM Buildings</a>. Map tiles by <a href=\"http://cartodb.com/attributions#basemaps\">CartoDB</a>, under <a href=\"https://creativecommons.org/licenses/by/3.0/\" target=\"_blank\">CC BY 3.0</a>. Data by <a href=\"http://www.openstreetmap.org/\" target=\"_blank\">OpenStreetMap</a>, under ODbL.'
-	}).appendTo('osmmap');
+	}).appendTo("osmmap");
 
 	osmApplication.osmb.addMapTiles('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}@2x.png', { attribution: 'Map tiles by <a href=\"http://cartodb.com/attributions#basemaps\">CartoDB</a>, under <a href=\"https://creativecommons.org/licenses/by/3.0/\" target=\"_blank\">CC BY 3.0</a>. Data by <a href=\"http://www.openstreetmap.org/\" target=\"_blank\">OpenStreetMap</a>, under ODbL.' }
 	);
@@ -59,18 +59,7 @@ osmApplication.initialize = function () {
 	  osmApplication.osmb.getTarget(e.x, e.y, function(id) {
 	  	console.log(id);
 	  	splitId = id.split('_');
-
 	    if (splitId[0] == 'sponsored') {
-	    	// look up properties
-	    	var lookupId = parseInt(splitId[1]);
-	    	var properties = osmApplication.geojsons[lookupId].features[0].properties;
-	    	console.log(properties);
-	    	$('#property-name').text(properties.name);
-	    	var imgSrc = '/skyline/media/' + properties.image
-	    	$('#property-image').prop('src', imgSrc);
-	    	$('#property-description').text(properties.text);
-	    	$('#property-address').text(properties.printAddress);
-	    	$('#property-address').text(properties.printAddress);
 	    	var x = parseInt(e.x) - 150;
 	    	var y = parseInt(e.y) - 250; 
 		    // show div with data populated at that screen location
@@ -101,16 +90,13 @@ osmApplication.initialize = function () {
 	// get geojson
 	osmApplication.getGeojson();
 
-	// get sponsored content
-	osmApplication.getSponsoredGeojsons();
-
 }
 
 
 osmApplication.getGeojson = function () {
 	$.ajax({
 		type: "GET",
-		url: "/skyline/nyc/getGeojson/"+ objectID +"/",
+		url: "/skyline/admin/nyc/sponsored/getGeojson/"+ objectID +"/",
 		success: function(data){
 			// load the draw tools
 			if (data) {
@@ -119,28 +105,8 @@ osmApplication.getGeojson = function () {
 				var lon = geojson.features[0].geometry.coordinates[0][0][0];
 				// pan map
 				osmApplication.osmb.setPosition({ latitude:lat, longitude:lon });
-				osmApplication.addedLayer = osmApplication.osmb.addGeoJSON(geojson, {id: 'userGeojson'});
+				osmApplication.addedLayer = osmApplication.osmb.addGeoJSON(geojson, {id: 'sponsored_geojson'});
 
-			} 
-        }
-	});
-}
-
-osmApplication.getSponsoredGeojsons = function () {
-	$.ajax({
-		type: "GET",
-		url: "/skyline/nyc/getSponsoredGeojsons/",
-		success: function(data){
-			// load the draw tools
-			if (data) {
-				osmApplication.geojsons = [];
-				for (var i = 0; i < data.length; i++) {
-					var geojson = JSON.parse(data[i]);
-					osmApplication.geojsons.push(geojson);
-					var idNum = "sponsored_" + i;
-					osmApplication.addedLayer = osmApplication.osmb.addGeoJSON(geojson, {id: idNum});
-				}
-				
 			} 
         }
 	});
