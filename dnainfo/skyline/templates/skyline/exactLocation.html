@@ -35,7 +35,7 @@
     <div class="container-fluid">    
         <div class="row">
             <div class="col-sm-3 col-sm-offset-2 bottomButtonGroupMap">
-                <button id="backNeighborhood" class="btn btn-dna-primary mobileWidth marginRight10" type="submit"><span class="backArrow"></span>Back</button>
+                <button id="backHeight" class="btn btn-dna-primary mobileWidth marginRight10" type="submit"><span class="backArrow"></span>Back</button>
                 <button id="nextEnd" class="btn btn-dna-primary mobileWidth" type="submit" disabled="disabled">Next<span class="forwardArrow"></span></button>
             </div>
         </div>
@@ -49,7 +49,6 @@
     var buildingStories = parseInt("{{ NYCskylineObject.buildingStories }}");
     // formula from http://www.ctbuh.org/HighRiseInfo/TallestDatabase/Criteria/HeightCalculator/tabid/1007/language/en-GB/Default.aspx
     var buildingHeight = (3.5*buildingStories) + 9.625 + (2.625 * (buildingStories/25));
-    var plutoData = "{% static 'skyline/data/pluto_subset.topojson' %}";
     $( document ).ready(function() {
         window.setTimeout(function() {
             mapApplication.initialize();

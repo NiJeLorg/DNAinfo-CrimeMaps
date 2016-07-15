@@ -63,6 +63,12 @@
 {% endblock %}
 
 {% block js_block %}
+<script type="text/javascript" src="{% static 'skyline/js/d3.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'skyline/js/leaflet.js' %}"></script>
+<script type="text/javascript" src="{% static 'skyline/js/leaflet.label-src.js' %}"></script>
+<script type="text/javascript" src="{% static 'skyline/js/topojson.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'skyline/js/Control.Geocoder.js' %}"></script>
+<script type="text/javascript" src="{% static 'skyline/js/sponsored_map.js' %}"></script>
 <script type="text/javascript">
     var objectID = "{{ NYCSponsoredBuildingsObject.id }}";
     var neighborhoodName = "{{ NYCSponsoredBuildingsObject.whereBuilding.dnaurl }}";
@@ -74,20 +80,14 @@
     var buildingImage = "{{ NYCSponsoredBuildingsObject.buildingImage }}";
     // formula from http://www.ctbuh.org/HighRiseInfo/TallestDatabase/Criteria/HeightCalculator/tabid/1007/language/en-GB/Default.aspx
     var buildingHeight = (3.5*buildingStories) + 9.625 + (2.625 * (buildingStories/25));
-    var plutoData = "{% static 'skyline/data/pluto_subset.topojson' %}";
+    var filename = mapApplication.fileLookup(neighborhoodName);
+    var plutoData = "/static/skyline/data/" + filename + ".topojson";
     $( document ).ready(function() {
         window.setTimeout(function() {
             mapApplication.initialize();
         }, 1);
     });
-
 </script>
-<script type="text/javascript" src="{% static 'skyline/js/d3.min.js' %}"></script>
-<script type="text/javascript" src="{% static 'skyline/js/leaflet.js' %}"></script>
-<script type="text/javascript" src="{% static 'skyline/js/leaflet.label-src.js' %}"></script>
-<script type="text/javascript" src="{% static 'skyline/js/topojson.min.js' %}"></script>
-<script type="text/javascript" src="{% static 'skyline/js/Control.Geocoder.js' %}"></script>
-<script type="text/javascript" src="{% static 'skyline/js/sponsored_map.js' %}"></script>
 {% endblock %}
 
 
