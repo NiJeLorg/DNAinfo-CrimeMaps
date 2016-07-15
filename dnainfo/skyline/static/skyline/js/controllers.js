@@ -66,10 +66,16 @@ $( document ).ready(function() {
 		ajaxApplication.backIntro();
 	});
 
-	$(document).on('click', '#backFirstMove', function(e) {
+	$(document).on('click', '#backNeighborhood', function(e) {
 		e.preventDefault();
 		$(".fadein").fadeOut("fast");
-		ajaxApplication.backFirstMove(objectID);
+		ajaxApplication.backNeighborhood(objectID);
+	});
+
+	$(document).on('click', '#backHeight', function(e) {
+		e.preventDefault();
+		$(".fadein").fadeOut("fast");
+		ajaxApplication.backHeight(objectID);
 	});
 
 

@@ -149,14 +149,48 @@ ajaxApplication.backIntro = function () {
 	}
 }
 
-ajaxApplication.backFirstMove = function (id) {
+ajaxApplication.backNeighborhood = function (id) {
 	var timeout = window.setTimeout(slow, 200);
 	function slow() {
 		$.ajax({
 			type: "GET",
-			url: "/mfa-nyc/firstMove/"+id+"/",
+			url: "/skyline/nyc/whatNeighborhood/"+id+"/",
 			success: function(data){
 				$('#content').html(data);
+				// remove labels
+				$('label').remove();
+				// add a form-control class to the input, disabled attribute and placeholder text
+				$('#id_whereBuilding').addClass("form-control");
+				var selected = $('#id_whereBuilding option:selected').val();
+				if (!selected) {
+					$('.select2-chosen').text("Neighborhood");						
+				}
+
+				$('#id_whereBuilding option[value=""]').remove();
+				$('#id_iDontSeeMyNeighborhood').addClass("hidden");
+				$(".fadein").fadeIn("slow");
+				// scroll to top
+				$('#content').scrollTop(0);	
+	        }
+		});
+	}
+}
+
+ajaxApplication.backHeight = function (id) {
+	var timeout = window.setTimeout(slow, 200);
+	function slow() {
+		$.ajax({
+			type: "GET",
+			url: "/skyline/nyc/buildingHeight/"+id+"/",
+			success: function(data){
+				$('#content').html(data);
+				// remove labels
+				$('label').remove();
+				// add a form-control class to the input, disabled attribute and placeholder text
+				$('#id_buildingStories').addClass("form-control");
+				$('#id_buildingStories').prop("disabled", true);
+				$('#id_buildingStories').prop("type", "text");
+				$('#id_buildingStories').val("5");
 				$(".fadein").fadeIn("slow");
 				// scroll to top
 				$('#content').scrollTop(0);
