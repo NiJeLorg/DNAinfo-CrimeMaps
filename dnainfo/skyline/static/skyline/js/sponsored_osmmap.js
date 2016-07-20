@@ -48,8 +48,20 @@ osmApplication.initialize = function () {
 		    increment = direction*1;
 		  }
 		  if (property) {
-		    osmApplication.osmb['set'+ property](osmApplication.osmb['get'+ property]()+increment);
+		  	if (property == 'Zoom') {
+		  		var zoomNow = osmApplication.osmb['get'+ property]();
+		  		if (zoomNow <= 17 && direction == -1) {
+		  			// don't zoom below 17
+		  		} else if (zoomNow >= 19 && direction == 1) {
+		  			// don't zoom above 19
+		  		} else {
+		  			osmApplication.osmb['set'+ property](osmApplication.osmb['get'+ property]()+increment);			  			
+		  		}
+		  	} else {
+		  		osmApplication.osmb['set'+ property](osmApplication.osmb['get'+ property]()+increment);	
+		  	} 
 		  }
+
 		});
 	}
 
