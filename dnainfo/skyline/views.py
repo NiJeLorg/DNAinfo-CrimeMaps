@@ -281,6 +281,143 @@ def skyline_sponsoredRemove(request, id=None):
 	return render(request, 'skyline/sponsoredRemove.html', {'form': form, 'NYCSponsoredBuildingsObject': NYCSponsoredBuildingsObject})
 
 
+@login_required
+def skyline_reporterWhatNeighborhood(request, id=None):
+	if id:
+		NYCReporterBuildingsObject = NYCReporterBuildings.objects.get(pk=id)
+	else:
+		NYCReporterBuildingsObject = NYCReporterBuildings()
+
+	# A HTTP POST?
+	if request.method == 'POST':
+		form = NYCwhatNeighborhoodReporterForm(request.POST, instance=NYCReporterBuildingsObject)
+
+		# Have we been provided with a valid form?
+		if form.is_valid():
+			# Save the new data to the database.
+			f = form.save()
+			lookupObject = NYCReporterBuildings.objects.get(pk=f.pk)
+			return HttpResponseRedirect(reverse('skyline_reporterBuildingHeight', args=(lookupObject.pk,)))
+		else:
+			# The supplied form contained errors - just print them to the terminal.
+			print form.errors
+	else:
+		# If the request was not a POST, display the form to enter details.
+		form = NYCwhatNeighborhoodReporterForm(instance=NYCReporterBuildingsObject)
+
+	# Bad form (or form details), no form supplied...
+	# Render the form with error messages (if any).
+	return render(request, 'skyline/reporterWhatNeighborhood.html', {'form':form, 'NYCReporterBuildingsObject': NYCReporterBuildingsObject})
+
+@login_required
+def skyline_reporterBuildingHeight(request, id=None):
+	if id:
+		NYCReporterBuildingsObject = NYCReporterBuildings.objects.get(pk=id)
+	else:
+		NYCReporterBuildingsObject = NYCReporterBuildings()
+
+	# A HTTP POST?
+	if request.method == 'POST':
+		form = NYCbuildingHeightReporterForm(request.POST, request.FILES, instance=NYCReporterBuildingsObject)
+
+		# Have we been provided with a valid form?
+		if form.is_valid():
+			# Save the new data to the database.
+			f = form.save()
+			lookupObject = NYCReporterBuildings.objects.get(pk=f.pk)
+			return HttpResponseRedirect(reverse('skyline_reporterExactLocation', args=(lookupObject.pk,)))
+		else:
+			# The supplied form contained errors - just print them to the terminal.
+			print form.errors
+	else:
+		# If the request was not a POST, display the form to enter details.
+		form = NYCbuildingHeightReporterForm(instance=NYCReporterBuildingsObject)
+
+	# Bad form (or form details), no form supplied...
+	# Render the form with error messages (if any).
+	return render(request, 'skyline/reporterBuildingHeight.html', {'form':form, 'NYCReporterBuildingsObject': NYCReporterBuildingsObject})
+
+@login_required
+def skyline_reporterExactLocation(request, id=None):
+	if id:
+		NYCReporterBuildingsObject = NYCReporterBuildings.objects.get(pk=id)
+	else:
+		NYCReporterBuildingsObject = NYCReporterBuildings()
+
+	# A HTTP POST?
+	if request.method == 'POST':
+		form = NYCexactLocationReporterForm(request.POST, instance=NYCReporterBuildingsObject)
+
+		# Have we been provided with a valid form?
+		if form.is_valid():
+			# Save the new data to the database.
+			f = form.save()
+			lookupObject = NYCReporterBuildings.objects.get(pk=f.pk)
+			return HttpResponseRedirect(reverse('skyline_reporterEnd', args=(lookupObject.pk,)))
+		else:
+			# The supplied form contained errors - just print them to the terminal.
+			print form.errors
+	else:
+		# If the request was not a POST, display the form to enter details.
+		form = NYCexactLocationReporterForm(instance=NYCReporterBuildingsObject)
+
+	# Bad form (or form details), no form supplied...
+	# Render the form with error messages (if any).
+	return render(request, 'skyline/reporterExactLocation.html', {'form':form, 'NYCReporterBuildingsObject': NYCReporterBuildingsObject})
+
+def skyline_reporterGetGeojson(request, id=None):
+
+	NYCReporterBuildingsObject = NYCReporterBuildings.objects.get(pk=id)
+
+	return JsonResponse(NYCReporterBuildingsObject.buildingFootprint, safe=False)
+
+def skyline_getReporterGeojsons(request, id=None):
+
+	NYCReporterBuildingsObjects = NYCReporterBuildings.objects.all()
+	geojsons = []
+
+	for obj in NYCReporterBuildingsObjects:
+		geojsons.append(obj.buildingFootprint)
+		
+
+	return JsonResponse(geojsons, safe=False)
+
+@login_required
+def skyline_reporterEnd(request, id=None):
+	NYCReporterBuildingsObject = NYCReporterBuildings.objects.get(pk=id)
+
+	return render(request, 'skyline/reporterEnd.html', {'NYCReporterBuildingsObject': NYCReporterBuildingsObject})
+
+@login_required
+def skyline_reporterList(request, id=None):
+	NYCReporterBuildingsObjects = NYCReporterBuildings.objects.all()
+
+	return render(request, 'skyline/reporterList.html', {'NYCReporterBuildingsObjects': NYCReporterBuildingsObjects})
+
+@login_required
+def skyline_reporterRemove(request, id=None):
+	NYCReporterBuildingsObject = NYCReporterBuildings.objects.get(pk=id)
+
+	# A HTTP POST?
+	if request.method == 'POST':
+		form = NYCremoveReporterForm(request.POST, instance=NYCReporterBuildingsObject)
+
+		# Have we been provided with a valid form?
+		if form.is_valid():
+			#delete this sponsored content
+			NYCReporterBuildingsObject.delete()
+			return HttpResponseRedirect(reverse('skyline_reporterList'))
+		else:
+			# The supplied form contained errors - just print them to the terminal.
+			print form.errors
+	else:
+		# If the request was not a POST, display the form to enter details.
+		form = NYCremoveReporterForm(instance=NYCReporterBuildingsObject)
+
+	return render(request, 'skyline/reporterRemove.html', {'form': form, 'NYCReporterBuildingsObject': NYCReporterBuildingsObject})
+
+
+
 
 @login_required
 def skylineAdminCheck(request, id=None):

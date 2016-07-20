@@ -3,6 +3,7 @@
 {% load bootstrap_tags %}
 
 {% block css_block %}
+<link rel="stylesheet" type="text/css" href="{% static 'skyline/css/leaflet.css' %}">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 {% endblock %}
 
@@ -20,7 +21,7 @@
             <div class="row">
                 <div class="col-xs-10 col-sm-7 col-sm-offset-2">
                     <h2 class="questionHeading">
-                        Are you sure you want to remove this sponsored building?
+                        Are you sure you want to remove this reporter / editor created building?
                     </h2>
                 </div>
                 <div class="col-xs-2 col-sm-1">
@@ -28,21 +29,20 @@
                 </div>
             </div>
             <div class="row marginBottom20">
-                <div class="col-sm-4 col-sm-offset-2">
-                    <img class='img-responsive' src="/skyline/media/{{ NYCSponsoredBuildingsObject.buildingImage }}" />
+                <div class="col-sm-3 col-sm-offset-2">
+                    <div id="minimap_{{NYCReporterBuildingsObject.id}}" class="minimap"></div>
                 </div>
                 <div class="col-sm-6">
-                    <h4>{{ NYCSponsoredBuildingsObject.buildingName }}</h4>
+                    <h4>{{ NYCReporterBuildingsObject.buildingAddress }}</h4>
                     <p>
-                        {{ NYCSponsoredBuildingsObject.buildingAddress }}<br />
-                        {{ NYCSponsoredBuildingsObject.buildingStories }} stor{{ NYCSponsoredBuildingsObject.buildingStories|pluralize:"y,ies" }}<br />
-                        {{ NYCSponsoredBuildingsObject.buildingText }}<br />
+                        {{ NYCReporterBuildingsObject.whereBuilding.name }}<br />
+                        {{ NYCReporterBuildingsObject.buildingStories }} stor{{ NYCReporterBuildingsObject.buildingStories|pluralize:"y,ies" }}<br />
                     </p>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-8 col-sm-offset-2">
-                    <a class="btn btn-primary marginRight10" href="{% url 'skyline_sponsoredList' %}" role="button">No!</a>
+                    <a class="btn btn-primary marginRight10" href="{% url 'skyline_reporterList' %}" role="button">No!</a>
                     <button class="btn btn-danger" type="submit">Yes.</button>
                 </div>
             </div>
@@ -61,6 +61,15 @@
 {% endblock %}
 
 {% block js_block %}
+<script type="text/javascript" src="{% static 'skyline/js/leaflet.js' %}"></script>
+<script type="text/javascript" src="{% static 'skyline/js/mini_map.js' %}"></script>
+<script type="text/javascript">
+    $( document ).ready(function() {
+        window.setTimeout(function() {
+            miniMapApplication.initialize({{NYCReporterBuildingsObject.id}});
+        }, 1);
+    });
+</script>
 {% endblock %}
 
 

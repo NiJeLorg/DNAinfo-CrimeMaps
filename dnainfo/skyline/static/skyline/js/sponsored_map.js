@@ -587,7 +587,7 @@ mapApplication.fileLookup = function (neighborhood) {
 		"kingsbridge": 'MapPlutoNeighJoinOutput_ntacode__BX29',
 		"kingsbridge-heights": 'MapPlutoNeighJoinOutput_ntacode__BX28',
 		"kips-bay": 'MapPlutoNeighJoinOutput_ntacode__MN20',
-		"laurelton": 'MapPlutoNeighJoinOutput_ntacode__QN66'.
+		"laurelton": 'MapPlutoNeighJoinOutput_ntacode__QN66',
 		"lenox-hill": 'MapPlutoNeighJoinOutput_ntacode__MN31_MN32_MN40_merge',
 		"lighthouse-hills": 'MapPlutoNeighJoinOutput_ntacode__SI24',
 		"lincoln-square": 'MapPlutoNeighJoinOutput_ntacode__MN12_MN14_merge',

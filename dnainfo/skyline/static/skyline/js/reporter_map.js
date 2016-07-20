@@ -11,7 +11,7 @@ mapApplication.initialize = function () {
 		this.zoom = 11;
 		this.minZoom = 11;
 	} else {
-		this.zoom = 16;
+		this.zoom = 15;
 		this.minZoom = 14;
 	}    
     this.map = new L.Map('map', {
@@ -41,8 +41,8 @@ mapApplication.initialize = function () {
 	//load geocoder control
 	var geocoder = this.map.addControl(L.Control.geocoder({collapsed: true, placeholder:'Address Search', geocoder:new L.Control.Geocoder.Google()}));
 	
-	//add pluto data to map
-	mapApplication.addPlutoToMap();
+	//add pluto data
+	mapApplication.loadPluto();
 
 
 }
@@ -59,14 +59,10 @@ mapApplication.loadPluto = function () {
 		mapApplication.PLUTO = L.geoJson(polyTopojson, {
 		    style: mapApplication.getStyleFor_PLUTO,
 			onEachFeature: mapApplication.onEachFeature_PLUTO
-		});
+		}).addTo(mapApplication.map);
 
 	}
 
-}
-
-mapApplication.addPlutoToMap = function () {
-	mapApplication.PLUTO.addTo(mapApplication.map);
 }
 
 mapApplication.getStyleFor_PLUTO = function (feature){
@@ -118,14 +114,6 @@ mapApplication.onEachFeature_PLUTO = function(feature,layer){
 	    // clear previous layers
 	    mapApplication.SELECTED.clearLayers();
 
-	    // add properties for OSM buildings
-/*		properties: {
-	      color: '#ff0000',
-	      roofColor: '#cc0000',
-	      height: 50,
-	      minHeight: 0
-	    },
-*/
 	    layer.feature.properties.color = "#fc5158";
 	    layer.feature.properties.roofColor = "#E8040F";
 	    layer.feature.properties.height = buildingHeight;
@@ -140,12 +128,8 @@ mapApplication.onEachFeature_PLUTO = function(feature,layer){
 
 
         // remove disable from next button
-        if ($('#nextEnd').prop("disabled")) {
-            $('#nextEnd').prop("disabled", false);
-        }
-
-        if ($('#sponsoredNextEnd').prop("disabled")) {
-            $('#sponsoredNextEnd').prop("disabled", false);
+        if ($('#reporterNextEnd').prop("disabled")) {
+            $('#reporterNextEnd').prop("disabled", false);
         }
 
 

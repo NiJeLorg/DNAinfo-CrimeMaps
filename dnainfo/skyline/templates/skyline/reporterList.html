@@ -1,0 +1,69 @@
+{% extends 'skyline/baseNYC.html' %}
+{% load staticfiles %}
+{% load bootstrap_tags %}
+
+{% block css_block %}
+<link rel="stylesheet" type="text/css" href="{% static 'skyline/css/leaflet.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'skyline/css/leaflet.label.css' %}">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+{% endblock %}
+
+{% block head_js_block %}
+<script type="text/javascript" src="{% static 'skyline/js/admin-controllers.js' %}"></script>
+{% endblock %}
+
+{% block body_block %}
+<div id="content" class="fadein">
+    <!-- Content -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-10 col-sm-7 col-sm-offset-2">
+                <h2 class="questionHeading">
+                    Edit or remove these buildings contributed by reporters.
+                </h2>
+            </div>
+            <div class="col-xs-2 col-sm-1">
+                <p class="pagesCompleted pull-right"><a class="btn btn-primary" href="{% url 'skyline_AdminDashboard' %}" role="button">Home</a></p>
+            </div>
+        </div>
+        {% for obj in NYCReporterBuildingsObjects %}
+        <div class="row marginBottom20">
+            <div class="col-sm-3 col-sm-offset-2">
+                <div id="minimap_{{obj.id}}" class="minimap"></div>
+            </div>
+            <div class="col-sm-6">
+                <h4>{{ obj.buildingAddress }}</h4>
+                <p>
+                    {{ obj.whereBuilding.name }}<br />
+                    {{ obj.buildingStories }} stor{{ obj.buildingStories|pluralize:"y,ies" }}<br />
+                </p>
+                <a class="btn btn-primary marginRight10" href="{% url 'skyline_reporterWhatNeighborhood' id=obj.id %}" role="button">Edit</a>
+                <a class="btn btn-danger marginRight10" href="{% url 'skyline_reporterRemove' id=obj.id %}" role="button">Remove</a>
+                <a class="btn btn-default marginRight10" href="{% url 'skyline_reporterEnd' id=obj.id %}" role="button">3D View</a>
+            </div>
+        </div>
+        <hr />
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock %}
+
+{% block js_block %}
+<script type="text/javascript" src="{% static 'skyline/js/leaflet.js' %}"></script>
+<script type="text/javascript" src="{% static 'skyline/js/leaflet.label-src.js' %}"></script>
+<script type="text/javascript" src="{% static 'skyline/js/mini_map.js' %}"></script>
+<script type="text/javascript">
+    $( document ).ready(function() {
+        {% for obj in NYCReporterBuildingsObjects %}
+            window.setTimeout(function() {
+                miniMapApplication.initialize({{obj.id}});
+            }, 1);
+        {% endfor %}
+    });
+</script>
+
+{% endblock %}
+
+
+
