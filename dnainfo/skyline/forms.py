@@ -24,7 +24,7 @@ class NYCbuildingHeightForm(forms.ModelForm):
 class NYCexactLocationForm(forms.ModelForm):
     class Meta:
         model = NYCskyline
-        fields = ('buildingFootprint', )
+        fields = ('buildingFootprint', 'buildingAddress', 'buildingBBL', )
 
 class NYCapproveForm(forms.ModelForm):
     class Meta:
@@ -63,3 +63,26 @@ class NYCremoveSponsoredForm(forms.ModelForm):
         model = NYCSponsoredBuildings
         fields = ('buildingName', )
 
+
+class NYCwhatNeighborhoodReporterForm(forms.ModelForm):
+    class Meta:
+        model = NYCReporterBuildings
+        fields = ('whereBuilding', )
+        widgets = {
+            'whereBuilding': widgets.Select2Widget(),
+        }
+
+class NYCbuildingHeightReporterForm(forms.ModelForm):
+    class Meta:
+        model = NYCReporterBuildings
+        fields = ('buildingStories',)
+
+class NYCexactLocationReporterForm(forms.ModelForm):
+    class Meta:
+        model = NYCReporterBuildings
+        fields = ('buildingFootprint', 'buildingAddress', 'buildingBBL', )
+
+class NYCremoveReporterForm(forms.ModelForm):
+    class Meta:
+        model = NYCReporterBuildings
+        fields = ('buildingStories', )

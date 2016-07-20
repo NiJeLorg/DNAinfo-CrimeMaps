@@ -30,4 +30,12 @@ class NYCSponsoredBuildings(models.Model):
 	buildingStories = models.IntegerField(default=0, blank=False, null=False)
 	buildingImage = models.ImageField(upload_to="img/%Y_%m_%d_%h_%M_%s", null=False, blank=False)
 
+class NYCReporterBuildings(models.Model):
+	created = models.DateTimeField(auto_now=True)
+	whereBuilding = models.ForeignKey(neighborhoodNYC, blank=True, null=True)
+	buildingFootprint = models.TextField(default='')
+	buildingAddress = models.CharField(max_length=255, default='', blank=False, null=False)
+	buildingBBL = models.CharField(max_length=255, default='', blank=False, null=False)
+	buildingStories = models.IntegerField(default=0, blank=False, null=False)
+	approved = models.NullBooleanField(default=None)
 

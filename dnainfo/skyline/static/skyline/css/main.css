@@ -12,6 +12,8 @@ html, body, #content, #map, #osmmap {
   height: 100%;
 }
 
+/* reporter and UGC building mini maps */
+.minimap { height: 180px; }
 
 /* full screen background image */
 #background, #background li { 
@@ -55,6 +57,10 @@ html, body, #content, #map, #osmmap {
 /* Bootstrap overrides */
 .col-sm-3 {
     width: 310px;
+}
+
+.jumbotron {
+  background-color: #fafafa;
 }
 
 
@@ -930,6 +936,10 @@ input[type="radio"]:checked + label span {
 
 
 /* general css for margins and padding */
+.marginTop40 {
+  margin-top: 40px;
+}
+
 .marginBottom20 {
   margin-bottom: 20px;
 }
