@@ -124,7 +124,7 @@ def draw_redux_end(request, id=None):
 	c = bitly_api.Connection('ondnainfo', 'R_cdbdcaaef8d04d97b363b989f2fba3db')
 	bitlyURL = c.shorten(url)
 
-	return render(request, 'draw_redux/end.html', {'NYCInOrOutObject': NYCInOrOutObject, "bitlyURL": bitlyURL})
+	return render(request, 'draw_redux/end.html', {'NYCInOrOutObject': NYCInOrOutObject, 'NYCneighborhoods':NYCneighborhoods, "bitlyURL": bitlyURL})
 
 def draw_redux_results(request, id=None):
 	if id:
@@ -132,6 +132,15 @@ def draw_redux_results(request, id=None):
 	else:
 		NYCInOrOutObject = NYCInOrOut()
 
+	# get counts of each neighborhood and how many approved, non-empty drawings are present
+	NYCneighborhoods = neighborhoodNYC.objects.all()
+	# loop though neighborhoods
+	for NYCneighborhood in NYCneighborhoods:
+		#get count of valid drawings
+		ALL = neighborhoodDrawNYC.objects.filter(neighborhoodLive=NYCneighborhood, approved=True).exclude(drawnGeojson__exact='').count()
+		NYCneighborhood.drawingCount = ALL
+		# remove dashes from dnaurl
+		NYCneighborhood.dnaurl = NYCneighborhood.dnaurl.replace('-', '')
 
 	# social urls
 	url = "https://visualizations.dnainfo.com/in-or-out/nyc/results/" + str(id) + "/"
@@ -139,5 +148,5 @@ def draw_redux_results(request, id=None):
 	c = bitly_api.Connection('ondnainfo', 'R_cdbdcaaef8d04d97b363b989f2fba3db')
 	bitlyURL = c.shorten(url)
 
-	return render(request, 'draw_redux/results.html', {'NYCInOrOutObject': NYCInOrOutObject, "bitlyURL": bitlyURL})
+	return render(request, 'draw_redux/results.html', {'NYCInOrOutObject': NYCInOrOutObject, 'NYCneighborhoods':NYCneighborhoods, "bitlyURL": bitlyURL})
 
