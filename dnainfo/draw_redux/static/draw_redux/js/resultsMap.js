@@ -72,9 +72,7 @@ resultsMapApplication.getRemoved = function () {
 			// load the draw tools
 			if (data) {
 				var results = JSON.parse(data);
-				console.log(results);
 				resultsMapApplication.removed = results;
-
 			} else {
 				resultsMapApplication.removeded = [];
 			}
@@ -89,9 +87,8 @@ resultsMapApplication.getRemoved = function () {
 
 
 resultsMapApplication.loadHood = function () {
-	/**** TO DO: deal with hard coded data.objects.parkslope_count ****/
 	d3.json(hoodBlocks, function(data) {
-		var polyTopojson = topojson.feature(data, data.objects.joined_windsorterrace).features;
+		var polyTopojson = topojson.feature(data, data.objects[filename]).features;
 		drawPolys(polyTopojson);
 	});
 

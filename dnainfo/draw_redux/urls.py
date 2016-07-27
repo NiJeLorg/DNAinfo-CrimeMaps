@@ -10,7 +10,7 @@ urlpatterns = [
     url(r'^in-or-out/nyc/getAdded/(?P<id>\d+)/$', views.draw_redux_getAdded, name='draw_redux_getAdded'),
     url(r'^in-or-out/nyc/getRemoved/(?P<id>\d+)/$', views.draw_redux_getRemoved, name='draw_redux_getRemoved'),
     url(r'^in-or-out/nyc/end/(?P<id>\d+)/$', views.draw_redux_end, name='draw_redux_end'),
-    url(r'^in_or_out/nyc/results/(?P<id>\d+)/$', views.draw_redux_results, name='draw_redux_results'),
+    url(r'^in-or-out/nyc/results/(?P<id>\d+)/$', views.draw_redux_results, name='draw_redux_results'),
 
 ]
 
