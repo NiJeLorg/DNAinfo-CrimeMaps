@@ -46,7 +46,7 @@ mapApplication.initialize = function () {
 mapApplication.loadHood = function () {
 	/**** TO DO: deal with hard coded data.objects.parkslope_count ****/
 	d3.json(hoodBlocks, function(data) {
-		var polyTopojson = topojson.feature(data, data.objects.joined_windsorterrace).features;
+		var polyTopojson = topojson.feature(data, data.objects[filename]).features;
 		drawPolys(polyTopojson);
 	});
 
