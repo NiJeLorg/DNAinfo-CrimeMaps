@@ -11,7 +11,7 @@ mapApplication.initialize = function () {
 		this.zoom = 11;
 		this.minZoom = 11;
 	} else {
-		this.zoom = 15;
+		this.zoom = 17;
 		this.minZoom = 14;
 	}    
     this.map = new L.Map('map', {

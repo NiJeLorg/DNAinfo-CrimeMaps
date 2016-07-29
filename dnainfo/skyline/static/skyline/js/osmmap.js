@@ -6,6 +6,14 @@ function osmApplication() {}
 
 osmApplication.initialize = function () {
 
+	var widthFrame = $('#content').width();
+	if (widthFrame < 1200) {
+		osmApplication.fastMode = true;
+	} else {
+		osmApplication.fastMode = false;		
+	}
+
+
 	osmApplication.osmb = new OSMBuildings({
 		baseURL: '/static/skyline/css/images',
 		minZoom: 16,
@@ -14,6 +22,7 @@ osmApplication.initialize = function () {
 		zoom: 18,
 		position: { latitude:40.710508, longitude:-73.943825 },
 		state: false,
+		fastMode: osmApplication.fastMode,
 		effects: ['shadows'],
 		attribution: '© 3D <a href="https://osmbuildings.org/copyright/">OSM Buildings</a>. Map tiles by <a href=\"http://cartodb.com/attributions#basemaps\">CartoDB</a>, under <a href=\"https://creativecommons.org/licenses/by/3.0/\" target=\"_blank\">CC BY 3.0</a>. Data by <a href=\"http://www.openstreetmap.org/\" target=\"_blank\">OpenStreetMap</a>, under ODbL.'
 	}).appendTo('osmmap');
@@ -67,9 +76,7 @@ osmApplication.initialize = function () {
 
 	// osm building click
 	osmApplication.osmb.on('click', function(e) {
-	  console.log(e);
 	  osmApplication.osmb.getTarget(e.x, e.y, function(id) {
-	  	console.log(id);
 	  	splitId = id.split('_');
 
 	    if (splitId[0] == 'sponsored') {
