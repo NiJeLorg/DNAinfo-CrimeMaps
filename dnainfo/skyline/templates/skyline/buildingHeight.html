@@ -37,14 +37,5 @@
 	
 <script type="text/javascript">
     var objectID = "{{ NYCskylineObject.id }}";
-    // preload the topojson so map page loads more quickly
-    var neighborhoodName = "{{ NYCskylineObject.whereBuilding.dnaurl }}";
-    var filename = mapApplication.fileLookup(neighborhoodName);
-    var plutoData = "/static/skyline/data/" + filename + ".topojson";
-    $( document ).ready(function() {
-        window.setTimeout(function() {
-            mapApplication.loadPluto();
-        }, 1);
-    });
 </script>
 
