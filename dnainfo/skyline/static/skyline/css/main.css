@@ -83,19 +83,24 @@ html, body, #content, #map, #osmmap {
   margin-bottom: 65px;
 }
 
+.forceBlock {
+  margin-top: 30px;
+  margin-bottom: 65px;
+}
+
 .questionHeadingExact {
   display: none;
 }
 
 .questionHeadingExactSmall {
-  display: block;
+  display: inline;
   color: #686868;
   font-size: 32px;
   font-weight: 200;
-  line-height: 1.3125;
-  margin-top: 30px;
-  margin-left: 35px;
-  margin-bottom: 65px;
+  line-height: 1.42;
+  background: rgb(242, 242, 242); 
+  background: rgba(242, 242, 242, .9);
+
 }
 
 .allPaidQuestionHeading {
@@ -115,6 +120,12 @@ html, body, #content, #map, #osmmap {
   margin-top: 30px;
   margin-bottom: 18px;  
 }
+
+.highlightBackground {
+  background: rgb(242, 242, 242); 
+  background: rgba(242, 242, 242, .9);  
+}
+
 
 .pagesCompleted {
   color: #686868;
@@ -791,11 +802,11 @@ fieldset[disabled] .btn-dna-twitter.active {
 }
 
 .control.rotation {
-  top: 45px;
+  top: 35px;
 }
 
 .control.zoom {
-  top: 90px;
+  top: 70px;
 }
 
 .control.zoom button{
@@ -805,10 +816,10 @@ fieldset[disabled] .btn-dna-twitter.active {
 .control button {
   width: 30px;
   height: 30px;
-  margin: 15px 0 0 15px;
+  margin: 5px 0 0 5px;
   border: 1px solid #999999;
   background: #ffffff;
-  opacity: 0.6;
+  opacity: 0.9;
   border-radius: 5px;
   box-shadow: 0 0 5px #666666;
   font-weight: bold;
@@ -1020,13 +1031,18 @@ input[type="radio"]:checked + label span {
     margin-bottom: 125px;
   }
 
-  .questionHeadingExactSmall {
-    display: block;
-    font-size: 57px;
-    line-height: 1.228;
+  .forceBlock {
     margin-top: 75px;
-    margin-left: 0px;
     margin-bottom: 125px;
+  }
+
+  .questionHeadingExactSmall {
+    display: inline;
+    font-size: 57px;
+    line-height: 1.42;
+    margin-left: 0px;
+    background: rgb(242, 242, 242); 
+    background: rgba(242, 242, 242, .9);
   }
 
   .resultsHeading {
@@ -1035,6 +1051,7 @@ input[type="radio"]:checked + label span {
     margin-top: 75px;
     margin-bottom: 18px;
   }
+
 
   .modal-dialog {
     margin: 30vh auto;
@@ -1096,14 +1113,18 @@ input[type="radio"]:checked + label span {
     margin-bottom: 90px;
   }
 
-
-  .questionHeadingExact {
-    display: block;
-    font-size: 57px;
-    font-weight: 200;
-    line-height: 1.228;
+  .forceBlock {
     margin-top: 75px;
     margin-bottom: 90px;
+  }
+
+  .questionHeadingExact {
+    display: inline;
+    font-size: 57px;
+    font-weight: 200;
+    line-height: 1.42;
+    background: rgb(242, 242, 242); 
+    background: rgba(242, 242, 242, .9);
   }
 
   .questionHeadingExactSmall {
