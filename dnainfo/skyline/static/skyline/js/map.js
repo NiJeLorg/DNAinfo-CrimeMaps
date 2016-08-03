@@ -28,12 +28,13 @@ mapApplication.initialize = function () {
 	//this.bounds = this.map.getBounds().pad(1);
 	//this.map.setMaxBounds(this.bounds);
 
-	// set a tile layer to be CartoDB tiles 
-	var CartoDBTiles = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}@2x.png', { attribution: 'Map tiles by <a href=\"http://cartodb.com/attributions#basemaps\">CartoDB</a>, under <a href=\"https://creativecommons.org/licenses/by/3.0/\" target=\"_blank\">CC BY 3.0</a>. Data by <a href=\"http://www.openstreetmap.org/\" target=\"_blank\">OpenStreetMap</a>, under ODbL.'
+	// set a tile layer
+	var tiles = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.png', { attribution: 'Map tiles by <a href=\"http://stamen.com\">Stamen Design</a>, under <a href=\"https://creativecommons.org/licenses/by/3.0/\" target=\"_blank\">CC BY 3.0</a>. Data by <a href=\"http://www.openstreetmap.org/\" target=\"_blank\">OpenStreetMap</a>, under ODbL.'
 	});
 
 	// add these tiles to our map
-	this.map.addLayer(CartoDBTiles);
+	this.map.addLayer(tiles);
+
 	
     // enable events
     this.map.doubleClickZoom.enable();
