@@ -1,0 +1,88 @@
+<!-- Content -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-8 col-sm-offset-2">
+            <h2 class="resultsHeading">
+                <span id="headingContent"></span>
+            </h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-8 col-sm-offset-2">
+            <div id="visContainer"></div>
+        </div>
+    </div>
+    <div class="row marginBottom20">
+        <div class="col-sm-8 col-sm-offset-2">
+            <a class="methods" href="#" data-toggle="modal" data-target="#methodology">Methodology</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-8 col-sm-offset-2 bottomButtonGroupResults">
+            <a id="letsGoAgain" class="btn btn-dna-primary" href="/chicago/visualizations/apartment-test-for-danny-chi/" role="button">Let's Go Again!</a>
+            <span class="pull-right">
+                <a id="showShareFB" class="btn btn-dna-facebook" href="#" role="button" onclick="#"><span class="shareOn">Share on </span><i class="fa fa-facebook-official fa-2x"></i></a>
+                <a id="showShareTwitter" class="btn btn-dna-twitter" href="#" role="button" onclick="#"><span class="shareOn">Share on </span><i class="fa fa-twitter fa-2x"></i></a>
+            </span>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var allPaid = parseFloat("{{ CHImyFirstApartmentObject.allPaid }}").toFixed(0);
+    var withInflation = parseFloat("{{ CHImyFirstApartmentObject.withInflation }}").toFixed(0);
+    var today = parseFloat("{{ CHImyFirstApartmentObject.today }}").toFixed(0);
+    var bedrooms = parseInt("{{ CHImyFirstApartmentObject.bedrooms }}");
+    var neighborhoodCheck = "{{ CHImyFirstApartmentObject.whereMoved.name }}".replace("&#39;", "'").replace("&amp;", "&");
+    var todayType = "{{ CHImyFirstApartmentObject.todayType }}".replace("&#39;", "'").replace("&amp;", "&");
+    var year = "{{ CHImyFirstApartmentObject.year }}";
+    var whenMoved = "{{ CHImyFirstApartmentObject.whenMoved }}";
+    var bitlyURL = "{{ bitlyURL.url }}";
+    var usingzri = "{{ CHImyFirstApartmentObject.usingzri }}";
+
+    $( document ).ready(function() {
+
+        if (!year) {
+            year = whenMoved;
+        }
+
+        if (todayType == "Citywide") {
+            $("#headingContent").text("Whoops! We don't have enough rental data for " + neighborhoodCheck + ", but here's how your rent compares to today's prices in Chicago:");
+        } else if (usingzri == "True"){
+            $("#headingContent").text("Whoops! We don't have enough rental data for " + neighborhoodCheck + ", but here's how your rent compares to today's prices there.");
+        } else {
+            $("#headingContent").text("Here's how much you'd pay to live in " + todayType + " today:");
+        }
+
+
+        window.setTimeout(function() { 
+            drawBars.initialize();
+        }, 1);
+
+        // set up modal
+        $('#methodology').modal('hide');
+
+        // set up twitter and facebook URLs
+        var app_id = '406014149589534';
+        var fbdescription = "I paid $"+ drawBars.numberWithCommas(allPaid) +" to live in "+"{{ CHImyFirstApartmentObject.whereMoved.name }}".replace("&#39;", "'") + " in "+ year +". Here's how rents compare now: "+ bitlyURL;
+        var fblink = "https://visualizations.dnainfo.com/";
+        var fbpicture = "https://editorial-ny.dnainfo.com/interactives/2016/aptshare.jpeg";
+        var fbname = "Here's What My First Apartment Costs Now";
+        var fbcaption = "DNAinfo Chicago";
+        var fbUrl = 'https://www.facebook.com/dialog/feed?app_id=' + app_id + '&display=popup&description='+ encodeURIComponent(fbdescription) + '&link=' + encodeURIComponent(bitlyURL) + '&redirect_uri=' + encodeURIComponent(fblink) + '&name=' + encodeURIComponent(fbname) + '&caption=' + encodeURIComponent(fbcaption) + '&picture=' + encodeURIComponent(fbpicture);
+        var fbOnclick = 'window.open("' + fbUrl + '","facebook-share-dialog","width=626,height=436");return false;';
+        //$('#showShareFB').attr("href", fbUrl);
+        $('#showShareFB').attr("onclick", fbOnclick);
+
+
+        var twitterlink = bitlyURL;
+        var via = 'DNAinfoCHI';
+        var twittercaption = "I paid $"+ drawBars.numberWithCommas(allPaid) +" to live in " + neighborhoodCheck + " in "+ year +". Here's how rents compare now:";
+        var twitterUrl = 'https://twitter.com/intent/tweet?url=' + encodeURIComponent(twitterlink) + '&via='+ encodeURIComponent(via) + '&text=' + encodeURIComponent(twittercaption);
+        var twitterOnclick = 'window.open("' + twitterUrl + '","twitter-share-dialog","width=626,height=436");return false;';
+        //$('#showShareTwitter').attr("href", twitterUrl);
+        $('#showShareTwitter').attr("onclick", twitterOnclick);
+    });
+
+</script>	
+

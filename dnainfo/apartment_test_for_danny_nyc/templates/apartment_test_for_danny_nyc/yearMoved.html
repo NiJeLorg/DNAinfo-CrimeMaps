@@ -1,0 +1,98 @@
+<!-- Content -->
+<div class="container-fluid">
+    <form id="yearMovedForm" method="post" action=".">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-xs-10 col-sm-7 col-sm-offset-2">
+                <h2 class="questionHeading">
+                    Do you remember what year you moved there?
+                </h2>
+            </div>
+            <div class="col-xs-2 col-sm-1">
+                <p class="pagesCompleted pull-right">4/8</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-8 col-sm-offset-2">
+                <div class="marginBottom20">
+                    <input type="radio" id="radio01" name="radio" />
+                    <label for="radio01"><span></span>Yes</label>
+                </div>
+                <div class="form-group formFieldYearMoved">
+                    <div class="input-group">
+                      <div class="input-group-addon left"><span class="calendarIcon"></span></div>
+                       {{ form }}
+                      <div class="input-group-addon right"><span id="yearMovedMinus" class="minusStepper"></span><span id="yearMovedPlus" class="plusStepper"></span></div>
+                    </div>
+                    <p class="text-danger hidden">Please enter a valid year (between 1900 and 2016) above to continue.</p>
+                    {{ form.errors }}
+                </div>
+                <div class="marginBottom40">
+                    <input type="radio" id="radio02" name="radio" />
+                    <label for="radio02"><span></span>No I don't remember!</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-8 col-sm-offset-2 bottomButtonGroupRadio">
+                <button id="backLocation" class="btn btn-dna-primary mobileWidth marginRight10" type="submit"><span class="backArrow"></span>Back</button>
+                <button id="nextBedrooms" class="btn btn-dna-primary mobileWidth" type="submit" disabled="disabled">Next<span class="forwardArrow"></span></button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript">
+    var objectID = "{{ NYCmyFirstApartmentObject.id }}";
+    var whenMovedCheck = "{{ NYCmyFirstApartmentObject.whenMoved }}";
+    switch (whenMovedCheck) {
+        case "2010 - Present":
+            var minYear = 2010;
+            var maxYear = 2016;
+            var fillYes = 2012;
+            break;
+        case "2000 - 2009":
+            var minYear = 2000;
+            var maxYear = 2009;
+            var fillYes = 2005;
+            break;
+        case "1990 - 1999":
+            var minYear = 1990;
+            var maxYear = 1999;
+            var fillYes = 1995;
+            break;
+        case "1980 - 1989":
+            var minYear = 1980;
+            var maxYear = 1989;
+            var fillYes = 1985;
+            break;
+        case "1970 - 1979":
+            var minYear = 1970;
+            var maxYear = 1979;
+            var fillYes = 1975;
+            break;
+        case "1960 - 1969":
+            var minYear = 1960;
+            var maxYear = 1969;
+            var fillYes = 1965;
+            break;
+        default:
+            var minYear = 1900;
+            var maxYear = 1959;
+            var fillYes = 1955;
+            break;
+    }
+
+    // disable plus minus stepper if min/max Year is equal to the value in the form
+    $( document ).ready(function() {
+        if ($('#id_exactYearMoved') == minYear) {
+            $('.minusStepper').addClass('disabled');
+        } else if ($('#id_exactYearMoved') == maxYear) {
+            $('.plusStepper').addClass('disabled');
+        }
+
+    });
+
+</script>
+	
+

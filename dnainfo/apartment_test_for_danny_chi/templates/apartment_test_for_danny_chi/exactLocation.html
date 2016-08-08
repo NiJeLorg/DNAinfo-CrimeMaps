@@ -1,0 +1,56 @@
+<!-- Content -->
+<div id="map"></div>
+
+<form id="exactLocationForm" method="post" action=".">
+    <div class="container-fluid absolutePostionedDiv">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-xs-10 col-sm-7 col-sm-offset-2">
+                <h2 class="questionHeadingExact">
+                    Drop a pin on the location of your apartment.
+                </h2>
+                <h2 class="questionHeadingExactSmall">
+                    Tap to drop a pin on the location of your apartment.
+                </h2>
+            </div>
+            <div class="col-xs-2 col-sm-1">
+                <p class="pagesCompleted pull-right">3/8</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-8 col-sm-offset-2">
+                <div class="form-group formField invisible">
+                    <div class="input-group">
+                      <div class="input-group-addon left"><span class="locationIcon"></span></div>
+                       {{ form }}
+                      <div class="input-group-addon"></div>
+                    </div>
+                    {{ form.errors }}                 
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">    
+        <div class="row">
+            <div class="col-sm-3 col-sm-offset-2 bottomButtonGroupMap">
+                <button id="backNeighborhood" class="btn btn-dna-primary mobileWidth marginRight10" type="submit"><span class="backArrow"></span>Back</button>
+                <button id="nextYearMoved" class="btn btn-dna-primary mobileWidth" type="submit" disabled="disabled">Next<span class="forwardArrow"></span></button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript">
+    var objectID = "{{ CHImyFirstApartmentObject.id }}";
+    var neighborhoodName = "{{ CHImyFirstApartmentObject.whereMoved.dnaurl }}";
+    var iDontSeeMyNeighborhood = "{{ CHImyFirstApartmentObject.iDontSeeMyNeighborhood }}";
+    $( document ).ready(function() {
+        window.setTimeout(function() {
+            console.log('Timeout set.');
+            mapApplication.initialize();
+        }, 1);
+    });
+
+</script>
+	
+

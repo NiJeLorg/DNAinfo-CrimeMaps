@@ -1,0 +1,41 @@
+<!-- Content -->
+<div class="container-fluid">
+    <form id="iPaidForm" method="post" action=".">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-xs-10 col-sm-7 col-sm-offset-2">
+                <h2 class="questionHeading">
+                    How much did you individually pay in rent per month?
+                </h2>
+            </div>
+            <div class="col-xs-2 col-sm-1">
+                <p class="pagesCompleted pull-right">7/8</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-8 col-sm-offset-2">
+                <div class="form-group formField">
+                    <div class="input-group">
+                      <div class="input-group-addon left"><span class="moneyIcon"></span></div>
+                       {{ form }}
+                      <div class="input-group-addon rightMoney"><span class="verifyIcon hidden"></span><span class="warningIcon hidden"></span></div>
+                    </div>
+                    <p class="text-danger hidden">Please enter a valid dollar amount between $0 and $50,000.</p>
+                    {{ form.errors }}
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-8 col-sm-offset-2 bottomButtonGroup">
+                <button id="backRentSplit" class="btn btn-dna-primary mobileWidth marginRight10" type="submit"><span class="backArrow"></span>Back</button>
+                <button id="nextAllPaid" class="btn btn-dna-primary mobileWidth" type="submit" disabled="disabled">Next<span class="forwardArrow"></span></button>
+            </div>
+        </div>
+    </form>
+</div>
+	
+<script type="text/javascript">
+    var objectID = "{{ CHImyFirstApartmentObject.id }}";
+</script>
+
