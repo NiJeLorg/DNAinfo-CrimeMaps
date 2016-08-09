@@ -46,8 +46,8 @@ mapApplication.initialize = function () {
 
 	// icon for drawing
 	var iconDraw = L.icon({
-	    iconUrl: '/static/apartment/css/images/Map_Pin_ICON2.svg',
-	    iconRetinaUrl: '/static/apartment/css/images/Map_Pin_ICON2.svg',
+	    iconUrl: '/visualizations/static/apartment/css/images/Map_Pin_ICON2.svg',
+	    iconRetinaUrl: '/visualizations/static/apartment/css/images/Map_Pin_ICON2.svg',
 	    iconSize: [25, 36],
 	    iconAnchor: [12, 36],
 	});
