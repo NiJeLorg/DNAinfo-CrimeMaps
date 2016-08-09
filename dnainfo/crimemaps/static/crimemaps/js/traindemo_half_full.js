@@ -17,11 +17,11 @@ $(document).ready(function () {
         singleSelect: true,
 		mapKey: 'data-key',
 		render_select: {
-            altImage: '/static/crimemaps/css/images/chi_redline_subway_A_car_where_you_sit.png',
+            altImage: '/visualizations/static/crimemaps/css/images/chi_redline_subway_A_car_where_you_sit.png',
             fillOpacity: 1
         },
         render_highlight: {
-            altImage: '/static/crimemaps/css/images/chi_redline_subway_A_car_where_you_sit.png',
+            altImage: '/visualizations/static/crimemaps/css/images/chi_redline_subway_A_car_where_you_sit.png',
             fillOpacity: 0.5
         },
         areas:[ 
