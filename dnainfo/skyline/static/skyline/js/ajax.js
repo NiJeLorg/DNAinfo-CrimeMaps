@@ -183,6 +183,7 @@ ajaxApplication.backHeight = function (id) {
 			type: "GET",
 			url: "/skyline/nyc/buildingHeight/"+id+"/",
 			success: function(data){
+				mapApplication.destroy();
 				$('#content').html(data);
 				// remove labels
 				$('label').remove();
