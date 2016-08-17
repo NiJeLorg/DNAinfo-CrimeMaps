@@ -361,7 +361,6 @@ mapApplication.loadLocationFilter = function () {
 	var locationFilter = new L.LocationFilter().addTo(mapApplication.map);
 
 	locationFilter.on("change", function (e) {
-		console.log("does change fire?");
 	    // create rectangle for testing
 	    var rect = L.rectangle(e.bounds).toGeoJSON();
 	    // test each point with turf
@@ -373,9 +372,7 @@ mapApplication.loadLocationFilter = function () {
 
 	    	var isInside = turf.inside(mapApplication.pointFeatures[i], rect);
 	    	if (isInside) {
-	    		// if inside, reset everything about this layer, and then fire a click
-	    		// reset style
-	    		mapApplication.HOOD.resetStyle(layer);
+	    		// if inside, reset everything about this layer, and then simulate a click
 	    		// remove "removed" flag
 		    	for (var j = mapApplication.removed.length - 1; j >= 0; j--) {
 		    		// first, already clicked and in array
@@ -394,8 +391,52 @@ mapApplication.loadLocationFilter = function () {
 		    		} 
 		    	}	
 
-		    	// fire click
-		    	layer.fireEvent('click'); 
+		    	// select those inside
+		    	if (layer.feature.properties.pctMainHood >= 50) {
+
+		    		// set style and add to array
+		    		layer.setStyle(mapApplication.clickRemove);
+		    		mapApplication.removed.push(layer.feature.properties.BCTCB2010);
+
+					if (L.Browser.touch) {
+						layer.unbindPopup();
+						layer.bindPopup("<strong>You removed this block from "+ hoodName +".<br />Click to add it back!</strong>");
+					} else {
+						layer.unbindLabel();
+		    			layer.bindLabel("<strong>You removed this block from "+ hoodName +".<br />Click to add it back!</strong>", { direction:'auto' });
+					}
+			    						
+					// bring to front
+					if (!L.Browser.ie && !L.Browser.opera) {
+				        layer.bringToFront();
+				    }
+
+				   	$('#id_removed').val(JSON.stringify(mapApplication.removed));
+
+
+		    	} else {
+
+		    		// set style and add to array
+		    		layer.setStyle(mapApplication.clickAdd);
+		    		mapApplication.added.push(layer.feature.properties.BCTCB2010);
+
+					if (L.Browser.touch) {
+						layer.unbindPopup();
+						layer.bindPopup("<strong>You added this block to "+ hoodName +".<br />Click to remove it!</strong>");
+					} else {
+			    		layer.unbindLabel();
+			    		layer.bindLabel("<strong>You added this block to "+ hoodName +".<br />Click to remove it!</strong>", { direction:'auto' });
+					}
+					
+					// bring to front
+					if (!L.Browser.ie && !L.Browser.opera) {
+				        layer.bringToFront();
+				    }
+
+				   	$('#id_added').val(JSON.stringify(mapApplication.added));
+
+
+		    	}		    	
 
 	    	} 
 	    }
@@ -668,11 +709,25 @@ mapApplication.onEachFeature_HOOD = function(feature,layer){
 	    		layer.setStyle(mapApplication.clickAdd);
 	    		mapApplication.added.push(layer.feature.properties.BCTCB2010);
 
-	    		layer.unbindLabel();
-	    		layer.bindLabel("<strong>You added this block to "+ hoodName +".<br />Click to remove it!</strong>", { direction:'auto' });
+				if (L.Browser.touch) {
+					layer.unbindPopup();
+					layer.bindPopup("<strong>You added this block to "+ hoodName +".<br />Click to remove it!</strong>");
+				} else {
+		    		layer.unbindLabel();
+		    		layer.bindLabel("<strong>You added this block to "+ hoodName +".<br />Click to remove it!</strong>", { direction:'auto' });
+				}
+
 	    	} else {
-	    		layer.unbindLabel();
-				layer.bindLabel("<strong>Only "+ pctMainHood + "% agree this block is in<br />"+ hoodName +". Click to add it!</strong><br />1. " + firstPlaceHood['name'] + " (" + firstPlaceHood['pct'] + "%)<br />2. " + secondPlaceHood['name'] + " (" + secondPlaceHood['pct'] + "%)<br />3. " + thirdPlaceHood['name'] + " (" + thirdPlaceHood['pct'] + "%)", { direction:'auto' });
+
+				if (L.Browser.touch) {
+					layer.unbindPopup();
+					layer.bindPopup("<strong>Only "+ pctMainHood + "% agree this block is in<br />"+ hoodName +". Click to add it!</strong><br />1. " + firstPlaceHood['name'] + " (" + firstPlaceHood['pct'] + "%)<br />2. " + secondPlaceHood['name'] + " (" + secondPlaceHood['pct'] + "%)<br />3. " + thirdPlaceHood['name'] + " (" + thirdPlaceHood['pct'] + "%)");
+				} else {
+		    		layer.unbindLabel();
+					layer.bindLabel("<strong>Only "+ pctMainHood + "% agree this block is in<br />"+ hoodName +". Click to add it!</strong><br />1. " + firstPlaceHood['name'] + " (" + firstPlaceHood['pct'] + "%)<br />2. " + secondPlaceHood['name'] + " (" + secondPlaceHood['pct'] + "%)<br />3. " + thirdPlaceHood['name'] + " (" + thirdPlaceHood['pct'] + "%)", { direction:'auto' });
+				}
+
+
 	    	}
 			
 			// bring to front
