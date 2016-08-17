@@ -1,0 +1,35 @@
+div.leaflet-marker-icon.location-filter.resize-marker {
+    background: url( images/resize-handle.png ) no-repeat;  
+    cursor: move;
+}
+div.leaflet-marker-icon.location-filter.move-marker {
+    background: url( images/move-handle.png ) no-repeat;  
+    cursor: move;
+}
+
+div.location-filter.button-container {
+    padding: 0px;
+}
+.leaflet-container div.location-filter.button-container a {
+    display: inline-block;
+    color: #ffffff;
+    font-weight: bold;
+    font-family:"Titillium Web", Helvetica, Sans-Serif;
+    font-size: 14px;
+    padding: 7px 7px;
+    border-color: #0073a3;
+    border-radius: 2px;
+    background-color: #0073a3;
+    height: 35px;
+}
+
+.leaflet-container div.location-filter.button-container a:hover, a:focus, a:active {
+  color: #ffffff;
+  background-color: #005A8A;
+  border-color: #005A8A;
+  text-decoration: none;
+}
+
+.leaflet-container div.location-filter.button-container a.adjust-button {
+    margin-left: 2px;
+}
