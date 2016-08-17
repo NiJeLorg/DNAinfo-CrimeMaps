@@ -525,23 +525,46 @@ resultsMapApplication.onEachFeature_HOOD = function(feature,layer){
 	thirdPlaceHood['pct'] = ((hoodsCountsInBlockSorted[2][1] / totalDrawnInBlock) * 100).toFixed(1);
 
 	if (pctMainHood >= 50) {
-		layer.bindLabel("<strong>" + pctMainHood + "% agree this block is in<br />"+ hoodName +".</strong><br />1. " + firstPlaceHood['name'] + " (" + firstPlaceHood['pct'] + "%)<br />2. " + secondPlaceHood['name'] + " (" + secondPlaceHood['pct'] + "%)<br />3. " + thirdPlaceHood['name'] + " (" + thirdPlaceHood['pct'] + "%)", { direction:'auto' });
+
+		if (L.Browser.touch) {
+			layer.bindPopup("<strong>" + pctMainHood + "% agree this block is in<br />"+ hoodName +". Click to remove it!</strong><br />1. " + firstPlaceHood['name'] + " (" + firstPlaceHood['pct'] + "%)<br />2. " + secondPlaceHood['name'] + " (" + secondPlaceHood['pct'] + "%)<br />3. " + thirdPlaceHood['name'] + " (" + thirdPlaceHood['pct'] + "%)");
+		} else {
+			layer.bindLabel("<strong>" + pctMainHood + "% agree this block is in<br />"+ hoodName +". Click to remove it!</strong><br />1. " + firstPlaceHood['name'] + " (" + firstPlaceHood['pct'] + "%)<br />2. " + secondPlaceHood['name'] + " (" + secondPlaceHood['pct'] + "%)<br />3. " + thirdPlaceHood['name'] + " (" + thirdPlaceHood['pct'] + "%)", { direction:'auto' });
+		}		
+
 	} else {
-		layer.bindLabel("<strong>Only "+ pctMainHood + "% agree this block is in<br />"+ hoodName +".</strong><br />1. " + firstPlaceHood['name'] + " (" + firstPlaceHood['pct'] + "%)<br />2. " + secondPlaceHood['name'] + " (" + secondPlaceHood['pct'] + "%)<br />3. " + thirdPlaceHood['name'] + " (" + thirdPlaceHood['pct'] + "%)", { direction:'auto' });
+
+		if (L.Browser.touch) {
+			layer.bindPopup("<strong>Only "+ pctMainHood + "% agree this block is in<br />"+ hoodName +". Click to add it!</strong><br />1. " + firstPlaceHood['name'] + " (" + firstPlaceHood['pct'] + "%)<br />2. " + secondPlaceHood['name'] + " (" + secondPlaceHood['pct'] + "%)<br />3. " + thirdPlaceHood['name'] + " (" + thirdPlaceHood['pct'] + "%)");
+		} else {
+			layer.bindLabel("<strong>Only "+ pctMainHood + "% agree this block is in<br />"+ hoodName +". Click to add it!</strong><br />1. " + firstPlaceHood['name'] + " (" + firstPlaceHood['pct'] + "%)<br />2. " + secondPlaceHood['name'] + " (" + secondPlaceHood['pct'] + "%)<br />3. " + thirdPlaceHood['name'] + " (" + thirdPlaceHood['pct'] + "%)", { direction:'auto' });
+		}
+		
 	}
 
 
 	for (var i = resultsMapApplication.added.length - 1; i >= 0; i--) {
 		if (feature.properties.BCTCB2010 == resultsMapApplication.added[i]) {
-			layer.unbindLabel();
-			layer.bindLabel("<strong>You added this block to " + hoodName + ".<br />" + pctMainHood + "% agree with you!</strong>", { direction:'auto' });
+			if (L.Browser.touch) {
+				layer.unbindPopup();
+				layer.bindPopup("<strong>You added this block to " + hoodName + ".<br />" + pctMainHood + "% agree with you!</strong>");
+			} else {
+				layer.unbindLabel();
+				layer.bindLabel("<strong>You added this block to " + hoodName + ".<br />" + pctMainHood + "% agree with you!</strong>", { direction:'auto' });
+			}
 		}
 	}
 
 	for (var i = resultsMapApplication.removed.length - 1; i >= 0; i--) {
 		if (feature.properties.BCTCB2010 == resultsMapApplication.removed[i]) {
-			layer.unbindLabel();
-			layer.bindLabel("<strong>You removed this block from " + hoodName + ".<br />" + pctMainHood + "% disagree with you.</strong>", { direction:'auto' });
+			if (L.Browser.touch) {
+				layer.unbindPopup();
+				layer.bindPopup("<strong>You removed this block from " + hoodName + ".<br />" + pctMainHood + "% disagree with you.</strong>");
+			} else {
+				layer.unbindLabel();
+				layer.bindLabel("<strong>You removed this block from " + hoodName + ".<br />" + pctMainHood + "% disagree with you.</strong>", { direction:'auto' });
+			}
+
 		}
 	}
 
