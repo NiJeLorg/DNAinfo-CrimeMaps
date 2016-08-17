@@ -36,7 +36,7 @@ miniMapApplication.initialize = function (objid) {
 miniMapApplication.getGeojson = function (map, objid) {
 	$.ajax({
 		type: "GET",
-		url: "/skyline/admin/nyc/reporter/getGeojson/"+ objid +"/",
+		url: "/skyline/nyc/getGeojson/"+ objid +"/",
 		success: function(data){
 			// load the draw tools
 			if (data) {

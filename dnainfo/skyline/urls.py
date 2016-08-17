@@ -4,6 +4,9 @@ from skyline import views
 urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^skyline/admin/nyc/$', views.skylineAdminDashboard, name='skyline_AdminDashboard'),
+    url(r'^skyline/admin/nyc/ugc/list/$', views.skyline_UgcList, name='skyline_UgcList'),
+    url(r'^skyline/admin/nyc/ugc/approve/(?P<id>\d+)/$', views.skyline_UgcApprove, name='skyline_UgcApprove'),
+    url(r'^skyline/admin/nyc/ugc/reject/(?P<id>\d+)/$', views.skyline_UgcReject, name='skyline_UgcReject'),
     url(r'^skyline/admin/nyc/sponsored/list/$', views.skyline_sponsoredList, name='skyline_sponsoredList'),
     url(r'^skyline/admin/nyc/sponsored/remove/(?P<id>\d+)/$', views.skyline_sponsoredRemove, name='skyline_sponsoredRemove'),
     url(r'^skyline/admin/nyc/sponsored/whatNeighborhood/$', views.skyline_sponsoredWhatNeighborhood, name='skyline_sponsoredWhatNeighborhood'),
