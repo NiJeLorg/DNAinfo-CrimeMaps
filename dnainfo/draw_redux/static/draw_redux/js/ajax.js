@@ -71,7 +71,6 @@ ajaxApplication.nextEnd = function () {
 				url: "/in-or-out/nyc/pick/"+ objectID +"/",
 				data: f.serialize(),
 				success: function(data){
-					console.log(data);
 					$('#content').html(data);
 					$(".fadein").fadeIn("slow");
 					// scroll to top

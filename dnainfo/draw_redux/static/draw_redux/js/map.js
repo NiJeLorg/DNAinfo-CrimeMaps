@@ -5,6 +5,15 @@
 function mapApplication() {}
 
 mapApplication.initialize = function () {
+	// set empty vars for future use
+	// create an array to push selected ids into
+	mapApplication.added = [];
+	mapApplication.removed = [];
+	// create an object to hold all of the colors for each hood drawn
+	mapApplication.colorsByHood = {};
+	//create empty array of point features
+	mapApplication.pointFeatures = [];
+
 	// set zoom and center for this map
 	this.center = center(neighborhoodName);
 	this.zoom = 15;
@@ -39,6 +48,8 @@ mapApplication.initialize = function () {
 	//add neighborhood poly
 	mapApplication.loadHood();
 
+	// load location filter
+	mapApplication.loadLocationFilter();
 
 	function center(neighborhood) {
 
@@ -343,6 +354,54 @@ mapApplication.initialize = function () {
 	}
 
 }
+	
+
+mapApplication.loadLocationFilter = function () {
+
+	var locationFilter = new L.LocationFilter().addTo(mapApplication.map);
+
+	locationFilter.on("change", function (e) {
+	    // create rectangle for testing
+	    var rect = L.rectangle(e.bounds).toGeoJSON();
+	    // test each point with turf
+	    for (var i = mapApplication.pointFeatures.length - 1; i >= 0; i--) {
+	    	// look up layer
+	    	var layer = mapApplication.HOOD.getLayer(mapApplication.pointFeatures[i].properties.BCTCB2010);
+
+	    	// is this inside?
+
+	    	var isInside = turf.inside(mapApplication.pointFeatures[i], rect);
+	    	if (isInside) {
+	    		// if inside, reset everything about this layer, and then fire a click
+	    		// reset style
+	    		mapApplication.HOOD.resetStyle(layer);
+	    		// remove "removed" flag
+		    	for (var j = mapApplication.removed.length - 1; j >= 0; j--) {
+		    		// first, already clicked and in array
+		    		if (layer.feature.properties.BCTCB2010 == mapApplication.removed[j]) {
+		    			// remove from array
+		    			mapApplication.removed[j] = null;
+		    		} 
+		    	}
+
+		    	// remove "added" flag
+		    	for (var j = mapApplication.added.length - 1; j >= 0; j--) {
+		    		// first, already clicked and in array
+		    		if (layer.feature.properties.BCTCB2010 == mapApplication.added[j]) {
+		    			// remove from array
+		    			mapApplication.added[j] = null;
+		    		} 
+		    	}	
+
+		    	// fire click
+		    	layer.fireEvent('click'); 
+
+	    	} 
+	    }
+
+
+	});
+}
 
 
 mapApplication.loadHood = function () {
@@ -363,44 +422,108 @@ mapApplication.loadHood = function () {
 
 mapApplication.getStyleFor_HOOD = function (feature){
 	// return style for blocks within the concensus (>=75%) 
-	var pctConcensus = ((feature.properties.count / parseInt(hoodCount)) * 100);
+	var totalDrawnInBlock = 0;
+	var hoodsDrawnInBlock = [];
+	var hoodsCountsInBlock = {};
+	for (var i = hoodsKeys.length - 1; i >= 0; i--) {
+		if (hoodsKeys[i] in feature.properties) {
+			feature.properties[hoodsKeys[i]] = parseInt(feature.properties[hoodsKeys[i]]);
+			hoodsDrawnInBlock.push(hoodsKeys[i]);
+			hoodsCountsInBlock[hoodsKeys[i]] = feature.properties[hoodsKeys[i]];
+			totalDrawnInBlock = totalDrawnInBlock + feature.properties[hoodsKeys[i]];
+		}
+	}
 
-	if (pctConcensus >= 75) {
+	var hoodsCountsInBlockSorted = mapApplication.sortProperties(hoodsCountsInBlock);
+
+
+	if (hoodsCountsInBlock[hoodNameNoHyphens + "_count"] >= (totalDrawnInBlock/2)) {
 	    return {
 	        weight: 0,
 	        opacity: 0,
 	        color: '#bdbdbd',
-	        fillOpacity: 0.5,
+	        fillOpacity: 0.7,
 	        fillColor: '#fc5158'
-	    }
-	} else {
+	    }		
+	} else if (hoodNameNoHyphens + "_count" == hoodsCountsInBlockSorted[0][0]) {
+		// check color object for presence of this neighborhood
+        if(!mapApplication.colorsByHood.hasOwnProperty(hoodsCountsInBlockSorted[1][0])) {
+        	// assign color to colorsByHood object
+        	mapApplication.colorsByHood[hoodsCountsInBlockSorted[1][0]] = mapApplication.colorAssignment(mapApplication.objectLength(mapApplication.colorsByHood));
+        }
+
 	    return {
 	        weight: 0,
 	        opacity: 0,
 	        color: '#bdbdbd',
 	        fillOpacity: 0.5,
-	        fillColor: '#aaa'
-	    }		
+	        fillColor: mapApplication.colorsByHood[hoodsCountsInBlockSorted[1][0]]
+	    }
+
+	} else {
+		// check color object for presence of this neighborhood
+        if(!mapApplication.colorsByHood.hasOwnProperty(hoodsCountsInBlockSorted[0][0])) {
+        	// assign color to colorsByHood object
+        	mapApplication.colorsByHood[hoodsCountsInBlockSorted[0][0]] = mapApplication.colorAssignment(mapApplication.objectLength(mapApplication.colorsByHood));
+        }
+
+	    return {
+	        weight: 0,
+	        opacity: 0,
+	        color: '#bdbdbd',
+	        fillOpacity: 0.5,
+	        fillColor: mapApplication.colorsByHood[hoodsCountsInBlockSorted[0][0]]
+	    }	
 	}
 
 }
 
+
 mapApplication.onEachFeature_HOOD = function(feature,layer){	
 
-	// calculate percent concensus
-	var pctConcensus = ((feature.properties.count / parseInt(hoodCount)) * 100).toFixed(1);
+	var totalDrawnInBlock = 0;
+	var hoodsDrawnInBlock = [];
+	var hoodsCountsInBlock = {};
+	for (var i = hoodsKeys.length - 1; i >= 0; i--) {
+		if (hoodsKeys[i] in feature.properties) {
+			feature.properties[hoodsKeys[i]] = parseInt(feature.properties[hoodsKeys[i]]);
+			hoodsDrawnInBlock.push(hoodsKeys[i]);
+			hoodsCountsInBlock[hoodsKeys[i]] = feature.properties[hoodsKeys[i]];
+			totalDrawnInBlock = totalDrawnInBlock + feature.properties[hoodsKeys[i]];
+		}
+	}
 
-	if (pctConcensus >= 75) {
-		layer.bindLabel("<strong>" + pctConcensus + "% agree this block is in "+ hoodName +". Click to remove it!</strong>", { direction:'auto' });
+	var hoodsCountsInBlockSorted = mapApplication.sortProperties(hoodsCountsInBlock);
 
+	// calculate percent of total drawings is selected hood in each block
+	var pctMainHood = ((hoodsCountsInBlock[hoodNameNoHyphens + "_count"] / totalDrawnInBlock) * 100).toFixed(1);
+	// add this to feature.properties for later
+	feature.properties.pctMainHood = pctMainHood;
+
+	// calculate next two hoods and percents
+	var firstPlaceHood = {};
+	var secondPlaceHood = {};
+	var thirdPlaceHood = {};
+	firstPlaceHood['name'] = hoodsKeyAndName[hoodsCountsInBlockSorted[0][0]];
+	firstPlaceHood['count'] = hoodsCountsInBlockSorted[0][1];
+	firstPlaceHood['pct'] = ((hoodsCountsInBlockSorted[0][1] / totalDrawnInBlock) * 100).toFixed(1);
+	secondPlaceHood['name'] = hoodsKeyAndName[hoodsCountsInBlockSorted[1][0]];
+	secondPlaceHood['count'] = hoodsCountsInBlockSorted[1][1];
+	secondPlaceHood['pct'] = ((hoodsCountsInBlockSorted[1][1] / totalDrawnInBlock) * 100).toFixed(1);
+	thirdPlaceHood['name'] = hoodsKeyAndName[hoodsCountsInBlockSorted[2][0]];
+	thirdPlaceHood['count'] = hoodsCountsInBlockSorted[2][1];
+	thirdPlaceHood['pct'] = ((hoodsCountsInBlockSorted[2][1] / totalDrawnInBlock) * 100).toFixed(1);
+
+	if (pctMainHood >= 50) {
+		layer.bindLabel("<strong>" + pctMainHood + "% agree this block is in<br />"+ hoodName +". Click to remove it!</strong><br />1. " + firstPlaceHood['name'] + " (" + firstPlaceHood['pct'] + "%)<br />2. " + secondPlaceHood['name'] + " (" + secondPlaceHood['pct'] + "%)<br />3. " + thirdPlaceHood['name'] + " (" + thirdPlaceHood['pct'] + "%)", { direction:'auto' });
 	} else {
-		layer.bindLabel("<strong>Only "+ pctConcensus + "% agree this block is in "+ hoodName +". Click to add it!</strong>", { direction:'auto' });
+		layer.bindLabel("<strong>Only "+ pctMainHood + "% agree this block is in<br />"+ hoodName +". Click to add it!</strong><br />1. " + firstPlaceHood['name'] + " (" + firstPlaceHood['pct'] + "%)<br />2. " + secondPlaceHood['name'] + " (" + secondPlaceHood['pct'] + "%)<br />3. " + thirdPlaceHood['name'] + " (" + thirdPlaceHood['pct'] + "%)", { direction:'auto' });
 	}
 	
     layer.on('mouseover', function(ev) {
-    	// have remove hover interaction if a concensus block (pctConcensus >= 75), and an add hover interaction if outside of the concensus
+    	// have remove hover interaction if a concensus block and an add hover interaction if outside of the concensus
 
-    	if (pctConcensus >= 75) {
+    	if (pctMainHood >= 50) {
   			// loop through clicked array and see if this layer has been clicked. Only set style if it hasn't been clicked
   			var clicked = false;
     		for (var i = mapApplication.removed.length - 1; i >= 0; i--) {
@@ -432,7 +555,7 @@ mapApplication.onEachFeature_HOOD = function(feature,layer){
     layer.on('mouseout', function(ev) {
     	// have remove hover interaction if a concensus block (pctConcensus >= 75), and an add hover interaction if outside of the concensus
 
-    	if (pctConcensus >= 75) {
+    	if (pctMainHood >= 50) {
   			// loop through clicked array and see if this layer has been clicked. Only set style if it hasn't been clicked
   			var clicked = false;
     		for (var i = mapApplication.removed.length - 1; i >= 0; i--) {
@@ -465,7 +588,7 @@ mapApplication.onEachFeature_HOOD = function(feature,layer){
     layer.on('click', function(ev) {
 
     	// add to removed list if above 75% concensus and to add list if otherwise
-    	if (pctConcensus >= 75) {
+    	if (pctMainHood >= 50) {
 
 	    	// search array to see if clicked, and if so, set style to hovered and remove from removed array
 	    	var removed = false;
@@ -486,10 +609,10 @@ mapApplication.onEachFeature_HOOD = function(feature,layer){
 	    		mapApplication.removed.push(layer.feature.properties.BCTCB2010);
 
 	    		layer.unbindLabel();
-	    		layer.bindLabel("<strong>You removed this block from "+ hoodName +". Click to add it back!</strong>", { direction:'auto' });
+	    		layer.bindLabel("<strong>You removed this block from "+ hoodName +".<br />Click to add it back!</strong>", { direction:'auto' });
 	    	} else {
 	    		layer.unbindLabel();
-				layer.bindLabel("<strong>" + pctConcensus + "% agree this block is in "+ hoodName +". Click to remove it!</strong>", { direction:'auto' });
+			layer.bindLabel("<strong>" + pctMainHood + "% agree this block is in<br />"+ hoodName +". Click to remove it!</strong><br />1. " + firstPlaceHood['name'] + " (" + firstPlaceHood['pct'] + "%)<br />2. " + secondPlaceHood['name'] + " (" + secondPlaceHood['pct'] + "%)<br />3. " + thirdPlaceHood['name'] + " (" + thirdPlaceHood['pct'] + "%)", { direction:'auto' });
 	    	}
 			
 			// bring to front
@@ -521,10 +644,10 @@ mapApplication.onEachFeature_HOOD = function(feature,layer){
 	    		mapApplication.added.push(layer.feature.properties.BCTCB2010);
 
 	    		layer.unbindLabel();
-	    		layer.bindLabel("<strong>You added this block to "+ hoodName +". Click to remove it!</strong>", { direction:'auto' });
+	    		layer.bindLabel("<strong>You added this block to "+ hoodName +".<br />Click to remove it!</strong>", { direction:'auto' });
 	    	} else {
 	    		layer.unbindLabel();
-				layer.bindLabel("<strong>" + pctConcensus + "% agree this block is in "+ hoodName +". Click to add it!</strong>", { direction:'auto' });
+				layer.bindLabel("<strong>Only "+ pctMainHood + "% agree this block is in<br />"+ hoodName +". Click to add it!</strong><br />1. " + firstPlaceHood['name'] + " (" + firstPlaceHood['pct'] + "%)<br />2. " + secondPlaceHood['name'] + " (" + secondPlaceHood['pct'] + "%)<br />3. " + thirdPlaceHood['name'] + " (" + thirdPlaceHood['pct'] + "%)", { direction:'auto' });
 	    	}
 			
 			// bring to front
@@ -540,7 +663,47 @@ mapApplication.onEachFeature_HOOD = function(feature,layer){
 
     });	
 
+    // create point geojson and add to array of points
+    var point = turf.centroid(feature);
+    point.properties.BCTCB2010 = feature.properties.BCTCB2010;
+    mapApplication.pointFeatures.push(point);
 
+    //add a layer id so we can look up this layer later
+    layer._leaflet_id = feature.properties.BCTCB2010;
+
+}
+
+mapApplication.objectLength = function(obj) {
+	var count = 0;
+	var i;
+
+	for (i in obj) {
+	    if (obj.hasOwnProperty(i)) {
+	        count++;
+	    }
+	}
+
+	return count;
+}
+
+mapApplication.colorAssignment = function(key) {
+	var colors = ["#66c2a5","#8da0cb","#e78ac3","#a6d854","#ffd92f","#e5c494","#b3b3b3","#fc8d62","#ffffb3","#bebada","#80b1d3","#fdb462"];
+	return colors[key];
+}
+
+mapApplication.sortProperties = function(obj){
+  // convert object into array
+    var sortable=[];
+    for(var key in obj)
+        if(obj.hasOwnProperty(key))
+            sortable.push([key, obj[key]]); // each item is an array in format [key, value]
+
+    // sort items by value
+    sortable.sort(function(a, b)
+    {
+      return b[1]-a[1]; // compare numbers
+    });
+    return sortable; // array in format [ [ key1, val1 ], [ key2, val2 ], ... ]
 }
 
 
@@ -589,9 +752,6 @@ mapApplication.clickRemove = {
 
 /* Vars */
 mapApplication.map;
-// create an array to push selected ids into
-mapApplication.added = [];
-mapApplication.removed = [];
 
 
 

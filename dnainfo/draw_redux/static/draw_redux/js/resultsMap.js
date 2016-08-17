@@ -5,6 +5,10 @@
 function resultsMapApplication() {}
 
 resultsMapApplication.initialize = function () {
+
+	// create an object to hold all of the colors for each hood drawn
+	resultsMapApplication.colorsByHood = {};
+
 	// set zoom and center for this map
 	this.center = center(neighborhoodName);
 	this.zoom = 15;
@@ -36,7 +40,6 @@ resultsMapApplication.initialize = function () {
 	//load geocoder control
 	var geocoder = this.map.addControl(L.Control.geocoder({collapsed: true, placeholder:'Address Search', geocoder:new L.Control.Geocoder.Google()}));
 	
-
 	// get geojson
 	resultsMapApplication.getAdded();
 
@@ -353,7 +356,6 @@ resultsMapApplication.getAdded = function () {
 			// load the draw tools
 			if (data) {
 				var results = JSON.parse(data);
-				console.log(results);
 				resultsMapApplication.added = results;
 
 			} else {
@@ -405,9 +407,7 @@ resultsMapApplication.loadHood = function () {
 }
 
 resultsMapApplication.getStyleFor_HOOD = function (feature){
-	// return style for blocks within the concensus (>=75%) 
-	var pctConcensus = ((feature.properties.count / parseInt(hoodCount)) * 100);
-
+	// style added and removed first
 	for (var i = resultsMapApplication.added.length - 1; i >= 0; i--) {
 		if (feature.properties.BCTCB2010 == resultsMapApplication.added[i]) {
 			return {
@@ -432,53 +432,169 @@ resultsMapApplication.getStyleFor_HOOD = function (feature){
 		}
 	}
 
-	if (pctConcensus >= 75) {
+	// now style by neighborhood
+	var totalDrawnInBlock = 0;
+	var hoodsDrawnInBlock = [];
+	var hoodsCountsInBlock = {};
+	for (var i = hoodsKeys.length - 1; i >= 0; i--) {
+		if (hoodsKeys[i] in feature.properties) {
+			feature.properties[hoodsKeys[i]] = parseInt(feature.properties[hoodsKeys[i]]);
+			hoodsDrawnInBlock.push(hoodsKeys[i]);
+			hoodsCountsInBlock[hoodsKeys[i]] = feature.properties[hoodsKeys[i]];
+			totalDrawnInBlock = totalDrawnInBlock + feature.properties[hoodsKeys[i]];
+		}
+	}
+
+	var hoodsCountsInBlockSorted = resultsMapApplication.sortProperties(hoodsCountsInBlock);
+
+
+	if (hoodsCountsInBlock[hoodNameNoHyphens + "_count"] >= (totalDrawnInBlock/2)) {
 	    return {
 	        weight: 0,
 	        opacity: 0,
 	        color: '#bdbdbd',
-	        fillOpacity: 0.5,
+	        fillOpacity: 0.7,
 	        fillColor: '#fc5158'
-	    }
-	} else {
+	    }		
+	} else if (hoodNameNoHyphens + "_count" == hoodsCountsInBlockSorted[0][0]) {
+		// check color object for presence of this neighborhood
+        if(!resultsMapApplication.colorsByHood.hasOwnProperty(hoodsCountsInBlockSorted[1][0])) {
+        	// assign color to colorsByHood object
+        	resultsMapApplication.colorsByHood[hoodsCountsInBlockSorted[1][0]] = resultsMapApplication.colorAssignment(resultsMapApplication.objectLength(resultsMapApplication.colorsByHood));
+        }
+
 	    return {
 	        weight: 0,
 	        opacity: 0,
 	        color: '#bdbdbd',
 	        fillOpacity: 0.5,
-	        fillColor: '#aaa'
-	    }		
+	        fillColor: resultsMapApplication.colorsByHood[hoodsCountsInBlockSorted[1][0]]
+	    }
+
+	} else {
+		// check color object for presence of this neighborhood
+        if(!resultsMapApplication.colorsByHood.hasOwnProperty(hoodsCountsInBlockSorted[0][0])) {
+        	// assign color to colorsByHood object
+        	resultsMapApplication.colorsByHood[hoodsCountsInBlockSorted[0][0]] = resultsMapApplication.colorAssignment(resultsMapApplication.objectLength(resultsMapApplication.colorsByHood));
+        }
+
+	    return {
+	        weight: 0,
+	        opacity: 0,
+	        color: '#bdbdbd',
+	        fillOpacity: 0.5,
+	        fillColor: resultsMapApplication.colorsByHood[hoodsCountsInBlockSorted[0][0]]
+	    }	
 	}
 
 }
 
 resultsMapApplication.onEachFeature_HOOD = function(feature,layer){	
 
-	// calculate percent concensus
-	var pctConcensus = ((feature.properties.count / parseInt(hoodCount)) * 100).toFixed(1);
-
-	if (pctConcensus >= 75) {
-		layer.bindLabel("<strong>" + pctConcensus + "% agree this block is in "+ hoodName +"</strong>", { direction:'auto' });
-	} else {
-		layer.bindLabel("<strong>Only "+ pctConcensus + "% agree this block is in "+ hoodName +".</strong>", { direction:'auto' });
+	var totalDrawnInBlock = 0;
+	var hoodsDrawnInBlock = [];
+	var hoodsCountsInBlock = {};
+	for (var i = hoodsKeys.length - 1; i >= 0; i--) {
+		if (hoodsKeys[i] in feature.properties) {
+			feature.properties[hoodsKeys[i]] = parseInt(feature.properties[hoodsKeys[i]]);
+			hoodsDrawnInBlock.push(hoodsKeys[i]);
+			hoodsCountsInBlock[hoodsKeys[i]] = feature.properties[hoodsKeys[i]];
+			totalDrawnInBlock = totalDrawnInBlock + feature.properties[hoodsKeys[i]];
+		}
 	}
+
+	var hoodsCountsInBlockSorted = resultsMapApplication.sortProperties(hoodsCountsInBlock);
+
+	// calculate percent of total drawings is selected hood in each block
+	var pctMainHood = ((hoodsCountsInBlock[hoodNameNoHyphens + "_count"] / totalDrawnInBlock) * 100).toFixed(1);
+	// add this to feature.properties for later
+	feature.properties.pctMainHood = pctMainHood;
+
+	// calculate next two hoods and percents
+	var firstPlaceHood = {};
+	var secondPlaceHood = {};
+	var thirdPlaceHood = {};
+	firstPlaceHood['name'] = hoodsKeyAndName[hoodsCountsInBlockSorted[0][0]];
+	firstPlaceHood['count'] = hoodsCountsInBlockSorted[0][1];
+	firstPlaceHood['pct'] = ((hoodsCountsInBlockSorted[0][1] / totalDrawnInBlock) * 100).toFixed(1);
+	secondPlaceHood['name'] = hoodsKeyAndName[hoodsCountsInBlockSorted[1][0]];
+	secondPlaceHood['count'] = hoodsCountsInBlockSorted[1][1];
+	secondPlaceHood['pct'] = ((hoodsCountsInBlockSorted[1][1] / totalDrawnInBlock) * 100).toFixed(1);
+	thirdPlaceHood['name'] = hoodsKeyAndName[hoodsCountsInBlockSorted[2][0]];
+	thirdPlaceHood['count'] = hoodsCountsInBlockSorted[2][1];
+	thirdPlaceHood['pct'] = ((hoodsCountsInBlockSorted[2][1] / totalDrawnInBlock) * 100).toFixed(1);
+
+	if (pctMainHood >= 50) {
+		layer.bindLabel("<strong>" + pctMainHood + "% agree this block is in<br />"+ hoodName +".</strong><br />1. " + firstPlaceHood['name'] + " (" + firstPlaceHood['pct'] + "%)<br />2. " + secondPlaceHood['name'] + " (" + secondPlaceHood['pct'] + "%)<br />3. " + thirdPlaceHood['name'] + " (" + thirdPlaceHood['pct'] + "%)", { direction:'auto' });
+	} else {
+		layer.bindLabel("<strong>Only "+ pctMainHood + "% agree this block is in<br />"+ hoodName +".</strong><br />1. " + firstPlaceHood['name'] + " (" + firstPlaceHood['pct'] + "%)<br />2. " + secondPlaceHood['name'] + " (" + secondPlaceHood['pct'] + "%)<br />3. " + thirdPlaceHood['name'] + " (" + thirdPlaceHood['pct'] + "%)", { direction:'auto' });
+	}
+
 
 	for (var i = resultsMapApplication.added.length - 1; i >= 0; i--) {
 		if (feature.properties.BCTCB2010 == resultsMapApplication.added[i]) {
 			layer.unbindLabel();
-			layer.bindLabel("<strong>You added this block to " + hoodName + ". " + pctConcensus + "% agree with you!</strong>", { direction:'auto' });
+			layer.bindLabel("<strong>You added this block to " + hoodName + ".<br />" + pctMainHood + "% agree with you!</strong>", { direction:'auto' });
 		}
 	}
 
 	for (var i = resultsMapApplication.removed.length - 1; i >= 0; i--) {
 		if (feature.properties.BCTCB2010 == resultsMapApplication.removed[i]) {
 			layer.unbindLabel();
-			layer.bindLabel("<strong>You removed this block from " + hoodName + ". " + pctConcensus + "% disagree with you.</strong>", { direction:'auto' });
+			layer.bindLabel("<strong>You removed this block from " + hoodName + ".<br />" + pctMainHood + "% disagree with you.</strong>", { direction:'auto' });
 		}
 	}
 
+	layer.on('mouseover', function(ev) {
+		layer.setStyle(resultsMapApplication.hover);
+	});
+
+	layer.on('mouseout', function(ev) {
+		resultsMapApplication.HOOD.resetStyle(layer);
+	});
+
 }
 
+
+resultsMapApplication.objectLength = function(obj) {
+	var count = 0;
+	var i;
+
+	for (i in obj) {
+	    if (obj.hasOwnProperty(i)) {
+	        count++;
+	    }
+	}
+
+	return count;
+}
+
+resultsMapApplication.colorAssignment = function(key) {
+	var colors = ["#66c2a5","#8da0cb","#e78ac3","#a6d854","#ffd92f","#e5c494","#b3b3b3","#fc8d62","#ffffb3","#bebada","#80b1d3","#fdb462"];
+	return colors[key];
+}
+
+resultsMapApplication.sortProperties = function(obj){
+  // convert object into array
+    var sortable=[];
+    for(var key in obj)
+        if(obj.hasOwnProperty(key))
+            sortable.push([key, obj[key]]); // each item is an array in format [key, value]
+
+    // sort items by value
+    sortable.sort(function(a, b)
+    {
+      return b[1]-a[1]; // compare numbers
+    });
+    return sortable; // array in format [ [ key1, val1 ], [ key2, val2 ], ... ]
+}
+
+/* Style states */
+resultsMapApplication.hover = {
+		weight: 2,
+		opacity: 1,
+        color: '#555',
+    };
 
 
 /* Vars */
@@ -486,6 +602,8 @@ resultsMapApplication.map;
 // create an array to push selected ids into
 resultsMapApplication.added = [];
 resultsMapApplication.removed = [];
+
+
 
 
 
