@@ -87,7 +87,7 @@ osmApplication.initialize = function () {
 	    	var properties = osmApplication.geojsons[lookupId].features[0].properties;
 	    	console.log(properties);
 	    	$('#property-name').text(properties.name);
-	    	var imgSrc = '/media/' + properties.image
+	    	var imgSrc = '/visualizations/media/' + properties.image
 	    	$('#property-image').prop('src', imgSrc);
 	    	$('#property-description').text(properties.text);
 	    	$('#property-address').text(properties.printAddress);
