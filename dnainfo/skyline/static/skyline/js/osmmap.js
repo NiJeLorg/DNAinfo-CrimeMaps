@@ -136,8 +136,13 @@ osmApplication.getGeojson = function () {
 			// load the draw tools
 			if (data) {
 				var geojson = JSON.parse(data);
-				var lat = geojson.features[0].geometry.coordinates[0][0][0][1];
-				var lon = geojson.features[0].geometry.coordinates[0][0][0][0];
+				if (typeof geojson.features[0].geometry.coordinates[0][0][0][0] != 'undefined') {
+					var lat = geojson.features[0].geometry.coordinates[0][0][0][1];
+					var lon = geojson.features[0].geometry.coordinates[0][0][0][0];	
+				} else {
+					var lat = geojson.features[0].geometry.coordinates[0][0][1];
+					var lon = geojson.features[0].geometry.coordinates[0][0][0];
+				}
 				// pan map
 				osmApplication.osmb.setPosition({ latitude:lat, longitude:lon });
 				osmApplication.addedLayer = osmApplication.osmb.addGeoJSON(geojson, {id: 'userGeojson'});
