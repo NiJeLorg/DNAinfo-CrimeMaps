@@ -482,7 +482,69 @@ L.LocationFilter = L.Class.extend({
                             // remove from array
                             mapApplication.added[j] = null;
                         } 
+                    } 
+
+                    // reset popup
+                    var totalDrawnInBlock = 0;
+                    var hoodsDrawnInBlock = [];
+                    var hoodsCountsInBlock = {};
+                    for (var j = hoodsKeys.length - 1; j >= 0; j--) {
+                        if (hoodsKeys[j] in layer.feature.properties) {
+                            layer.feature.properties[hoodsKeys[j]] = parseInt(layer.feature.properties[hoodsKeys[j]]);
+                            hoodsDrawnInBlock.push(hoodsKeys[j]);
+                            hoodsCountsInBlock[hoodsKeys[j]] = layer.feature.properties[hoodsKeys[j]];
+                            totalDrawnInBlock = totalDrawnInBlock + layer.feature.properties[hoodsKeys[j]];
+                        }
+                    }
+
+                    var hoodsCountsInBlockSorted = mapApplication.sortProperties(hoodsCountsInBlock);
+
+                    // calculate percent of total drawings is selected hood in each block
+                    var pctMainHood = ((hoodsCountsInBlock[hoodNameNoHyphens + "_count"] / totalDrawnInBlock) * 100).toFixed(1);
+
+                    // calculate next two hoods and percents
+                    var firstPlaceHood = {};
+                    var secondPlaceHood = {};
+                    var thirdPlaceHood = {};
+                    firstPlaceHood['name'] = hoodsKeyAndName[hoodsCountsInBlockSorted[0][0]];
+                    firstPlaceHood['pct'] = ((hoodsCountsInBlockSorted[0][1] / totalDrawnInBlock) * 100).toFixed(1);
+                    if (typeof hoodsCountsInBlockSorted[1] != 'undefined') {
+                        secondPlaceHood['name'] = "<br />2. " + hoodsKeyAndName[hoodsCountsInBlockSorted[1][0]];
+                        secondPlaceHood['pct'] = " (" + ((hoodsCountsInBlockSorted[1][1] / totalDrawnInBlock) * 100).toFixed(1) + "%)";     
+                    } else {
+                        secondPlaceHood['name'] = '';
+                        secondPlaceHood['pct'] = '';
+                    }
+                    if (typeof hoodsCountsInBlockSorted[2] != 'undefined') {
+                        thirdPlaceHood['name'] = "<br />3. " + hoodsKeyAndName[hoodsCountsInBlockSorted[2][0]];
+                        thirdPlaceHood['pct'] = " (" + ((hoodsCountsInBlockSorted[2][1] / totalDrawnInBlock) * 100).toFixed(1) + "%)";  
+                    } else {
+                        thirdPlaceHood['name'] = '';
+                        thirdPlaceHood['pct'] = '';
+                    }
+                    
+                    if (layer.feature.properties.pctMainHood >= 50) {
+
+                        if (L.Browser.touch && layer.feature.options) {
+                            layer.unbindPopup();
+                            layer.bindPopup("<strong>" + pctMainHood + "% agree this block is in<br />"+ hoodName +". Click to remove it!</strong><br />1. " + firstPlaceHood['name'] + " (" + firstPlaceHood['pct'] + "%)" + secondPlaceHood['name'] + secondPlaceHood['pct'] + thirdPlaceHood['name'] + thirdPlaceHood['pct']);
+                        } else {
+                            layer.unbindLabel();
+                            layer.bindLabel("<strong>" + pctMainHood + "% agree this block is in<br />"+ hoodName +". Click to remove it!</strong><br />1. " + firstPlaceHood['name'] + " (" + firstPlaceHood['pct'] + "%)" + secondPlaceHood['name'] + secondPlaceHood['pct'] + thirdPlaceHood['name'] + thirdPlaceHood['pct'], { direction:'auto' });
+                        }      
+
+                    } else {
+
+                        if (L.Browser.touch && layer.feature.options) {
+                            layer.unbindPopup();
+                            layer.bindPopup("<strong>Only "+ pctMainHood + "% agree this block is in<br />"+ hoodName +". Click to add it!</strong><br />1. " + firstPlaceHood['name'] + " (" + firstPlaceHood['pct'] + "%)" + secondPlaceHood['name'] + secondPlaceHood['pct'] + thirdPlaceHood['name'] + thirdPlaceHood['pct']);
+                        } else {
+                            layer.unbindLabel();
+                            layer.bindLabel("<strong>Only "+ pctMainHood + "% agree this block is in<br />"+ hoodName +". Click to add it!</strong><br />1. " + firstPlaceHood['name'] + " (" + firstPlaceHood['pct'] + "%)" + secondPlaceHood['name'] + secondPlaceHood['pct'] + thirdPlaceHood['name'] + thirdPlaceHood['pct'], { direction:'auto' });
+                        }
+
                     }   
+
                 }
 
                 $('#id_removed').val(JSON.stringify(mapApplication.removed));

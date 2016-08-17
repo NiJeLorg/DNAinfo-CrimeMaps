@@ -515,29 +515,36 @@ resultsMapApplication.onEachFeature_HOOD = function(feature,layer){
 	var secondPlaceHood = {};
 	var thirdPlaceHood = {};
 	firstPlaceHood['name'] = hoodsKeyAndName[hoodsCountsInBlockSorted[0][0]];
-	firstPlaceHood['count'] = hoodsCountsInBlockSorted[0][1];
 	firstPlaceHood['pct'] = ((hoodsCountsInBlockSorted[0][1] / totalDrawnInBlock) * 100).toFixed(1);
-	secondPlaceHood['name'] = hoodsKeyAndName[hoodsCountsInBlockSorted[1][0]];
-	secondPlaceHood['count'] = hoodsCountsInBlockSorted[1][1];
-	secondPlaceHood['pct'] = ((hoodsCountsInBlockSorted[1][1] / totalDrawnInBlock) * 100).toFixed(1);
-	thirdPlaceHood['name'] = hoodsKeyAndName[hoodsCountsInBlockSorted[2][0]];
-	thirdPlaceHood['count'] = hoodsCountsInBlockSorted[2][1];
-	thirdPlaceHood['pct'] = ((hoodsCountsInBlockSorted[2][1] / totalDrawnInBlock) * 100).toFixed(1);
+	if (typeof hoodsCountsInBlockSorted[1] != 'undefined') {
+		secondPlaceHood['name'] = "<br />2. " + hoodsKeyAndName[hoodsCountsInBlockSorted[1][0]];
+		secondPlaceHood['pct'] = " (" + ((hoodsCountsInBlockSorted[1][1] / totalDrawnInBlock) * 100).toFixed(1) + "%)";		
+	} else {
+		secondPlaceHood['name'] = '';
+		secondPlaceHood['pct'] = '';
+	}
+	if (typeof hoodsCountsInBlockSorted[2] != 'undefined') {
+		thirdPlaceHood['name'] = "<br />3. " + hoodsKeyAndName[hoodsCountsInBlockSorted[2][0]];
+		thirdPlaceHood['pct'] = " (" + ((hoodsCountsInBlockSorted[2][1] / totalDrawnInBlock) * 100).toFixed(1) + "%)";	
+	} else {
+		thirdPlaceHood['name'] = '';
+		thirdPlaceHood['pct'] = '';
+	}
 
 	if (pctMainHood >= 50) {
 
 		if (L.Browser.touch) {
-			layer.bindPopup("<strong>" + pctMainHood + "% agree this block is in<br />"+ hoodName +". Click to remove it!</strong><br />1. " + firstPlaceHood['name'] + " (" + firstPlaceHood['pct'] + "%)<br />2. " + secondPlaceHood['name'] + " (" + secondPlaceHood['pct'] + "%)<br />3. " + thirdPlaceHood['name'] + " (" + thirdPlaceHood['pct'] + "%)");
+			layer.bindPopup("<strong>" + pctMainHood + "% agree this block is in<br />"+ hoodName +".</strong><br />1. " + firstPlaceHood['name'] + " (" + firstPlaceHood['pct'] + "%)" + secondPlaceHood['name'] + secondPlaceHood['pct'] + thirdPlaceHood['name'] + thirdPlaceHood['pct']);
 		} else {
-			layer.bindLabel("<strong>" + pctMainHood + "% agree this block is in<br />"+ hoodName +". Click to remove it!</strong><br />1. " + firstPlaceHood['name'] + " (" + firstPlaceHood['pct'] + "%)<br />2. " + secondPlaceHood['name'] + " (" + secondPlaceHood['pct'] + "%)<br />3. " + thirdPlaceHood['name'] + " (" + thirdPlaceHood['pct'] + "%)", { direction:'auto' });
+			layer.bindLabel("<strong>" + pctMainHood + "% agree this block is in<br />"+ hoodName +".</strong><br />1. " + firstPlaceHood['name'] + " (" + firstPlaceHood['pct'] + "%)" + secondPlaceHood['name'] + secondPlaceHood['pct'] + thirdPlaceHood['name'] + thirdPlaceHood['pct'], { direction:'auto' });
 		}		
 
 	} else {
 
 		if (L.Browser.touch) {
-			layer.bindPopup("<strong>Only "+ pctMainHood + "% agree this block is in<br />"+ hoodName +". Click to add it!</strong><br />1. " + firstPlaceHood['name'] + " (" + firstPlaceHood['pct'] + "%)<br />2. " + secondPlaceHood['name'] + " (" + secondPlaceHood['pct'] + "%)<br />3. " + thirdPlaceHood['name'] + " (" + thirdPlaceHood['pct'] + "%)");
+			layer.bindPopup("<strong>Only "+ pctMainHood + "% agree this block is in<br />"+ hoodName +".</strong><br />1. " + firstPlaceHood['name'] + " (" + firstPlaceHood['pct'] + "%)" + secondPlaceHood['name'] + secondPlaceHood['pct'] + thirdPlaceHood['name'] + thirdPlaceHood['pct']);
 		} else {
-			layer.bindLabel("<strong>Only "+ pctMainHood + "% agree this block is in<br />"+ hoodName +". Click to add it!</strong><br />1. " + firstPlaceHood['name'] + " (" + firstPlaceHood['pct'] + "%)<br />2. " + secondPlaceHood['name'] + " (" + secondPlaceHood['pct'] + "%)<br />3. " + thirdPlaceHood['name'] + " (" + thirdPlaceHood['pct'] + "%)", { direction:'auto' });
+			layer.bindLabel("<strong>Only "+ pctMainHood + "% agree this block is in<br />"+ hoodName +".</strong><br />1. " + firstPlaceHood['name'] + " (" + firstPlaceHood['pct'] + "%)" + secondPlaceHood['name'] + secondPlaceHood['pct'] + thirdPlaceHood['name'] + thirdPlaceHood['pct'], { direction:'auto' });
 		}
 		
 	}
