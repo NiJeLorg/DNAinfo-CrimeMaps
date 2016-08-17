@@ -19,23 +19,6 @@ urlpatterns = [
     url(r'^mfa-nyc/rawdataapi/$', views.rawdataapi, name='rawdataapi'),
     url(r'^mfa-nyc/rawdatacsv/$', views.rawdatacsv, name='rawdatacsv'),
     url(r'^mfa-nyc/summarydataapi/$', views.summarydataapi, name='summarydataapi'),
-    #adding urls for NY and Chicago
-    url(r'^new-york/visualizations/mfa-nyc/$', views.intro, name='intro'),
-    url(r'^new-york/visualizations/mfa-nyc/firstMove/$', views.firstMove, name='firstMove'),
-    url(r'^new-york/visualizations/mfa-nyc/firstMove/(?P<id>\d+)/$', views.firstMove, name='firstMove'),
-    url(r'^new-york/visualizations/mfa-nyc/whatNeighborhood/(?P<id>\d+)/$', views.whatNeighborhood, name='whatNeighborhood'),
-    url(r'^new-york/visualizations/mfa-nyc/exactLocation/(?P<id>\d+)/$', views.exactLocation, name='exactLocation'),
-    url(r'^new-york/visualizations/mfa-nyc/yearMoved/(?P<id>\d+)/$', views.yearMoved, name='yearMoved'),
-    url(r'^new-york/visualizations/mfa-nyc/bedrooms/(?P<id>\d+)/$', views.bedrooms, name='bedrooms'),
-    url(r'^new-york/visualizations/mfa-nyc/rentSplit/(?P<id>\d+)/$', views.rentSplit, name='rentSplit'),
-    url(r'^new-york/visualizations/mfa-nyc/iPaid/(?P<id>\d+)/$', views.iPaid, name='iPaid'),
-    url(r'^new-york/visualizations/mfa-nyc/allPaid/(?P<id>\d+)/$', views.allPaid, name='allPaid'),
-    url(r'^new-york/visualizations/mfa-nyc/calc/(?P<id>\d+)/$', views.calc, name='calc'),
-    url(r'^new-york/visualizations/mfa-nyc/end/(?P<id>\d+)/$', views.end, name='end'),
-    url(r'^new-york/visualizations/mfa-nyc/results/(?P<id>\d+)/$', views.results, name='results'),
-    url(r'^new-york/visualizations/mfa-nyc/rawdataapi/$', views.rawdataapi, name='rawdataapi'),
-    url(r'^new-york/visualizations/mfa-nyc/rawdatacsv/$', views.rawdatacsv, name='rawdatacsv'),
-    url(r'^new-york/visualizations/mfa-nyc/summarydataapi/$', views.summarydataapi, name='summarydataapi'),    
 
 ]
 

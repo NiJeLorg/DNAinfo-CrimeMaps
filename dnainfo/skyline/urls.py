@@ -36,37 +36,3 @@ urlpatterns = [
     url(r'^skyline/nyc/end/(?P<id>\d+)/$', views.skyline_end, name='skyline_end'),
     url(r'^skyline/nyc/results/(?P<id>\d+)/$', views.skyline_results, name='skyline_results'),
 
-    # adding NY and Chicago URLs
-    url(r'^new-york/visualizations/skyline/admin/nyc/$', views.skylineAdminDashboard, name='skyline_AdminDashboard'),
-    url(r'^new-york/visualizations/skyline/admin/nyc/sponsored/list/$', views.skyline_sponsoredList, name='skyline_sponsoredList'),
-    url(r'^new-york/visualizations/skyline/admin/nyc/sponsored/remove/(?P<id>\d+)/$', views.skyline_sponsoredRemove, name='skyline_sponsoredRemove'),
-    url(r'^new-york/visualizations/skyline/admin/nyc/sponsored/whatNeighborhood/$', views.skyline_sponsoredWhatNeighborhood, name='skyline_sponsoredWhatNeighborhood'),
-    url(r'^new-york/visualizations/skyline/admin/nyc/sponsored/whatNeighborhood/(?P<id>\d+)/$', views.skyline_sponsoredWhatNeighborhood, name='skyline_sponsoredWhatNeighborhood'),
-    url(r'^new-york/visualizations/skyline/admin/nyc/sponsored/buildingHeight/(?P<id>\d+)/$', views.skyline_sponsoredBuildingHeight, name='skyline_sponsoredBuildingHeight'),
-    url(r'^new-york/visualizations/skyline/admin/nyc/sponsored/exactLocation/(?P<id>\d+)/$', views.skyline_sponsoredExactLocation, name='skyline_sponsoredExactLocation'),
-    url(r'^new-york/visualizations/skyline/admin/nyc/sponsored/getGeojson/(?P<id>\d+)/$', views.skyline_sponsoredGetGeojson, name='skyline_sponsoredGetGeojson'),
-    url(r'^new-york/visualizations/skyline/admin/nyc/sponsored/end/(?P<id>\d+)/$', views.skyline_sponsoredEnd, name='skyline_sponsoredEnd'),
-    url(r'^new-york/visualizations/skyline/admin/nyc/reporter/whatNeighborhood/$', views.skyline_reporterWhatNeighborhood, name='skyline_reporterWhatNeighborhood'),
-    url(r'^new-york/visualizations/skyline/admin/nyc/reporter/whatNeighborhood/(?P<id>\d+)/$', views.skyline_reporterWhatNeighborhood, name='skyline_reporterWhatNeighborhood'),
-    url(r'^new-york/visualizations/skyline/admin/nyc/reporter/buildingHeight/(?P<id>\d+)/$', views.skyline_reporterBuildingHeight, name='skyline_reporterBuildingHeight'),
-    url(r'^new-york/visualizations/skyline/admin/nyc/reporter/exactLocation/(?P<id>\d+)/$', views.skyline_reporterExactLocation, name='skyline_reporterExactLocation'),
-    url(r'^new-york/visualizations/skyline/admin/nyc/reporter/getGeojson/(?P<id>\d+)/$', views.skyline_reporterGetGeojson, name='skyline_reporterGetGeojson'),
-    url(r'^new-york/visualizations/skyline/admin/nyc/reporter/end/(?P<id>\d+)/$', views.skyline_reporterEnd, name='skyline_reporterEnd'),
-    url(r'^new-york/visualizations/skyline/admin/nyc/reporter/list/$', views.skyline_reporterList, name='skyline_reporterList'),
-    url(r'^new-york/visualizations/skyline/admin/nyc/reporter/remove/(?P<id>\d+)/$', views.skyline_reporterRemove, name='skyline_reporterRemove'),
-
-    url(r'^new-york/visualizations/skyline/admin/check/$', views.skylineAdminCheck, name='skyline_AdminCheck'),
-    url(r'^new-york/visualizations/skyline/admin/next/$', views.skylineAdminNext, name='skyline_AdminNext'),
-    url(r'^new-york/visualizations/skyline/nyc/$', views.skyline_intro, name='skyline_intro'),
-    url(r'^new-york/visualizations/skyline/nyc/whatNeighborhood/$', views.skyline_whatNeighborhood, name='skyline_whatNeighborhood'),
-    url(r'^new-york/visualizations/skyline/nyc/whatNeighborhood/(?P<id>\d+)/$', views.skyline_whatNeighborhood, name='skyline_whatNeighborhood'),
-    url(r'^new-york/visualizations/skyline/nyc/buildingHeight/(?P<id>\d+)/$', views.skyline_buildingHeight, name='skyline_buildingHeight'),
-    url(r'^new-york/visualizations/skyline/nyc/exactLocation/(?P<id>\d+)/$', views.skyline_exactLocation, name='skyline_exactLocation'),
-    url(r'^new-york/visualizations/skyline/nyc/getGeojson/(?P<id>\d+)/$', views.skyline_getGeojson, name='skyline_getGeojson'),
-    url(r'^new-york/visualizations/skyline/nyc/getSponsoredGeojsons/$', views.skyline_getSponsoredGeojsons, name='skyline_getSponsoredGeojsons'),
-    url(r'^new-york/visualizations/skyline/nyc/end/(?P<id>\d+)/$', views.skyline_end, name='skyline_end'),
-    url(r'^new-york/visualizations/skyline/nyc/results/(?P<id>\d+)/$', views.skyline_results, name='skyline_results'),
-
-]
-
-
