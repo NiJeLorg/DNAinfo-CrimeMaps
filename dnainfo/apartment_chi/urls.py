@@ -19,24 +19,6 @@ urlpatterns = [
     url(r'^mfa-chi/rawdataapi/$', views.rawdataapi, name='rawdataapi_chi'),
     url(r'^mfa-chi/rawdatacsv/$', views.rawdatacsv, name='rawdatacsv_chi'),
     url(r'^mfa-chi/summarydataapi/$', views.summarydataapi, name='summarydataapi_chi'),
-    # adding in NY and Chicago URLs
-    url(r'^$', views.index, name='index'),
-    url(r'^chicago/visualizations/mfa-chi/$', views.intro, name='intro_chi'),
-    url(r'^chicago/visualizations/mfa-chi/firstMove/$', views.firstMove, name='firstMove_chi'),
-    url(r'^chicago/visualizations/mfa-chi/firstMove/(?P<id>\d+)/$', views.firstMove, name='firstMove_chi'),
-    url(r'^chicago/visualizations/mfa-chi/whatNeighborhood/(?P<id>\d+)/$', views.whatNeighborhood, name='whatNeighborhood_chi'),
-    url(r'^chicago/visualizations/mfa-chi/exactLocation/(?P<id>\d+)/$', views.exactLocation, name='exactLocation_chi'),
-    url(r'^chicago/visualizations/mfa-chi/yearMoved/(?P<id>\d+)/$', views.yearMoved, name='yearMoved_chi'),
-    url(r'^chicago/visualizations/mfa-chi/bedrooms/(?P<id>\d+)/$', views.bedrooms, name='bedrooms_chi'),
-    url(r'^chicago/visualizations/mfa-chi/rentSplit/(?P<id>\d+)/$', views.rentSplit, name='rentSplit_chi'),
-    url(r'^chicago/visualizations/mfa-chi/iPaid/(?P<id>\d+)/$', views.iPaid, name='iPaid_chi'),
-    url(r'^chicago/visualizations/mfa-chi/allPaid/(?P<id>\d+)/$', views.allPaid, name='allPaid_chi'),
-    url(r'^chicago/visualizations/mfa-chi/calc/(?P<id>\d+)/$', views.calc, name='calc_chi'),
-    url(r'^chicago/visualizations/mfa-chi/end/(?P<id>\d+)/$', views.end, name='end_chi'),
-    url(r'^chicago/visualizations/mfa-chi/results/(?P<id>\d+)/$', views.results, name='results_chi'),
-    url(r'^chicago/visualizations/mfa-chi/rawdataapi/$', views.rawdataapi, name='rawdataapi_chi'),
-    url(r'^chicago/visualizations/mfa-chi/rawdatacsv/$', views.rawdatacsv, name='rawdatacsv_chi'),
-    url(r'^chicago/visualizations/mfa-chi/summarydataapi/$', views.summarydataapi, name='summarydataapi_chi'),
 
 ]
 
