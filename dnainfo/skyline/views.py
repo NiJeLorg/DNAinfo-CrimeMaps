@@ -13,6 +13,9 @@ import bitly_api
 #decorators
 from django.contrib.auth.decorators import login_required
 
+# paginator
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 
 # views for DNAinfo my first apartment
 def index(request):
@@ -146,6 +149,37 @@ def skylineAdminDashboard(request):
 	return render(request, 'skyline/adminDashboard.html', {})
 
 @login_required
+def skyline_UgcList(request):
+	NYCskylineObjects = NYCskyline.objects.filter(approved=None).exclude(buildingFootprint='')
+	paginator = Paginator(NYCskylineObjects, 10) # Show 10 buildings per page
+	page = request.GET.get('page')
+	try:
+		objs = paginator.page(page)
+	except PageNotAnInteger:
+		# If page is not an integer, deliver first page.
+		objs = paginator.page(1)
+	except EmptyPage:
+		# If page is out of range (e.g. 9999), deliver last page of results.
+		objs = paginator.page(paginator.num_pages)
+
+
+	return render(request, 'skyline/ugcList.html', {'NYCskylineObjects': objs})
+
+@login_required
+def skyline_UgcApprove(request, id=None):
+	obj = NYCskyline.objects.get(id=id)
+	obj.approved = True
+	obj.save()
+	return HttpResponseRedirect(reverse('skyline_UgcList'))
+
+@login_required
+def skyline_UgcReject(request, id=None):
+	obj = NYCskyline.objects.get(id=id)
+	obj.approved = False
+	obj.save()
+	return HttpResponseRedirect(reverse('skyline_UgcList'))
+
+@login_required
 def skyline_sponsoredWhatNeighborhood(request, id=None):
 	if id:
 		NYCSponsoredBuildingsObject = NYCSponsoredBuildings.objects.get(pk=id)
@@ -256,7 +290,18 @@ def skyline_sponsoredEnd(request, id=None):
 def skyline_sponsoredList(request, id=None):
 	NYCSponsoredBuildingsObjects = NYCSponsoredBuildings.objects.all()
 
-	return render(request, 'skyline/sponsoredList.html', {'NYCSponsoredBuildingsObjects': NYCSponsoredBuildingsObjects})
+	paginator = Paginator(NYCSponsoredBuildingsObjects, 10) # Show 10 buildings per page
+	page = request.GET.get('page')
+	try:
+		objs = paginator.page(page)
+	except PageNotAnInteger:
+		# If page is not an integer, deliver first page.
+		objs = paginator.page(1)
+	except EmptyPage:
+		# If page is out of range (e.g. 9999), deliver last page of results.
+		objs = paginator.page(paginator.num_pages)
+
+	return render(request, 'skyline/sponsoredList.html', {'NYCSponsoredBuildingsObjects': objs})
 
 @login_required
 def skyline_sponsoredRemove(request, id=None):
@@ -392,7 +437,18 @@ def skyline_reporterEnd(request, id=None):
 def skyline_reporterList(request, id=None):
 	NYCReporterBuildingsObjects = NYCReporterBuildings.objects.all()
 
-	return render(request, 'skyline/reporterList.html', {'NYCReporterBuildingsObjects': NYCReporterBuildingsObjects})
+	paginator = Paginator(NYCReporterBuildingsObjects, 10) # Show 10 buildings per page
+	page = request.GET.get('page')
+	try:
+		objs = paginator.page(page)
+	except PageNotAnInteger:
+		# If page is not an integer, deliver first page.
+		objs = paginator.page(1)
+	except EmptyPage:
+		# If page is out of range (e.g. 9999), deliver last page of results.
+		objs = paginator.page(paginator.num_pages)
+
+	return render(request, 'skyline/reporterList.html', {'NYCReporterBuildingsObjects': objs})
 
 @login_required
 def skyline_reporterRemove(request, id=None):

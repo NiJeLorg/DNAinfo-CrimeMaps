@@ -13,7 +13,10 @@ html, body, #content, #map, #osmmap {
 }
 
 /* reporter and UGC building mini maps */
-.minimap { height: 180px; }
+.minimap { 
+  height: 180px; 
+  border: 1px solid #aaa;
+}
 
 /* full screen background image */
 #background, #background li { 
