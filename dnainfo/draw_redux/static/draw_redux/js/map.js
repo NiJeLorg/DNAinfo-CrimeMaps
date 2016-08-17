@@ -402,7 +402,9 @@ mapApplication.loadLocationFilter = function () {
 						console.log(layer);
 						layer.unbindPopup();
 						layer.bindPopup("<strong>You removed this block from "+ hoodName +".<br />Click to add it back!</strong>");
-					} else {
+					} 
+
+					if (!L.Browser.touch) {
 						layer.unbindLabel();
 		    			layer.bindLabel("<strong>You removed this block from "+ hoodName +".<br />Click to add it back!</strong>", { direction:'auto' });
 					}
@@ -424,7 +426,9 @@ mapApplication.loadLocationFilter = function () {
 					if (L.Browser.touch && layer.feature.options) {
 						layer.unbindPopup();
 						layer.bindPopup("<strong>You added this block to "+ hoodName +".<br />Click to remove it!</strong>");
-					} else {
+					} 
+
+					if (!L.Browser.touch) {
 			    		layer.unbindLabel();
 			    		layer.bindLabel("<strong>You added this block to "+ hoodName +".<br />Click to remove it!</strong>", { direction:'auto' });
 					}
@@ -566,17 +570,21 @@ mapApplication.onEachFeature_HOOD = function(feature,layer){
 
 	if (pctMainHood >= 50) {
 
-		if (L.Browser.touch && layer.feature.options) {
+		if (L.Browser.touch) {
 			layer.bindPopup("<strong>" + pctMainHood + "% agree this block is in<br />"+ hoodName +". Click to remove it!</strong><br />1. " + firstPlaceHood['name'] + " (" + firstPlaceHood['pct'] + "%)" + secondPlaceHood['name'] + secondPlaceHood['pct'] + thirdPlaceHood['name'] + thirdPlaceHood['pct']);
-		} else {
+		} 
+
+		if (!L.Browser.touch) {
 			layer.bindLabel("<strong>" + pctMainHood + "% agree this block is in<br />"+ hoodName +". Click to remove it!</strong><br />1. " + firstPlaceHood['name'] + " (" + firstPlaceHood['pct'] + "%)" + secondPlaceHood['name'] + secondPlaceHood['pct'] + thirdPlaceHood['name'] + thirdPlaceHood['pct'], { direction:'auto' });
 		}		
 
 	} else {
 
-		if (L.Browser.touch && layer.feature.options) {
+		if (L.Browser.touch) {
 			layer.bindPopup("<strong>Only "+ pctMainHood + "% agree this block is in<br />"+ hoodName +". Click to add it!</strong><br />1. " + firstPlaceHood['name'] + " (" + firstPlaceHood['pct'] + "%)" + secondPlaceHood['name'] + secondPlaceHood['pct'] + thirdPlaceHood['name'] + thirdPlaceHood['pct']);
-		} else {
+		} 
+
+		if (!L.Browser.touch) {
 			layer.bindLabel("<strong>Only "+ pctMainHood + "% agree this block is in<br />"+ hoodName +". Click to add it!</strong><br />1. " + firstPlaceHood['name'] + " (" + firstPlaceHood['pct'] + "%)" + secondPlaceHood['name'] + secondPlaceHood['pct'] + thirdPlaceHood['name'] + thirdPlaceHood['pct'], { direction:'auto' });
 		}
 		
@@ -673,7 +681,9 @@ mapApplication.onEachFeature_HOOD = function(feature,layer){
 				if (L.Browser.touch && layer.feature.options) {
 					layer.unbindPopup();
 					layer.bindPopup("<strong>You removed this block from "+ hoodName +".<br />Click to add it back!</strong>");
-				} else {
+				} 
+
+				if (!L.Browser.touch) {
 					layer.unbindLabel();
 	    			layer.bindLabel("<strong>You removed this block from "+ hoodName +".<br />Click to add it back!</strong>", { direction:'auto' });
 				}
@@ -683,7 +693,9 @@ mapApplication.onEachFeature_HOOD = function(feature,layer){
 				if (L.Browser.touch && layer.feature.options) {
 					layer.unbindPopup();
 					layer.bindPopup("<strong>" + pctMainHood + "% agree this block is in<br />"+ hoodName +". Click to remove it!</strong><br />1. " + firstPlaceHood['name'] + " (" + firstPlaceHood['pct'] + "%)" + secondPlaceHood['name'] + secondPlaceHood['pct'] + thirdPlaceHood['name'] + thirdPlaceHood['pct']);
-				} else {
+				} 
+
+				if (!L.Browser.touch) {
 		    		layer.unbindLabel();
 					layer.bindLabel("<strong>" + pctMainHood + "% agree this block is in<br />"+ hoodName +". Click to remove it!</strong><br />1. " + firstPlaceHood['name'] + " (" + firstPlaceHood['pct'] + "%)" + secondPlaceHood['name'] + secondPlaceHood['pct'] + thirdPlaceHood['name'] + thirdPlaceHood['pct'], { direction:'auto' });
 				}
@@ -720,7 +732,9 @@ mapApplication.onEachFeature_HOOD = function(feature,layer){
 				if (L.Browser.touch && layer.feature.options) {
 					layer.unbindPopup();
 					layer.bindPopup("<strong>You added this block to "+ hoodName +".<br />Click to remove it!</strong>");
-				} else {
+				} 
+
+				if (!L.Browser.touch) {
 		    		layer.unbindLabel();
 		    		layer.bindLabel("<strong>You added this block to "+ hoodName +".<br />Click to remove it!</strong>", { direction:'auto' });
 				}
@@ -730,7 +744,9 @@ mapApplication.onEachFeature_HOOD = function(feature,layer){
 				if (L.Browser.touch && layer.feature.options) {
 					layer.unbindPopup();
 					layer.bindPopup("<strong>Only "+ pctMainHood + "% agree this block is in<br />"+ hoodName +". Click to add it!</strong><br />1. " + firstPlaceHood['name'] + " (" + firstPlaceHood['pct'] + "%)" + secondPlaceHood['name'] + secondPlaceHood['pct'] + thirdPlaceHood['name'] + thirdPlaceHood['pct']);
-				} else {
+				} 
+
+				if (!L.Browser.touch) {
 		    		layer.unbindLabel();
 					layer.bindLabel("<strong>Only "+ pctMainHood + "% agree this block is in<br />"+ hoodName +". Click to add it!</strong><br />1. " + firstPlaceHood['name'] + " (" + firstPlaceHood['pct'] + "%)" + secondPlaceHood['name'] + secondPlaceHood['pct'] + thirdPlaceHood['name'] + thirdPlaceHood['pct'], { direction:'auto' });
 				}

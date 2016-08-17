@@ -528,7 +528,9 @@ L.LocationFilter = L.Class.extend({
                         if (L.Browser.touch && layer.feature.options) {
                             layer.unbindPopup();
                             layer.bindPopup("<strong>" + pctMainHood + "% agree this block is in<br />"+ hoodName +". Click to remove it!</strong><br />1. " + firstPlaceHood['name'] + " (" + firstPlaceHood['pct'] + "%)" + secondPlaceHood['name'] + secondPlaceHood['pct'] + thirdPlaceHood['name'] + thirdPlaceHood['pct']);
-                        } else {
+                        } 
+
+                        if (!L.Browser.touch) {
                             layer.unbindLabel();
                             layer.bindLabel("<strong>" + pctMainHood + "% agree this block is in<br />"+ hoodName +". Click to remove it!</strong><br />1. " + firstPlaceHood['name'] + " (" + firstPlaceHood['pct'] + "%)" + secondPlaceHood['name'] + secondPlaceHood['pct'] + thirdPlaceHood['name'] + thirdPlaceHood['pct'], { direction:'auto' });
                         }      
@@ -538,7 +540,9 @@ L.LocationFilter = L.Class.extend({
                         if (L.Browser.touch && layer.feature.options) {
                             layer.unbindPopup();
                             layer.bindPopup("<strong>Only "+ pctMainHood + "% agree this block is in<br />"+ hoodName +". Click to add it!</strong><br />1. " + firstPlaceHood['name'] + " (" + firstPlaceHood['pct'] + "%)" + secondPlaceHood['name'] + secondPlaceHood['pct'] + thirdPlaceHood['name'] + thirdPlaceHood['pct']);
-                        } else {
+                        } 
+
+                        if (!L.Browser.touch) {
                             layer.unbindLabel();
                             layer.bindLabel("<strong>Only "+ pctMainHood + "% agree this block is in<br />"+ hoodName +". Click to add it!</strong><br />1. " + firstPlaceHood['name'] + " (" + firstPlaceHood['pct'] + "%)" + secondPlaceHood['name'] + secondPlaceHood['pct'] + thirdPlaceHood['name'] + thirdPlaceHood['pct'], { direction:'auto' });
                         }
