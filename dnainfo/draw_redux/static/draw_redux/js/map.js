@@ -572,7 +572,7 @@ mapApplication.onEachFeature_HOOD = function(feature,layer){
 	} else {
 
 		if (!L.Browser.touch) {
-			layer.bindLabel("<strong>Only "+ pctMainHood + "% agree this block is in " + hoodName +"<br />"+ topOtherHood['pct'] + "% think this block is in " + topOtherHood['name'] +".<br /> Click to add it to " + hoodName + "!</strong>", { direction:'auto' });
+			layer.bindLabel("<strong>" + topOtherHood['pct'] + "% think this block is in " + topOtherHood['name'] +".<br /> Click to add it to " + hoodName + "!</strong>", { direction:'auto' });
 		}
 		
 	}
@@ -719,7 +719,7 @@ mapApplication.onEachFeature_HOOD = function(feature,layer){
 
 				if (!L.Browser.touch) {
 		    		layer.unbindLabel();
-					layer.bindLabel("<strong>Only "+ pctMainHood + "% agree this block is in " + hoodName +".<br />"+ topOtherHood['pct'] + "% think this block is in " + topOtherHood['name'] +".<br /> Click to add it to " + hoodName + "!</strong>", { direction:'auto' });
+					layer.bindLabel("<strong>" + topOtherHood['pct'] + "% think this block is in " + topOtherHood['name'] +".<br /> Click to add it to " + hoodName + "!</strong>", { direction:'auto' });
 				}
 
 
