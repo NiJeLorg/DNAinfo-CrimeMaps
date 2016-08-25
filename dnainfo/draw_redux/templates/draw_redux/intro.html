@@ -8,7 +8,9 @@
 {% block css_block %}
 {% import_django_select2_css %}
 <link rel="stylesheet" type="text/css" href="{% static 'draw_redux/css/leaflet.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'draw_redux/css/leaflet.label.css' %}"><link rel="stylesheet" type="text/css" href="{% static 'draw_redux/css/locationfilter.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'draw_redux/css/leaflet.label.css' %}">
+<!--<link rel="stylesheet" type="text/css" href="{% static 'draw_redux/css/locationfilter.css' %}">-->
+<link rel="stylesheet" type="text/css" href="{% static 'draw_redux/css/pather.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'draw_redux/css/Control.Geocoder.css' %}">
 {% endblock %}
 
@@ -48,8 +50,9 @@
 <script type="text/javascript" src="{% static 'draw_redux/js/leaflet.label-src.js' %}"></script>
 <script type="text/javascript" src="{% static 'draw_redux/js/topojson.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'draw_redux/js/Control.Geocoder.js' %}"></script>
-<script type="text/javascript" src="{% static 'draw_redux/js/locationfilter.js' %}"></script>
+<!--<script type="text/javascript" src="{% static 'draw_redux/js/locationfilter.js' %}"></script>-->
 <script type="text/javascript" src="{% static 'draw_redux/js/turf.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'draw_redux/js/pather.js' %}"></script>
 <script type="text/javascript" src="{% static 'draw_redux/js/ajax.js' %}"></script>
 <script type="text/javascript" src="{% static 'draw_redux/js/map.js' %}"></script>
 <script type="text/javascript" src="{% static 'draw_redux/js/resultsMap.js' %}"></script>

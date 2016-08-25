@@ -22,8 +22,11 @@ mapApplication.initialize = function () {
 		minZoom:this.minZoom,
 		maxZoom:18,
     	center: this.center,
-   	 	zoom: this.zoom
+   	 	zoom: this.zoom,
+   	 	zoomControl: false,
 	});
+
+	new L.Control.Zoom({ position: 'bottomright' }).addTo(this.map);
 
 	mapApplication.map = this.map;
 
@@ -49,7 +52,10 @@ mapApplication.initialize = function () {
 	mapApplication.loadHood();
 
 	// load location filter
-	mapApplication.loadLocationFilter();
+	//mapApplication.loadLocationFilter();
+
+	// load L.Pather for adding polygons with a line selection
+	mapApplication.loadPather();
 
 	function center(neighborhood) {
 
@@ -354,8 +360,26 @@ mapApplication.initialize = function () {
 	}
 
 }
-	
 
+mapApplication.loadPather = function () {
+	mapApplication.pather = new L.Pather();
+
+	// listen for button clicks to set modes
+	$('#markerButton').click( function(){
+		mapApplication.map.addLayer(mapApplication.pather);
+		mapApplication.pather.setMode(L.Pather.MODE.CREATE);
+	});
+
+	$('#eraserButton').click( function(){
+		mapApplication.map.addLayer(mapApplication.pather);
+		mapApplication.pather.setMode(L.Pather.MODE.CREATE);
+	});
+
+
+}
+
+	
+/*
 mapApplication.loadLocationFilter = function () {
 
 	var locationFilter = new L.LocationFilter().addTo(mapApplication.map);
@@ -449,6 +473,7 @@ mapApplication.loadLocationFilter = function () {
 
 	});
 }
+*/
 
 
 mapApplication.loadHood = function () {
@@ -606,10 +631,6 @@ mapApplication.onEachFeature_HOOD = function(feature,layer){
     		}
 
     	}
-
-    	if (!L.Browser.ie && !L.Browser.opera) {
-	        layer.bringToFront();
-	    }
 
     });
 		

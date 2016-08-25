@@ -384,6 +384,19 @@ fieldset[disabled] .btn-dna-twitter.active {
 
 }
 
+/* Map buttons */
+#markerButton {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+#eraserButton {
+  position: absolute;
+  top: 60px;
+  left: 10px;
+}
+
 
 
 /* input add on areas */
