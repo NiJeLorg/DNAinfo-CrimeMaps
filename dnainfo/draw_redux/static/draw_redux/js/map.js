@@ -553,10 +553,15 @@ mapApplication.onEachFeature_HOOD = function(feature,layer){
 	// add this to feature.properties for later
 	feature.properties.pctMainHood = pctMainHood;
 
-	// calculate next two hoods and percents
-	var firstPlaceHood = {};
-	firstPlaceHood['name'] = hoodsKeyAndName[hoodsProportionInBlockSorted[0][0]];
-	firstPlaceHood['pct'] = (hoodsProportionInBlockSorted[0][1] * 100).toFixed(1);
+	// calculate next hood that's not this hood and it's percentage
+	var topOtherHood = {};
+	if (hoodName != hoodsKeyAndName[hoodsProportionInBlockSorted[0][0]]) {
+		topOtherHood['name'] = hoodsKeyAndName[hoodsProportionInBlockSorted[0][0]];
+		topOtherHood['pct'] = (hoodsProportionInBlockSorted[0][1] * 100).toFixed(1);		
+	} else {
+		topOtherHood['name'] = hoodsKeyAndName[hoodsProportionInBlockSorted[1][0]];
+		topOtherHood['pct'] = (hoodsProportionInBlockSorted[1][1] * 100).toFixed(1);
+	}
 
 	if (pctMainHood >= 50) {
 
@@ -567,7 +572,7 @@ mapApplication.onEachFeature_HOOD = function(feature,layer){
 	} else {
 
 		if (!L.Browser.touch) {
-			layer.bindLabel("<strong>Only "+ pctMainHood + "% agree this block is in<br />"+ firstPlaceHood['pct'] + "% think this block is in " + firstPlaceHood['name'] +".<br /> Click to add it to " + pctMainHood + "!</strong>", { direction:'auto' });
+			layer.bindLabel("<strong>Only "+ pctMainHood + "% agree this block is in" + hoodName +"<br />"+ topOtherHood['pct'] + "% think this block is in " + topOtherHood['name'] +".<br /> Click to add it to " + hoodName + "!</strong>", { direction:'auto' });
 		}
 		
 	}
@@ -714,7 +719,7 @@ mapApplication.onEachFeature_HOOD = function(feature,layer){
 
 				if (!L.Browser.touch) {
 		    		layer.unbindLabel();
-					layer.bindLabel("<strong>Only "+ pctMainHood + "% agree this block is in<br />"+ firstPlaceHood['pct'] + "% think this block is in " + firstPlaceHood['name'] +".<br /> Click to add it to " + pctMainHood + "!</strong>", { direction:'auto' });
+					layer.bindLabel("<strong>Only "+ pctMainHood + "% agree this block is in" + hoodName +"<br />"+ topOtherHood['pct'] + "% think this block is in " + topOtherHood['name'] +".<br /> Click to add it to " + hoodName + "!</strong>", { direction:'auto' });
 				}
 
 
