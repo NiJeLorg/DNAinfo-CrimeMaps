@@ -433,57 +433,61 @@ resultsMapApplication.getStyleFor_HOOD = function (feature){
 	}
 
 	// now style by neighborhood
-	var totalDrawnInBlock = 0;
 	var hoodsDrawnInBlock = [];
-	var hoodsCountsInBlock = {};
+	var hoodProportionInBlock = {};
 	for (var i = hoodsKeys.length - 1; i >= 0; i--) {
 		if (hoodsKeys[i] in feature.properties) {
+			// feature.properties[hoodsKeys[i]] is the total number of drawing for this neighborhood in this block 
+			// hoodsKeyAndMaxCount[hoodsKeys[i]] is the total number of drawing for that neighborhood
+			// hoodProportionInBlock = calculating proportion for that neighborhood of the total drawings for the neighborhood in the block
 			feature.properties[hoodsKeys[i]] = parseInt(feature.properties[hoodsKeys[i]]);
+			hoodsKeyAndMaxCount[hoodsKeys[i]] = parseInt(hoodsKeyAndMaxCount[hoodsKeys[i]]);
+			hoodProportionInBlock[hoodsKeys[i]] = feature.properties[hoodsKeys[i]] / hoodsKeyAndMaxCount[hoodsKeys[i]];
 			hoodsDrawnInBlock.push(hoodsKeys[i]);
-			hoodsCountsInBlock[hoodsKeys[i]] = feature.properties[hoodsKeys[i]];
-			totalDrawnInBlock = totalDrawnInBlock + feature.properties[hoodsKeys[i]];
 		}
 	}
 
-	var hoodsCountsInBlockSorted = resultsMapApplication.sortProperties(hoodsCountsInBlock);
+	// sort the results
+	var hoodsProportionInBlockSorted = resultsMapApplication.sortProperties(hoodProportionInBlock);
 
 
-	if (hoodsCountsInBlock[hoodNameNoHyphens + "_count"] >= (totalDrawnInBlock/2)) {
+	// if proportion is greater than 0.5, then fill with red
+	if (hoodProportionInBlock[hoodNameNoHyphens + "_count"] >= 0.5) {
 	    return {
-	        weight: 0,
-	        opacity: 0,
-	        color: '#bdbdbd',
+	        weight: 0.5,
+	        opacity: 0.7,
+	        color: '#fff',
 	        fillOpacity: 0.7,
 	        fillColor: '#fc5158'
 	    }		
-	} else if (hoodNameNoHyphens + "_count" == hoodsCountsInBlockSorted[0][0]) {
+	} else if (hoodNameNoHyphens + "_count" == hoodsProportionInBlockSorted[0][0]) {
 		// check color object for presence of this neighborhood
-        if(!resultsMapApplication.colorsByHood.hasOwnProperty(hoodsCountsInBlockSorted[1][0])) {
+        if(!resultsMapApplication.colorsByHood.hasOwnProperty(hoodsProportionInBlockSorted[1][0])) {
         	// assign color to colorsByHood object
-        	resultsMapApplication.colorsByHood[hoodsCountsInBlockSorted[1][0]] = resultsMapApplication.colorAssignment(resultsMapApplication.objectLength(resultsMapApplication.colorsByHood));
+        	resultsMapApplication.colorsByHood[hoodsProportionInBlockSorted[1][0]] = resultsMapApplication.colorAssignment(resultsMapApplication.objectLength(resultsMapApplication.colorsByHood));
         }
 
 	    return {
-	        weight: 0,
-	        opacity: 0,
-	        color: '#bdbdbd',
+	        weight: 0.5,
+	        opacity: 0.7,
+	        color: '#fff',
 	        fillOpacity: 0.5,
-	        fillColor: resultsMapApplication.colorsByHood[hoodsCountsInBlockSorted[1][0]]
+	        fillColor: resultsMapApplication.colorsByHood[hoodsProportionInBlockSorted[1][0]]
 	    }
 
 	} else {
 		// check color object for presence of this neighborhood
-        if(!resultsMapApplication.colorsByHood.hasOwnProperty(hoodsCountsInBlockSorted[0][0])) {
+        if(!resultsMapApplication.colorsByHood.hasOwnProperty(hoodsProportionInBlockSorted[0][0])) {
         	// assign color to colorsByHood object
-        	resultsMapApplication.colorsByHood[hoodsCountsInBlockSorted[0][0]] = resultsMapApplication.colorAssignment(resultsMapApplication.objectLength(resultsMapApplication.colorsByHood));
+        	resultsMapApplication.colorsByHood[hoodsProportionInBlockSorted[0][0]] = resultsMapApplication.colorAssignment(resultsMapApplication.objectLength(resultsMapApplication.colorsByHood));
         }
 
 	    return {
-	        weight: 0,
-	        opacity: 0,
-	        color: '#bdbdbd',
+	        weight: 0.5,
+	        opacity: 0.7,
+	        color: '#fff',
 	        fillOpacity: 0.5,
-	        fillColor: resultsMapApplication.colorsByHood[hoodsCountsInBlockSorted[0][0]]
+	        fillColor: resultsMapApplication.colorsByHood[hoodsProportionInBlockSorted[0][0]]
 	    }	
 	}
 
@@ -491,60 +495,44 @@ resultsMapApplication.getStyleFor_HOOD = function (feature){
 
 resultsMapApplication.onEachFeature_HOOD = function(feature,layer){	
 
-	var totalDrawnInBlock = 0;
 	var hoodsDrawnInBlock = [];
-	var hoodsCountsInBlock = {};
+	var hoodProportionInBlock = {};
 	for (var i = hoodsKeys.length - 1; i >= 0; i--) {
 		if (hoodsKeys[i] in feature.properties) {
+			// feature.properties[hoodsKeys[i]] is the total number of drawing for this neighborhood in this block 
+			// hoodsKeyAndMaxCount[hoodsKeys[i]] is the total number of drawing for that neighborhood
+			// hoodProportionInBlock = calculating proportion for that neighborhood of the total drawings for the neighborhood in the block
 			feature.properties[hoodsKeys[i]] = parseInt(feature.properties[hoodsKeys[i]]);
+			hoodsKeyAndMaxCount[hoodsKeys[i]] = parseInt(hoodsKeyAndMaxCount[hoodsKeys[i]]);
+			hoodProportionInBlock[hoodsKeys[i]] = feature.properties[hoodsKeys[i]] / hoodsKeyAndMaxCount[hoodsKeys[i]];
 			hoodsDrawnInBlock.push(hoodsKeys[i]);
-			hoodsCountsInBlock[hoodsKeys[i]] = feature.properties[hoodsKeys[i]];
-			totalDrawnInBlock = totalDrawnInBlock + feature.properties[hoodsKeys[i]];
 		}
 	}
 
-	var hoodsCountsInBlockSorted = resultsMapApplication.sortProperties(hoodsCountsInBlock);
+	// sort the results
+	var hoodsProportionInBlockSorted = resultsMapApplication.sortProperties(hoodProportionInBlock);
 
 	// calculate percent of total drawings is selected hood in each block
-	var pctMainHood = ((hoodsCountsInBlock[hoodNameNoHyphens + "_count"] / totalDrawnInBlock) * 100).toFixed(1);
+	var pctMainHood = (hoodProportionInBlock[hoodNameNoHyphens + "_count"] * 100).toFixed(1);
 	// add this to feature.properties for later
 	feature.properties.pctMainHood = pctMainHood;
 
+
 	// calculate next two hoods and percents
 	var firstPlaceHood = {};
-	var secondPlaceHood = {};
-	var thirdPlaceHood = {};
-	firstPlaceHood['name'] = hoodsKeyAndName[hoodsCountsInBlockSorted[0][0]];
-	firstPlaceHood['pct'] = ((hoodsCountsInBlockSorted[0][1] / totalDrawnInBlock) * 100).toFixed(1);
-	if (typeof hoodsCountsInBlockSorted[1] != 'undefined') {
-		secondPlaceHood['name'] = "<br />2. " + hoodsKeyAndName[hoodsCountsInBlockSorted[1][0]];
-		secondPlaceHood['pct'] = " (" + ((hoodsCountsInBlockSorted[1][1] / totalDrawnInBlock) * 100).toFixed(1) + "%)";		
-	} else {
-		secondPlaceHood['name'] = '';
-		secondPlaceHood['pct'] = '';
-	}
-	if (typeof hoodsCountsInBlockSorted[2] != 'undefined') {
-		thirdPlaceHood['name'] = "<br />3. " + hoodsKeyAndName[hoodsCountsInBlockSorted[2][0]];
-		thirdPlaceHood['pct'] = " (" + ((hoodsCountsInBlockSorted[2][1] / totalDrawnInBlock) * 100).toFixed(1) + "%)";	
-	} else {
-		thirdPlaceHood['name'] = '';
-		thirdPlaceHood['pct'] = '';
-	}
+	firstPlaceHood['name'] = hoodsKeyAndName[hoodsProportionInBlockSorted[0][0]];
+	firstPlaceHood['pct'] = (hoodsProportionInBlockSorted[0][1] * 100).toFixed(1);
 
 	if (pctMainHood >= 50) {
 
-		if (L.Browser.touch) {
-			layer.bindPopup("<strong>" + pctMainHood + "% agree this block is in<br />"+ hoodName +".</strong><br />1. " + firstPlaceHood['name'] + " (" + firstPlaceHood['pct'] + "%)" + secondPlaceHood['name'] + secondPlaceHood['pct'] + thirdPlaceHood['name'] + thirdPlaceHood['pct']);
-		} else {
-			layer.bindLabel("<strong>" + pctMainHood + "% agree this block is in<br />"+ hoodName +".</strong><br />1. " + firstPlaceHood['name'] + " (" + firstPlaceHood['pct'] + "%)" + secondPlaceHood['name'] + secondPlaceHood['pct'] + thirdPlaceHood['name'] + thirdPlaceHood['pct'], { direction:'auto' });
+		if (!L.Browser.touch) {
+			layer.bindLabel("<strong>" + pctMainHood + "% agree this block is in<br />"+ hoodName +".</strong>", { direction:'auto' });
 		}		
 
 	} else {
 
-		if (L.Browser.touch) {
-			layer.bindPopup("<strong>Only "+ pctMainHood + "% agree this block is in<br />"+ hoodName +".</strong><br />1. " + firstPlaceHood['name'] + " (" + firstPlaceHood['pct'] + "%)" + secondPlaceHood['name'] + secondPlaceHood['pct'] + thirdPlaceHood['name'] + thirdPlaceHood['pct']);
-		} else {
-			layer.bindLabel("<strong>Only "+ pctMainHood + "% agree this block is in<br />"+ hoodName +".</strong><br />1. " + firstPlaceHood['name'] + " (" + firstPlaceHood['pct'] + "%)" + secondPlaceHood['name'] + secondPlaceHood['pct'] + thirdPlaceHood['name'] + thirdPlaceHood['pct'], { direction:'auto' });
+		if (!L.Browser.touch) {
+			layer.bindLabel("<strong>Only "+ pctMainHood + "% agree this block is in<br />"+ firstPlaceHood['pct'] + "% think this block is in " + firstPlaceHood['name'] +".</strong>", { direction:'auto' });
 		}
 		
 	}
@@ -552,10 +540,7 @@ resultsMapApplication.onEachFeature_HOOD = function(feature,layer){
 
 	for (var i = resultsMapApplication.added.length - 1; i >= 0; i--) {
 		if (feature.properties.BCTCB2010 == resultsMapApplication.added[i]) {
-			if (L.Browser.touch) {
-				layer.unbindPopup();
-				layer.bindPopup("<strong>You added this block to " + hoodName + ".<br />" + pctMainHood + "% agree with you!</strong>");
-			} else {
+			if (!L.Browser.touch) {
 				layer.unbindLabel();
 				layer.bindLabel("<strong>You added this block to " + hoodName + ".<br />" + pctMainHood + "% agree with you!</strong>", { direction:'auto' });
 			}
@@ -564,10 +549,7 @@ resultsMapApplication.onEachFeature_HOOD = function(feature,layer){
 
 	for (var i = resultsMapApplication.removed.length - 1; i >= 0; i--) {
 		if (feature.properties.BCTCB2010 == resultsMapApplication.removed[i]) {
-			if (L.Browser.touch) {
-				layer.unbindPopup();
-				layer.bindPopup("<strong>You removed this block from " + hoodName + ".<br />" + pctMainHood + "% disagree with you.</strong>");
-			} else {
+			if (!L.Browser.touch) {
 				layer.unbindLabel();
 				layer.bindLabel("<strong>You removed this block from " + hoodName + ".<br />" + pctMainHood + "% disagree with you.</strong>", { direction:'auto' });
 			}
@@ -577,6 +559,9 @@ resultsMapApplication.onEachFeature_HOOD = function(feature,layer){
 
 	layer.on('mouseover', function(ev) {
 		layer.setStyle(resultsMapApplication.hover);
+		if (!L.Browser.ie && !L.Browser.opera) {
+	        layer.bringToFront();
+	    }
 	});
 
 	layer.on('mouseout', function(ev) {
