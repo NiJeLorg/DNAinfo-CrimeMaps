@@ -536,7 +536,8 @@ resultsMapApplication.onEachFeature_HOOD = function(feature,layer){
 	} else {
 
 		if (!L.Browser.touch) {
-			layer.bindLabel("<strong>Only "+ pctMainHood + "% agree this block is in<br />"+ topOtherHood['pct'] + "% think this block is in " + topOtherHood['name'] +".</strong>", { direction:'auto' });
+			layer.bindLabel("<strong>" + topOtherHood['pct'] + "% think this block is in " + topOtherHood['name'] +".</strong>", { direction:'auto' });
+
 		}
 		
 	}
