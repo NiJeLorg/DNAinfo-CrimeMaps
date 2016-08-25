@@ -590,7 +590,7 @@ resultsMapApplication.objectLength = function(obj) {
 }
 
 resultsMapApplication.colorAssignment = function(key) {
-	var colors = ["#66c2a5","#8da0cb","#e78ac3","#a6d854","#ffd92f","#e5c494","#b3b3b3","#fc8d62","#ffffb3","#bebada","#80b1d3","#fdb462"];
+	var colors = ["#8dd3c7","#ffffb3","#bebada","#fb8072","#80b1d3","#fdb462","#b3de69","#fccde5","#d9d9d9","#bc80bd","#ccebc5","#ffed6f"];
 	return colors[key];
 }
 
