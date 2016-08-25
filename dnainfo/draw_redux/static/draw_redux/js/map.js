@@ -566,13 +566,13 @@ mapApplication.onEachFeature_HOOD = function(feature,layer){
 	if (pctMainHood >= 50) {
 
 		if (!L.Browser.touch) {
-			layer.bindLabel("<strong>" + pctMainHood + "% agree this block is in<br />"+ hoodName +". Click to remove it!</strong>", { direction:'auto' });
+			layer.bindLabel("<strong>" + pctMainHood + "% agree this block is in "+ hoodName +".<br /> Click to remove it!</strong>", { direction:'auto' });
 		}		
 
 	} else {
 
 		if (!L.Browser.touch) {
-			layer.bindLabel("<strong>Only "+ pctMainHood + "% agree this block is in" + hoodName +"<br />"+ topOtherHood['pct'] + "% think this block is in " + topOtherHood['name'] +".<br /> Click to add it to " + hoodName + "!</strong>", { direction:'auto' });
+			layer.bindLabel("<strong>Only "+ pctMainHood + "% agree this block is in " + hoodName +"<br />"+ topOtherHood['pct'] + "% think this block is in " + topOtherHood['name'] +".<br /> Click to add it to " + hoodName + "!</strong>", { direction:'auto' });
 		}
 		
 	}
@@ -678,7 +678,7 @@ mapApplication.onEachFeature_HOOD = function(feature,layer){
 
 				if (!L.Browser.touch) {
 		    		layer.unbindLabel();
-					layer.bindLabel("<strong>" + pctMainHood + "% agree this block is in<br />"+ hoodName +". Click to remove it!</strong>", { direction:'auto' });
+					layer.bindLabel("<strong>" + pctMainHood + "% agree this block is in "+ hoodName +"<br />. Click to remove it!</strong>", { direction:'auto' });
 				}
 	    	}
 			
@@ -719,7 +719,7 @@ mapApplication.onEachFeature_HOOD = function(feature,layer){
 
 				if (!L.Browser.touch) {
 		    		layer.unbindLabel();
-					layer.bindLabel("<strong>Only "+ pctMainHood + "% agree this block is in" + hoodName +"<br />"+ topOtherHood['pct'] + "% think this block is in " + topOtherHood['name'] +".<br /> Click to add it to " + hoodName + "!</strong>", { direction:'auto' });
+					layer.bindLabel("<strong>Only "+ pctMainHood + "% agree this block is in " + hoodName +".<br />"+ topOtherHood['pct'] + "% think this block is in " + topOtherHood['name'] +".<br /> Click to add it to " + hoodName + "!</strong>", { direction:'auto' });
 				}
 
 
