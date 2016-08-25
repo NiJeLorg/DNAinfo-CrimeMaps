@@ -1,0 +1,24 @@
+.mode-create {
+    cursor: crosshair;
+}
+
+div.elbow {
+    transition: background-color .25s;
+    border: 2px solid white;
+    outline: none;
+    box-shadow: 0 0 3px rgba(0, 0, 0, .1);
+    border-radius: 50%;
+    pointer-events: none;
+    background-color: #555;
+}
+
+.mode-edit div.elbow {
+    cursor: move;
+    pointer-events: all;
+    background-color: orangered;
+}
+
+svg {
+    position: absolute;
+    z-index: 1001;
+}
