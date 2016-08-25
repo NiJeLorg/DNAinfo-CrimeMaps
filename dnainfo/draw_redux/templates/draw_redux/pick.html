@@ -46,11 +46,13 @@
     var objectID = "{{ NYCInOrOutObject.id }}";
     var neighborhoodName = "{{ NYCInOrOutObject.whatNeighborhood.dnaurl }}";
     var hoodName = "{{ NYCInOrOutObject.whatNeighborhood.name }}";
-    var hoodsKeyAndName = {};
     var hoodsKeys = [];
+    var hoodsKeyAndName = {};
+    var hoodsKeyAndMaxCount = {};
     {% for hood in NYCneighborhoods %}
     	hoodsKeys.push("{{ hood.dnaurl }}" + "_count");
     	hoodsKeyAndName["{{ hood.dnaurl }}" + "_count"] = "{{ hood.name }}";
+        hoodsKeyAndMaxCount["{{ hood.dnaurl }}" + "_count"] = "{{ hood.drawingCount }}";
         {% if hood.name == NYCInOrOutObject.whatNeighborhood.name %}
         	var hoodNameNoHyphens = "{{ hood.dnaurl }}";
             var filename = "rmparks_intersect_dissolve_" + hoodNameNoHyphens;
