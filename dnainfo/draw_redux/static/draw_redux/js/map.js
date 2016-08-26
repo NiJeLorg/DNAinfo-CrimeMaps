@@ -362,22 +362,152 @@ mapApplication.initialize = function () {
 }
 
 mapApplication.loadPather = function () {
-	mapApplication.pather = new L.Pather();
+	mapApplication.patherMarker = new L.Pather();
+	mapApplication.patherEraser = new L.Pather();
 
 	// listen for button clicks to set modes
 	$('#markerButton').click( function(){
-		mapApplication.map.addLayer(mapApplication.pather);
-		mapApplication.pather.setMode(L.Pather.MODE.CREATE);
+		mapApplication.map.addLayer(mapApplication.patherMarker);
+		mapApplication.patherMarker.setMode(L.Pather.MODE.CREATE | L.Pather.MODE.EDIT | L.Pather.MODE.APPEND);
 	});
 
 	$('#eraserButton').click( function(){
-		mapApplication.map.addLayer(mapApplication.pather);
-		mapApplication.pather.setMode(L.Pather.MODE.CREATE);
+		mapApplication.map.addLayer(mapApplication.patherEraser);
+		mapApplication.patherEraser.setMode(L.Pather.MODE.CREATE | L.Pather.MODE.EDIT | L.Pather.MODE.APPEND);
+	});
+
+	
+	mapApplication.patherMarker.on('created', function(created) {
+		mapApplication.onCreatedPatherMarker(created);
+	});
+
+	mapApplication.patherMarker.on('edited', function(created) {
+		mapApplication.onCreatedPatherMarker(created);
+	});
+
+	mapApplication.patherEraser.on('created', function(created) {
+		mapApplication.onCreatedPatherEraser(created);
+	});
+
+	mapApplication.patherEraser.on('edited', function(created) {
+		mapApplication.onCreatedPatherEraser(created);
 	});
 
 
 }
 
+
+mapApplication.onCreatedPatherMarker = function (created) {
+
+		// create a geojson from the polyline 
+		var lineGeojson = created.polyline.polyline.toGeoJSON();
+		// get distance along line
+		var length = turf.lineDistance(lineGeojson, 'miles');
+		var points = [];
+		// create an array of points that for doing point in polygon later
+		for (var i = 0; i < length; i = i + 0.01) {
+			var along = turf.along(lineGeojson, i, 'miles');
+			points.push(along);
+		}
+
+		// loop over each layer and check if any points intersect that polygon. if so set the style
+		mapApplication.HOOD.eachLayer(function (layer) {
+		    var polyGeojson = layer.toGeoJSON();
+		    var inside = false;
+		    for (var i = points.length - 1; i >= 0; i--) {
+		    	// check each point against 
+		    	var is_inside = turf.inside(points[i], polyGeojson);
+		    	if (is_inside) {
+		    		inside = true;
+		    	}
+		    }
+		    if (inside) {
+		    	// set this layer to clicked and added
+		    	console.log(layer.feature.properties.pctMainHood);
+
+		    	// only add if less than 50% main hood
+		    	if (layer.feature.properties.pctMainHood < 50) {
+
+			    	// set style and add to array
+		    		layer.setStyle(mapApplication.clickAdd);
+		    		if (!(layer.feature.properties.BCTCB2010 in mapApplication.added)) {
+		    			mapApplication.added.push(layer.feature.properties.BCTCB2010);
+		    		}
+		    		
+					if (!L.Browser.touch) {
+			    		layer.unbindLabel();
+			    		layer.bindLabel("<strong>You added this block to "+ hoodName +".<br />Click to remove it!</strong>", { direction:'auto' });
+					}
+					
+					// bring to front
+					if (!L.Browser.ie && !L.Browser.opera) {
+				        layer.bringToFront();
+				    }
+
+				   	$('#id_added').val(JSON.stringify(mapApplication.added));
+
+		    	} 
+
+		    }
+		});
+
+}
+
+mapApplication.onCreatedPatherEraser = function (created) {
+
+		// create a geojson from the polyline 
+		var lineGeojson = created.polyline.polyline.toGeoJSON();
+		// get distance along line
+		var length = turf.lineDistance(lineGeojson, 'miles');
+		var points = [];
+		// create an array of points that for doing point in polygon later
+		for (var i = 0; i < length; i = i + 0.01) {
+			var along = turf.along(lineGeojson, i, 'miles');
+			points.push(along);
+		}
+
+		// loop over each layer and check if any points intersect that polygon. if so set the style
+		mapApplication.HOOD.eachLayer(function (layer) {
+		    var polyGeojson = layer.toGeoJSON();
+		    var inside = false;
+		    for (var i = points.length - 1; i >= 0; i--) {
+		    	// check each point against 
+		    	var is_inside = turf.inside(points[i], polyGeojson);
+		    	if (is_inside) {
+		    		inside = true;
+		    	}
+		    }
+		    if (inside) {
+		    	// set this layer to clicked and added
+		    	console.log(layer.feature.properties.pctMainHood);
+
+		    	// only add if less than 50% main hood
+		    	if (layer.feature.properties.pctMainHood >= 50) {
+
+		    		// set style and add to array
+		    		layer.setStyle(mapApplication.clickRemove);
+		    		if (!(layer.feature.properties.BCTCB2010 in mapApplication.removed)) {
+		    			mapApplication.removed.push(layer.feature.properties.BCTCB2010);
+		    		}
+
+					if (!L.Browser.touch) {
+						layer.unbindLabel();
+		    			layer.bindLabel("<strong>You removed this block from "+ hoodName +".<br />Click to add it back!</strong>", { direction:'auto' });
+					}
+			    							
+					// bring to front
+					if (!L.Browser.ie && !L.Browser.opera) {
+				        layer.bringToFront();
+				    }
+
+				   	$('#id_removed').val(JSON.stringify(mapApplication.removed));
+
+		    	} 
+
+		    }
+		});
+
+}
 	
 /*
 mapApplication.loadLocationFilter = function () {
