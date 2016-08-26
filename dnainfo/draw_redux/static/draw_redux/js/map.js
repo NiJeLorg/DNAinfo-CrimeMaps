@@ -367,13 +367,51 @@ mapApplication.loadPather = function () {
 	// listen for button clicks to set modes
 	$('#markerButton').click( function(){
 		mapApplication.map.addLayer(mapApplication.pather);
-		mapApplication.pather.setMode(L.Pather.MODE.CREATE);
+		mapApplication.pather.setMode(L.Pather.MODE.CREATE | L.Pather.MODE.EDIT | L.Pather.MODE.APPEND);
+
 	});
 
 	$('#eraserButton').click( function(){
 		mapApplication.map.addLayer(mapApplication.pather);
-		mapApplication.pather.setMode(L.Pather.MODE.CREATE);
+		mapApplication.pather.setMode(L.Pather.MODE.CREATE | L.Pather.MODE.EDIT | L.Pather.MODE.APPEND);
 	});
+
+	
+
+	mapApplication.pather.on('created', function(created) {
+		// create a geojson from the polyline 
+		var lineGeojson = created.polyline.polyline.toGeoJSON();
+		// get distance along line
+		var length = turf.lineDistance(lineGeojson, 'miles');
+		var points = [];
+		// create an array of points that for doing point in polygon later
+		for (var i = 0; i < length; i = i + 0.01) {
+			var along = turf.along(lineGeojson, i, 'miles');
+			points.push(along);
+		}
+		console.log(points);
+
+		// loop over each layer and check if any points intersect that polygon. if so set the style
+		mapApplication.HOOD.eachLayer(function (layer) {
+		    var polyGeojson = layer.toGeoJSON();
+		    console.log(polyGeojson);
+		    var inside = false;
+		    for (var i = points.length - 1; i >= 0; i--) {
+		    	// check each point against 
+		    	var is_inside = turf.inside(points[i], polyGeojson);
+		    	if (is_inside) {
+		    		inside = true;
+		    	}
+		    }
+		    if (inside) {
+		    	// set style
+		    	layer.setStyle(mapApplication.clickAdd);
+		    }
+		});
+
+
+	});
+
 
 
 }
