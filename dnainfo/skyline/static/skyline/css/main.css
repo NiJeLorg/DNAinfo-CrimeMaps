@@ -25,8 +25,8 @@ html, body, #content, #map, #osmmap {
   left: 0; 
   right: 0; 
   bottom: 0; 
-  opacity: 0.8;
-  background: url('images/Illustration_SMALL.svg');
+  opacity: 1;
+  background: url('images/FUTURE_SKYLINE_ILLUS_SMALL.svg');
   background-color: transparent; 
   background-size: cover; 
   background-position: center bottom; 
@@ -192,7 +192,7 @@ html, body, #content, #map, #osmmap {
 /* Buttons */
 .bottomButtonGroup {
   position: relative;
-  margin-top: 90px;
+  margin-top: 50px;
   margin-bottom: 25px;
 }
 
@@ -1009,7 +1009,7 @@ input[type="radio"]:checked + label span {
   }
 
   #background, #background li { 
-    background: url('images/Illustration_TALL.svg');
+    background: url('images/FUTURE_SKYLINE_ILLUS_TALL.svg');
     background-color: transparent; 
     background-size: cover; 
     background-position: center bottom; 
@@ -1017,10 +1017,10 @@ input[type="radio"]:checked + label span {
   } 
    
   .introHeading {
-    font-size: 30px;
+    font-size: 26px;
     line-height: 1.5;
-      margin-top: 75px;
-      margin-bottom: 100px;
+      margin-top: 30px;
+      margin-bottom: 50px;
   }
 
   .questionHeading {
@@ -1097,7 +1097,7 @@ input[type="radio"]:checked + label span {
 @media (min-width: 1200px) {
 
   #background, #background li { 
-    background: url('images/Illustration_FULL.svg');
+    background: url('images/FUTURE_SKYLINE_ILLUS_FULL.svg');
     background-color: transparent; 
     background-size: cover; 
     background-position: center bottom; 
@@ -1105,10 +1105,10 @@ input[type="radio"]:checked + label span {
   } 
 
   .introHeading {
-    font-size: 30px;
+    font-size: 26px;
     line-height: 1.5;
-      margin-top: 75px;
-      margin-bottom: 100px;
+      margin-top: 30px;
+      margin-bottom: 50px;
   }
 
   .questionHeading {
