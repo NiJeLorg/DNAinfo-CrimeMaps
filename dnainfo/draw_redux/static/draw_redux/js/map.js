@@ -486,7 +486,6 @@ mapApplication.onCreatedPatherEraser = function (created) {
 		    	// set this layer to clicked and added
 		    	// only add if less than 50% main hood
 		    	if (layer.feature.properties.pctMainHood >= 50) {
-		    		console.log(layer.feature.properties.hoodsProportionInBlockSorted[0][0]);
 		    		if (hoodNameNoHyphens + "_count" == layer.feature.properties.hoodsProportionInBlockSorted[0][0]) {
 		    			console.log(layer.feature.properties.hoodsProportionInBlockSorted[0][0]);
 		    			erasedFillColor = mapApplication.colorsByHood[layer.feature.properties.hoodsProportionInBlockSorted[1][0]];
@@ -765,7 +764,23 @@ mapApplication.onEachFeature_HOOD = function(feature,layer){
     		}
     		if (!clicked) {
 				// set style
-	    		layer.setStyle(mapApplication.hoverRemove);
+	    		//layer.setStyle(mapApplication.hoverRemove);
+    			if (hoodNameNoHyphens + "_count" == layer.feature.properties.hoodsProportionInBlockSorted[0][0]) {
+	    			console.log(layer.feature.properties.hoodsProportionInBlockSorted[0][0]);
+	    			erasedFillColor = mapApplication.colorsByHood[layer.feature.properties.hoodsProportionInBlockSorted[1][0]];
+	    		} else {
+	    			erasedFillColor = mapApplication.colorsByHood[layer.feature.properties.hoodsProportionInBlockSorted[0][0]];		    			
+	    		}
+
+	    		// set style and add to array
+	    		layer.setStyle({
+					weight: 0,
+					opacity: 0,
+				    color: '#555',		
+			        fillOpacity: 0.8,
+			        fillColor: erasedFillColor,
+			    });
+
     		}
     	} else {
   			// loop through clicked array and see if this layer has been clicked. Only set style if it hasn't been clicked
