@@ -25,23 +25,50 @@
 {% endblock %}
 
 {% block modal_block %}   
-  <div class="modal fade" id="methodology" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class="xIcon"></span></button>
-        </div>
-        <div class="modal-body modalContent">
-          <p>
-            Project methods here.
-          </p>
-        </div>
+<div class="modal fade" id="methodology" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class="xIcon"></span></button>
+      </div>
+      <div class="modal-body modalContent">
+        <p>
+          Project methods here.
+        </p>
       </div>
     </div>
   </div>
+</div>
+
+<!-- intro how to modal -->
+<div class="modal fade" id="directions" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body modalContent">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h3 class="text-center text-uppercase">Border dispute: <span class="neighborhoodName"></span>'S BORDERS</h3>
+        <p>
+          Start drawing your version of <span class="neighborhoodName"></span> by clicking on the pen tool to the left. Then, drag the pen tool all along the disputed borders of the neighborhood until the entire area of <span class="neighborhoodName"></span> is shaded in red.
+        </p>
+        <p>
+          Tap the eraser tool at top left to remove blocks from <span class="neighborhoodName"></span>. When you're done, tap the <strong>Next</strong> at the bottom. 
+        </p>
+        <p>
+          When you're done we'll TKTKTK...
+        </p>
+
+        <div class="clearfix"></div>
+        <button class="btn btn-dna-primary center-block" data-dismiss="modal" aria-label="Close">Go For It!</button>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
 
 {% block js_block %}
+<script type="text/javascript">
+  var interstitial = "{{ interstitial }}";
+</script>
 <script type="text/javascript" src="{% static 'draw_redux/js/d3.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'draw_redux/js/jquery.scrollTo.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'django_select2/js/select2.js' %}"></script>

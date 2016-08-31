@@ -19,7 +19,8 @@ def index(request):
 	return redirect('http://www.dnainfo.com/')
 
 def draw_redux_intro(request):
-	return render(request, 'draw_redux/intro.html', {})
+	interstitial = request.GET.get("interstitial","")
+	return render(request, 'draw_redux/intro.html', {'interstitial': interstitial})
 
 def draw_redux_whatNeighborhood(request, id=None):
 	if id:
