@@ -474,6 +474,7 @@ mapApplication.onCreatedPatherEraser = function (created) {
 
 		// loop over each layer and check if any points intersect that polygon. if so set the style
 		mapApplication.HOOD.eachLayer(function (layer) {
+			var erasedFillColor;
 		    var polyGeojson = layer.toGeoJSON();
 		    var inside = false;
 		    for (var i = points.length - 1; i >= 0; i--) {
@@ -490,8 +491,20 @@ mapApplication.onCreatedPatherEraser = function (created) {
 		    	// only add if less than 50% main hood
 		    	if (layer.feature.properties.pctMainHood >= 50) {
 
+		    		if (hoodNameNoHyphens + "_count" == feature.properties.hoodsProportionInBlockSorted[0][0]) {
+		    			erasedFillColor =  mapApplication.colorsByHood[feature.properties.hoodsProportionInBlockSorted[1][0]]
+		    		} else {
+		    			erasedFillColor =  mapApplication.colorsByHood[feature.properties.hoodsProportionInBlockSorted[0][0]]		    			
+		    		}
+
 		    		// set style and add to array
-		    		layer.setStyle(mapApplication.clickRemove);
+		    		layer.setStyle({
+						weight: 2,
+						opacity: 1,
+					    color: '#555',		
+				        fillOpacity: 0.8,
+				        fillColor: erasedFillColor,
+				    });
 		    		if (!(layer.feature.properties.BCTCB2010 in mapApplication.removed)) {
 		    			mapApplication.removed.push(layer.feature.properties.BCTCB2010);
 		    		}
@@ -646,6 +659,9 @@ mapApplication.getStyleFor_HOOD = function (feature){
 
 	// sort the results
 	var hoodsProportionInBlockSorted = mapApplication.sortProperties(hoodProportionInBlock);
+
+	// storing this for use in the eraser
+	feature.properties.hoodsProportionInBlockSorted = hoodsProportionInBlockSorted;
 
 	// if proportion is greater than 0.5, then fill with red
 	if (hoodProportionInBlock[hoodNameNoHyphens + "_count"] >= 0.5) {

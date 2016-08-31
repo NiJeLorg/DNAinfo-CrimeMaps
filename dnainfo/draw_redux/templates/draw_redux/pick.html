@@ -54,6 +54,7 @@
     var objectID = "{{ NYCInOrOutObject.id }}";
     var neighborhoodName = "{{ NYCInOrOutObject.whatNeighborhood.dnaurl }}";
     var hoodName = "{{ NYCInOrOutObject.whatNeighborhood.name }}";
+    hoodName = hoodName.replace(/&#39;/g, "'");
     var hoodsKeys = [];
     var hoodsKeyAndName = {};
     var hoodsKeyAndMaxCount = {};
@@ -70,6 +71,10 @@
     {% endfor %}
     $( document ).ready(function() {
         $('[data-toggle="tooltip"]').tooltip();
+        if (interstitial != '') {
+            $('#directions').modal('show');
+            $('.neighborhoodName').text(hoodName);
+        }
         window.setTimeout(function() {
             mapApplication.initialize();
         }, 1);
