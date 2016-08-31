@@ -774,10 +774,10 @@ mapApplication.onEachFeature_HOOD = function(feature,layer){
 
 	    		// set style and add to array
 	    		layer.setStyle({
-					weight: 0,
-					opacity: 0,
+					weight: 0.5,
+					opacity: 0.7,
 				    color: '#555',		
-			        fillOpacity: 0.8,
+			        fillOpacity: 0.5,
 			        fillColor: erasedFillColor,
 			    });
 
@@ -853,10 +853,10 @@ mapApplication.onEachFeature_HOOD = function(feature,layer){
 
 		    		// set style and add to array
 		    		layer.setStyle({
-						weight: 0,
-						opacity: 0,
+						weight: 0.5,
+						opacity: 0.7,
 					    color: '#555',		
-				        fillOpacity: 0.8,
+				        fillOpacity: 0.5,
 				        fillColor: erasedFillColor,
 				    });	    			
 		    		//layer.setStyle(mapApplication.hoverRemove);
@@ -940,7 +940,6 @@ mapApplication.onEachFeature_HOOD = function(feature,layer){
 		    		layer.unbindLabel();
 					layer.bindLabel("<strong>" + topOtherHood['pct'] + "% think this block is in " + topOtherHood['name'] +".<br /> Click to add it to " + hoodName + "!</strong>", { direction:'auto' });
 				}
-
 
 	    	}
 			
