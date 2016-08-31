@@ -429,8 +429,6 @@ mapApplication.onCreatedPatherMarker = function (created) {
 		    }
 		    if (inside) {
 		    	// set this layer to clicked and added
-		    	console.log(layer.feature.properties.pctMainHood);
-
 		    	// only add if less than 50% main hood
 		    	if (layer.feature.properties.pctMainHood < 50) {
 
@@ -474,7 +472,7 @@ mapApplication.onCreatedPatherEraser = function (created) {
 
 		// loop over each layer and check if any points intersect that polygon. if so set the style
 		mapApplication.HOOD.eachLayer(function (layer) {
-			var erasedFillColor;
+			var erasedFillColor = '#000';
 		    var polyGeojson = layer.toGeoJSON();
 		    var inside = false;
 		    for (var i = points.length - 1; i >= 0; i--) {
@@ -489,10 +487,11 @@ mapApplication.onCreatedPatherEraser = function (created) {
 		    	// only add if less than 50% main hood
 		    	if (layer.feature.properties.pctMainHood >= 50) {
 
-		    		if (hoodNameNoHyphens + "_count" == feature.properties.hoodsProportionInBlockSorted[0][0]) {
-		    			erasedFillColor =  mapApplication.colorsByHood[feature.properties.hoodsProportionInBlockSorted[1][0]]
+		    		if (hoodNameNoHyphens + "_count" == layer.feature.properties.hoodsProportionInBlockSorted[0][0]) {
+		    			console.log(layer.feature.properties.hoodsProportionInBlockSorted[0][0]);
+		    			erasedFillColor = mapApplication.colorsByHood[layer.feature.properties.hoodsProportionInBlockSorted[1][0]];
 		    		} else {
-		    			erasedFillColor =  mapApplication.colorsByHood[feature.properties.hoodsProportionInBlockSorted[0][0]]		    			
+		    			erasedFillColor = mapApplication.colorsByHood[layer.feature.properties.hoodsProportionInBlockSorted[0][0]];		    			
 		    		}
 
 		    		// set style and add to array
@@ -503,6 +502,7 @@ mapApplication.onCreatedPatherEraser = function (created) {
 				        fillOpacity: 0.8,
 				        fillColor: erasedFillColor,
 				    });
+
 		    		if (!(layer.feature.properties.BCTCB2010 in mapApplication.removed)) {
 		    			mapApplication.removed.push(layer.feature.properties.BCTCB2010);
 		    		}
@@ -824,11 +824,27 @@ mapApplication.onEachFeature_HOOD = function(feature,layer){
 
 	    	// search array to see if clicked, and if so, set style to hovered and remove from removed array
 	    	var removed = false;
+	    	var erasedFillColor = '#aaa';
 	    	for (var i = mapApplication.removed.length - 1; i >= 0; i--) {
 	    		// first, already clicked and in array
-	    		if (layer.feature.properties.BCTCB2010 == mapApplication.removed[i]) {
-	    			// set style
-	    			layer.setStyle(mapApplication.hoverRemove);
+		    		if (layer.feature.properties.BCTCB2010 == mapApplication.removed[i]) {
+		    			// set style
+	    			if (hoodNameNoHyphens + "_count" == layer.feature.properties.hoodsProportionInBlockSorted[0][0]) {
+		    			console.log(layer.feature.properties.hoodsProportionInBlockSorted[0][0]);
+		    			erasedFillColor = mapApplication.colorsByHood[layer.feature.properties.hoodsProportionInBlockSorted[1][0]];
+		    		} else {
+		    			erasedFillColor = mapApplication.colorsByHood[layer.feature.properties.hoodsProportionInBlockSorted[0][0]];		    			
+		    		}
+
+		    		// set style and add to array
+		    		layer.setStyle({
+						weight: 0,
+						opacity: 0,
+					    color: '#555',		
+				        fillOpacity: 0.8,
+				        fillColor: erasedFillColor,
+				    });	    			
+		    		//layer.setStyle(mapApplication.hoverRemove);
 	    			// remove from array
 	    			mapApplication.removed[i] = null;
 	    			removed = true;
@@ -837,7 +853,24 @@ mapApplication.onEachFeature_HOOD = function(feature,layer){
 
 	    	if (!removed) {
 	    		// set style and add to array
-	    		layer.setStyle(mapApplication.clickRemove);
+    			if (hoodNameNoHyphens + "_count" == layer.feature.properties.hoodsProportionInBlockSorted[0][0]) {
+	    			console.log(layer.feature.properties.hoodsProportionInBlockSorted[0][0]);
+	    			erasedFillColor = mapApplication.colorsByHood[layer.feature.properties.hoodsProportionInBlockSorted[1][0]];
+	    		} else {
+	    			erasedFillColor = mapApplication.colorsByHood[layer.feature.properties.hoodsProportionInBlockSorted[0][0]];		    			
+	    		}
+
+	    		// set style and add to array
+	    		layer.setStyle({
+					weight: 2,
+					opacity: 1,
+				    color: '#555',		
+			        fillOpacity: 0.8,
+			        fillColor: erasedFillColor,
+			    });
+
+
+	    		//layer.setStyle(mapApplication.clickRemove);
 	    		mapApplication.removed.push(layer.feature.properties.BCTCB2010);
 
 				if (!L.Browser.touch) {
