@@ -486,8 +486,6 @@ mapApplication.onCreatedPatherEraser = function (created) {
 		    }
 		    if (inside) {
 		    	// set this layer to clicked and added
-		    	console.log(layer.feature.properties.pctMainHood);
-
 		    	// only add if less than 50% main hood
 		    	if (layer.feature.properties.pctMainHood >= 50) {
 
