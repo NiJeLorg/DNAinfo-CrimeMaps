@@ -486,7 +486,7 @@ mapApplication.onCreatedPatherEraser = function (created) {
 		    	// set this layer to clicked and added
 		    	// only add if less than 50% main hood
 		    	if (layer.feature.properties.pctMainHood >= 50) {
-
+		    		console.log(layer.feature.properties.hoodsProportionInBlockSorted[0][0]);
 		    		if (hoodNameNoHyphens + "_count" == layer.feature.properties.hoodsProportionInBlockSorted[0][0]) {
 		    			console.log(layer.feature.properties.hoodsProportionInBlockSorted[0][0]);
 		    			erasedFillColor = mapApplication.colorsByHood[layer.feature.properties.hoodsProportionInBlockSorted[1][0]];
