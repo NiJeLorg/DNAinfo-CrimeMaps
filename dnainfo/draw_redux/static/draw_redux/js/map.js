@@ -370,16 +370,24 @@ mapApplication.loadPather = function () {
 		if (mapApplication.map.hasLayer(mapApplication.patherEraser)) {
 			mapApplication.map.removeLayer(mapApplication.patherEraser);
 		}
-		mapApplication.map.addLayer(mapApplication.patherMarker);
-		mapApplication.patherMarker.setMode(L.Pather.MODE.CREATE | L.Pather.MODE.EDIT | L.Pather.MODE.APPEND);
+		if (mapApplication.map.hasLayer(mapApplication.patherMarker)) {
+			mapApplication.map.removeLayer(mapApplication.patherMarker);
+		} else {
+			mapApplication.map.addLayer(mapApplication.patherMarker);
+			mapApplication.patherMarker.setMode(L.Pather.MODE.CREATE | L.Pather.MODE.EDIT | L.Pather.MODE.APPEND);			
+		}
 	});
 
 	$('#eraserButton').click( function(){
 		if (mapApplication.map.hasLayer(mapApplication.patherMarker)) {
 			mapApplication.map.removeLayer(mapApplication.patherMarker);
 		}
-		mapApplication.map.addLayer(mapApplication.patherEraser);
-		mapApplication.patherEraser.setMode(L.Pather.MODE.CREATE | L.Pather.MODE.EDIT | L.Pather.MODE.APPEND);
+		if (mapApplication.map.hasLayer(mapApplication.patherEraser)) {
+			mapApplication.map.removeLayer(mapApplication.patherEraser);
+		} else {
+			mapApplication.map.addLayer(mapApplication.patherEraser);
+			mapApplication.patherEraser.setMode(L.Pather.MODE.CREATE | L.Pather.MODE.EDIT | L.Pather.MODE.APPEND);			
+		}
 	});
 
 	
