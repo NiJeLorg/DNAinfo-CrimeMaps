@@ -437,7 +437,8 @@ mapApplication.onCreatedPatherMarker = function (created) {
 		    }
 		    if (inside) {
 		    	// set this layer to clicked and added
-		    	if (!layer.feature.properties.topHoodSelected) {
+		    	// only add if less than 50% main hood
+		    	if (layer.feature.properties.pctMainHood < 50) {
 
 			    	// set style and add to array
 		    		layer.setStyle(mapApplication.clickAdd);
@@ -492,7 +493,7 @@ mapApplication.onCreatedPatherEraser = function (created) {
 		    if (inside) {
 		    	// set this layer to clicked and added
 		    	// only add if less than 50% main hood
-		    	if (layer.feature.properties.topHoodSelected) {
+		    	if (layer.feature.properties.pctMainHood >= 50) {
 		    		if (hoodNameNoHyphens + "_count" == layer.feature.properties.hoodsProportionInBlockSorted[0][0]) {
 		    			console.log(layer.feature.properties.hoodsProportionInBlockSorted[0][0]);
 		    			erasedFillColor = mapApplication.colorsByHood[layer.feature.properties.hoodsProportionInBlockSorted[1][0]];
@@ -667,14 +668,28 @@ mapApplication.getStyleFor_HOOD = function (feature){
 	// storing this for use in the eraser
 	feature.properties.hoodsProportionInBlockSorted = hoodsProportionInBlockSorted;
 
-	// if the first hood by proportion is the hood selected, then color red
-	if (hoodNameNoHyphens + "_count" == hoodsProportionInBlockSorted[0][0]) {
+	// if proportion is greater than 0.5, then fill with red
+	if (hoodProportionInBlock[hoodNameNoHyphens + "_count"] >= 0.5) {
 	    return {
 	        weight: 0.5,
 	        opacity: 0.7,
 	        color: '#fff',
 	        fillOpacity: 0.7,
-	        fillColor: '#fc5158',
+	        fillColor: '#fc5158'
+	    }		
+	} else if (hoodNameNoHyphens + "_count" == hoodsProportionInBlockSorted[0][0]) {
+		// check color object for presence of this neighborhood		
+        if(!mapApplication.colorsByHood.hasOwnProperty(hoodsProportionInBlockSorted[1][0])) {
+        	// assign color to colorsByHood object
+        	mapApplication.colorsByHood[hoodsProportionInBlockSorted[1][0]] = mapApplication.colorAssignment(mapApplication.objectLength(mapApplication.colorsByHood));
+        }
+
+	    return {
+	        weight: 0.5,
+	        opacity: 0.7,
+	        color: '#fff',
+	        fillOpacity: 0.5,
+	        fillColor: mapApplication.colorsByHood[hoodsProportionInBlockSorted[1][0]]
 	    }
 
 	} else {
@@ -688,7 +703,7 @@ mapApplication.getStyleFor_HOOD = function (feature){
 	        weight: 0.5,
 	        opacity: 0.7,
 	        color: '#fff',
-	        fillOpacity: 0.7,
+	        fillOpacity: 0.5,
 	        fillColor: mapApplication.colorsByHood[hoodsProportionInBlockSorted[0][0]]
 	    }	
 	}
@@ -717,21 +732,20 @@ mapApplication.onEachFeature_HOOD = function(feature,layer){
 
 	// calculate percent of total drawings is selected hood in each block
 	var pctMainHood = (hoodProportionInBlock[hoodNameNoHyphens + "_count"] * 100).toFixed(1);
+	// add this to feature.properties for later
+	feature.properties.pctMainHood = pctMainHood;
 
 	// calculate next hood that's not this hood and it's percentage
-	var topHood = {};
-	topHood['name'] = hoodsKeyAndName[hoodsProportionInBlockSorted[0][0]];
-	topHood['pct'] = (hoodsProportionInBlockSorted[0][1] * 100).toFixed(1);
-
-	// is the top hood the selected hood?
-	if (hoodNameNoHyphens + "_count" == hoodsProportionInBlockSorted[0][0]) {
-		feature.properties.topHoodSelected = true;
+	var topOtherHood = {};
+	if (hoodName != hoodsKeyAndName[hoodsProportionInBlockSorted[0][0]]) {
+		topOtherHood['name'] = hoodsKeyAndName[hoodsProportionInBlockSorted[0][0]];
+		topOtherHood['pct'] = (hoodsProportionInBlockSorted[0][1] * 100).toFixed(1);		
 	} else {
-		feature.properties.topHoodSelected = false;		
+		topOtherHood['name'] = hoodsKeyAndName[hoodsProportionInBlockSorted[1][0]];
+		topOtherHood['pct'] = (hoodsProportionInBlockSorted[1][1] * 100).toFixed(1);
 	}
 
-
-	if (hoodNameNoHyphens + "_count" == hoodsProportionInBlockSorted[0][0]) {
+	if (pctMainHood >= 50) {
 
 		if (!L.Browser.touch) {
 			layer.bindLabel("<strong>" + pctMainHood + "% of "+ hoodName +" residents think this block is in "+ hoodName +".<br /> Click to remove it!</strong>", { direction:'auto' });
@@ -740,7 +754,7 @@ mapApplication.onEachFeature_HOOD = function(feature,layer){
 	} else {
 
 		if (!L.Browser.touch) {
-			layer.bindLabel("<strong>" + topHood['pct'] + "% "+ topHood['name'] +" residents think this block is in " + topHood['name'] +".<br /> Click to add it to " + hoodName + "!</strong>", { direction:'auto' });
+			layer.bindLabel("<strong>" + topOtherHood['pct'] + "% "+ topOtherHood['name'] +" residents think this block is in " + topOtherHood['name'] +".<br /> Click to add it to " + hoodName + "!</strong>", { direction:'auto' });
 		}
 		
 	}
@@ -748,7 +762,7 @@ mapApplication.onEachFeature_HOOD = function(feature,layer){
     layer.on('mouseover', function(ev) {
     	// have remove hover interaction if a concensus block and an add hover interaction if outside of the concensus
 
-		if (hoodNameNoHyphens + "_count" == hoodsProportionInBlockSorted[0][0]) {
+    	if (pctMainHood >= 50) {
   			// loop through clicked array and see if this layer has been clicked. Only set style if it hasn't been clicked
   			var clicked = false;
     		for (var i = mapApplication.removed.length - 1; i >= 0; i--) {
@@ -759,7 +773,12 @@ mapApplication.onEachFeature_HOOD = function(feature,layer){
     		if (!clicked) {
 				// set style
 	    		//layer.setStyle(mapApplication.hoverRemove);
-	    		erasedFillColor = mapApplication.colorsByHood[layer.feature.properties.hoodsProportionInBlockSorted[1][0]];
+    			if (hoodNameNoHyphens + "_count" == layer.feature.properties.hoodsProportionInBlockSorted[0][0]) {
+	    			console.log(layer.feature.properties.hoodsProportionInBlockSorted[0][0]);
+	    			erasedFillColor = mapApplication.colorsByHood[layer.feature.properties.hoodsProportionInBlockSorted[1][0]];
+	    		} else {
+	    			erasedFillColor = mapApplication.colorsByHood[layer.feature.properties.hoodsProportionInBlockSorted[0][0]];		    			
+	    		}
 
 	    		// set style and add to array
 	    		layer.setStyle({
@@ -789,8 +808,9 @@ mapApplication.onEachFeature_HOOD = function(feature,layer){
     });
 		
     layer.on('mouseout', function(ev) {
+    	// have remove hover interaction if a concensus block (pctConcensus >= 75), and an add hover interaction if outside of the concensus
 
-		if (hoodNameNoHyphens + "_count" == hoodsProportionInBlockSorted[0][0]) {
+    	if (pctMainHood >= 50) {
   			// loop through clicked array and see if this layer has been clicked. Only set style if it hasn't been clicked
   			var clicked = false;
     		for (var i = mapApplication.removed.length - 1; i >= 0; i--) {
@@ -822,16 +842,22 @@ mapApplication.onEachFeature_HOOD = function(feature,layer){
 
     layer.on('click', function(ev) {
 
-    	if (hoodNameNoHyphens + "_count" == hoodsProportionInBlockSorted[0][0]) {
+    	// add to removed list if above 75% concensus and to add list if otherwise
+    	if (pctMainHood >= 50) {
 
 	    	// search array to see if clicked, and if so, set style to hovered and remove from removed array
 	    	var removed = false;
 	    	var erasedFillColor = '#aaa';
 	    	for (var i = mapApplication.removed.length - 1; i >= 0; i--) {
 	    		// first, already clicked and in array
-		    	if (layer.feature.properties.BCTCB2010 == mapApplication.removed[i]) {
+		    		if (layer.feature.properties.BCTCB2010 == mapApplication.removed[i]) {
 		    			// set style
-	    			erasedFillColor = mapApplication.colorsByHood[layer.feature.properties.hoodsProportionInBlockSorted[1][0]];
+	    			if (hoodNameNoHyphens + "_count" == layer.feature.properties.hoodsProportionInBlockSorted[0][0]) {
+		    			console.log(layer.feature.properties.hoodsProportionInBlockSorted[0][0]);
+		    			erasedFillColor = mapApplication.colorsByHood[layer.feature.properties.hoodsProportionInBlockSorted[1][0]];
+		    		} else {
+		    			erasedFillColor = mapApplication.colorsByHood[layer.feature.properties.hoodsProportionInBlockSorted[0][0]];		    			
+		    		}
 
 		    		// set style and add to array
 		    		layer.setStyle({
@@ -849,7 +875,13 @@ mapApplication.onEachFeature_HOOD = function(feature,layer){
 	    	}
 
 	    	if (!removed) {
-    			erasedFillColor = mapApplication.colorsByHood[layer.feature.properties.hoodsProportionInBlockSorted[1][0]];
+	    		// set style and add to array
+    			if (hoodNameNoHyphens + "_count" == layer.feature.properties.hoodsProportionInBlockSorted[0][0]) {
+	    			console.log(layer.feature.properties.hoodsProportionInBlockSorted[0][0]);
+	    			erasedFillColor = mapApplication.colorsByHood[layer.feature.properties.hoodsProportionInBlockSorted[1][0]];
+	    		} else {
+	    			erasedFillColor = mapApplication.colorsByHood[layer.feature.properties.hoodsProportionInBlockSorted[0][0]];		    			
+	    		}
 
 	    		// set style and add to array
 	    		layer.setStyle({
@@ -914,7 +946,7 @@ mapApplication.onEachFeature_HOOD = function(feature,layer){
 
 				if (!L.Browser.touch) {
 		    		layer.unbindLabel();
-					layer.bindLabel("<strong>" + topHood['pct'] + "% "+ topHood['name'] +" residents think this block is in " + topHood['name'] +".<br /> Click to add it to " + hoodName + "!</strong>", { direction:'auto' });
+					layer.bindLabel("<strong>" + topOtherHood['pct'] + "% "+ topOtherHood['name'] +" residents think this block is in " + topOtherHood['name'] +".<br /> Click to add it to " + hoodName + "!</strong>", { direction:'auto' });
 				}
 
 	    	}
