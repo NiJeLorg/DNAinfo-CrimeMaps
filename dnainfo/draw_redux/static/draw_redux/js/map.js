@@ -666,7 +666,6 @@ mapApplication.getStyleFor_HOOD = function (feature){
 
 	// sort the results
 	var hoodsProportionInBlockSorted = mapApplication.sortProperties(hoodProportionInBlock);
-	console.log(hoodsProportionInBlockSorted);
 
 	// storing this for use in the eraser
 	feature.properties.hoodsProportionInBlockSorted = hoodsProportionInBlockSorted;
@@ -738,30 +737,35 @@ mapApplication.onEachFeature_HOOD = function(feature,layer){
 
 	// calculate next hood that's not this hood and it's percentage
 	var topHood = {};
-	topHood['name'] = hoodsKeyAndName[hoodsProportionInBlockSorted[0][0]];
-	topHood['pct'] = (hoodsProportionInBlockSorted[0][1] * 100).toFixed(1);
+	if (typeof hoodsProportionInBlockSorted[0] === 'undefined') {
+		topHood['name'] = hoodsKeyAndName[hoodsProportionInBlockSorted[0][0]];
+		topHood['pct'] = (hoodsProportionInBlockSorted[0][1] * 100).toFixed(1);	
 
-	// is the top hood the selected hood?
-	if (hoodNameNoHyphens + "_count" == hoodsProportionInBlockSorted[0][0]) {
-		feature.properties.topHoodSelected = true;
-	} else {
-		feature.properties.topHoodSelected = false;		
-	}
-
-
-	if (hoodNameNoHyphens + "_count" == hoodsProportionInBlockSorted[0][0]) {
-
-		if (!L.Browser.touch) {
-			layer.bindLabel("<strong>" + pctMainHood + "% of "+ hoodName +" residents think this block is in "+ hoodName +".<br /> Click to remove it!</strong>", { direction:'auto' });
-		}		
-
-	} else {
-
-		if (!L.Browser.touch) {
-			layer.bindLabel("<strong>" + topHood['pct'] + "% "+ topHood['name'] +" residents think this block is in " + topHood['name'] +".<br /> Click to add it to " + hoodName + "!</strong>", { direction:'auto' });
+		if (hoodNameNoHyphens + "_count" == hoodsProportionInBlockSorted[0][0]) {
+			feature.properties.topHoodSelected = true;
+		} else {
+			feature.properties.topHoodSelected = false;		
 		}
-		
+
+
+		if (hoodNameNoHyphens + "_count" == hoodsProportionInBlockSorted[0][0]) {
+
+			if (!L.Browser.touch) {
+				layer.bindLabel("<strong>" + pctMainHood + "% of "+ hoodName +" residents think this block is in "+ hoodName +".<br /> Click to remove it!</strong>", { direction:'auto' });
+			}		
+
+		} else {
+
+			if (!L.Browser.touch) {
+				layer.bindLabel("<strong>" + topHood['pct'] + "% "+ topHood['name'] +" residents think this block is in " + topHood['name'] +".<br /> Click to add it to " + hoodName + "!</strong>", { direction:'auto' });
+			}
+			
+		}
+
 	}
+
+
+
 	
     layer.on('mouseover', function(ev) {
     	// fade out instruction text
