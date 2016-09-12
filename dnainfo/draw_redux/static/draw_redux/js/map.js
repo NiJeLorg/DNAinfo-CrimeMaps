@@ -734,7 +734,7 @@ mapApplication.onEachFeature_HOOD = function(feature,layer){
 	if (hoodNameNoHyphens + "_count" == hoodsProportionInBlockSorted[0][0]) {
 
 		if (!L.Browser.touch) {
-			layer.bindLabel("<strong>" + pctMainHood + "% of "+ hoodName +" residents think this block is in "+ hoodName +".<br /> Click to remove it!</strong>", { direction:'auto' });
+			layer.bindLabel("<strong>" + pctMainHood + "% of "+ hoodName +" residents think this block is in "+ hoodName +".<br /> Click to remove it!</strong><br />Count in Polygon: "+ feature.properties[hoodNameNoHyphens + '_count'] +"<br />Denominator: "+ hoodsKeyAndMaxCount[hoodNameNoHyphens + '_count'] +" ", { direction:'auto' });
 		}		
 
 	} else {
