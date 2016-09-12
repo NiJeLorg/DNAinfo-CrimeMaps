@@ -707,7 +707,7 @@ mapApplication.onEachFeature_HOOD = function(feature,layer){
 			// hoodProportionInBlock = calculating proportion for that neighborhood of the total drawings for the neighborhood in the block
 			feature.properties[hoodsKeys[i]] = parseInt(feature.properties[hoodsKeys[i]]);
 			// Park Slope is doubled for some reason -- devide by two before we calculate proportions
-			if (hoodsKeys[i] == 'parkslope_count' {
+			if (hoodsKeys[i] == 'parkslope_count') {
 				feature.properties[hoodsKeys[i]] = feature.properties[hoodsKeys[i]]/2;
 			}
 			hoodsKeyAndMaxCount[hoodsKeys[i]] = parseInt(hoodsKeyAndMaxCount[hoodsKeys[i]]);
