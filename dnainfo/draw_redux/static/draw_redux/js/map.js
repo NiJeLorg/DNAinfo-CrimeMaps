@@ -666,6 +666,7 @@ mapApplication.getStyleFor_HOOD = function (feature){
 
 	// sort the results
 	var hoodsProportionInBlockSorted = mapApplication.sortProperties(hoodProportionInBlock);
+	console.log(hoodsProportionInBlockSorted);
 
 	// storing this for use in the eraser
 	feature.properties.hoodsProportionInBlockSorted = hoodsProportionInBlockSorted;
