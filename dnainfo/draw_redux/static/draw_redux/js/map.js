@@ -672,30 +672,42 @@ mapApplication.getStyleFor_HOOD = function (feature){
 	feature.properties.hoodsProportionInBlockSorted = hoodsProportionInBlockSorted;
 
 	// if the first hood by proportion is the hood selected, then color red
-	if (hoodNameNoHyphens + "_count" == hoodsProportionInBlockSorted[0][0]) {
-	    return {
-	        weight: 0.5,
-	        opacity: 0.7,
-	        color: '#fff',
-	        fillOpacity: 0.7,
-	        fillColor: '#fc5158',
-	    }
+	if (hoodsProportionInBlockSorted[0]) {
+		if (hoodNameNoHyphens + "_count" == hoodsProportionInBlockSorted[0][0]) {
+		    return {
+		        weight: 0.5,
+		        opacity: 0.7,
+		        color: '#fff',
+		        fillOpacity: 0.7,
+		        fillColor: '#fc5158',
+		    }
+
+		} else {
+			// check color object for presence of this neighborhood
+	        if(!mapApplication.colorsByHood.hasOwnProperty(hoodsProportionInBlockSorted[0][0])) {
+	        	// assign color to colorsByHood object
+	        	mapApplication.colorsByHood[hoodsProportionInBlockSorted[0][0]] = mapApplication.colorAssignment(mapApplication.objectLength(mapApplication.colorsByHood));
+	        }
+
+		    return {
+		        weight: 0.5,
+		        opacity: 0.7,
+		        color: '#fff',
+		        fillOpacity: 0.7,
+		        fillColor: mapApplication.colorsByHood[hoodsProportionInBlockSorted[0][0]]
+		    }	
+		}
 
 	} else {
-		// check color object for presence of this neighborhood
-        if(!mapApplication.colorsByHood.hasOwnProperty(hoodsProportionInBlockSorted[0][0])) {
-        	// assign color to colorsByHood object
-        	mapApplication.colorsByHood[hoodsProportionInBlockSorted[0][0]] = mapApplication.colorAssignment(mapApplication.objectLength(mapApplication.colorsByHood));
-        }
-
-	    return {
-	        weight: 0.5,
-	        opacity: 0.7,
+		return {
+	        weight: 0,
+	        opacity: 0,
 	        color: '#fff',
-	        fillOpacity: 0.7,
-	        fillColor: mapApplication.colorsByHood[hoodsProportionInBlockSorted[0][0]]
-	    }	
+	        fillOpacity: 0,
+	        fillColor: '#fc5158',
+	    }
 	}
+
 
 }
 
