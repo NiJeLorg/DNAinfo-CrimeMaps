@@ -737,7 +737,7 @@ mapApplication.onEachFeature_HOOD = function(feature,layer){
 
 	// calculate next hood that's not this hood and it's percentage
 	var topHood = {};
-	if (typeof hoodsProportionInBlockSorted[0] === 'undefined') {
+	if (typeof hoodsProportionInBlockSorted[0] !== 'undefined') {
 		topHood['name'] = hoodsKeyAndName[hoodsProportionInBlockSorted[0][0]];
 		topHood['pct'] = (hoodsProportionInBlockSorted[0][1] * 100).toFixed(1);	
 
