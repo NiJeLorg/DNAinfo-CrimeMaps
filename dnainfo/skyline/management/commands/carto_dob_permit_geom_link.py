@@ -36,12 +36,14 @@ class Command(BaseCommand):
                 response = urllib.urlopen(url)
                 data = json.loads(response.read())
 
-                print data
-
-                if data['rows'][0]['the_geom']:
+                if 0 in data['rows']:
+                    print data['rows'][0]['the_geom']
                     obj.buildingFootprint = data['rows'][0]['the_geom']
                     obj.save()
-
+                else:
+                    print '-99'
+                    obj.buildingFootprint = '-99'
+                    obj.save()
 
 
             except Exception, e:
