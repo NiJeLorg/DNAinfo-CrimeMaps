@@ -418,8 +418,8 @@ mapApplication.featureClick = function (cartodb_id) {
 			mapApplication.clicked_cartodb_id = cartodb_id;
 
 			// add properties to geojson
-			geojson.features[0].properties.color = "#fc5158";
-		    geojson.features[0].properties.roofColor = "#E8040F";
+			geojson.features[0].properties.color = "#0073a3";
+		    geojson.features[0].properties.roofColor = "#0073a3";
 		    geojson.features[0].properties.height = buildingHeight;
 		    geojson.features[0].properties.minHeight = 0;
 

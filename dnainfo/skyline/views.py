@@ -280,6 +280,21 @@ def skyline_getSponsoredGeojsons(request, id=None):
 
 	return JsonResponse(geojsons, safe=False)
 
+def skyline_getPermittedGeojsons(request, id=None):
+
+	NYC_DOB_Permit_IssuanceObjects = NYC_DOB_Permit_Issuance.objects.exclude(buildingStories__exact = 0).exclude(buildingFootprint__exact = '')
+	geojsons = []
+
+	for obj in NYC_DOB_Permit_IssuanceObjects:
+		buildingHeight = (3.5*obj.buildingStories) + 9.625 + (2.625 * (obj.buildingStories/25));
+
+		print obj.buildingFootprint
+
+		changed = '{\"type\":\"FeatureCollection\",\"features\":[{\"type\": \"Feature\", \"properties\":{\"color\":\"#00cdbe\", \"roofColor\":\"#00cdbe\", \"height\":\"' + str(buildingHeight) +'\"}, \"geometry\": ' + obj.buildingFootprint + '}]}'
+		geojsons.append(changed)
+		
+	return JsonResponse(geojsons, safe=False)
+
 @login_required
 def skyline_sponsoredEnd(request, id=None):
 	NYCSponsoredBuildingsObject = NYCSponsoredBuildings.objects.get(pk=id)
