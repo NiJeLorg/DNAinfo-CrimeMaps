@@ -57,13 +57,15 @@ class NYC_DOB_Permit_Issuance(models.Model):
 	permit_status = models.CharField(max_length=255, default='', blank=False, null=False)
 	filing_status = models.CharField(max_length=255, default='', blank=False, null=False)
 	permit_type = models.CharField(max_length=255, default='', blank=False, null=False)
-	filing_date = models.CharField(max_length=255, default='', blank=False, null=False)
-	issuance_date = models.CharField(max_length=255, default='', blank=False, null=False)
-	expiration_date = models.CharField(max_length=255, default='', blank=False, null=False)
-	job_start_date = models.CharField(max_length=255, default='', blank=False, null=False)
+	filing_date = models.DateField(blank=True, null=True)
+	issuance_date = models.DateField(blank=True, null=True)
+	expiration_date = models.DateField(blank=True, null=True)
+	job_start_date = models.DateField(blank=True, null=True)
 	buildingBBL = models.CharField(max_length=255, default='', blank=False, null=False)
 	buildingFootprint = models.TextField(default='')
 	buildingStories = models.IntegerField(default=0, blank=False, null=False)
+	scan_code = models.CharField(max_length=255, default='', blank=False, null=False)
+	zoning_pdfs = models.FileField(upload_to='zoning_pdfs/', blank=True, null=True)
 
 
 
