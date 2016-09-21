@@ -39,3 +39,31 @@ class NYCReporterBuildings(models.Model):
 	buildingStories = models.IntegerField(default=0, blank=False, null=False)
 	approved = models.NullBooleanField(default=None)
 
+class NYC_DOB_Permit_Issuance(models.Model):
+	created = models.DateTimeField(auto_now=True)
+	borough = models.CharField(max_length=255, default='', blank=False, null=False)
+	bin = models.CharField(max_length=255, default='', blank=False, null=False)
+	house = models.CharField(max_length=255, default='', blank=False, null=False)
+	street_name = models.CharField(max_length=255, default='', blank=False, null=False)
+	job = models.CharField(max_length=255, default='', blank=False, null=False)
+	job_doc = models.CharField(max_length=255, default='', blank=False, null=False)
+	job_type = models.CharField(max_length=255, default='', blank=False, null=False)
+	block = models.CharField(max_length=255, default='', blank=False, null=False)
+	lot = models.CharField(max_length=255, default='', blank=False, null=False)
+	community_board = models.CharField(max_length=255, default='', blank=False, null=False)
+	zip_code = models.CharField(max_length=255, default='', blank=False, null=False)
+	bldg_type = models.CharField(max_length=255, default='', blank=False, null=False)
+	residential = models.CharField(max_length=255, default='', blank=False, null=False)
+	permit_status = models.CharField(max_length=255, default='', blank=False, null=False)
+	filing_status = models.CharField(max_length=255, default='', blank=False, null=False)
+	permit_type = models.CharField(max_length=255, default='', blank=False, null=False)
+	filing_date = models.CharField(max_length=255, default='', blank=False, null=False)
+	issuance_date = models.CharField(max_length=255, default='', blank=False, null=False)
+	expiration_date = models.CharField(max_length=255, default='', blank=False, null=False)
+	job_start_date = models.CharField(max_length=255, default='', blank=False, null=False)
+	buildingBBL = models.CharField(max_length=255, default='', blank=False, null=False)
+	buildingFootprint = models.TextField(default='')
+	buildingStories = models.IntegerField(default=0, blank=False, null=False)
+
+
+

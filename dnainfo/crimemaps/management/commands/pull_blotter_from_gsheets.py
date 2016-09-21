@@ -136,7 +136,7 @@ class Command(BaseCommand):
                     html_message = "Please check the <a href='https://docs.google.com/spreadsheets/d/1WZsIEkHVy8YUrfYaBEkk3z0xy1bikYySqNcXE8NRxMY/edit'>blotter spreadsheet</a> to check for possible data errors in the following record:<br /><br />Date: "+ data['gsx$date']['$t'] +"<br />Time: " + data['gsx$time']['$t'] + "<br />Address: " + data['gsx$address']['$t'] + "<br />Latitude: " + data['gsx$latitude']['$t'] + "<br />Longitude: " + data['gsx$longitude']['$t'] + "<br />Police Said: " + data['gsx$policesaid']['$t'] + "<br />Precinct: " + data['gsx$precinct']['$t']
                     message = ""
 
-                    send_mail(subject, message, 'dnainfovisualizations@gmail.com', ['lprashad@nijel.org','jd@nijel.org','nchiwaya@dnainfo.com'], fail_silently=True, html_message=html_message)
+                    send_mail(subject, message, 'dnainfovisualizations@gmail.com', ['lprashad@nijel.org','jd@nijel.org','nchiwaya@dnainfo.com', 'newsroom@dnainfo.com'], fail_silently=True, html_message=html_message)
 
 
 

@@ -32,7 +32,7 @@ osmApplication.initialize = function () {
 	osmApplication.osmb.addMapTiles('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.png', { attribution: 'Map tiles by <a href=\"http://stamen.com\">Stamen Design</a>, under <a href=\"https://creativecommons.org/licenses/by/3.0/\" target=\"_blank\">CC BY 3.0</a>. Data by <a href=\"http://www.openstreetmap.org/\" target=\"_blank\">OpenStreetMap</a>, under ODbL.' }
 	);
 
-	osmApplication.osmb.addGeoJSONTiles('https://{s}.data.osmbuildings.org/0.2/anonymous/tile/{z}/{x}/{y}.json');
+	//osmApplication.osmb.addGeoJSONTiles('https://{s}.data.osmbuildings.org/0.2/anonymous/tile/{z}/{x}/{y}.json');
 
 
 	// button controls
@@ -125,8 +125,10 @@ osmApplication.initialize = function () {
 	// get sponsored content
 	osmApplication.getSponsoredGeojsons();
 
-}
+	// get permitted buildings from DOB
+	osmApplication.getPermittedGeojsons();
 
+}
 
 osmApplication.getGeojson = function () {
 	$.ajax({
@@ -136,6 +138,7 @@ osmApplication.getGeojson = function () {
 			// load the draw tools
 			if (data) {
 				var geojson = JSON.parse(data);
+				console.log(geojson);
 				if (typeof geojson.features[0].geometry.coordinates[0][0][0][0] != 'undefined') {
 					var lat = geojson.features[0].geometry.coordinates[0][0][0][1];
 					var lon = geojson.features[0].geometry.coordinates[0][0][0][0];	
@@ -164,6 +167,27 @@ osmApplication.getSponsoredGeojsons = function () {
 					var geojson = JSON.parse(data[i]);
 					osmApplication.geojsons.push(geojson);
 					var idNum = "sponsored_" + i;
+					osmApplication.addedLayer = osmApplication.osmb.addGeoJSON(geojson, {id: idNum});
+				}
+				
+			} 
+        }
+	});
+}
+
+osmApplication.getPermittedGeojsons = function () {
+	$.ajax({
+		type: "GET",
+		url: "/skyline/nyc/getPermittedGeojsons/",
+		success: function(data){
+			// load the draw tools
+			if (data) {
+				osmApplication.permittedGeojsons = [];
+				for (var i = 0; i < data.length; i++) {
+					var geojson = JSON.parse(data[i]);
+					console.log(geojson);
+					osmApplication.permittedGeojsons.push(geojson);
+					var idNum = "permitted_" + i;
 					osmApplication.addedLayer = osmApplication.osmb.addGeoJSON(geojson, {id: idNum});
 				}
 				
