@@ -651,30 +651,36 @@ fieldset[disabled] .btn-dna-twitter.active {
 
 
 /* Select 2 control css */
-.form-control.select2-container {
+.select2-container, .select2-selection {
   font-size: 16px;
   height: 45px !important;
   border-top-right-radius: 4px !important;
   border-bottom-right-radius: 4px !important; 
 }
 
-.form-control .select2-choice {
+.select2-container--default .select2-selection--single {
+    background-color: #eeeeee !important;
+    border: none !important;
+    border-radius: 0px !important;
+}
+
+.select2-choice {
   border-top-right-radius: 4px;
   border-bottom-right-radius: 4px;  
 }
 
 .select2-search {
-  padding: 0px;
+  padding: 0px !important;
 }
 
 .select2-search input {
   font-size: 16px;
   height: 45px !important;
-  padding-left: 11px;
+  padding-left: 10px !important;
   font-family: inherit;
   font-size: inherit;
-  border: 0px; 
-  background-color: #eeeeee;
+  border: 0px !important; 
+  background-color: #eeeeee !important;
   background-image: none !important;
   -webkit-box-shadow: none;
   box-shadow: none;
@@ -698,20 +704,29 @@ fieldset[disabled] .btn-dna-twitter.active {
 }
 
 .select2-results {
-  padding: 0px;
-  margin: 0px;
-  max-height: 135px;
+  padding: 0px !important;
+  margin: 0px !important;
+  max-height: 135px !important;
+}
+
+.select2-results__options::-webkit-scrollbar { 
+    display: none; 
 }
 
 .select2-results::-webkit-scrollbar { 
     display: none; 
 }
 
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+    background-color: #eeeeee !important;
+    color: #686868 !important;
+}
 
 .select2-results li {
   font-size: 16px;
   height: 45px;
   max-height: 45px;
+  padding: 9px 0 0 10px;
 }
 
 .select2-results .select2-no-results, .select2-results .select2-searching, .select2-results .select2-ajax-error, .select2-results .select2-selection-limit {
@@ -737,7 +752,7 @@ fieldset[disabled] .btn-dna-twitter.active {
   cursor: pointer;
 }
 
-.select2-container .select2-choice {
+.select2-container .select2-selection__rendered {
   font-size: 16px;  
   height: 45px;
   padding: 9px 0 0 10px;
@@ -748,8 +763,16 @@ fieldset[disabled] .btn-dna-twitter.active {
   box-shadow: none;
 }
 
-.select2-arrow {
+.select2-selection__placeholder {
+  color: #686868 !important;
+}
+
+.select2-selection__arrow, .select2-selection__clear {
   display: none !important;
+}
+
+.select2-dropdown {
+  border: 1px solid #eeeeee !important;
 }
 
 .select2-drop.select2-drop-above.select2-drop-active {
@@ -759,7 +782,7 @@ fieldset[disabled] .btn-dna-twitter.active {
   -webkit-box-shadow: none;
 }
 
-.form-control.select2-container.select2-dropdown-open {
+.select2-container.select2-dropdown-open {
   border: 0px;
   border-radius: 0px;
   box-shadow: none;

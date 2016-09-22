@@ -1,7 +1,9 @@
-from django.conf import settings
-from django.conf.urls import include, url, patterns
+from django.conf.urls import include, url
 from django.contrib import admin
-from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+
+# for development, static and media files served from here
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     # Examples:
@@ -10,8 +12,6 @@ urlpatterns = [
 	url(r'^', include('crimemaps.urls')),
 	url(r'^', include('apartment.urls')),
 	url(r'^', include('apartment_chi.urls')),
-    url(r'^', include('apartment_test_for_danny_nyc.urls')),
-    url(r'^', include('apartment_test_for_danny_chi.urls')),
 	url(r'^', include('skyline.urls')),
     url(r'^', include('draw_redux.urls')),
     url(r'^admin/', include(admin.site.urls)),
@@ -19,11 +19,5 @@ urlpatterns = [
     url(r'^accounts/', include('allauth.urls')),
 ]
 
-urlpatterns += staticfiles_urlpatterns()
-
 if settings.DEBUG:
-    urlpatterns += patterns(
-        'django.views.static',
-        (r'media/(?P<path>.*)',
-        'serve',
-        {'document_root': settings.MEDIA_ROOT}), )
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

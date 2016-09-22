@@ -5,7 +5,7 @@ from django import forms
 from skyline.models import *
 
 #add select 2
-from django_select2 import *
+from django_select2.forms import Select2Widget
 
 # skyline forms below
 class NYCwhatNeighborhoodForm(forms.ModelForm):
@@ -13,7 +13,7 @@ class NYCwhatNeighborhoodForm(forms.ModelForm):
         model = NYCskyline
         fields = ('whereBuilding', 'iDontSeeMyNeighborhood',)
         widgets = {
-            'whereBuilding': widgets.Select2Widget(),
+            'whereBuilding': Select2Widget,
         }
 
 class NYCbuildingHeightForm(forms.ModelForm):
@@ -37,7 +37,7 @@ class NYCwhatNeighborhoodSponsoredForm(forms.ModelForm):
         model = NYCSponsoredBuildings
         fields = ('whereBuilding',)
         widgets = {
-            'whereBuilding': widgets.Select2Widget(),
+            'whereBuilding': Select2Widget,
         }
 
 class NYCbuildingHeightSponsoredForm(forms.ModelForm):
@@ -69,7 +69,7 @@ class NYCwhatNeighborhoodReporterForm(forms.ModelForm):
         model = NYCReporterBuildings
         fields = ('whereBuilding', )
         widgets = {
-            'whereBuilding': widgets.Select2Widget(),
+            'whereBuilding': Select2Widget,
         }
 
 class NYCbuildingHeightReporterForm(forms.ModelForm):

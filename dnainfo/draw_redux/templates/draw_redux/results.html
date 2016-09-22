@@ -1,12 +1,11 @@
 {% extends 'draw_redux/baseNYC.html' %}
 {% load staticfiles %}
 {% load bootstrap_tags %}
-{% load django_select2_tags %}
 
 {% block title %}{% endblock %}
 
 {% block css_block %}
-{% import_django_select2_css %}
+{{ form.media.css }}
 <link rel="stylesheet" type="text/css" href="{% static 'draw_redux/css/leaflet.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'draw_redux/css/leaflet.label.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'draw_redux/css/Control.Geocoder.css' %}">

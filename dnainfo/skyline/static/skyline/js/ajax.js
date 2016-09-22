@@ -18,15 +18,17 @@ ajaxApplication.nextNeighborhood = function () {
 				// add a form-control class to the input, disabled attribute and placeholder text
 				$('#id_whereBuilding').addClass("form-control");
 				var selected = $('#id_whereBuilding option:selected').val();
-				if (!selected) {
-					$('.select2-chosen').text("Neighborhood");						
-				}
-
 				$('#id_whereBuilding option[value=""]').remove();
 				$('#id_iDontSeeMyNeighborhood').addClass("hidden");
 				$(".fadein").fadeIn("slow");
 				// scroll to top
-				$('#content').scrollTop(0);		
+				$('#content').scrollTop(0);
+				// initialize select 2
+				$('.django-select2').djangoSelect2();
+				if (!selected) {
+					$('.select2-selection__placeholder').text("Neighborhood");						
+				}
+
 	        }
 		});
 	}
@@ -162,15 +164,16 @@ ajaxApplication.backNeighborhood = function (id) {
 				// add a form-control class to the input, disabled attribute and placeholder text
 				$('#id_whereBuilding').addClass("form-control");
 				var selected = $('#id_whereBuilding option:selected').val();
-				if (!selected) {
-					$('.select2-chosen').text("Neighborhood");						
-				}
-
 				$('#id_whereBuilding option[value=""]').remove();
 				$('#id_iDontSeeMyNeighborhood').addClass("hidden");
 				$(".fadein").fadeIn("slow");
 				// scroll to top
-				$('#content').scrollTop(0);	
+				$('#content').scrollTop(0);
+				// initialize select 2
+				$('.django-select2').djangoSelect2();
+				if (!selected) {
+					$('.select2-selection__placeholder').text("Neighborhood");						
+				}
 	        }
 		});
 	}

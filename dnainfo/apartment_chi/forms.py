@@ -5,7 +5,7 @@ from django import forms
 from apartment_chi.models import *
 
 #add select 2
-from django_select2 import *
+from django_select2.forms import Select2Widget
 
 # apartment forms below
 class CHIfirstMoveForm(forms.ModelForm):
@@ -18,7 +18,7 @@ class CHIwhatNeighborhoodForm(forms.ModelForm):
         model = CHImyFirstApartment
         fields = ('whereMoved', 'iDontSeeMyNeighborhood',)
         widgets = {
-            'whereMoved': widgets.Select2Widget(),
+            'whereMoved': Select2Widget,
         }
 
 class CHIexactLocationForm(forms.ModelForm):
