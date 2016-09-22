@@ -65,6 +65,7 @@ class NYC_DOB_Permit_Issuance(models.Model):
 	buildingFootprint = models.TextField(default='')
 	buildingStories = models.IntegerField(default=0, blank=False, null=False)
 	scan_code = models.CharField(max_length=255, default='', blank=False, null=False)
+	scan_code_updated = models.BooleanField(default=False)
 	zoning_pdfs = models.FileField(upload_to='zoning_pdfs/', blank=True, null=True)
 
 
