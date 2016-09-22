@@ -285,7 +285,7 @@ def skyline_getSponsoredGeojsons(request, id=None):
 
 def skyline_getPermittedGeojsons(request, id=None):
 	today = datetime.date.today()
-	minyear = today.year - 2
+	minyear = today.year - 1
 
 	NYC_DOB_Permit_IssuanceObjects = NYC_DOB_Permit_Issuance.objects.filter(job_start_date__year__gte=minyear).exclude(buildingStories__exact = 0).exclude(buildingFootprint__in = ['', '-99'])
 	geojsons = []
