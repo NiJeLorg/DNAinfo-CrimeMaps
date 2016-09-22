@@ -29,37 +29,39 @@ class Command(BaseCommand):
 
 
         for obj in objects:
-            try:   
-                # set URL
-                print 'Job #: ' + obj.job
-                print 'Scan Code: ' + obj.scan_code
-                if obj.job:
-                    params = '?passjobnumber=' + obj.job + '&scancode=' + obj.scan_code
-                    url = base_url + params
-                    response = requests.get(url, headers=headers)
-                    try:
-                        response.raise_for_status()
-                        if response.headers.get('content-type') == 'application/pdf':
-                            f = open(obj.scan_code+'.pdf', 'wb+')
-                            f.write(response.content)
-                            pdffile = File(f)
-                            print pdffile
-                            obj.zoning_pdfs.save(obj.scan_code+'_'+strtime+'.pdf', pdffile)
-                            f.close()
-                            os.remove(obj.scan_code+'.pdf')
-                    except Exception as e:
-                        print('There was a problem: %s' % (e))
+        	# only pull new pdf if the scan code has changed
+        	if obj.scan_code_updated:
+	            try:   
+	                # set URL
+	                print 'Job #: ' + obj.job
+	                print 'Scan Code: ' + obj.scan_code
+	                if obj.job:
+	                    params = '?passjobnumber=' + obj.job + '&scancode=' + obj.scan_code
+	                    url = base_url + params
+	                    response = requests.get(url, headers=headers)
+	                    try:
+	                        response.raise_for_status()
+	                        if response.headers.get('content-type') == 'application/pdf':
+	                            f = open(obj.scan_code+'.pdf', 'wb+')
+	                            f.write(response.content)
+	                            pdffile = File(f)
+	                            print pdffile
+	                            obj.zoning_pdfs.save(obj.scan_code+'_'+strtime+'.pdf', pdffile)
+	                            f.close()
+	                            os.remove(obj.scan_code+'.pdf')
+	                    except Exception as e:
+	                        print('There was a problem: %s' % (e))
 
-            except Exception, e:
-                print e
-                # if error, send email
-                subject = "Skyline NYC Error Getting Scan Code"
-                html_message = 'Problem Job Number: ' + obj.job
-                message = 'Problem Job Number: ' + obj.job
+	            except Exception, e:
+	                print e
+	                # if error, send email
+	                subject = "Skyline NYC Error Getting Scan Code"
+	                html_message = 'Problem Job Number: ' + obj.job
+	                message = 'Problem Job Number: ' + obj.job
 
-                send_mail(subject, message, 'dnainfovisualizations@gmail.com', ['jd@nijel.org'], fail_silently=True, html_message=html_message)
+	                send_mail(subject, message, 'dnainfovisualizations@gmail.com', ['jd@nijel.org'], fail_silently=True, html_message=html_message)
 
-            time.sleep(2)           
+            	time.sleep(2)           
 
 
     def handle(self, *args, **options):

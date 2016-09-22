@@ -282,12 +282,12 @@ def skyline_getSponsoredGeojsons(request, id=None):
 
 def skyline_getPermittedGeojsons(request, id=None):
 
-	NYC_DOB_Permit_IssuanceObjects = NYC_DOB_Permit_Issuance.objects.exclude(buildingStories__exact = 0).exclude(buildingFootprint__exact = '', buildingFootprint__exact = '-99')
+	NYC_DOB_Permit_IssuanceObjects = NYC_DOB_Permit_Issuance.objects.exclude(buildingStories__exact = 0).exclude(buildingFootprint__in = ['', '-99'])
 	geojsons = []
 
 	for obj in NYC_DOB_Permit_IssuanceObjects:
 		buildingHeight = (3.5*obj.buildingStories) + 9.625 + (2.625 * (obj.buildingStories/25));
-		changed = '{\"type\":\"FeatureCollection\",\"features\":[{\"type\": \"Feature\", \"properties\":{\"color\":\"#00cdbe\", \"roofColor\":\"#00cdbe\", \"height\":\"' + str(buildingHeight) +'\"}, \"geometry\": ' + obj.buildingFootprint + '}]}'
+		changed = '{\"type\":\"FeatureCollection\",\"features\":[{\"type\": \"Feature\", \"properties\":{\"color\":\"rgba(0, 205, 190, 0.5)\", \"roofColor\":\"#00cdbe\", \"height\":\"' + str(buildingHeight) +'\"}, \"geometry\": ' + obj.buildingFootprint + '}]}'
 		geojsons.append(changed)
 		
 	return JsonResponse(geojsons, safe=False)

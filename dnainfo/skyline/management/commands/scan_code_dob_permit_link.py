@@ -60,8 +60,10 @@ class Command(BaseCommand):
                     print sliceText
 
                     if sliceText:
-                        obj.scan_code = sliceText
-                        obj.save()
+                        if obj.scan_code != sliceText:
+                            obj.scan_code = sliceText
+                            obj.scan_code_updated = True
+                            obj.save()
 
 
             except Exception, e:
