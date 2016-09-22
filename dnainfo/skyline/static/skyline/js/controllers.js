@@ -98,19 +98,15 @@ $( document ).ready(function() {
 
 
 	// ensure that select2-no-results says the correct text
-	// also list on keydown to set width and left
-	$(document).on('keydown', '.select2-input', function(e) {
+	$(document).on('keydown', '.select2-search__field', function(e) {
 		window.setTimeout(function() {  
-	        $(".select2-no-results").html("<em>I don't see my neighborhood.</em>");
+	        $(".select2-results__message").html("<em>I don't see my neighborhood.</em>");
 	        // set listener
-        	$(".select2-no-results").on('click', function(e) {
-				$('.select2-focusser').prop("placeholder", "I don't see my neighborhood.");
-				$('.select2-chosen').text("I don't see my neighborhood.");
+        	$(".select2-results__message").on('click', function(e) {
+				$('.select2-selection__placeholder').text("I don't see my neighborhood.");
+				$('.select2-selection__rendered').text("I don't see my neighborhood.");
 				$('#id_whereBuilding').val('');
         		$('#id_iDontSeeMyNeighborhood').prop("checked", true);
-				$('.select2-focusser').prop("disabled", false);
-				$('#select2-drop').select2("close");
-				$("#select2-drop-mask").select2("close");
 				$('#nextHeight').prop("disabled", false);
 				$('#sponsoredNextBuildingHeight').prop("disabled", false);
 			});

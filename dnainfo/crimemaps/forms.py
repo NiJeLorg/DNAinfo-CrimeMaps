@@ -5,7 +5,8 @@ from django import forms
 from crimemaps.models import *
 
 #add select 2
-from django_select2 import *
+from django_select2.forms import Select2Widget
+
 
 # crimemaps forms below
 
@@ -111,7 +112,7 @@ class nycNeighDrawForm(forms.ModelForm):
             'otherNeighborhood': 'Type in your neighborhood here if it\'s not in the list above',
         }
         widgets = {
-            'neighborhoodLive': widgets.Select2Widget(),
+            'neighborhoodLive': Select2Widget,
         }
 
 class chiNeighDrawForm(forms.ModelForm):
@@ -125,7 +126,7 @@ class chiNeighDrawForm(forms.ModelForm):
             'otherNeighborhood': 'Type in your neighborhood here if it\'s not in the list above',
         }
         widgets = {
-            'neighborhoodLive': widgets.Select2Widget(),
+            'neighborhoodLive': Select2Widget,
         }
 
 
@@ -139,7 +140,7 @@ class nycNeighViewForm(forms.ModelForm):
             'neighborhoodLive': '',
         }
         widgets = {
-            'neighborhoodLive': widgets.Select2Widget(),
+            'neighborhoodLive': Select2Widget,
         }
         
 
@@ -152,7 +153,7 @@ class chiNeighViewForm(forms.ModelForm):
             'neighborhoodLive': '',
         }
         widgets = {
-            'neighborhoodLive': widgets.Select2Widget(),
+            'neighborhoodLive': Select2Widget,
         }
         
 

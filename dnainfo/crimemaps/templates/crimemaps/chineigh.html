@@ -1,12 +1,11 @@
 {% extends 'crimemaps/baseNoBottomNavCHI.html' %}
 {% load staticfiles %}
 {% load bootstrap_tags %}
-{% load django_select2_tags %}
 
 {% block title %}Where Exactly Is Your Neighborhood | DNAinfo{% endblock %}
 
 {% block css_block %}
-{% import_django_select2_css %}
+{{ form.media.css }}
 {% endblock %}
 
 {% block head_js_block %}
@@ -46,7 +45,7 @@
 {% endblock %}
 
 {% block js_block %}
-{% import_django_select2_js %}
+{{ form.media.js }}
 <script type="text/javascript">
 	$( document ).ready(function() {
 		// sort the select list

@@ -18,14 +18,15 @@ ajaxApplication.nextNeighborhood = function () {
 				// add a form-control class to the input, disabled attribute and placeholder text
 				$('#id_whatNeighborhood').addClass("form-control");
 				var selected = $('#id_whatNeighborhood option:selected').val();
-				if (!selected) {
-					$('.select2-chosen').text("Neighborhood");						
-				}
-
 				$('#id_whatNeighborhood option[value=""]').remove();
 				$(".fadein").fadeIn("slow");
 				// scroll to top
 				$('#content').scrollTop(0);		
+				// initialize select 2
+				$('.django-select2').djangoSelect2();
+				if (!selected) {
+					$('.select2-selection__placeholder').text("Neighborhood");						
+				}
 	        }
 		});
 	}
@@ -120,13 +121,15 @@ ajaxApplication.backNeighborhood = function (id) {
 				// add a form-control class to the input, disabled attribute and placeholder text
 				$('#id_whatNeighborhood').addClass("form-control");
 				var selected = $('#id_whatNeighborhood option:selected').val();
-				if (!selected) {
-					$('.select2-chosen').text("Neighborhood");						
-				}
 				$('#id_whereMoved option[value=""]').remove();
 				$(".fadein").fadeIn("slow");    
 				// scroll to top
 				$('#content').scrollTop(0);
+				// initialize select 2
+				$('.django-select2').djangoSelect2();
+				if (!selected) {
+					$('.select2-selection__placeholder').text("Neighborhood");						
+				}
 	        }
 		});
 	}

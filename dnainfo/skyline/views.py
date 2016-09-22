@@ -16,6 +16,9 @@ from django.contrib.auth.decorators import login_required
 # paginator
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
+# datetime
+import datetime
+
 
 # views for DNAinfo my first apartment
 def index(request):
@@ -281,13 +284,15 @@ def skyline_getSponsoredGeojsons(request, id=None):
 	return JsonResponse(geojsons, safe=False)
 
 def skyline_getPermittedGeojsons(request, id=None):
+	today = datetime.date.today()
+	minyear = today.year - 2
 
-	NYC_DOB_Permit_IssuanceObjects = NYC_DOB_Permit_Issuance.objects.exclude(buildingStories__exact = 0).exclude(buildingFootprint__in = ['', '-99'])
+	NYC_DOB_Permit_IssuanceObjects = NYC_DOB_Permit_Issuance.objects.filter(job_start_date__year__gte=minyear).exclude(buildingStories__exact = 0).exclude(buildingFootprint__in = ['', '-99'])
 	geojsons = []
 
 	for obj in NYC_DOB_Permit_IssuanceObjects:
 		buildingHeight = (3.5*obj.buildingStories) + 9.625 + (2.625 * (obj.buildingStories/25));
-		changed = '{\"type\":\"FeatureCollection\",\"features\":[{\"type\": \"Feature\", \"properties\":{\"color\":\"rgba(0, 205, 190, 0.5)\", \"roofColor\":\"#00cdbe\", \"height\":\"' + str(buildingHeight) +'\"}, \"geometry\": ' + obj.buildingFootprint + '}]}'
+		changed = '{\"type\":\"FeatureCollection\",\"features\":[{\"type\": \"Feature\", \"properties\":{\"color\":\"rgba(0, 205, 190, 0.5)\", \"roofColor\":\"rgba(0, 205, 190, 0.5)\", \"height\":\"' + str(buildingHeight) +'\"}, \"geometry\": ' + obj.buildingFootprint + '}]}'
 		geojsons.append(changed)
 		
 	return JsonResponse(geojsons, safe=False)

@@ -5,7 +5,7 @@ from django import forms
 from apartment.models import *
 
 #add select 2
-from django_select2 import *
+from django_select2.forms import Select2Widget
 
 # apartment forms below
 class NYCfirstMoveForm(forms.ModelForm):
@@ -18,7 +18,7 @@ class NYCwhatNeighborhoodForm(forms.ModelForm):
         model = NYCmyFirstApartment
         fields = ('whereMoved', 'iDontSeeMyNeighborhood',)
         widgets = {
-            'whereMoved': widgets.Select2Widget(),
+            'whereMoved': Select2Widget,
         }
 
 class NYCexactLocationForm(forms.ModelForm):

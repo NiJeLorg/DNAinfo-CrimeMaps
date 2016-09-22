@@ -1,12 +1,10 @@
 {% extends 'apartment/baseNYC.html' %}
 {% load staticfiles %}
 {% load bootstrap_tags %}
-{% load django_select2_tags %}
 
 {% block title %}My First Apartment | DNAinfo{% endblock %}
 
 {% block css_block %}
-{% import_django_select2_css %}
 <link rel="stylesheet" type="text/css" href="{% static 'apartment/css/leaflet.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'apartment/css/leaflet.draw.css' %}">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
@@ -14,6 +12,9 @@
 
 {% block head_js_block %}
 <script type="text/javascript" src="{% static 'apartment/js/controllers.js' %}"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'apartment/css/select2.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'apartment/css/all-bootstrapped.min.css' %}">
+
 {% endblock %}
 	
 {% block body_block %}
@@ -40,9 +41,9 @@
 {% endblock %}
 
 {% block js_block %}
+<script type="text/javascript" src="{% static 'apartment/js/select2.js' %}"></script>
+<script type="text/javascript" src="{% static 'django_select2/django_select2.js' %}"></script>
 <script type="text/javascript" src="{% static 'apartment/js/jquery.scrollTo.min.js' %}"></script>
-<script type="text/javascript" src="{% static 'django_select2/js/select2.js' %}"></script>
-<script type="text/javascript" src="{% static 'django_select2/js/heavy_data.js' %}"></script>
 <script type="text/javascript" src="{% static 'apartment/js/leaflet-src.js' %}"></script>
 <script type="text/javascript" src="{% static 'apartment/js/leaflet.draw.js' %}"></script>
 <script type="text/javascript" src="{% static 'apartment/js/d3.min.js' %}"></script>

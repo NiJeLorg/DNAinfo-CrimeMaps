@@ -5,7 +5,7 @@ from django import forms
 from draw_redux.models import *
 
 #add select 2
-from django_select2 import *
+from django_select2.forms import Select2Widget
 
 # skyline forms below
 class NYCwhatNeighborhoodForm(forms.ModelForm):
@@ -13,7 +13,7 @@ class NYCwhatNeighborhoodForm(forms.ModelForm):
         model = NYCInOrOut
         fields = ('whatNeighborhood', )
         widgets = {
-            'whatNeighborhood': widgets.Select2Widget(),
+            'whatNeighborhood': Select2Widget,
         }
 
 class NYCinOrOutForm(forms.ModelForm):

@@ -1,22 +1,22 @@
 {% extends 'skyline/baseNYC.html' %}
 {% load staticfiles %}
 {% load bootstrap_tags %}
-{% load django_select2_tags %}
 
 {% block title %}Future Skyline | DNAinfo{% endblock %}
 
 {% block css_block %}
-{% import_django_select2_css %}
 <link rel="stylesheet" type="text/css" href="{% static 'skyline/css/carto.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'skyline/css/Control.Geocoder.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'skyline/css/OSMBuildings.css' %}">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="{% static 'skyline/css/select2.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'skyline/css/all-bootstrapped.min.css' %}">
 {% endblock %}
 
 {% block head_js_block %}
 <script type="text/javascript" src="{% static 'skyline/js/controllers.js' %}"></script>
 {% endblock %}
-	
+  
 {% block body_block %}
 <div id="content" class="fadein">
     {% include 'skyline/introTemplate.html' %}
@@ -41,10 +41,11 @@
 {% endblock %}
 
 {% block js_block %}
+<script type="text/javascript" src="{% static 'skyline/js/select2.js' %}"></script>
+<script type="text/javascript" src="{% static 'django_select2/django_select2.js' %}"></script>
+<script type="text/javascript" src="{% static 'skyline/js/d3.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'skyline/js/d3.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'skyline/js/jquery.scrollTo.min.js' %}"></script>
-<script type="text/javascript" src="{% static 'django_select2/js/select2.js' %}"></script>
-<script type="text/javascript" src="{% static 'django_select2/js/heavy_data.js' %}"></script>
 <script type="text/javascript" src="{% static 'skyline/js/carto.js' %}"></script>
 <script type="text/javascript" src="{% static 'skyline/js/Control.Geocoder.js' %}"></script>
 <script type="text/javascript" src="{% static 'skyline/js/OSMBuildings.js' %}"></script>
@@ -52,8 +53,3 @@
 <script type="text/javascript" src="{% static 'skyline/js/map.js' %}"></script>
 <script type="text/javascript" src="{% static 'skyline/js/osmmap.js' %}"></script>
 {% endblock %}
-
-
-	
-	
-
