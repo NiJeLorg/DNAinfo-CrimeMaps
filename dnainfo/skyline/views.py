@@ -292,7 +292,7 @@ def skyline_getPermittedGeojsons(request, id=None):
 
 	for obj in NYC_DOB_Permit_IssuanceObjects:
 		buildingHeight = (3.5*obj.buildingStories) + 9.625 + (2.625 * (obj.buildingStories/25));
-		changed = '{\"type\":\"FeatureCollection\",\"features\":[{\"type\": \"Feature\", \"properties\":{\"color\":\"rgba(0, 205, 190, 0.5)\", \"roofColor\":\"rgba(0, 205, 190, 0.5)\", \"height\":\"' + str(buildingHeight) +'\"}, \"geometry\": ' + obj.buildingFootprint + '}]}'
+		changed = '{\"type\":\"FeatureCollection\",\"features\":[{\"type\": \"Feature\", \"properties\":{\"color\":\"rgba(0, 205, 190, 0.5)\", \"roofColor\":\"rgba(0, 205, 190, 0.5)\", \"height\":\"' + str(buildingHeight) +'\", \"pdf\":\"visualizations/media/' + str(obj.zoning_pdfs) +'\", \"address\":\"' + str(obj.house).strip() + ' ' + str(obj.street_name).strip() +'\", \"stories\":\"' + str(obj.buildingStories) +'\"}, \"geometry\": ' + obj.buildingFootprint + '}]}'
 		geojsons.append(changed)
 		
 	return JsonResponse(geojsons, safe=False)

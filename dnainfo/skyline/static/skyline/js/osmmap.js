@@ -79,44 +79,69 @@ osmApplication.initialize = function () {
 	// osm building click
 	osmApplication.osmb.on('click', function(e) {
 	  osmApplication.osmb.getTarget(e.x, e.y, function(id) {
-	  	splitId = id.split('_');
+	  	console.log(id);
+	  	if (id) {
+		  	splitId = id.split('_');
 
-	    if (splitId[0] == 'sponsored') {
-	    	// look up properties
-	    	var lookupId = parseInt(splitId[1]);
-	    	var properties = osmApplication.geojsons[lookupId].features[0].properties;
-	    	console.log(properties);
-	    	$('#property-name').text(properties.name);
-	    	var imgSrc = '/visualizations/media/' + properties.image
-	    	$('#property-image').prop('src', imgSrc);
-	    	$('#property-description').text(properties.text);
-	    	$('#property-address').text(properties.printAddress);
-	    	$('#property-address').text(properties.printAddress);
-	    	var x = parseInt(e.x) - 150;
-	    	var y = parseInt(e.y) - 250; 
-		    // show div with data populated at that screen location
-		    $('#tooltip').css('left', x);
-		    $('#tooltip').css('top', y);
-		    $('#tooltip').removeClass('hidden');
+		    if (splitId[0] == 'sponsored') {
+		    	// look up properties
+		    	var lookupId = parseInt(splitId[1]);
+		    	var properties = osmApplication.sponsoredGeojsons[lookupId].features[0].properties;
+		    	console.log(properties);
+		    	$('#property-name').text(properties.name);
+		    	var imgSrc = '/visualizations/media/' + properties.image
+		    	$('#property-image').prop('src', imgSrc);
+		    	$('#property-description').text(properties.text);
+		    	$('#property-address').text(properties.printAddress);
+		    	var x = parseInt(e.x) - 150;
+		    	var y = parseInt(e.y) - 250; 
+			    // show div with data populated at that screen location
+			    $('#tooltipSponsored').css('left', x);
+			    $('#tooltipSponsored').css('top', y);
+			    $('#tooltipSponsored').removeClass('hidden');
 
-	    } else {
-		  	if(!$('#tooltip').hasClass('hidden')) {
-		  		$('#tooltip').addClass('hidden');
-		  	}
-	    }
+		    } else if (splitId[0] == 'permitted') {
+		    	// look up properties
+		    	var lookupId = parseInt(splitId[1]);
+		    	var properties = osmApplication.permittedGeojsons[lookupId].features[0].properties;
+		    	console.log(properties);
+		    	$('#property-address-permitted').text(properties.address);
+		    	$('#property-stories-permitted').text(properties.stories+ ' Stories');
+		    	if (properties.pdf != 'visualizations/media/') {
+		    		$('#property-pdf-permitted').html('Read More: <a href="/' + properties.pdf +'" target="_blank">DOB Records</a>');
+		    	} 
+		    	var x = parseInt(e.x) - 150;
+		    	var y = parseInt(e.y) - 250; 
+			    // show div with data populated at that screen location
+			    $('#tooltipPermitted').css('left', x);
+			    $('#tooltipPermitted').css('top', y);
+			    $('#tooltipPermitted').removeClass('hidden');
+
+
+			} else {
+			  	if(!$('.tooltip').hasClass('hidden')) {
+			  		$('.tooltip').addClass('hidden');
+			  	}
+		    }	  		
+	  	} else {
+		  	if(!$('.tooltip').hasClass('hidden')) {
+		  		$('.tooltip').addClass('hidden');
+		  	}	  		
+	  	}
+
 	  });
 	});
 
 	// close sponsored tooltip if the map changes
 	osmApplication.osmb.on('change', function(e) {
-		if(!$('#tooltip').hasClass('hidden')) {
-	  		$('#tooltip').addClass('hidden');
+		if(!$('.tooltip').hasClass('hidden')) {
+	  		$('.tooltip').addClass('hidden');
 	  	}
 	});
 
 	// create listener for closing tooltip
-	$('.sponsored-close').click(function() {
-		$('#tooltip').addClass('hidden');
+	$('.tooltip-close').click(function() {
+		$('.tooltip').addClass('hidden');
 	});
 
 	// get geojson
@@ -138,7 +163,6 @@ osmApplication.getGeojson = function () {
 			// load the draw tools
 			if (data) {
 				var geojson = JSON.parse(data);
-				console.log(geojson);
 				if (typeof geojson.features[0].geometry.coordinates[0][0][0][0] != 'undefined') {
 					var lat = geojson.features[0].geometry.coordinates[0][0][0][1];
 					var lon = geojson.features[0].geometry.coordinates[0][0][0][0];	
@@ -148,7 +172,7 @@ osmApplication.getGeojson = function () {
 				}
 				// pan map
 				osmApplication.osmb.setPosition({ latitude:lat, longitude:lon });
-				osmApplication.addedLayer = osmApplication.osmb.addGeoJSON(geojson, {id: 'userGeojson'});
+				osmApplication.osmb.addGeoJSON(geojson, {id: 'userGeojson'});
 
 			} 
         }
@@ -162,12 +186,12 @@ osmApplication.getSponsoredGeojsons = function () {
 		success: function(data){
 			// load the draw tools
 			if (data) {
-				osmApplication.geojsons = [];
+				osmApplication.sponsoredGeojsons = [];
 				for (var i = 0; i < data.length; i++) {
 					var geojson = JSON.parse(data[i]);
-					osmApplication.geojsons.push(geojson);
+					osmApplication.sponsoredGeojsons.push(geojson);
 					var idNum = "sponsored_" + i;
-					osmApplication.addedLayer = osmApplication.osmb.addGeoJSON(geojson, {id: idNum});
+					osmApplication.osmb.addGeoJSON(geojson, {id: idNum});
 				}
 				
 			} 
@@ -185,10 +209,9 @@ osmApplication.getPermittedGeojsons = function () {
 				osmApplication.permittedGeojsons = [];
 				for (var i = 0; i < data.length; i++) {
 					var geojson = JSON.parse(data[i]);
-					console.log(geojson);
 					osmApplication.permittedGeojsons.push(geojson);
 					var idNum = "permitted_" + i;
-					osmApplication.addedLayer = osmApplication.osmb.addGeoJSON(geojson, {id: idNum});
+					osmApplication.osmb.addGeoJSON(geojson, {id: idNum});
 				}
 				
 			} 
