@@ -79,7 +79,6 @@ osmApplication.initialize = function () {
 	// osm building click
 	osmApplication.osmb.on('click', function(e) {
 	  osmApplication.osmb.getTarget(e.x, e.y, function(id) {
-	  	console.log(id);
 	  	if (id) {
 		  	splitId = id.split('_');
 
@@ -119,14 +118,21 @@ osmApplication.initialize = function () {
 
 
 			} else {
-			  	if(!$('.tooltip').hasClass('hidden')) {
-			  		$('.tooltip').addClass('hidden');
+			  	if(!$('#tooltipPermitted').hasClass('hidden')) {
+			  		$('#tooltipPermitted').addClass('hidden');
+			  	}
+			  	if(!$('#tooltipSponsored').hasClass('hidden')) {
+			  		$('#tooltipSponsored').addClass('hidden');
 			  	}
 		    }	  		
 	  	} else {
-		  	if(!$('.tooltip').hasClass('hidden')) {
-		  		$('.tooltip').addClass('hidden');
+	  		
+		  	if(!$('#tooltipPermitted').hasClass('hidden')) {
+		  		$('#tooltipPermitted').addClass('hidden');
 		  	}	  		
+		  	if(!$('#tooltipSponsored').hasClass('hidden')) {
+		  		$('#tooltipSponsored').addClass('hidden');
+		  	}
 	  	}
 
 	  });
@@ -134,8 +140,11 @@ osmApplication.initialize = function () {
 
 	// close sponsored tooltip if the map changes
 	osmApplication.osmb.on('change', function(e) {
-		if(!$('.tooltip').hasClass('hidden')) {
-	  		$('.tooltip').addClass('hidden');
+	  	if(!$('#tooltipPermitted').hasClass('hidden')) {
+	  		$('#tooltipPermitted').addClass('hidden');
+	  	}	  		
+	  	if(!$('#tooltipSponsored').hasClass('hidden')) {
+	  		$('#tooltipSponsored').addClass('hidden');
 	  	}
 	});
 
