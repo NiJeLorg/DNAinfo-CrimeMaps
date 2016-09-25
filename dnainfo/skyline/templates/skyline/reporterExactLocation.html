@@ -77,6 +77,12 @@
     var buildingStories = parseInt("{{ NYCReporterBuildingsObject.buildingStories }}");
     // formula from http://www.ctbuh.org/HighRiseInfo/TallestDatabase/Criteria/HeightCalculator/tabid/1007/language/en-GB/Default.aspx
     var buildingHeight = (3.5*buildingStories) + 9.625 + (2.625 * (buildingStories/25));
+    var description = "{{ NYCReporterBuildingsObject.description }}";
+    var zoning_pdfs = "{{ NYCReporterBuildingsObject.zoning_pdfs }}";
+    var story1 = "{{ NYCReporterBuildingsObject.story1 }}";
+    var story2 = "{{ NYCReporterBuildingsObject.story2 }}";
+    var story3 = "{{ NYCReporterBuildingsObject.story3 }}";
+
     $( document ).ready(function() {
         window.setTimeout(function() {
             mapApplication.initialize();

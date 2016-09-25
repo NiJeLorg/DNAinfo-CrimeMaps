@@ -283,11 +283,11 @@ def skyline_getSponsoredGeojsons(request, id=None):
 
 	return JsonResponse(geojsons, safe=False)
 
-def skyline_getPermittedGeojsons(request, id=None):
+def skyline_getPermittedGeojsons(request, boro=None):
 	today = datetime.date.today()
 	minyear = today.year - 1
 
-	NYC_DOB_Permit_IssuanceObjects = NYC_DOB_Permit_Issuance.objects.filter(job_start_date__year__gte=minyear).exclude(buildingStories__exact = 0).exclude(buildingFootprint__in = ['', '-99'])
+	NYC_DOB_Permit_IssuanceObjects = NYC_DOB_Permit_Issuance.objects.filter(job_start_date__year__gte=minyear, borough__iexact=boro).exclude(buildingStories__exact = 0).exclude(buildingFootprint__in = ['', '-99'])
 	geojsons = []
 
 	for obj in NYC_DOB_Permit_IssuanceObjects:

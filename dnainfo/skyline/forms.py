@@ -75,7 +75,15 @@ class NYCwhatNeighborhoodReporterForm(forms.ModelForm):
 class NYCbuildingHeightReporterForm(forms.ModelForm):
     class Meta:
         model = NYCReporterBuildings
-        fields = ('buildingStories',)
+        fields = ('buildingStories', 'description', 'zoning_pdfs', 'story1', 'story2', 'story3', )
+        labels = {
+            'buildingStories': 'How many stories tall is this building?',
+            'description': 'Please add a brief description.',
+            'zoning_pdfs': 'Please add a zoning diagram if one exists. Please check the <a href="http://a810-bisweb.nyc.gov/bisweb/bispi00.jsp" target="_blank">DOB building information search</a> system for this document.',
+            'story1': 'Please add a link to a DNAinfo story.',
+            'story2': 'Please add a link to a DNAinfo story.',
+            'story3': 'Please add a link to a DNAinfo story.',
+        }
 
 class NYCexactLocationReporterForm(forms.ModelForm):
     class Meta:

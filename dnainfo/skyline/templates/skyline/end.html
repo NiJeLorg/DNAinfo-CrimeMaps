@@ -36,8 +36,27 @@
     <button type="button" class="close tooltip-close" aria-label="Close"><span aria-hidden="true" class="xIcon"></span></button>
     <div class="clearfix"></div>
     <hr />
-    <p id="property-stories-permitted" class='property-text'></p>
-    <p id='property-pdf-permitted' class='property-text'></p>
+    <p>
+        <span id="property-stories-permitted" class='property-text'></span>
+        <span id='property-pdf-permitted' class='property-text'></span>
+    </p>
+</div>
+
+<!-- Hidden Div -->
+<div id="tooltipDNA" class="tooltip dna-tooltip hidden">
+    <p class="dna">ADDED BY DNAINFO</p>
+    <h4 id="property-address-dna" class="tooltip-title"></h4>
+    <button type="button" class="close tooltip-close" aria-label="Close"><span aria-hidden="true" class="xIcon"></span></button>
+    <div class="clearfix"></div>
+    <hr />
+    <p>
+        <span id="property-stories-dna" class='property-text'></span>
+        <span id='property-description-dna' class='property-text'></span>
+        <span id='property-pdf-dna' class='property-text'></span>
+        <span id='property-story1-dna' class='property-text'></span>
+        <span id='property-story2-dna' class='property-text'></span>
+        <span id='property-story3-dna' class='property-text'></span>
+    </p>
 </div>
 
 
@@ -75,6 +94,7 @@
 
 <script type="text/javascript">
     var objectID = "{{ NYCskylineObject.id }}"; 
+    var boro = "{{ NYCskylineObject.whereBuilding.county }}";
     var bitlyURL = "{{ bitlyURL.url }}";
     $( document ).ready(function() {
 

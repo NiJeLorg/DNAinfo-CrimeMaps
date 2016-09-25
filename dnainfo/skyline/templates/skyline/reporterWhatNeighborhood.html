@@ -3,8 +3,9 @@
 {% load bootstrap_tags %}
 
 {% block css_block %}
-{{ form.media.css }}
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="{% static 'skyline/css/select2.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'skyline/css/all-bootstrapped.min.css' %}">
 {% endblock %}
 
 {% block head_js_block %}
@@ -54,8 +55,8 @@
 {% endblock %}
 
 {% block js_block %}
-<script type="text/javascript" src="{% static 'django_select2/js/select2.js' %}"></script>
-<script type="text/javascript" src="{% static 'django_select2/js/heavy_data.js' %}"></script>
+<script type="text/javascript" src="{% static 'skyline/js/select2.js' %}"></script>
+<script type="text/javascript" src="{% static 'django_select2/django_select2.js' %}"></script>
 <script type="text/javascript">
 $( document ).ready(function() {
     // remove labels
@@ -63,10 +64,13 @@ $( document ).ready(function() {
     // add a form-control class to the input, disabled attribute and placeholder text
     $('#id_whereBuilding').addClass("form-control");
     var selected = $('#id_whereBuilding option:selected').val();
-    if (!selected) {
-        $('.select2-chosen').text("Neighborhood");                      
-    }
     $('#id_whereBuilding option[value=""]').remove();
+    // initialize select 2
+    $('.django-select2').djangoSelect2();
+    if (!selected) {
+        $('.select2-selection__placeholder').text("Neighborhood");                      
+    }
+
 });
 
 </script>

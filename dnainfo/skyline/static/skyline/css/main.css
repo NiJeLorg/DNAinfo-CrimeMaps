@@ -908,6 +908,19 @@ fieldset[disabled] .btn-dna-twitter.active {
   font-weight: bold;
 }
 
+.tooltip.dna-tooltip {
+  border: 1px solid #fc5158;
+}
+
+.tooltip .dna {
+  padding: 8px 0px 3px 14px;
+  color: #fff;
+  background: #fc5158;
+  margin: -15px -15px 0px -15px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
 .tooltip .tooltip-close {
   position: absolute;
   right: 10px;

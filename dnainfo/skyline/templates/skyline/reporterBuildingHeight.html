@@ -15,12 +15,12 @@
 <div id="content" class="fadein">
     <!-- Content -->
     <div class="container-fluid">
-        <form id="buildingHeightForm" method="post" action=".">
+        <form id="buildingHeightForm" enctype="multipart/form-data" method="post" action=".">
             {% csrf_token %}
             <div class="row">
                 <div class="col-xs-10 col-sm-7 col-sm-offset-2">
                     <h2 class="questionHeading">
-                        How many stories tall will this new building be?
+                        Tell us some other information about this building.
                     </h2>
                 </div>
                 <div class="col-xs-2 col-sm-1">
@@ -30,14 +30,8 @@
             <div class="row">
                 <div class="col-sm-8 col-sm-offset-2">
                     <div class="form-group formField">
-                        <div class="input-group">
-                          <div class="input-group-addon leftBedroom"><span class=""></span></div>
-                           {{ form }}
-                          <div class="input-group-addon right"><span id="storiesMinus" class="minusStepper"></span><span id="storiesPlus" class="plusStepper"></span></div>
-                        </div>
-                        <p class="text-danger hidden">Please enter a valid number of stories above to continue.</p>
+                        {{ form|as_bootstrap }}
                         {{ form.errors }}
-
                     </div>
                 </div>
             </div>
@@ -54,17 +48,6 @@
 {% endblock %}
 
 {% block js_block %}
-<script type="text/javascript">
-    $( document ).ready(function() {
-        // remove labels
-        $('label').remove();
-        // add a form-control class to the input, disabled attribute and placeholder text
-        $('#id_buildingStories').addClass("form-control");
-        $('#id_buildingStories').val(5);     
-    });
-
-</script>
-
 {% endblock %}
 
 
