@@ -78,8 +78,15 @@ osmApplication.initialize = function () {
 
 	// osm building click
 	osmApplication.osmb.on('click', function(e) {
+	  if (e.x) {
+	  	var xcoor = e.x;
+	  	var ycoor = e.y;
+	  } else {
+	  	var xcoor = e.clientX;
+	  	var ycoor = e.clientY;
+	  }
 		console.log(e);
-	  osmApplication.osmb.getTarget(e.x, e.y, function(id) {
+	  osmApplication.osmb.getTarget(xcoor, ycoor, function(id) {
 	  	console.log(id);
 	  	if (id) {
 		  	splitId = id.split('_');
@@ -94,8 +101,8 @@ osmApplication.initialize = function () {
 		    	$('#property-image').prop('src', imgSrc);
 		    	$('#property-description').text(properties.text);
 		    	$('#property-address').text(properties.printAddress);
-		    	var x = parseInt(e.x) - 150;
-		    	var y = parseInt(e.y) - 250; 
+		    	var x = parseInt(xcoor) - 150;
+		    	var y = parseInt(ycoor) - 250; 
 			    // show div with data populated at that screen location
 			    $('#tooltipSponsored').css('left', x);
 			    $('#tooltipSponsored').css('top', y);
@@ -111,8 +118,8 @@ osmApplication.initialize = function () {
 		    	if (properties.pdf != 'visualizations/media/') {
 		    		$('#property-pdf-permitted').html('Read More: <a href="/' + properties.pdf +'" target="_blank">DOB Records</a><br />');
 		    	} 
-		    	var x = parseInt(e.x) - 150;
-		    	var y = parseInt(e.y) - 250; 
+		    	var x = parseInt(xcoor) - 150;
+		    	var y = parseInt(ycoor) - 250; 
 			    // show div with data populated at that screen location
 			    $('#tooltipPermitted').css('left', x);
 			    $('#tooltipPermitted').css('top', y);
@@ -139,8 +146,8 @@ osmApplication.initialize = function () {
 		    	if (properties.story3) {
 			    	$('#property-story3-dna').html('Read More: <a href="' + properties.story3 +'" target="_blank">Story</a><br />');
 		    	}
-		    	var x = parseInt(e.x) - 150;
-		    	var y = parseInt(e.y) - 250; 
+		    	var x = parseInt(xcoor) - 150;
+		    	var y = parseInt(ycoor) - 250; 
 			    // show div with data populated at that screen location
 			    $('#tooltipDNA').css('left', x);
 			    $('#tooltipDNA').css('top', y);
