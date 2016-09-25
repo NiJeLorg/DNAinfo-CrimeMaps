@@ -869,6 +869,7 @@ fieldset[disabled] .btn-dna-twitter.active {
 
 /* Simple tooltip div */
 .tooltip {
+  position: absolute;
   font-family:"Titillium Web", Helvetica, Sans-Serif;
   width: 300px;
   max-width: 300px;
