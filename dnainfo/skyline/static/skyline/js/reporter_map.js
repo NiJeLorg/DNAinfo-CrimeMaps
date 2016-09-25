@@ -48,6 +48,9 @@ mapApplication.initialize = function () {
 	//add pluto data
 	mapApplication.loadPluto();
 
+	// load already picked parcel if editing
+	mapApplication.loadParcel();
+
 
 	function center(neighborhood) {
 
@@ -415,9 +418,15 @@ mapApplication.featureClick = function (cartodb_id) {
 
 			// add properties to geojson
 			geojson.features[0].properties.color = "#fc5158";
-		    geojson.features[0].properties.roofColor = "#E8040F";
+		    geojson.features[0].properties.roofColor = "#fc5158";
 		    geojson.features[0].properties.height = buildingHeight;
+		    geojson.features[0].properties.stories = buildingStories;
 		    geojson.features[0].properties.minHeight = 0;
+		    geojson.features[0].properties.description = description;
+		    geojson.features[0].properties.zoning_pdfs = 'visualizations/media/' + zoning_pdfs;
+		    geojson.features[0].properties.story1 = story1;
+		    geojson.features[0].properties.story2 = story2;
+		    geojson.features[0].properties.story3 = story3;
 
 			// add data to form
 			$('#id_buildingFootprint').val(JSON.stringify(geojson));
@@ -496,6 +505,30 @@ mapApplication.pickUrlTableSQL = function (boro) {
 		mapApplication.tableName = 'simappluto';
 		mapApplication.sql = new cartodb.SQL({ user: 'jd', format: 'geojson' });
 	}
+
+}
+
+mapApplication.loadParcel = function () {
+	$.ajax({
+		type: "GET",
+		url: "/skyline/admin/nyc/reporter/getGeojson/"+ objectID +"/",
+		success: function(data){
+			// load the draw tools
+			if (data) {
+				var geojson = JSON.parse(data);
+				mapApplication.CLICKGEOJSON = L.geoJson(geojson, {
+			        style: mapApplication.clicked
+			    }).addTo(mapApplication.map);
+
+			    mapApplication.map.panTo(mapApplication.CLICKGEOJSON.getBounds().getCenter());
+			    // remove disable from next button
+			    if ($('#reporterNextEnd').prop("disabled")) {
+			        $('#reporterNextEnd').prop("disabled", false);
+			    }
+
+			} 
+        }
+	});
 
 }
 

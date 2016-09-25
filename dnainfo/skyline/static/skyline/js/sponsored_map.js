@@ -48,6 +48,10 @@ mapApplication.initialize = function () {
 	//add pluto data
 	mapApplication.loadPluto();
 
+	// load already picked parcel if editing
+	mapApplication.loadParcel();
+
+
 	function center(neighborhood) {
 
 		var lookup = {
@@ -498,6 +502,32 @@ mapApplication.pickUrlTableSQL = function (boro) {
 	}
 
 }
+
+mapApplication.loadParcel = function () {
+	$.ajax({
+		type: "GET",
+		url: "/skyline/admin/nyc/sponsored/getGeojson/"+ objectID +"/",
+		success: function(data){
+			// load the draw tools
+			if (data) {
+				var geojson = JSON.parse(data);
+				mapApplication.CLICKGEOJSON = L.geoJson(geojson, {
+			        style: mapApplication.clicked
+			    }).addTo(mapApplication.map);
+
+			    mapApplication.map.panTo(mapApplication.CLICKGEOJSON.getBounds().getCenter());
+
+			    // remove disable from next button
+		        if ($('#sponsoredNextEnd').prop("disabled")) {
+		            $('#sponsoredNextEnd').prop("disabled", false);
+		        }
+
+			} 
+        }
+	});
+
+}
+
 
 
 /* Style states */

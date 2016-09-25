@@ -78,7 +78,9 @@ osmApplication.initialize = function () {
 
 	// osm building click
 	osmApplication.osmb.on('click', function(e) {
+		console.log(e);
 	  osmApplication.osmb.getTarget(e.x, e.y, function(id) {
+	  	console.log(id);
 	  	if (id) {
 		  	splitId = id.split('_');
 
@@ -105,9 +107,9 @@ osmApplication.initialize = function () {
 		    	var properties = osmApplication.permittedGeojsons[lookupId].features[0].properties;
 		    	console.log(properties);
 		    	$('#property-address-permitted').text(properties.address);
-		    	$('#property-stories-permitted').text(properties.stories+ ' Stories');
+		    	$('#property-stories-permitted').html(properties.stories+ ' Stories<br />');
 		    	if (properties.pdf != 'visualizations/media/') {
-		    		$('#property-pdf-permitted').html('Read More: <a href="/' + properties.pdf +'" target="_blank">DOB Records</a>');
+		    		$('#property-pdf-permitted').html('Read More: <a href="/' + properties.pdf +'" target="_blank">DOB Records</a><br />');
 		    	} 
 		    	var x = parseInt(e.x) - 150;
 		    	var y = parseInt(e.y) - 250; 
@@ -115,6 +117,34 @@ osmApplication.initialize = function () {
 			    $('#tooltipPermitted').css('left', x);
 			    $('#tooltipPermitted').css('top', y);
 			    $('#tooltipPermitted').removeClass('hidden');
+
+		    } else if (splitId[0] == 'dna') {
+		    	// look up properties
+		    	var lookupId = parseInt(splitId[1]);
+		    	var properties = osmApplication.dnaGeojsons[lookupId].features[0].properties;
+		    	console.log(properties);
+		    	$('#property-address-dna').text(properties.address);
+		    	$('#property-stories-dna').html(properties.stories+ ' Stories<br />');
+		    	$('#property-description-dna').html(properties.description + '<br />');
+
+		    	if (properties.zoning_pdfs != 'visualizations/media/') {
+		    		$('#property-pdf-dna').html('Read More: <a href="/' + properties.zoning_pdfs +'" target="_blank">DOB Records</a><br />');
+		    	}
+		    	if (properties.story1) {
+			    	$('#property-story1-dna').html('Read More: <a href="' + properties.story1 +'" target="_blank">Story</a><br />');
+		    	}
+		    	if (properties.story2) {
+			    	$('#property-story2-dna').html('Read More: <a href="' + properties.story2 +'" target="_blank">Story</a><br />');
+		    	}
+		    	if (properties.story3) {
+			    	$('#property-story3-dna').html('Read More: <a href="' + properties.story3 +'" target="_blank">Story</a><br />');
+		    	}
+		    	var x = parseInt(e.x) - 150;
+		    	var y = parseInt(e.y) - 250; 
+			    // show div with data populated at that screen location
+			    $('#tooltipDNA').css('left', x);
+			    $('#tooltipDNA').css('top', y);
+			    $('#tooltipDNA').removeClass('hidden');
 
 
 			} else {
@@ -124,6 +154,9 @@ osmApplication.initialize = function () {
 			  	if(!$('#tooltipSponsored').hasClass('hidden')) {
 			  		$('#tooltipSponsored').addClass('hidden');
 			  	}
+			  	if(!$('#tooltipDNA').hasClass('hidden')) {
+			  		$('#tooltipDNA').addClass('hidden');
+			  	}
 		    }	  		
 	  	} else {
 	  		
@@ -132,6 +165,9 @@ osmApplication.initialize = function () {
 		  	}	  		
 		  	if(!$('#tooltipSponsored').hasClass('hidden')) {
 		  		$('#tooltipSponsored').addClass('hidden');
+		  	}
+		  	if(!$('#tooltipDNA').hasClass('hidden')) {
+		  		$('#tooltipDNA').addClass('hidden');
 		  	}
 	  	}
 
@@ -145,6 +181,9 @@ osmApplication.initialize = function () {
 	  	}	  		
 	  	if(!$('#tooltipSponsored').hasClass('hidden')) {
 	  		$('#tooltipSponsored').addClass('hidden');
+	  	}
+	  	if(!$('#tooltipDNA').hasClass('hidden')) {
+	  		$('#tooltipDNA').addClass('hidden');
 	  	}
 	});
 
@@ -161,6 +200,9 @@ osmApplication.initialize = function () {
 
 	// get permitted buildings from DOB
 	osmApplication.getPermittedGeojsons();
+
+	// get permitted buildings from DOB
+	osmApplication.getDNAGeojsons();
 
 }
 
@@ -211,7 +253,7 @@ osmApplication.getSponsoredGeojsons = function () {
 osmApplication.getPermittedGeojsons = function () {
 	$.ajax({
 		type: "GET",
-		url: "/skyline/nyc/getPermittedGeojsons/",
+		url: "/skyline/nyc/getPermittedGeojsons/"+ boro +"/",
 		success: function(data){
 			// load the draw tools
 			if (data) {
@@ -220,6 +262,27 @@ osmApplication.getPermittedGeojsons = function () {
 					var geojson = JSON.parse(data[i]);
 					osmApplication.permittedGeojsons.push(geojson);
 					var idNum = "permitted_" + i;
+					osmApplication.osmb.addGeoJSON(geojson, {id: idNum});
+				}
+				
+			} 
+        }
+	});
+}
+
+osmApplication.getDNAGeojsons = function () {
+	$.ajax({
+		type: "GET",
+		url: "/skyline/nyc/getReporterGeojsons/",
+		success: function(data){
+			// load the draw tools
+			if (data) {
+				console.log(data);
+				osmApplication.dnaGeojsons = [];
+				for (var i = 0; i < data.length; i++) {
+					var geojson = JSON.parse(data[i]);
+					osmApplication.dnaGeojsons.push(geojson);
+					var idNum = "dna_" + i;
 					osmApplication.osmb.addGeoJSON(geojson, {id: idNum});
 				}
 				

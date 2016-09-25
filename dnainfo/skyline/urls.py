@@ -33,7 +33,8 @@ urlpatterns = [
     url(r'^skyline/nyc/exactLocation/(?P<id>\d+)/$', views.skyline_exactLocation, name='skyline_exactLocation'),
     url(r'^skyline/nyc/getGeojson/(?P<id>\d+)/$', views.skyline_getGeojson, name='skyline_getGeojson'),
     url(r'^skyline/nyc/getSponsoredGeojsons/$', views.skyline_getSponsoredGeojsons, name='skyline_getSponsoredGeojsons'),
-    url(r'^skyline/nyc/getPermittedGeojsons/$', views.skyline_getPermittedGeojsons, name='skyline_getPermittedGeojsons'),
+    url(r'^skyline/nyc/getPermittedGeojsons/(?P<boro>[-\w]+)/$', views.skyline_getPermittedGeojsons, name='skyline_getPermittedGeojsons'),
+    url(r'^skyline/nyc/getReporterGeojsons/$', views.skyline_getReporterGeojsons, name='skyline_getReporterGeojsons'),
     url(r'^skyline/nyc/end/(?P<id>\d+)/$', views.skyline_end, name='skyline_end'),
     url(r'^skyline/nyc/results/(?P<id>\d+)/$', views.skyline_results, name='skyline_results'),
 
