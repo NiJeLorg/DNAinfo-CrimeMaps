@@ -292,7 +292,7 @@ def skyline_chi_getPermittedGeojsons(request):
 
 	for obj in CHI_Building_PermitsObjects:
 		buildingHeight = (3.5*obj.buildingStories) + 9.625 + (2.625 * (obj.buildingStories/25));
-		changed = '{\"type\":\"FeatureCollection\",\"features\":[{\"type\": \"Feature\", \"properties\":{\"color\":\"rgba(0, 205, 190, 0.5)\", \"roofColor\":\"rgba(0, 205, 190, 0.5)\", \"height\":\"' + str(buildingHeight) +'\", \"address\":\"' + str(obj.street_number).strip() + ' ' + str(obj.street_direction).strip() + ' ' + str(obj.street_name).strip() + ' ' + str(obj.suffix).strip() +'\", \"stories\":\"' + str(obj.buildingStories) +'\", \"work_description\":\"' + str(obj.work_description) +'\",}, \"geometry\": ' + obj.buildingFootprint + '}]}'
+		changed = '{\"type\":\"FeatureCollection\",\"features\":[{\"type\": \"Feature\", \"properties\":{\"color\":\"rgba(0, 205, 190, 0.5)\", \"roofColor\":\"rgba(0, 205, 190, 0.5)\", \"height\":\"' + str(buildingHeight) +'\", \"address\":\"' + str(obj.street_number).strip() + ' ' + str(obj.street_direction).strip() + ' ' + str(obj.street_name).strip() + ' ' + str(obj.suffix).strip() +'\", \"stories\":\"' + str(obj.buildingStories) +'\", \"work_description\":\"' + str(obj.work_description) +'\"}, \"geometry\": ' + obj.buildingFootprint + '}]}'
 		geojsons.append(changed)
 		
 	return JsonResponse(geojsons, safe=False)
