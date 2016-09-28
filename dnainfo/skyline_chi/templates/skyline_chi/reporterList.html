@@ -22,10 +22,10 @@
                 </h2>
             </div>
             <div class="col-xs-2 col-sm-1">
-                <p class="pagesCompleted pull-right"><a class="btn btn-primary" href="{% url 'skyline_AdminDashboard' %}" role="button">Home</a></p>
+                <p class="pagesCompleted pull-right"><a class="btn btn-primary" href="{% url 'skyline_chi_AdminDashboard' %}" role="button">Home</a></p>
             </div>
         </div>
-        {% for obj in NYCReporterBuildingsObjects %}
+        {% for obj in CHIReporterBuildingsObjects %}
         <div class="row marginBottom20">
             <div class="col-sm-3 col-sm-offset-2">
                 <div id="minimap_{{obj.id}}" class="minimap"></div>
@@ -36,9 +36,9 @@
                     {{ obj.whereBuilding.name }}<br />
                     {{ obj.buildingStories }} stor{{ obj.buildingStories|pluralize:"y,ies" }}<br />
                 </p>
-                <a class="btn btn-primary marginRight10" href="{% url 'skyline_reporterWhatNeighborhood' id=obj.id %}" role="button">Edit</a>
-                <a class="btn btn-danger marginRight10" href="{% url 'skyline_reporterRemove' id=obj.id %}" role="button">Remove</a>
-                <a class="btn btn-default marginRight10" href="{% url 'skyline_reporterEnd' id=obj.id %}" role="button">3D View</a>
+                <a class="btn btn-primary marginRight10" href="{% url 'skyline_chi_reporterWhatNeighborhood' id=obj.id %}" role="button">Edit</a>
+                <a class="btn btn-danger marginRight10" href="{% url 'skyline_chi_reporterRemove' id=obj.id %}" role="button">Remove</a>
+                <a class="btn btn-default marginRight10" href="{% url 'skyline_chi_reporterEnd' id=obj.id %}" role="button">3D View</a>
             </div>
         </div>
         <hr />
@@ -47,13 +47,13 @@
             <div class="col-xs-10 col-sm-7 col-sm-offset-2">
                 <nav>
                     <ul class="pager pull-left">
-                        {% if NYCReporterBuildingsObjects.has_previous %}
-                            <li><a class="previous" href="?page={{ NYCReporterBuildingsObjects.previous_page_number }}">Previous</a></li>
+                        {% if CHIReporterBuildingsObjects.has_previous %}
+                            <li><a class="previous" href="?page={{ CHIReporterBuildingsObjects.previous_page_number }}">Previous</a></li>
                         {% endif %}
-                        {% if NYCReporterBuildingsObjects.has_next %}
-                            <li><a class="next" href="?page={{ NYCReporterBuildingsObjects.next_page_number }}">Next</a></li>
+                        {% if CHIReporterBuildingsObjects.has_next %}
+                            <li><a class="next" href="?page={{ CHIReporterBuildingsObjects.next_page_number }}">Next</a></li>
                         {% endif %}
-                        <li>Page {{ NYCReporterBuildingsObjects.number }} of {{ NYCReporterBuildingsObjects.paginator.num_pages }}.</li>
+                        <li>Page {{ CHIReporterBuildingsObjects.number }} of {{ CHIReporterBuildingsObjects.paginator.num_pages }}.</li>
                     </ul>
                 </nav>
             </div>
@@ -68,7 +68,7 @@
 <script type="text/javascript" src="{% static 'skyline_chi/js/mini_map.js' %}"></script>
 <script type="text/javascript">
     $( document ).ready(function() {
-        {% for obj in NYCReporterBuildingsObjects %}
+        {% for obj in CHIReporterBuildingsObjects %}
             window.setTimeout(function() {
                 miniMapApplication.initialize({{obj.id}});
             }, 1);

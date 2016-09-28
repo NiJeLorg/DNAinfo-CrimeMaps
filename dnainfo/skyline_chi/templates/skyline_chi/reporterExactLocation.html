@@ -52,7 +52,7 @@
         <div class="container-fluid">    
             <div class="row">
                 <div class="col-sm-3 col-sm-offset-2 bottomButtonGroupMap">
-                    <a class="btn btn-dna-primary mobileWidth marginRight10" href="{% url 'skyline_reporterBuildingHeight' id=NYCReporterBuildingsObject.id %}" role="button"><span class="backArrow"></span>Back</a>
+                    <a class="btn btn-dna-primary mobileWidth marginRight10" href="{% url 'skyline_chi_reporterBuildingHeight' id=CHIReporterBuildingsObject.id %}" role="button"><span class="backArrow"></span>Back</a>
                     <button id="reporterNextEnd" class="btn btn-dna-primary mobileWidth" type="submit" disabled="disabled">Next<span class="forwardArrow"></span></button>
                 </div>
             </div>
@@ -69,19 +69,18 @@
 <script type="text/javascript" src="{% static 'skyline_chi/js/Control.Geocoder.js' %}"></script>
 <script type="text/javascript" src="{% static 'skyline_chi/js/reporter_map.js' %}"></script>
 <script type="text/javascript">
-    var objectID = "{{ NYCReporterBuildingsObject.id }}";
-    var neighborhoodName = "{{ NYCReporterBuildingsObject.whereBuilding.dnaurl }}";
-    var iDontSeeMyNeighborhood = "{{ NYCReporterBuildingsObject.iDontSeeMyNeighborhood }}";
-    var boro = "{{ NYCReporterBuildingsObject.whereBuilding.county }}";
-    var buildingAddress = "{{ NYCReporterBuildingsObject.buildingAddress }}";
-    var buildingStories = parseInt("{{ NYCReporterBuildingsObject.buildingStories }}");
+    var objectID = "{{ CHIReporterBuildingsObject.id }}";
+    var neighborhoodName = "{{ CHIReporterBuildingsObject.whereBuilding.dnaurl }}";
+    var iDontSeeMyNeighborhood = "{{ CHIReporterBuildingsObject.iDontSeeMyNeighborhood }}";
+    var buildingAddress = "{{ CHIReporterBuildingsObject.buildingAddress }}";
+    var buildingStories = parseInt("{{ CHIReporterBuildingsObject.buildingStories }}");
     // formula from http://www.ctbuh.org/HighRiseInfo/TallestDatabase/Criteria/HeightCalculator/tabid/1007/language/en-GB/Default.aspx
     var buildingHeight = (3.5*buildingStories) + 9.625 + (2.625 * (buildingStories/25));
-    var description = "{{ NYCReporterBuildingsObject.description }}";
-    var buildingAddress = "{{ NYCReporterBuildingsObject.buildingAddress }}";
-    var story1 = "{{ NYCReporterBuildingsObject.story1 }}";
-    var story2 = "{{ NYCReporterBuildingsObject.story2 }}";
-    var story3 = "{{ NYCReporterBuildingsObject.story3 }}";
+    var description = "{{ CHIReporterBuildingsObject.description }}";
+    var buildingAddress = "{{ CHIReporterBuildingsObject.buildingAddress }}";
+    var story1 = "{{ CHIReporterBuildingsObject.story1 }}";
+    var story2 = "{{ CHIReporterBuildingsObject.story2 }}";
+    var story3 = "{{ CHIReporterBuildingsObject.story3 }}";
 
     $( document ).ready(function() {
         window.setTimeout(function() {

@@ -29,20 +29,20 @@
             </div>
             <div class="row marginBottom20">
                 <div class="col-sm-4 col-sm-offset-2">
-                    <img class='img-responsive' src="/visualizations/media/{{ NYCSponsoredBuildingsObject.buildingImage }}" />
+                    <img class='img-responsive' src="/visualizations/media/{{ CHISponsoredBuildingsObject.buildingImage }}" />
                 </div>
                 <div class="col-sm-6">
-                    <h4>{{ NYCSponsoredBuildingsObject.buildingName }}</h4>
+                    <h4>{{ CHISponsoredBuildingsObject.buildingName }}</h4>
                     <p>
-                        {{ NYCSponsoredBuildingsObject.buildingAddress }}<br />
-                        {{ NYCSponsoredBuildingsObject.buildingStories }} stor{{ NYCSponsoredBuildingsObject.buildingStories|pluralize:"y,ies" }}<br />
-                        {{ NYCSponsoredBuildingsObject.buildingText }}<br />
+                        {{ CHISponsoredBuildingsObject.buildingAddress }}<br />
+                        {{ CHISponsoredBuildingsObject.buildingStories }} stor{{ CHISponsoredBuildingsObject.buildingStories|pluralize:"y,ies" }}<br />
+                        {{ CHISponsoredBuildingsObject.buildingText }}<br />
                     </p>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-8 col-sm-offset-2">
-                    <a class="btn btn-primary marginRight10" href="{% url 'skyline_sponsoredList' %}" role="button">No!</a>
+                    <a class="btn btn-primary marginRight10" href="{% url 'skyline_chi_sponsoredList' %}" role="button">No!</a>
                     <button class="btn btn-danger" type="submit">Yes.</button>
                 </div>
             </div>
