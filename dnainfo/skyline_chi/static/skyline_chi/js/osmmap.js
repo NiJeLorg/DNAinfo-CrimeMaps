@@ -122,7 +122,6 @@ osmApplication.initialize = function () {
 			    $('#tooltipPermitted').css('left', x);
 			    $('#tooltipPermitted').css('top', y);
 			    $('#tooltipPermitted').removeClass('hidden');
-work_description
 		    } else if (splitId[0] == 'dna') {
 		    	// look up properties
 		    	var lookupId = parseInt(splitId[1]);
