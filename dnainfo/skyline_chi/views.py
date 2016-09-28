@@ -125,7 +125,7 @@ def skyline_chi_end(request, id=None):
 		CHIskylineObject = CHIskyline()
 
 	# social urls
-	url = "https://visualizations.dnainfo.com/skyline_chi/nyc/results/" + str(id) + "/"
+	url = "https://visualizations.dnainfo.com/skyline/chi/results/" + str(id) + "/"
 	# connect to Bitly API
 	c = bitly_api.Connection('ondnainfo', 'R_cdbdcaaef8d04d97b363b989f2fba3db')
 	bitlyURL = c.shorten(url)
@@ -140,7 +140,7 @@ def skyline_chi_results(request, id=None):
 
 
 	# social urls
-	url = "https://visualizations.dnainfo.com/skyline_chi/nyc/results/" + str(id) + "/"
+	url = "https://visualizations.dnainfo.com/skyline/chi/results/" + str(id) + "/"
 	# connect to Bitly API
 	c = bitly_api.Connection('ondnainfo', 'R_cdbdcaaef8d04d97b363b989f2fba3db')
 	bitlyURL = c.shorten(url)
