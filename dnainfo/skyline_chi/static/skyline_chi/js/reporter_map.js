@@ -355,7 +355,7 @@ mapApplication.featureClick = function (cartodb_id, sql, tableName) {
 
 			// add data to form
 			$('#id_buildingFootprint').val(JSON.stringify(geojson));
-		   	$('#id_buildingBBL').val(geojson.features[0].properties.pin10);
+		   	$('#id_buildingPIN').val(geojson.features[0].properties.pin10);
 		    // remove disable from next button
 		    if ($('#reporterNextEnd').prop("disabled")) {
 		        $('#reporterNextEnd').prop("disabled", false);

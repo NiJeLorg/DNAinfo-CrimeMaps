@@ -21,10 +21,10 @@
                 </h2>
             </div>
             <div class="col-xs-2 col-sm-1">
-                <p class="pagesCompleted pull-right"><a class="btn btn-primary" href="{% url 'skyline_AdminDashboard' %}" role="button">Home</a></p>
+                <p class="pagesCompleted pull-right"><a class="btn btn-primary" href="{% url 'skyline_chi_AdminDashboard' %}" role="button">Home</a></p>
             </div>
         </div>
-        {% for obj in NYCSponsoredBuildingsObjects %}
+        {% for obj in CHISponsoredBuildingsObjects %}
         <div class="row marginBottom20">
             <div class="col-sm-4 col-sm-offset-2">
                 <img class='img-responsive' src="/visualizations/media/{{ obj.buildingImage }}" />
@@ -36,9 +36,9 @@
                     {{ obj.buildingStories }} stor{{ obj.buildingStories|pluralize:"y,ies" }}<br />
                     {{ obj.buildingText }}<br />
                 </p>
-                <a class="btn btn-primary marginRight10" href="{% url 'skyline_sponsoredWhatNeighborhood' id=obj.id %}" role="button">Edit</a>
-                <a class="btn btn-danger marginRight10" href="{% url 'skyline_sponsoredRemove' id=obj.id %}" role="button">Remove</a>
-                <a class="btn btn-default marginRight10" href="{% url 'skyline_sponsoredEnd' id=obj.id %}" role="button">3D View</a>
+                <a class="btn btn-primary marginRight10" href="{% url 'skyline_chi_sponsoredWhatNeighborhood' id=obj.id %}" role="button">Edit</a>
+                <a class="btn btn-danger marginRight10" href="{% url 'skyline_chi_sponsoredRemove' id=obj.id %}" role="button">Remove</a>
+                <a class="btn btn-default marginRight10" href="{% url 'skyline_chi_sponsoredEnd' id=obj.id %}" role="button">3D View</a>
             </div>
         </div>
         <hr />
@@ -47,13 +47,13 @@
             <div class="col-xs-10 col-sm-7 col-sm-offset-2">
                 <nav>
                     <ul class="pager pull-left">
-                        {% if NYCSponsoredBuildingsObjects.has_previous %}
-                            <li><a class="previous" href="?page={{ NYCSponsoredBuildingsObjects.previous_page_number }}">Previous</a></li>
+                        {% if CHISponsoredBuildingsObjects.has_previous %}
+                            <li><a class="previous" href="?page={{ CHISponsoredBuildingsObjects.previous_page_number }}">Previous</a></li>
                         {% endif %}
-                        {% if NYCSponsoredBuildingsObjects.has_next %}
-                            <li><a class="next" href="?page={{ NYCSponsoredBuildingsObjects.next_page_number }}">Next</a></li>
+                        {% if CHISponsoredBuildingsObjects.has_next %}
+                            <li><a class="next" href="?page={{ CHISponsoredBuildingsObjects.next_page_number }}">Next</a></li>
                         {% endif %}
-                        <li>Page {{ NYCSponsoredBuildingsObjects.number }} of {{ NYCSponsoredBuildingsObjects.paginator.num_pages }}.</li>
+                        <li>Page {{ CHISponsoredBuildingsObjects.number }} of {{ CHISponsoredBuildingsObjects.paginator.num_pages }}.</li>
                     </ul>
                 </nav>
             </div>

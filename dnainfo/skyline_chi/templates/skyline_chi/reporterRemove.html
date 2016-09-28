@@ -30,19 +30,19 @@
             </div>
             <div class="row marginBottom20">
                 <div class="col-sm-3 col-sm-offset-2">
-                    <div id="minimap_{{NYCReporterBuildingsObject.id}}" class="minimap"></div>
+                    <div id="minimap_{{CHIReporterBuildingsObject.id}}" class="minimap"></div>
                 </div>
                 <div class="col-sm-6">
-                    <h4>{{ NYCReporterBuildingsObject.buildingAddress }}</h4>
+                    <h4>{{ CHIReporterBuildingsObject.buildingAddress }}</h4>
                     <p>
-                        {{ NYCReporterBuildingsObject.whereBuilding.name }}<br />
-                        {{ NYCReporterBuildingsObject.buildingStories }} stor{{ NYCReporterBuildingsObject.buildingStories|pluralize:"y,ies" }}<br />
+                        {{ CHIReporterBuildingsObject.whereBuilding.name }}<br />
+                        {{ CHIReporterBuildingsObject.buildingStories }} stor{{ CHIReporterBuildingsObject.buildingStories|pluralize:"y,ies" }}<br />
                     </p>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-8 col-sm-offset-2">
-                    <a class="btn btn-primary marginRight10" href="{% url 'skyline_reporterList' %}" role="button">No!</a>
+                    <a class="btn btn-primary marginRight10" href="{% url 'skyline_chi_reporterList' %}" role="button">No!</a>
                     <button class="btn btn-danger" type="submit">Yes.</button>
                 </div>
             </div>
@@ -66,7 +66,7 @@
 <script type="text/javascript">
     $( document ).ready(function() {
         window.setTimeout(function() {
-            miniMapApplication.initialize({{NYCReporterBuildingsObject.id}});
+            miniMapApplication.initialize({{CHIReporterBuildingsObject.id}});
         }, 1);
     });
 </script>

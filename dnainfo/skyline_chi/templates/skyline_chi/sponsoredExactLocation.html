@@ -52,7 +52,7 @@
         <div class="container-fluid">    
             <div class="row">
                 <div class="col-sm-3 col-sm-offset-2 bottomButtonGroupMap">
-                    <a class="btn btn-dna-primary mobileWidth marginRight10" href="{% url 'skyline_sponsoredBuildingHeight' id=NYCSponsoredBuildingsObject.id %}" role="button"><span class="backArrow"></span>Back</a>
+                    <a class="btn btn-dna-primary mobileWidth marginRight10" href="{% url 'skyline_chi_sponsoredBuildingHeight' id=CHISponsoredBuildingsObject.id %}" role="button"><span class="backArrow"></span>Back</a>
                     <button id="sponsoredNextEnd" class="btn btn-dna-primary mobileWidth" type="submit" disabled="disabled">Next<span class="forwardArrow"></span></button>
                 </div>
             </div>
@@ -69,15 +69,15 @@
 <script type="text/javascript" src="{% static 'skyline_chi/js/Control.Geocoder.js' %}"></script>
 <script type="text/javascript" src="{% static 'skyline_chi/js/sponsored_map.js' %}"></script>
 <script type="text/javascript">
-    var objectID = "{{ NYCSponsoredBuildingsObject.id }}";
-    var neighborhoodName = "{{ NYCSponsoredBuildingsObject.whereBuilding.dnaurl }}";
-    var boro = "{{ NYCSponsoredBuildingsObject.whereBuilding.county }}";
-    var iDontSeeMyNeighborhood = "{{ NYCSponsoredBuildingsObject.iDontSeeMyNeighborhood }}";
-    var buildingName = "{{ NYCSponsoredBuildingsObject.buildingName }}";
-    var buildingAddress = "{{ NYCSponsoredBuildingsObject.buildingAddress }}";
-    var buildingText = "{{ NYCSponsoredBuildingsObject.buildingText }}";
-    var buildingStories = parseInt("{{ NYCSponsoredBuildingsObject.buildingStories }}");
-    var buildingImage = "{{ NYCSponsoredBuildingsObject.buildingImage }}";
+    var objectID = "{{ CHISponsoredBuildingsObject.id }}";
+    var neighborhoodName = "{{ CHISponsoredBuildingsObject.whereBuilding.dnaurl }}";
+    var boro = "{{ CHISponsoredBuildingsObject.whereBuilding.county }}";
+    var iDontSeeMyNeighborhood = "{{ CHISponsoredBuildingsObject.iDontSeeMyNeighborhood }}";
+    var buildingName = "{{ CHISponsoredBuildingsObject.buildingName }}";
+    var buildingAddress = "{{ CHISponsoredBuildingsObject.buildingAddress }}";
+    var buildingText = "{{ CHISponsoredBuildingsObject.buildingText }}";
+    var buildingStories = parseInt("{{ CHISponsoredBuildingsObject.buildingStories }}");
+    var buildingImage = "{{ CHISponsoredBuildingsObject.buildingImage }}";
     // formula from http://www.ctbuh.org/HighRiseInfo/TallestDatabase/Criteria/HeightCalculator/tabid/1007/language/en-GB/Default.aspx
     var buildingHeight = (3.5*buildingStories) + 9.625 + (2.625 * (buildingStories/25));
     $( document ).ready(function() {
