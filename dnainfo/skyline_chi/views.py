@@ -268,13 +268,13 @@ def skyline_chi_sponsoredExactLocation(request, id=None):
 
 def skyline_chi_sponsoredGetGeojson(request, id=None):
 
-	CHISponsoredBuildingsObject = CHISponsoredBuildings.objects.get(pk=id)
+	CHISponsoredBuildingsObject = CHISponsoredBuildings.objects.get(pk=id).exclude(buildingStories__exact = 0).exclude(buildingFootprint__in = ['', '-99'])
 
 	return JsonResponse(CHISponsoredBuildingsObject.buildingFootprint, safe=False)
 
 def skyline_chi_getSponsoredGeojsons(request, id=None):
 
-	CHISponsoredBuildingsObjects = CHISponsoredBuildings.objects.all()
+	CHISponsoredBuildingsObjects = CHISponsoredBuildings.objects.all().exclude(buildingStories__exact = 0).exclude(buildingFootprint__in = ['', '-99'])
 	geojsons = []
 
 	for obj in CHISponsoredBuildingsObjects:
@@ -435,7 +435,7 @@ def skyline_chi_reporterGetGeojson(request, id=None):
 
 def skyline_chi_getReporterGeojsons(request, id=None):
 
-	CHIReporterBuildingsObjects = CHIReporterBuildings.objects.all()
+	CHIReporterBuildingsObjects = CHIReporterBuildings.objects.all().exclude(buildingStories__exact = 0).exclude(buildingFootprint__in = ['', '-99'])
 	geojsons = []
 
 	for obj in CHIReporterBuildingsObjects:
