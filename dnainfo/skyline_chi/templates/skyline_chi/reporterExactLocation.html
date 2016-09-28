@@ -1,0 +1,96 @@
+{% extends 'skyline_chi/baseCHI.html' %}
+{% load staticfiles %}
+{% load bootstrap_tags %}
+
+{% block css_block %}
+<link rel="stylesheet" type="text/css" href="{% static 'skyline_chi/css/carto.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'skyline_chi/css/Control.Geocoder.css' %}">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+{% endblock %}
+
+{% block head_js_block %}
+<script type="text/javascript" src="{% static 'skyline_chi/js/controllers.js' %}"></script>
+{% endblock %}
+
+
+{% block body_block %}
+<div id="content" class="fadein">
+    <!-- Content -->
+    <div id="map"></div>
+
+    <form id="exactLocationForm" method="post" action=".">
+        <div class="container-fluid absolutePostionedDiv">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-xs-9 col-sm-7 col-xs-offset-1 col-sm-offset-2">
+                    <div class="forceBlock">
+                        <h2 class="questionHeadingExact">
+                            Click the building footprint where the new building will be.
+                        </h2>
+                        <h2 class="questionHeadingExactSmall">
+                            Tap the building footprint where the new building will be.
+                        </h2>
+                    </div>
+                </div>
+                <div class="col-xs-2 col-sm-1">
+                    <p class="pagesCompleted pull-right highlightBackground">3/4</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-8 col-sm-offset-2">
+                    <div class="form-group formField invisible">
+                        <div class="input-group">
+                          <div class="input-group-addon left"><span class="locationIcon"></span></div>
+                           {{ form }}
+                          <div class="input-group-addon"></div>
+                        </div>
+                        {{ form.errors }}                 
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">    
+            <div class="row">
+                <div class="col-sm-3 col-sm-offset-2 bottomButtonGroupMap">
+                    <a class="btn btn-dna-primary mobileWidth marginRight10" href="{% url 'skyline_reporterBuildingHeight' id=NYCReporterBuildingsObject.id %}" role="button"><span class="backArrow"></span>Back</a>
+                    <button id="reporterNextEnd" class="btn btn-dna-primary mobileWidth" type="submit" disabled="disabled">Next<span class="forwardArrow"></span></button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+</div>
+{% endblock %}
+
+{% block js_block %}
+<script type="text/javascript" src="{% static 'skyline_chi/js/d3.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'skyline_chi/js/carto.js' %}"></script>
+<script type="text/javascript" src="{% static 'skyline_chi/js/Control.Geocoder.js' %}"></script>
+<script type="text/javascript" src="{% static 'skyline_chi/js/reporter_map.js' %}"></script>
+<script type="text/javascript">
+    var objectID = "{{ NYCReporterBuildingsObject.id }}";
+    var neighborhoodName = "{{ NYCReporterBuildingsObject.whereBuilding.dnaurl }}";
+    var iDontSeeMyNeighborhood = "{{ NYCReporterBuildingsObject.iDontSeeMyNeighborhood }}";
+    var boro = "{{ NYCReporterBuildingsObject.whereBuilding.county }}";
+    var buildingAddress = "{{ NYCReporterBuildingsObject.buildingAddress }}";
+    var buildingStories = parseInt("{{ NYCReporterBuildingsObject.buildingStories }}");
+    // formula from http://www.ctbuh.org/HighRiseInfo/TallestDatabase/Criteria/HeightCalculator/tabid/1007/language/en-GB/Default.aspx
+    var buildingHeight = (3.5*buildingStories) + 9.625 + (2.625 * (buildingStories/25));
+    var description = "{{ NYCReporterBuildingsObject.description }}";
+    var buildingAddress = "{{ NYCReporterBuildingsObject.buildingAddress }}";
+    var story1 = "{{ NYCReporterBuildingsObject.story1 }}";
+    var story2 = "{{ NYCReporterBuildingsObject.story2 }}";
+    var story3 = "{{ NYCReporterBuildingsObject.story3 }}";
+
+    $( document ).ready(function() {
+        window.setTimeout(function() {
+            mapApplication.initialize();
+        }, 1);
+    });
+</script>
+{% endblock %}
+
+
+	
+
