@@ -490,6 +490,32 @@ def skyline_chi_reporterRemove(request, id=None):
 	return render(request, 'skyline_chi/reporterRemove.html', {'form': form, 'CHIReporterBuildingsObject': CHIReporterBuildingsObject})
 
 
+@login_required
+def skyline_chi_viewAllWhatNeighborhood(request):
+	# A HTTP POST?
+	if request.method == 'POST':
+		form = CHIwhatNeighborhoodReporterForm(request.POST)
+
+		# Have we been provided with a valid form?
+		if form.is_valid():
+			return HttpResponseRedirect(reverse('skyline_chi_viewAll', args=(form.cleaned_data['whereBuilding'].id,)))
+		else:
+			# The supplied form contained errors - just print them to the terminal.
+			print form.errors
+	else:
+		# If the request was not a POST, display the form to enter details.
+		form = CHIwhatNeighborhoodReporterForm()
+
+	# Bad form (or form details), no form supplied...
+	# Render the form with error messages (if any).
+	return render(request, 'skyline_chi/viewAllWhatNeighborhood.html', {'form':form,})
+
+@login_required
+def skyline_chi_viewAll(request, id=None):
+	#pull neighborhood
+	hood = neighborhoodCHI.objects.get(pk=id)
+	return render(request, 'skyline_chi/viewAll.html', {'hood':hood,})	
+
 
 
 @login_required
