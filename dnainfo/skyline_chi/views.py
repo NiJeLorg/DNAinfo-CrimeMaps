@@ -268,7 +268,7 @@ def skyline_chi_sponsoredExactLocation(request, id=None):
 
 def skyline_chi_sponsoredGetGeojson(request, id=None):
 
-	CHISponsoredBuildingsObject = CHISponsoredBuildings.objects.get(pk=id).exclude(buildingStories__exact = 0).exclude(buildingFootprint__in = ['', '-99'])
+	CHISponsoredBuildingsObject = CHISponsoredBuildings.objects.get(pk=id)
 
 	return JsonResponse(CHISponsoredBuildingsObject.buildingFootprint, safe=False)
 
