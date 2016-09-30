@@ -490,6 +490,31 @@ def skyline_reporterRemove(request, id=None):
 	return render(request, 'skyline/reporterRemove.html', {'form': form, 'NYCReporterBuildingsObject': NYCReporterBuildingsObject})
 
 
+@login_required
+def skyline_viewAllWhatNeighborhood(request):
+	# A HTTP POST?
+	if request.method == 'POST':
+		form = NYCwhatNeighborhoodReporterForm(request.POST)
+
+		# Have we been provided with a valid form?
+		if form.is_valid():
+			return HttpResponseRedirect(reverse('skyline_viewAll', args=(form.cleaned_data['whereBuilding'].id,)))
+		else:
+			# The supplied form contained errors - just print them to the terminal.
+			print form.errors
+	else:
+		# If the request was not a POST, display the form to enter details.
+		form = NYCwhatNeighborhoodReporterForm()
+
+	# Bad form (or form details), no form supplied...
+	# Render the form with error messages (if any).
+	return render(request, 'skyline/viewAllWhatNeighborhood.html', {'form':form,})
+
+@login_required
+def skyline_viewAll(request, id=None):
+	#pull neighborhood
+	hood = neighborhoodNYC.objects.get(pk=id)
+	return render(request, 'skyline/viewAll.html', {'hood':hood,})	
 
 
 @login_required
