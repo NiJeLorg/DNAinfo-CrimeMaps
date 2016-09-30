@@ -23,7 +23,9 @@ urlpatterns = [
     url(r'^skyline/admin/nyc/reporter/end/(?P<id>\d+)/$', views.skyline_reporterEnd, name='skyline_reporterEnd'),
     url(r'^skyline/admin/nyc/reporter/list/$', views.skyline_reporterList, name='skyline_reporterList'),
     url(r'^skyline/admin/nyc/reporter/remove/(?P<id>\d+)/$', views.skyline_reporterRemove, name='skyline_reporterRemove'),
-
+    url(r'^skyline/admin/nyc/viewall/whatNeighborhood/$', views.skyline_viewAllWhatNeighborhood, name='skyline_viewAllWhatNeighborhood'),
+    url(r'^skyline/admin/nyc/viewall/whatNeighborhood/(?P<id>\d+)/$', views.skyline_viewAllWhatNeighborhood, name='skyline_viewAllWhatNeighborhood'),
+    url(r'^skyline/admin/nyc/viewall/(?P<id>\d+)/$', views.skyline_viewAll, name='skyline_viewAll'),
     url(r'^skyline/admin/check/$', views.skylineAdminCheck, name='skyline_AdminCheck'),
     url(r'^skyline/admin/next/$', views.skylineAdminNext, name='skyline_AdminNext'),
     url(r'^skyline/nyc/$', views.skyline_intro, name='skyline_intro'),
