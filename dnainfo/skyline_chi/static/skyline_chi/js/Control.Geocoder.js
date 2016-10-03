@@ -677,7 +677,7 @@
 		},
 
 		geocode: function(query, cb, context) {
-			var bounds = "40.324299,-74.517517|41.193898,-73.251343";
+			var bounds = "41.442147, -88.426208|42.603073, -87.198486";
 			var params = {
 				address: query,
 				bounds: bounds
