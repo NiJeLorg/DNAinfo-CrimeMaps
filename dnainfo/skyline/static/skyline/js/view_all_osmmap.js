@@ -92,8 +92,7 @@ osmApplication.initialize = function () {
 
 		    if (splitId[0] == 'sponsored') {
 		    	// look up properties
-		    	var lookupId = parseInt(splitId[1]);
-		    	var properties = osmApplication.sponsoredGeojsons[lookupId].features[0].properties;
+		    	var properties = osmApplication.sponsoredGeojsons[id].features[0].properties;
 		    	console.log(properties);
 		    	$('#property-name').text(properties.name);
 		    	var imgSrc = '/visualizations/media/' + properties.image
@@ -109,8 +108,7 @@ osmApplication.initialize = function () {
 
 		    } else if (splitId[0] == 'permitted') {
 		    	// look up properties
-		    	var lookupId = parseInt(splitId[1]);
-		    	var properties = osmApplication.permittedGeojsons[lookupId].features[0].properties;
+		    	var properties = osmApplication.permittedGeojsons[id].features[0].properties;
 		    	console.log(properties);
 		    	$('#property-address-permitted').text(properties.address);
 		    	$('#property-stories-permitted').html(properties.stories+ ' Stories<br />');
@@ -125,9 +123,7 @@ osmApplication.initialize = function () {
 			    $('#tooltipPermitted').removeClass('hidden');
 
 		    } else if (splitId[0] == 'dna') {
-		    	// look up properties
-		    	var lookupId = parseInt(splitId[1]);
-		    	var properties = osmApplication.dnaGeojsons[lookupId].features[0].properties;
+		    	var properties = osmApplication.dnaGeojsons[id].features[0].properties;
 		    	console.log(properties);
 		    	$('#property-address-dna').text(properties.address);
 		    	$('#property-stories-dna').html(properties.stories+ ' Stories<br />');
@@ -138,12 +134,6 @@ osmApplication.initialize = function () {
 		    	}
 		    	if (properties.story1) {
 			    	$('#property-story1-dna').html('Read More: <a href="' + properties.story1 +'" target="_blank">Story</a><br />');
-		    	}
-		    	if (properties.story2) {
-			    	$('#property-story2-dna').html('Read More: <a href="' + properties.story2 +'" target="_blank">Story</a><br />');
-		    	}
-		    	if (properties.story3) {
-			    	$('#property-story3-dna').html('Read More: <a href="' + properties.story3 +'" target="_blank">Story</a><br />');
 		    	}
 		    	var x = parseInt(xcoor) - 150;
 		    	var y = parseInt(ycoor) - 250; 
@@ -519,12 +509,12 @@ osmApplication.getSponsoredGeojsons = function () {
 		success: function(data){
 			// load the draw tools
 			if (data) {
-				osmApplication.sponsoredGeojsons = [];
+				osmApplication.sponsoredGeojsons = {};
 				for (var i = 0; i < data.length; i++) {
 					if (data[i]) {
 						var geojson = JSON.parse(data[i]);
-						osmApplication.sponsoredGeojsons.push(geojson);
 						var idNum = "sponsored_" + i;
+						osmApplication.sponsoredGeojsons[idNum] = geojson;
 						osmApplication.osmb.addGeoJSON(geojson, {id: idNum});
 					}
 				}
@@ -541,12 +531,12 @@ osmApplication.getPermittedGeojsons = function () {
 		success: function(data){
 			// load the draw tools
 			if (data) {
-				osmApplication.permittedGeojsons = [];
+				osmApplication.permittedGeojsons = {};
 				for (var i = 0; i < data.length; i++) {
 					if (data[i]) {
 						var geojson = JSON.parse(data[i]);
-						osmApplication.permittedGeojsons.push(geojson);
 						var idNum = "permitted_" + i;
+						osmApplication.permittedGeojsons[idNum] = geojson;
 						osmApplication.osmb.addGeoJSON(geojson, {id: idNum});
 					}
 				}
@@ -563,12 +553,12 @@ osmApplication.getDNAGeojsons = function () {
 		success: function(data){
 			// load the draw tools
 			if (data) {
-				osmApplication.dnaGeojsons = [];
+				osmApplication.dnaGeojsons = {};
 				for (var i = 0; i < data.length; i++) {
 					if (data[i]) {
 						var geojson = JSON.parse(data[i]);
-						osmApplication.dnaGeojsons.push(geojson);
 						var idNum = "dna_" + i;
+						osmApplication.dnaGeojsons[idNum] = geojson;
 						osmApplication.osmb.addGeoJSON(geojson, {id: idNum});
 					}
 				}
