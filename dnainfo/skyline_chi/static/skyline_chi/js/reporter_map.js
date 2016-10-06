@@ -349,6 +349,7 @@ mapApplication.featureClick = function (cartodb_id, sql, tableName) {
 		    geojson.features[0].properties.minHeight = 0;
 		    geojson.features[0].properties.projectName = projectName;
 		    geojson.features[0].properties.buildingAddress = buildingAddress;
+		    geojson.features[0].properties.buildingZip = buildingZip;
 		    geojson.features[0].properties.stories = buildingStories;
 		    geojson.features[0].properties.description = description;
 		    geojson.features[0].properties.buildingImage = 'visualizations/media/' + buildingImage;

@@ -43,6 +43,7 @@ class NYCReporterBuildings(models.Model):
 	story1 = models.URLField(max_length=1000, default='', blank=True, null=True)
 	projectName = models.CharField(max_length=255, default='', blank=True, null=True)
 	buildingImage = models.ImageField(upload_to="img/%Y_%m_%d_%h_%M_%s", null=True, blank=True)
+	buildingZip = models.CharField(max_length=255, default='', blank=False, null=False)
 
 class NYC_DOB_Permit_Issuance(models.Model):
 	created = models.DateTimeField(auto_now=True)
