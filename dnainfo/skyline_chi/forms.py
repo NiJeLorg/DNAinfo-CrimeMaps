@@ -82,7 +82,7 @@ class CHIbuildingHeightReporterForm(forms.ModelForm):
             'buildingStories': 'How many stories tall is this building? (Required)',
             'description': 'Please add a brief description of the project. (Optional, 200 character limit)',
             'buildingImage': 'Please add any storytelling images like designs, photos, etc. (Optional)',
-            'zoning_pdfs': 'Add any zoning diagrams other documents readers might want to examine. Zoning diagrams can be found in the <a href="http://a810-bisweb.nyc.gov/bisweb/bispi00.jsp" target="_blank">DOB building information search</a> system. (Optional)',
+            'zoning_pdfs': 'Add any zoning diagrams other documents readers might want to examine. (Optional)',
             'story1': 'Please add a link to a DNAinfo story. (Optional)',
         }
 

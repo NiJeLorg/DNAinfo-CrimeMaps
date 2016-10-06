@@ -89,7 +89,7 @@ class NYCbuildingHeightReporterForm(forms.ModelForm):
 class NYCexactLocationReporterForm(forms.ModelForm):
     class Meta:
         model = NYCReporterBuildings
-        fields = ('buildingFootprint', 'buildingAddress', 'buildingBBL', )
+        fields = ('buildingFootprint', 'buildingBBL', )
 
 class NYCremoveReporterForm(forms.ModelForm):
     class Meta:
