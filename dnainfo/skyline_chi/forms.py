@@ -75,14 +75,15 @@ class CHIwhatNeighborhoodReporterForm(forms.ModelForm):
 class CHIbuildingHeightReporterForm(forms.ModelForm):
     class Meta:
         model = CHIReporterBuildings
-        fields = ('buildingAddress', 'buildingStories', 'description', 'story1', 'story2', 'story3', )
+        fields = ('projectName', 'buildingAddress', 'buildingStories', 'description', 'buildingImage', 'zoning_pdfs', 'story1', )
         labels = {
-            'buildingAddress': 'What is the address of this building?',
-            'buildingStories': 'How many stories tall is this building?',
-            'description': 'Please add a brief description.',
-            'story1': 'Please add a link to a DNAinfo story.',
-            'story2': 'Please add a link to a DNAinfo story.',
-            'story3': 'Please add a link to a DNAinfo story.',
+            'projectName': 'Please add a name for this project/building. (Optional)',
+            'buildingAddress': 'Enter the address according to DNAinfo style such as 810 Seventh Ave., 47-01 111th St. or 1108 Cortelyou Road. (Required)',
+            'buildingStories': 'How many stories tall is this building? (Required)',
+            'description': 'Please add a brief description of the project. (Optional, 200 character limit)',
+            'buildingImage': 'Please add any storytelling images like designs, photos, etc. (Optional)',
+            'zoning_pdfs': 'Add any zoning diagrams other documents readers might want to examine. Zoning diagrams can be found in the <a href="http://a810-bisweb.nyc.gov/bisweb/bispi00.jsp" target="_blank">DOB building information search</a> system. (Optional)',
+            'story1': 'Please add a link to a DNAinfo story. (Optional)',
         }
 
 class CHIexactLocationReporterForm(forms.ModelForm):

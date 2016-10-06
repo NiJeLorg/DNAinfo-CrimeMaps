@@ -38,10 +38,11 @@ class CHIReporterBuildings(models.Model):
 	buildingPIN = models.CharField(max_length=255, default='', blank=False, null=False)
 	buildingStories = models.IntegerField(default=0, blank=False, null=False)
 	approved = models.NullBooleanField(default=None)
-	description = models.TextField(default='', blank=True, null=True)
+	description = models.CharField(max_length=200, default='', blank=True, null=True)
+	zoning_pdfs = models.FileField(upload_to='reporter_zoning_pdfs/', blank=True, null=True)
 	story1 = models.URLField(max_length=1000, default='', blank=True, null=True)
-	story2 = models.URLField(max_length=1000, default='', blank=True, null=True)
-	story3 = models.URLField(max_length=1000, default='', blank=True, null=True)
+	projectName = models.CharField(max_length=255, default='', blank=True, null=True)
+	buildingImage = models.ImageField(upload_to="img/%Y_%m_%d_%h_%M_%s", null=True, blank=True)
 
 class CHI_Building_Permits(models.Model):
 	created = models.DateTimeField(auto_now=True)
