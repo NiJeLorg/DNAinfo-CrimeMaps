@@ -75,10 +75,11 @@ class CHIwhatNeighborhoodReporterForm(forms.ModelForm):
 class CHIbuildingHeightReporterForm(forms.ModelForm):
     class Meta:
         model = CHIReporterBuildings
-        fields = ('projectName', 'buildingAddress', 'buildingStories', 'description', 'buildingImage', 'zoning_pdfs', 'story1', )
+        fields = ('projectName', 'buildingAddress', 'buildingZip', 'buildingStories', 'description', 'buildingImage', 'zoning_pdfs', 'story1', )
         labels = {
             'projectName': 'Please add a name for this project/building. (Optional)',
-            'buildingAddress': 'Enter the address according to DNAinfo style such as 810 Seventh Ave., 47-01 111th St. or 1108 Cortelyou Road. (Required)',
+            'buildingAddress': 'Enter the address according to DNAinfo style such as 233 N. Michigan Ave. or 2400 W. Cermak Road (Required)',
+            'buildingZip': 'Enter the new building\'s zip code (Required)',
             'buildingStories': 'How many stories tall is this building? (Required)',
             'description': 'Please add a brief description of the project. (Optional, 200 character limit)',
             'buildingImage': 'Please add any storytelling images like designs, photos, etc. (Optional)',
