@@ -346,12 +346,14 @@ mapApplication.featureClick = function (cartodb_id, sql, tableName) {
 			geojson.features[0].properties.color = "#fc5158";
 		    geojson.features[0].properties.roofColor = "#fc5158";
 		    geojson.features[0].properties.height = buildingHeight;
-		    geojson.features[0].properties.stories = buildingStories;
 		    geojson.features[0].properties.minHeight = 0;
+		    geojson.features[0].properties.projectName = projectName;
+		    geojson.features[0].properties.buildingAddress = buildingAddress;
+		    geojson.features[0].properties.stories = buildingStories;
 		    geojson.features[0].properties.description = description;
+		    geojson.features[0].properties.buildingImage = 'visualizations/media/' + buildingImage;
+		    geojson.features[0].properties.zoning_pdfs = 'visualizations/media/' + zoning_pdfs;
 		    geojson.features[0].properties.story1 = story1;
-		    geojson.features[0].properties.story2 = story2;
-		    geojson.features[0].properties.story3 = story3;
 
 			// add data to form
 			$('#id_buildingFootprint').val(JSON.stringify(geojson));
