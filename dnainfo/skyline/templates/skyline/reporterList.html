@@ -36,7 +36,7 @@
                     {{ obj.whereBuilding.name }}<br />
                     {{ obj.buildingStories }} stor{{ obj.buildingStories|pluralize:"y,ies" }}<br />
                 </p>
-                <a class="btn btn-primary marginRight10" href="{% url 'skyline_reporterWhatNeighborhood' id=obj.id %}" role="button">Edit</a>
+                <a class="btn btn-primary marginRight10" href="{% url 'skyline_reporterBuildingHeight' id=obj.id %}" role="button">Edit</a>
                 <a class="btn btn-danger marginRight10" href="{% url 'skyline_reporterRemove' id=obj.id %}" role="button">Remove</a>
                 <a class="btn btn-default marginRight10" href="{% url 'skyline_reporterEnd' id=obj.id %}" role="button">3D View</a>
             </div>
