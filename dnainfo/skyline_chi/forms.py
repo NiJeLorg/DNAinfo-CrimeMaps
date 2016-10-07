@@ -83,7 +83,7 @@ class CHIbuildingHeightReporterForm(forms.ModelForm):
             'buildingStories': 'How many stories tall is this building? (Required)',
             'description': 'Please add a brief description of the project. (Optional, 200 character limit)',
             'buildingImage': 'Please add any storytelling images like designs, photos, etc. (Optional)',
-            'zoning_pdfs': 'Add any zoning diagrams other documents readers might want to examine. (Optional)',
+            'zoning_pdfs': 'Please add any links to <a href="https://www.scribd.com/">Scribd</a> documents readers might want to examine here. (Optional)',
             'story1': 'Please add a link to a DNAinfo story. (Optional)',
         }
 
