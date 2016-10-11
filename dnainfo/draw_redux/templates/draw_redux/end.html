@@ -40,7 +40,7 @@
         hoodsKeyAndName["{{ hood.dnaurl }}" + "_count"] = "{{ hood.name }}";
         {% if hood.name == NYCInOrOutObject.whatNeighborhood.name %}
             var hoodNameNoHyphens = "{{ hood.dnaurl }}";
-            var filename = "rmparks_intersect_dissolve_" + hoodNameNoHyphens;
+            var filename = "intersect_dissolve_" + hoodNameNoHyphens;
             var hoodBlocks = "/visualizations/static/draw_redux/data/" + filename + ".topojson";
             var hoodCount = "{{ hood.drawingCount }}";
         {% endif %}
