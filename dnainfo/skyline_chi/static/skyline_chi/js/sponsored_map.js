@@ -330,7 +330,6 @@ mapApplication.loadParcelData = function () {
 
 }
 
-
 mapApplication.featureClick = function (cartodb_id, sql, tableName) {
 	mapApplication.removeAllClickShapes();
 
@@ -341,6 +340,9 @@ mapApplication.featureClick = function (cartodb_id, sql, tableName) {
 			        style: mapApplication.clicked
 			    }).addTo(mapApplication.map);
 			mapApplication.clicked_cartodb_id = cartodb_id;
+
+			// reverse geocode lat lon
+			mapApplication.reverseGeocode(latlng);
 
 			// add properties to geojson
 			geojson.features[0].properties.color = "#ffcf2d";
@@ -363,6 +365,35 @@ mapApplication.featureClick = function (cartodb_id, sql, tableName) {
 			// errors contains a list of errors
 			console.log("errors:" + errors);
 		});
+
+}
+
+mapApplication.reverseGeocode = function (latlng) {
+	// https://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&key=AIzaSyBQxrEbrvIkajyXTw4fR6mXoP5HwmZPlaA
+	// create URL
+	var trunkURL = 'https://maps.googleapis.com/maps/api/geocode/json'
+	if (latlng) {
+		var params = '?latlng='+latlng[0]+','+latlng[1]+'&key=AIzaSyBQxrEbrvIkajyXTw4fR6mXoP5HwmZPlaA'
+
+		$.ajax({
+			type: "GET",
+			url: trunkURL + params,
+			success: function(data){
+				if (data.status == 'OK') {
+					$('.cartodb-popup-content').html('<p>' + data.results[0].formatted_address + '</p>');
+				} else {
+					$('.cartodb-popup-content').html('<p>No Address</p>');
+				}
+
+	        },
+	        error: function(e){ 
+				$('.cartodb-popup-content').html('<p>No Address</p>');
+	        }
+		});
+
+	} else {
+		$('.cartodb-popup-content').html('<p>No Address</p>');
+	}
 
 }
 

@@ -254,7 +254,7 @@ mapApplication.loadParcelData = function () {
 			// feature interaction
 			sublayer.on('featureClick', function(e, latlng, pos, data, layerIndex) {
                 if (data.cartodb_id != mapApplication.clicked_cartodb_id) {
-					mapApplication.featureClick(data.cartodb_id, mapApplication.CARTO_sql_1, mapApplication.CARTO_tableName_1);
+					mapApplication.featureClick(data.cartodb_id, mapApplication.CARTO_sql_1, mapApplication.CARTO_tableName_1, latlng);
 				}
 			});
 
@@ -285,7 +285,7 @@ mapApplication.loadParcelData = function () {
 			// feature interaction
 			sublayer.on('featureClick', function(e, latlng, pos, data, layerIndex) {
                 if (data.cartodb_id != mapApplication.clicked_cartodb_id) {
-					mapApplication.featureClick(data.cartodb_id, mapApplication.CARTO_sql_2, mapApplication.CARTO_tableName_2);
+					mapApplication.featureClick(data.cartodb_id, mapApplication.CARTO_sql_2, mapApplication.CARTO_tableName_2, latlng);
 				}
 			});
 
@@ -315,8 +315,9 @@ mapApplication.loadParcelData = function () {
 
 			// feature interaction
 			sublayer.on('featureClick', function(e, latlng, pos, data, layerIndex) {
+
                 if (data.cartodb_id != mapApplication.clicked_cartodb_id) {
-					mapApplication.featureClick(data.cartodb_id, mapApplication.CARTO_sql_3, mapApplication.CARTO_tableName_3);
+					mapApplication.featureClick(data.cartodb_id, mapApplication.CARTO_sql_3, mapApplication.CARTO_tableName_3, latlng);
 				}
 			});
 
@@ -328,7 +329,7 @@ mapApplication.loadParcelData = function () {
 
 }
 
-mapApplication.featureClick = function (cartodb_id, sql, tableName) {
+mapApplication.featureClick = function (cartodb_id, sql, tableName, latlng) {
 	mapApplication.removeAllClickShapes();
 
 	// query DB for geometry
@@ -339,6 +340,9 @@ mapApplication.featureClick = function (cartodb_id, sql, tableName) {
 			    }).addTo(mapApplication.map);
 			mapApplication.clicked_cartodb_id = cartodb_id;
 
+			// reverse geocode lat lon
+			mapApplication.reverseGeocode(latlng);
+
 			// add properties to geojson
 			geojson.features[0].properties.color = "rgba(0, 115, 163, 0.5)";
 		    geojson.features[0].properties.roofColor = "rgba(0, 115, 163, 0.5)";
@@ -347,7 +351,6 @@ mapApplication.featureClick = function (cartodb_id, sql, tableName) {
 
 			// add data to form
 			$('#id_buildingFootprint').val(JSON.stringify(geojson));
-		   	$('#id_buildingAddress').val('No Address');
 		   	$('#id_buildingPIN').val(geojson.features[0].properties.pin10);
 		    // remove disable from next button
 		    if ($('#nextEnd').prop("disabled")) {
@@ -359,6 +362,39 @@ mapApplication.featureClick = function (cartodb_id, sql, tableName) {
 			// errors contains a list of errors
 			console.log("errors:" + errors);
 		});
+
+}
+
+mapApplication.reverseGeocode = function (latlng) {
+	// https://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&key=AIzaSyBQxrEbrvIkajyXTw4fR6mXoP5HwmZPlaA
+	// create URL
+	var trunkURL = 'https://maps.googleapis.com/maps/api/geocode/json'
+	if (latlng) {
+		var params = '?latlng='+latlng[0]+','+latlng[1]+'&key=AIzaSyBQxrEbrvIkajyXTw4fR6mXoP5HwmZPlaA'
+
+		$.ajax({
+			type: "GET",
+			url: trunkURL + params,
+			success: function(data){
+				if (data.status == 'OK') {
+					$('.cartodb-popup-content').html('<p>' + data.results[0].formatted_address + '</p>');
+					$('#id_buildingAddress').val(data.results[0].formatted_address);					
+				} else {
+					$('.cartodb-popup-content').html('<p>No Address</p>');
+					$('#id_buildingAddress').val('No Address');					
+				}
+
+	        },
+	        error: function(e){ 
+				$('.cartodb-popup-content').html('<p>No Address</p>');
+				$('#id_buildingAddress').val('No Address');			        	
+	        }
+		});
+
+	} else {
+		$('.cartodb-popup-content').html('<p>No Address</p>');
+		$('#id_buildingAddress').val('No Address');			        	
+	}
 
 }
 
