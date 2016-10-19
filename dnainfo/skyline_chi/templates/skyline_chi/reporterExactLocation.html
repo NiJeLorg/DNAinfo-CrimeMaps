@@ -76,12 +76,11 @@
     // formula from http://www.ctbuh.org/HighRiseInfo/TallestDatabase/Criteria/HeightCalculator/tabid/1007/language/en-GB/Default.aspx
     var buildingHeight = (3.5*buildingStories) + 9.625 + (2.625 * (buildingStories/25));
     var projectName = "{{ CHIReporterBuildingsObject.projectName }}";
-    var buildingAddress = "{{ CHIReporterBuildingsObject.buildingAddress }}";
-    var buildingZip = "{{ CHIReporterBuildingsObject.buildingZip }}";
-    var description = "{{ CHIReporterBuildingsObject.description }}";
     var buildingImage = "{{ CHIReporterBuildingsObject.buildingImage }}";
-    var zoning_pdfs = "{{ CHIReporterBuildingsObject.zoning_pdfs }}";
+    var description = "{{ CHIReporterBuildingsObject.description }}";
+    var buildingAddress = "{{ CHIReporterBuildingsObject.buildingAddress }}";
     var story1 = "{{ CHIReporterBuildingsObject.story1 }}";
+    var zoning_pdfs = "{{ CHIReporterBuildingsObject.zoning_pdfs }}";
 
     $( document ).ready(function() {
         window.setTimeout(function() {

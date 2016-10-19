@@ -70,6 +70,16 @@ class Command(BaseCommand):
                 print d['job__']
                 print created
 
+                # fill out address field if one doesn't exist
+                if not obj.buildingAddress:
+                    obj.buildingAddress = d['house__'] + ' ' + d['street_name']
+                    obj.save()
+
+                if not obj.buildingZip:
+                    obj.buildingZip = d['zip_code']
+                    obj.save()
+
+
             except Exception, e:
                 print e
                 # if error, send email

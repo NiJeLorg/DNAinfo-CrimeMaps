@@ -417,22 +417,23 @@ mapApplication.featureClick = function (cartodb_id) {
 			mapApplication.clicked_cartodb_id = cartodb_id;
 
 			// add properties to geojson
-			geojson.features[0].properties.color = "#fc5158";
-		    geojson.features[0].properties.roofColor = "#fc5158";
+			console.log(geojson);
+			geojson.features[0].properties.objectID = objectID;
+			geojson.features[0].properties.color = "#0073a2";
+		    geojson.features[0].properties.roofColor = "#0073a2";
 		    geojson.features[0].properties.height = buildingHeight;
 		    geojson.features[0].properties.minHeight = 0;
 		    geojson.features[0].properties.projectName = projectName;
+		    geojson.features[0].properties.buildingImage = 'visualizations/media/' + buildingImage;
+		    geojson.features[0].properties.description = description;
 		    geojson.features[0].properties.buildingAddress = buildingAddress;
 		    geojson.features[0].properties.buildingZip = buildingZip;
 		    geojson.features[0].properties.stories = buildingStories;
-		    geojson.features[0].properties.description = description;
-		    geojson.features[0].properties.buildingImage = 'visualizations/media/' + buildingImage;
-		    geojson.features[0].properties.zoning_pdfs = 'visualizations/media/' + zoning_pdfs;
 		    geojson.features[0].properties.story1 = story1;
+		    geojson.features[0].properties.zoning_pdfs = 'visualizations/media/' + zoning_pdfs;
 
 			// add data to form
 			$('#id_buildingFootprint').val(JSON.stringify(geojson));
-		   	$('#id_buildingAddress').val(geojson.features[0].properties.address);
 		   	$('#id_buildingBBL').val(geojson.features[0].properties.bbl);
 		    // remove disable from next button
 		    if ($('#reporterNextEnd').prop("disabled")) {

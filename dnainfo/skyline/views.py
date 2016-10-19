@@ -196,7 +196,11 @@ def skyline_sponsoredWhatNeighborhood(request, id=None):
 		# Have we been provided with a valid form?
 		if form.is_valid():
 			# Save the new data to the database.
-			f = form.save()
+			f = form.save(commit=False)
+			# add user 
+			f.user = request.user
+			# save form
+			f.save()
 			lookupObject = NYCSponsoredBuildings.objects.get(pk=f.pk)
 			return HttpResponseRedirect(reverse('skyline_sponsoredBuildingHeight', args=(lookupObject.pk,)))
 		else:
@@ -292,7 +296,7 @@ def skyline_getPermittedGeojsons(request, boro=None):
 
 	for obj in NYC_DOB_Permit_IssuanceObjects:
 		buildingHeight = (3.5*obj.buildingStories) + 9.625 + (2.625 * (obj.buildingStories/25));
-		changed = '{\"type\":\"FeatureCollection\",\"features\":[{\"type\": \"Feature\", \"properties\":{\"color\":\"rgba(0, 205, 190, 0.5)\", \"roofColor\":\"rgba(0, 205, 190, 0.5)\", \"height\":\"' + str(buildingHeight) +'\", \"pdf\":\"visualizations/media/' + str(obj.zoning_pdfs) +'\", \"address\":\"' + str(obj.house).strip() + ' ' + str(obj.street_name).strip() +'\", \"stories\":\"' + str(obj.buildingStories) +'\"}, \"geometry\": ' + obj.buildingFootprint + '}]}'
+		changed = '{\"type\":\"FeatureCollection\",\"features\":[{\"type\": \"Feature\", \"properties\":{\"color\":\"#00cdbe\", \"roofColor\":\"#00cdbe\", \"height\":\"' + str(buildingHeight) +'\", \"zoning_pdfs\":\"visualizations/media/' + str(obj.zoning_pdfs) +'\", \"address\":\"' + str(obj.buildingAddress).strip() +'\", \"stories\":\"' + str(obj.buildingStories) +'\", \"story1\":\"' + str(obj.story1) +'\", \"projectName\":\"' + str(obj.projectName) +'\", \"buildingImage\":\"visualizations/media/' + str(obj.buildingImage) +'\", \"buildingZip\":\"' + str(obj.buildingZip) +'\", \"objectID\":\"' + str(obj.id) +'\", \"description\":\"' + str(obj.description) +'\"}, \"geometry\": ' + obj.buildingFootprint + '}]}'
 		geojsons.append(changed)
 		
 	return JsonResponse(geojsons, safe=False)
@@ -357,7 +361,11 @@ def skyline_reporterWhatNeighborhood(request, id=None):
 		# Have we been provided with a valid form?
 		if form.is_valid():
 			# Save the new data to the database.
-			f = form.save()
+			f = form.save(commit=False)
+			# add user 
+			f.user = request.user
+			# save form
+			f.save()
 			lookupObject = NYCReporterBuildings.objects.get(pk=f.pk)
 			return HttpResponseRedirect(reverse('skyline_reporterBuildingHeight', args=(lookupObject.pk,)))
 		else:
@@ -570,3 +578,36 @@ def skylineAdminNext(request, id=None):
 		# Bad form (or form details), no form supplied...
 		# Render the form with error messages (if any).
 		return render(request, 'skyline/adminTemplate.html', {'form':form, 'NYCskylineObject': NYCskylineObject, 'buildingCount': buildingCount})
+
+@login_required
+def skyline_permittedBuildingHeight(request, id=None):
+	if id:
+		NYC_DOB_Permit_IssuanceObject = NYC_DOB_Permit_Issuance.objects.get(pk=id)
+	else:
+		NYC_DOB_Permit_IssuanceObject = NYC_DOB_Permit_Issuance()
+
+	# A HTTP POST?
+	if request.method == 'POST':
+		form = NYC_DOB_Permit_IssuanceForm(request.POST, request.FILES, instance=NYC_DOB_Permit_IssuanceObject)
+
+		# Have we been provided with a valid form?
+		if form.is_valid():
+			# Save the new data to the database.
+			f = form.save(commit=False)
+			# add user 
+			f.user = request.user
+			# save form
+			f.save()
+			lookupObject = NYC_DOB_Permit_Issuance.objects.get(pk=f.pk)
+			return HttpResponseRedirect(reverse('skyline_viewAll', args=(lookupObject.whereBuilding.id,)))
+		else:
+			# The supplied form contained errors - just print them to the terminal.
+			print form.errors
+	else:
+		# If the request was not a POST, display the form to enter details.
+		form = NYC_DOB_Permit_IssuanceForm(instance=NYC_DOB_Permit_IssuanceObject)
+
+	# Bad form (or form details), no form supplied...
+	# Render the form with error messages (if any).
+	return render(request, 'skyline/permittedBuildingHeight.html', {'form':form, 'NYC_DOB_Permit_IssuanceObject': NYC_DOB_Permit_IssuanceObject})
+

@@ -65,7 +65,7 @@ class Command(BaseCommand):
                     html_message = 'Problem ID: ' + str(obj.ID)
                     message = 'Problem ID: ' + str(obj.ID)
 
-                    #send_mail(subject, message, 'dnainfovisualizations@gmail.com', ['jd@nijel.org'], fail_silently=True, html_message=html_message)               
+                    send_mail(subject, message, 'dnainfovisualizations@gmail.com', ['jd@nijel.org'], fail_silently=True, html_message=html_message)               
 
             else:
                 print '-99'

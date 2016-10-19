@@ -31,10 +31,12 @@
                 <div id="minimap_{{obj.id}}" class="minimap"></div>
             </div>
             <div class="col-sm-6">
-                <h4>{{ obj.buildingAddress }}</h4>
+                <h4>{{ obj.projectName }}</h4>
                 <p>
+                    {{ obj.buildingAddress }}<br />
                     {{ obj.whereBuilding.name }}<br />
                     {{ obj.buildingStories }} stor{{ obj.buildingStories|pluralize:"y,ies" }}<br />
+                    Added by {{ obj.user }} (<a href="mailto:{{ obj.user.email }}">{{ obj.user.email }}</a>)<br />
                 </p>
                 <a class="btn btn-primary marginRight10" href="{% url 'skyline_reporterBuildingHeight' id=obj.id %}" role="button">Edit</a>
                 <a class="btn btn-danger marginRight10" href="{% url 'skyline_reporterRemove' id=obj.id %}" role="button">Remove</a>

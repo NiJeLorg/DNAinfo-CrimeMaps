@@ -49,6 +49,10 @@ class Command(BaseCommand):
 	                            obj.zoning_pdfs.save(obj.scan_code+'_'+strtime+'.pdf', pdffile)
 	                            f.close()
 	                            os.remove(obj.scan_code+'.pdf')
+
+	                            # pause if successful
+	                            time.sleep(2) 
+
 	                    except Exception as e:
 	                        print('There was a problem: %s' % (e))
 
@@ -59,9 +63,7 @@ class Command(BaseCommand):
 	                html_message = 'Problem Job Number: ' + obj.job
 	                message = 'Problem Job Number: ' + obj.job
 
-	                send_mail(subject, message, 'dnainfovisualizations@gmail.com', ['jd@nijel.org'], fail_silently=True, html_message=html_message)
-
-            	time.sleep(2)           
+	                send_mail(subject, message, 'dnainfovisualizations@gmail.com', ['jd@nijel.org'], fail_silently=True, html_message=html_message)          
 
 
     def handle(self, *args, **options):

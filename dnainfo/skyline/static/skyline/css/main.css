@@ -873,13 +873,12 @@ fieldset[disabled] .btn-dna-twitter.active {
   font-family:"Titillium Web", Helvetica, Sans-Serif;
   width: 300px;
   max-width: 300px;
-  height: 250px;
-  max-height: 250px;
+  height: auto;
   margin: 0;
   padding: 10px;
   background: #ffffff;
   opacity: 1;
-  border-radius: 4px;
+  border-radius: 5px;
   overflow: hidden;
 }
 
@@ -897,26 +896,26 @@ fieldset[disabled] .btn-dna-twitter.active {
 }
 
 .tooltip.permitted-tooltip {
-  border: 1px solid #007B72;
+  border: 1px solid #00cdbe;
 }
 
 .tooltip .permitted {
   padding: 8px 0px 3px 14px;
   color: #fff;
-  background: #007B72;
+  background: #00cdbe;
   margin: -15px -15px 0px -15px;
   font-size: 14px;
   font-weight: bold;
 }
 
 .tooltip.dna-tooltip {
-  border: 1px solid #fc5158;
+  border: 1px solid #0073a2;
 }
 
 .tooltip .dna {
   padding: 8px 0px 3px 14px;
   color: #fff;
-  background: #fc5158;
+  background: #0073a2;
   margin: -15px -15px 0px -15px;
   font-size: 14px;
   font-weight: bold;
@@ -933,8 +932,18 @@ fieldset[disabled] .btn-dna-twitter.active {
 }
 
 .tooltip .property-text {
-  color: #c1c1c1;
-  font-size: 16px;
+  color: #9b9b9b;
+  font-family: Georgia;
+  font-size: 14px;
+}
+
+.tooltip .property-text.dark {
+  color: #4a4a4a;
+}
+
+.tooltip .property-text.link {
+  font-family:"Titillium Web", Helvetica, Sans-Serif;
+  margin-top: 15px;
 }
 
 .tooltip .property-image {

@@ -8,10 +8,8 @@ osmApplication.initialize = function () {
 
 	var widthFrame = $('#content').width();
 	if (widthFrame < 1200) {
-		osmApplication.fastMode = true;
 		osmApplication.shadows = [];
 	} else {
-		osmApplication.fastMode = false;	
 		osmApplication.shadows = ['shadows'];	
 	}
 
@@ -24,7 +22,7 @@ osmApplication.initialize = function () {
 		tilt: 45,
 		zoom: 17,
 		position: { latitude:this.center[0], longitude:this.center[1] },
-		state: osmApplication.fastMode,
+		state: true,
 		effects: osmApplication.shadows,
 		attribution: '© 3D <a href="https://osmbuildings.org/copyright/">OSM Buildings</a>. Map tiles by <a href=\"http://stamen.com\">Stamen Design</a>, under <a href=\"https://creativecommons.org/licenses/by/3.0/\" target=\"_blank\">CC BY 3.0</a>. Data by <a href=\"http://www.openstreetmap.org/\" target=\"_blank\">OpenStreetMap</a>, under ODbL.'
 	}).appendTo("osmmap");
@@ -110,11 +108,48 @@ osmApplication.initialize = function () {
 		    	// look up properties
 		    	var properties = osmApplication.permittedGeojsons[id].features[0].properties;
 		    	console.log(properties);
-		    	$('#property-address-permitted').text(properties.address);
-		    	$('#property-stories-permitted').html(properties.stories+ ' Stories<br />');
-		    	if (properties.pdf != 'visualizations/media/') {
-		    		$('#property-pdf-permitted').html('Read More: <a href="/' + properties.pdf +'" target="_blank">DOB Records</a><br />');
+		    	// projectName
+		    	if (typeof properties.projectName !== 'undefined' && properties.projectName) {
+		    		$('#property-projectName-permitted').text(properties.projectName);
+		    	} else if (typeof properties.address !== 'undefined' && properties.address) {
+		    		$('#property-projectName-permitted').text(properties.address);
+		    	}
+		    	// image
+		    	if (properties.buildingImage != 'visualizations/media/') {
+			    	$('#property-image-permitted').prop('src', '/' + properties.buildingImage);
 		    	} 
+		    	// description
+		    	if (typeof properties.description !== 'undefined' && properties.description) {
+		    		$('#property-description-permitted').html(properties.description + '<br />');
+		    	} 
+		    	// address
+		    	if (typeof properties.address !== 'undefined' && properties.address) {
+			    	$('#property-address-permitted').html(properties.address + '<br />');
+		    	} 
+		    	// stories
+		    	if (typeof properties.stories !== 'undefined' && properties.stories) {
+		    		if (properties.stories == '1') {
+		    			var suffix = ' story tall';
+		    		} else {
+		    			var suffix = ' stories tall';		    			
+		    		}
+			    	$('#property-stories-permitted').html(properties.stories + suffix + '<br />');
+		    	} 
+		    	// DNAinfo stories
+		    	if (typeof properties.story1 !== 'undefined' && properties.story1) {
+			    	$('#property-story1-permitted').html('<a href="' + properties.story1 +'" target="_blank">Read More</a><br />');
+		    	}		    	
+		    	// documents
+		    	console.log(properties.zoning_pdfs);
+		    	if (typeof properties.zoning_pdfs !== 'undefined' && properties.zoning_pdfs) {
+		    		$('#property-pdf-permitted').html('<a href="/' + properties.zoning_pdfs +'" target="_blank">See Documents</a><br />');
+		    	}
+		    	// links for editing
+
+		    	// edit link /skyline/admin/nyc/permitted/buildingHeight/ID/
+			    var editHref = '/skyline/admin/nyc/permitted/buildingHeight/' + properties.objectID + '/';
+			    $('#property-edit-permitted').prop('href', editHref);
+ 
 		    	var x = parseInt(xcoor) - 150;
 		    	var y = parseInt(ycoor) - 250; 
 			    // show div with data populated at that screen location
@@ -125,16 +160,52 @@ osmApplication.initialize = function () {
 		    } else if (splitId[0] == 'dna') {
 		    	var properties = osmApplication.dnaGeojsons[id].features[0].properties;
 		    	console.log(properties);
-		    	$('#property-address-dna').text(properties.address);
-		    	$('#property-stories-dna').html(properties.stories+ ' Stories<br />');
-		    	$('#property-description-dna').html(properties.description + '<br />');
-
+		    	// projectName
+		    	if (typeof properties.projectName !== 'undefined' && properties.projectName) {
+		    		$('#property-projectName-dna').text(properties.projectName);
+		    	} else if (typeof properties.address !== 'undefined' && properties.address) {
+		    		$('#property-projectName-dna').text(properties.address);
+		    	}
+		    	// image
+		    	if (typeof properties.buildingImage !== 'undefined' && properties.buildingImage) {
+			    	$('#property-image-dna').prop('src', '/' + properties.buildingImage);
+		    	} 
+		    	// description
+		    	if (typeof properties.description !== 'undefined' && properties.description) {
+		    		$('#property-description-dna').html(properties.description + '<br />');
+		    	} 
+		    	// address
+		    	if (typeof properties.address !== 'undefined' && properties.address) {
+			    	$('#property-address-dna').html(properties.address + '<br />');
+		    	} 
+		    	// stories
+		    	if (typeof properties.stories !== 'undefined' && properties.stories) {
+		    		if (properties.stories == '1') {
+		    			var suffix = ' story tall';
+		    		} else {
+		    			var suffix = ' stories tall';		    			
+		    		}
+			    	$('#property-stories-dna').html(properties.stories + suffix + '<br />');
+		    	} 
+		    	// DNAinfo stories
+		    	if (typeof properties.story1 !== 'undefined' && properties.story1) {
+			    	$('#property-story1-dna').html('<a href="' + properties.story1 +'" target="_blank">Read More</a><br />');
+		    	}		    	
+		    	// documents
 		    	if (properties.zoning_pdfs != 'visualizations/media/') {
-		    		$('#property-pdf-dna').html('Read More: <a href="/' + properties.zoning_pdfs +'" target="_blank">DOB Records</a><br />');
+		    		$('#property-pdf-dna').html('<a href="/' + properties.zoning_pdfs +'" target="_blank">See Documents</a><br />');
 		    	}
-		    	if (properties.story1) {
-			    	$('#property-story1-dna').html('Read More: <a href="' + properties.story1 +'" target="_blank">Story</a><br />');
-		    	}
+
+		    	// links for editing and deleting 
+
+		    	// edit link /skyline/admin/nyc/reporter/buildingHeight/ID/
+			    var editHref = '/skyline/admin/nyc/reporter/buildingHeight/' + properties.objectID + '/'
+			    $('#property-edit-dna').prop('href', editHref);
+		    	// remove link /skyline/admin/nyc/reporter/remove/ID/
+			    var removeHref = '/skyline/admin/nyc/reporter/remove/' + properties.objectID + '/'
+			    $('#property-remove-dna').prop('href', removeHref);
+
+
 		    	var x = parseInt(xcoor) - 150;
 		    	var y = parseInt(ycoor) - 250; 
 			    // show div with data populated at that screen location
@@ -517,8 +588,7 @@ osmApplication.getSponsoredGeojsons = function () {
 						osmApplication.sponsoredGeojsons[idNum] = geojson;
 						osmApplication.osmb.addGeoJSON(geojson, {id: idNum});
 					}
-				}
-				
+				}	
 			} 
         }
 	});
@@ -539,8 +609,7 @@ osmApplication.getPermittedGeojsons = function () {
 						osmApplication.permittedGeojsons[idNum] = geojson;
 						osmApplication.osmb.addGeoJSON(geojson, {id: idNum});
 					}
-				}
-				
+				}				
 			} 
         }
 	});
@@ -562,7 +631,6 @@ osmApplication.getDNAGeojsons = function () {
 						osmApplication.osmb.addGeoJSON(geojson, {id: idNum});
 					}
 				}
-				
 			} 
         }
 	});

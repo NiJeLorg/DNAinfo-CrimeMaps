@@ -98,6 +98,12 @@ class Command(BaseCommand):
                 print d['id']
                 print created
 
+                # fill out address field if one doesn't exist
+                if not obj.buildingAddress:
+                    obj.buildingAddress = d['street_number'] + ' ' + d['street_direction'] + ' ' + d['street_name'] + ' ' + d['_suffix']
+                    obj.save()
+
+
             except Exception, e:
                 print e
                 # if error, send email
@@ -105,7 +111,7 @@ class Command(BaseCommand):
                 html_message = 'Problem ID #: ' + d['id']
                 message = 'Problem ID #: ' + d['id']
 
-                #send_mail(subject, message, 'dnainfovisualizations@gmail.com', ['jd@nijel.org'], fail_silently=True, html_message=html_message)
+                send_mail(subject, message, 'dnainfovisualizations@gmail.com', ['jd@nijel.org'], fail_silently=True, html_message=html_message)
 
 
     def handle(self, *args, **options):

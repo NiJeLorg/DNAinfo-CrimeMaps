@@ -39,5 +39,6 @@ urlpatterns = [
     url(r'^skyline/nyc/getReporterGeojsons/$', views.skyline_getReporterGeojsons, name='skyline_getReporterGeojsons'),
     url(r'^skyline/nyc/end/(?P<id>\d+)/$', views.skyline_end, name='skyline_end'),
     url(r'^skyline/nyc/results/(?P<id>\d+)/$', views.skyline_results, name='skyline_results'),
+    url(r'^skyline/admin/nyc/permitted/buildingHeight/(?P<id>\d+)/$', views.skyline_permittedBuildingHeight, name='skyline_permittedBuildingHeight'),
 
 ]

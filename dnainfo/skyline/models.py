@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 # model for NYC neighborhood look up table
@@ -11,7 +12,8 @@ class neighborhoodNYC(models.Model):
 		return self.name
 
 class NYCskyline(models.Model):
-	created = models.DateTimeField(auto_now=True)
+	created = models.DateTimeField(auto_now_add=True)
+	updated = models.DateTimeField(auto_now=True)
 	whereBuilding = models.ForeignKey(neighborhoodNYC, blank=True, null=True)
 	iDontSeeMyNeighborhood = models.BooleanField(default=False)
 	buildingFootprint = models.TextField(default='')
@@ -21,7 +23,9 @@ class NYCskyline(models.Model):
 	approved = models.NullBooleanField(default=None)
 
 class NYCSponsoredBuildings(models.Model):
-	created = models.DateTimeField(auto_now=True)
+	created = models.DateTimeField(auto_now_add=True)
+	updated = models.DateTimeField(auto_now=True)
+	user = models.ForeignKey(User)
 	whereBuilding = models.ForeignKey(neighborhoodNYC, blank=True, null=True)
 	buildingFootprint = models.TextField(default='')
 	buildingName = models.CharField(max_length=255, default='', blank=False, null=False)
@@ -31,7 +35,9 @@ class NYCSponsoredBuildings(models.Model):
 	buildingImage = models.ImageField(upload_to="img/%Y_%m_%d_%h_%M_%s", null=False, blank=False)
 
 class NYCReporterBuildings(models.Model):
-	created = models.DateTimeField(auto_now=True)
+	created = models.DateTimeField(auto_now_add=True)
+	updated = models.DateTimeField(auto_now=True)
+	user = models.ForeignKey(User)
 	whereBuilding = models.ForeignKey(neighborhoodNYC, blank=True, null=True)
 	buildingFootprint = models.TextField(default='')
 	buildingAddress = models.CharField(max_length=255, default='', blank=False, null=False)
@@ -46,7 +52,10 @@ class NYCReporterBuildings(models.Model):
 	buildingZip = models.CharField(max_length=255, default='', blank=False, null=False)
 
 class NYC_DOB_Permit_Issuance(models.Model):
-	created = models.DateTimeField(auto_now=True)
+	created = models.DateTimeField(auto_now_add=True)
+	updated = models.DateTimeField(auto_now=True)
+	user = models.ForeignKey(User, blank=True, null=True)
+	whereBuilding = models.ForeignKey(neighborhoodNYC, blank=True, null=True)	
 	borough = models.CharField(max_length=255, default='', blank=False, null=False)
 	bin = models.CharField(max_length=255, default='', blank=False, null=False)
 	house = models.CharField(max_length=255, default='', blank=False, null=False)
@@ -73,6 +82,13 @@ class NYC_DOB_Permit_Issuance(models.Model):
 	scan_code = models.CharField(max_length=255, default='', blank=False, null=False)
 	scan_code_updated = models.BooleanField(default=False)
 	zoning_pdfs = models.FileField(upload_to='zoning_pdfs/', blank=True, null=True)
+	story1 = models.URLField(max_length=1000, default='', blank=True, null=True)
+	projectName = models.CharField(max_length=255, default='', blank=True, null=True)
+	buildingImage = models.ImageField(upload_to="img/%Y_%m_%d_%h_%M_%s", null=True, blank=True)
+	buildingZip = models.CharField(max_length=255, default='', blank=False, null=False)
+	buildingAddress = models.CharField(max_length=255, default='', blank=False, null=False)
+	description = models.CharField(max_length=200, default='', blank=True, null=True)
+
 
 
 

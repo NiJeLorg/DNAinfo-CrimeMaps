@@ -21,7 +21,9 @@
                 </h2>
             </div>
             <div class="col-xs-2 col-sm-1">
-                <p class="pagesCompleted pull-right"></p>
+                <p class="pagesCompleted pull-right">
+                    <a class="btn btn-default" href="{% url 'account_logout' %}" role="button">Logout</a>
+                </p>
             </div>
         </div>
         <div class="row">
@@ -46,7 +48,7 @@
         </div>
         <div class="row">
             <div class="col-sm-8 col-sm-offset-2">
-                <a class="btn btn-primary mobileWidth marginRight10 marginBottom20" href="{% url 'skyline_viewAllWhatNeighborhood' %}" role="button">View all City Permitted, Reporter/Editor and Sponsored Buildings</a>
+                <a class="btn btn-primary mobileWidth marginRight10 marginBottom20" href="{% url 'skyline_viewAllWhatNeighborhood' %}" role="button">View/Edit all City Permitted, Reporter/Editor and Sponsored Buildings</a>
             </div>
         </div>
         <div class="row">

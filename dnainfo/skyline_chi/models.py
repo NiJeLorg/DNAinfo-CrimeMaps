@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 # model for CHI neighborhood look up table
@@ -11,7 +12,8 @@ class neighborhoodCHI(models.Model):
 		return self.name
 
 class CHIskyline(models.Model):
-	created = models.DateTimeField(auto_now=True)
+	created = models.DateTimeField(auto_now_add=True)
+	updated = models.DateTimeField(auto_now=True)
 	whereBuilding = models.ForeignKey(neighborhoodCHI, blank=True, null=True)
 	iDontSeeMyNeighborhood = models.BooleanField(default=False)
 	buildingFootprint = models.TextField(default='')
@@ -21,7 +23,9 @@ class CHIskyline(models.Model):
 	approved = models.NullBooleanField(default=None)
 
 class CHISponsoredBuildings(models.Model):
-	created = models.DateTimeField(auto_now=True)
+	created = models.DateTimeField(auto_now_add=True)
+	updated = models.DateTimeField(auto_now=True)
+	user = models.ForeignKey(User)
 	whereBuilding = models.ForeignKey(neighborhoodCHI, blank=True, null=True)
 	buildingFootprint = models.TextField(default='')
 	buildingName = models.CharField(max_length=255, default='', blank=False, null=False)
@@ -31,7 +35,9 @@ class CHISponsoredBuildings(models.Model):
 	buildingImage = models.ImageField(upload_to="img/%Y_%m_%d_%h_%M_%s", null=False, blank=False)
 
 class CHIReporterBuildings(models.Model):
-	created = models.DateTimeField(auto_now=True)
+	created = models.DateTimeField(auto_now_add=True)
+	updated = models.DateTimeField(auto_now=True)
+	user = models.ForeignKey(User)
 	whereBuilding = models.ForeignKey(neighborhoodCHI, blank=True, null=True)
 	buildingFootprint = models.TextField(default='')
 	buildingAddress = models.CharField(max_length=255, default='', blank=False, null=False)
@@ -46,9 +52,11 @@ class CHIReporterBuildings(models.Model):
 	buildingZip = models.CharField(max_length=255, default='', blank=True, null=True)
 
 
-
 class CHI_Building_Permits(models.Model):
-	created = models.DateTimeField(auto_now=True)
+	created = models.DateTimeField(auto_now_add=True)
+	updated = models.DateTimeField(auto_now=True)
+	user = models.ForeignKey(User, blank=True, null=True)
+	whereBuilding = models.ForeignKey(neighborhoodCHI, blank=True, null=True)	
 	ID = models.IntegerField(primary_key=True)
 	permit = models.CharField(max_length=255, default='', blank=False, null=False)
 	permit_type = models.CharField(max_length=255, default='', blank=False, null=False)
@@ -63,6 +71,11 @@ class CHI_Building_Permits(models.Model):
 	longitude = models.CharField(max_length=255, default='', blank=False, null=False)
 	buildingFootprint = models.TextField(default='')
 	buildingStories = models.IntegerField(default=0, blank=False, null=False)
-
+	zoning_pdfs = models.URLField(max_length=1000, default='', blank=True, null=True)
+	story1 = models.URLField(max_length=1000, default='', blank=True, null=True)
+	projectName = models.CharField(max_length=255, default='', blank=True, null=True)
+	buildingImage = models.ImageField(upload_to="img/%Y_%m_%d_%h_%M_%s", null=True, blank=True)
+	buildingAddress = models.CharField(max_length=255, default='', blank=False, null=False)
+	description = models.CharField(max_length=200, default='', blank=True, null=True)
 
 

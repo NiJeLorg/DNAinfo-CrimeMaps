@@ -196,7 +196,11 @@ def skyline_chi_sponsoredWhatNeighborhood(request, id=None):
 		# Have we been provided with a valid form?
 		if form.is_valid():
 			# Save the new data to the database.
-			f = form.save()
+			f = form.save(commit=False)
+			# add user 
+			f.user = request.user
+			# save form
+			f.save()
 			lookupObject = CHISponsoredBuildings.objects.get(pk=f.pk)
 			return HttpResponseRedirect(reverse('skyline_chi_sponsoredBuildingHeight', args=(lookupObject.pk,)))
 		else:
@@ -292,7 +296,7 @@ def skyline_chi_getPermittedGeojsons(request):
 
 	for obj in CHI_Building_PermitsObjects:
 		buildingHeight = (3.5*obj.buildingStories) + 9.625 + (2.625 * (obj.buildingStories/25));
-		changed = '{\"type\":\"FeatureCollection\",\"features\":[{\"type\": \"Feature\", \"properties\":{\"color\":\"rgba(0, 205, 190, 0.5)\", \"roofColor\":\"rgba(0, 205, 190, 0.5)\", \"height\":\"' + str(buildingHeight) +'\", \"address\":\"' + str(obj.street_number).strip() + ' ' + str(obj.street_direction).strip() + ' ' + str(obj.street_name).strip() + ' ' + str(obj.suffix).strip() +'\", \"stories\":\"' + str(obj.buildingStories) +'\", \"work_description\":\"' + obj.work_description.replace('\"','\\"') +'\"}, \"geometry\": ' + obj.buildingFootprint + '}]}'
+		changed = '{\"type\":\"FeatureCollection\",\"features\":[{\"type\": \"Feature\", \"properties\":{\"color\":\"#00cdbe\", \"roofColor\":\"#00cdbe\", \"height\":\"' + str(buildingHeight) +'\", \"zoning_pdfs\":\"visualizations/media/' + str(obj.zoning_pdfs) +'\", \"address\":\"' + str(obj.buildingAddress).strip() +'\", \"stories\":\"' + str(obj.buildingStories) +'\", \"story1\":\"' + str(obj.story1) +'\", \"projectName\":\"' + str(obj.projectName) +'\", \"buildingImage\":\"visualizations/media/' + str(obj.buildingImage) +'\", \"objectID\":\"' + str(obj.pk) +'\", \"description\":\"' + str(obj.description) +'\"}, \"geometry\": ' + obj.buildingFootprint + '}]}'
 		geojsons.append(changed)
 		
 	return JsonResponse(geojsons, safe=False)
@@ -357,7 +361,11 @@ def skyline_chi_reporterWhatNeighborhood(request, id=None):
 		# Have we been provided with a valid form?
 		if form.is_valid():
 			# Save the new data to the database.
-			f = form.save()
+			f = form.save(commit=False)
+			# add user 
+			f.user = request.user
+			# save form
+			f.save()
 			lookupObject = CHIReporterBuildings.objects.get(pk=f.pk)
 			return HttpResponseRedirect(reverse('skyline_chi_reporterBuildingHeight', args=(lookupObject.pk,)))
 		else:
@@ -571,3 +579,37 @@ def skyline_chi_AdminNext(request, id=None):
 		# Bad form (or form details), no form supplied...
 		# Render the form with error messages (if any).
 		return render(request, 'skyline_chi/adminTemplate.html', {'form':form, 'CHIskylineObject': CHIskylineObject, 'buildingCount': buildingCount})
+
+
+@login_required
+def skyline_chi_permittedBuildingHeight(request, id=None):
+	if id:
+		CHI_Building_PermitsObject = CHI_Building_Permits.objects.get(pk=id)
+	else:
+		CHI_Building_PermitsObject = CHI_Building_Permits()
+
+	# A HTTP POST?
+	if request.method == 'POST':
+		form = CHI_Building_PermitsForm(request.POST, request.FILES, instance=CHI_Building_PermitsObject)
+
+		# Have we been provided with a valid form?
+		if form.is_valid():
+			# Save the new data to the database.
+			f = form.save(commit=False)
+			# add user 
+			f.user = request.user
+			# save form
+			f.save()
+			lookupObject = CHI_Building_Permits.objects.get(pk=f.pk)
+			return HttpResponseRedirect(reverse('skyline_chi_viewAll', args=(lookupObject.whereBuilding.id,)))
+		else:
+			# The supplied form contained errors - just print them to the terminal.
+			print form.errors
+	else:
+		# If the request was not a POST, display the form to enter details.
+		form = CHI_Building_PermitsForm(instance=CHI_Building_PermitsObject)
+
+	# Bad form (or form details), no form supplied...
+	# Render the form with error messages (if any).
+	return render(request, 'skyline_chi/permittedBuildingHeight.html', {'form':form, 'CHI_Building_PermitsObject': CHI_Building_PermitsObject})
+
