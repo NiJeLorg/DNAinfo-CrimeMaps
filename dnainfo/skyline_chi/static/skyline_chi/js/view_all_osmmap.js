@@ -6,8 +6,8 @@ function osmApplication() {}
 
 osmApplication.initialize = function () {
 
-	var widthFrame = $('#content').width();
-	if (widthFrame < 1200) {
+	osmApplication.widthFrame = $('#content').width();
+	if (osmApplication.widthFrame < 1200) {
 		osmApplication.shadows = [];
 	} else {
 		osmApplication.shadows = ['shadows'];	
@@ -82,32 +82,58 @@ osmApplication.initialize = function () {
 	  	var xcoor = e.clientX;
 	  	var ycoor = e.clientY;
 	  }
-		console.log(e);
 	  osmApplication.osmb.getTarget(xcoor, ycoor, function(id) {
-	  	console.log(id);
+		
+
 	  	if (id) {
 		  	splitId = id.split('_');
 
 		    if (splitId[0] == 'sponsored') {
+		    	// clear out previous data
+		    	$('#property-name').text('');
+		    	$('#property-image').html('');
+		    	$('#property-description').text('');
+		    	$('#property-address').text('');
 		    	// look up properties
-		    	var properties = osmApplication.sponsoredGeojsons[id].features[0].properties;
-		    	console.log(properties);
+		    	properties = osmApplication.sponsoredGeojsons[id].features[0].properties;
 		    	$('#property-name').text(properties.name);
-		    	var imgSrc = '/visualizations/media/' + properties.image
-		    	$('#property-image').prop('src', imgSrc);
+		    	var imgSrc = '/visualizations/media/' + properties.image;
+		    	$('#property-image').html('<img class="property-image" src="'+ imgSrc +'" />');
 		    	$('#property-description').text(properties.text);
 		    	$('#property-address').text(properties.printAddress);
+
+			    $('#tooltipSponsored').removeClass('hidden');
+ 				var height = $('#tooltipSponsored').height();
 		    	var x = parseInt(xcoor) - 150;
-		    	var y = parseInt(ycoor) - 250; 
+		    	var y = parseInt(ycoor) - height; 
+
+		   		// keep the tooltip on the screen
+		    	if (x < 10) {
+		    		x = 10;
+		    	} else if (x > (osmApplication.widthFrame - 310)) {
+		    		x = osmApplication.widthFrame - 310;
+		    	} 
+
+		    	if (y < 10) {
+		    		y = 10;
+		    	}
+
 			    // show div with data populated at that screen location
 			    $('#tooltipSponsored').css('left', x);
 			    $('#tooltipSponsored').css('top', y);
-			    $('#tooltipSponsored').removeClass('hidden');
 
 		    } else if (splitId[0] == 'permitted') {
+		    	// clear out previous data
+		    	$('#property-projectName-permitted').text('');
+		    	$('#property-image-permitted').html('');
+		    	$('#property-description-permitted').html('');
+		    	$('#property-address-permitted').html('');
+		    	$('#property-stories-permitted').html('');
+		    	$('#property-story1-permitted').html('');
+		    	$('#property-pdf-permitted').html('');
+		    	$('#property-edit-permitted').prop('href', '#');
 		    	// look up properties
 		    	var properties = osmApplication.permittedGeojsons[id].features[0].properties;
-		    	console.log(properties);
 		    	// projectName
 		    	if (typeof properties.projectName !== 'undefined' && properties.projectName) {
 		    		$('#property-projectName-permitted').text(properties.projectName);
@@ -116,7 +142,7 @@ osmApplication.initialize = function () {
 		    	}
 		    	// image
 		    	if (properties.buildingImage != 'visualizations/media/') {
-			    	$('#property-image-permitted').prop('src', '/' + properties.buildingImage);
+					$('#property-image-permitted').html('<img class="property-image" src="/'+ properties.buildingImage +'" />');
 		    	} 
 		    	// description
 		    	if (typeof properties.description !== 'undefined' && properties.description) {
@@ -140,26 +166,49 @@ osmApplication.initialize = function () {
 			    	$('#property-story1-permitted').html('<a href="' + properties.story1 +'" target="_blank">Read More</a><br />');
 		    	}		    	
 		    	// documents
-		    	console.log(properties.zoning_pdfs);
 		    	if (typeof properties.zoning_pdfs !== 'undefined' && properties.zoning_pdfs) {
 		    		$('#property-pdf-permitted').html('<a href="/' + properties.zoning_pdfs +'" target="_blank">See Documents</a><br />');
 		    	}
 		    	// links for editing
 
-		    	// edit link /skyline/admin/chi/permitted/buildingHeight/ID/
-			    var editHref = '/skyline/admin/chi/permitted/buildingHeight/' + properties.objectID + '/';
+		    	// edit link /skyline/admin/nyc/permitted/buildingHeight/ID/
+			    var editHref = '/skyline/admin/nyc/permitted/buildingHeight/' + properties.objectID + '/';
 			    $('#property-edit-permitted').prop('href', editHref);
- 
+
+ 				$('#tooltipPermitted').removeClass('hidden');
+ 				var height = $('#tooltipPermitted').height();
 		    	var x = parseInt(xcoor) - 150;
-		    	var y = parseInt(ycoor) - 250; 
+		    	var y = parseInt(ycoor) - height; 
+
+		   		// keep the tooltip on the screen
+		    	if (x < 10) {
+		    		x = 10;
+		    	} else if (x > (osmApplication.widthFrame - 310)) {
+		    		x = osmApplication.widthFrame - 310;
+		    	} 
+
+		    	if (y < 10) {
+		    		y = 10;
+		    	}
+
 			    // show div with data populated at that screen location
 			    $('#tooltipPermitted').css('left', x);
 			    $('#tooltipPermitted').css('top', y);
-			    $('#tooltipPermitted').removeClass('hidden');
+			    
 
 		    } else if (splitId[0] == 'dna') {
+		    	// clear out previous data
+		    	$('#property-projectName-dna').text('');
+		    	$('#property-image-dna').html('');
+		    	$('#property-description-dna').html('');
+		    	$('#property-address-dna').html('');
+		    	$('#property-stories-dna').html('');
+		    	$('#property-story1-dna').html('');
+		    	$('#property-pdf-dna').html('');
+		    	$('#property-edit-dna').prop('href', '#');
+		    	$('#property-remove-dna').prop('href', '#');
+		    	// look up properties
 		    	var properties = osmApplication.dnaGeojsons[id].features[0].properties;
-		    	console.log(properties);
 		    	// projectName
 		    	if (typeof properties.projectName !== 'undefined' && properties.projectName) {
 		    		$('#property-projectName-dna').text(properties.projectName);
@@ -168,7 +217,7 @@ osmApplication.initialize = function () {
 		    	}
 		    	// image
 		    	if (typeof properties.buildingImage !== 'undefined' && properties.buildingImage) {
-			    	$('#property-image-dna').prop('src', '/' + properties.buildingImage);
+					$('#property-image-dna').html('<img class="property-image" src="/'+ properties.buildingImage +'" />');
 		    	} 
 		    	// description
 		    	if (typeof properties.description !== 'undefined' && properties.description) {
@@ -198,20 +247,33 @@ osmApplication.initialize = function () {
 
 		    	// links for editing and deleting 
 
-		    	// edit link /skyline/admin/chi/reporter/buildingHeight/ID/
-			    var editHref = '/skyline/admin/chi/reporter/buildingHeight/' + properties.objectID + '/'
+		    	// edit link /skyline/admin/nyc/reporter/buildingHeight/ID/
+			    var editHref = '/skyline/admin/nyc/reporter/buildingHeight/' + properties.objectID + '/'
 			    $('#property-edit-dna').prop('href', editHref);
-		    	// remove link /skyline/admin/chi/reporter/remove/ID/
-			    var removeHref = '/skyline/admin/chi/reporter/remove/' + properties.objectID + '/'
+		    	// remove link /skyline/admin/nyc/reporter/remove/ID/
+			    var removeHref = '/skyline/admin/nyc/reporter/remove/' + properties.objectID + '/'
 			    $('#property-remove-dna').prop('href', removeHref);
 
 
+			    $('#tooltipDNA').removeClass('hidden');
+ 				var height = $('#tooltipDNA').height();
 		    	var x = parseInt(xcoor) - 150;
-		    	var y = parseInt(ycoor) - 250; 
+		    	var y = parseInt(ycoor) - height; 
+
+		   		// keep the tooltip on the screen
+		    	if (x < 10) {
+		    		x = 10;
+		    	} else if (x > (osmApplication.widthFrame - 310)) {
+		    		x = osmApplication.widthFrame - 310;
+		    	} 
+
+		    	if (y < 10) {
+		    		y = 10;
+		    	}
+
 			    // show div with data populated at that screen location
 			    $('#tooltipDNA').css('left', x);
 			    $('#tooltipDNA').css('top', y);
-			    $('#tooltipDNA').removeClass('hidden');
 
 
 			} else {
@@ -466,7 +528,6 @@ osmApplication.getPermittedGeojsons = function () {
 		success: function(data){
 			// load the draw tools
 			if (data) {
-				console.log(data);
 				osmApplication.permittedGeojsons = {};
 				for (var i = 0; i < data.length; i++) {
 					if (data[i]) {
