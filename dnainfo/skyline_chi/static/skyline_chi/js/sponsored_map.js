@@ -256,7 +256,7 @@ mapApplication.loadParcelData = function () {
 			// feature interaction
 			sublayer.on('featureClick', function(e, latlng, pos, data, layerIndex) {
                 if (data.cartodb_id != mapApplication.clicked_cartodb_id) {
-					mapApplication.featureClick(data.cartodb_id, mapApplication.CARTO_sql_1, mapApplication.CARTO_tableName_1);
+					mapApplication.featureClick(data.cartodb_id, mapApplication.CARTO_sql_1, mapApplication.CARTO_tableName_1, latlng);
 				}
 			});
 
@@ -287,7 +287,7 @@ mapApplication.loadParcelData = function () {
 			// feature interaction
 			sublayer.on('featureClick', function(e, latlng, pos, data, layerIndex) {
                 if (data.cartodb_id != mapApplication.clicked_cartodb_id) {
-					mapApplication.featureClick(data.cartodb_id, mapApplication.CARTO_sql_2, mapApplication.CARTO_tableName_2);
+					mapApplication.featureClick(data.cartodb_id, mapApplication.CARTO_sql_2, mapApplication.CARTO_tableName_2, latlng);
 				}
 			});
 
@@ -318,7 +318,7 @@ mapApplication.loadParcelData = function () {
 			// feature interaction
 			sublayer.on('featureClick', function(e, latlng, pos, data, layerIndex) {
                 if (data.cartodb_id != mapApplication.clicked_cartodb_id) {
-					mapApplication.featureClick(data.cartodb_id, mapApplication.CARTO_sql_3, mapApplication.CARTO_tableName_3);
+					mapApplication.featureClick(data.cartodb_id, mapApplication.CARTO_sql_3, mapApplication.CARTO_tableName_3, latlng);
 				}
 			});
 
@@ -330,7 +330,7 @@ mapApplication.loadParcelData = function () {
 
 }
 
-mapApplication.featureClick = function (cartodb_id, sql, tableName) {
+mapApplication.featureClick = function (cartodb_id, sql, tableName, latlng) {
 	mapApplication.removeAllClickShapes();
 
 	// query DB for geometry
