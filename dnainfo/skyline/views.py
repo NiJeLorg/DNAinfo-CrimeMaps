@@ -200,15 +200,21 @@ def skyline_sponsoredWhatNeighborhood(request, id=None):
 			# Save the new data to the database.
 			f = form.save(commit=False)
 			# pull object and check to see if it have a created_by field filled out
-			lookupObject = NYCSponsoredBuildings.objects.get(pk=f.pk)
-			# add user 
-			if lookupObject.created_by:
-				f.updated_by = request.user
-			else:
+			try:
+				lookupObject = NYCSponsoredBuildings.objects.get(pk=f.pk)
+				# add user 
+				if lookupObject.created_by:
+					f.updated_by = request.user
+				else:
+					f.created_by = request.user
+				# save form
+				f.save()
+			except NYCSponsoredBuildings.DoesNotExist:
 				f.created_by = request.user
+				# save form
+				f.save()
+				lookupObject = NYCSponsoredBuildings.objects.get(pk=f.pk)
 
-			# save form
-			f.save()
 			return HttpResponseRedirect(reverse('skyline_sponsoredBuildingHeight', args=(lookupObject.pk,)))
 		else:
 			# The supplied form contained errors - just print them to the terminal.
@@ -390,15 +396,21 @@ def skyline_reporterWhatNeighborhood(request, id=None):
 			# Save the new data to the database.
 			f = form.save(commit=False)
 			# pull object and check to see if it have a created_by field filled out
-			lookupObject = NYCReporterBuildings.objects.get(pk=f.pk)
-			# add user 
-			if lookupObject.created_by:
-				f.updated_by = request.user
-			else:
+			try:
+				lookupObject = NYCReporterBuildings.objects.get(pk=f.pk)
+				# add user 
+				if lookupObject.created_by:
+					f.updated_by = request.user
+				else:
+					f.created_by = request.user
+				# save form
+				f.save()
+			except NYCReporterBuildings.DoesNotExist:
 				f.created_by = request.user
+				# save form
+				f.save()
+				lookupObject = NYCReporterBuildings.objects.get(pk=f.pk)
 
-			# save form
-			f.save()
 			return HttpResponseRedirect(reverse('skyline_reporterBuildingHeight', args=(lookupObject.pk,)))
 		else:
 			# The supplied form contained errors - just print them to the terminal.

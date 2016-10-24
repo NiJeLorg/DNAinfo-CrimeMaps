@@ -198,14 +198,21 @@ def skyline_chi_sponsoredWhatNeighborhood(request, id=None):
 			# Save the new data to the database.
 			f = form.save(commit=False)
 			# pull object and check to see if it have a created_by field filled out
-			lookupObject = CHISponsoredBuildings.objects.get(pk=f.pk)
-			# add user 
-			if lookupObject.created_by:
-				f.updated_by = request.user
-			else:
+			try:
+				lookupObject = CHISponsoredBuildings.objects.get(pk=f.pk)
+				# add user 
+				if lookupObject.created_by:
+					f.updated_by = request.user
+				else:
+					f.created_by = request.user
+				# save form
+				f.save()
+			except CHISponsoredBuildings.DoesNotExist:
 				f.created_by = request.user
-			# save form
-			f.save()
+				# save form
+				f.save()
+				lookupObject = CHISponsoredBuildings.objects.get(pk=f.pk)
+
 			return HttpResponseRedirect(reverse('skyline_chi_sponsoredBuildingHeight', args=(lookupObject.pk,)))
 		else:
 			# The supplied form contained errors - just print them to the terminal.
@@ -385,14 +392,21 @@ def skyline_chi_reporterWhatNeighborhood(request, id=None):
 			# Save the new data to the database.
 			f = form.save(commit=False)
 			# pull object and check to see if it have a created_by field filled out
-			lookupObject = CHIReporterBuildings.objects.get(pk=f.pk)
-			# add user 
-			if lookupObject.created_by:
-				f.updated_by = request.user
-			else:
+			try:
+				lookupObject = CHIReporterBuildings.objects.get(pk=f.pk)
+				# add user 
+				if lookupObject.created_by:
+					f.updated_by = request.user
+				else:
+					f.created_by = request.user
+				# save form
+				f.save()
+			except CHIReporterBuildings.DoesNotExist:
 				f.created_by = request.user
-			# save form
-			f.save()
+				# save form
+				f.save()
+				lookupObject = CHIReporterBuildings.objects.get(pk=f.pk)
+
 			return HttpResponseRedirect(reverse('skyline_chi_reporterBuildingHeight', args=(lookupObject.pk,)))
 		else:
 			# The supplied form contained errors - just print them to the terminal.
