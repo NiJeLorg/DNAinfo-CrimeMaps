@@ -172,6 +172,7 @@ def skyline_UgcList(request):
 def skyline_UgcApprove(request, id=None):
 	obj = NYCskyline.objects.get(id=id)
 	obj.approved = True
+	obj.reviewed_by = request.user
 	obj.save()
 	return HttpResponseRedirect(reverse('skyline_UgcList'))
 
@@ -179,6 +180,7 @@ def skyline_UgcApprove(request, id=None):
 def skyline_UgcReject(request, id=None):
 	obj = NYCskyline.objects.get(id=id)
 	obj.approved = False
+	obj.reviewed_by = request.user
 	obj.save()
 	return HttpResponseRedirect(reverse('skyline_UgcList'))
 
@@ -197,11 +199,16 @@ def skyline_sponsoredWhatNeighborhood(request, id=None):
 		if form.is_valid():
 			# Save the new data to the database.
 			f = form.save(commit=False)
+			# pull object and check to see if it have a created_by field filled out
+			lookupObject = NYCSponsoredBuildings.objects.get(pk=f.pk)
 			# add user 
-			f.user = request.user
+			if lookupObject.created_by:
+				f.updated_by = request.user
+			else:
+				f.created_by = request.user
+
 			# save form
 			f.save()
-			lookupObject = NYCSponsoredBuildings.objects.get(pk=f.pk)
 			return HttpResponseRedirect(reverse('skyline_sponsoredBuildingHeight', args=(lookupObject.pk,)))
 		else:
 			# The supplied form contained errors - just print them to the terminal.
@@ -228,8 +235,17 @@ def skyline_sponsoredBuildingHeight(request, id=None):
 		# Have we been provided with a valid form?
 		if form.is_valid():
 			# Save the new data to the database.
-			f = form.save()
+			f = form.save(commit=False)
+			# pull object and check to see if it have a created_by field filled out
 			lookupObject = NYCSponsoredBuildings.objects.get(pk=f.pk)
+			# add user 
+			if lookupObject.created_by:
+				f.updated_by = request.user
+			else:
+				f.created_by = request.user
+
+			# save form
+			f.save()
 			return HttpResponseRedirect(reverse('skyline_sponsoredExactLocation', args=(lookupObject.pk,)))
 		else:
 			# The supplied form contained errors - just print them to the terminal.
@@ -256,8 +272,17 @@ def skyline_sponsoredExactLocation(request, id=None):
 		# Have we been provided with a valid form?
 		if form.is_valid():
 			# Save the new data to the database.
-			f = form.save()
+			f = form.save(commit=False)
+			# pull object and check to see if it have a created_by field filled out
 			lookupObject = NYCSponsoredBuildings.objects.get(pk=f.pk)
+			# add user 
+			if lookupObject.created_by:
+				f.updated_by = request.user
+			else:
+				f.created_by = request.user
+
+			# save form
+			f.save()
 			return HttpResponseRedirect(reverse('skyline_sponsoredEnd', args=(lookupObject.pk,)))
 		else:
 			# The supplied form contained errors - just print them to the terminal.
@@ -278,7 +303,7 @@ def skyline_sponsoredGetGeojson(request, id=None):
 
 def skyline_getSponsoredGeojsons(request, id=None):
 
-	NYCSponsoredBuildingsObjects = NYCSponsoredBuildings.objects.all()
+	NYCSponsoredBuildingsObjects = NYCSponsoredBuildings.objects.exclude(archived=True).exclude(buildingStories__exact = 0).exclude(buildingFootprint__in = ['', '-99'])
 	geojsons = []
 
 	for obj in NYCSponsoredBuildingsObjects:
@@ -309,7 +334,7 @@ def skyline_sponsoredEnd(request, id=None):
 
 @login_required
 def skyline_sponsoredList(request, id=None):
-	NYCSponsoredBuildingsObjects = NYCSponsoredBuildings.objects.all()
+	NYCSponsoredBuildingsObjects = NYCSponsoredBuildings.objects.exclude(archived=True)
 
 	paginator = Paginator(NYCSponsoredBuildingsObjects, 10) # Show 10 buildings per page
 	page = request.GET.get('page')
@@ -334,8 +359,10 @@ def skyline_sponsoredRemove(request, id=None):
 
 		# Have we been provided with a valid form?
 		if form.is_valid():
-			#delete this sponsored content
-			NYCSponsoredBuildingsObject.delete()
+			#archive this sponsored content
+			NYCSponsoredBuildingsObject.archived = True
+			NYCSponsoredBuildingsObject.updated_by = request.user
+			NYCSponsoredBuildingsObject.save()
 			return HttpResponseRedirect(reverse('skyline_sponsoredList'))
 		else:
 			# The supplied form contained errors - just print them to the terminal.
@@ -362,11 +389,16 @@ def skyline_reporterWhatNeighborhood(request, id=None):
 		if form.is_valid():
 			# Save the new data to the database.
 			f = form.save(commit=False)
+			# pull object and check to see if it have a created_by field filled out
+			lookupObject = NYCReporterBuildings.objects.get(pk=f.pk)
 			# add user 
-			f.user = request.user
+			if lookupObject.created_by:
+				f.updated_by = request.user
+			else:
+				f.created_by = request.user
+
 			# save form
 			f.save()
-			lookupObject = NYCReporterBuildings.objects.get(pk=f.pk)
 			return HttpResponseRedirect(reverse('skyline_reporterBuildingHeight', args=(lookupObject.pk,)))
 		else:
 			# The supplied form contained errors - just print them to the terminal.
@@ -393,8 +425,17 @@ def skyline_reporterBuildingHeight(request, id=None):
 		# Have we been provided with a valid form?
 		if form.is_valid():
 			# Save the new data to the database.
-			f = form.save()
+			f = form.save(commit=False)
+			# pull object and check to see if it have a created_by field filled out
 			lookupObject = NYCReporterBuildings.objects.get(pk=f.pk)
+			# add user 
+			if lookupObject.created_by:
+				f.updated_by = request.user
+			else:
+				f.created_by = request.user
+
+			# save form
+			f.save()
 			return HttpResponseRedirect(reverse('skyline_reporterExactLocation', args=(lookupObject.pk,)))
 		else:
 			# The supplied form contained errors - just print them to the terminal.
@@ -421,8 +462,17 @@ def skyline_reporterExactLocation(request, id=None):
 		# Have we been provided with a valid form?
 		if form.is_valid():
 			# Save the new data to the database.
-			f = form.save()
+			f = form.save(commit=False)
+			# pull object and check to see if it have a created_by field filled out
 			lookupObject = NYCReporterBuildings.objects.get(pk=f.pk)
+			# add user 
+			if lookupObject.created_by:
+				f.updated_by = request.user
+			else:
+				f.created_by = request.user
+
+			# save form
+			f.save()
 			return HttpResponseRedirect(reverse('skyline_reporterEnd', args=(lookupObject.pk,)))
 		else:
 			# The supplied form contained errors - just print them to the terminal.
@@ -443,7 +493,7 @@ def skyline_reporterGetGeojson(request, id=None):
 
 def skyline_getReporterGeojsons(request, id=None):
 
-	NYCReporterBuildingsObjects = NYCReporterBuildings.objects.all()
+	NYCReporterBuildingsObjects = NYCReporterBuildings.objects.exclude(archived=True).exclude(buildingStories__exact = 0).exclude(buildingFootprint__in = ['', '-99'])
 	geojsons = []
 
 	for obj in NYCReporterBuildingsObjects:
@@ -460,7 +510,7 @@ def skyline_reporterEnd(request, id=None):
 
 @login_required
 def skyline_reporterList(request, id=None):
-	NYCReporterBuildingsObjects = NYCReporterBuildings.objects.all()
+	NYCReporterBuildingsObjects = NYCReporterBuildings.objects.exclude(archived=True)
 
 	paginator = Paginator(NYCReporterBuildingsObjects, 10) # Show 10 buildings per page
 	page = request.GET.get('page')
@@ -485,8 +535,10 @@ def skyline_reporterRemove(request, id=None):
 
 		# Have we been provided with a valid form?
 		if form.is_valid():
-			#delete this sponsored content
-			NYCReporterBuildingsObject.delete()
+			#archive this building
+			NYCReporterBuildingsObject.archived = True
+			NYCReporterBuildingsObject.updated_by = request.user
+			NYCReporterBuildingsObject.save()
 			return HttpResponseRedirect(reverse('skyline_reporterList'))
 		else:
 			# The supplied form contained errors - just print them to the terminal.
@@ -594,11 +646,15 @@ def skyline_permittedBuildingHeight(request, id=None):
 		if form.is_valid():
 			# Save the new data to the database.
 			f = form.save(commit=False)
+			# pull object and check to see if it have a created_by field filled out
+			lookupObject = NYC_DOB_Permit_Issuance.objects.get(pk=f.pk)
 			# add user 
-			f.user = request.user
+			if lookupObject.created_by:
+				f.updated_by = request.user
+			else:
+				f.created_by = request.user
 			# save form
 			f.save()
-			lookupObject = NYC_DOB_Permit_Issuance.objects.get(pk=f.pk)
 			return HttpResponseRedirect(reverse('skyline_viewAll', args=(lookupObject.whereBuilding.id,)))
 		else:
 			# The supplied form contained errors - just print them to the terminal.

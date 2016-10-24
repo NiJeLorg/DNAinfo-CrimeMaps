@@ -36,7 +36,12 @@
                     {{ obj.buildingAddress }}<br />
                     {{ obj.whereBuilding.name }}<br />
                     {{ obj.buildingStories }} stor{{ obj.buildingStories|pluralize:"y,ies" }}<br />
-                    Added by {{ obj.user }} (<a href="mailto:{{ obj.user.email }}">{{ obj.user.email }}</a>)<br />
+                    {% if obj.created_by %}
+                        Created by {{ obj.created_by }} (<a href="mailto:{{ obj.created_by.email }}">{{ obj.created_by.email }}</a>) on {{ obj.created|date:"M d, Y"}}<br />
+                    {% endif %}
+                    {% if obj.updated_by %}
+                        Updated by {{ obj.updated_by }} (<a href="mailto:{{ obj.updated_by.email }}">{{ obj.updated_by.email }}</a>)  on {{ obj.updated|date:"M d, Y"}}<br />
+                    {% endif %}    
                 </p>
                 <a class="btn btn-primary marginRight10" href="{% url 'skyline_reporterBuildingHeight' id=obj.id %}" role="button">Edit</a>
                 <a class="btn btn-danger marginRight10" href="{% url 'skyline_reporterRemove' id=obj.id %}" role="button">Remove</a>

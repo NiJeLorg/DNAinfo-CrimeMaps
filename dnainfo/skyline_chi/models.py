@@ -21,11 +21,14 @@ class CHIskyline(models.Model):
 	buildingPIN = models.CharField(max_length=255, default='', blank=False, null=False)
 	buildingStories = models.IntegerField(default=0, blank=False, null=False)
 	approved = models.NullBooleanField(default=None)
+	reviewed_by = models.ForeignKey(User, blank=True, null=True)
+
 
 class CHISponsoredBuildings(models.Model):
 	created = models.DateTimeField(auto_now_add=True)
 	updated = models.DateTimeField(auto_now=True)
-	user = models.ForeignKey(User)
+	created_by = models.ForeignKey(User, blank=True, null=True, related_name="chi_sponsored_created_by")
+	updated_by = models.ForeignKey(User, blank=True, null=True, related_name="chi_sponsored_updated_by")
 	whereBuilding = models.ForeignKey(neighborhoodCHI, blank=True, null=True)
 	buildingFootprint = models.TextField(default='')
 	buildingName = models.CharField(max_length=255, default='', blank=False, null=False)
@@ -33,11 +36,13 @@ class CHISponsoredBuildings(models.Model):
 	buildingText = models.CharField(max_length=255, default='', blank=False, null=False)
 	buildingStories = models.IntegerField(default=0, blank=False, null=False)
 	buildingImage = models.ImageField(upload_to="img/%Y_%m_%d_%h_%M_%s", null=False, blank=False)
+	archived = models.BooleanField(default=False)
 
 class CHIReporterBuildings(models.Model):
 	created = models.DateTimeField(auto_now_add=True)
 	updated = models.DateTimeField(auto_now=True)
-	user = models.ForeignKey(User)
+	created_by = models.ForeignKey(User, blank=True, null=True, related_name="chi_reporter_created_by")
+	updated_by = models.ForeignKey(User, blank=True, null=True, related_name="chi_reporter_updated_by")
 	whereBuilding = models.ForeignKey(neighborhoodCHI, blank=True, null=True)
 	buildingFootprint = models.TextField(default='')
 	buildingAddress = models.CharField(max_length=255, default='', blank=False, null=False)
@@ -50,12 +55,13 @@ class CHIReporterBuildings(models.Model):
 	projectName = models.CharField(max_length=255, default='', blank=True, null=True)
 	buildingImage = models.ImageField(upload_to="img/%Y_%m_%d_%h_%M_%s", null=True, blank=True)
 	buildingZip = models.CharField(max_length=255, default='', blank=True, null=True)
-
+	archived = models.BooleanField(default=False)
 
 class CHI_Building_Permits(models.Model):
 	created = models.DateTimeField(auto_now_add=True)
 	updated = models.DateTimeField(auto_now=True)
-	user = models.ForeignKey(User, blank=True, null=True)
+	created_by = models.ForeignKey(User, blank=True, null=True, related_name="chi_permitted_created_by")
+	updated_by = models.ForeignKey(User, blank=True, null=True, related_name="chi_permitted_updated_by")
 	whereBuilding = models.ForeignKey(neighborhoodCHI, blank=True, null=True)	
 	ID = models.IntegerField(primary_key=True)
 	permit = models.CharField(max_length=255, default='', blank=False, null=False)
@@ -77,5 +83,4 @@ class CHI_Building_Permits(models.Model):
 	buildingImage = models.ImageField(upload_to="img/%Y_%m_%d_%h_%M_%s", null=True, blank=True)
 	buildingAddress = models.CharField(max_length=255, default='', blank=False, null=False)
 	description = models.CharField(max_length=200, default='', blank=True, null=True)
-
-
+	archived = models.BooleanField(default=False)

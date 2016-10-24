@@ -197,11 +197,15 @@ def skyline_chi_sponsoredWhatNeighborhood(request, id=None):
 		if form.is_valid():
 			# Save the new data to the database.
 			f = form.save(commit=False)
+			# pull object and check to see if it have a created_by field filled out
+			lookupObject = CHISponsoredBuildings.objects.get(pk=f.pk)
 			# add user 
-			f.user = request.user
+			if lookupObject.created_by:
+				f.updated_by = request.user
+			else:
+				f.created_by = request.user
 			# save form
 			f.save()
-			lookupObject = CHISponsoredBuildings.objects.get(pk=f.pk)
 			return HttpResponseRedirect(reverse('skyline_chi_sponsoredBuildingHeight', args=(lookupObject.pk,)))
 		else:
 			# The supplied form contained errors - just print them to the terminal.
@@ -228,8 +232,16 @@ def skyline_chi_sponsoredBuildingHeight(request, id=None):
 		# Have we been provided with a valid form?
 		if form.is_valid():
 			# Save the new data to the database.
-			f = form.save()
+			f = form.save(commit=False)
+			# pull object and check to see if it have a created_by field filled out
 			lookupObject = CHISponsoredBuildings.objects.get(pk=f.pk)
+			# add user 
+			if lookupObject.created_by:
+				f.updated_by = request.user
+			else:
+				f.created_by = request.user
+			# save form
+			f.save()
 			return HttpResponseRedirect(reverse('skyline_chi_sponsoredExactLocation', args=(lookupObject.pk,)))
 		else:
 			# The supplied form contained errors - just print them to the terminal.
@@ -256,8 +268,16 @@ def skyline_chi_sponsoredExactLocation(request, id=None):
 		# Have we been provided with a valid form?
 		if form.is_valid():
 			# Save the new data to the database.
-			f = form.save()
+			f = form.save(commit=False)
+			# pull object and check to see if it have a created_by field filled out
 			lookupObject = CHISponsoredBuildings.objects.get(pk=f.pk)
+			# add user 
+			if lookupObject.created_by:
+				f.updated_by = request.user
+			else:
+				f.created_by = request.user
+			# save form
+			f.save()
 			return HttpResponseRedirect(reverse('skyline_chi_sponsoredEnd', args=(lookupObject.pk,)))
 		else:
 			# The supplied form contained errors - just print them to the terminal.
@@ -278,7 +298,7 @@ def skyline_chi_sponsoredGetGeojson(request, id=None):
 
 def skyline_chi_getSponsoredGeojsons(request, id=None):
 
-	CHISponsoredBuildingsObjects = CHISponsoredBuildings.objects.all().exclude(buildingStories__exact = 0).exclude(buildingFootprint__in = ['', '-99'])
+	CHISponsoredBuildingsObjects = CHISponsoredBuildings.objects.exclude(archived=True).exclude(buildingStories__exact = 0).exclude(buildingFootprint__in = ['', '-99'])
 	geojsons = []
 
 	for obj in CHISponsoredBuildingsObjects:
@@ -309,7 +329,7 @@ def skyline_chi_sponsoredEnd(request, id=None):
 
 @login_required
 def skyline_chi_sponsoredList(request, id=None):
-	CHISponsoredBuildingsObjects = CHISponsoredBuildings.objects.all()
+	CHISponsoredBuildingsObjects = CHISponsoredBuildings.objects.exclude(archived=True)
 
 	paginator = Paginator(CHISponsoredBuildingsObjects, 10) # Show 10 buildings per page
 	page = request.GET.get('page')
@@ -334,8 +354,10 @@ def skyline_chi_sponsoredRemove(request, id=None):
 
 		# Have we been provided with a valid form?
 		if form.is_valid():
-			#delete this sponsored content
-			CHISponsoredBuildingsObject.delete()
+			#archive this building
+			CHISponsoredBuildingsObject.archived = True
+			CHISponsoredBuildingsObject.updated_by = request.user
+			CHISponsoredBuildingsObject.save()
 			return HttpResponseRedirect(reverse('skyline_chi_sponsoredList'))
 		else:
 			# The supplied form contained errors - just print them to the terminal.
@@ -362,11 +384,15 @@ def skyline_chi_reporterWhatNeighborhood(request, id=None):
 		if form.is_valid():
 			# Save the new data to the database.
 			f = form.save(commit=False)
+			# pull object and check to see if it have a created_by field filled out
+			lookupObject = CHIReporterBuildings.objects.get(pk=f.pk)
 			# add user 
-			f.user = request.user
+			if lookupObject.created_by:
+				f.updated_by = request.user
+			else:
+				f.created_by = request.user
 			# save form
 			f.save()
-			lookupObject = CHIReporterBuildings.objects.get(pk=f.pk)
 			return HttpResponseRedirect(reverse('skyline_chi_reporterBuildingHeight', args=(lookupObject.pk,)))
 		else:
 			# The supplied form contained errors - just print them to the terminal.
@@ -393,8 +419,16 @@ def skyline_chi_reporterBuildingHeight(request, id=None):
 		# Have we been provided with a valid form?
 		if form.is_valid():
 			# Save the new data to the database.
-			f = form.save()
+			f = form.save(commit=False)
+			# pull object and check to see if it have a created_by field filled out
 			lookupObject = CHIReporterBuildings.objects.get(pk=f.pk)
+			# add user 
+			if lookupObject.created_by:
+				f.updated_by = request.user
+			else:
+				f.created_by = request.user
+			# save form
+			f.save()
 			return HttpResponseRedirect(reverse('skyline_chi_reporterExactLocation', args=(lookupObject.pk,)))
 		else:
 			# The supplied form contained errors - just print them to the terminal.
@@ -421,8 +455,16 @@ def skyline_chi_reporterExactLocation(request, id=None):
 		# Have we been provided with a valid form?
 		if form.is_valid():
 			# Save the new data to the database.
-			f = form.save()
+			f = form.save(commit=False)
+			# pull object and check to see if it have a created_by field filled out
 			lookupObject = CHIReporterBuildings.objects.get(pk=f.pk)
+			# add user 
+			if lookupObject.created_by:
+				f.updated_by = request.user
+			else:
+				f.created_by = request.user
+			# save form
+			f.save()
 			return HttpResponseRedirect(reverse('skyline_chi_reporterEnd', args=(lookupObject.pk,)))
 		else:
 			# The supplied form contained errors - just print them to the terminal.
@@ -443,7 +485,7 @@ def skyline_chi_reporterGetGeojson(request, id=None):
 
 def skyline_chi_getReporterGeojsons(request, id=None):
 
-	CHIReporterBuildingsObjects = CHIReporterBuildings.objects.all().exclude(buildingStories__exact = 0).exclude(buildingFootprint__in = ['', '-99'])
+	CHIReporterBuildingsObjects = CHIReporterBuildings.objects.exclude(archived=True).exclude(buildingStories__exact = 0).exclude(buildingFootprint__in = ['', '-99'])
 	geojsons = []
 
 	for obj in CHIReporterBuildingsObjects:
@@ -460,7 +502,7 @@ def skyline_chi_reporterEnd(request, id=None):
 
 @login_required
 def skyline_chi_reporterList(request, id=None):
-	CHIReporterBuildingsObjects = CHIReporterBuildings.objects.all()
+	CHIReporterBuildingsObjects = CHIReporterBuildings.objects.exclude(archived=True)
 
 	paginator = Paginator(CHIReporterBuildingsObjects, 10) # Show 10 buildings per page
 	page = request.GET.get('page')
@@ -485,8 +527,10 @@ def skyline_chi_reporterRemove(request, id=None):
 
 		# Have we been provided with a valid form?
 		if form.is_valid():
-			#delete this sponsored content
-			CHIReporterBuildingsObject.delete()
+			#archive this building
+			CHIReporterBuildingsObject.archived = True
+			CHIReporterBuildingsObject.updated_by = request.user
+			CHIReporterBuildingsObject.save()
 			return HttpResponseRedirect(reverse('skyline_chi_reporterList'))
 		else:
 			# The supplied form contained errors - just print them to the terminal.
@@ -596,11 +640,15 @@ def skyline_chi_permittedBuildingHeight(request, id=None):
 		if form.is_valid():
 			# Save the new data to the database.
 			f = form.save(commit=False)
+			# pull object and check to see if it have a created_by field filled out
+			lookupObject = CHI_Building_Permits.objects.get(pk=f.pk)
 			# add user 
-			f.user = request.user
+			if lookupObject.created_by:
+				f.updated_by = request.user
+			else:
+				f.created_by = request.user
 			# save form
 			f.save()
-			lookupObject = CHI_Building_Permits.objects.get(pk=f.pk)
 			return HttpResponseRedirect(reverse('skyline_chi_viewAll', args=(lookupObject.whereBuilding.id,)))
 		else:
 			# The supplied form contained errors - just print them to the terminal.
