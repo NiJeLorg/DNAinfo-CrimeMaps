@@ -336,7 +336,7 @@ def skyline_chi_sponsoredEnd(request, id=None):
 
 @login_required
 def skyline_chi_sponsoredList(request, id=None):
-	CHISponsoredBuildingsObjects = CHISponsoredBuildings.objects.exclude(archived=True)
+	CHISponsoredBuildingsObjects = CHISponsoredBuildings.objects.exclude(archived=True).order_by('-updated_by', 'buildingName')
 
 	paginator = Paginator(CHISponsoredBuildingsObjects, 10) # Show 10 buildings per page
 	page = request.GET.get('page')
@@ -516,7 +516,7 @@ def skyline_chi_reporterEnd(request, id=None):
 
 @login_required
 def skyline_chi_reporterList(request, id=None):
-	CHIReporterBuildingsObjects = CHIReporterBuildings.objects.exclude(archived=True)
+	CHIReporterBuildingsObjects = CHIReporterBuildings.objects.exclude(archived=True).order_by('-updated_by', 'projectName')
 
 	paginator = Paginator(CHIReporterBuildingsObjects, 10) # Show 10 buildings per page
 	page = request.GET.get('page')

@@ -340,7 +340,7 @@ def skyline_sponsoredEnd(request, id=None):
 
 @login_required
 def skyline_sponsoredList(request, id=None):
-	NYCSponsoredBuildingsObjects = NYCSponsoredBuildings.objects.exclude(archived=True)
+	NYCSponsoredBuildingsObjects = NYCSponsoredBuildings.objects.exclude(archived=True).order_by('-updated_by', 'buildingName')
 
 	paginator = Paginator(NYCSponsoredBuildingsObjects, 10) # Show 10 buildings per page
 	page = request.GET.get('page')
@@ -522,7 +522,7 @@ def skyline_reporterEnd(request, id=None):
 
 @login_required
 def skyline_reporterList(request, id=None):
-	NYCReporterBuildingsObjects = NYCReporterBuildings.objects.exclude(archived=True)
+	NYCReporterBuildingsObjects = NYCReporterBuildings.objects.exclude(archived=True).order_by('-updated_by', 'projectName')
 
 	paginator = Paginator(NYCReporterBuildingsObjects, 10) # Show 10 buildings per page
 	page = request.GET.get('page')
