@@ -171,8 +171,8 @@ osmApplication.initialize = function () {
 		    	}
 		    	// links for editing
 
-		    	// edit link /skyline/admin/nyc/permitted/buildingHeight/ID/
-			    var editHref = '/skyline/admin/nyc/permitted/buildingHeight/' + properties.objectID + '/';
+		    	// edit link /skyline/admin/chi/permitted/buildingHeight/ID/
+			    var editHref = '/skyline/admin/chi/permitted/buildingHeight/' + properties.objectID + '/';
 			    $('#property-edit-permitted').prop('href', editHref);
 
  				$('#tooltipPermitted').removeClass('hidden');
