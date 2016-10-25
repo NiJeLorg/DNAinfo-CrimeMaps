@@ -111,7 +111,7 @@ class Command(BaseCommand):
                 html_message = 'Problem ID #: ' + d['id']
                 message = 'Problem ID #: ' + d['id']
 
-                send_mail(subject, message, 'dnainfovisualizations@gmail.com', ['jd@nijel.org'], fail_silently=True, html_message=html_message)
+                #send_mail(subject, message, 'dnainfovisualizations@gmail.com', ['jd@nijel.org'], fail_silently=True, html_message=html_message)
 
 
     def handle(self, *args, **options):

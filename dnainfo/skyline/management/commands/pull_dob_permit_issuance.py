@@ -87,7 +87,7 @@ class Command(BaseCommand):
                 html_message = 'Problem Job #: ' + d['job__']
                 message = 'Problem Job #: ' + d['job__']
 
-                send_mail(subject, message, 'dnainfovisualizations@gmail.com', ['jd@nijel.org'], fail_silently=True, html_message=html_message)
+                #send_mail(subject, message, 'dnainfovisualizations@gmail.com', ['jd@nijel.org'], fail_silently=True, html_message=html_message)
 
 
     def handle(self, *args, **options):
