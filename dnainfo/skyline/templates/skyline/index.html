@@ -1,23 +1,19 @@
-{% extends 'skyline/baseNYC.html' %}
-{% load staticfiles %}
-{% load bootstrap_tags %}
-
-{% block title %}Future Skyline | DNAinfo{% endblock %}
-
-{% block css_block %}
+{% extends 'skyline/baseNYC.html' %} {% load staticfiles %} {% load bootstrap_tags %} {% block title %}Future Skyline | DNAinfo{% endblock %} {% block css_block %}
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="{% static 'skyline/css/select2.min.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'skyline/css/all-bootstrapped.min.css' %}">
-{% endblock %}
-
-{% block head_js_block %}
+<link rel="stylesheet" type="text/css" href="{% static 'skyline/css/all-bootstrapped.min.css' %}"> {% endblock %} {% block head_js_block %}
 <script type="text/javascript" src="{% static 'skyline/js/landing-page.js' %}"></script>
-{% endblock %}
-  
-{% block body_block %}
+{% endblock %} {% block body_block %}
 <div id="content" class="fadein">
-  <div class="container-fluid">
-    <form id="whatNeighborhoodForm" method="post" action=".">
+    <div class="container-fluid">
+        <div class="banner">
+            <h2>Title</h2>
+            <h5>Sponsored by [vendor]</h5>
+            <p>Every new building affects the character of a neighborhood, so DNAinfo created this
+                <br> 3D map that helps you understand how high new buildings could be going up near you.
+            </p>
+        </div>
+        <!-- <form id="whatNeighborhoodForm" method="post" action=".">
       {% csrf_token %}
       <div class="row">
         <div class="col-sm-8 col-sm-offset-2">
@@ -28,33 +24,29 @@
               <div class="input-group-addon"></div>
             </div>
             <p class="text-danger hidden">Please pick a neighborhood above to continue.</p>
-            {{ form.errors }}                    
+            {{ form.errors }}
           </div>
         </div>
       </div>
-    </form>
-  </div>    
-</div>
-{% endblock %}
-
-{% block modal_block %}   
-  <div class="modal fade" id="methodology" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class="xIcon"></span></button>
-        </div>
-        <div class="modal-body modalContent">
-          <p>
-            DNAinfo uses MapPluto 16v1 (<a href="http://www1.nyc.gov/site/planning/data-maps/open-data/dwn-pluto-mappluto.page" target="_blank">MapPluto</a>) for the underlying geography of each parcel across New York City. MapPluto combines NYC Department of Planning's tax lot data from PLUTO with data from the NYC Department of Finance's Digital Tax Map. These data are from April 2016. We calculate buidling heights with a formula derived from the <a href="http://www.ctbuh.org/HighRiseInfo/TallestDatabase/Criteria/HeightCalculator/tabid/1007/language/en-GB/Default.aspx" target="_blank">Council on Tall Buildings and Urban Habitat</a>.
-          </p>
-        </div>
-      </div>
+    </form> -->
     </div>
-  </div>
-{% endblock %}
-
-{% block js_block %}
+</div>
+{% endblock %} {% block modal_block %}
+<div class="modal fade" id="methodology" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class="xIcon"></span></button>
+            </div>
+            <div class="modal-body modalContent">
+                <p>
+                    DNAinfo uses MapPluto 16v1 (<a href="http://www1.nyc.gov/site/planning/data-maps/open-data/dwn-pluto-mappluto.page" target="_blank">MapPluto</a>) for the underlying geography of each parcel across New York City. MapPluto combines NYC Department of Planning's tax lot data from PLUTO with data from the NYC Department of Finance's Digital Tax Map. These data are from April 2016. We calculate buidling heights with a formula derived from the <a href="http://www.ctbuh.org/HighRiseInfo/TallestDatabase/Criteria/HeightCalculator/tabid/1007/language/en-GB/Default.aspx" target="_blank">Council on Tall Buildings and Urban Habitat</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} {% block js_block %}
 <script type="text/javascript" src="{% static 'skyline/js/select2.js' %}"></script>
 <script type="text/javascript" src="{% static 'django_select2/django_select2.js' %}"></script>
 {% endblock %}

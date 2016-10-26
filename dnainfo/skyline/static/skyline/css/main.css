@@ -13,30 +13,30 @@ html, body, #content, #map, #osmmap {
 }
 
 /* reporter and UGC building mini maps */
-.minimap { 
-  height: 180px; 
+.minimap {
+  height: 180px;
   border: 1px solid #aaa;
 }
 
 /* full screen background image */
-#background, #background li { 
-  position: absolute; 
-  top: 0; 
-  left: 0; 
-  right: 0; 
-  bottom: 0; 
+#background, #background li {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   opacity: 1;
   background: url('images/FUTURE_SKYLINE_ILLUS_SMALL.svg');
-  background-color: transparent; 
-  background-size: cover; 
-  background-position: center bottom; 
-  background-repeat: no-repeat; 
+  background-color: transparent;
+  background-size: cover;
+  background-position: center bottom;
+  background-repeat: no-repeat;
 }
 
-#background { 
+#background {
   z-index: -1;
-  margin: 0; 
-  padding: 0; 
+  margin: 0;
+  padding: 0;
 }
 
 /* Main container should have 25px right and left padding */
@@ -101,7 +101,7 @@ html, body, #content, #map, #osmmap {
   font-size: 32px;
   font-weight: 200;
   line-height: 1.42;
-  background: rgb(242, 242, 242); 
+  background: rgb(242, 242, 242);
   background: rgba(242, 242, 242, .9);
 
 }
@@ -121,12 +121,12 @@ html, body, #content, #map, #osmmap {
   font-weight: 200;
   line-height: 1.3125;
   margin-top: 30px;
-  margin-bottom: 18px;  
+  margin-bottom: 18px;
 }
 
 .highlightBackground {
-  background: rgb(242, 242, 242); 
-  background: rgba(242, 242, 242, .9);  
+  background: rgb(242, 242, 242);
+  background: rgba(242, 242, 242, .9);
 }
 
 
@@ -135,7 +135,7 @@ html, body, #content, #map, #osmmap {
   font-size: 14px;
   font-weight: 200;
   margin-top: 30px;
-  margin-bottom: 65px;  
+  margin-bottom: 65px;
 }
 
 .monthlyRentText {
@@ -143,7 +143,7 @@ html, body, #content, #map, #osmmap {
   font-size: 17px;
   line-height: 1.5294;
   font-weight: 200;
-  margin-bottom: 20px;    
+  margin-bottom: 20px;
 }
 
 
@@ -197,7 +197,7 @@ html, body, #content, #map, #osmmap {
 }
 
 .bottomButtonGroupMap {
-  position: relative; 
+  position: relative;
   bottom: 175px;
 }
 
@@ -380,7 +380,7 @@ fieldset[disabled] .btn-dna-twitter.active {
   z-index: 1000;
   height: auto;
   width: auto;
-  padding: 1px 5px; 
+  padding: 1px 5px;
 }
 
 /* share text in button */
@@ -406,7 +406,7 @@ fieldset[disabled] .btn-dna-twitter.active {
     top: 19px;
     width: 15px;
     height: 12px;
-    margin-left: 10px; 
+    margin-left: 10px;
     background: url('images/Arrow_ICON_NEXT.svg');
     background-color: transparent;
     background-position: left center;
@@ -485,7 +485,7 @@ fieldset[disabled] .btn-dna-twitter.active {
     background: url('images/Stepper_Minus_ICON2.svg');
     background-color: transparent;
     background-position: left center;
-    background-repeat: no-repeat; 
+    background-repeat: no-repeat;
 }
 
 .plusStepper {
@@ -524,7 +524,7 @@ fieldset[disabled] .btn-dna-twitter.active {
     background: url('images/Stepper_Plus_ICON2.svg');
     background-color: transparent;
     background-position: left center;
-    background-repeat: no-repeat;  
+    background-repeat: no-repeat;
 }
 
 
@@ -671,7 +671,7 @@ fieldset[disabled] .btn-dna-twitter.active {
   font-size: 16px;
   height: 45px !important;
   border-top-right-radius: 4px !important;
-  border-bottom-right-radius: 4px !important; 
+  border-bottom-right-radius: 4px !important;
 }
 
 .select2-container--default .select2-selection--single {
@@ -682,7 +682,7 @@ fieldset[disabled] .btn-dna-twitter.active {
 
 .select2-choice {
   border-top-right-radius: 4px;
-  border-bottom-right-radius: 4px;  
+  border-bottom-right-radius: 4px;
 }
 
 .select2-search {
@@ -695,7 +695,7 @@ fieldset[disabled] .btn-dna-twitter.active {
   padding-left: 10px !important;
   font-family: inherit;
   font-size: inherit;
-  border: 0px !important; 
+  border: 0px !important;
   background-color: #eeeeee !important;
   background-image: none !important;
   -webkit-box-shadow: none;
@@ -704,13 +704,13 @@ fieldset[disabled] .btn-dna-twitter.active {
   -o-transition: none;
   transition: none;
   border-top-right-radius: 4px;
-  border-bottom-right-radius: 4px;  
+  border-bottom-right-radius: 4px;
 }
 
 .select2-drop {
   font-size: 16px;
   margin-top: -45px;
-  -webkit-box-shadow: none; 
+  -webkit-box-shadow: none;
   box-shadow: none;
 }
 
@@ -725,12 +725,12 @@ fieldset[disabled] .btn-dna-twitter.active {
   max-height: 135px !important;
 }
 
-.select2-results__options::-webkit-scrollbar { 
-    display: none; 
+.select2-results__options::-webkit-scrollbar {
+    display: none;
 }
 
-.select2-results::-webkit-scrollbar { 
-    display: none; 
+.select2-results::-webkit-scrollbar {
+    display: none;
 }
 
 .select2-container--default .select2-results__option--highlighted[aria-selected] {
@@ -769,7 +769,7 @@ fieldset[disabled] .btn-dna-twitter.active {
 }
 
 .select2-container .select2-selection__rendered {
-  font-size: 16px;  
+  font-size: 16px;
   height: 45px;
   padding: 9px 0 0 10px;
   border: 0px;
@@ -823,7 +823,7 @@ fieldset[disabled] .btn-dna-twitter.active {
   top: 0;
   bottom: 0;
   left: 0;
-  right: 0; 
+  right: 0;
 }
 
 /* OSM Buildings Map CSS */
@@ -958,10 +958,10 @@ canvas {
 
 
 /* remove spinners */
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
-  -webkit-appearance: none; 
-  margin: 0; 
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 input[type=number] {
@@ -973,8 +973,8 @@ input[type=number] {
 input[type="radio"] {
     display:none;
 }
-input[type="radio"] + label {   
-    cursor: pointer; 
+input[type="radio"] + label {
+    cursor: pointer;
     font-family:"Titillium Web", Helvetica, Sans-Serif;
     color: #686868;
     font-size: 18px;
@@ -1048,10 +1048,10 @@ input[type="radio"]:checked + label span {
     width: 80%;
   }
   .col-sm-7 {
-    width: 75%;    
+    width: 75%;
   }
   .col-sm-1 {
-    width: 5%;        
+    width: 5%;
   }
   .col-sm-offset-2 {
     margin-left: 10%;
@@ -1067,18 +1067,18 @@ input[type="radio"]:checked + label span {
   }
 
   .forwardArrow {
-      left: 88px; 
+      left: 88px;
       margin-left: 0px;
   }
 
-  #background, #background li { 
+  #background, #background li {
     background: url('images/FUTURE_SKYLINE_ILLUS_TALL.svg');
-    background-color: transparent; 
-    background-size: cover; 
-    background-position: center bottom; 
-    background-repeat: no-repeat; 
-  } 
-   
+    background-color: transparent;
+    background-size: cover;
+    background-position: center bottom;
+    background-repeat: no-repeat;
+  }
+
   .introHeading {
     font-size: 26px;
     line-height: 1.5;
@@ -1117,7 +1117,7 @@ input[type="radio"]:checked + label span {
     font-size: 57px;
     line-height: 1.42;
     margin-left: 0px;
-    background: rgb(242, 242, 242); 
+    background: rgb(242, 242, 242);
     background: rgba(242, 242, 242, .9);
   }
 
@@ -1159,13 +1159,13 @@ input[type="radio"]:checked + label span {
 
 @media (min-width: 1200px) {
 
-  #background, #background li { 
+  #background, #background li {
     background: url('images/FUTURE_SKYLINE_ILLUS_FULL.svg');
-    background-color: transparent; 
-    background-size: cover; 
-    background-position: center bottom; 
-    background-repeat: no-repeat; 
-  } 
+    background-color: transparent;
+    background-size: cover;
+    background-position: center bottom;
+    background-repeat: no-repeat;
+  }
 
   .introHeading {
     font-size: 26px;
@@ -1199,7 +1199,7 @@ input[type="radio"]:checked + label span {
     font-size: 57px;
     font-weight: 200;
     line-height: 1.42;
-    background: rgb(242, 242, 242); 
+    background: rgb(242, 242, 242);
     background: rgba(242, 242, 242, .9);
   }
 
@@ -1212,6 +1212,21 @@ input[type="radio"]:checked + label span {
     line-height: 1.228;
     margin-top: 75px;
     margin-bottom: 18px;
+  }
+
+  .banner {
+    text-align: center;
+    color: #2e2925;
+  }
+  .banner h2 {
+    font-size: 62px;
+  }
+  .banner h5 {
+    font-size: 22px;
+  }
+  .banner p {
+    line-height: 1.8;
+    font-size: 25px;
   }
 
 }
