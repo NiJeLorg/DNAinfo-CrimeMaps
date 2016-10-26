@@ -113,3 +113,11 @@ class NYC_DOB_Permit_IssuanceForm(forms.ModelForm):
             'zoning_pdfs': 'Please add any documents readers might want to examine here. Zoning diagrams can be found in the <a href="http://a810-bisweb.nyc.gov/bisweb/bispi00.jsp" target="_blank">DOB building information search</a> system. (Optional)',
             'story1': 'Please add a link to a DNAinfo story. (Optional)',
         }
+
+class NYClandingPageForm(forms.ModelForm):
+    class Meta:
+        model = NYCskyline
+        fields = ('whereBuilding',)
+        widgets = {
+            'whereBuilding': Select2Widget,
+        }
