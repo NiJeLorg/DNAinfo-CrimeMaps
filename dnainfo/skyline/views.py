@@ -327,7 +327,7 @@ def skyline_getPermittedGeojsons(request, boro=None):
 
 	for obj in NYC_DOB_Permit_IssuanceObjects:
 		buildingHeight = (3.5*obj.buildingStories) + 9.625 + (2.625 * (obj.buildingStories/25));
-		changed = '{\"type\":\"FeatureCollection\",\"features\":[{\"type\": \"Feature\", \"properties\":{\"color\":\"#00cdbe\", \"roofColor\":\"#00cdbe\", \"height\":\"' + str(buildingHeight) +'\", \"zoning_pdfs\":\"visualizations/media/' + str(obj.zoning_pdfs) +'\", \"address\":\"' + str(obj.buildingAddress).strip() +'\", \"stories\":\"' + str(obj.buildingStories) +'\", \"story1\":\"' + str(obj.story1) +'\", \"projectName\":\"' + str(obj.projectName) +'\", \"buildingImage\":\"visualizations/media/' + str(obj.buildingImage) +'\", \"buildingZip\":\"' + str(obj.buildingZip) +'\", \"objectID\":\"' + str(obj.id) +'\", \"description\":\"' + str(obj.description) +'\"}, \"geometry\": ' + obj.buildingFootprint + '}]}'
+		changed = '{\"type\":\"FeatureCollection\",\"features\":[{\"type\": \"Feature\", \"properties\":{\"color\":\"#00cdbe\", \"roofColor\":\"#00cdbe\", \"height\":\"' + str(buildingHeight) +'\", \"zoning_pdfs\":\"visualizations/media/' + str(obj.zoning_pdfs) +'\", \"address\":\"' + obj.buildingAddress.encode('utf-8').strip() +'\", \"stories\":\"' + str(obj.buildingStories) +'\", \"story1\":\"' + str(obj.story1) +'\", \"projectName\":\"' + obj.projectName.encode('utf-8') +'\", \"buildingImage\":\"visualizations/media/' + str(obj.buildingImage) +'\", \"buildingZip\":\"' + str(obj.buildingZip) +'\", \"objectID\":\"' + str(obj.id) +'\", \"description\":\"' + obj.description.encode('utf-8') +'\"}, \"geometry\": ' + obj.buildingFootprint + '}]}'
 		geojsons.append(changed)
 		
 	return JsonResponse(geojsons, safe=False)
@@ -678,4 +678,29 @@ def skyline_permittedBuildingHeight(request, id=None):
 	# Bad form (or form details), no form supplied...
 	# Render the form with error messages (if any).
 	return render(request, 'skyline/permittedBuildingHeight.html', {'form':form, 'NYC_DOB_Permit_IssuanceObject': NYC_DOB_Permit_IssuanceObject})
+
+
+def skyline_landingPage(request, id=None):
+	# A HTTP POST?
+	if request.method == 'POST':
+		form = NYClandingPageForm(request.POST)
+
+		# Have we been provided with a valid form?
+		if form.is_valid():
+			# Save the new data to the database.
+			print form
+			#f = form.save()
+			#lookupObject = NYCskyline.objects.get(pk=f.pk)
+			#return HttpResponseRedirect(reverse('skyline_buildingHeight', args=(lookupObject.pk,)))
+		else:
+			# The supplied form contained errors - just print them to the terminal.
+			print form.errors
+	else:
+		# If the request was not a POST, display the form to enter details.
+		form = NYClandingPageForm()
+
+	# Bad form (or form details), no form supplied...
+	# Render the form with error messages (if any).
+	return render(request, 'skyline/index.html', {'form':form})
+
 
