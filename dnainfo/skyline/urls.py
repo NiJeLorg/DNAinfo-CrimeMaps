@@ -28,7 +28,7 @@ urlpatterns = [
     url(r'^skyline/admin/nyc/viewall/(?P<id>\d+)/$', views.skyline_viewAll, name='skyline_viewAll'),
     url(r'^skyline/admin/check/$', views.skylineAdminCheck, name='skyline_AdminCheck'),
     url(r'^skyline/admin/next/$', views.skylineAdminNext, name='skyline_AdminNext'),
-    url(r'^skyline/nyc/$', views.skyline_intro, name='skyline_intro'),
+    url(r'^skyline/nyc/new-building/$', views.skyline_intro, name='skyline_intro'),
     url(r'^skyline/nyc/whatNeighborhood/$', views.skyline_whatNeighborhood, name='skyline_whatNeighborhood'),
     url(r'^skyline/nyc/whatNeighborhood/(?P<id>\d+)/$', views.skyline_whatNeighborhood, name='skyline_whatNeighborhood'),
     url(r'^skyline/nyc/buildingHeight/(?P<id>\d+)/$', views.skyline_buildingHeight, name='skyline_buildingHeight'),
@@ -40,5 +40,7 @@ urlpatterns = [
     url(r'^skyline/nyc/end/(?P<id>\d+)/$', views.skyline_end, name='skyline_end'),
     url(r'^skyline/nyc/results/(?P<id>\d+)/$', views.skyline_results, name='skyline_results'),
     url(r'^skyline/admin/nyc/permitted/buildingHeight/(?P<id>\d+)/$', views.skyline_permittedBuildingHeight, name='skyline_permittedBuildingHeight'),
+    # intro and landing page
+    url(r'^skyline/nyc/$', views.skyline_landingPage, name='skyline_landingPage'),
 
 ]
