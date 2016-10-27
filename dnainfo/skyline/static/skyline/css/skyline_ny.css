@@ -92,10 +92,17 @@ a:hover {
     margin-bottom: 3%;
 }
 
+.select-parent {
+    width: 35%;
+    margin: 0 auto;
+    margin-bottom: 4%;
+}
+
 .building-component {
     display: flex;
     justify-content: center;
     color: #2E2925;
+    flex-wrap: wrap;
 }
 
 .building-component-info {
@@ -106,16 +113,37 @@ a:hover {
 }
 
 .reverse {
-  margin-right: 0%;
-  margin-left: 22%;
+    margin-right: 0%;
+    margin-left: 24%;
 }
 
 .building-component-image {}
 
-.building-component-image img {
+.building-component-image .building-svg {
     margin-top: 25%;
     margin-bottom: 25%;
     width: 180%;
+}
+
+.building-component-image .info-icon {
+    width: 15%;
+    position: relative;
+    cursor: pointer;
+}
+
+.application-info-icon {
+    top: 29%;
+    left: 92%;
+}
+
+.proposed-info-icon {
+    top: 36%;
+    left: 103%;
+}
+
+.sponsored-info-icon {
+    top: 33%;
+    left: 78%;
 }
 
 footer {

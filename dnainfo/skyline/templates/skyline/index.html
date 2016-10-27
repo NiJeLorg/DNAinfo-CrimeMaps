@@ -1,9 +1,11 @@
 {% extends 'skyline/baseNYC.html' %} {% load staticfiles %} {% load bootstrap_tags %} {% block title %}Future Skyline | DNAinfo{% endblock %} {% block css_block %}
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 <link rel="stylesheet" type="text/css" href="{% static 'skyline/css/select2.min.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'skyline/css/all-bootstrapped.min.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'skyline/css/skyline_ny.css'%}"> {% endblock %} {% block head_js_block %}
 <script type="text/javascript" src="{% static 'skyline/js/landing-page.js' %}"></script>
+<script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js'></script>
 {% endblock %} {% block body_block %}
 <div class="fadein">
     <header>
@@ -24,22 +26,24 @@
                 <br> 3D map that helps you understand how high new buildings could be going up near you.
             </p>
         </div>
-        <form id="whatNeighborhoodForm" method="post" action="." style="margin-bottom: 3%">
-            {% csrf_token %}
-            <div class="row">
-                <div class="col-sm-8 col-sm-offset-2">
-                    <div class="form-group formField">
-                        <div class="input-group">
-                            <div class="input-group-addon left"><span class="locationIcon"></span></div>
-                            {{ form }}
-                            <div class="input-group-addon"></div>
+        <div class="select-parent">
+            <form id="whatNeighborhoodForm" method="post" action="." style="margin-bottom: 3%">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-sm-8 col-sm-offset-2">
+                        <div class="form-group formField">
+                            <div class="input-group">
+                                <div class="input-group-addon left"><span class="locationIcon"></span></div>
+                                {{ form }}
+                                <div class="input-group-addon"></div>
+                            </div>
+                            <p class="text-danger hidden">Please pick a neighborhood above to continue.</p>
+                            {{ form.errors }}
                         </div>
-                        <p class="text-danger hidden">Please pick a neighborhood above to continue.</p>
-                        {{ form.errors }}
                     </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </header>
     <main>
         <div class="building-component grey-bg">
@@ -56,7 +60,8 @@
                 </p>
             </div>
             <div class="building-component-image">
-                <img src="{%static 'skyline/assets/Buildings_Approved.svg' %}">
+                <img src="{%static 'skyline/assets/Info-Icon.svg' %}" class="info-icon application-info-icon wow  bounceInRight" data-wow-duration="1s">
+                <img src="{%static 'skyline/assets/Buildings_Approved.svg' %}" class="building-svg">
             </div>
         </div>
         <div class="building-component">
@@ -72,7 +77,8 @@
                 </p>
             </div>
             <div class="building-component-image" style="order: 1">
-                <img src="{%static 'skyline/assets/Buildings_Proposed.svg' %}">
+                <img src="{%static 'skyline/assets/Info-Icon.svg' %}" class="info-icon proposed-info-icon wow bounceInLeft" data-wow-duration="1s">
+                <img src="{%static 'skyline/assets/Buildings_Proposed.svg' %}" class="building-svg">
             </div>
         </div>
         <div class="building-component grey-bg">
@@ -81,7 +87,8 @@
                 <p class="component-info">Yellow boxes are from DNAinfo partners.</p>
             </div>
             <div class="building-component-image">
-                <img src="{%static 'skyline/assets/Buildings_Sponsored.svg' %}">
+                <img src="{%static 'skyline/assets/Info-Icon.svg' %}" class="info-icon sponsored-info-icon wow bounceInRight" data-wow-duration="1s">
+                <img src="{%static 'skyline/assets/Buildings_Sponsored.svg' %}" class="building-svg">
             </div>
         </div>
         <div class="building-component">
@@ -94,7 +101,7 @@
                 </p>
             </div>
             <div class="building-component-image" style="order: 1">
-                <img src="{%static 'skyline/assets/Buildings_Submitted.svg' %}">
+                <img src="{%static 'skyline/assets/Buildings_Submitted.svg' %}" class="building-svg">
             </div>
         </div>
     </main>
@@ -105,7 +112,7 @@
             <button>Add a Building</button>
         </div>
         <div class="view-methodology">
-            <a href="" class="component-heading">View Methodology</a>
+            <a href="#" data-toggle='modal' data-target='#methodology' class="component-heading">View Methodology</a>
         </div>
     </footer>
 </div>
@@ -127,4 +134,7 @@
     {% endblock %} {% block js_block %}
     <script type="text/javascript" src="{% static 'skyline/js/select2.js' %}"></script>
     <script type="text/javascript" src="{% static 'django_select2/django_select2.js' %}"></script>
+    <script type="text/javascript">
+    new WOW().init()
+    </script>
     {% endblock %}
