@@ -172,7 +172,7 @@ osmApplication.initialize = function () {
 		    	// links for editing
 
 		    	// edit link /skyline/admin/chi/permitted/buildingHeight/ID/
-			    var editHref = '/skyline/admin/chi/permitted/buildingHeight/' + properties.objectID + '/';
+			    var editHref = '/skyline/admin/chi/permitted/buildingHeight/' + properties.objectID + '/?hoodID=' + hoodID;
 			    $('#property-edit-permitted').prop('href', editHref);
 
  				$('#tooltipPermitted').removeClass('hidden');

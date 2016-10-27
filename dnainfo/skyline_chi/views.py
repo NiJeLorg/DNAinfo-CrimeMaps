@@ -249,6 +249,8 @@ def skyline_chi_sponsoredBuildingHeight(request, id=None):
 				f.created_by = request.user
 			# save form
 			f.save()
+			# pull object and check to see if it have a created_by field filled out
+			lookupObject = CHISponsoredBuildings.objects.get(pk=f.pk)
 			return HttpResponseRedirect(reverse('skyline_chi_sponsoredExactLocation', args=(lookupObject.pk,)))
 		else:
 			# The supplied form contained errors - just print them to the terminal.
@@ -285,6 +287,8 @@ def skyline_chi_sponsoredExactLocation(request, id=None):
 				f.created_by = request.user
 			# save form
 			f.save()
+			# pull object and check to see if it have a created_by field filled out
+			lookupObject = CHISponsoredBuildings.objects.get(pk=f.pk)
 			return HttpResponseRedirect(reverse('skyline_chi_sponsoredEnd', args=(lookupObject.pk,)))
 		else:
 			# The supplied form contained errors - just print them to the terminal.
@@ -443,6 +447,8 @@ def skyline_chi_reporterBuildingHeight(request, id=None):
 				f.created_by = request.user
 			# save form
 			f.save()
+			# pull object and check to see if it have a created_by field filled out
+			lookupObject = CHIReporterBuildings.objects.get(pk=f.pk)
 			return HttpResponseRedirect(reverse('skyline_chi_reporterExactLocation', args=(lookupObject.pk,)))
 		else:
 			# The supplied form contained errors - just print them to the terminal.
@@ -479,6 +485,8 @@ def skyline_chi_reporterExactLocation(request, id=None):
 				f.created_by = request.user
 			# save form
 			f.save()
+			# pull object and check to see if it have a created_by field filled out
+			lookupObject = CHIReporterBuildings.objects.get(pk=f.pk)
 			return HttpResponseRedirect(reverse('skyline_chi_reporterEnd', args=(lookupObject.pk,)))
 		else:
 			# The supplied form contained errors - just print them to the terminal.
@@ -646,6 +654,14 @@ def skyline_chi_permittedBuildingHeight(request, id=None):
 	else:
 		CHI_Building_PermitsObject = CHI_Building_Permits()
 
+	# get hoodID from URL to set combo box with new value if one does not yet exist
+	hoodID = request.GET.get('hoodID')
+
+	if not CHI_Building_PermitsObject.whereBuilding:
+		if hoodID: 
+			CHI_Building_PermitsObject.whereBuilding = int(hoodID)
+			CHI_Building_PermitsObject.save()
+
 	# A HTTP POST?
 	if request.method == 'POST':
 		form = CHI_Building_PermitsForm(request.POST, request.FILES, instance=CHI_Building_PermitsObject)
@@ -663,6 +679,8 @@ def skyline_chi_permittedBuildingHeight(request, id=None):
 				f.created_by = request.user
 			# save form
 			f.save()
+			# pull object and check to see if it have a created_by field filled out
+			lookupObject = CHI_Building_Permits.objects.get(pk=f.pk)
 			return HttpResponseRedirect(reverse('skyline_chi_viewAll', args=(lookupObject.whereBuilding.id,)))
 		else:
 			# The supplied form contained errors - just print them to the terminal.
