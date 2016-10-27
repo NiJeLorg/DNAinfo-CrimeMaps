@@ -78,7 +78,7 @@ When new feature development begins, create a branch off of `develop`:
 
     git checkout -b adding-new-feature develop
 
-New feature branches can be named anything except for `master` or `develop`. Once you are done working on your new feature, commit your code and push your branch to the repo:
+New feature branches can be named anything except for `master`, `develop` or prefixed with `hotfix-`. Once you are done working on your new feature, commit your code and push your branch to the repo:
 
     git commit -m 'made some changes'
     git push
@@ -100,4 +100,31 @@ When `develop` is ready to be merged into `master`, it can be merged either via 
     git merge --no-ff develop
     git push origin master
     git checkout develop
+
+###Hotfix Branches
+If a critical bug in production needs to be addressed, create a branch off of `master` prefixed with `hotfix-`:
+  
+    git pull origin master
+    git checkout -b hotfix-some-kind-of-bug master
+
+When the bug is squashed, the hotfix branch needs to be merged into `master` and `develop`. first `master`:
+
+    git pull origin master
+    git checkout master
+    git merge --no-ff hotfix-some-kind-of-bug
+    git push origin master
+
+and then `develop`:
+    
+    git pull origin develop
+    git checkout develop
+    git merge --no-ff hotfix-some-kind-of-bug
+    git push origin develop
+
+After both `master` and `develop` are updated, you can close the hotfix branch:
+
+    git branch -d hotfix-some-kind-of-bug
+
+
+
 
