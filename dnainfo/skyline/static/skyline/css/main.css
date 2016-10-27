@@ -1213,22 +1213,6 @@ input[type="radio"]:checked + label span {
     margin-top: 75px;
     margin-bottom: 18px;
   }
-
-  .banner {
-    text-align: center;
-    color: #2e2925;
-  }
-  .banner h2 {
-    font-size: 62px;
-  }
-  .banner h5 {
-    font-size: 22px;
-  }
-  .banner p {
-    line-height: 1.8;
-    font-size: 25px;
-  }
-
 }
 
 

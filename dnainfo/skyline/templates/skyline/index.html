@@ -1,34 +1,120 @@
 {% extends 'skyline/baseNYC.html' %} {% load staticfiles %} {% load bootstrap_tags %} {% block title %}Future Skyline | DNAinfo{% endblock %} {% block css_block %}
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="{% static 'skyline/css/select2.min.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'skyline/css/all-bootstrapped.min.css' %}"> {% endblock %} {% block head_js_block %}
+<link rel="stylesheet" type="text/css" href="{% static 'skyline/css/all-bootstrapped.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'skyline/css/skyline_ny.css'%}"> {% endblock %} {% block head_js_block %}
 <script type="text/javascript" src="{% static 'skyline/js/landing-page.js' %}"></script>
 {% endblock %} {% block body_block %}
 <div id="content" class="fadein">
-    <div class="container-fluid">
+    <div>
         <div class="banner">
-            <h2>Title</h2>
-            <h5>Sponsored by [vendor]</h5>
-            <p>Every new building affects the character of a neighborhood, so DNAinfo created this
-                <br> 3D map that helps you understand how high new buildings could be going up near you.
-            </p>
-        </div>
-        <!-- <form id="whatNeighborhoodForm" method="post" action=".">
-      {% csrf_token %}
-      <div class="row">
-        <div class="col-sm-8 col-sm-offset-2">
-          <div class="form-group formField">
-            <div class="input-group">
-              <div class="input-group-addon left"><span class="locationIcon"></span></div>
-               {{ form }}
-              <div class="input-group-addon"></div>
+            <div class="navbar">
             </div>
-            <p class="text-danger hidden">Please pick a neighborhood above to continue.</p>
-            {{ form.errors }}
-          </div>
+            <div class="social-media-links">
+                <div class="link-holder facebook">
+                    <a href="#"><i class="fa fa-facebook-official fa-2x" aria-hidden="true"></i></a>
+                </div>
+                <div class="link-holder twitter">
+                    <a href="#"> <i class="fa fa-twitter fa-2x" aria-hidden="true"></i></a>
+                </div>
+            </div>
+            <div class="banner-content">
+                <h2>Title</h2>
+                <h5>Sponsored by [vendor]</h5>
+                <p>Every new building affects the character of a neighborhood, so DNAinfo created this
+                    <br> 3D map that helps you understand how high new buildings could be going up near you.
+                </p>
+            </div>
+            <form id="whatNeighborhoodForm" method="post" action=".">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-sm-8 col-sm-offset-2">
+                        <div class="form-group formField">
+                            <div class="input-group">
+                                <div class="input-group-addon left"><span class="locationIcon"></span></div>
+                                {{ form }}
+                                <div class="input-group-addon"></div>
+                            </div>
+                            <p class="text-danger hidden">Please pick a neighborhood above to continue.</p>
+                            {{ form.errors }}
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
-      </div>
-    </form> -->
+        <div class="content-modal grey-bg row">
+            <div class="inner col-md-8 col-md-offset-2">
+                <div class="content-modal-info col-md-6">
+                    <h3 class="component-heading">Approved Construction</h3>
+                    <p class="component-info">Turquoise boxes represent areas where
+                        <br> building permits have been issued. As far
+                        <br> as the city's concerned, these buildings
+                        <br> are being built at this height.
+                    </p>
+                    <p class="component-info"> Buildings will go within this Turquoise
+                        <br> area. These are height indicators, not
+                        <br> building designs.
+                    </p>
+                </div>
+                <div class="content-modal-image col-md-6 ">
+                    <img src="{%static 'skyline/assets/Buildings_Approved.svg' %}">
+                </div>
+            </div>
+        </div>
+        <div class="content-modal white-bg row">
+            <div class="inner col-md-8 col-md-offset-2">
+                <div class="content-modal-image col-md-6">
+                    <img src="{%static 'skyline/assets/Buildings_Proposed.svg' %}">
+                </div>
+                <div class="content-modal-info col-md-6">
+                    <h3 class="component-heading">Proposed Consideration</h3>
+                    <p class="component-info">Blue boxes have not yet had permits
+                        <br> approved by the city. These are projects
+                        <br> that may have been presented at local
+                        <br> meetings, but haven't completed the
+                        <br> city's building approval process. The
+                        <br> height of these boxes reflect what
+                        <br>developers have submitted
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="content-modal grey-bg row">
+            <div class="inner col-md-8 col-md-offset-2">
+                <div class="content-modal-info col-md-6">
+                    <h3 class="component-heading">Explore Inside</h3>
+                    <p class="component-info">Yellow boxes are from DNAinfo partners.</p>
+                </div>
+                <div class="content-modal-image col-md-6">
+                    <img src="{%static 'skyline/assets/Buildings_Sponsored.svg' %}">
+                </div>
+            </div>
+        </div>
+        <div class="content-modal white-bg row">
+            <div class="inner col-md-8 col-md-offset-2">
+                <div class="content-modal-image col-md-6">
+                    <img src="{%static 'skyline/assets/Buildings_Submitted.svg' %}">
+                </div>
+                <div class="content-modal-info col-md-6">
+                    <h3 class="component-heading">Add a Building</h3>
+                    <p class="component-info">We have thousands of possible buildings
+                        <br> in our map now, but you can <a href="#">add more.</a>
+                        <br> Submit one, and we'll tell you when your
+                        <br> building's been added.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <div class="got-it-now">
+                <h3 class="component-heading">Got it? Now &nbsp;</h3>
+                <h3 class="component-heading">or &nbsp;</h3>
+                <button >Add a Building</button>
+            </div>
+            <div class="view-methodology">
+                <a href="" class="component-heading">View Methodology</a>
+            </div>
+        </footer>
     </div>
 </div>
 {% endblock %} {% block modal_block %}

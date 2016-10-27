@@ -1,0 +1,170 @@
+// UTILITY STYLES //
+a {
+    cursor: pointer;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.move-right {
+    margin-left: 30%;
+}
+
+.component-heading {
+    font-weight: bold;
+}
+
+.component-info {
+    font-size: 21px;
+    line-height: 1.5;
+    font-family: 'Georgia', serif;
+    margin-bottom: 6%;
+}
+
+// UTILITY STYLES //
+.container {
+    width: 100%;
+    padding: 0px;
+}
+
+.banner {
+    text-align: center;
+    color: #2e2925;
+    height: 430px;
+}
+
+.banner-content {
+    margin-top: -3%;
+}
+
+.navbar {
+    height: 56px;
+    border-bottom: 1px solid #D1D1D1;
+}
+
+.social-media-links {
+    display: flex;
+    justify-content: flex-end;
+    width: 97%;
+}
+
+.link-holder {
+    height: 40px;
+    width: 40px;
+    background: red;
+    margin-left: 1.5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 2px;
+}
+
+.facebook {
+    background: #3D5A96;
+}
+
+.twitter {
+    background: #59ADEB;
+}
+
+.link-holder i {
+    color: #fff;
+}
+
+.banner h2 {
+    font-size: 59px;
+    font-weight: 600;
+}
+
+.banner h5 {
+    font-size: 19px;
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+
+.banner p {
+    line-height: 1.5;
+    font-size: 25px;
+    font-family: 'Georgia', serif;
+}
+
+.content-modal {
+    color: #2e2925;
+}
+
+.inner {
+    display: flex;
+}
+
+.grey-bg {
+    background: #F8F8F8;
+}
+
+.white-bg {
+    background: #fff;
+}
+
+.content-modal-content {
+    padding: 0px;
+}
+
+.content-modal-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.content-modal-content-info h3 {
+    font-weight: bold;
+    margin-bottom: 6%;
+}
+
+.content-modal-content-info p {
+    font-size: 21px;
+    line-height: 1.5;
+    font-family: 'Georgia', serif;
+    margin-bottom: 6%;
+}
+
+.content-modal-image {
+    padding: 0px;
+}
+
+.content-modal-image img {
+    width: 80%;
+    margin-top: 10%;
+    margin-bottom: 10%;
+    mar
+}
+
+footer {
+    margin-top: 6%;
+    padding-bottom: 6%;
+    text-align: center;
+}
+
+.got-it-now {
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 3%;
+}
+
+.got-it-now .component-heading {
+    margin: 0px;
+}
+
+.got-it-now button {
+    background: #1074A0;
+    color: #fff;
+    outline: none;
+    border: none;
+    border-radius: 2px;
+    padding: .8% 1.3%;
+}
+
+.view-methodology {
+    text-align: center;
+}
