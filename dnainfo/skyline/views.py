@@ -694,6 +694,139 @@ def skyline_permittedBuildingHeight(request, id=None):
 	# Render the form with error messages (if any).
 	return render(request, 'skyline/permittedBuildingHeight.html', {'form':form, 'NYC_DOB_Permit_IssuanceObject': NYC_DOB_Permit_IssuanceObject})
 
+@login_required
+def skyline_permittedWhatNeighborhood(request, id=None):
+	if id:
+		NYC_DOB_Permit_IssuanceObject = NYC_DOB_Permit_Issuance.objects.get(pk=id)
+	else:
+		NYC_DOB_Permit_IssuanceObject = NYC_DOB_Permit_Issuance()
+
+	# A HTTP POST?
+	if request.method == 'POST':
+		form = NYCwhatNeighborhoodPermittedForm(request.POST, instance=NYC_DOB_Permit_IssuanceObject)
+
+		# Have we been provided with a valid form?
+		if form.is_valid():
+			# Save the new data to the database.
+			f = form.save(commit=False)
+			# pull object and check to see if it have a created_by field filled out
+			try:
+				lookupObject = NYC_DOB_Permit_Issuance.objects.get(pk=f.pk)
+				# add user 
+				if lookupObject.created_by:
+					f.updated_by = request.user
+				else:
+					f.created_by = request.user
+				# save form
+				f.save()
+			except NYC_DOB_Permit_Issuance.DoesNotExist:
+				f.created_by = request.user
+				# save form
+				f.save()
+				lookupObject = NYC_DOB_Permit_Issuance.objects.get(pk=f.pk)
+
+			return HttpResponseRedirect(reverse('skyline_permittedBuildingHeightAnd', args=(lookupObject.pk,)))
+		else:
+			# The supplied form contained errors - just print them to the terminal.
+			print form.errors
+	else:
+		# If the request was not a POST, display the form to enter details.
+		form = NYCwhatNeighborhoodPermittedForm(instance=NYC_DOB_Permit_IssuanceObject)
+
+	# Bad form (or form details), no form supplied...
+	# Render the form with error messages (if any).
+	return render(request, 'skyline/permittedWhatNeighborhood.html', {'form':form, 'NYC_DOB_Permit_IssuanceObject': NYC_DOB_Permit_IssuanceObject})
+
+@login_required
+def skyline_permittedBuildingHeightAnd(request, id=None):
+	if id:
+		NYC_DOB_Permit_IssuanceObject = NYC_DOB_Permit_Issuance.objects.get(pk=id)
+	else:
+		NYC_DOB_Permit_IssuanceObject = NYC_DOB_Permit_Issuance()
+
+	# A HTTP POST?
+	if request.method == 'POST':
+		form = NYCbuildingHeightAndPermittedForm(request.POST, request.FILES, instance=NYC_DOB_Permit_IssuanceObject)
+
+		# Have we been provided with a valid form?
+		if form.is_valid():
+			# Save the new data to the database.
+			f = form.save(commit=False)
+			# pull object and check to see if it have a created_by field filled out
+			lookupObject = NYC_DOB_Permit_Issuance.objects.get(pk=f.pk)
+			# add user 
+			if lookupObject.created_by:
+				f.updated_by = request.user
+			else:
+				f.created_by = request.user
+			# save form
+			f.save()
+			# pull object and check to see if it have a created_by field filled out
+			lookupObject = NYC_DOB_Permit_Issuance.objects.get(pk=f.pk)
+			return HttpResponseRedirect(reverse('skyline_permittedExactLocation', args=(lookupObject.pk,)))
+		else:
+			# The supplied form contained errors - just print them to the terminal.
+			print form.errors
+	else:
+		# If the request was not a POST, display the form to enter details.
+		form = NYCbuildingHeightAndPermittedForm(instance=NYC_DOB_Permit_IssuanceObject)
+
+	# Bad form (or form details), no form supplied...
+	# Render the form with error messages (if any).
+	return render(request, 'skyline/reporterBuildingHeight.html', {'form':form, 'NYC_DOB_Permit_IssuanceObject': NYC_DOB_Permit_IssuanceObject})
+
+@login_required
+def skyline_permittedExactLocation(request, id=None):
+	if id:
+		NYC_DOB_Permit_IssuanceObject = NYC_DOB_Permit_Issuance.objects.get(pk=id)
+	else:
+		NYC_DOB_Permit_IssuanceObject = NYC_DOB_Permit_Issuance()
+
+	# A HTTP POST?
+	if request.method == 'POST':
+		form = NYCexactLocationReporterForm(request.POST, instance=NYC_DOB_Permit_IssuanceObject)
+
+		# Have we been provided with a valid form?
+		if form.is_valid():
+			# Save the new data to the database.
+			f = form.save(commit=False)
+			# pull object and check to see if it have a created_by field filled out
+			lookupObject = NYC_DOB_Permit_Issuance.objects.get(pk=f.pk)
+			# add user 
+			if lookupObject.created_by:
+				f.updated_by = request.user
+			else:
+				f.created_by = request.user
+			# save form
+			f.save()
+			# pull object and check to see if it have a created_by field filled out
+			lookupObject = NYC_DOB_Permit_Issuance.objects.get(pk=f.pk)
+			return HttpResponseRedirect(reverse('skyline_permittedEnd', args=(lookupObject.pk,)))
+		else:
+			# The supplied form contained errors - just print them to the terminal.
+			print form.errors
+	else:
+		# If the request was not a POST, display the form to enter details.
+		form = NYCexactLocationReporterForm(instance=NYC_DOB_Permit_IssuanceObject)
+
+	# Bad form (or form details), no form supplied...
+	# Render the form with error messages (if any).
+	return render(request, 'skyline/permittedExactLocation.html', {'form':form, 'NYC_DOB_Permit_IssuanceObject': NYC_DOB_Permit_IssuanceObject})
+
+def skyline_permittedGetGeojson(request, id=None):
+
+	NYC_DOB_Permit_IssuanceObject = NYC_DOB_Permit_Issuance.objects.get(pk=id)
+
+	return JsonResponse(NYC_DOB_Permit_IssuanceObject.buildingFootprint, safe=False)
+
+
+@login_required
+def skyline_permittedEnd(request, id=None):
+	NYC_DOB_Permit_IssuanceObject = NYC_DOB_Permit_Issuance.objects.get(pk=id)
+
+	return render(request, 'skyline/reporterEnd.html', {'NYC_DOB_Permit_IssuanceObject': NYC_DOB_Permit_IssuanceObject})
+
+
 
 def skyline_landingPage(request, id=None):
 	# A HTTP POST?
