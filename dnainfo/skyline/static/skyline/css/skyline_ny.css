@@ -7,8 +7,12 @@ a:hover {
     text-decoration: none;
 }
 
-.move-right {
-    margin-left: 30%;
+.grey-bg {
+    background: #F8F8F8;
+}
+
+.white-bg {
+    background: #fff;
 }
 
 .component-heading {
@@ -23,21 +27,6 @@ a:hover {
 }
 
 // UTILITY STYLES //
-.container {
-    width: 100%;
-    padding: 0px;
-}
-
-.banner {
-    text-align: center;
-    color: #2e2925;
-    height: 430px;
-}
-
-.banner-content {
-    margin-top: -3%;
-}
-
 .navbar {
     height: 56px;
     border-bottom: 1px solid #D1D1D1;
@@ -52,7 +41,6 @@ a:hover {
 .link-holder {
     height: 40px;
     width: 40px;
-    background: red;
     margin-left: 1.5%;
     display: flex;
     flex-direction: column;
@@ -68,74 +56,66 @@ a:hover {
     background: #59ADEB;
 }
 
+.link-holder a {
+    display: flex;
+    justify-content: center;
+}
+
 .link-holder i {
     color: #fff;
 }
 
-.banner h2 {
-    font-size: 59px;
-    font-weight: 600;
+.title {
+    text-align: center;
+    margin-top: -3%;
+    color: #2E2925;
 }
 
-.banner h5 {
-    font-size: 19px;
-    font-weight: 600;
-    margin-bottom: 30px;
+.title .title-heading {
+    font-size: 4em;
+    font-size: 600;
+    font-weight: bold;
+    margin-bottom: 1%;
 }
 
-.banner p {
-    line-height: 1.5;
-    font-size: 25px;
+.title .title-subheading {
+    font-weight: bold;
+    font-size: 1.5em;
+    margin-bottom: 3%;
+}
+
+.title .title-info {
     font-family: 'Georgia', serif;
+    line-height: 1.5;
+    letter-spacing: .4px;
+    font-size: 1.7em;
+    margin-bottom: 3%;
 }
 
-.content-modal {
-    color: #2e2925;
-}
-
-.inner {
+.building-component {
     display: flex;
+    justify-content: center;
+    color: #2E2925;
 }
 
-.grey-bg {
-    background: #F8F8F8;
-}
-
-.white-bg {
-    background: #fff;
-}
-
-.content-modal-content {
-    padding: 0px;
-}
-
-.content-modal-info {
+.building-component-info {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    margin-right: 12%;
 }
 
-.content-modal-content-info h3 {
-    font-weight: bold;
-    margin-bottom: 6%;
+.reverse {
+  margin-right: 0%;
+  margin-left: 22%;
 }
 
-.content-modal-content-info p {
-    font-size: 21px;
-    line-height: 1.5;
-    font-family: 'Georgia', serif;
-    margin-bottom: 6%;
-}
+.building-component-image {}
 
-.content-modal-image {
-    padding: 0px;
-}
-
-.content-modal-image img {
-    width: 80%;
-    margin-top: 10%;
-    margin-bottom: 10%;
-    mar
+.building-component-image img {
+    margin-top: 25%;
+    margin-bottom: 25%;
+    width: 180%;
 }
 
 footer {
