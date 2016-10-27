@@ -87,7 +87,7 @@ Once your branch is pushed up to the repo, navigate to the [pull request section
 
 After the pull-request is submitted and the code is reviewed and approved, the feature branch will be merged into `develop`, and that feature branch will be closed. The can be doen on GitHub or via command line:
 
-    git pull
+    git pull origin develop
     git checkout develop
     git merge --no-ff adding-new-feature
     git branch -d myfeature
@@ -95,7 +95,7 @@ After the pull-request is submitted and the code is reviewed and approved, the f
 
 When `develop` is ready to be merged into `master`, it can be merged either via a pull request on GitHub or merged via command line:
 
-    git pull
+    git pull origin master
     git checkout master
     git merge --no-ff develop
     git push origin master
