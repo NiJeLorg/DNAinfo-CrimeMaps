@@ -83,8 +83,6 @@ osmApplication.initialize = function () {
 	  	var ycoor = e.clientY;
 	  }
 	  osmApplication.osmb.getTarget(xcoor, ycoor, function(id) {
-		
-
 	  	if (id) {
 		  	splitId = id.split('_');
 
@@ -172,7 +170,7 @@ osmApplication.initialize = function () {
 		    	// links for editing
 
 		    	// edit link /skyline/admin/nyc/permitted/buildingHeight/ID/
-			    var editHref = '/skyline/admin/nyc/permitted/buildingHeight/' + properties.objectID + '/';
+			    var editHref = '/skyline/admin/nyc/permitted/buildingHeight/' + properties.objectID + '/?hoodID=' + hoodID;
 			    $('#property-edit-permitted').prop('href', editHref);
 
  				$('#tooltipPermitted').removeClass('hidden');

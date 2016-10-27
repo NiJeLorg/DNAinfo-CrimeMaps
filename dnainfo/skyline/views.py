@@ -249,9 +249,10 @@ def skyline_sponsoredBuildingHeight(request, id=None):
 				f.updated_by = request.user
 			else:
 				f.created_by = request.user
-
 			# save form
 			f.save()
+			# pull object and check to see if it have a created_by field filled out
+			lookupObject = NYCSponsoredBuildings.objects.get(pk=f.pk)
 			return HttpResponseRedirect(reverse('skyline_sponsoredExactLocation', args=(lookupObject.pk,)))
 		else:
 			# The supplied form contained errors - just print them to the terminal.
@@ -289,6 +290,8 @@ def skyline_sponsoredExactLocation(request, id=None):
 
 			# save form
 			f.save()
+			# pull object and check to see if it have a created_by field filled out
+			lookupObject = NYCSponsoredBuildings.objects.get(pk=f.pk)
 			return HttpResponseRedirect(reverse('skyline_sponsoredEnd', args=(lookupObject.pk,)))
 		else:
 			# The supplied form contained errors - just print them to the terminal.
@@ -445,9 +448,10 @@ def skyline_reporterBuildingHeight(request, id=None):
 				f.updated_by = request.user
 			else:
 				f.created_by = request.user
-
 			# save form
 			f.save()
+			# pull object and check to see if it have a created_by field filled out
+			lookupObject = NYCReporterBuildings.objects.get(pk=f.pk)
 			return HttpResponseRedirect(reverse('skyline_reporterExactLocation', args=(lookupObject.pk,)))
 		else:
 			# The supplied form contained errors - just print them to the terminal.
@@ -482,9 +486,10 @@ def skyline_reporterExactLocation(request, id=None):
 				f.updated_by = request.user
 			else:
 				f.created_by = request.user
-
 			# save form
 			f.save()
+			# pull object and check to see if it have a created_by field filled out
+			lookupObject = NYCReporterBuildings.objects.get(pk=f.pk)
 			return HttpResponseRedirect(reverse('skyline_reporterEnd', args=(lookupObject.pk,)))
 		else:
 			# The supplied form contained errors - just print them to the terminal.
@@ -650,6 +655,14 @@ def skyline_permittedBuildingHeight(request, id=None):
 	else:
 		NYC_DOB_Permit_IssuanceObject = NYC_DOB_Permit_Issuance()
 
+	# get hoodID from URL to set combo box with new value if one does not yet exist
+	hoodID = request.GET.get('hoodID')
+
+	if not NYC_DOB_Permit_IssuanceObject.whereBuilding:
+		if hoodID: 
+			NYC_DOB_Permit_IssuanceObject.whereBuilding = int(hoodID)
+			NYC_DOB_Permit_IssuanceObject.save()
+
 	# A HTTP POST?
 	if request.method == 'POST':
 		form = NYC_DOB_Permit_IssuanceForm(request.POST, request.FILES, instance=NYC_DOB_Permit_IssuanceObject)
@@ -667,6 +680,8 @@ def skyline_permittedBuildingHeight(request, id=None):
 				f.created_by = request.user
 			# save form
 			f.save()
+			# pull object and check to see if it have a created_by field filled out
+			lookupObject = NYC_DOB_Permit_Issuance.objects.get(pk=f.pk)
 			return HttpResponseRedirect(reverse('skyline_viewAll', args=(lookupObject.whereBuilding.id,)))
 		else:
 			# The supplied form contained errors - just print them to the terminal.
