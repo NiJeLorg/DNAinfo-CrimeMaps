@@ -62,7 +62,7 @@ class NYC_DOB_Permit_Issuance(models.Model):
 	updated = models.DateTimeField(auto_now=True)
 	created_by = models.ForeignKey(User, blank=True, null=True, related_name="permitted_created_by")
 	updated_by = models.ForeignKey(User, blank=True, null=True, related_name="permitted_updated_by")
-	whereBuilding = models.ForeignKey(neighborhoodNYC, blank=True, null=True)	
+	whereBuilding = models.ForeignKey(neighborhoodNYC, blank=False, null=True)	
 	borough = models.CharField(max_length=255, default='', blank=False, null=False)
 	bin = models.CharField(max_length=255, default='', blank=False, null=False)
 	house = models.CharField(max_length=255, default='', blank=False, null=False)

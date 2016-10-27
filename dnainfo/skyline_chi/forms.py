@@ -104,7 +104,7 @@ class CHI_Building_PermitsForm(forms.ModelForm):
         fields = ('projectName', 'whereBuilding', 'buildingAddress', 'buildingStories', 'description', 'buildingImage', 'zoning_pdfs', 'story1', )
         labels = {
             'projectName': 'Please add a name for this project/building. (Optional)',
-            'whereBuilding': 'Please select this building\'s neighborhood. (Optional)',
+            'whereBuilding': 'Please select this building\'s neighborhood. (Required)',
             'buildingAddress': 'Enter the address according to DNAinfo style such as 233 N. Michigan Ave. or 2400 W. Cermak Road (Required)',
             'buildingStories': 'How many stories tall is this building? (Required)',
             'description': 'Please add a brief description of the project. (Optional, 200 character limit)',

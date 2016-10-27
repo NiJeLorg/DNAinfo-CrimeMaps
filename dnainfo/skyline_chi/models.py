@@ -62,7 +62,7 @@ class CHI_Building_Permits(models.Model):
 	updated = models.DateTimeField(auto_now=True)
 	created_by = models.ForeignKey(User, blank=True, null=True, related_name="chi_permitted_created_by")
 	updated_by = models.ForeignKey(User, blank=True, null=True, related_name="chi_permitted_updated_by")
-	whereBuilding = models.ForeignKey(neighborhoodCHI, blank=True, null=True)	
+	whereBuilding = models.ForeignKey(neighborhoodCHI, blank=False, null=True)	
 	ID = models.IntegerField(primary_key=True)
 	permit = models.CharField(max_length=255, default='', blank=False, null=False)
 	permit_type = models.CharField(max_length=255, default='', blank=False, null=False)
