@@ -26,11 +26,11 @@
                 <br> 3D map that helps you understand how high new buildings could be going up near you.
             </p>
         </div>
-        <div class="select-parent">
-            <form id="whatNeighborhoodForm" method="post" action="." style="margin-bottom: 3%">
+<!--         <div class="select-parent">
+            <form id="whatNeighborhoodForm" method="post" action=".">
                 {% csrf_token %}
-                <div class="row">
-                    <div class="col-sm-8 col-sm-offset-2">
+                <div class="row" style="display: flex">
+                    <div class="col-sm-8">
                         <div class="form-group formField">
                             <div class="input-group">
                                 <div class="input-group-addon left"><span class="locationIcon"></span></div>
@@ -43,7 +43,10 @@
                     </div>
                 </div>
             </form>
-        </div>
+            <button class="chevron-button">
+                <i class="fa fa-chevron-down" aria-hidden='true'></i>
+            </button>
+        </div> -->
     </header>
     <main>
         <div class="building-component grey-bg">
@@ -62,6 +65,34 @@
             <div class="building-component-image">
                 <img src="{%static 'skyline/assets/Info-Icon.svg' %}" class="info-icon application-info-icon wow  bounceInRight" data-wow-duration="1s">
                 <img src="{%static 'skyline/assets/Buildings_Approved.svg' %}" class="building-svg">
+            </div>
+            <div class="building-modal approved-building-modal">
+                <div class="building-modal-nav">APPROVED</div>
+                <div class="building-modal-header">
+                    <h4>Library at Hunters Point</h4>
+                    <span class="building-cancel-modal"></span>
+                </div>
+                <div class="building-modal-content">
+                    <div class="building-modal-info">
+                        <p>A modern community center
+                            <br> and peaceful retreat.
+                        </p>
+                    </div>
+                </div>
+                <div class="building-modal-footer">
+                    <div class="links">
+                        <a href="#">Read More</a>
+                        <a href="#">See Documents</a>
+                    </div>
+                    <div class="social-media-links">
+                        <div class="link-holder facebook">
+                            <a href="#"><i class="fa fa-facebook-official fa-2x" aria-hidden="true"></i></a>
+                        </div>
+                        <div class="link-holder twitter">
+                            <a href="#"> <i class="fa fa-twitter fa-2x" aria-hidden="true"></i></a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="building-component">
