@@ -660,7 +660,9 @@ def skyline_permittedBuildingHeight(request, id=None):
 
 	if not NYC_DOB_Permit_IssuanceObject.whereBuilding:
 		if hoodID: 
-			NYC_DOB_Permit_IssuanceObject.whereBuilding = int(hoodID)
+			#look up neighborhood
+			hood = neighborhoodCHI.objects.get(id=int(hoodID))
+			NYC_DOB_Permit_IssuanceObject.whereBuilding = hood
 			NYC_DOB_Permit_IssuanceObject.save()
 
 	# A HTTP POST?
