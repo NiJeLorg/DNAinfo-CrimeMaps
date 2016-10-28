@@ -1,0 +1,59 @@
+{% extends 'skyline/baseNYC.html' %} {% load staticfiles %} {% block css_block %}
+<link rel="stylesheet" type="text/css" href="{% static 'skyline/css/OSMBuildings.css' %}">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"> {% endblock %} {% block body_block %}
+<div id="content">
+    <!-- Map -->
+    <div id="osmmap"></div>
+    <!-- Buttons -->
+    <div class="control tilt">
+        <button class="dec"><i class="fa fa-angle-double-down" aria-hidden="true"></i></button>
+        <button class="inc"><i class="fa fa-angle-double-up" aria-hidden="true"></i></button>
+    </div>
+    <div class="control rotation">
+        <button class="inc"><i class="fa fa-undo" aria-hidden="true"></i></button>
+        <button class="dec"><i class="fa fa-repeat" aria-hidden="true"></i></button>
+    </div>
+    <div class="control zoom">
+        <button class="dec"><i class="fa fa-minus" aria-hidden="true"></i></button>
+        <button class="inc"><i class="fa fa-plus" aria-hidden="true"></i></button>
+    </div>
+    <!-- Overlays -->
+    <div class="container-fluid absolutePostionedDiv">
+        <div class="row">
+            <div class="col-xs-8 col-sm-7 col-xs-offset-2">
+                <div class="forceBlock">
+                    <h2 class="questionHeadingExact">
+                        Here's a rendering of what that building may look like.
+                    </h2>
+                    <h2 class="questionHeadingExactSmall">
+                        Here's a rendering of what that building may look like.
+                    </h2>
+                </div>
+            </div>
+            <div class="col-xs-2 col-sm-1">
+                <p class="pagesCompleted pull-right highlightBackground">4/4</p>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12 col-sm-8 col-sm-offset-2 bottomButtonGroupMap">
+                <a class="btn btn-dna-primary mobileWidth marginRight10" href="{% url 'skyline_permittedExactLocation' id=NYC_DOB_Permit_IssuanceObject.id %}" role="button"><span class="backArrow"></span>Back</a>
+                <a class="btn btn-dna-primary marginRight10" href="{% url 'skyline_permittedWhatNeighborhood' %}" role="button">Add Another!</a>
+                <a class="btn btn-dna-primary" href="{% url 'skyline_AdminDashboard' %}" role="button">Admin Home</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} {% block js_block %}
+<script type="text/javascript" src="{% static 'skyline/js/OSMBuildings.js' %}"></script>
+<script type="text/javascript" src="{% static 'skyline/js/permitted_osmmap.js' %}"></script>
+<script type="text/javascript">
+var objectID = "{{ NYC_DOB_Permit_IssuanceObject.id }}";
+$(document).ready(function() {
+    window.setTimeout(function() {
+        osmApplication.initialize();
+    }, 100);
+});
+</script>
+{% endblock %}

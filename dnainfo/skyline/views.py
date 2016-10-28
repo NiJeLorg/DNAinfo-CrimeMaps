@@ -759,6 +759,10 @@ def skyline_permittedBuildingHeightAnd(request, id=None):
 				f.updated_by = request.user
 			else:
 				f.created_by = request.user
+			# add the job start date as today to keep the building in there for the maximum amount fo time
+			f.job_start_date = datetime.date.today()
+			# add borough for filtering
+			f.borough = lookupObject.whereBuilding.county
 			# save form
 			f.save()
 			# pull object and check to see if it have a created_by field filled out
@@ -773,7 +777,7 @@ def skyline_permittedBuildingHeightAnd(request, id=None):
 
 	# Bad form (or form details), no form supplied...
 	# Render the form with error messages (if any).
-	return render(request, 'skyline/reporterBuildingHeight.html', {'form':form, 'NYC_DOB_Permit_IssuanceObject': NYC_DOB_Permit_IssuanceObject})
+	return render(request, 'skyline/permittedBuildingHeightAnd.html', {'form':form, 'NYC_DOB_Permit_IssuanceObject': NYC_DOB_Permit_IssuanceObject})
 
 @login_required
 def skyline_permittedExactLocation(request, id=None):
@@ -815,16 +819,22 @@ def skyline_permittedExactLocation(request, id=None):
 
 def skyline_permittedGetGeojson(request, id=None):
 
-	NYC_DOB_Permit_IssuanceObject = NYC_DOB_Permit_Issuance.objects.get(pk=id)
+	obj = NYC_DOB_Permit_Issuance.objects.get(pk=id)
 
-	return JsonResponse(NYC_DOB_Permit_IssuanceObject.buildingFootprint, safe=False)
+	if obj.buildingFootprint:
+		buildingHeight = (3.5*obj.buildingStories) + 9.625 + (2.625 * (obj.buildingStories/25));
+		changed = '{\"type\":\"FeatureCollection\",\"features\":[{\"type\": \"Feature\", \"properties\":{\"color\":\"#00cdbe\", \"roofColor\":\"#00cdbe\", \"height\":\"' + str(buildingHeight) +'\", \"zoning_pdfs\":\"visualizations/media/' + str(obj.zoning_pdfs) +'\", \"address\":\"' + obj.buildingAddress.strip() +'\", \"stories\":\"' + str(obj.buildingStories) +'\", \"story1\":\"' + str(obj.story1) +'\", \"projectName\":\"' + obj.projectName +'\", \"buildingImage\":\"visualizations/media/' + str(obj.buildingImage) +'\", \"buildingZip\":\"' + obj.buildingZip +'\", \"objectID\":\"' + str(obj.id) +'\", \"description\":\"' + obj.description +'\"}, \"geometry\": ' + obj.buildingFootprint + '}]}'
+	else:
+		changed = None
+
+	return JsonResponse(changed, safe=False)
 
 
 @login_required
 def skyline_permittedEnd(request, id=None):
 	NYC_DOB_Permit_IssuanceObject = NYC_DOB_Permit_Issuance.objects.get(pk=id)
 
-	return render(request, 'skyline/reporterEnd.html', {'NYC_DOB_Permit_IssuanceObject': NYC_DOB_Permit_IssuanceObject})
+	return render(request, 'skyline/permittedEnd.html', {'NYC_DOB_Permit_IssuanceObject': NYC_DOB_Permit_IssuanceObject})
 
 
 
