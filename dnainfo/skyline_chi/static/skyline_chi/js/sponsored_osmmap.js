@@ -60,8 +60,8 @@ osmApplication.initialize = function () {
 		  if (property) {
 		  	if (property == 'Zoom') {
 		  		var zoomNow = osmApplication.osmb['get'+ property]();
-		  		if (zoomNow <= 17 && direction == -1) {
-		  			// don't zoom below 17
+                if (zoomNow <= 14 && direction == -1) {
+                    // don't zoom below 14
 		  		} else if (zoomNow >= 19 && direction == 1) {
 		  			// don't zoom above 19
 		  		} else {

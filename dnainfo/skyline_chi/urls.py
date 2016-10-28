@@ -40,5 +40,12 @@ urlpatterns = [
     url(r'^skyline/chi/end/(?P<id>\d+)/$', views.skyline_chi_end, name='skyline_chi_end'),
     url(r'^skyline/chi/results/(?P<id>\d+)/$', views.skyline_chi_results, name='skyline_chi_results'),
     url(r'^skyline/admin/chi/permitted/buildingHeight/(?P<id>\d+)/$', views.skyline_chi_permittedBuildingHeight, name='skyline_chi_permittedBuildingHeight'),
+    # permitted building full form
+    url(r'^skyline/admin/chi/permitted/whatNeighborhood/$', views.skyline_chi_permittedWhatNeighborhood, name='skyline_chi_permittedWhatNeighborhood'),
+    url(r'^skyline/admin/chi/permitted/whatNeighborhood/(?P<id>\d+)/$', views.skyline_chi_permittedWhatNeighborhood, name='skyline_chi_permittedWhatNeighborhood'),
+    url(r'^skyline/admin/chi/permitted/buildingHeightAnd/(?P<id>\d+)/$', views.skyline_chi_permittedBuildingHeightAnd, name='skyline_chi_permittedBuildingHeightAnd'),
+    url(r'^skyline/admin/chi/permitted/exactLocation/(?P<id>\d+)/$', views.skyline_chi_permittedExactLocation, name='skyline_chi_permittedExactLocation'),
+    url(r'^skyline/admin/chi/permitted/getGeojson/(?P<id>\d+)/$', views.skyline_chi_permittedGetGeojson, name='skyline_chi_permittedGetGeojson'),
+    url(r'^skyline/admin/chi/permitted/end/(?P<id>\d+)/$', views.skyline_chi_permittedEnd, name='skyline_chi_permittedEnd'),
 
 ]

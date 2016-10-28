@@ -114,6 +114,36 @@ class NYC_DOB_Permit_IssuanceForm(forms.ModelForm):
             'story1': 'Please add a link to a DNAinfo story. (Optional)',
         }
 
+class NYCwhatNeighborhoodPermittedForm(forms.ModelForm):
+    class Meta:
+        model = NYC_DOB_Permit_Issuance
+        fields = ('whereBuilding', )
+        widgets = {
+            'whereBuilding': Select2Widget,
+        }
+
+class NYCbuildingHeightAndPermittedForm(forms.ModelForm):
+    class Meta:
+        model = NYC_DOB_Permit_Issuance
+        fields = ('projectName', 'buildingAddress', 'buildingZip', 'buildingStories', 'description', 'buildingImage', 'zoning_pdfs', 'story1', )
+        labels = {
+            'projectName': 'Please add a name for this project/building. (Optional)',
+            'buildingAddress': 'Enter the address according to DNAinfo style such as 810 Seventh Ave., 47-01 111th St. or 1108 Cortelyou Road. (Required)',
+            'buildingZip': 'Enter the new building\'s zip code (Required)',
+            'buildingStories': 'How many stories tall is this building? (Required)',
+            'description': 'Please add a brief description of the project. (Optional, 200 character limit)',
+            'buildingImage': 'Please add any storytelling images like designs, photos, etc. (Optional)',
+            'zoning_pdfs': 'Please add any documents readers might want to examine here. Zoning diagrams can be found in the <a href="http://a810-bisweb.nyc.gov/bisweb/bispi00.jsp" target="_blank">DOB building information search</a> system. (Optional)',
+            'story1': 'Please add a link to a DNAinfo story. (Optional)',
+        }
+
+class NYCexactLocationReporterForm(forms.ModelForm):
+    class Meta:
+        model = NYC_DOB_Permit_Issuance
+        fields = ('buildingFootprint', 'buildingBBL', )
+
+
+
 class NYClandingPageForm(forms.ModelForm):
     class Meta:
         model = NYCskyline

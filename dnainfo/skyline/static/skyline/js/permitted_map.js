@@ -7,13 +7,8 @@ function mapApplication() {}
 mapApplication.initialize = function() {
     // set zoom and center for this map
     this.center = center(neighborhoodName);
-    if (iDontSeeMyNeighborhood == "True") {
-        this.zoom = 11;
-        this.minZoom = 11;
-    } else {
-        this.zoom = 17;
-        this.minZoom = 14;
-    }
+    this.zoom = 17;
+    this.minZoom = 14;
     this.map = new L.Map('map', {
         minZoom: this.minZoom,
         maxZoom: 18,
@@ -417,24 +412,14 @@ mapApplication.featureClick = function(cartodb_id) {
             }).addTo(mapApplication.map);
             mapApplication.clicked_cartodb_id = cartodb_id;
 
-            // add properties to geojson
-            geojson.features[0].properties.color = "#ffcf2d";
-            geojson.features[0].properties.roofColor = "#ffcf2d";
-            geojson.features[0].properties.height = buildingHeight;
-            geojson.features[0].properties.minHeight = 0;
-            geojson.features[0].properties.name = buildingName;
-            geojson.features[0].properties.printAddress = buildingAddress;
-            geojson.features[0].properties.text = buildingText;
-            geojson.features[0].properties.image = buildingImage;
-
             // add data to form
-            $('#id_buildingFootprint').val(JSON.stringify(geojson));
-            $('#id_buildingAddress').val(geojson.features[0].properties.address);
+            $('#id_buildingFootprint').val(JSON.stringify(geojson.features[0].geometry));
             $('#id_buildingBBL').val(geojson.features[0].properties.bbl);
             // remove disable from next button
-            if ($('#sponsoredNextEnd').prop("disabled")) {
-                $('#sponsoredNextEnd').prop("disabled", false);
+            if ($('#permittedNextEnd').prop("disabled")) {
+                $('#permittedNextEnd').prop("disabled", false);
             }
+
         })
         .error(function(errors) {
             // errors contains a list of errors
@@ -478,6 +463,8 @@ mapApplication.removeAllHoverShapes = function() {
     }
 }
 
+
+
 mapApplication.pickUrlTableSQL = function(boro) {
     // manhattan
     if (boro == 'Manhattan') {
@@ -507,7 +494,7 @@ mapApplication.pickUrlTableSQL = function(boro) {
 mapApplication.loadParcel = function() {
     $.ajax({
         type: "GET",
-        url: "/skyline/admin/nyc/sponsored/getGeojson/" + objectID + "/",
+        url: "/skyline/admin/nyc/permitted/getGeojson/" + objectID + "/",
         success: function(data) {
             // load the draw tools
             if (data) {
@@ -517,25 +504,9 @@ mapApplication.loadParcel = function() {
                 }).addTo(mapApplication.map);
 
                 mapApplication.map.panTo(mapApplication.CLICKGEOJSON.getBounds().getCenter());
-
-                // add properties to geojson
-                geojson.features[0].properties.color = "#ffcf2d";
-                geojson.features[0].properties.roofColor = "#ffcf2d";
-                geojson.features[0].properties.height = buildingHeight;
-                geojson.features[0].properties.minHeight = 0;
-                geojson.features[0].properties.name = buildingName;
-                geojson.features[0].properties.printAddress = buildingAddress;
-                geojson.features[0].properties.text = buildingText;
-                geojson.features[0].properties.image = buildingImage;
-
-                // add data to form
-                $('#id_buildingFootprint').val(JSON.stringify(geojson));
-                $('#id_buildingAddress').val(geojson.features[0].properties.address);
-                $('#id_buildingBBL').val(geojson.features[0].properties.bbl);
-
                 // remove disable from next button
-                if ($('#sponsoredNextEnd').prop("disabled")) {
-                    $('#sponsoredNextEnd').prop("disabled", false);
+                if ($('#permittedNextEnd').prop("disabled")) {
+                    $('#permittedNextEnd').prop("disabled", false);
                 }
 
             }
@@ -543,7 +514,6 @@ mapApplication.loadParcel = function() {
     });
 
 }
-
 
 
 /* Style states */
