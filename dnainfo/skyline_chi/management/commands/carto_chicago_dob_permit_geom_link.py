@@ -15,7 +15,7 @@ class Command(BaseCommand):
 
     def load_geom(self):
         # pull data from NYC_DOB_Permit_Issuance
-        objects = CHI_Building_Permits.objects.filter(buildingFootprint__exact = '')
+        objects = CHI_Building_Permits_New.objects.filter(buildingFootprint__exact = '')
 
         for obj in objects:
             if obj.pin1:
