@@ -659,7 +659,9 @@ def skyline_chi_permittedBuildingHeight(request, id=None):
 
 	if not CHI_Building_Permits_NewObject.whereBuilding:
 		if hoodID: 
-			CHI_Building_Permits_NewObject.whereBuilding = int(hoodID)
+			#look up neighborhood
+			hood = neighborhoodCHI.objects.get(id=int(hoodID))
+			CHI_Building_Permits_NewObject.whereBuilding = hood
 			CHI_Building_Permits_NewObject.save()
 
 	# A HTTP POST?
