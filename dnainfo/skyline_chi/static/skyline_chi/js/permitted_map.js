@@ -7,13 +7,8 @@ function mapApplication() {}
 mapApplication.initialize = function() {
     // set zoom and center for this map
     this.center = center(neighborhoodName);
-    if (iDontSeeMyNeighborhood == "True") {
-        this.zoom = 11;
-        this.minZoom = 11;
-    } else {
-        this.zoom = 17;
-        this.minZoom = 14;
-    }
+    this.zoom = 17;
+    this.minZoom = 14;
     this.map = new L.Map('map', {
         minZoom: this.minZoom,
         maxZoom: 18,
@@ -42,7 +37,6 @@ mapApplication.initialize = function() {
 
     //load geocoder control
     var geocoder = this.map.addControl(L.Control.geocoder({ collapsed: true, placeholder: 'Address Search', geocoder: new L.Control.Geocoder.Google() }));
-
 
     //add CARTO Parcel data to map
     mapApplication.loadParcelData();
@@ -345,22 +339,14 @@ mapApplication.featureClick = function(cartodb_id, sql, tableName, latlng) {
             // reverse geocode lat lon
             mapApplication.reverseGeocode(latlng);
 
-            // add properties to geojson
-            geojson.features[0].properties.color = "#ffcf2d";
-            geojson.features[0].properties.roofColor = "#ffcf2d";
-            geojson.features[0].properties.height = buildingHeight;
-            geojson.features[0].properties.minHeight = 0;
-            geojson.features[0].properties.name = buildingName;
-            geojson.features[0].properties.printAddress = buildingAddress;
-            geojson.features[0].properties.text = buildingText;
-            geojson.features[0].properties.image = buildingImage;
-
             // add data to form
-            $('#id_buildingFootprint').val(JSON.stringify(geojson));
+            $('#id_buildingFootprint').val(JSON.stringify(geojson.features[0].geometry));
+            $('#id_pin1').val(geojson.features[0].properties.pin10);
             // remove disable from next button
-            if ($('#sponsoredNextEnd').prop("disabled")) {
-                $('#sponsoredNextEnd').prop("disabled", false);
+            if ($('#permittedNextEnd').prop("disabled")) {
+                $('#permittedNextEnd').prop("disabled", false);
             }
+
         })
         .error(function(errors) {
             // errors contains a list of errors
@@ -409,7 +395,7 @@ mapApplication.removeAllClickShapes = function() {
 mapApplication.loadParcel = function() {
     $.ajax({
         type: "GET",
-        url: "/skyline/admin/chi/sponsored/getGeojson/" + objectID + "/",
+        url: "/skyline/admin/chi/permitted/getGeojson/" + objectID + "/",
         success: function(data) {
             // load the draw tools
             if (data) {
@@ -419,24 +405,9 @@ mapApplication.loadParcel = function() {
                 }).addTo(mapApplication.map);
 
                 mapApplication.map.panTo(mapApplication.CLICKGEOJSON.getBounds().getCenter());
-
-                // add properties to geojson
-                geojson.features[0].properties.color = "#ffcf2d";
-                geojson.features[0].properties.roofColor = "#ffcf2d";
-                geojson.features[0].properties.height = buildingHeight;
-                geojson.features[0].properties.minHeight = 0;
-                geojson.features[0].properties.name = buildingName;
-                geojson.features[0].properties.printAddress = buildingAddress;
-                geojson.features[0].properties.text = buildingText;
-                geojson.features[0].properties.image = buildingImage;
-
-                // add data to form
-                $('#id_buildingFootprint').val(JSON.stringify(geojson));
-
-
                 // remove disable from next button
-                if ($('#sponsoredNextEnd').prop("disabled")) {
-                    $('#sponsoredNextEnd').prop("disabled", false);
+                if ($('#permittedNextEnd').prop("disabled")) {
+                    $('#permittedNextEnd').prop("disabled", false);
                 }
 
             }
@@ -444,7 +415,6 @@ mapApplication.loadParcel = function() {
     });
 
 }
-
 
 
 /* Style states */
@@ -463,13 +433,3 @@ mapApplication.clicked = {
     fillOpacity: 0.8,
     fillColor: '#fc5158'
 };
-
-
-
-/* Vars */
-mapApplication.map;
-// create a feature layer to use to write geojson to 
-mapApplication.HOVERGEOJSON;
-mapApplication.hovered = [];
-mapApplication.CLICKGEOJSON;
-mapApplication.clicked_cartodb_id = null;

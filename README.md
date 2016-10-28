@@ -85,7 +85,7 @@ New feature branches can be named anything except for `master`, `develop` or pre
 
 Once your branch is pushed up to the repo, navigate to the [pull request section on GitHub](https://github.com/NiJeLorg/DNAinfo-CrimeMaps/compare?expand=1) and [create a pull-request](https://help.github.com/articles/creating-a-pull-request/) from the base of `develop` to your feature branch. Write any comments that are relevant, tag users or reference issues.  
 
-After the pull-request is submitted and the code is reviewed and approved, the feature branch will be merged into `develop`, and that feature branch will be closed. The can be doen on GitHub or via command line:
+After the pull-request is submitted and the code is reviewed and approved, the feature branch will be merged into `develop`, and that feature branch will be closed. The can be done on GitHub or via command line:
 
     git pull origin develop
     git checkout develop

@@ -23,7 +23,7 @@ osmApplication.initialize = function() {
         tilt: 45,
         zoom: 18,
         position: { latitude: 40.710508, longitude: -73.943825 },
-        fastMode: osmApplication.fastMode,
+        state: osmApplication.fastMode,
         effects: osmApplication.shadows,
         attribution: '© 3D <a href="https://osmbuildings.org/copyright/">OSM Buildings</a>. Map tiles by <a href=\"http://stamen.com\">Stamen Design</a>, under <a href=\"https://creativecommons.org/licenses/by/3.0/\" target=\"_blank\">CC BY 3.0</a>. Data by <a href=\"http://www.openstreetmap.org/\" target=\"_blank\">OpenStreetMap</a>, under ODbL.'
     }).appendTo("osmmap");
@@ -59,8 +59,8 @@ osmApplication.initialize = function() {
             if (property) {
                 if (property == 'Zoom') {
                     var zoomNow = osmApplication.osmb['get' + property]();
-		  			if (zoomNow <= 14 && direction == -1) {
-		  			    // don't zoom below 14
+                    if (zoomNow <= 14 && direction == -1) {
+                        // don't zoom below 14
                     } else if (zoomNow >= 19 && direction == 1) {
                         // don't zoom above 19
                     } else {
@@ -70,43 +70,8 @@ osmApplication.initialize = function() {
                     osmApplication.osmb['set' + property](osmApplication.osmb['get' + property]() + increment);
                 }
             }
-
         });
     }
-
-    // osm building click
-    osmApplication.osmb.on('click', function(e) {
-        console.log(e);
-        osmApplication.osmb.getTarget(e.x, e.y, function(id) {
-            console.log(id);
-            splitId = id.split('_');
-            if (splitId[0] == 'sponsored') {
-                var x = parseInt(e.x) - 150;
-                var y = parseInt(e.y) - 250;
-                // show div with data populated at that screen location
-                $('#tooltip').css('left', x);
-                $('#tooltip').css('top', y);
-                $('#tooltip').removeClass('hidden');
-
-            } else {
-                if (!$('#tooltip').hasClass('hidden')) {
-                    $('#tooltip').addClass('hidden');
-                }
-            }
-        });
-    });
-
-    // close sponsored tooltip if the map changes
-    osmApplication.osmb.on('change', function(e) {
-        if (!$('#tooltip').hasClass('hidden')) {
-            $('#tooltip').addClass('hidden');
-        }
-    });
-
-    // create listener for closing tooltip
-    $('.sponsored-close').click(function() {
-        $('#tooltip').addClass('hidden');
-    });
 
     // get geojson
     osmApplication.getGeojson();
@@ -117,7 +82,7 @@ osmApplication.initialize = function() {
 osmApplication.getGeojson = function() {
     $.ajax({
         type: "GET",
-        url: "/skyline/admin/nyc/sponsored/getGeojson/" + objectID + "/",
+        url: "/skyline/admin/chi/permitted/getGeojson/" + objectID + "/",
         success: function(data) {
             // load the draw tools
             if (data) {
@@ -131,7 +96,7 @@ osmApplication.getGeojson = function() {
                 }
                 // pan map
                 osmApplication.osmb.setPosition({ latitude: lat, longitude: lon });
-                osmApplication.addedLayer = osmApplication.osmb.addGeoJSON(geojson, { id: 'sponsored_geojson' });
+                osmApplication.addedLayer = osmApplication.osmb.addGeoJSON(geojson, { id: 'permitted_geojson' });
 
             }
         }
