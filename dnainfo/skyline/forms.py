@@ -61,7 +61,7 @@ class NYCexactLocationSponsoredForm(forms.ModelForm):
 class NYCremoveSponsoredForm(forms.ModelForm):
     class Meta:
         model = NYCSponsoredBuildings
-        fields = ('buildingName', )
+        fields = ('id', )
 
 
 class NYCwhatNeighborhoodReporterForm(forms.ModelForm):
@@ -95,7 +95,7 @@ class NYCexactLocationReporterForm(forms.ModelForm):
 class NYCremoveReporterForm(forms.ModelForm):
     class Meta:
         model = NYCReporterBuildings
-        fields = ('buildingStories', )
+        fields = ('id', )
 
 
 class NYC_DOB_Permit_IssuanceForm(forms.ModelForm):
