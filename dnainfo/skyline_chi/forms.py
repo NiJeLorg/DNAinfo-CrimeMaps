@@ -61,7 +61,7 @@ class CHIexactLocationSponsoredForm(forms.ModelForm):
 class CHIremoveSponsoredForm(forms.ModelForm):
     class Meta:
         model = CHISponsoredBuildings
-        fields = ('buildingName', )
+        fields = ('id', )
 
 
 class CHIwhatNeighborhoodReporterForm(forms.ModelForm):
@@ -95,7 +95,7 @@ class CHIexactLocationReporterForm(forms.ModelForm):
 class CHIremoveReporterForm(forms.ModelForm):
     class Meta:
         model = CHIReporterBuildings
-        fields = ('buildingStories', )
+        fields = ('id', )
 
 
 class CHI_Building_Permits_NewForm(forms.ModelForm):
