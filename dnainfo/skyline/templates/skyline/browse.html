@@ -1,0 +1,80 @@
+{% extends 'skyline/baseNYC.html' %} {% load staticfiles %} {% block css_block %}
+<link rel="stylesheet" type="text/css" href="{% static 'skyline/css/OSMBuildings.css' %}">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"> {% endblock %} {% block body_block %}
+<div id="content">
+    <!-- Map -->
+    <div id="osmmap"></div>
+    <!-- Buttons -->
+    <div class="control tilt">
+        <button class="dec"><i class="fa fa-angle-double-down" aria-hidden="true"></i></button>
+        <button class="inc"><i class="fa fa-angle-double-up" aria-hidden="true"></i></button>
+    </div>
+    <div class="control rotation">
+        <button class="inc"><i class="fa fa-undo" aria-hidden="true"></i></button>
+        <button class="dec"><i class="fa fa-repeat" aria-hidden="true"></i></button>
+    </div>
+    <div class="control zoom">
+        <button class="dec"><i class="fa fa-minus" aria-hidden="true"></i></button>
+        <button class="inc"><i class="fa fa-plus" aria-hidden="true"></i></button>
+    </div>
+    <!-- Hidden Div -->
+    <div id="tooltipSponsored" class="tooltip sponsored-tooltip hidden">
+        <p class="sponsored">SPONSORED</p>
+        <h4 id="property-name" class="tooltip-title"></h4>
+        <button type="button" class="close tooltip-close" aria-label="Close"><span aria-hidden="true" class="xIcon"></span></button>
+        <div class="clearfix"></div>
+        <hr />
+        <div id='property-image' class='pull-right'></div>
+        <p id="property-description" class='property-text'></p>
+        <p id='property-address' class='property-text'></p>
+    </div>
+    <!-- Hidden Div -->
+    <div id="tooltipPermitted" class="tooltip permitted-tooltip hidden">
+        <p class="permitted">APPROVED</p>
+        <h4 id="property-projectName-permitted" class="tooltip-title"></h4>
+        <button type="button" class="close tooltip-close" aria-label="Close"><span aria-hidden="true" class="xIcon"></span></button>
+        <div class="clearfix"></div>
+        <hr />
+        <div id='property-image-permitted' class='pull-right'></div>
+        <p>
+            <span id='property-description-permitted' class='property-text dark'></span>
+            <span id="property-address-permitted" class='property-text'></span>
+            <span id="property-stories-permitted" class='property-text'></span>
+            <span id='property-story1-permitted' class='property-text link'></span>
+            <span id='property-pdf-permitted' class='property-text link'></span>
+        </p>
+        <a id='property-edit-permitted' class="btn btn-primary marginRight10" href="" role="button">Edit</a>
+    </div>
+    <!-- Hidden Div -->
+    <div id="tooltipDNA" class="tooltip dna-tooltip hidden">
+        <p class="dna">PROPOSED</p>
+        <h4 id="property-projectName-dna" class="tooltip-title"></h4>
+        <button type="button" class="close tooltip-close" aria-label="Close"><span aria-hidden="true" class="xIcon"></span></button>
+        <div class="clearfix"></div>
+        <hr />
+        <div id='property-image-dna' class='pull-right'></div>
+        <p>
+            <span id='property-description-dna' class='property-text dark'></span>
+            <span id="property-address-dna" class='property-text'></span>
+            <span id="property-stories-dna" class='property-text'></span>
+            <span id='property-story1-dna' class='property-text link'></span>
+            <span id='property-pdf-dna' class='property-text link'></span>
+        </p>
+        <a id='property-edit-dna' class="btn btn-primary marginRight10" href="" role="button">Edit</a>
+        <a id='property-remove-dna' class="btn btn-danger" href="" role="button">Remove</a>
+    </div>
+</div>
+{% endblock %} {% block js_block %}
+<script type="text/javascript" src="{% static 'skyline/js/OSMBuildings.js' %}"></script>
+<script type="text/javascript" src="{% static 'skyline/js/browse.js' %}"></script>
+<script type="text/javascript">
+var dnaUrl = '{{ hood.dnaurl }}';
+var boro = '{{ hood.county }}';
+var hoodID = '{{ hood.id }}';
+$(document).ready(function() {
+    window.setTimeout(function() {
+        osmApplication.initialize();
+    }, 100);
+});
+</script>
+{% endblock %}

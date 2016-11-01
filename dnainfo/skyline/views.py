@@ -863,4 +863,7 @@ def skyline_landingPage(request, id=None):
 	# Render the form with error messages (if any).
 	return render(request, 'skyline/index.html', {'form':form})
 
-
+def skyline_browse(request, id=None):
+	#pull neighborhood
+	hood = neighborhoodNYC.objects.get(pk=id)
+	return render(request, 'skyline/browse.html', {'hood':hood,})
