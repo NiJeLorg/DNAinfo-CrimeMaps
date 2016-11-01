@@ -22,11 +22,10 @@
         <div class="title">
             <h2 class="title-heading">Title</h2>
             <h4 class="title-subheading">Sponsored by [vendor]</h4>
-            <p class="title-info">Every new building affects the character of a neighborhood, so DNAinfo created this
-                <br> 3D map that helps you understand how high new buildings could be going up near you.
+            <p class="title-info">Every new building affects the character of a neighborhood, so DNAinfo created this 3D map that helps you understand how high new buildings could be going up near you.
             </p>
         </div>
-<!--         <div class="select-parent">
+        <div class="select-parent">
             <form id="whatNeighborhoodForm" method="post" action=".">
                 {% csrf_token %}
                 <div class="row" style="display: flex">
@@ -46,93 +45,116 @@
             <button class="chevron-button">
                 <i class="fa fa-chevron-down" aria-hidden='true'></i>
             </button>
-        </div> -->
+        </div>
     </header>
     <main>
         <div class="building-component grey-bg">
-            <div class="building-component-info">
-                <h3 class="component-heading">Approved Construction</h3>
-                <p class="component-info">Turquoise boxes represent areas where
-                    <br> building permits have been issued. As far
-                    <br> as the city's concerned, these buildings
-                    <br> are being built at this height.
-                </p>
-                <p class="component-info"> Buildings will go within this Turquoise
-                    <br> area. These are height indicators, not
-                    <br> building designs.
-                </p>
-            </div>
-            <div class="building-component-image">
-                <img src="{%static 'skyline/assets/Info-Icon.svg' %}" class="info-icon application-info-icon wow  bounceInRight" data-wow-duration="1s">
-                <img src="{%static 'skyline/assets/Buildings_Approved.svg' %}" class="building-svg">
-            </div>
-            <div class="building-modal approved-building-modal">
-                <div class="building-modal-nav">APPROVED</div>
-                <div class="building-modal-header">
-                    <h4>Library at Hunters Point</h4>
-                    <span class="building-cancel-modal"></span>
+            <div class="row building-component-holder">
+                <div class="col-sm-6 buidling-component-info">
+                    <h3 class="component-heading">Approved Construction</h3>
+                    <p class="component-info">Turquoise boxes represent areas where
+                        <br> building permits have been issued. As far
+                        <br> as the city's concerned, these buildings
+                        <br> are being built at this height.
+                    </p>
+                    <p class="component-info"> Buildings will go within this Turquoise
+                        <br> area. These are height indicators, not
+                        <br> building designs.
+                    </p>
                 </div>
-                <div class="building-modal-content">
-                    <div class="building-modal-info">
-                        <p>A modern community center
-                            <br> and peaceful retreat.
-                        </p>
+                <div class="col-sm-6 buidling-component-images-modal">
+                    <div class="building-component-images col-md-6">
+                        <img src="{%static 'skyline/assets/Buildings_Approved.svg' %}" class="building-component-svg">
+                        <img src="{%static 'skyline/assets/Info-Icon.svg' %}" class="info-icon approved-info-icon wow bounceInLeft" data-wow-duration="1s">
                     </div>
-                </div>
-                <div class="building-modal-footer">
-                    <div class="links">
-                        <a href="#">Read More</a>
-                        <a href="#">See Documents</a>
-                    </div>
-                    <div class="social-media-links">
-                        <div class="link-holder facebook">
-                            <a href="#"><i class="fa fa-facebook-official fa-2x" aria-hidden="true"></i></a>
+                    <!--                     <div class="building-component-modal col-md-6">
+                        <h5 class="building-modal-header approved-header">Approved</h5>
+                        <div class="building-modal-info">
+                            <div class="building-modal-info-header">
+                                <h4>Library at Hunter's point</h4>
+                            </div>
+                            <div class="building-component-info-content row">
+                                <main class="col-md-8">
+                                    <p>A modern community center and peaceful retreat</p>
+                                    <p>25-01 Jackson Ave,</p>
+                                    <p>Long Island City, NY 11101</p>
+                                    <P>3 stories tall</P>
+                                </main>
+                                <img src="" height="90px" width="90px" class="col-md-4">
+                            </div>
+                            <footer>
+                                <div class="links">
+                                    <p><a href="#">Read More</a></p>
+                                    <p><a href="#">See Documents</a></p>
+                                </div>
+                                <div class="social-media-links">
+                                    <div class="link-holder facebook">
+                                        <a href="#"><i class="fa fa-facebook-official fa-2x" aria-hidden="true"></i></a>
+                                    </div>
+                                    <div class="link-holder twitter">
+                                        <a href="#"> <i class="fa fa-twitter fa-2x" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
+                            </footer>
                         </div>
-                        <div class="link-holder twitter">
-                            <a href="#"> <i class="fa fa-twitter fa-2x" aria-hidden="true"></i></a>
-                        </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
         <div class="building-component">
-            <div class="building-component-info reverse" style="order: 2">
-                <h3 class="component-heading">Proposed Consideration</h3>
-                <p class="component-info">Blue boxes have not yet had permits
-                    <br> approved by the city. These are projects
-                    <br> that may have been presented at local
-                    <br> meetings, but haven't completed the
-                    <br> city's building approval process. The
-                    <br> height of these boxes reflect what
-                    <br>developers have submitted
-                </p>
-            </div>
-            <div class="building-component-image" style="order: 1">
-                <img src="{%static 'skyline/assets/Info-Icon.svg' %}" class="info-icon proposed-info-icon wow bounceInLeft" data-wow-duration="1s">
-                <img src="{%static 'skyline/assets/Buildings_Proposed.svg' %}" class="building-svg">
+            <div class="row building-component-holder">
+                <div class="building-component-images-modal col-sm-6">
+                    <div class="building-component-images col-md-6">
+                        <img src="{%static 'skyline/assets/Buildings_Proposed.svg' %}" class="building-component-svg">
+                        <img src="{%static 'skyline/assets/Info-Icon.svg' %}" class="info-icon proposed-info-icon wow bounceInLeft" data-wow-duration="1s">
+                    </div>
+                    <!--                     <div class="building-component-modal col-md-6">
+                        <p>Yoo</p>
+                    </div> -->
+                </div>
+                <div class="col-sm-6 building-component-info">
+                    <h3 class="component-heading">Proposed Consideration</h3>
+                    <p class="component-info">Blue boxes have not yet had permits
+                        <br> approved by the city. These are projects
+                        <br> that may have been presented at local
+                        <br> meetings, but haven't completed the
+                        <br> city's building approval process. The
+                        <br> height of these boxes reflect what
+                        <br>developers have submitted
+                    </p>
+                </div>
             </div>
         </div>
         <div class="building-component grey-bg">
-            <div class="building-component-info">
-                <h3 class="component-heading">Explore Inside</h3>
-                <p class="component-info">Yellow boxes are from DNAinfo partners.</p>
-            </div>
-            <div class="building-component-image">
-                <img src="{%static 'skyline/assets/Info-Icon.svg' %}" class="info-icon sponsored-info-icon wow bounceInRight" data-wow-duration="1s">
-                <img src="{%static 'skyline/assets/Buildings_Sponsored.svg' %}" class="building-svg">
+            <div class="row building-component-holder">
+                <div class="col-sm-6 buidling-component-info">
+                    <h3 class="component-heading">Explore Inside</h3>
+                    <p class="component-info">Yellow boxes are from DNAinfo partners</p>
+                </div>
+                <div class="col-sm-6 buidling-component-images-modal">
+                    <div class="building-component-images col-md-6">
+                        <img src="{%static 'skyline/assets/Buildings_Sponsored.svg' %}" class="building-component-svg">
+                        <img src="{%static 'skyline/assets/Info-Icon.svg' %}" class="info-icon sponsored-info-icon wow bounceInLeft" data-wow-duration="1s">
+                    </div>
+                    <!--                     <div class="building-component-modal col-md-6">
+                        <p>Yoo</p>
+                    </div> -->
+                </div>
             </div>
         </div>
         <div class="building-component">
-            <div class="building-component-info reverse" style="order: 2">
-                <h3 class="component-heading">Add a Building</h3>
-                <p class="component-info">We have thousands of possible buildings
-                    <br> in our map now, but you can <a href="#">add more.</a>
-                    <br> Submit one, and we'll tell you when your
-                    <br> building's been added.
-                </p>
-            </div>
-            <div class="building-component-image" style="order: 1">
-                <img src="{%static 'skyline/assets/Buildings_Submitted.svg' %}" class="building-svg">
+            <div class="row building-component-holder">
+                <div class="building-component-images-modal col-sm-6">
+                    <div class="building-component-images col-md-6">
+                        <img src="{%static 'skyline/assets/Buildings_Submitted.svg' %}" class="building-component-svg">
+                    </div>
+                </div>
+                <div class="col-sm-6 building-component-info">
+                    <h3 class="component-heading">Add a building</h3>
+                    <p class="component-info">We have thousands of possible buildings in our map now, but you can add
+                        <a href="#">more.</a> Submit one, and we'll tell you when your building's been added.
+                    </p>
+                </div>
             </div>
         </div>
     </main>

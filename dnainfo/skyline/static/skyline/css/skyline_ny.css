@@ -1,4 +1,3 @@
-// UTILITY STYLES //
 a {
     cursor: pointer;
 }
@@ -20,13 +19,12 @@ a:hover {
 }
 
 .component-info {
-    font-size: 21px;
+    font-size: 1.4em;
     line-height: 1.5;
     font-family: 'Georgia', serif;
     margin-bottom: 6%;
 }
 
-// UTILITY STYLES //
 .navbar {
     height: 56px;
     border-bottom: 1px solid #D1D1D1;
@@ -86,6 +84,9 @@ a:hover {
 .title .title-info {
     font-family: 'Georgia', serif;
     line-height: 1.5;
+    text-align: left;
+    width: 66%;
+    margin: 0 auto;
     letter-spacing: .4px;
     font-size: 1.7em;
     margin-bottom: 3%;
@@ -115,75 +116,96 @@ a:hover {
 }
 
 .building-component {
-    display: flex;
-    justify-content: center;
     color: #2E2925;
-    flex-wrap: wrap;
+}
+
+.building-component-holder {
+    width: 60%;
+    margin: 0 auto;
+    padding: 4% 0%;
 }
 
 .building-component-info {
-    display: flex;
+    flex-grow: 1;
+    display: inline-flex;
     flex-direction: column;
     justify-content: center;
-    margin-right: 12%;
 }
 
-.reverse {
-    margin-right: 0%;
-    margin-left: 24%;
+.building-component-images-modal {}
+
+.building-component-images .building-component-svg {
+    width: 210%;
 }
 
-.building-component-image {}
+.building-component-images .info-icon {
+    width: 25%;
+    position: relative;
+}
 
-.building-component-image .building-svg {
-    margin-top: 25%;
-    margin-bottom: 25%;
-    width: 180%;
+.approved-info-icon {
+    top: -20em;
+    left: 12em;
+}
+
+.proposed-info-icon {
+    top: -17em;
+    left: 14em;
+}
+
+.sponsored-info-icon {
+    top: -19em;
+    left: 11em;
 }
 
 .building-component-image .info-icon {
-    width: 15%;
     position: relative;
     cursor: pointer;
 }
 
-.building-modal {
-    position: relative;
-    height: 20%;
+.building-component-modal {
+    position: absolute;
+    width: 80%;
+    padding: 0;
     background: #FFFFFF;
     border-radius: 4px;
     box-shadow: 2px 2px 10px #c1c1c1;
 }
 
-.building-modal-nav {
-    padding: .2% 10%;
+.building-component-modal .building-modal-header {
+    margin: 0;
+    padding: 2% 4%;
+    text-transform: uppercase;
     font-weight: bold;
     color: #fff;
+    border-radius: 4px 4px 0px 0px;
 }
 
-.approved-building-modal {
-    top: 5em;
-    left: 3.5em;
-}
-
-.approved-building-modal .building-modal-nav {
+.building-component-modal .approved-header {
     background: #21CCBE;
 }
 
-.application-info-icon {
-    top: 29%;
-    left: 92%;
+.building-modal-info {
+    padding: 0% 4%;
 }
 
-.proposed-info-icon {
-    top: 36%;
-    left: 103%;
+.building-modal-info-header {
+    color: #2E2925;
+    font-weight: bold;
+    border-bottom: 1px solid #eae9e9;
+    margin-bottom: 6%;
 }
 
-.sponsored-info-icon {
-    top: 33%;
-    left: 78%;
+.building-modal-info footer {
+    text-align: left;
+    font-weight: bold;
 }
+
+footer .social-media-links {
+    justify-content: flex-start;
+}
+
+.building-component-info-content {}
 
 footer {
     margin-top: 6%;
@@ -217,11 +239,57 @@ footer {
     font-size: 1.4em;
 }
 
-// TABLET STYLES //
-@media (min-width: 400px) {
-  .fadein header .title {
-    color: red;
-  }
+@media (max-width: 1024px) {
+    .building-component-holder {
+        width: 80%;
+    }
 }
 
-// TABLET STYLES //
+@media (max-width: 768px) {
+    .title .title-heading {
+        font-size: 3em;
+    }
+    .title .title-subheading {
+        font-size: 1.3em;
+    }
+    .title .title-info {
+        line-height: 1.4;
+        font-size: 1.5em;
+        width: 95%;
+    }
+    .component-info {
+        font-size: 1.2em;
+    }
+    .building-component-holder {
+        width: 90%;
+    }
+    .building-component-images .building-component-svg {
+        width: 100%;
+    }
+    .building-component-images .info-icon {
+        width: 1%;
+    }
+    .application-info-icon {
+        top: -30%;
+        left: -16%;
+    }
+    .proposed-info-icon {
+        top: -19%;
+        left: -11%;
+    }
+    .sponsored-info-icon {
+        top: -24%;
+        left: -23%;
+    }
+}
+
+// @media (max-width: 425px) {
+//     .building-component-group {
+//         flex-direction: column;
+//         align-items: center;
+//         // justify-content: center;
+//     }
+//     .building-component-image-holder {
+//         flex-direction: row;
+//     }
+// }
