@@ -182,7 +182,7 @@ def skyline_chi_createBuildingsCSV(request):
 @login_required
 def skyline_chi_UgcList(request):
 	CHIskylineObjects = CHIskyline.objects.filter(approved=None).exclude(buildingFootprint='')
-	paginator = Paginator(CHIskylineObjects, 10) # Show 10 buildings per page
+	paginator = Paginator(CHIskylineObjects, 20) # Show 10 buildings per page
 	page = request.GET.get('page')
 	try:
 		objs = paginator.page(page)
@@ -370,7 +370,7 @@ def skyline_chi_sponsoredEnd(request, id=None):
 def skyline_chi_sponsoredList(request, id=None):
 	CHISponsoredBuildingsObjects = CHISponsoredBuildings.objects.exclude(archived=True).order_by('-updated_by', 'buildingName')
 
-	paginator = Paginator(CHISponsoredBuildingsObjects, 10) # Show 10 buildings per page
+	paginator = Paginator(CHISponsoredBuildingsObjects, 20) # Show 10 buildings per page
 	page = request.GET.get('page')
 	try:
 		objs = paginator.page(page)
@@ -554,7 +554,7 @@ def skyline_chi_reporterEnd(request, id=None):
 def skyline_chi_reporterList(request, id=None):
 	CHIReporterBuildingsObjects = CHIReporterBuildings.objects.exclude(archived=True).order_by('-updated_by', 'projectName')
 
-	paginator = Paginator(CHIReporterBuildingsObjects, 10) # Show 10 buildings per page
+	paginator = Paginator(CHIReporterBuildingsObjects, 20) # Show 10 buildings per page
 	page = request.GET.get('page')
 	try:
 		objs = paginator.page(page)

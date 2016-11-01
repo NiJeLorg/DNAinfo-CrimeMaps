@@ -183,7 +183,7 @@ def skyline_createBuildingsCSV(request):
 @login_required
 def skyline_UgcList(request):
 	NYCskylineObjects = NYCskyline.objects.filter(approved=None).exclude(buildingFootprint='')
-	paginator = Paginator(NYCskylineObjects, 10) # Show 10 buildings per page
+	paginator = Paginator(NYCskylineObjects, 20) # Show 10 buildings per page
 	page = request.GET.get('page')
 	try:
 		objs = paginator.page(page)
@@ -374,7 +374,7 @@ def skyline_sponsoredEnd(request, id=None):
 def skyline_sponsoredList(request, id=None):
 	NYCSponsoredBuildingsObjects = NYCSponsoredBuildings.objects.exclude(archived=True).order_by('-updated_by', 'buildingName')
 
-	paginator = Paginator(NYCSponsoredBuildingsObjects, 10) # Show 10 buildings per page
+	paginator = Paginator(NYCSponsoredBuildingsObjects, 20) # Show 10 buildings per page
 	page = request.GET.get('page')
 	try:
 		objs = paginator.page(page)
@@ -558,7 +558,7 @@ def skyline_reporterEnd(request, id=None):
 def skyline_reporterList(request, id=None):
 	NYCReporterBuildingsObjects = NYCReporterBuildings.objects.exclude(archived=True).order_by('-updated_by', 'projectName')
 
-	paginator = Paginator(NYCReporterBuildingsObjects, 10) # Show 10 buildings per page
+	paginator = Paginator(NYCReporterBuildingsObjects, 20) # Show 10 buildings per page
 	page = request.GET.get('page')
 	try:
 		objs = paginator.page(page)
