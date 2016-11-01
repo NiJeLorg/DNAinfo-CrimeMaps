@@ -1,7 +1,10 @@
 from django.shortcuts import render, redirect
 
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect, JsonResponse
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
+
+# for CSV downloading
+import unicodecsv as csv
 
 #import all apartment models and forms
 from skyline.models import *
@@ -150,6 +153,32 @@ def skyline_results(request, id=None):
 @login_required
 def skylineAdminDashboard(request):
 	return render(request, 'skyline/adminDashboard.html', {})
+
+@login_required
+def skyline_createBuildingsCSV(request):
+	# Create the HttpResponse object with the appropriate CSV header.
+	response = HttpResponse(content_type='text/csv')
+	response['Content-Disposition'] = 'attachment; filename="NYC_permitted_buildings_on_map.csv"'
+
+	writer = csv.writer(response, encoding='utf-8')
+	writer.writerow(['created', 'updated', 'created_by', 'updated_by', 'whereBuilding', 'borough', 'bin', 'house', 'street_name', 'job', 'job_doc', 'job_type', 'block', 'lot', 'community_board', 'zip_code', 'bldg_type', 'residential', 'permit_status', 'filing_status', 'permit_type', 'filing_date', 'issuance_date', 'expiration_date', 'job_start_date', 'buildingBBL', 'buildingFootprint', 'buildingStories', 'scan_code', 'scan_code_updated', 'zoning_pdfs', 'story1', 'projectName', 'buildingImage', 'buildingZip', 'buildingAddress', 'description', 'archived'])
+
+	#pull data 
+	today = datetime.date.today()
+	minyear = today.year - 1
+
+	NYC_DOB_Permit_IssuanceObjects = NYC_DOB_Permit_Issuance.objects.filter(job_start_date__year__gte=minyear).exclude(buildingStories__exact = 0).exclude(buildingFootprint__in = ['', '-99'])
+
+
+	for o in NYC_DOB_Permit_IssuanceObjects:
+		if o.whereBuilding:
+			neighborhoodName = o.whereBuilding.name
+		else:
+			neighborhoodName = None
+		
+		writer.writerow([o.created, o.updated, o.created_by, o.updated_by, neighborhoodName, o.borough, o.bin, o.house, o.street_name, o.job, o.job_doc, o.job_type, o.block, o.lot, o.community_board, o.zip_code, o.bldg_type, o.residential, o.permit_status, o.filing_status ,o.permit_type, o.filing_date, o.issuance_date, o.expiration_date, o.job_start_date, o.buildingBBL, o.buildingFootprint, o.buildingStories, o.scan_code, o.scan_code_updated, o.zoning_pdfs, o.story1, o.projectName, o.buildingImage, o.buildingZip, o.buildingAddress, o.description, o.archived])
+
+	return response
 
 @login_required
 def skyline_UgcList(request):

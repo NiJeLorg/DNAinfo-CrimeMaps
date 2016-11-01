@@ -1,7 +1,10 @@
 from django.shortcuts import render, redirect
 
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect, JsonResponse
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
+
+# for CSV downloading
+import unicodecsv as csv
 
 #import all apartment models and forms
 from skyline_chi.models import *
@@ -150,6 +153,31 @@ def skyline_chi_results(request, id=None):
 @login_required
 def skyline_chi_AdminDashboard(request):
 	return render(request, 'skyline_chi/adminDashboard.html', {})
+
+@login_required
+def skyline_chi_createBuildingsCSV(request):
+	# Create the HttpResponse object with the appropriate CSV header.
+	response = HttpResponse(content_type='text/csv')
+	response['Content-Disposition'] = 'attachment; filename="CHI_permitted_buildings_on_map.csv"'
+
+	writer = csv.writer(response, encoding='utf-8')
+	writer.writerow(['ID_ODP', 'created', 'updated', 'created_by', 'updated_by', 'whereBuilding', 'permit', 'permit_type', 'issue_date', 'street_number', 'street_direction', 'street_name', 'suffix', 'work_description', 'pin1', 'latitude', 'longitude', 'buildingFootprint', 'buildingStories', 'zoning_pdfs', 'story1', 'projectName', 'buildingImage', 'buildingAddress', 'description', 'archived'])
+
+	#pull data 
+	today = datetime.date.today()
+	minyear = today.year - 1
+
+	CHI_Building_Permits_NewObjects = CHI_Building_Permits_New.objects.filter(issue_date__year__gte=minyear).exclude(buildingStories__exact = 0).exclude(buildingFootprint__in = ['', '-99'])
+
+	for o in CHI_Building_Permits_NewObjects:
+		if o.whereBuilding:
+			neighborhoodName = o.whereBuilding.name
+		else:
+			neighborhoodName = None
+		
+		writer.writerow([o.ID_ODP, o.created, o.updated, o.created_by, o.updated_by, neighborhoodName, o.permit, o.permit_type, o.issue_date, o.street_number, o.street_direction, o.street_name, o.suffix, o.work_description, o.pin1, o.latitude, o.longitude, o.buildingFootprint, o.buildingStories, o.zoning_pdfs, o.story1, o.projectName, o.buildingImage, o.buildingAddress, o.description, o.archived])
+
+	return response
 
 @login_required
 def skyline_chi_UgcList(request):

@@ -48,6 +48,8 @@ urlpatterns = [
     url(r'^skyline/admin/nyc/permitted/exactLocation/(?P<id>\d+)/$', views.skyline_permittedExactLocation, name='skyline_permittedExactLocation'),
     url(r'^skyline/admin/nyc/permitted/getGeojson/(?P<id>\d+)/$', views.skyline_permittedGetGeojson, name='skyline_permittedGetGeojson'),
     url(r'^skyline/admin/nyc/permitted/end/(?P<id>\d+)/$', views.skyline_permittedEnd, name='skyline_permittedEnd'),
+    url(r'^skyline/admin/nyc/permitted/csv/$', views.skyline_createBuildingsCSV, name='skyline_createBuildingsCSV'),
+
     # intro and landing page
     url(r'^skyline/nyc/$', views.skyline_landingPage, name='skyline_landingPage'),
     url(r'^skyline/nyc/browse/(?P<id>\d+)/$', views.skyline_browse, name='skyline_browse'),

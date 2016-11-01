@@ -47,5 +47,7 @@ urlpatterns = [
     url(r'^skyline/admin/chi/permitted/exactLocation/(?P<id>\d+)/$', views.skyline_chi_permittedExactLocation, name='skyline_chi_permittedExactLocation'),
     url(r'^skyline/admin/chi/permitted/getGeojson/(?P<id>\d+)/$', views.skyline_chi_permittedGetGeojson, name='skyline_chi_permittedGetGeojson'),
     url(r'^skyline/admin/chi/permitted/end/(?P<id>\d+)/$', views.skyline_chi_permittedEnd, name='skyline_chi_permittedEnd'),
+    url(r'^skyline/admin/chi/permitted/csv/$', views.skyline_chi_createBuildingsCSV, name='skyline_chi_createBuildingsCSV'),
+
 
 ]
