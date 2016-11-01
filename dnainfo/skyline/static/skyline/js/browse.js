@@ -73,6 +73,7 @@ osmApplication.initialize = function() {
 
     // osm building click
     osmApplication.osmb.on('click', function(e) {
+        console.log(e);
         if (e.x) {
             var xcoor = e.x;
             var ycoor = e.y;
@@ -81,6 +82,7 @@ osmApplication.initialize = function() {
             var ycoor = e.clientY;
         }
         osmApplication.osmb.getTarget(xcoor, ycoor, function(id) {
+            console.log(id);
             if (id) {
                 splitId = id.split('_');
 
