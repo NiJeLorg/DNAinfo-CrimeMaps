@@ -32,9 +32,6 @@
                         </h2>
                     </div>
                 </div>
-                <div class="col-xs-2 col-sm-1">
-                    <p class="pagesCompleted pull-right highlightBackground">3/4</p>
-                </div>
             </div>
             <div class="row">
                 <div class="col-sm-8 col-sm-offset-2">
@@ -51,10 +48,11 @@
         </div>
         <div class="container-fluid">    
             <div class="row">
-                <div class="col-sm-3 col-sm-offset-2 bottomButtonGroupMap">
+                <div class="col-sm-5 col-sm-offset-2 bottomButtonGroupMap">
                     <a class="btn btn-dna-primary mobileWidth marginRight10" href="{% url 'skyline_sponsoredBuildingHeight' id=NYCSponsoredBuildingsObject.id %}" role="button"><span class="backArrow"></span>Back</a>
-                    <button id="sponsoredNextEnd" class="btn btn-dna-primary mobileWidth" type="submit" disabled="disabled">Next<span class="forwardArrow"></span></button>
-                </div>
+                    <button id="sponsoredNextEnd" class="btn btn-dna-primary mobileWidth marginRight10" type="submit" disabled="disabled">Save</button>
+                    <a class="btn btn-dna-primary mobileWidth marginRight10" href="{% url 'skyline_AdminDashboard' %}" role="button">Admin Home</a>
+                 </div>
             </div>
         </form>
     </div>
