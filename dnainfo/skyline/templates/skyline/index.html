@@ -8,7 +8,6 @@
 <script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js'></script>
 {% endblock %} {% block body_block %}
 <div class="fadein">
-    <iframe src="https://hzdl3dry-data-viz-future-map.build.qa.dnainfo.com/new-york/visualizations/skyline" style="width: 100%; height: 60px; border: none;"></iframe>
     <header style="margin-top: 2%">
         <div class="social-media-links">
             <div class="link-holder facebook">
@@ -41,9 +40,9 @@
                     </div>
                 </div>
             </form>
-            <!--             <button class="chevron-button">
+            <button class="chevron-button">
                 <i class="fa fa-chevron-down" aria-hidden='true'></i>
-            </button> -->
+            </button>
         </div>
     </header>
     <main>
@@ -205,15 +204,15 @@
                 </div>
             </div>
     </main>
-    <!--     <footer>
+<!--     <footer>
         <div class="got-it-now">
             <h3 class="component-heading">Got it? Now &nbsp;</h3>
             <h3 class="component-heading">or &nbsp;</h3>
-            <div class="select-parent" style="margin: 0">
+            <div class="select-parent">
                 <form id="whatNeighborhoodForm" method="post" action=".">
                     {% csrf_token %}
-                    <div class="row" style="display: flex">
-                        <div class="col-sm-8">
+                    <div class=>
+                        <div>
                             <div class="form-group formField">
                                 <div class="input-group">
                                     <div class="input-group-addon left"><span class="locationIcon"></span></div>
@@ -257,25 +256,5 @@
     <script type="text/javascript" src="{% static 'django_select2/django_select2.js' %}"></script>
     <script type="text/javascript">
     new WOW().init()
-    </script>
-    <script type="text/javascript">
-    $('#openApprovedModal').click(function() {
-        $('#approvedModal').css('display', 'block');
-    });
-    $('#openProposedModal').click(function() {
-        $('#proposedModal').css('display', 'block');
-    });
-    $('#openSponsoredModal').click(function() {
-        $('#sponsoredModal').css('display', 'block');
-    });
-    $('#closeApprovedModal').click(function() {
-        $('#approvedModal').css('display', 'none');
-    });
-    $('#closeProposedModal').click(function() {
-        $('#proposedModal').css('display', 'none');
-    });
-    $('#closeSponsoredModal').click(function() {
-        $('#sponsoredModal').css('display', 'none');
-    });
     </script>
     {% endblock %}

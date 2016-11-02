@@ -100,6 +100,10 @@ a:hover {
     align-items: center;
 }
 
+footer .select-parent {
+    margin: 0;
+}
+
 .select-parent form .form-group {
     margin-bottom: 0px;
 }
@@ -109,10 +113,12 @@ a:hover {
     background: #1074A0;
     border: none;
     padding: 2.4% 2.6%;
-    margin-left: -10%;
     outline: none;
+    z-index: 2;
+    height: 45px;
+    width: 45px !important;
     position: relative;
-    left: -58px;
+    right: 5%;
 }
 
 .building-component {
@@ -388,5 +394,8 @@ footer {
     }
     .sponsored-building-component-image {
         order: 1;
+    }
+    .select-parent {
+        width: 85%;
     }
 }
