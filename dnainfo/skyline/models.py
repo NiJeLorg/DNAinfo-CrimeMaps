@@ -23,6 +23,11 @@ class NYCskyline(models.Model):
 	approved = models.NullBooleanField(default=None)
 	reviewed_by = models.ForeignKey(User, blank=True, null=True)
 
+	class Meta:
+		permissions = (
+			("modify_UGC", "Can add, edit, update, delete UCG buildings."),
+		)
+
 class NYCSponsoredBuildings(models.Model):
 	created = models.DateTimeField(auto_now_add=True)
 	updated = models.DateTimeField(auto_now=True)
@@ -37,6 +42,10 @@ class NYCSponsoredBuildings(models.Model):
 	buildingImage = models.ImageField(upload_to="img/%Y_%m_%d_%h_%M_%s", null=False, blank=False)
 	archived = models.BooleanField(default=False)
 
+	class Meta:
+		permissions = (
+			("modify_sponsored", "Can add, edit, update, delete sponsored buildings."),
+		)
 
 class NYCReporterBuildings(models.Model):
 	created = models.DateTimeField(auto_now_add=True)

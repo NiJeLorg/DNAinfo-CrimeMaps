@@ -16,6 +16,7 @@
                 </p>
             </div>
         </div>
+        {% if perms.skyline.modify_sponsored %}
         <div class="row">
             <div class="col-sm-8 col-sm-offset-2">
                 <a class="btn btn-warning mobileWidth marginRight10 marginBottom20" href="{% url 'skyline_sponsoredWhatNeighborhood' %}" role="button">Add Sponsored Buildings</a>
@@ -26,6 +27,7 @@
                 <a class="btn btn-warning mobileWidth marginRight10 marginBottom20" href="{% url 'skyline_sponsoredList' %}" role="button">Edit/Remove Sponsored Buildings</a>
             </div>
         </div>
+        {% endif %}
         <div class="row">
             <div class="col-sm-8 col-sm-offset-2">
                 <a class="btn btn-info mobileWidth marginRight10 marginBottom20" href="{% url 'skyline_reporterWhatNeighborhood' %}" role="button">Add a Building as a Reporter or Editor</a>
@@ -51,11 +53,13 @@
                 <a class="btn btn-default mobileWidth marginRight10 marginBottom20" href="{% url 'skyline_createBuildingsCSV' %}" role="button">Download CSV of City Permitted Buildings on Map</a>
             </div>
         </div>
+        {% if perms.skyline.modify_sponsored %}
         <div class="row">
             <div class="col-sm-8 col-sm-offset-2">
                 <a class="btn btn-danger mobileWidth marginRight10 marginBottom20" href="{% url 'skyline_UgcList' %}" role="button">Review UGC Buildings</a>
             </div>
         </div>
+        {% endif %}
     </div>
 </div>
 {% endblock %} {% block modal_block %} {% endblock %} {% block js_block %} {% endblock %}

@@ -23,6 +23,10 @@ class CHIskyline(models.Model):
 	approved = models.NullBooleanField(default=None)
 	reviewed_by = models.ForeignKey(User, blank=True, null=True)
 
+	class Meta:
+		permissions = (
+			("modify_UGC", "Can add, edit, update, delete UCG buildings."),
+		)
 
 class CHISponsoredBuildings(models.Model):
 	created = models.DateTimeField(auto_now_add=True)
@@ -37,6 +41,11 @@ class CHISponsoredBuildings(models.Model):
 	buildingStories = models.IntegerField(default=0, blank=False, null=False)
 	buildingImage = models.ImageField(upload_to="img/%Y_%m_%d_%h_%M_%s", null=False, blank=False)
 	archived = models.BooleanField(default=False)
+
+	class Meta:
+		permissions = (
+			("modify_sponsored", "Can add, edit, update, delete sponsored buildings."),
+		)
 
 class CHIReporterBuildings(models.Model):
 	created = models.DateTimeField(auto_now_add=True)
