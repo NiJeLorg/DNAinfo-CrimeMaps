@@ -139,7 +139,7 @@ osmApplication.initialize = function() {
                         $('#property-projectName-permitted').text(properties.address);
                     }
                     // image
-                    if (properties.buildingImage != 'visualizations/media/') {
+                    if (typeof properties.buildingImage !== 'undefined' && properties.buildingImage != 'visualizations/media/') {
                         $('#property-image-permitted').html('<img class="property-image" src="/' + properties.buildingImage + '" />');
                     }
                     // description
@@ -214,7 +214,7 @@ osmApplication.initialize = function() {
                         $('#property-projectName-dna').text(properties.address);
                     }
                     // image
-                    if (typeof properties.buildingImage !== 'undefined' && properties.buildingImage) {
+                    if (typeof properties.buildingImage !== 'undefined' && properties.buildingImage != 'visualizations/media/') {
                         $('#property-image-dna').html('<img class="property-image" src="/' + properties.buildingImage + '" />');
                     }
                     // description
