@@ -63,7 +63,7 @@
                         Updated by {{ obj.updated_by }} (<a href="mailto:{{ obj.updated_by.email }}">{{ obj.updated_by.email }}</a>)  on {{ obj.updated|date:"M d, Y"}}<br />
                     {% endif %}    
                </p>
-                <a class="btn btn-primary marginRight10" href="{% url 'skyline_chi_sponsoredBuildingHeight' id=obj.id %}" role="button" target="_blank">Edit</a>
+                <a class="btn btn-primary marginRight10" href="{% url 'skyline_chi_sponsoredBuildingHeightEdit' id=obj.id %}" role="button" target="_blank">Edit</a>
                 <a class="btn btn-danger marginRight10" href="{% url 'skyline_chi_sponsoredRemove' id=obj.id %}" role="button" target="_blank">Remove</a>
                 <a class="btn btn-default marginRight10" href="{% url 'skyline_chi_sponsoredEnd' id=obj.id %}" role="button" target="_blank">3D View</a>
             </div>

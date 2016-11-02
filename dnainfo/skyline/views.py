@@ -295,6 +295,48 @@ def skyline_sponsoredBuildingHeight(request, id=None):
 	return render(request, 'skyline/sponsoredBuildingHeight.html', {'form':form, 'NYCSponsoredBuildingsObject': NYCSponsoredBuildingsObject})
 
 @login_required
+def skyline_sponsoredBuildingHeightEdit(request, id=None):
+	if id:
+		NYCSponsoredBuildingsObject = NYCSponsoredBuildings.objects.get(pk=id)
+	else:
+		NYCSponsoredBuildingsObject = NYCSponsoredBuildings()
+
+	# A HTTP POST?
+	if request.method == 'POST':
+		form = NYCbuildingHeightSponsoredForm(request.POST, request.FILES, instance=NYCSponsoredBuildingsObject)
+
+		# Have we been provided with a valid form?
+		if form.is_valid():
+			# Save the new data to the database.
+			f = form.save(commit=False)
+			# pull object and check to see if it have a created_by field filled out
+			lookupObject = NYCSponsoredBuildings.objects.get(pk=f.pk)
+			# add user 
+			if lookupObject.created_by:
+				f.updated_by = request.user
+			else:
+				f.created_by = request.user
+			# save form
+			f.save()
+			# pull object and check to see if it have a created_by field filled out
+			lookupObject = NYCSponsoredBuildings.objects.get(pk=f.pk)
+			# route request depending on which button was clicked
+			if 'save' in request.POST:
+				return HttpResponseRedirect(reverse('skyline_sponsoredList'))
+			elif 'pick_plot' in request.POST:
+				return HttpResponseRedirect(reverse('skyline_sponsoredExactLocation', args=(lookupObject.pk,)))
+		else:
+			# The supplied form contained errors - just print them to the terminal.
+			print form.errors
+	else:
+		# If the request was not a POST, display the form to enter details.
+		form = NYCbuildingHeightSponsoredForm(instance=NYCSponsoredBuildingsObject)
+
+	# Bad form (or form details), no form supplied...
+	# Render the form with error messages (if any).
+	return render(request, 'skyline/sponsoredBuildingHeightEdit.html', {'form':form, 'NYCSponsoredBuildingsObject': NYCSponsoredBuildingsObject})
+
+@login_required
 def skyline_sponsoredExactLocation(request, id=None):
 	if id:
 		NYCSponsoredBuildingsObject = NYCSponsoredBuildings.objects.get(pk=id)
@@ -319,9 +361,8 @@ def skyline_sponsoredExactLocation(request, id=None):
 
 			# save form
 			f.save()
-			# pull object and check to see if it have a created_by field filled out
-			lookupObject = NYCSponsoredBuildings.objects.get(pk=f.pk)
-			return HttpResponseRedirect(reverse('skyline_sponsoredEnd', args=(lookupObject.pk,)))
+			
+			return HttpResponseRedirect(reverse('skyline_sponsoredList'))
 		else:
 			# The supplied form contained errors - just print them to the terminal.
 			print form.errors
@@ -372,7 +413,7 @@ def skyline_sponsoredEnd(request, id=None):
 
 @login_required
 def skyline_sponsoredList(request, id=None):
-	NYCSponsoredBuildingsObjects = NYCSponsoredBuildings.objects.exclude(archived=True).order_by('-updated_by', 'buildingName')
+	NYCSponsoredBuildingsObjects = NYCSponsoredBuildings.objects.exclude(archived=True).order_by('-updated', 'buildingName')
 
 	paginator = Paginator(NYCSponsoredBuildingsObjects, 20) # Show 10 buildings per page
 	page = request.GET.get('page')
@@ -494,6 +535,49 @@ def skyline_reporterBuildingHeight(request, id=None):
 	return render(request, 'skyline/reporterBuildingHeight.html', {'form':form, 'NYCReporterBuildingsObject': NYCReporterBuildingsObject})
 
 @login_required
+def skyline_reporterBuildingHeightEdit(request, id=None):
+	if id:
+		NYCReporterBuildingsObject = NYCReporterBuildings.objects.get(pk=id)
+	else:
+		NYCReporterBuildingsObject = NYCReporterBuildings()
+
+	# A HTTP POST?
+	if request.method == 'POST':
+		form = NYCbuildingHeightReporterForm(request.POST, request.FILES, instance=NYCReporterBuildingsObject)
+
+		# Have we been provided with a valid form?
+		if form.is_valid():
+			# Save the new data to the database.
+			f = form.save(commit=False)
+			# pull object and check to see if it have a created_by field filled out
+			lookupObject = NYCReporterBuildings.objects.get(pk=f.pk)
+			# add user 
+			if lookupObject.created_by:
+				f.updated_by = request.user
+			else:
+				f.created_by = request.user
+			# save form
+			f.save()
+			# pull object and check to see if it have a created_by field filled out
+			lookupObject = NYCReporterBuildings.objects.get(pk=f.pk)
+			# route request depending on which button was clicked
+			if 'save' in request.POST:
+				return HttpResponseRedirect(reverse('skyline_reporterList'))
+			elif 'pick_plot' in request.POST:
+				return HttpResponseRedirect(reverse('skyline_reporterExactLocation', args=(lookupObject.pk,)))
+
+		else:
+			# The supplied form contained errors - just print them to the terminal.
+			print form.errors
+	else:
+		# If the request was not a POST, display the form to enter details.
+		form = NYCbuildingHeightReporterForm(instance=NYCReporterBuildingsObject)
+
+	# Bad form (or form details), no form supplied...
+	# Render the form with error messages (if any).
+	return render(request, 'skyline/reporterBuildingHeightEdit.html', {'form':form, 'NYCReporterBuildingsObject': NYCReporterBuildingsObject})
+
+@login_required
 def skyline_reporterExactLocation(request, id=None):
 	if id:
 		NYCReporterBuildingsObject = NYCReporterBuildings.objects.get(pk=id)
@@ -517,9 +601,8 @@ def skyline_reporterExactLocation(request, id=None):
 				f.created_by = request.user
 			# save form
 			f.save()
-			# pull object and check to see if it have a created_by field filled out
-			lookupObject = NYCReporterBuildings.objects.get(pk=f.pk)
-			return HttpResponseRedirect(reverse('skyline_reporterEnd', args=(lookupObject.pk,)))
+
+			return HttpResponseRedirect(reverse('skyline_reporterList'))
 		else:
 			# The supplied form contained errors - just print them to the terminal.
 			print form.errors
@@ -556,7 +639,7 @@ def skyline_reporterEnd(request, id=None):
 
 @login_required
 def skyline_reporterList(request, id=None):
-	NYCReporterBuildingsObjects = NYCReporterBuildings.objects.exclude(archived=True).order_by('-updated_by', 'projectName')
+	NYCReporterBuildingsObjects = NYCReporterBuildings.objects.exclude(archived=True).order_by('-updated', 'projectName')
 
 	paginator = Paginator(NYCReporterBuildingsObjects, 20) # Show 10 buildings per page
 	page = request.GET.get('page')
@@ -836,7 +919,7 @@ def skyline_permittedExactLocation(request, id=None):
 			f.save()
 			# pull object and check to see if it have a created_by field filled out
 			lookupObject = NYC_DOB_Permit_Issuance.objects.get(pk=f.pk)
-			return HttpResponseRedirect(reverse('skyline_permittedEnd', args=(lookupObject.pk,)))
+			return HttpResponseRedirect(reverse('skyline_AdminDashboard'))
 		else:
 			# The supplied form contained errors - just print them to the terminal.
 			print form.errors
