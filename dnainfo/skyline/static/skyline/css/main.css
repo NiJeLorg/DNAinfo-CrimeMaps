@@ -672,6 +672,7 @@ fieldset[disabled] .btn-dna-twitter.active {
   height: 45px !important;
   border-top-right-radius: 4px !important;
   border-bottom-right-radius: 4px !important;
+  width: 100%;
 }
 
 .select2-container--default .select2-selection--single {
