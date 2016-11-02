@@ -138,7 +138,7 @@ osmApplication.initialize = function() {
                         $('#property-projectName-permitted').text(properties.address);
                     }
                     // image
-                    if (properties.buildingImage != 'visualizations/media/') {
+                    if (typeof properties.buildingImage !== 'undefined' && properties.buildingImage != 'visualizations/media/') {
                         $('#property-image-permitted').html('<img class="property-image" src="/' + properties.buildingImage + '" />');
                     }
                     // description
@@ -213,7 +213,7 @@ osmApplication.initialize = function() {
                         $('#property-projectName-dna').text(properties.address);
                     }
                     // image
-                    if (typeof properties.buildingImage !== 'undefined' && properties.buildingImage) {
+                    if (typeof properties.buildingImage !== 'undefined' && properties.buildingImage != 'visualizations/media/') {
                         $('#property-image-dna').html('<img class="property-image" src="/' + properties.buildingImage + '" />');
                     }
                     // description
@@ -245,7 +245,7 @@ osmApplication.initialize = function() {
                     // links for editing and deleting 
 
                     // edit link /skyline/admin/nyc/reporter/buildingHeight/ID/
-                    var editHref = '/skyline/admin/nyc/reporter/buildingHeight/' + properties.objectID + '/'
+                    var editHref = '/skyline/admin/nyc/reporter/buildingHeightEdit/' + properties.objectID + '/'
                     $('#property-edit-dna').prop('href', editHref);
                     // remove link /skyline/admin/nyc/reporter/remove/ID/
                     var removeHref = '/skyline/admin/nyc/reporter/remove/' + properties.objectID + '/'
