@@ -39,8 +39,19 @@ urlpatterns = [
     url(r'^skyline/nyc/getReporterGeojsons/$', views.skyline_getReporterGeojsons, name='skyline_getReporterGeojsons'),
     url(r'^skyline/nyc/end/(?P<id>\d+)/$', views.skyline_end, name='skyline_end'),
     url(r'^skyline/nyc/results/(?P<id>\d+)/$', views.skyline_results, name='skyline_results'),
+    # permitted buidling mini-form
     url(r'^skyline/admin/nyc/permitted/buildingHeight/(?P<id>\d+)/$', views.skyline_permittedBuildingHeight, name='skyline_permittedBuildingHeight'),
+    # permitted building full form
+    url(r'^skyline/admin/nyc/permitted/whatNeighborhood/$', views.skyline_permittedWhatNeighborhood, name='skyline_permittedWhatNeighborhood'),
+    url(r'^skyline/admin/nyc/permitted/whatNeighborhood/(?P<id>\d+)/$', views.skyline_permittedWhatNeighborhood, name='skyline_permittedWhatNeighborhood'),
+    url(r'^skyline/admin/nyc/permitted/buildingHeightAnd/(?P<id>\d+)/$', views.skyline_permittedBuildingHeightAnd, name='skyline_permittedBuildingHeightAnd'),
+    url(r'^skyline/admin/nyc/permitted/exactLocation/(?P<id>\d+)/$', views.skyline_permittedExactLocation, name='skyline_permittedExactLocation'),
+    url(r'^skyline/admin/nyc/permitted/getGeojson/(?P<id>\d+)/$', views.skyline_permittedGetGeojson, name='skyline_permittedGetGeojson'),
+    url(r'^skyline/admin/nyc/permitted/end/(?P<id>\d+)/$', views.skyline_permittedEnd, name='skyline_permittedEnd'),
+    url(r'^skyline/admin/nyc/permitted/csv/$', views.skyline_createBuildingsCSV, name='skyline_createBuildingsCSV'),
+
     # intro and landing page
     url(r'^skyline/nyc/$', views.skyline_landingPage, name='skyline_landingPage'),
+    url(r'^skyline/nyc/browse/(?P<id>\d+)/$', views.skyline_browse, name='skyline_browse'),
 
 ]

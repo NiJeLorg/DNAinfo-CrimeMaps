@@ -69,33 +69,62 @@ deactivate
 ```
 
 ## Git workflow
-The idea is for each person to work on their own branch and then merge changes into the master branch once they're ready to go. Our convention is to have individual development branches prefixed with `dev-` (such as `dev-jd`). The workflow below uses `dev-jd` as an example. 
+Based off of the [workflow proposed by Vincent Driessen](http://nvie.com/posts/a-successful-git-branching-model/), we have two main branches -- `master` and `develop`, where `master` is "the main branch where the source code of HEAD always reflects a production-ready state." `Develop` is the "the main branch where the source code of HEAD always reflects a state with the latest delivered development changes for the next release."
 
-After cloning the repo, create a branch with the name you're going to use (the second command makes a copy of the branch on GitHub and sets it up so that when you push from the local dev branch it will go to that new GitHub branch):
+Our workflow begins with deploying supporting branches off of `develop` for work, which may include branches for "hotfixes" (i.e. urgent bug fixing) or new features. 
 
-    git checkout -b dev-jd
-    git push -u origin dev-jd
+###Feature Branches
+When new feature development begins, create a branch off of `develop`:
 
-You only need to do that once. Then work on your dev branch and commit your changes normally:
+    git checkout -b adding-new-feature develop
+
+New feature branches can be named anything except for `master`, `develop` or prefixed with `hotfix-`. Once you are done working on your new feature, commit your code and push your branch to the repo:
 
     git commit -m 'made some changes'
     git push
 
-When you're ready to merge your changes into master, first make sure your branch is up-to-date with master:
+Once your branch is pushed up to the repo, navigate to the [pull request section on GitHub](https://github.com/NiJeLorg/DNAinfo-CrimeMaps/compare?expand=1) and [create a pull-request](https://help.github.com/articles/creating-a-pull-request/) from the base of `develop` to your feature branch. Write any comments that are relevant, tag users or reference issues.  
 
-    git pull
-    git merge origin/master
+After the pull-request is submitted and the code is reviewed and approved, the feature branch will be merged into `develop`, and that feature branch will be closed. The can be done on GitHub or via command line:
 
-Hopefully there will be no conflicts. If there are, you'll have to resolve them and commit.
+    git pull origin develop
+    git checkout develop
+    git merge --no-ff adding-new-feature
+    git branch -d myfeature
+    git push origin develop
 
-Then you can merge the changes into master:
+When `develop` is ready to be merged into `master`, it can be merged either via a pull request on GitHub or merged via command line:
 
+    git pull origin master
     git checkout master
-    git pull
-    git merge dev-jd
-    git push
+    git merge --no-ff develop
+    git push origin master
+    git checkout develop
 
-Don't forget to return to your dev branch to continue work:
+###Hotfix Branches
+If a critical bug in production needs to be addressed, create a branch off of `master` prefixed with `hotfix-`:
+  
+    git pull origin master
+    git checkout -b hotfix-some-kind-of-bug master
 
-    git checkout dev-jd
+When the bug is squashed, the hotfix branch needs to be merged into `master` and `develop`. first `master`:
+
+    git pull origin master
+    git checkout master
+    git merge --no-ff hotfix-some-kind-of-bug
+    git push origin master
+
+and then `develop`:
+    
+    git pull origin develop
+    git checkout develop
+    git merge --no-ff hotfix-some-kind-of-bug
+    git push origin develop
+
+After both `master` and `develop` are updated, you can close the hotfix branch:
+
+    git branch -d hotfix-some-kind-of-bug
+
+
+
 

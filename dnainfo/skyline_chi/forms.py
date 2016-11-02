@@ -61,7 +61,7 @@ class CHIexactLocationSponsoredForm(forms.ModelForm):
 class CHIremoveSponsoredForm(forms.ModelForm):
     class Meta:
         model = CHISponsoredBuildings
-        fields = ('buildingName', )
+        fields = ('id', )
 
 
 class CHIwhatNeighborhoodReporterForm(forms.ModelForm):
@@ -95,16 +95,16 @@ class CHIexactLocationReporterForm(forms.ModelForm):
 class CHIremoveReporterForm(forms.ModelForm):
     class Meta:
         model = CHIReporterBuildings
-        fields = ('buildingStories', )
+        fields = ('id', )
 
 
-class CHI_Building_PermitsForm(forms.ModelForm):
+class CHI_Building_Permits_NewForm(forms.ModelForm):
     class Meta:
-        model = CHI_Building_Permits
+        model = CHI_Building_Permits_New
         fields = ('projectName', 'whereBuilding', 'buildingAddress', 'buildingStories', 'description', 'buildingImage', 'zoning_pdfs', 'story1', )
         labels = {
             'projectName': 'Please add a name for this project/building. (Optional)',
-            'whereBuilding': 'Please select this building\'s neighborhood. (Optional)',
+            'whereBuilding': 'Please select this building\'s neighborhood. (Required)',
             'buildingAddress': 'Enter the address according to DNAinfo style such as 233 N. Michigan Ave. or 2400 W. Cermak Road (Required)',
             'buildingStories': 'How many stories tall is this building? (Required)',
             'description': 'Please add a brief description of the project. (Optional, 200 character limit)',
@@ -112,3 +112,31 @@ class CHI_Building_PermitsForm(forms.ModelForm):
             'zoning_pdfs': 'Please add any links to <a href="https://www.scribd.com/">Scribd</a> documents readers might want to examine here. (Optional)',
             'story1': 'Please add a link to a DNAinfo story. (Optional)',
         }
+
+
+class CHIwhatNeighborhoodPermittedForm(forms.ModelForm):
+    class Meta:
+        model = CHI_Building_Permits_New
+        fields = ('whereBuilding', )
+        widgets = {
+            'whereBuilding': Select2Widget,
+        }
+
+class CHIbuildingHeightAndPermittedForm(forms.ModelForm):
+    class Meta:
+        model = CHI_Building_Permits_New
+        fields = ('projectName', 'buildingAddress', 'buildingStories', 'description', 'buildingImage', 'zoning_pdfs', 'story1', )
+        labels = {
+            'projectName': 'Please add a name for this project/building. (Optional)',
+            'buildingAddress': 'Enter the address according to DNAinfo style such as 233 N. Michigan Ave. or 2400 W. Cermak Road (Required)',
+            'buildingStories': 'How many stories tall is this building? (Required)',
+            'description': 'Please add a brief description of the project. (Optional, 200 character limit)',
+            'buildingImage': 'Please add any storytelling images like designs, photos, etc. (Optional)',
+            'zoning_pdfs': 'Please add any links to <a href="https://www.scribd.com/">Scribd</a> documents readers might want to examine here. (Optional)',
+            'story1': 'Please add a link to a DNAinfo story. (Optional)',
+        }
+
+class CHIexactLocationPermittedForm(forms.ModelForm):
+    class Meta:
+        model = CHI_Building_Permits_New
+        fields = ('buildingFootprint', 'pin1', )

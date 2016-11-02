@@ -1,19 +1,9 @@
-{% extends 'skyline/baseNYC.html' %}
-{% load staticfiles %}
-
-{% block title %}Future Skyline Admin Dashboard | DNAinfo{% endblock %}
-
-{% block css_block %}
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-{% endblock %}
-
-{% block head_js_block %}
+{% extends 'skyline/baseNYC.html' %} {% load staticfiles %} {% block title %}Future Skyline Admin Dashboard | DNAinfo{% endblock %} {% block css_block %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"> {% endblock %} {% block head_js_block %}
 <script type="text/javascript" src="{% static 'skyline/js/admin-controllers.js' %}"></script>
-{% endblock %}
-	
-{% block body_block %}
+{% endblock %} {% block body_block %}
 <div id="content" class="fadein">
-	<div class="container-fluid">	    
+    <div class="container-fluid">
         <div class="row">
             <div class="col-xs-10 col-sm-7 col-sm-offset-2">
                 <h2 class="questionHeading">
@@ -28,12 +18,12 @@
         </div>
         <div class="row">
             <div class="col-sm-8 col-sm-offset-2">
-            	<a class="btn btn-warning mobileWidth marginRight10 marginBottom20" href="{% url 'skyline_sponsoredWhatNeighborhood' %}" role="button">Add Sponsored Buildings</a>
+                <a class="btn btn-warning mobileWidth marginRight10 marginBottom20" href="{% url 'skyline_sponsoredWhatNeighborhood' %}" role="button">Add Sponsored Buildings</a>
             </div>
         </div>
         <div class="row">
             <div class="col-sm-8 col-sm-offset-2">
-            	<a class="btn btn-warning mobileWidth marginRight10 marginBottom20" href="{% url 'skyline_sponsoredList' %}" role="button">Edit/Remove Sponsored Buildings</a>
+                <a class="btn btn-warning mobileWidth marginRight10 marginBottom20" href="{% url 'skyline_sponsoredList' %}" role="button">Edit/Remove Sponsored Buildings</a>
             </div>
         </div>
         <div class="row">
@@ -48,25 +38,24 @@
         </div>
         <div class="row">
             <div class="col-sm-8 col-sm-offset-2">
-                <a class="btn btn-primary mobileWidth marginRight10 marginBottom20" href="{% url 'skyline_viewAllWhatNeighborhood' %}" role="button">View/Edit all City Permitted, Reporter/Editor and Sponsored Buildings</a>
+                <a class="btn btn-primary mobileWidth marginRight10 marginBottom20" href="{% url 'skyline_permittedWhatNeighborhood' %}" role="button">Add a City Permitted Building</a>
             </div>
         </div>
         <div class="row">
             <div class="col-sm-8 col-sm-offset-2">
-            	<a class="btn btn-danger mobileWidth marginRight10 marginBottom20" href="{% url 'skyline_UgcList' %}" role="button">Review UGC Buildings</a>
+                <a class="btn btn-primary mobileWidth marginRight10 marginBottom20" href="{% url 'skyline_viewAllWhatNeighborhood' %}" role="button">View/Edit all City Permitted, Reporter/Editor</a>
             </div>
         </div>
-	</div>
+        <div class="row">
+            <div class="col-sm-8 col-sm-offset-2">
+                <a class="btn btn-default mobileWidth marginRight10 marginBottom20" href="{% url 'skyline_createBuildingsCSV' %}" role="button">Download CSV of City Permitted Buildings on Map</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-8 col-sm-offset-2">
+                <a class="btn btn-danger mobileWidth marginRight10 marginBottom20" href="{% url 'skyline_UgcList' %}" role="button">Review UGC Buildings</a>
+            </div>
+        </div>
+    </div>
 </div>
-{% endblock %}
-
-{% block modal_block %}   
-{% endblock %}
-
-{% block js_block %}
-{% endblock %}
-
-
-	
-	
-
+{% endblock %} {% block modal_block %} {% endblock %} {% block js_block %} {% endblock %}

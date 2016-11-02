@@ -15,7 +15,7 @@ class Command(BaseCommand):
 
     def load_geom(self):
         # pull data from NYC_DOB_Permit_Issuance
-        objects = CHI_Building_Permits.objects.filter(buildingFootprint__exact = '')
+        objects = CHI_Building_Permits_New.objects.filter(buildingFootprint__exact = '')
 
         for obj in objects:
             if obj.pin1:
@@ -62,8 +62,8 @@ class Command(BaseCommand):
                     print e
                     # if error, send email
                     subject = "Skyline CHI CARTO Geography DOB Permits Data Problem"
-                    html_message = 'Problem ID: ' + str(obj.ID)
-                    message = 'Problem ID: ' + str(obj.ID)
+                    html_message = 'Problem ID: ' + str(obj.ID_ODP)
+                    message = 'Problem ID: ' + str(obj.ID_ODP)
 
                     send_mail(subject, message, 'dnainfovisualizations@gmail.com', ['jd@nijel.org'], fail_silently=True, html_message=html_message)               
 
