@@ -182,7 +182,7 @@ def skyline_chi_createBuildingsCSV(request):
 @login_required
 def skyline_chi_UgcList(request):
 	CHIskylineObjects = CHIskyline.objects.filter(approved=None).exclude(buildingFootprint='')
-	paginator = Paginator(CHIskylineObjects, 10) # Show 10 buildings per page
+	paginator = Paginator(CHIskylineObjects, 20) # Show 10 buildings per page
 	page = request.GET.get('page')
 	try:
 		objs = paginator.page(page)
@@ -292,6 +292,49 @@ def skyline_chi_sponsoredBuildingHeight(request, id=None):
 	return render(request, 'skyline_chi/sponsoredBuildingHeight.html', {'form':form, 'CHISponsoredBuildingsObject': CHISponsoredBuildingsObject})
 
 @login_required
+def skyline_chi_sponsoredBuildingHeightEdit(request, id=None):
+	if id:
+		CHISponsoredBuildingsObject = CHISponsoredBuildings.objects.get(pk=id)
+	else:
+		CHISponsoredBuildingsObject = CHISponsoredBuildings()
+
+	# A HTTP POST?
+	if request.method == 'POST':
+		form = CHIbuildingHeightSponsoredForm(request.POST, request.FILES, instance=CHISponsoredBuildingsObject)
+
+		# Have we been provided with a valid form?
+		if form.is_valid():
+			# Save the new data to the database.
+			f = form.save(commit=False)
+			# pull object and check to see if it have a created_by field filled out
+			lookupObject = CHISponsoredBuildings.objects.get(pk=f.pk)
+			# add user 
+			if lookupObject.created_by:
+				f.updated_by = request.user
+			else:
+				f.created_by = request.user
+			# save form
+			f.save()
+			# pull object and check to see if it have a created_by field filled out
+			lookupObject = CHISponsoredBuildings.objects.get(pk=f.pk)
+			# route request depending on which button was clicked
+			if 'save' in request.POST:
+				return HttpResponseRedirect(reverse('skyline_chi_sponsoredList'))
+			elif 'pick_plot' in request.POST:
+				return HttpResponseRedirect(reverse('skyline_chi_sponsoredExactLocation', args=(lookupObject.pk,)))
+
+		else:
+			# The supplied form contained errors - just print them to the terminal.
+			print form.errors
+	else:
+		# If the request was not a POST, display the form to enter details.
+		form = CHIbuildingHeightSponsoredForm(instance=CHISponsoredBuildingsObject)
+
+	# Bad form (or form details), no form supplied...
+	# Render the form with error messages (if any).
+	return render(request, 'skyline_chi/sponsoredBuildingHeightEdit.html', {'form':form, 'CHISponsoredBuildingsObject': CHISponsoredBuildingsObject})
+
+@login_required
 def skyline_chi_sponsoredExactLocation(request, id=None):
 	if id:
 		CHISponsoredBuildingsObject = CHISponsoredBuildings.objects.get(pk=id)
@@ -317,7 +360,7 @@ def skyline_chi_sponsoredExactLocation(request, id=None):
 			f.save()
 			# pull object and check to see if it have a created_by field filled out
 			lookupObject = CHISponsoredBuildings.objects.get(pk=f.pk)
-			return HttpResponseRedirect(reverse('skyline_chi_sponsoredEnd', args=(lookupObject.pk,)))
+			return HttpResponseRedirect(reverse('skyline_chi_sponsoredList'))
 		else:
 			# The supplied form contained errors - just print them to the terminal.
 			print form.errors
@@ -370,7 +413,7 @@ def skyline_chi_sponsoredEnd(request, id=None):
 def skyline_chi_sponsoredList(request, id=None):
 	CHISponsoredBuildingsObjects = CHISponsoredBuildings.objects.exclude(archived=True).order_by('-updated_by', 'buildingName')
 
-	paginator = Paginator(CHISponsoredBuildingsObjects, 10) # Show 10 buildings per page
+	paginator = Paginator(CHISponsoredBuildingsObjects, 20) # Show 10 buildings per page
 	page = request.GET.get('page')
 	try:
 		objs = paginator.page(page)
@@ -490,6 +533,49 @@ def skyline_chi_reporterBuildingHeight(request, id=None):
 	return render(request, 'skyline_chi/reporterBuildingHeight.html', {'form':form, 'CHIReporterBuildingsObject': CHIReporterBuildingsObject})
 
 @login_required
+def skyline_chi_reporterBuildingHeightEdit(request, id=None):
+	if id:
+		CHIReporterBuildingsObject = CHIReporterBuildings.objects.get(pk=id)
+	else:
+		CHIReporterBuildingsObject = CHIReporterBuildings()
+
+	# A HTTP POST?
+	if request.method == 'POST':
+		form = CHIbuildingHeightReporterForm(request.POST, request.FILES, instance=CHIReporterBuildingsObject)
+
+		# Have we been provided with a valid form?
+		if form.is_valid():
+			# Save the new data to the database.
+			f = form.save(commit=False)
+			# pull object and check to see if it have a created_by field filled out
+			lookupObject = CHIReporterBuildings.objects.get(pk=f.pk)
+			# add user 
+			if lookupObject.created_by:
+				f.updated_by = request.user
+			else:
+				f.created_by = request.user
+			# save form
+			f.save()
+			# pull object and check to see if it have a created_by field filled out
+			lookupObject = CHIReporterBuildings.objects.get(pk=f.pk)
+			# route request depending on which button was clicked
+			if 'save' in request.POST:
+				return HttpResponseRedirect(reverse('skyline_chi_reporterList'))
+			elif 'pick_plot' in request.POST:
+				return HttpResponseRedirect(reverse('skyline_chi_reporterExactLocation', args=(lookupObject.pk,)))
+
+		else:
+			# The supplied form contained errors - just print them to the terminal.
+			print form.errors
+	else:
+		# If the request was not a POST, display the form to enter details.
+		form = CHIbuildingHeightReporterForm(instance=CHIReporterBuildingsObject)
+
+	# Bad form (or form details), no form supplied...
+	# Render the form with error messages (if any).
+	return render(request, 'skyline_chi/reporterBuildingHeightEdit.html', {'form':form, 'CHIReporterBuildingsObject': CHIReporterBuildingsObject})
+
+@login_required
 def skyline_chi_reporterExactLocation(request, id=None):
 	if id:
 		CHIReporterBuildingsObject = CHIReporterBuildings.objects.get(pk=id)
@@ -515,7 +601,8 @@ def skyline_chi_reporterExactLocation(request, id=None):
 			f.save()
 			# pull object and check to see if it have a created_by field filled out
 			lookupObject = CHIReporterBuildings.objects.get(pk=f.pk)
-			return HttpResponseRedirect(reverse('skyline_chi_reporterEnd', args=(lookupObject.pk,)))
+
+			return HttpResponseRedirect(reverse('skyline_chi_reporterList'))
 		else:
 			# The supplied form contained errors - just print them to the terminal.
 			print form.errors
@@ -554,7 +641,7 @@ def skyline_chi_reporterEnd(request, id=None):
 def skyline_chi_reporterList(request, id=None):
 	CHIReporterBuildingsObjects = CHIReporterBuildings.objects.exclude(archived=True).order_by('-updated_by', 'projectName')
 
-	paginator = Paginator(CHIReporterBuildingsObjects, 10) # Show 10 buildings per page
+	paginator = Paginator(CHIReporterBuildingsObjects, 20) # Show 10 buildings per page
 	page = request.GET.get('page')
 	try:
 		objs = paginator.page(page)
@@ -834,7 +921,7 @@ def skyline_chi_permittedExactLocation(request, id=None):
 			f.save()
 			# pull object and check to see if it have a created_by field filled out
 			lookupObject = CHI_Building_Permits_New.objects.get(pk=f.pk)
-			return HttpResponseRedirect(reverse('skyline_chi_permittedEnd', args=(lookupObject.pk,)))
+			return HttpResponseRedirect(reverse('skyline_chi_AdminDashboard'))
 		else:
 			# The supplied form contained errors - just print them to the terminal.
 			print form.errors

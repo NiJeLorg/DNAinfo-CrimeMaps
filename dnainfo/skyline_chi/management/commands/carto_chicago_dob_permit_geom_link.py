@@ -48,7 +48,7 @@ class Command(BaseCommand):
                             response = urllib.urlopen(url)
                             data = json.loads(response.read())
 
-                            if data['rows']:
+                            if data['total_rows'] > 0:
                                 print data['rows'][0]['the_geom']
                                 obj.buildingFootprint = data['rows'][0]['the_geom']
                                 obj.save()
