@@ -24,25 +24,29 @@
             </p>
         </div>
         <div class="select-parent">
-            <form id="whatNeighborhoodForm" method="post" action=".">
-                {% csrf_token %}
-                <div class="row">
-                    <div>
-                        <div class="form-group formField">
-                            <div class="input-group">
-                                <div class="input-group-addon left"><span class="locationIcon"></span></div>
-                                {{ form }}
-                                <div class="input-group-addon"></div>
+            <div class="select-parent-holder">
+                <form id="whatNeighborhoodForm" method="post" action=".">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div>
+                            <div class="form-group formField">
+                                <div class="input-group">
+                                    <div class="input-group-addon left"><span class="locationIcon"></span></div>
+                                    {{ form }}
+                                    <div class="input-group-addon"></div>
+                                </div>
+                                <p class="text-danger hidden">Please pick a neighborhood above to continue.</p>
+                                {{ form.errors }}
                             </div>
-                            <p class="text-danger hidden">Please pick a neighborhood above to continue.</p>
-                            {{ form.errors }}
                         </div>
                     </div>
-                </div>
-            </form>
-            <button class="chevron-button">
-                <i class="fa fa-chevron-down" aria-hidden='true'></i>
-            </button>
+                </form>
+            </div>
+            <div class="chevron-button-holder">
+                <button class="chevron-button">
+                    <i class="fa fa-chevron-down" aria-hidden='true'></i>
+                </button>
+            </div>
         </div>
     </header>
     <main>
@@ -207,30 +211,33 @@
     <footer>
         <div class="got-it-now">
             <h3 class="component-heading">Got it? Now &nbsp;</h3>
-            <h3 class="component-heading">or &nbsp;</h3>
             <div class="select-parent">
-                <form id="whatNeighborhoodForm" method="post" action=".">
-                    {% csrf_token %}
-                    <div class="row">
-                        <div>
-                            <div class="form-group formField">
-                                <div class="input-group">
-                                    <div class="input-group-addon left"><span class="locationIcon"></span></div>
-                                    {{ form }}
-                                    <div class="input-group-addon"></div>
+                <div class="select-parent-holder">
+                    <form id="whatNeighborhoodForm" method="post" action=".">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div>
+                                <div class="form-group formField">
+                                    <div class="input-group">
+                                        <div class="input-group-addon left"><span class="locationIcon"></span></div>
+                                        {{ form }}
+                                        <div class="input-group-addon"></div>
+                                    </div>
+                                    <p class="text-danger hidden">Please pick a neighborhood above to continue.</p>
+                                    {{ form.errors }}
                                 </div>
-                                <p class="text-danger hidden">Please pick a neighborhood above to continue.</p>
-                                {{ form.errors }}
                             </div>
                         </div>
-                    </div>
-                </form>
-                <button class="chevron-button">
-                    <i class="fa fa-chevron-down" aria-hidden='true'></i>
-                </button>
+                    </form>
+                </div>
+                <div class="chevron-button-holder">
+                    <button class="chevron-button">
+                        <i class="fa fa-chevron-down" aria-hidden='true'></i>
+                    </button>
+                </div>
             </div>
             <h3 class="component-heading">or</h3>
-            <button>Add a Building</button>
+            <button class="add-a-building-button">Add a Building</button>
         </div>
         <div class="view-methodology">
             <a href="#" data-toggle='modal' data-target='#methodology' class="component-heading">View Methodology</a>

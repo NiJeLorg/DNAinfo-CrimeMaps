@@ -1,6 +1,30 @@
 {% extends 'skyline/baseNYC.html' %} {% load staticfiles %} {% block css_block %}
 <link rel="stylesheet" type="text/css" href="{% static 'skyline/css/OSMBuildings.css' %}">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"> {% endblock %} {% block body_block %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="{% static 'skyline/css/base_ny.css'%}"> {% endblock %} {% block body_block %}
+<div class="browseNav">
+    <h3>
+          Long Island City
+        </h3>
+    <div class="dropdown-menu">
+    </div>
+    <div class="social-media-links">
+        <div class="link-holder facebook">
+            <a href="#"><i class="fa fa-facebook-official fa-2x" aria-hidden="true"></i></a>
+        </div>
+        <div class="link-holder twitter">
+            <a href="#"> <i class="fa fa-twitter fa-2x" aria-hidden="true"></i></a>
+        </div>
+    </div>
+</div>
+<footer style="background: grey">
+    <div class="key-holder">
+        <a href="#">
+            <i class="fa fa-key fa-2x"></i>
+        </a>
+    </div>
+    <button class="add-a-building-button">Add a Building</button>
+</footer>
 <div id="content">
     <!-- Map -->
     <div id="osmmap"></div>
@@ -16,6 +40,21 @@
     <div class="control zoom">
         <button class="dec"><i class="fa fa-minus" aria-hidden="true"></i></button>
         <button class="inc"><i class="fa fa-plus" aria-hidden="true"></i></button>
+    </div>
+    <div class="browseNav">
+        <h3>
+          Long Island City
+        </h3>
+        <div class="dropdown-menu">
+        </div>
+        <div class="social-media-links">
+            <div class="link-holder facebook">
+                <a href="#"><i class="fa fa-facebook-official fa-2x" aria-hidden="true"></i></a>
+            </div>
+            <div class="link-holder twitter">
+                <a href="#"> <i class="fa fa-twitter fa-2x" aria-hidden="true"></i></a>
+            </div>
+        </div>
     </div>
     <!-- Hidden Div -->
     <div id="tooltipSponsored" class="tooltip sponsored-tooltip hidden">
