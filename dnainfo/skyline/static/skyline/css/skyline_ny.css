@@ -100,10 +100,6 @@ a:hover {
     align-items: center;
 }
 
-footer .select-parent {
-    margin: 0;
-}
-
 .select-parent form .form-group {
     margin-bottom: 0px;
 }
@@ -306,6 +302,19 @@ footer {
     border: none;
     border-radius: 2px;
     padding: .8% 1.2%;
+}
+
+footer .select-parent {
+    margin: 0;
+    width: 28%;
+}
+
+footer .select-parent .chevron-button {
+    right: 1%;
+}
+
+.select-parent form .row {
+    margin: 0;
 }
 
 .view-methodology {

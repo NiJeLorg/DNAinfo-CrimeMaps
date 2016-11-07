@@ -676,6 +676,10 @@ fieldset[disabled] .btn-dna-twitter.active {
   outline: none;
 }
 
+footer .select-parent .select2-container {
+  width: 100% !important;
+}
+
 .select2-container--default .select2-selection--single {
     background-color: #eeeeee !important;
     border: none !important;
