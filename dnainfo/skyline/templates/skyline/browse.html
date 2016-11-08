@@ -1,7 +1,7 @@
 {% extends 'skyline/baseNYC.html' %} {% load staticfiles %} {% block css_block %}
 <link rel="stylesheet" type="text/css" href="{% static 'skyline/css/OSMBuildings.css' %}">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-<link rel="stylesheet" type="text/css" href="{% static 'skyline/css/base_ny.css'%}"> {% endblock %} {% block body_block %}
+<link rel="stylesheet" type="text/css" href="{% static 'skyline/css/browse_ny.css'%}"> {% endblock %} {% block body_block %}
 <div class="browseNavTitle">
     <h3>
        Long Island City
@@ -50,6 +50,8 @@
     </div>
     <button class="add-a-building-button">Add a Building</button>
 </footer>
+<div class="gradientDiv">
+</div>
 <div id="content">
     <!-- Map -->
     <div id="osmmap"></div>
