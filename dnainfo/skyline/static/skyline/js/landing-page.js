@@ -44,6 +44,7 @@ $(document).ready(function() {
     });
 
     var $select2obj;
+    var dropDownOpen = false;
 
     $('.chevron-button-top').click(function() {
         $select2obj = $('header .django-select2').djangoSelect2();
@@ -55,7 +56,12 @@ $(document).ready(function() {
 
 
     $('.chevron-button').click(function() {
-        $select2obj.select2("open");
-        console.log($select2obj);
+        if (!dropDownOpen) {
+            $select2obj.select2("open");
+            dropDownOpen = true;
+        } else {
+            $select2obj.select2("close");
+            dropDownOpen = false;
+        }
     });
 });
