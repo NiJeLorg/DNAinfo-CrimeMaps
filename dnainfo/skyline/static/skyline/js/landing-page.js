@@ -43,13 +43,19 @@ $(document).ready(function() {
         $('#sponsoredModal').css('display', 'none');
     });
 
-    var $select2obj = $('.django-select2').djangoSelect2();
+    var $select2obj;
+
+    $('.chevron-button-top').click(function() {
+        $select2obj = $('header .django-select2').djangoSelect2();
+    });
+
+    $('.chevron-button-bottom').click(function() {
+        $select2obj = $('footer .django-select2').djangoSelect2();
+    });
 
 
     $('.chevron-button').click(function() {
         $select2obj.select2("open");
         console.log($select2obj);
     });
-
-
 });
