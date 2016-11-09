@@ -56,5 +56,6 @@ urlpatterns = [
     # intro and landing page
     url(r'^skyline/nyc/$', views.skyline_landingPage, name='skyline_landingPage'),
     url(r'^skyline/nyc/browse/(?P<id>\d+)/$', views.skyline_browse, name='skyline_browse'),
+    url(r'^skyline/nyc/return_result/(?P<id>\d+)/$', views.skyline_return_result, name='skyline_return_result'),
 
 ]
