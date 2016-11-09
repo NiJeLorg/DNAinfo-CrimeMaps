@@ -1,10 +1,12 @@
 /**
- * browse.js: Creates OSM Buildings map browse view 
+ * browse.js: Creates OSM Buildings map browse view
  */
 
 function osmApplication() {}
 
 osmApplication.initialize = function() {
+
+  $('.django-select2').djangoSelect2();
 
     osmApplication.widthFrame = $('#content').width();
     if (osmApplication.widthFrame < 1200) {
@@ -243,7 +245,7 @@ osmApplication.initialize = function() {
                         $('#property-pdf-dna').html('<a href="' + properties.zoning_pdfs + '" target="_blank">See Documents</a><br />');
                     }
 
-                    // links for editing and deleting 
+                    // links for editing and deleting
 
                     // edit link /skyline/admin/nyc/reporter/buildingHeight/ID/
                     var editHref = '/skyline/admin/nyc/reporter/buildingHeight/' + properties.objectID + '/'
@@ -660,6 +662,7 @@ osmApplication.getPermittedGeojsons = function() {
         url: "/skyline/nyc/getPermittedGeojsons/" + boro + "/",
         success: function(data) {
             // load the draw tools
+            console.log(data, 'permittedData');
             if (data) {
                 osmApplication.permittedGeojsons = {};
                 for (var i = 0; i < data.length; i++) {
@@ -673,6 +676,7 @@ osmApplication.getPermittedGeojsons = function() {
             }
         }
     });
+    console.log(boro, 'boroVariable')
 }
 
 osmApplication.getDNAGeojsons = function() {
