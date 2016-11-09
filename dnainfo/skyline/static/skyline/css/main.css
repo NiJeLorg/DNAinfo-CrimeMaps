@@ -960,6 +960,15 @@ footer .select-parent .select2-container {
   font-weight: bold;
 }
 
+.tooltip .submitted {
+  padding: 8px 0px 3px 14px;
+  color: #fff;
+  background: #ff926c;
+  margin: -15px -15px 0px -15px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
 .tooltip.dna-tooltip {
   border: 1px solid #0073a2;
 }
