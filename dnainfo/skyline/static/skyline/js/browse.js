@@ -6,6 +6,8 @@ function osmApplication() {}
 
 osmApplication.initialize = function() {
 
+  $('.django-select2').djangoSelect2();
+
     osmApplication.widthFrame = $('#content').width();
     if (osmApplication.widthFrame < 1200) {
         osmApplication.shadows = [];
