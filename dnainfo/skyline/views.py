@@ -979,3 +979,8 @@ def skyline_browse(request, id=None):
 	#pull neighborhood
 	hood = neighborhoodNYC.objects.get(pk=id)
 	return render(request, 'skyline/browse.html', {'hood':hood,})
+
+def skyline_return_result(request, id=None):
+	NYCskylineObject = NYCskyline.objects.get(pk=id)
+	return render(request, 'skyline/return_result.html', {'NYCskylineObject': NYCskylineObject})
+
