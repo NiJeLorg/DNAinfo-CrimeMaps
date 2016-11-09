@@ -886,7 +886,53 @@ footer .select-parent .select2-container {
   opacity: 1;
   border-radius: 5px;
   overflow: hidden;
+  box-shadow: 0 2px 4px 0 #c5c5c5;
 }
+
+.tooltip .tooltipHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: solid 1px #eae9e9;
+  padding: 3% 0%;
+  margin-bottom: 4%;
+}
+
+.tooltipHeader h4 {
+  font-weight: bold;
+  color: #2e2925;
+  margin: 0;
+}
+
+.tooltipHeader button .fa-2x {
+  font-size: 1.2em;
+}
+
+.tooltip footer {
+  position: static;
+  width: 100%;
+  display: block;
+}
+
+.tooltip .links {
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 8%;
+}
+
+.tooltip footer .links span {
+  display: block;
+  margin-top: 4%;
+}
+
+.tooltip footer .links a:hover {
+  text-decoration: none;
+}
+
+.tooltip footer .social-media-links {
+  width: 45%;
+}
+
 
 .tooltip.sponsored-tooltip {
   border: 1px solid #ffcf2d;
@@ -927,11 +973,6 @@ footer .select-parent .select2-container {
   font-weight: bold;
 }
 
-.tooltip .tooltip-close {
-  position: absolute;
-  right: 10px;
-  top: 30px;
-}
 
 .tooltip .tooltip-title {
   margin-bottom: 0px;
@@ -949,7 +990,6 @@ footer .select-parent .select2-container {
 
 .tooltip .property-text.link {
   font-family:"Titillium Web", Helvetica, Sans-Serif;
-  margin-top: 15px;
 }
 
 .tooltip .property-image {

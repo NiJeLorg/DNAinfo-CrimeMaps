@@ -80,19 +80,32 @@
     <!-- Hidden Div -->
     <div id="tooltipPermitted" class="tooltip permitted-tooltip hidden">
         <p class="permitted">APPROVED</p>
-        <h4 id="property-projectName-permitted" class="tooltip-title"></h4>
-        <button type="button" class="close tooltip-close" aria-label="Close"><i class="fa fa-times-circle-o fa-lg" aria-hidden="true"></i></button>
-        <div class="clearfix"></div>
-        <hr />
+        <div class="tooltipHeader">
+            <h4 id="property-projectName-permitted" class="tooltip-title"></h4>
+            <button type="button" class="close tooltip-close" aria-label="Close"><i class="fa fa-times fa-2x closeModal"></i></button>
+        </div>
         <div id='property-image-permitted' class='pull-right'></div>
         <p>
             <span id='property-description-permitted' class='property-text dark'></span>
             <span id="property-address-permitted" class='property-text'></span>
             <span id="property-stories-permitted" class='property-text'></span>
             <span id='property-story1-permitted' class='property-text link'></span>
-            <span id='property-pdf-permitted' class='property-text link'></span>
         </p>
-        <a id='property-edit-permitted' class="btn btn-primary marginRight10" href="" role="button">Edit</a>
+        <footer>
+            <div class="links">
+                <a href="#" >Read More</a>
+                <span id='property-pdf-permitted' class='property-text link'></span>
+            </div>
+            <div class="social-media-links">
+                <div class="link-holder facebook">
+                    <a href="#"><i class="fa fa-facebook-official fa-2x" aria-hidden="true"></i></a>
+                </div>
+                <div class="link-holder twitter">
+                    <a href="#"> <i class="fa fa-twitter fa-2x" aria-hidden="true"></i></a>
+                </div>
+            </div>
+        </footer>
+        <!-- <a id='property-edit-permitted' class="btn btn-primary marginRight10" href="" role="button">Edit</a> -->
     </div>
     <!-- Hidden Div -->
     <div id="tooltipDNA" class="tooltip dna-tooltip hidden">
