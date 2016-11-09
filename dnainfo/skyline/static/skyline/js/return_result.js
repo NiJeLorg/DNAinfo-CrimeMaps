@@ -50,7 +50,7 @@ osmApplication.initialize = function() {
         maxZoom: 19,
         tilt: 45,
         zoom: 17,
-        position: { latitude: this.center[0], longitude: this.center[1] },
+        position: { latitude: 40.710508, longitude: -73.943825 },
         state: true,
         effects: osmApplication.shadows,
         attribution: '© 3D <a href="https://osmbuildings.org/copyright/">OSM Buildings</a>. Map tiles by <a href=\"http://stamen.com\">Stamen Design</a>, under <a href=\"https://creativecommons.org/licenses/by/3.0/\" target=\"_blank\">CC BY 3.0</a>. Data by <a href=\"http://www.openstreetmap.org/\" target=\"_blank\">OpenStreetMap</a>, under ODbL.'
@@ -353,26 +353,26 @@ osmApplication.initialize = function() {
 
 }
 
-osmApplication.getGeojson = function () {
+osmApplication.getGeojson = function() {
     $.ajax({
         type: "GET",
-        url: "/skyline/nyc/getGeojson/"+ objectID +"/",
-        success: function(data){
+        url: "/skyline/nyc/getGeojson/" + objectID + "/",
+        success: function(data) {
             // load the draw tools
             if (data) {
                 var geojson = JSON.parse(data);
                 if (typeof geojson.features[0].geometry.coordinates[0][0][0][0] != 'undefined') {
                     var lat = geojson.features[0].geometry.coordinates[0][0][0][1];
-                    var lon = geojson.features[0].geometry.coordinates[0][0][0][0]; 
+                    var lon = geojson.features[0].geometry.coordinates[0][0][0][0];
                 } else {
                     var lat = geojson.features[0].geometry.coordinates[0][0][1];
                     var lon = geojson.features[0].geometry.coordinates[0][0][0];
                 }
                 // pan map
-                osmApplication.osmb.setPosition({ latitude:lat, longitude:lon });
-                osmApplication.osmb.addGeoJSON(geojson, {id: 'userGeojson'});
+                osmApplication.osmb.setPosition({ latitude: lat, longitude: lon });
+                osmApplication.osmb.addGeoJSON(geojson, { id: 'userGeojson' });
 
-            } 
+            }
         }
     });
 }
