@@ -976,11 +976,47 @@ def skyline_landingPage(request, id=None):
 	return render(request, 'skyline/index.html', {'form':form})
 
 def skyline_browse(request, id=None):
+	# A HTTP POST?
+	if request.method == 'POST':
+		form = NYClandingPageForm(request.POST)
+
+		# Have we been provided with a valid form?
+		if form.is_valid():
+			# Save the new data to the database.
+			print form
+			#f = form.save()
+			#lookupObject = NYCskyline.objects.get(pk=f.pk)
+			#return HttpResponseRedirect(reverse('skyline_buildingHeight', args=(lookupObject.pk,)))
+		else:
+			# The supplied form contained errors - just print them to the terminal.
+			print form.errors
+	else:
+		# If the request was not a POST, display the form to enter details.
+		form = NYClandingPageForm()
+
 	#pull neighborhood
 	hood = neighborhoodNYC.objects.get(pk=id)
-	return render(request, 'skyline/browse.html', {'hood':hood,})
+	return render(request, 'skyline/browse.html', {'hood':hood,'form':form})
 
 def skyline_return_result(request, id=None):
+	# A HTTP POST?
+	if request.method == 'POST':
+		form = NYClandingPageForm(request.POST)
+
+		# Have we been provided with a valid form?
+		if form.is_valid():
+			# Save the new data to the database.
+			print form
+			#f = form.save()
+			#lookupObject = NYCskyline.objects.get(pk=f.pk)
+			#return HttpResponseRedirect(reverse('skyline_buildingHeight', args=(lookupObject.pk,)))
+		else:
+			# The supplied form contained errors - just print them to the terminal.
+			print form.errors
+	else:
+		# If the request was not a POST, display the form to enter details.
+		form = NYClandingPageForm()
+
 	NYCskylineObject = NYCskyline.objects.get(pk=id)
-	return render(request, 'skyline/return_result.html', {'NYCskylineObject': NYCskylineObject})
+	return render(request, 'skyline/return_result.html', {'NYCskylineObject':NYCskylineObject,'form':form})
 

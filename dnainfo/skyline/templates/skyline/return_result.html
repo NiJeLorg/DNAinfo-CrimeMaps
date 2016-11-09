@@ -1,6 +1,56 @@
 {% extends 'skyline/baseNYC.html' %} {% load staticfiles %} {% block css_block %}
 <link rel="stylesheet" type="text/css" href="{% static 'skyline/css/OSMBuildings.css' %}">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"> {% endblock %} {% block body_block %}
+<link rel="stylesheet" type="text/css" href="{% static 'skyline/css/all-bootstrapped.min.css' %}">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="{% static 'skyline/css/select2.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'skyline/css/browse_ny.css'%}">
+{% endblock %} {% block body_block %}
+<form method="post" action=".">
+    {% csrf_token %}
+    <div class="row">
+        <div>
+            <div class="form-group formField">
+                <div class="input-group">
+                    <div class="input-group-addon left"><span class="locationIcon"></span></div>
+                    {{ form }}
+                    <div class="input-group-addon"></div>
+                </div>
+                <p class="text-danger hidden">Please pick a neighborhood above to continue.</p>
+                {{ form.errors }}
+            </div>
+        </div>
+    </div>
+</form>
+<!-- <div class="chevron-button-holder">
+    <button class="chevron-button chevron-button-top">
+        <i class="fa fa-chevron-down" aria-hidden='true'></i>
+    </button>
+</div> -->
+<div class="gradientDiv">
+</div>
+<div class="browseNavTitle">
+    <h3>
+       Long Island City
+    </h3>
+</div>
+<div class="browseNav">
+    <div class="social-media-links">
+        <div class="link-holder facebook">
+            <a href="#"><i class="fa fa-facebook-official fa-2x" aria-hidden="true"></i></a>
+        </div>
+        <div class="link-holder twitter">
+            <a href="#"> <i class="fa fa-twitter fa-2x" aria-hidden="true"></i></a>
+        </div>
+    </div>
+</div>
+<footer>
+    <div class="key-holder">
+        <a href="#">
+            <img src="{%static 'skyline/assets/Key.svg' %}">
+        </a>
+    </div>
+    <button class="add-a-building-button">Add a Building</button>
+</footer>
 <div id="content">
     <!-- Map -->
     <div id="osmmap"></div>
@@ -20,53 +70,92 @@
     <!-- Hidden Div -->
     <div id="tooltipSponsored" class="tooltip sponsored-tooltip hidden">
         <p class="sponsored">SPONSORED</p>
-        <h4 id="property-name" class="tooltip-title"></h4>
-        <button type="button" class="close tooltip-close" aria-label="Close"><i class="fa fa-times-circle-o fa-lg" aria-hidden="true"></i></button>
-        <div class="clearfix"></div>
-        <hr />
+        <div class="tooltipHeader">
+            <h4 id="property-name" class="tooltip-title"></h4>
+            <button type="button" class="close tooltip-close" aria-label="Close"><i class="fa fa-times fa-2x closeModal"></i></button>
+        </div>
         <div id='property-image' class='pull-right'></div>
         <p id="property-description" class='property-text'></p>
         <p id='property-address' class='property-text'></p>
+        <footer>
+            <div class="links">
+                <a href="#">Read More</a>
+                <span id='property-pdf-permitted' class='property-text link'></span>
+            </div>
+            <div class="social-media-links">
+                <div class="link-holder facebook">
+                    <a href="#"><i class="fa fa-facebook-official fa-2x" aria-hidden="true"></i></a>
+                </div>
+                <div class="link-holder twitter">
+                    <a href="#"> <i class="fa fa-twitter fa-2x" aria-hidden="true"></i></a>
+                </div>
+            </div>
+        </footer>
     </div>
     <!-- Hidden Div -->
     <div id="tooltipPermitted" class="tooltip permitted-tooltip hidden">
         <p class="permitted">APPROVED</p>
-        <h4 id="property-projectName-permitted" class="tooltip-title"></h4>
-        <button type="button" class="close tooltip-close" aria-label="Close"><i class="fa fa-times-circle-o fa-lg" aria-hidden="true"></i></button>
-        <div class="clearfix"></div>
-        <hr />
+        <div class="tooltipHeader">
+            <h4 id="property-projectName-permitted" class="tooltip-title"></h4>
+            <button type="button" class="close tooltip-close" aria-label="Close"><i class="fa fa-times fa-2x closeModal"></i></button>
+        </div>
         <div id='property-image-permitted' class='pull-right'></div>
         <p>
             <span id='property-description-permitted' class='property-text dark'></span>
             <span id="property-address-permitted" class='property-text'></span>
             <span id="property-stories-permitted" class='property-text'></span>
             <span id='property-story1-permitted' class='property-text link'></span>
-            <span id='property-pdf-permitted' class='property-text link'></span>
         </p>
-        <a id='property-edit-permitted' class="btn btn-primary marginRight10" href="" role="button">Edit</a>
+        <footer style="margin-bottom: 6%">
+            <div class="links">
+                <a href="#">Read More</a>
+                <span id='property-pdf-permitted' class='property-text link'></span>
+            </div>
+            <div class="social-media-links">
+                <div class="link-holder facebook">
+                    <a href="#"><i class="fa fa-facebook-official fa-2x" aria-hidden="true"></i></a>
+                </div>
+                <div class="link-holder twitter">
+                    <a href="#"> <i class="fa fa-twitter fa-2x" aria-hidden="true"></i></a>
+                </div>
+            </div>
+        </footer>
     </div>
     <!-- Hidden Div -->
     <div id="tooltipDNA" class="tooltip dna-tooltip hidden">
         <p class="dna">PROPOSED</p>
-        <h4 id="property-projectName-dna" class="tooltip-title"></h4>
-        <button type="button" class="close tooltip-close" aria-label="Close"><i class="fa fa-times-circle-o fa-lg" aria-hidden="true"></i></button>
-        <div class="clearfix"></div>
-        <hr />
+        <div class="tooltipHeader">
+            <h4 id="property-projectName-dna" class="tooltip-title"></h4>
+            <button type="button" class="close tooltip-close" aria-label="Close"><i class="fa fa-times fa-2x closeModal"></i></button>
+        </div>
         <div id='property-image-dna' class='pull-right'></div>
         <p>
             <span id='property-description-dna' class='property-text dark'></span>
             <span id="property-address-dna" class='property-text'></span>
             <span id="property-stories-dna" class='property-text'></span>
-            <span id='property-story1-dna' class='property-text link'></span>
             <span id='property-pdf-dna' class='property-text link'></span>
         </p>
-        <a id='property-edit-dna' class="btn btn-primary marginRight10" href="" role="button">Edit</a>
-        <a id='property-remove-dna' class="btn btn-danger" href="" role="button">Remove</a>
+        <footer style="margin-bottom: 6%">
+            <div class="links">
+                <a href="#">Read More</a>
+                <span id='property-pdf-permitted' class='property-text link'></span>
+            </div>
+            <div class="social-media-links">
+                <div class="link-holder facebook">
+                    <a href="#"><i class="fa fa-facebook-official fa-2x" aria-hidden="true"></i></a>
+                </div>
+                <div class="link-holder twitter">
+                    <a href="#"> <i class="fa fa-twitter fa-2x" aria-hidden="true"></i></a>
+                </div>
+            </div>
+        </footer>
     </div>
 </div>
 {% endblock %} {% block js_block %}
 <script type="text/javascript" src="{% static 'skyline/js/OSMBuildings.js' %}"></script>
 <script type="text/javascript" src="{% static 'skyline/js/return_result.js' %}"></script>
+<script type="text/javascript" src="{% static 'skyline/js/select2.js' %}"></script>
+<script type="text/javascript" src="{% static 'django_select2/django_select2.js' %}"></script>
 <script type="text/javascript">
 var objectID = "{{ NYCskylineObject.id }}"; 
 var dnaUrl = '{{ NYCskylineObject.whereBuilding.dnaurl }}';
@@ -74,6 +163,7 @@ var boro = '{{ NYCskylineObject.whereBuilding.county }}';
 $(document).ready(function() {
     window.setTimeout(function() {
         osmApplication.initialize();
+        osmApplication.createDjangoSelect2();
     }, 100);
 });
 </script>

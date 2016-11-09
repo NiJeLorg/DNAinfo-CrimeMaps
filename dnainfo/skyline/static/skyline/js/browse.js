@@ -4,9 +4,39 @@
 
 function osmApplication() {}
 
-osmApplication.initialize = function() {
+osmApplication.createDjangoSelect2 = function() {
+    // set up select 2
+    // remove form labels
+    $('label').remove();
+    // add a form-control class to the input, disabled attribute and placeholder text
+    $('#id_whereBuilding').addClass("form-control");
+    // don't allow a blank option
+    $('#id_whereBuilding option[value=""]').remove();
+    // initialize select 2
+    var $select2obj = $('.django-select2').djangoSelect2();
+    // update placeholder text
+    $('.select2-selection__placeholder').text("Select a Neighborhood");
 
-  $('.django-select2').djangoSelect2();
+    // for iOS, force blur to close keyboard if clicking away from the input field
+    $(document).on('click', '#select2-drop', function(e) {
+        document.activeElement.blur();
+    });
+
+    var dropDownOpen = false;
+
+    $('.chevron-button').click(function() {
+        if (!dropDownOpen) {
+            $select2obj.select2("open");
+            dropDownOpen = true;
+        } else {
+            $select2obj.select2("close");
+            dropDownOpen = false;
+        }
+    });
+
+}
+
+osmApplication.initialize = function() {
 
     osmApplication.widthFrame = $('#content').width();
     if (osmApplication.widthFrame < 1200) {
@@ -169,11 +199,9 @@ osmApplication.initialize = function() {
                     if (typeof properties.zoning_pdfs !== 'undefined' && properties.zoning_pdfs) {
                         $('#property-pdf-permitted').html('<a href="/' + properties.zoning_pdfs + '" target="_blank">See Documents</a><br />');
                     }
-                    // links for editing
 
-                    // edit link /skyline/admin/nyc/permitted/buildingHeight/ID/
-                    var editHref = '/skyline/admin/nyc/permitted/buildingHeight/' + properties.objectID + '/?hoodID=' + hoodID;
-                    $('#property-edit-permitted').prop('href', editHref);
+                    // facebook and twitter links for buidlings here
+
 
                     $('#tooltipPermitted').removeClass('hidden');
                     var height = $('#tooltipPermitted').height();
@@ -245,14 +273,7 @@ osmApplication.initialize = function() {
                         $('#property-pdf-dna').html('<a href="' + properties.zoning_pdfs + '" target="_blank">See Documents</a><br />');
                     }
 
-                    // links for editing and deleting
-
-                    // edit link /skyline/admin/nyc/reporter/buildingHeight/ID/
-                    var editHref = '/skyline/admin/nyc/reporter/buildingHeight/' + properties.objectID + '/'
-                    $('#property-edit-dna').prop('href', editHref);
-                    // remove link /skyline/admin/nyc/reporter/remove/ID/
-                    var removeHref = '/skyline/admin/nyc/reporter/remove/' + properties.objectID + '/'
-                    $('#property-remove-dna').prop('href', removeHref);
+                    // facebook and twitter links for buidlings here
 
 
                     $('#tooltipDNA').removeClass('hidden');
@@ -676,7 +697,6 @@ osmApplication.getPermittedGeojsons = function() {
             }
         }
     });
-    console.log(boro, 'boroVariable')
 }
 
 osmApplication.getDNAGeojsons = function() {

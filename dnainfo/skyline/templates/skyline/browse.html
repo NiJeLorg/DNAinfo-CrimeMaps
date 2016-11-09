@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="{% static 'skyline/css/select2.min.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'skyline/css/browse_ny.css'%}"> {% endblock %} {% block body_block %}
-<form id="whatNeighborhoodForm" method="post" action=".">
+<form method="post" action=".">
     {% csrf_token %}
     <div class="row">
         <div>
@@ -158,10 +158,10 @@
 <script type="text/javascript">
 var dnaUrl = '{{ hood.dnaurl }}';
 var boro = '{{ hood.county }}';
-var hoodID = '{{ hood.id }}';
 $(document).ready(function() {
     window.setTimeout(function() {
         osmApplication.initialize();
+        osmApplication.createDjangoSelect2();
     }, 100);
 });
 </script>
