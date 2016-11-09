@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="{% static 'skyline/css/select2.min.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'skyline/css/browse_ny.css'%}"> {% endblock %} {% block body_block %}
-<!-- <form id="whatNeighborhoodForm" method="post" action=".">
+<form id="whatNeighborhoodForm" method="post" action=".">
     {% csrf_token %}
     <div class="row">
         <div>
@@ -19,7 +19,12 @@
             </div>
         </div>
     </div>
-</form> -->
+</form>
+<!-- <div class="chevron-button-holder">
+    <button class="chevron-button chevron-button-top">
+        <i class="fa fa-chevron-down" aria-hidden='true'></i>
+    </button>
+</div> -->
 <div class="gradientDiv">
 </div>
 <div class="browseNavTitle">
@@ -100,7 +105,7 @@
             <span id="property-stories-permitted" class='property-text'></span>
             <span id='property-story1-permitted' class='property-text link'></span>
         </p>
-        <footer>
+        <footer style="margin-bottom: 6%">
             <div class="links">
                 <a href="#">Read More</a>
                 <span id='property-pdf-permitted' class='property-text link'></span>
@@ -130,7 +135,7 @@
             <span id="property-stories-dna" class='property-text'></span>
             <span id='property-pdf-dna' class='property-text link'></span>
         </p>
-        <footer style="margin-bottom: 3%">
+        <footer style="margin-bottom: 6%">
             <div class="links">
                 <a href="#">Read More</a>
                 <span id='property-pdf-permitted' class='property-text link'></span>
