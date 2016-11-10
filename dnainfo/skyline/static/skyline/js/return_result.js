@@ -296,23 +296,14 @@ osmApplication.initialize = function() {
 
                 } else if (splitId[0] == 'submitted') {
                     // clear out previous data
-                    $('#property-description-submitted').html('');
                     $('#property-address-submitted').html('');
                     $('#property-stories-submitted').html('');
 
                     let properties = osmApplication.submittedGeojsons[id].features[0].properties;
 
 
-
-                    console.log(id, 'ID SUBMITTED');
-                    console.log(properties, 'PROPERTIES');
-                    console.log(osmApplication.submittedGeojsons, 'OSMSUBMITTEDJSONS');
-
                     if (typeof properties.address !== 'undefined' && properties.address) {
                         $('#property-address-submitted').text(properties.address);
-                    }
-                    if (typeof properties.description !== 'undefined' && properties.description) {
-                        $('#property-description-submitted').text(properties.description);
                     }
 
 
