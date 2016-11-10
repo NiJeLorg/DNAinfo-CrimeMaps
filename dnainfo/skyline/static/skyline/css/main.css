@@ -1270,21 +1270,21 @@ input[type="radio"]:checked + label span {
   }
 }
 
-@media (max-width: 1024px) {
-    .select2-container .select2-dropdown {
-      width: 30.5% !important;
-    }
-}
+// @media (max-width: 1024px) {
+//     .select2-container .select2-dropdown {
+//       width: 30.5% !important;
+//     }
+// }
 
-@media (max-width: 768px) {
-    .select2-container .select2-dropdown {
-      width: 44% !important;
-    }
-}
+// @media (max-width: 768px) {
+//     .select2-container .select2-dropdown {
+//       width: 44% !important;
+//     }
+// }
 
-@media (max-width: 425px) {
-    .select2-container .select2-dropdown {
-      width: 75% !important;
-    }
-}
+// @media (max-width: 425px) {
+//     .select2-container .select2-dropdown {
+//       width: 75% !important;
+//     }
+// }
 

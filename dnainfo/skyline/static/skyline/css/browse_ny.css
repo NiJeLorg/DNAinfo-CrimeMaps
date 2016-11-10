@@ -105,7 +105,7 @@ footer {
     bottom: 3%;
     left: 1%;
     z-index: 2;
-    width: 11%;
+    width: 100%;
 }
 
 .key-holder {
@@ -134,10 +134,55 @@ footer .add-a-building-button {
     outline: none;
     border: none;
     border-radius: 2px;
-    padding: 6% 6%;
-    margin-left: 5%;
+    height: 40px;
 }
 
 #tooltipSubmitted .property-description {
     color: #4a4a4a;
+}
+
+@media (max-width: 1024px) {
+    .select-parent {
+        right: 17%;
+    }
+}
+
+@media (max-width: 768px) {
+    .select-parent {
+        top: 13%;
+        width: 40%;
+        right: 29%;
+    }
+}
+
+@media (max-width: 425px) {
+    .browseNav {
+        top: 18%;
+    }
+    .browseNav .social-media-links {
+        display: block;
+    }
+    .browseNav .link-holder {
+        margin-bottom: 3%;
+        margin-left: 3%;
+    }
+    .browseNavTitle {
+        display: none;
+    }
+    .controls {
+        display: none;
+    }
+    .select-parent {
+        width: 90%;
+        left: 6%;
+        top: 8%;
+    }
+    .select-parent .select2 {
+        width: 100%;
+    }
+    footer {
+        bottom: 6%;
+        left: 3%;
+    }
+    footer .key-holder {}
 }
