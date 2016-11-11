@@ -960,6 +960,15 @@ footer .select-parent .select2-container {
   font-weight: bold;
 }
 
+.tooltip .submitted {
+  padding: 8px 0px 3px 14px;
+  color: #fff;
+  background: #ff926c;
+  margin: -15px -15px 0px -15px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
 .tooltip.dna-tooltip {
   border: 1px solid #0073a2;
 }
@@ -1261,21 +1270,21 @@ input[type="radio"]:checked + label span {
   }
 }
 
-@media (max-width: 1024px) {
-    .select2-container .select2-dropdown {
-      width: 30.5% !important;
-    }
-}
+// @media (max-width: 1024px) {
+//     .select2-container .select2-dropdown {
+//       width: 30.5% !important;
+//     }
+// }
 
-@media (max-width: 768px) {
-    .select2-container .select2-dropdown {
-      width: 44% !important;
-    }
-}
+// @media (max-width: 768px) {
+//     .select2-container .select2-dropdown {
+//       width: 44% !important;
+//     }
+// }
 
-@media (max-width: 425px) {
-    .select2-container .select2-dropdown {
-      width: 75% !important;
-    }
-}
+// @media (max-width: 425px) {
+//     .select2-container .select2-dropdown {
+//       width: 75% !important;
+//     }
+// }
 

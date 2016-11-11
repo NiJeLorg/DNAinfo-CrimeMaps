@@ -1,3 +1,33 @@
+.select-parent {
+    width: 20%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: absolute;
+    z-index: 3;
+    top: 5%;
+    right: 10%;
+}
+
+.select-parent .chevron-button-holder {
+    z-index: 2;
+    margin-left: 15px;
+}
+
+.select-parent .chevron-button {
+    color: white;
+    background: #1074A0;
+    border: none;
+    padding: 0;
+    outline: none;
+    width: 45px;
+    height: 45px;
+    text-align: center;
+}
+
+.select-parent .select-parent-holder form .row .select2-container {
+    width: 100%;
+}
 
 .gradientDiv {
     width: 100vw;
@@ -38,17 +68,18 @@
 
 .social-media-links {
     display: inline-flex;
-    width: 8%;
+    width: 100%;
+    justify-content: flex-end;
 }
 
 .link-holder {
     height: 45px;
     width: 45px;
     display: flex;
-    margin-right: 14%;
     flex-direction: column;
     justify-content: center;
     border-radius: 2px;
+    margin-left: 1%;
 }
 
 .link-holder {
@@ -74,7 +105,7 @@ footer {
     bottom: 3%;
     left: 1%;
     z-index: 2;
-    width: 11%;
+    width: 100%;
 }
 
 .key-holder {
@@ -103,6 +134,55 @@ footer .add-a-building-button {
     outline: none;
     border: none;
     border-radius: 2px;
-    padding: 6% 6%;
-    margin-left: 5%;
+    height: 40px;
+}
+
+#tooltipSubmitted .property-description {
+    color: #4a4a4a;
+}
+
+@media (max-width: 1024px) {
+    .select-parent {
+        right: 17%;
+    }
+}
+
+@media (max-width: 768px) {
+    .select-parent {
+        top: 13%;
+        width: 40%;
+        right: 29%;
+    }
+}
+
+@media (max-width: 425px) {
+    .browseNav {
+        top: 18%;
+    }
+    .browseNav .social-media-links {
+        display: block;
+    }
+    .browseNav .link-holder {
+        margin-bottom: 3%;
+        margin-left: 3%;
+    }
+    .browseNavTitle {
+        display: none;
+    }
+    .controls {
+        display: none;
+    }
+    .select-parent {
+        width: 90%;
+        left: 6%;
+        top: 8%;
+    }
+    .select-parent .select2 {
+        width: 100%;
+    }
+    footer {
+        bottom: 6%;
+        left: 3%;
+    }
+    footer .key-holder {}
 }
