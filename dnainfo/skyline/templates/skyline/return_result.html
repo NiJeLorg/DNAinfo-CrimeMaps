@@ -1,9 +1,10 @@
-{% extends 'skyline/baseNYC.html' %} {% load staticfiles %} {% load bootstrap_tags %} {% block css_block %}
+{% extends 'skyline/baseNYC.html' %} {% load staticfiles %} {% block css_block %}
 <link rel="stylesheet" type="text/css" href="{% static 'skyline/css/OSMBuildings.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'skyline/css/all-bootstrapped.min.css' %}">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="{% static 'skyline/css/select2.min.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'skyline/css/browse_ny.css'%}"> {% endblock %} {% block body_block %}
+<link rel="stylesheet" type="text/css" href="{% static 'skyline/css/browse_ny.css'%}">
+{% endblock %} {% block body_block %}
 <form method="post" action=".">
     {% csrf_token %}
     <div class="row">
@@ -152,12 +153,13 @@
 </div>
 {% endblock %} {% block js_block %}
 <script type="text/javascript" src="{% static 'skyline/js/OSMBuildings.js' %}"></script>
-<script type="text/javascript" src="{% static 'skyline/js/browse.js' %}"></script>
+<script type="text/javascript" src="{% static 'skyline/js/return_result.js' %}"></script>
 <script type="text/javascript" src="{% static 'skyline/js/select2.js' %}"></script>
 <script type="text/javascript" src="{% static 'django_select2/django_select2.js' %}"></script>
 <script type="text/javascript">
-var dnaUrl = '{{ hood.dnaurl }}';
-var boro = '{{ hood.county }}';
+var objectID = "{{ NYCskylineObject.id }}"; 
+var dnaUrl = '{{ NYCskylineObject.whereBuilding.dnaurl }}';
+var boro = '{{ NYCskylineObject.whereBuilding.county }}';
 $(document).ready(function() {
     window.setTimeout(function() {
         osmApplication.initialize();

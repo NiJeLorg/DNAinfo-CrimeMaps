@@ -1,0 +1,108 @@
+
+.gradientDiv {
+    width: 100vw;
+    height: 100vh;
+    z-index: 3;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.33), rgba(215, 215, 215, 0.0));
+    position: absolute;
+    opacity: .4;
+    pointer-events: none;
+}
+
+.browseNavTitle {
+    position: absolute;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    top: 6%;
+    color: #fff;
+}
+
+.browseNavTitle h3 {
+    color: #fff;
+    font-weight: bold;
+    color: white;
+    margin: 0;
+}
+
+.browseNav {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 98%;
+    position: absolute;
+    top: 5%;
+    z-index: 2;
+}
+
+.social-media-links {
+    display: inline-flex;
+    width: 8%;
+}
+
+.link-holder {
+    height: 45px;
+    width: 45px;
+    display: flex;
+    margin-right: 14%;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 2px;
+}
+
+.link-holder {
+    text-align: center;
+}
+
+.link-holder a i {
+    color: #fff;
+}
+
+.facebook {
+    background: #3D5A96;
+}
+
+.twitter {
+    background: #59ADEB;
+}
+
+footer {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    bottom: 3%;
+    left: 1%;
+    z-index: 2;
+    width: 11%;
+}
+
+.key-holder {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: #fff;
+    border-radius: 2px;
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.5);
+    margin-right: 1%;
+}
+
+.key-holder a {
+    text-align: center;
+}
+
+.key-holder a i {
+    color: #ffcf2e;
+}
+
+footer .add-a-building-button {
+    background: #1074A0;
+    color: #fff;
+    outline: none;
+    border: none;
+    border-radius: 2px;
+    padding: 6% 6%;
+    margin-left: 5%;
+}

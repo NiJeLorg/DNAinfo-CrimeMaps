@@ -37,8 +37,8 @@ a:hover {
 }
 
 .link-holder {
-    height: 40px;
-    width: 40px;
+    height: 45px;
+    width: 45px;
     margin-left: 1.5%;
     display: flex;
     flex-direction: column;
@@ -89,36 +89,39 @@ a:hover {
     margin: 0 auto;
     letter-spacing: .4px;
     font-size: 1.7em;
-    margin-bottom: 3%;
+    margin-bottom: 5%;
 }
 
 .select-parent {
-    width: 36%;
-    margin: 0 auto;
+    width: 50%;
     display: flex;
-    margin-bottom: 4%;
     align-items: center;
+    margin: 0 auto;
+    margin-bottom: 5%;
+    justify-content: center;
 }
 
-footer .select-parent {
-    margin: 0;
+.select-parent-holder {
+    width: 50%;
 }
 
 .select-parent form .form-group {
     margin-bottom: 0px;
 }
 
+.select-parent .chevron-button-holder {
+    z-index: 2;
+}
+
 .select-parent .chevron-button {
     color: white;
     background: #1074A0;
     border: none;
-    padding: 2.4% 2.6%;
+    padding: 0;
     outline: none;
-    z-index: 2;
+    width: 45px;
     height: 45px;
-    width: 45px !important;
-    position: relative;
-    right: 5%;
+    text-align: center;
 }
 
 .building-component {
@@ -296,16 +299,34 @@ footer {
 }
 
 .got-it-now .component-heading {
-    margin: 0px;
+    margin: 0% 1%;
 }
 
-.got-it-now button {
+.got-it-now .add-a-building-button {
     background: #1074A0;
     color: #fff;
     outline: none;
     border: none;
     border-radius: 2px;
     padding: .8% 1.2%;
+}
+
+footer .select-parent {
+    margin: 0;
+    justify-content: flex-start;
+    width: 25%;
+}
+
+footer .select-parent .select-parent-holder {
+    width: 100%;
+}
+
+footer .select-parent .chevron-button {
+    right: 1%;
+}
+
+.select-parent form .row {
+    margin: 0;
 }
 
 .view-methodology {
@@ -316,6 +337,9 @@ footer {
 @media (max-width: 1024px) {
     .building-component-holder {
         width: 80%;
+    }
+    footer .select-parent {
+        width: 35%;
     }
 }
 
@@ -337,17 +361,28 @@ footer {
     .building-component-holder {
         width: 90%;
     }
+    .select-parent-holder {
+        width: 80%;
+    }
+    .building-component-modal {
+        width: 38%;
+    }
+    .got-it-now {
+        display: block;
+    }
+    .got-it-now .component-heading {
+        margin-bottom: 4%;
+        margin-top: 2%;
+    }
+    footer .select-parent {
+        margin: 0 auto;
+        width: 50%;
+    }
 }
 
 @media (max-width: 1024px) {
     .building-component-modal {
         width: 30%;
-    }
-}
-
-@media (max-width: 768px) {
-    .building-component-modal {
-        width: 38%;
     }
 }
 
@@ -396,6 +431,15 @@ footer {
         order: 1;
     }
     .select-parent {
+        width: 85%;
+    }
+    .got-it-now {
+        display: initial;
+    }
+    .got-it-now .add-a-building-button {
+        margin-bottom: 5%;
+    }
+    footer .select-parent {
         width: 85%;
     }
 }
