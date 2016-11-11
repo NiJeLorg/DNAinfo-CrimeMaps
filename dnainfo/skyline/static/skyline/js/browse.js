@@ -114,7 +114,7 @@ osmApplication.initialize = function() {
             var ycoor = e.clientY;
         }
         osmApplication.osmb.getTarget(xcoor, ycoor, function(id) {
-            console.log(id);
+            console.log(id, 'ID');
             if (id) {
                 splitId = id.split('_');
 
@@ -683,7 +683,6 @@ osmApplication.getPermittedGeojsons = function() {
         url: "/skyline/nyc/getPermittedGeojsons/" + boro + "/",
         success: function(data) {
             // load the draw tools
-            console.log(data, 'permittedData');
             if (data) {
                 osmApplication.permittedGeojsons = {};
                 for (var i = 0; i < data.length; i++) {

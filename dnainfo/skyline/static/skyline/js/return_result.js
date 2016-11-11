@@ -50,7 +50,7 @@ osmApplication.initialize = function() {
         maxZoom: 19,
         tilt: 45,
         zoom: 17,
-        position: { latitude: this.center[0], longitude: this.center[1] },
+        position: { latitude: 40.710508, longitude: -73.943825 },
         state: true,
         effects: osmApplication.shadows,
         attribution: '© 3D <a href="https://osmbuildings.org/copyright/">OSM Buildings</a>. Map tiles by <a href=\"http://stamen.com\">Stamen Design</a>, under <a href=\"https://creativecommons.org/licenses/by/3.0/\" target=\"_blank\">CC BY 3.0</a>. Data by <a href=\"http://www.openstreetmap.org/\" target=\"_blank\">OpenStreetMap</a>, under ODbL.'
@@ -111,9 +111,9 @@ osmApplication.initialize = function() {
             var ycoor = e.clientY;
         }
         osmApplication.osmb.getTarget(xcoor, ycoor, function(id) {
-            console.log(id);
             if (id) {
                 splitId = id.split('_');
+                console.log(splitId, 'splitId');
 
                 if (splitId[0] == 'sponsored') {
                     // clear out previous data
@@ -294,6 +294,42 @@ osmApplication.initialize = function() {
                     $('#tooltipDNA').css('top', y);
 
 
+                } else if (splitId[0] == 'submitted') {
+                    // clear out previous data
+                    $('#property-address-submitted').html('');
+                    $('#property-stories-submitted').html('');
+
+                    let properties = osmApplication.submittedGeojsons[id].features[0].properties;
+
+
+                    if (typeof properties.address !== 'undefined' && properties.address) {
+                        $('#property-address-submitted').text(properties.address);
+                    }
+
+
+                    // look up properties
+                    // let properties = osmApplication.getGeojson[id].features[0].properties;
+
+                    $('#tooltipSubmitted').removeClass('hidden');
+                    var height = $('#tooltipSubmitted').height();
+                    var x = parseInt(xcoor) - 150;
+                    var y = parseInt(ycoor) - height;
+
+                    // keep the tooltip on the screen
+                    if (x < 10) {
+                        x = 10;
+                    } else if (x > (osmApplication.widthFrame - 310)) {
+                        x = osmApplication.widthFrame - 310;
+                    }
+
+                    if (y < 10) {
+                        y = 10;
+                    }
+
+                    // show div with data populated at that screen location
+                    $('#tooltipSubmitted').css('left', x);
+                    $('#tooltipSubmitted').css('top', y);
+
                 } else {
                     if (!$('#tooltipPermitted').hasClass('hidden')) {
                         $('#tooltipPermitted').addClass('hidden');
@@ -303,6 +339,9 @@ osmApplication.initialize = function() {
                     }
                     if (!$('#tooltipDNA').hasClass('hidden')) {
                         $('#tooltipDNA').addClass('hidden');
+                    }
+                    if (!$('#tooltipSubmitted').hasClass('hidden')) {
+                        $('#tooltipSubmitted').addClass('hidden');
                     }
                 }
             } else {
@@ -315,6 +354,9 @@ osmApplication.initialize = function() {
                 }
                 if (!$('#tooltipDNA').hasClass('hidden')) {
                     $('#tooltipDNA').addClass('hidden');
+                }
+                if (!$('#tooltipSubmitted').hasClass('hidden')) {
+                    $('#tooltipSubmitted').addClass('hidden');
                 }
             }
 
@@ -331,6 +373,9 @@ osmApplication.initialize = function() {
         }
         if (!$('#tooltipDNA').hasClass('hidden')) {
             $('#tooltipDNA').addClass('hidden');
+        }
+        if (!$('#tooltipSubmitted').hasClass('hidden')) {
+            $('#tooltipSubmitted').addClass('hidden');
         }
     });
 
@@ -349,33 +394,36 @@ osmApplication.initialize = function() {
     osmApplication.getPermittedGeojsons();
 
     // get permitted buildings from DOB
-    osmApplication.getDNAGeojsons();
+    osmApplication.getgeo();
 
 }
 
-osmApplication.getGeojson = function () {
+osmApplication.getGeojson = function() {
     $.ajax({
         type: "GET",
-        url: "/skyline/nyc/getGeojson/"+ objectID +"/",
-        success: function(data){
+        url: "/skyline/nyc/getGeojson/" + objectID + "/",
+        success: function(data) {
             // load the draw tools
+            var lat, lon;
             if (data) {
                 var geojson = JSON.parse(data);
+                var idNum = 'submitted_' + objectID;
+                osmApplication.submittedGeojsons = {};
                 if (typeof geojson.features[0].geometry.coordinates[0][0][0][0] != 'undefined') {
-                    var lat = geojson.features[0].geometry.coordinates[0][0][0][1];
-                    var lon = geojson.features[0].geometry.coordinates[0][0][0][0]; 
+                    lat = geojson.features[0].geometry.coordinates[0][0][0][1];
+                    lon = geojson.features[0].geometry.coordinates[0][0][0][0];
                 } else {
-                    var lat = geojson.features[0].geometry.coordinates[0][0][1];
-                    var lon = geojson.features[0].geometry.coordinates[0][0][0];
+                    lat = geojson.features[0].geometry.coordinates[0][0][1];
+                    lon = geojson.features[0].geometry.coordinates[0][0][0];
                 }
                 // pan map
-                osmApplication.osmb.setPosition({ latitude:lat, longitude:lon });
-                osmApplication.osmb.addGeoJSON(geojson, {id: 'userGeojson'});
-
-            } 
+                osmApplication.osmb.setPosition({ latitude: lat, longitude: lon });
+                osmApplication.osmb.addGeoJSON(geojson, { id: idNum });
+                osmApplication.submittedGeojsons[idNum] = geojson;
+            }
         }
     });
-}
+};
 
 osmApplication.getSponsoredGeojsons = function() {
     $.ajax({
@@ -419,14 +467,14 @@ osmApplication.getPermittedGeojsons = function() {
     });
 }
 
-osmApplication.getDNAGeojsons = function() {
+osmApplication.getgeo = function() {
     $.ajax({
         type: "GET",
         url: "/skyline/nyc/getReporterGeojsons/",
         success: function(data) {
             // load the draw tools
             if (data) {
-                osmApplication.dnaGeojsons = {};
+                osmApplication.geo = {};
                 for (var i = 0; i < data.length; i++) {
                     if (data[i]) {
                         var geojson = JSON.parse(data[i]);
