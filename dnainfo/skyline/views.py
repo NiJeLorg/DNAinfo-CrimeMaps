@@ -55,7 +55,7 @@ def skyline_whatNeighborhood(request, id=None):
 
 	# Bad form (or form details), no form supplied...
 	# Render the form with error messages (if any).
-	return render(request, 'skyline/whatNeighborhood.html', {'form':form, 'NYCskylineObject': NYCskylineObject})
+	return render(request, 'skyline/add_a_building_intro.html', {'form':form, 'NYCskylineObject': NYCskylineObject})
 
 
 def skyline_buildingHeight(request, id=None):

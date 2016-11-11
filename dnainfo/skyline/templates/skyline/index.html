@@ -199,7 +199,7 @@
                     <div class="building-component-info" style="order: 2">
                         <h3 class="component-heading">Add a building</h3>
                         <p class="component-info">We have thousands of possible buildings in our map now, but you can
-                            <a href="#">add more.</a> Submit one, and we'll tell you when your building's been added.
+                            <a href="{% url 'skyline_whatNeighborhood' %}">add more.</a> Submit one, and we'll tell you when your building's been added.
                         </p>
                     </div>
                     <div class="building-component-image" style="order: 1">
@@ -237,7 +237,8 @@
                 </div>
             </div>
             <h3 class="component-heading">or</h3>
-            <button class="add-a-building-button">Add a Building</button>
+            <a class="btn add-a-building-button" href="{% url 'skyline_whatNeighborhood' %}">Add a Building</a>
+            <!-- <button class="add-a-building-button"></button> -->
         </div>
         <div class="view-methodology">
             <a href="#" data-toggle='modal' data-target='#methodology' class="component-heading">View Methodology</a>
