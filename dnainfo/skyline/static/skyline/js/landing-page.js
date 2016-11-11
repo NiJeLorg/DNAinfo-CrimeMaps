@@ -24,32 +24,75 @@ $(document).ready(function() {
         document.activeElement.blur();
     });
 
+    var approvedModalOpen = false;
+    var proposedModalOpen = false;
+    var sponsoredModalOpen = false;
+
     $('#openApprovedModal').click(function() {
-        $('#approvedModal').css('display', 'block');
+        if (!approvedModalOpen) {
+            $('#approvedModal').css('display', 'block');
+            approvedModalOpen = true;
+        } else {
+            $('#approvedModal').css('display', 'none');
+            approvedModalOpen = false;
+        }
     });
+
+
     $('#openProposedModal').click(function() {
-        $('#proposedModal').css('display', 'block');
+        if (!proposedModalOpen) {
+            $('#proposedModal').css('display', 'block');
+            proposedModalOpen = true;
+        } else {
+            $('#proposedModal').css('display', 'none');
+            proposedModalOpen = false;
+        }
     });
+
+
     $('#openSponsoredModal').click(function() {
-        $('#sponsoredModal').css('display', 'block');
+        if (!sponsoredModalOpen) {
+            $('#sponsoredModal').css('display', 'block');
+            sponsoredModalOpen = true;
+        } else {
+            $('#sponsoredModal').css('display', 'none');
+            sponsoredModalOpen = false;
+        }
     });
+
+
     $('#closeApprovedModal').click(function() {
         $('#approvedModal').css('display', 'none');
+        approvedModalOpen = false;
     });
     $('#closeProposedModal').click(function() {
         $('#proposedModal').css('display', 'none');
+        proposedModalOpen = false;
     });
     $('#closeSponsoredModal').click(function() {
         $('#sponsoredModal').css('display', 'none');
+        sponsoredModalOpen = false;
     });
 
-    var $select2obj = $('.django-select2').djangoSelect2();
+    var $select2obj;
+    var dropDownOpen = false;
+
+    $('.chevron-button-top').click(function() {
+        $select2obj = $('header .django-select2').djangoSelect2();
+    });
+
+    $('.chevron-button-bottom').click(function() {
+        $select2obj = $('footer .django-select2').djangoSelect2();
+    });
 
 
     $('.chevron-button').click(function() {
-        $select2obj.select2("open");
-        console.log($select2obj);
+        if (!dropDownOpen) {
+            $select2obj.select2("open");
+            dropDownOpen = true;
+        } else {
+            $select2obj.select2("close");
+            dropDownOpen = false;
+        }
     });
-
-
 });

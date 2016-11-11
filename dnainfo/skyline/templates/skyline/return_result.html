@@ -1,4 +1,4 @@
-{% extends 'skyline/baseNYC.html' %} {% load staticfiles %} {% load bootstrap_tags %} {% block css_block %}
+{% extends 'skyline/baseNYC.html' %} {% load staticfiles %} {% block css_block %}
 <link rel="stylesheet" type="text/css" href="{% static 'skyline/css/OSMBuildings.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'skyline/css/all-bootstrapped.min.css' %}">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
@@ -155,15 +155,27 @@
             </div>
         </footer>
     </div>
+    <!-- Hidden Div -->
+    <div id="tooltipSubmitted" class="tooltip hidden">
+        <p class="submitted">SUBMITTED</p>
+        <div class="tooltipHeader">
+            <h4 id="property-address-submitted" class="tooltip-title"></h4>
+            <button type="button" class="close tooltip-close" aria-label="Close"><i class="fa fa-times fa-2x closeModal"></i></button>
+        </div>
+        <p class="property-description">
+            This building was submitted by a DNAinfo user. If approved, it will show up in blue alongside other buildings on this map.
+        </p>
+    </div>
 </div>
 {% endblock %} {% block js_block %}
 <script type="text/javascript" src="{% static 'skyline/js/OSMBuildings.js' %}"></script>
-<script type="text/javascript" src="{% static 'skyline/js/browse.js' %}"></script>
+<script type="text/javascript" src="{% static 'skyline/js/return_result.js' %}"></script>
 <script type="text/javascript" src="{% static 'skyline/js/select2.js' %}"></script>
 <script type="text/javascript" src="{% static 'django_select2/django_select2.js' %}"></script>
 <script type="text/javascript">
-var dnaUrl = '{{ hood.dnaurl }}';
-var boro = '{{ hood.county }}';
+var objectID = "{{ NYCskylineObject.id }}";
+var dnaUrl = '{{ NYCskylineObject.whereBuilding.dnaurl }}';
+var boro = '{{ NYCskylineObject.whereBuilding.county }}';
 $(document).ready(function() {
     window.setTimeout(function() {
         osmApplication.initialize();

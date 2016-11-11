@@ -2,7 +2,7 @@
 This repository houses code under development for DNAinfo interactive projects created by NiJeL. These tools were developed using the [Django Python Web framework](https://www.djangoproject.com/).
 
 ## Local Development Installation
-Note: Do not use this workflow for deploying this tool to production, as this may introduce a number of security concerns. For more information on deploying Django in a production environment, please see the [Django deployment checklist](https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/)
+Note: Do not use this workflow for deploying this tool to production, as this may introduce a number of security concerns. For more information on deploying Django in a production environment, please see the [Django deployment checklist](https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/)
 To install these interactives on your local machine:
 * [Clone this repository](https://git-scm.com/book/en/v2/Git-Basics-Getting-a-Git-Repository#Cloning-an-Existing-Repository) to your local machine.
 * In the directory where you placed the cloned repo, create a virtual environment for Python and project dependencies in a directory called "env":
