@@ -23,7 +23,7 @@
             <p class="title-info">Every new building affects the character of a neighborhood, so DNAinfo created this 3D map that helps you understand how high new buildings could be going up near you.
             </p>
         </div>
-        <div class="select-parent">
+        <div class="select-parent select-parent-header">
             <div class="select-parent-holder">
                 <form id="whatNeighborhoodForm" method="post" action=".">
                     {% csrf_token %}
@@ -42,9 +42,11 @@
                     </div>
                 </form>
             </div>
-            <button class="chevron-button chevron-button-top">
-                <i class="fa fa-chevron-down" aria-hidden='true'></i>
-            </button>
+            <div class="chevron-button-holder">
+                <button class="chevron-button chevron-button-top">
+                    <i class="fa fa-chevron-down" aria-hidden='true'></i>
+                </button>
+            </div>
         </div>
     </header>
     <main>
