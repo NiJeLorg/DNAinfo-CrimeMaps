@@ -93,7 +93,6 @@ a:hover {
 }
 
 .select-parent {
-    width: 50%;
     display: flex;
     align-items: center;
     margin: 0 auto;
@@ -102,7 +101,7 @@ a:hover {
 }
 
 .select-parent-holder {
-    width: 50%;
+    width: 30%;
 }
 
 .select-parent form .form-group {
@@ -121,7 +120,7 @@ a:hover {
     outline: none;
     width: 45px;
     height: 45px;
-    text-align: center;
+    z-index: 2;
 }
 
 .building-component {
@@ -429,9 +428,6 @@ footer .select-parent .chevron-button {
     }
     .sponsored-building-component-image {
         order: 1;
-    }
-    .select-parent {
-        width: 85%;
     }
     .got-it-now {
         display: initial;
