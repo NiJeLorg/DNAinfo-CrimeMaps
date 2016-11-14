@@ -180,12 +180,15 @@ html, body, #content, #map, #osmmap {
   margin: 20vh 25px;
 }
 
+#methodology .modal-header {
+  display: flex;
+  justify-content: flex-end;
+}
+
 .modal-header .close {
   margin-top: -2px;
-  margin-right: -10px;
   width: 25px;
   height: 25px;
-  padding-left: 10px;
 }
 
 
