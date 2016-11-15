@@ -1025,7 +1025,7 @@ input[type=number] {
 
 
 /* radio button css */
-input[type="radio"] {
+/*input[type="radio"] {
     display:none;
 }
 input[type="radio"] + label {
@@ -1063,7 +1063,7 @@ input[type="radio"]:checked + label span {
   -moz-transition:background-color 0.4s linear;
   transition:background-color 0.4s linear;
 }
-
+*/
 
 /* Ad images */
 .smallAd {

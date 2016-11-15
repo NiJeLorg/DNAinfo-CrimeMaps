@@ -161,6 +161,50 @@ $( document ).ready(function() {
 		return false;
 	}
 
+	// listeners for radio button clicks to show or hide document/image/url UGC form
+	$(document).on('click', '#id_imageDocOrURL_1', function(e) {
+		// check if hidden and unhide
+		if ($('#div_id_buildingImage').hasClass('hidden') && $('#div_id_buildingDoc').hasClass('hidden')) {
+			$('#div_id_buildingImage').removeClass('hidden');
+			$('#div_id_buildingDoc').removeClass('hidden');
+			$('#div_id_buildingURL').addClass('hidden');
+		} 
+	});
+
+	$(document).on('click', '#id_imageDocOrURL_2', function(e) {
+		// check if hidden and unhide
+		if ($('#div_id_buildingURL').hasClass('hidden')) {
+			$('#div_id_buildingImage').addClass('hidden');
+			$('#div_id_buildingDoc').addClass('hidden');
+			$('#div_id_buildingURL').removeClass('hidden');
+		} 
+	});
+
+	// if a document has been uploaded, release the next button
+	$(document).on('change', '#id_buildingImage', function(e) {
+		if ($('#id_buildingImage').val() === '' && $('#id_buildingDoc').val() === '' && $('#id_buildingURL').val() === '') {
+			$('#nextLocation').prop("disabled", true);
+		} else {
+			$('#nextLocation').prop("disabled", false);
+		}
+	});
+	$(document).on('change', '#id_buildingDoc', function(e) {
+		if ($('#id_buildingImage').val() === '' && $('#id_buildingDoc').val() === '' && $('#id_buildingURL').val() === '') {
+			$('#nextLocation').prop("disabled", true);
+		} else {
+			$('#nextLocation').prop("disabled", false);
+		}		
+	});
+
+	// if any value exists in id_buildingURL, release the next button
+	$(document).on('keyup', '#id_buildingURL', function(e) {
+		if ($('#id_buildingImage').val() === '' && $('#id_buildingDoc').val() === '' && $('#id_buildingURL').val() === '') {
+			$('#nextLocation').prop("disabled", true);
+		} else {
+			$('#nextLocation').prop("disabled", false);
+		}
+	});	
+
 
 
 });

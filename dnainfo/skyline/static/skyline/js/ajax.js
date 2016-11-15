@@ -48,13 +48,10 @@ ajaxApplication.nextHeight = function () {
 				data: f.serialize(),
 				success: function(data){
 					$('#content').html(data);
-					// remove labels
-					$('label').remove();
-					// add a form-control class to the input, disabled attribute and placeholder text
-					$('#id_buildingStories').addClass("form-control");
-					$('#id_buildingStories').prop("disabled", true);
-					$('#id_buildingStories').prop("type", "text");
-					$('#id_buildingStories').val("5");
+					$('#id_buildingStories').val(1);
+					$('#div_id_buildingImage').addClass('hidden');
+					$('#div_id_buildingDoc').addClass('hidden');
+					$('#div_id_buildingURL').addClass('hidden');
 					$(".fadein").fadeIn("slow");
 					// scroll to top
 					$('#content').scrollTop(0);

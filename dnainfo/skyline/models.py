@@ -20,6 +20,13 @@ class NYCskyline(models.Model):
 	buildingAddress = models.CharField(max_length=255, default='', blank=False, null=False)
 	buildingBBL = models.CharField(max_length=255, default='', blank=False, null=False)
 	buildingStories = models.IntegerField(default=0, blank=False, null=False)
+	projectName = models.CharField(max_length=255, default='', blank=True, null=True)
+	imageDocOrURL = models.NullBooleanField(default=None)
+	buildingImage = models.ImageField(upload_to="img/%Y_%m_%d_%h_%M_%s", null=True, blank=True)
+	buildingDoc = models.FileField(upload_to='buildingDocs/', blank=True, null=True)
+	buildingURL = models.URLField(max_length=1000, default='', blank=True, null=True)
+	userEmail = models.EmailField(max_length=255, default='', blank=True, null=True)
+	newsletter = models.BooleanField(default=False)
 	approved = models.NullBooleanField(default=None)
 	reviewed_by = models.ForeignKey(User, blank=True, null=True)
 
