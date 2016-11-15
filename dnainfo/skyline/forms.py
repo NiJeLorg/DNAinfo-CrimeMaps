@@ -7,6 +7,12 @@ from skyline.models import *
 #add select 2
 from django_select2.forms import Select2Widget
 
+#choices for imageDocOrURL
+YES_NO = (
+            (True, 'Upload an image or document showing or describing this building'),
+            (False, 'Add this project\'s website'),
+        )
+
 # skyline forms below
 class NYCwhatNeighborhoodForm(forms.ModelForm):
     class Meta:
@@ -15,16 +21,38 @@ class NYCwhatNeighborhoodForm(forms.ModelForm):
         widgets = {
             'whereBuilding': Select2Widget,
         }
+        labels = {
+            'whereBuilding': '',
+        }
 
 class NYCbuildingHeightForm(forms.ModelForm):
     class Meta:
         model = NYCskyline
-        fields = ('buildingStories', )
+        fields = ('buildingStories', 'projectName', 'imageDocOrURL', 'buildingImage', 'buildingDoc', 'buildingURL', 'userEmail', 'newsletter',)
+        labels = {
+            'buildingStories': 'How many stories tall is this building? (Required)',
+            'projectName': 'If this project has a name, what is it? (Optional)',
+            'imageDocOrURL': 'Please provide some documentation that this building is real or in the works. One of these is required.',
+            'buildingImage': 'Please upload an image of this building.',
+            'buildingDoc': 'Please upload some documentation on this building.',
+            'buildingURL': 'If this project has a website, what is it?',
+            'userEmail': 'Give us your email, and we\'ll let you know when this building is approved to show on our map. (Optional)',
+            'newsletter': '<strong>I\'d like to recieve the DNAinfo newsletter for this neighborhood.</strong>'
+        }
+        widgets = {
+            'imageDocOrURL': forms.RadioSelect(choices=YES_NO),
+        }
 
 class NYCexactLocationForm(forms.ModelForm):
     class Meta:
         model = NYCskyline
         fields = ('buildingFootprint', 'buildingAddress', 'buildingBBL', )
+        labels = {
+            'buildingFootprint': '',
+            'buildingAddress': '',
+            'buildingBBL': '',
+        }
+
 
 class NYCapproveForm(forms.ModelForm):
     class Meta:
@@ -39,6 +67,10 @@ class NYCwhatNeighborhoodSponsoredForm(forms.ModelForm):
         widgets = {
             'whereBuilding': Select2Widget,
         }
+        labels = {
+            'whereBuilding': '',
+        }
+
 
 class NYCbuildingHeightSponsoredForm(forms.ModelForm):
     class Meta:
@@ -57,11 +89,18 @@ class NYCexactLocationSponsoredForm(forms.ModelForm):
     class Meta:
         model = NYCSponsoredBuildings
         fields = ('buildingFootprint', )
+        labels = {
+            'buildingFootprint': '',
+        }
+
 
 class NYCremoveSponsoredForm(forms.ModelForm):
     class Meta:
         model = NYCSponsoredBuildings
         fields = ('id', )
+        labels = {
+            'id': '',
+        }
 
 
 class NYCwhatNeighborhoodReporterForm(forms.ModelForm):
@@ -71,6 +110,10 @@ class NYCwhatNeighborhoodReporterForm(forms.ModelForm):
         widgets = {
             'whereBuilding': Select2Widget,
         }
+        labels = {
+            'whereBuilding': '',
+        }
+
 
 class NYCbuildingHeightReporterForm(forms.ModelForm):
     class Meta:
@@ -91,11 +134,18 @@ class NYCexactLocationReporterForm(forms.ModelForm):
     class Meta:
         model = NYCReporterBuildings
         fields = ('buildingFootprint', 'buildingBBL', )
+        labels = {
+            'buildingFootprint': '',
+            'buildingBBL': '',
+        }
 
 class NYCremoveReporterForm(forms.ModelForm):
     class Meta:
         model = NYCReporterBuildings
         fields = ('id', )
+        labels = {
+            'id': '',
+        }
 
 
 class NYC_DOB_Permit_IssuanceForm(forms.ModelForm):
@@ -121,6 +171,10 @@ class NYCwhatNeighborhoodPermittedForm(forms.ModelForm):
         widgets = {
             'whereBuilding': Select2Widget,
         }
+        labels = {
+            'whereBuilding': '',
+        }
+
 
 class NYCbuildingHeightAndPermittedForm(forms.ModelForm):
     class Meta:
@@ -141,7 +195,10 @@ class NYCexactLocationReporterForm(forms.ModelForm):
     class Meta:
         model = NYC_DOB_Permit_Issuance
         fields = ('buildingFootprint', 'buildingBBL', )
-
+        labels = {
+            'buildingFootprint': '',
+            'buildingBBL': '',
+        }
 
 
 class NYClandingPageForm(forms.ModelForm):
@@ -150,4 +207,7 @@ class NYClandingPageForm(forms.ModelForm):
         fields = ('whereBuilding',)
         widgets = {
             'whereBuilding': Select2Widget,
+        }
+        labels = {
+            'whereBuilding': '',
         }
