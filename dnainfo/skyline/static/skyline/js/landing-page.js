@@ -95,4 +95,33 @@ $(document).ready(function() {
             dropDownOpen = false;
         }
     });
+
+    // submit the form on change
+    $(document).on('change', '#id_whereBuilding', function(e) {
+        $(this).closest('form').submit();
+    });
+
+    // set up facebook and twitter buttons
+    var app_id = '406014149589534';
+    var fbdescription = "Every new building affects the character of a neighborhood, so DNAinfo created this 3D map that helps you understand how high new buildings could be going up near you: "+ bitlyURL;
+    var fblink = "https://visualizations.dnainfo.com/";
+    var fbpicture = "https://editorial-ny.dnainfo.com/interactives/2016/aptshare.jpeg";
+    var fbname = "3D Neighbohood Skyline";
+    var fbcaption = "DNAinfo New York";
+    var fbUrl = 'https://www.facebook.com/dialog/feed?app_id=' + app_id + '&display=popup&description='+ encodeURIComponent(fbdescription) + '&link=' + encodeURIComponent(bitlyURL) + '&redirect_uri=' + encodeURIComponent(fblink) + '&name=' + encodeURIComponent(fbname) + '&caption=' + encodeURIComponent(fbcaption) + '&picture=' + encodeURIComponent(fbpicture);
+    var fbOnclick = 'window.open("' + fbUrl + '","facebook-share-dialog","width=626,height=436");return false;';
+    //$('#showShareFB').attr("href", fbUrl);
+    $('#showShareFB').attr("onclick", fbOnclick);
+
+
+    var twitterlink = bitlyURL;
+    var via = 'DNAinfo';
+    var twittercaption = "Every new building affects the character of a neighborhood, so DNAinfo created this 3D map that helps you understand how high new buildings could be going up near you:";
+    var twitterUrl = 'https://twitter.com/intent/tweet?url=' + encodeURIComponent(twitterlink) + '&via='+ encodeURIComponent(via) + '&text=' + encodeURIComponent(twittercaption);
+    var twitterOnclick = 'window.open("' + twitterUrl + '","twitter-share-dialog","width=626,height=436");return false;';
+    //$('#showShareTwitter').attr("href", twitterUrl);
+    $('#showShareTwitter').attr("onclick", twitterOnclick);
+
+
+
 });

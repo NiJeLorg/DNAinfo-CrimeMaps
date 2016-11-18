@@ -4,6 +4,9 @@
 <link rel="stylesheet" type="text/css" href="{% static 'skyline/css/select2.min.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'skyline/css/all-bootstrapped.min.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'skyline/css/skyline_ny.css'%}"> {% endblock %} {% block head_js_block %}
+<script type="text/javascript">
+    var bitlyURL = "{{ bitlyURL.url }}";
+</script>
 <script type="text/javascript" src="{% static 'skyline/js/landing-page.js' %}"></script>
 <script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js'></script>
 {% endblock %} {% block body_block %}
@@ -11,10 +14,10 @@
     <header style="margin-top: 2%">
         <div class="social-media-links">
             <div class="link-holder facebook">
-                <a href="#"><i class="fa fa-facebook-official fa-2x" aria-hidden="true"></i></a>
+                <a href="#" id="showShareFB"><i class="fa fa-facebook-official fa-2x" aria-hidden="true"></i></a>
             </div>
             <div class="link-holder twitter">
-                <a href="#"> <i class="fa fa-twitter fa-2x" aria-hidden="true"></i></a>
+                <a href="#" id="showShareTwitter"> <i class="fa fa-twitter fa-2x" aria-hidden="true"></i></a>
             </div>
         </div>
         <div class="title">
@@ -24,7 +27,7 @@
             </p>
         </div>
         <div class="select-parent select-parent-header">
-            <div class="select-parent-holder">
+            <div class="select-parent-holder center-top-dropdown">
                 <form id="whatNeighborhoodForm" method="post" action=".">
                     {% csrf_token %}
                     <div class="row">

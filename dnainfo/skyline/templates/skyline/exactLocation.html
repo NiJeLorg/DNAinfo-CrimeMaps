@@ -50,7 +50,12 @@
     var iDontSeeMyNeighborhood = "{{ NYCskylineObject.iDontSeeMyNeighborhood }}";
     var buildingStories = parseInt("{{ NYCskylineObject.buildingStories }}");
     // formula from http://www.ctbuh.org/HighRiseInfo/TallestDatabase/Criteria/HeightCalculator/tabid/1007/language/en-GB/Default.aspx
-    var buildingHeight = (3.5*buildingStories) + 9.625 + (2.625 * (buildingStories/25));
+    var buildingHeight;
+    if (buildingStories < 30) {
+        buildingHeight = buildingStories*10;
+    } else {
+        buildingHeight = (3.5*buildingStories) + 9.625 + (2.625 * (buildingStories/25));
+    }
 
     $( document ).ready(function() {
         window.setTimeout(function() {

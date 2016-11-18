@@ -395,11 +395,18 @@ def skyline_getPermittedGeojsons(request, boro=None):
 	today = datetime.date.today()
 	minyear = today.year - 1
 
+	if boro == 'SI':
+		boro = 'Staten Island'
+
 	NYC_DOB_Permit_IssuanceObjects = NYC_DOB_Permit_Issuance.objects.filter(job_start_date__year__gte=minyear, borough__iexact=boro).exclude(buildingStories__exact = 0).exclude(buildingFootprint__in = ['', '-99'])
 	geojsons = []
 
 	for obj in NYC_DOB_Permit_IssuanceObjects:
-		buildingHeight = (3.5*obj.buildingStories) + 9.625 + (2.625 * (obj.buildingStories/25));
+		if obj.buildingStories < 30:
+			buildingHeight = obj.buildingStories*10
+		else:
+			buildingHeight = (3.5*obj.buildingStories) + 9.625 + (2.625 * (obj.buildingStories/25))
+
 		changed = '{\"type\":\"FeatureCollection\",\"features\":[{\"type\": \"Feature\", \"properties\":{\"color\":\"#00cdbe\", \"roofColor\":\"#00cdbe\", \"height\":\"' + str(buildingHeight) +'\", \"zoning_pdfs\":\"visualizations/media/' + str(obj.zoning_pdfs) +'\", \"address\":\"' + obj.buildingAddress.strip() +'\", \"stories\":\"' + str(obj.buildingStories) +'\", \"story1\":\"' + str(obj.story1) +'\", \"projectName\":\"' + obj.projectName +'\", \"buildingImage\":\"visualizations/media/' + str(obj.buildingImage) +'\", \"buildingZip\":\"' + obj.buildingZip +'\", \"objectID\":\"' + str(obj.id) +'\", \"description\":\"' + obj.description +'\"}, \"geometry\": ' + obj.buildingFootprint + '}]}'
 		geojsons.append(changed)
 		
@@ -936,7 +943,11 @@ def skyline_permittedGetGeojson(request, id=None):
 	obj = NYC_DOB_Permit_Issuance.objects.get(pk=id)
 
 	if obj.buildingFootprint:
-		buildingHeight = (3.5*obj.buildingStories) + 9.625 + (2.625 * (obj.buildingStories/25));
+		if obj.buildingStories < 30:
+			buildingHeight = obj.buildingStories*10
+		else:
+			buildingHeight = (3.5*obj.buildingStories) + 9.625 + (2.625 * (obj.buildingStories/25))
+
 		changed = '{\"type\":\"FeatureCollection\",\"features\":[{\"type\": \"Feature\", \"properties\":{\"color\":\"#00cdbe\", \"roofColor\":\"#00cdbe\", \"height\":\"' + str(buildingHeight) +'\", \"zoning_pdfs\":\"visualizations/media/' + str(obj.zoning_pdfs) +'\", \"address\":\"' + obj.buildingAddress.strip() +'\", \"stories\":\"' + str(obj.buildingStories) +'\", \"story1\":\"' + str(obj.story1) +'\", \"projectName\":\"' + obj.projectName +'\", \"buildingImage\":\"visualizations/media/' + str(obj.buildingImage) +'\", \"buildingZip\":\"' + obj.buildingZip +'\", \"objectID\":\"' + str(obj.id) +'\", \"description\":\"' + obj.description +'\"}, \"geometry\": ' + obj.buildingFootprint + '}]}'
 	else:
 		changed = None
@@ -959,11 +970,8 @@ def skyline_landingPage(request, id=None):
 
 		# Have we been provided with a valid form?
 		if form.is_valid():
-			# Save the new data to the database.
-			print form
-			#f = form.save()
-			#lookupObject = NYCskyline.objects.get(pk=f.pk)
-			#return HttpResponseRedirect(reverse('skyline_buildingHeight', args=(lookupObject.pk,)))
+			whereBuilding = request.POST['whereBuilding']
+			return HttpResponseRedirect(reverse('skyline_browse', args=(whereBuilding,)))
 		else:
 			# The supplied form contained errors - just print them to the terminal.
 			print form.errors
@@ -971,9 +979,14 @@ def skyline_landingPage(request, id=None):
 		# If the request was not a POST, display the form to enter details.
 		form = NYClandingPageForm()
 
+		url = "https://hzdl3dry-data-viz-future-map.build.qa.dnainfo.com/new-york/visualizations/skyline"
+		# connect to Bitly API
+		c = bitly_api.Connection('ondnainfo', 'R_cdbdcaaef8d04d97b363b989f2fba3db')
+		bitlyURL = c.shorten(url)	
+
 	# Bad form (or form details), no form supplied...
 	# Render the form with error messages (if any).
-	return render(request, 'skyline/index.html', {'form':form})
+	return render(request, 'skyline/index.html', {'form':form, 'bitlyURL':bitlyURL})
 
 def skyline_browse(request, id=None):
 	# A HTTP POST?
@@ -982,11 +995,8 @@ def skyline_browse(request, id=None):
 
 		# Have we been provided with a valid form?
 		if form.is_valid():
-			# Save the new data to the database.
-			print form
-			#f = form.save()
-			#lookupObject = NYCskyline.objects.get(pk=f.pk)
-			#return HttpResponseRedirect(reverse('skyline_buildingHeight', args=(lookupObject.pk,)))
+			whereBuilding = request.POST['whereBuilding']
+			return HttpResponseRedirect(reverse('skyline_browse', args=(whereBuilding,)))
 		else:
 			# The supplied form contained errors - just print them to the terminal.
 			print form.errors
@@ -1005,11 +1015,8 @@ def skyline_return_result(request, id=None):
 
 		# Have we been provided with a valid form?
 		if form.is_valid():
-			# Save the new data to the database.
-			print form
-			#f = form.save()
-			#lookupObject = NYCskyline.objects.get(pk=f.pk)
-			#return HttpResponseRedirect(reverse('skyline_buildingHeight', args=(lookupObject.pk,)))
+			whereBuilding = request.POST['whereBuilding']
+			return HttpResponseRedirect(reverse('skyline_browse', args=(whereBuilding,)))
 		else:
 			# The supplied form contained errors - just print them to the terminal.
 			print form.errors

@@ -104,6 +104,9 @@
 <script type="text/javascript">
     var dnaUrl = '{{ hood.dnaurl }}';
     var boro = '{{ hood.county }}';
+    if (boro == 'Staten Island') {
+        boro = 'SI';
+    }
     var hoodID = '{{ hood.id }}';
     $( document ).ready(function() {     
         window.setTimeout(function() {
