@@ -38,10 +38,10 @@
 <div class="browseNav">
     <div class="social-media-links">
         <div class="link-holder facebook">
-            <a href="#"><i class="fa fa-facebook-official fa-2x" aria-hidden="true"></i></a>
+            <a href="#" class="showShareFB"><i class="fa fa-facebook-official fa-2x" aria-hidden="true"></i></a>
         </div>
         <div class="link-holder twitter">
-            <a href="#"> <i class="fa fa-twitter fa-2x" aria-hidden="true"></i></a>
+            <a href="#" class="showShareTwitter"> <i class="fa fa-twitter fa-2x" aria-hidden="true"></i></a>
         </div>
     </div>
 </div>
@@ -88,10 +88,10 @@
             </div>
             <div class="social-media-links">
                 <div class="link-holder facebook">
-                    <a href="#"><i class="fa fa-facebook-official fa-2x" aria-hidden="true"></i></a>
+                    <a href="#" class="showShareFB"><i class="fa fa-facebook-official fa-2x" aria-hidden="true"></i></a>
                 </div>
                 <div class="link-holder twitter">
-                    <a href="#"> <i class="fa fa-twitter fa-2x" aria-hidden="true"></i></a>
+                    <a href="#" class="showShareTwitter"> <i class="fa fa-twitter fa-2x" aria-hidden="true"></i></a>
                 </div>
             </div>
         </footer>
@@ -117,10 +117,10 @@
             </div>
             <div class="social-media-links">
                 <div class="link-holder facebook">
-                    <a href="#"><i class="fa fa-facebook-official fa-2x" aria-hidden="true"></i></a>
+                    <a href="#" class="showShareFB"><i class="fa fa-facebook-official fa-2x" aria-hidden="true"></i></a>
                 </div>
                 <div class="link-holder twitter">
-                    <a href="#"> <i class="fa fa-twitter fa-2x" aria-hidden="true"></i></a>
+                    <a href="#" class="showShareTwitter"> <i class="fa fa-twitter fa-2x" aria-hidden="true"></i></a>
                 </div>
             </div>
         </footer>
@@ -146,10 +146,10 @@
             </div>
             <div class="social-media-links">
                 <div class="link-holder facebook">
-                    <a href="#"><i class="fa fa-facebook-official fa-2x" aria-hidden="true"></i></a>
+                    <a href="#" class="showShareFB"><i class="fa fa-facebook-official fa-2x" aria-hidden="true"></i></a>
                 </div>
                 <div class="link-holder twitter">
-                    <a href="#"> <i class="fa fa-twitter fa-2x" aria-hidden="true"></i></a>
+                    <a href="#" class="showShareTwitter"> <i class="fa fa-twitter fa-2x" aria-hidden="true"></i></a>
                 </div>
             </div>
         </footer>
@@ -161,12 +161,15 @@
 <script type="text/javascript" src="{% static 'skyline/js/select2.js' %}"></script>
 <script type="text/javascript" src="{% static 'django_select2/django_select2.js' %}"></script>
 <script type="text/javascript">
+var hoodID = '{{ hood.id }}';
 var dnaUrl = '{{ hood.dnaurl }}';
 var boro = '{{ hood.county }}';
 var neighborhoodName = '{{ hood.name }}';
 if (boro == 'Staten Island') {
     boro = 'SI';
 }
+var getlat = '{{ getlat }}';
+var getlon = '{{ getlon }}';
 $(document).ready(function() {
     // set title heading neighborhood name
     $('#neighborhoodName').text(neighborhoodName);
