@@ -113,11 +113,7 @@ ajaxApplication.nextEnd = function () {
 				url: "/skyline/nyc/exactLocation/"+ objectID +"/",
 				data: f.serialize(),
 				success: function(data){
-					$('#content').html(data);
-					$(".fadein").fadeIn("slow");
-					// scroll to top
-					$('#content').scrollTop(0);
-
+					window.location.href = "/skyline/nyc/return_result/"+ objectID +"/";
 		        }
 			});
 		});
@@ -139,6 +135,7 @@ ajaxApplication.backIntro = function () {
 			type: "GET",
 			url: "/skyline/nyc/",
 			success: function(data){
+				mapApplication.destroy();
 				$('#content').html(data);
 				$(".fadein").fadeIn("slow");
 				// scroll to top
@@ -155,6 +152,7 @@ ajaxApplication.backNeighborhood = function (id) {
 			type: "GET",
 			url: "/skyline/nyc/whatNeighborhood/"+id+"/",
 			success: function(data){
+				mapApplication.destroy();
 				$('#content').html(data);
 				// remove labels
 				$('label').remove();
@@ -185,13 +183,6 @@ ajaxApplication.backHeight = function (id) {
 			success: function(data){
 				mapApplication.destroy();
 				$('#content').html(data);
-				// remove labels
-				$('label').remove();
-				// add a form-control class to the input, disabled attribute and placeholder text
-				$('#id_buildingStories').addClass("form-control");
-				$('#id_buildingStories').prop("disabled", true);
-				$('#id_buildingStories').prop("type", "text");
-				$('#id_buildingStories').val("5");
 				$(".fadein").fadeIn("slow");
 				// scroll to top
 				$('#content').scrollTop(0);

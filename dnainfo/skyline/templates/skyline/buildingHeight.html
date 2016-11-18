@@ -34,7 +34,7 @@
         <div class="row">
             <div class="col-sm-8 col-sm-offset-2 bottomButtonGroup">
                 <button id="backNeighborhood" class="btn btn-dna-primary mobileWidth marginRight10" type="submit"><span class="backArrow"></span>Back</button>
-                <button id="nextLocation" class="btn btn-dna-primary mobileWidth" type="submit" disabled="disabled">Next<span class="forwardArrow"></span></button>
+                <button id="nextLocation" class="btn btn-dna-primary mobileWidth" type="submit" {% if not form.errors %}disabled="disabled"{% endif %}>Next<span class="forwardArrow"></span></button>
             </div>
         </div>
     </form>

@@ -83,8 +83,6 @@
         <p id='property-address' class='property-text'></p>
         <footer>
             <div class="links">
-                <a href="#">Read More</a>
-                <span id='property-pdf-permitted' class='property-text link'></span>
             </div>
             <div class="social-media-links">
                 <div class="link-holder facebook">
@@ -108,11 +106,10 @@
             <span id='property-description-permitted' class='property-text dark'></span>
             <span id="property-address-permitted" class='property-text'></span>
             <span id="property-stories-permitted" class='property-text'></span>
-            <span id='property-story1-permitted' class='property-text link'></span>
         </p>
         <footer style="margin-bottom: 6%">
             <div class="links">
-                <a href="#">Read More</a>
+                <span id='property-story1-permitted' class='property-text link'></span>
                 <span id='property-pdf-permitted' class='property-text link'></span>
             </div>
             <div class="social-media-links">
@@ -137,11 +134,10 @@
             <span id='property-description-dna' class='property-text dark'></span>
             <span id="property-address-dna" class='property-text'></span>
             <span id="property-stories-dna" class='property-text'></span>
-            <span id='property-pdf-dna' class='property-text link'></span>
         </p>
         <footer style="margin-bottom: 6%">
             <div class="links">
-                <a href="#">Read More</a>
+                <span id='property-pdf-dna' class='property-text link'></span>
                 <span id='property-pdf-permitted' class='property-text link'></span>
             </div>
             <div class="social-media-links">
@@ -164,12 +160,13 @@
 var hoodID = '{{ hood.id }}';
 var dnaUrl = '{{ hood.dnaurl }}';
 var boro = '{{ hood.county }}';
-var neighborhoodName = '{{ hood.name }}';
+var neighborhoodName = "{{ hood.name|safe }}";
 if (boro == 'Staten Island') {
     boro = 'SI';
 }
 var getlat = '{{ getlat }}';
 var getlon = '{{ getlon }}';
+var buildingShared = '{{ buildingShared }}';
 $(document).ready(function() {
     // set title heading neighborhood name
     $('#neighborhoodName').text(neighborhoodName);

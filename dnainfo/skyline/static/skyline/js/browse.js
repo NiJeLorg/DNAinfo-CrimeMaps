@@ -69,7 +69,7 @@ osmApplication.initialize = function() {
     osmApplication.osmb.addGeoJSONTiles('https://{s}.data.osmbuildings.org/0.2/anonymous/tile/{z}/{x}/{y}.json', { color: 'rgb(220, 210, 200)' });
 
     // set initial conditons for share buttons
-    osmApplication.updateSocialLinks(osmApplication.osmb.position.latitude.toFixed(6), osmApplication.osmb.position.longitude.toFixed(6), osmApplication.osmb.zoom.toFixed(1), osmApplication.osmb.tilt.toFixed(1), osmApplication.osmb.rotation.toFixed(1));
+    osmApplication.updateSocialLinks(osmApplication.osmb.position.latitude.toFixed(6), osmApplication.osmb.position.longitude.toFixed(6), osmApplication.osmb.zoom.toFixed(1), osmApplication.osmb.tilt.toFixed(1), osmApplication.osmb.rotation.toFixed(1), 'false');
 
     // button controls
     osmApplication.controlButtons = document.querySelectorAll('.control button');
@@ -140,7 +140,7 @@ osmApplication.initialize = function() {
         }
 
         // send lat, lon, zoom, tilt, rotation to social share buttons
-        osmApplication.updateSocialLinks(osmApplication.osmb.position.latitude.toFixed(6), osmApplication.osmb.position.longitude.toFixed(6), osmApplication.osmb.zoom.toFixed(1), osmApplication.osmb.tilt.toFixed(1), osmApplication.osmb.rotation.toFixed(1), 0, 0);
+        osmApplication.updateSocialLinks(osmApplication.osmb.position.latitude.toFixed(6), osmApplication.osmb.position.longitude.toFixed(6), osmApplication.osmb.zoom.toFixed(1), osmApplication.osmb.tilt.toFixed(1), osmApplication.osmb.rotation.toFixed(1), 'false');
 
     });
 
@@ -458,7 +458,7 @@ osmApplication.initialize = function() {
 }
 
 osmApplication.onClick = function (xcoor, ycoor) {
-    osmApplication.osmb.getTarget(xcoor, ycoor, function(id) {
+    osmApplication.osmb.getTarget(parseInt(xcoor), parseInt(ycoor), function(id) {
         console.log(id, 'ID');
         // hide any open tooltips first
         if (!$('#tooltipPermitted').hasClass('hidden')) {
@@ -471,6 +471,9 @@ osmApplication.onClick = function (xcoor, ycoor) {
             $('#tooltipDNA').addClass('hidden');
         }
 
+        // get lat lon of where the person clicked
+        osmApplication.latLonClicked = osmApplication.osmb.unproject(xcoor, ycoor);
+ 
         if (id) {
             splitId = id.split('_');
 
@@ -491,7 +494,7 @@ osmApplication.onClick = function (xcoor, ycoor) {
                 $('#tooltipSponsored').removeClass('hidden');
                 var height = $('#tooltipSponsored').height();
                 var x = parseInt(xcoor) - 150;
-                var y = parseInt(ycoor) - height;
+                var y = parseInt(ycoor) - (height+50);
 
                 // keep the tooltip on the screen
                 if (x < 10) {
@@ -507,6 +510,10 @@ osmApplication.onClick = function (xcoor, ycoor) {
                 // show div with data populated at that screen location
                 $('#tooltipSponsored').css('left', x);
                 $('#tooltipSponsored').css('top', y);
+
+                 // update share buttons
+                osmApplication.updateSocialLinks(osmApplication.latLonClicked.latitude.toFixed(12), osmApplication.latLonClicked.longitude.toFixed(12), osmApplication.osmb.zoom.toFixed(1), osmApplication.osmb.tilt.toFixed(1), osmApplication.osmb.rotation.toFixed(1), 'true');
+               
 
 
             } else if (splitId[0] == 'permitted') {
@@ -558,13 +565,12 @@ osmApplication.onClick = function (xcoor, ycoor) {
                 }
 
                 // update share buttons
-                osmApplication.updateSocialLinks(osmApplication.permittedGeojsons[id].features[0].geometry.coordinates[0][0][0][1].toFixed(6), osmApplication.permittedGeojsons[id].features[0].geometry.coordinates[0][0][0][0].toFixed(6), osmApplication.osmb.zoom.toFixed(1), osmApplication.osmb.tilt.toFixed(1), osmApplication.osmb.rotation.toFixed(1));
-
+                osmApplication.updateSocialLinks(osmApplication.latLonClicked.latitude.toFixed(12), osmApplication.latLonClicked.longitude.toFixed(12), osmApplication.osmb.zoom.toFixed(1), osmApplication.osmb.tilt.toFixed(1), osmApplication.osmb.rotation.toFixed(1), 'true');
 
                 $('#tooltipPermitted').removeClass('hidden');
                 var height = $('#tooltipPermitted').height();
                 var x = parseInt(xcoor) - 150;
-                var y = parseInt(ycoor) - height;
+                var y = parseInt(ycoor) - (height+50);
 
                 // keep the tooltip on the screen
                 if (x < 10) {
@@ -630,8 +636,7 @@ osmApplication.onClick = function (xcoor, ycoor) {
                 }
 
                 // update share buttons
-                osmApplication.updateSocialLinks(osmApplication.dnaGeojsons[id].features[0].geometry.coordinates[0][0][0][1].toFixed(6), osmApplication.dnaGeojsons[id].features[0].geometry.coordinates[0][0][0][0].toFixed(6), osmApplication.osmb.zoom.toFixed(1), osmApplication.osmb.tilt.toFixed(1), osmApplication.osmb.rotation.toFixed(1));
-
+                osmApplication.updateSocialLinks(osmApplication.latLonClicked.latitude.toFixed(12), osmApplication.latLonClicked.longitude.toFixed(12), osmApplication.osmb.zoom.toFixed(1), osmApplication.osmb.tilt.toFixed(1), osmApplication.osmb.rotation.toFixed(1), 'true');
 
                 $('#tooltipDNA').removeClass('hidden');
                 var height = $('#tooltipDNA').height();
@@ -750,9 +755,10 @@ osmApplication.getDNAGeojsons = function() {
             // fire a click in osmx and osmy are set
             setTimeout(function() {
                 pos = osmApplication.osmb.project(getlat, getlon, 0)
-                console.log(pos);
                 //Object {x: 617.5, y: 231.62057088852146, z: 0.9995772461863411}
-                osmApplication.onClick(pos.x, pos.y);
+                if (buildingShared == 'true') {
+                    osmApplication.onClick(pos.x, pos.y);
+                }
             }, 1000);
             
         }
@@ -764,16 +770,15 @@ osmApplication.destroy = function() {
 }
 
 
-osmApplication.updateSocialLinks = function (lat, lon, zoom, tilt, rotation) {
-        // set up facebook and twitter buttons
+osmApplication.updateSocialLinks = function (lat, lon, zoom, tilt, rotation, buildingShared) {
+    // set up facebook and twitter buttons
     osmApplication.fbdescription = "Every new building affects the character of a neighborhood, so DNAinfo created this 3D map that helps you understand how high new buildings could be going up near you: ";
     // https://hzdl3dry-data-viz-future-map.build.qa.dnainfo.com/new-york/visualizations/skyline
     // http://localhost:8000/skyline/nyc/browse/282/?lat=40.863743&lon=-73.862489
-    osmApplication.sharelink = 'http://localhost:8000/skyline/nyc/browse/'+hoodID+'/?lat='+lat+'&lon='+lon+'&zoom='+zoom+'&tilt='+tilt+'&rotation='+rotation;
+    osmApplication.sharelink = 'https://visualizations.dnainfo.com/skyline/nyc/browse/'+hoodID+'/?lat='+lat+'&lon='+lon+'&zoom='+zoom+'&tilt='+tilt+'&rotation='+rotation+'&buildingShared='+buildingShared;
     osmApplication.fbUrl = 'https://www.facebook.com/dialog/feed?app_id=' + osmApplication.app_id + '&display=popup&description='+ encodeURIComponent(osmApplication.fbdescription) + '&link=' + encodeURIComponent(osmApplication.sharelink) + '&redirect_uri=' + encodeURIComponent(osmApplication.fblink) + '&name=' + encodeURIComponent(osmApplication.fbname) + '&caption=' + encodeURIComponent(osmApplication.fbcaption) + '&picture=' + encodeURIComponent(osmApplication.fbpicture);
     osmApplication.fbOnclick = 'window.open("' + osmApplication.fbUrl + '","facebook-share-dialog","width=626,height=436");return false;';
     $('.showShareFB').attr("onclick", osmApplication.fbOnclick);
-
 
     osmApplication.twitterUrl = 'https://twitter.com/intent/tweet?url=' + encodeURIComponent(osmApplication.sharelink) + '&via='+ encodeURIComponent(osmApplication.via) + '&text=' + encodeURIComponent(osmApplication.twittercaption);
     osmApplication.twitterOnclick = 'window.open("' + osmApplication.twitterUrl + '","twitter-share-dialog","width=626,height=436");return false;';
@@ -783,12 +788,12 @@ osmApplication.updateSocialLinks = function (lat, lon, zoom, tilt, rotation) {
 // standard facebook and twitter variables
 osmApplication.app_id = '406014149589534';
 osmApplication.fblink = "https://visualizations.dnainfo.com/";
-osmApplication.fbpicture = "https://editorial-ny.dnainfo.com/interactives/2016/aptshare.jpeg";
+osmApplication.fbpicture = "https://visualizations.dnainfo.com/visualizations/static/skyline/css/images/FUTURE_SKYLINE_SOCIAL_SHARE.jpeg";
 osmApplication.fbname = "3D Neighbohood Skyline";
 osmApplication.fbcaption = "DNAinfo New York";
 
 osmApplication.via = 'DNAinfo';
-osmApplication.twittercaption = "Every new building affects the character of a neighborhood, so DNAinfo created this 3D map that helps you understand how high new buildings could be going up near you.";
+osmApplication.twittercaption = "This 3-D map shows what construction will do to my neighborhood's skyline: ";
 
 
 
