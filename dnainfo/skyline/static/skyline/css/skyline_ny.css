@@ -101,10 +101,12 @@ a:hover {
     justify-content: center;
 }
 
-
-
 .select-parent-holder {
     width: 50%;
+}
+
+.select-parent-holder.center-top-dropdown {
+    margin-left: 22.5px;
 }
 
 .select-parent form .form-group {
@@ -315,7 +317,8 @@ footer {
     outline: none;
     border: none;
     border-radius: 2px;
-    padding: .8% 1.2%;
+    padding: 0.9% 1.2%;
+    height: 45px;
 }
 
 footer .select-parent {
@@ -330,6 +333,10 @@ footer .select-parent .select-parent-holder {
 
 footer .select-parent .chevron-button {
     right: 1%;
+}
+
+footer .select2-selection__rendered {
+    text-align: left;
 }
 
 .select-parent form .row {

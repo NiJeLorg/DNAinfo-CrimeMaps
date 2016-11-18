@@ -95,6 +95,9 @@
 <script type="text/javascript">
     var objectID = "{{ NYCskylineObject.id }}"; 
     var boro = "{{ NYCskylineObject.whereBuilding.county }}";
+    if (boro == 'Staten Island') {
+        boro = 'SI';
+    }
     var bitlyURL = "{{ bitlyURL.url }}";
     $( document ).ready(function() {
 

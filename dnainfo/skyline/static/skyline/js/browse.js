@@ -34,6 +34,11 @@ osmApplication.createDjangoSelect2 = function() {
         }
     });
 
+    // submit the form on change
+    $(document).on('change', '#id_whereBuilding', function(e) {
+        $(this).closest('form').submit();
+    });    
+
 }
 
 osmApplication.initialize = function() {
@@ -62,9 +67,6 @@ osmApplication.initialize = function() {
     osmApplication.osmb.addMapTiles('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.png', { attribution: 'Map tiles by <a href=\"http://stamen.com\">Stamen Design</a>, under <a href=\"https://creativecommons.org/licenses/by/3.0/\" target=\"_blank\">CC BY 3.0</a>. Data by <a href=\"http://www.openstreetmap.org/\" target=\"_blank\">OpenStreetMap</a>, under ODbL.' });
 
     osmApplication.osmb.addGeoJSONTiles('https://{s}.data.osmbuildings.org/0.2/anonymous/tile/{z}/{x}/{y}.json', { color: 'rgb(220, 210, 200)' });
-
-    osmApplication.osmb.addGeoJSONTiles('https://{s}.data.osmbuildings.org/0.2/anonymous/tile/{z}/{x}/{y}.json', { color: 'rgb(220, 210, 200)' });
-
 
     // button controls
     osmApplication.controlButtons = document.querySelectorAll('.control button');

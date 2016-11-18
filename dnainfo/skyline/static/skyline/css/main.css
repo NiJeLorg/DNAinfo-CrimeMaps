@@ -933,8 +933,14 @@ footer .select-parent .select2-container {
 }
 
 .tooltip footer .social-media-links {
-  width: 45%;
+  width: 35%;
 }
+
+.tooltip footer .social-media-links .link-holder {
+  margin-left: 0;
+  margin-right: 5%;
+}
+
 
 
 .tooltip.sponsored-tooltip {

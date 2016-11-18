@@ -33,6 +33,12 @@ osmApplication.createDjangoSelect2 = function() {
             dropDownOpen = false;
         }
     });
+
+    // submit the form on change
+    $(document).on('change', '#id_whereBuilding', function(e) {
+        $(this).closest('form').submit();
+    });    
+
 }
 
 osmApplication.initialize = function() {

@@ -32,8 +32,7 @@
 <div class="gradientDiv">
 </div>
 <div class="browseNavTitle">
-    <h3>
-       Long Island City
+    <h3 id="neighborhoodName">
     </h3>
 </div>
 <div class="browseNav">
@@ -48,11 +47,11 @@
 </div>
 <footer>
     <div class="key-holder">
-        <a href="#">
+        <a href="{% url 'skyline_landingPage' %}">
             <img src="{%static 'skyline/assets/Key.svg' %}">
         </a>
     </div>
-    <button class="add-a-building-button">Add a Building</button>
+    <a class="btn add-a-building-button" href="{% url 'skyline_whatNeighborhood' %}">Add a Building</a>
 </footer>
 <div id="content">
     <!-- Map -->
@@ -176,7 +175,13 @@
 var objectID = "{{ NYCskylineObject.id }}";
 var dnaUrl = '{{ NYCskylineObject.whereBuilding.dnaurl }}';
 var boro = '{{ NYCskylineObject.whereBuilding.county }}';
+var neighborhoodName = '{{ NYCskylineObject.whereBuilding.name }}';
+if (boro == 'Staten Island') {
+    boro = 'SI';
+}
 $(document).ready(function() {
+    // set title heading neighborhood name
+    $('#neighborhoodName').text(neighborhoodName);
     window.setTimeout(function() {
         osmApplication.initialize();
         osmApplication.createDjangoSelect2();
