@@ -2,7 +2,7 @@ a {
     cursor: pointer;
 }
 
-a:hover {
+a:hover, a:focus {
     text-decoration: none;
 }
 
@@ -317,7 +317,7 @@ footer {
     outline: none;
     border: none;
     border-radius: 2px;
-    padding: 0.9% 1.2%;
+    padding: 12px;
     height: 45px;
 }
 

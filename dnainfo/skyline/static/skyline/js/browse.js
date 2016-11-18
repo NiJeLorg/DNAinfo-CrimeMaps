@@ -68,6 +68,9 @@ osmApplication.initialize = function() {
 
     osmApplication.osmb.addGeoJSONTiles('https://{s}.data.osmbuildings.org/0.2/anonymous/tile/{z}/{x}/{y}.json', { color: 'rgb(220, 210, 200)' });
 
+    // set initial conditons for share buttons
+    osmApplication.updateSocialLinks(osmApplication.osmb.position.latitude.toFixed(6), osmApplication.osmb.position.longitude.toFixed(6), osmApplication.osmb.zoom.toFixed(1), osmApplication.osmb.tilt.toFixed(1), osmApplication.osmb.rotation.toFixed(1));
+
     // button controls
     osmApplication.controlButtons = document.querySelectorAll('.control button');
 
@@ -110,7 +113,6 @@ osmApplication.initialize = function() {
 
     // osm building click
     osmApplication.osmb.on('click', function(e) {
-        console.log(e);
         if (e.x) {
             var xcoor = e.x;
             var ycoor = e.y;
@@ -118,219 +120,15 @@ osmApplication.initialize = function() {
             var xcoor = e.clientX;
             var ycoor = e.clientY;
         }
-        osmApplication.osmb.getTarget(xcoor, ycoor, function(id) {
-            console.log(id, 'ID');
-            if (id) {
-                splitId = id.split('_');
 
-                if (splitId[0] == 'sponsored') {
-                    // clear out previous data
-                    $('#property-name').text('');
-                    $('#property-image').html('');
-                    $('#property-description').text('');
-                    $('#property-address').text('');
-                    // look up properties
-                    properties = osmApplication.sponsoredGeojsons[id].features[0].properties;
-                    $('#property-name').text(properties.name);
-                    var imgSrc = '/visualizations/media/' + properties.image;
-                    $('#property-image').html('<img class="property-image" src="' + imgSrc + '" />');
-                    $('#property-description').text(properties.text);
-                    $('#property-address').text(properties.printAddress);
+        osmApplication.onClick(xcoor, ycoor);
 
-                    $('#tooltipSponsored').removeClass('hidden');
-                    var height = $('#tooltipSponsored').height();
-                    var x = parseInt(xcoor) - 150;
-                    var y = parseInt(ycoor) - height;
-
-                    // keep the tooltip on the screen
-                    if (x < 10) {
-                        x = 10;
-                    } else if (x > (osmApplication.widthFrame - 310)) {
-                        x = osmApplication.widthFrame - 310;
-                    }
-
-                    if (y < 10) {
-                        y = 10;
-                    }
-
-                    // show div with data populated at that screen location
-                    $('#tooltipSponsored').css('left', x);
-                    $('#tooltipSponsored').css('top', y);
-
-                } else if (splitId[0] == 'permitted') {
-                    // clear out previous data
-                    $('#property-projectName-permitted').text('');
-                    $('#property-image-permitted').html('');
-                    $('#property-description-permitted').html('');
-                    $('#property-address-permitted').html('');
-                    $('#property-stories-permitted').html('');
-                    $('#property-story1-permitted').html('');
-                    $('#property-pdf-permitted').html('');
-                    $('#property-edit-permitted').prop('href', '#');
-                    // look up properties
-                    var properties = osmApplication.permittedGeojsons[id].features[0].properties;
-                    // projectName
-                    if (typeof properties.projectName !== 'undefined' && properties.projectName) {
-                        $('#property-projectName-permitted').text(properties.projectName);
-                    } else if (typeof properties.address !== 'undefined' && properties.address) {
-                        $('#property-projectName-permitted').text(properties.address);
-                    }
-                    // image
-                    if (typeof properties.buildingImage !== 'undefined' && properties.buildingImage != 'visualizations/media/') {
-                        $('#property-image-permitted').html('<img class="property-image" src="/' + properties.buildingImage + '" />');
-                    }
-                    // description
-                    if (typeof properties.description !== 'undefined' && properties.description) {
-                        $('#property-description-permitted').html(properties.description + '<br />');
-                    }
-                    // address
-                    if (typeof properties.address !== 'undefined' && properties.address) {
-                        $('#property-address-permitted').html(properties.address + '<br />');
-                    }
-                    // stories
-                    if (typeof properties.stories !== 'undefined' && properties.stories) {
-                        if (properties.stories == '1') {
-                            var suffix = ' story tall';
-                        } else {
-                            var suffix = ' stories tall';
-                        }
-                        $('#property-stories-permitted').html(properties.stories + suffix + '<br />');
-                    }
-                    // DNAinfo stories
-                    if (typeof properties.story1 !== 'undefined' && properties.story1) {
-                        $('#property-story1-permitted').html('<a href="' + properties.story1 + '" target="_blank">Read More</a><br />');
-                    }
-                    // documents
-                    if (typeof properties.zoning_pdfs !== 'undefined' && properties.zoning_pdfs) {
-                        $('#property-pdf-permitted').html('<a href="/' + properties.zoning_pdfs + '" target="_blank">See Documents</a><br />');
-                    }
-
-                    // facebook and twitter links for buidlings here
-
-
-                    $('#tooltipPermitted').removeClass('hidden');
-                    var height = $('#tooltipPermitted').height();
-                    var x = parseInt(xcoor) - 150;
-                    var y = parseInt(ycoor) - height;
-
-                    // keep the tooltip on the screen
-                    if (x < 10) {
-                        x = 10;
-                    } else if (x > (osmApplication.widthFrame - 310)) {
-                        x = osmApplication.widthFrame - 310;
-                    }
-
-                    if (y < 10) {
-                        y = 10;
-                    }
-
-                    // show div with data populated at that screen location
-                    $('#tooltipPermitted').css('left', x);
-                    $('#tooltipPermitted').css('top', y);
-
-
-                } else if (splitId[0] == 'dna') {
-                    // clear out previous data
-                    $('#property-projectName-dna').text('');
-                    $('#property-image-dna').html('');
-                    $('#property-description-dna').html('');
-                    $('#property-address-dna').html('');
-                    $('#property-stories-dna').html('');
-                    $('#property-story1-dna').html('');
-                    $('#property-pdf-dna').html('');
-                    $('#property-edit-dna').prop('href', '#');
-                    $('#property-remove-dna').prop('href', '#');
-                    // look up properties
-                    var properties = osmApplication.dnaGeojsons[id].features[0].properties;
-                    // projectName
-                    if (typeof properties.projectName !== 'undefined' && properties.projectName) {
-                        $('#property-projectName-dna').text(properties.projectName);
-                    } else if (typeof properties.address !== 'undefined' && properties.address) {
-                        $('#property-projectName-dna').text(properties.address);
-                    }
-                    // image
-                    if (typeof properties.buildingImage !== 'undefined' && properties.buildingImage != 'visualizations/media/') {
-                        $('#property-image-dna').html('<img class="property-image" src="/' + properties.buildingImage + '" />');
-                    }
-                    // description
-                    if (typeof properties.description !== 'undefined' && properties.description) {
-                        $('#property-description-dna').html(properties.description + '<br />');
-                    }
-                    // address
-                    if (typeof properties.address !== 'undefined' && properties.address) {
-                        $('#property-address-dna').html(properties.address + '<br />');
-                    }
-                    // stories
-                    if (typeof properties.stories !== 'undefined' && properties.stories) {
-                        if (properties.stories == '1') {
-                            var suffix = ' story tall';
-                        } else {
-                            var suffix = ' stories tall';
-                        }
-                        $('#property-stories-dna').html(properties.stories + suffix + '<br />');
-                    }
-                    // DNAinfo stories
-                    if (typeof properties.story1 !== 'undefined' && properties.story1) {
-                        $('#property-story1-dna').html('<a href="' + properties.story1 + '" target="_blank">Read More</a><br />');
-                    }
-                    // documents
-                    if (typeof properties.zoning_pdfs !== 'undefined' && properties.zoning_pdfs) {
-                        $('#property-pdf-dna').html('<a href="' + properties.zoning_pdfs + '" target="_blank">See Documents</a><br />');
-                    }
-
-                    // facebook and twitter links for buidlings here
-
-
-                    $('#tooltipDNA').removeClass('hidden');
-                    var height = $('#tooltipDNA').height();
-                    var x = parseInt(xcoor) - 150;
-                    var y = parseInt(ycoor) - height;
-
-                    // keep the tooltip on the screen
-                    if (x < 10) {
-                        x = 10;
-                    } else if (x > (osmApplication.widthFrame - 310)) {
-                        x = osmApplication.widthFrame - 310;
-                    }
-
-                    if (y < 10) {
-                        y = 10;
-                    }
-
-                    // show div with data populated at that screen location
-                    $('#tooltipDNA').css('left', x);
-                    $('#tooltipDNA').css('top', y);
-
-
-                } else {
-                    if (!$('#tooltipPermitted').hasClass('hidden')) {
-                        $('#tooltipPermitted').addClass('hidden');
-                    }
-                    if (!$('#tooltipSponsored').hasClass('hidden')) {
-                        $('#tooltipSponsored').addClass('hidden');
-                    }
-                    if (!$('#tooltipDNA').hasClass('hidden')) {
-                        $('#tooltipDNA').addClass('hidden');
-                    }
-                }
-            } else {
-
-                if (!$('#tooltipPermitted').hasClass('hidden')) {
-                    $('#tooltipPermitted').addClass('hidden');
-                }
-                if (!$('#tooltipSponsored').hasClass('hidden')) {
-                    $('#tooltipSponsored').addClass('hidden');
-                }
-                if (!$('#tooltipDNA').hasClass('hidden')) {
-                    $('#tooltipDNA').addClass('hidden');
-                }
-            }
-
-        });
     });
+
 
     // close sponsored tooltip if the map changes
     osmApplication.osmb.on('change', function(e) {
+        // close all of the tooltips
         if (!$('#tooltipPermitted').hasClass('hidden')) {
             $('#tooltipPermitted').addClass('hidden');
         }
@@ -340,6 +138,10 @@ osmApplication.initialize = function() {
         if (!$('#tooltipDNA').hasClass('hidden')) {
             $('#tooltipDNA').addClass('hidden');
         }
+
+        // send lat, lon, zoom, tilt, rotation to social share buttons
+        osmApplication.updateSocialLinks(osmApplication.osmb.position.latitude.toFixed(6), osmApplication.osmb.position.longitude.toFixed(6), osmApplication.osmb.zoom.toFixed(1), osmApplication.osmb.tilt.toFixed(1), osmApplication.osmb.rotation.toFixed(1), 0, 0);
+
     });
 
     // create listener for closing tooltip
@@ -349,12 +151,6 @@ osmApplication.initialize = function() {
 
     // get sponsored content
     osmApplication.getSponsoredGeojsons();
-
-    // get permitted buildings from DOB
-    osmApplication.getPermittedGeojsons();
-
-    // get permitted buildings from DOB
-    osmApplication.getDNAGeojsons();
 
 
     function center(neighborhood) {
@@ -661,6 +457,231 @@ osmApplication.initialize = function() {
 
 }
 
+osmApplication.onClick = function (xcoor, ycoor) {
+    osmApplication.osmb.getTarget(xcoor, ycoor, function(id) {
+        console.log(id, 'ID');
+        // hide any open tooltips first
+        if (!$('#tooltipPermitted').hasClass('hidden')) {
+            $('#tooltipPermitted').addClass('hidden');
+        }
+        if (!$('#tooltipSponsored').hasClass('hidden')) {
+            $('#tooltipSponsored').addClass('hidden');
+        }
+        if (!$('#tooltipDNA').hasClass('hidden')) {
+            $('#tooltipDNA').addClass('hidden');
+        }
+
+        if (id) {
+            splitId = id.split('_');
+
+            if (splitId[0] == 'sponsored') {
+                // clear out previous data
+                $('#property-name').text('');
+                $('#property-image').html('');
+                $('#property-description').text('');
+                $('#property-address').text('');
+                // look up properties
+                properties = osmApplication.sponsoredGeojsons[id].features[0].properties;
+                $('#property-name').text(properties.name);
+                var imgSrc = '/visualizations/media/' + properties.image;
+                $('#property-image').html('<img class="property-image" src="' + imgSrc + '" />');
+                $('#property-description').text(properties.text);
+                $('#property-address').text(properties.printAddress);
+
+                $('#tooltipSponsored').removeClass('hidden');
+                var height = $('#tooltipSponsored').height();
+                var x = parseInt(xcoor) - 150;
+                var y = parseInt(ycoor) - height;
+
+                // keep the tooltip on the screen
+                if (x < 10) {
+                    x = 10;
+                } else if (x > (osmApplication.widthFrame - 310)) {
+                    x = osmApplication.widthFrame - 310;
+                }
+
+                if (y < 10) {
+                    y = 10;
+                }
+
+                // show div with data populated at that screen location
+                $('#tooltipSponsored').css('left', x);
+                $('#tooltipSponsored').css('top', y);
+
+
+            } else if (splitId[0] == 'permitted') {
+                // clear out previous data
+                $('#property-projectName-permitted').text('');
+                $('#property-image-permitted').html('');
+                $('#property-description-permitted').html('');
+                $('#property-address-permitted').html('');
+                $('#property-stories-permitted').html('');
+                $('#property-story1-permitted').html('');
+                $('#property-pdf-permitted').html('');
+
+                // look up properties
+                var properties = osmApplication.permittedGeojsons[id].features[0].properties;
+                // projectName
+                if (typeof properties.projectName !== 'undefined' && properties.projectName) {
+                    $('#property-projectName-permitted').text(properties.projectName);
+                } else if (typeof properties.address !== 'undefined' && properties.address) {
+                    $('#property-projectName-permitted').text(properties.address);
+                }
+                // image
+                if (typeof properties.buildingImage !== 'undefined' && properties.buildingImage != 'visualizations/media/') {
+                    $('#property-image-permitted').html('<img class="property-image" src="/' + properties.buildingImage + '" />');
+                }
+                // description
+                if (typeof properties.description !== 'undefined' && properties.description) {
+                    $('#property-description-permitted').html(properties.description + '<br />');
+                }
+                // address
+                if (typeof properties.address !== 'undefined' && properties.address) {
+                    $('#property-address-permitted').html(properties.address + '<br />');
+                }
+                // stories
+                if (typeof properties.stories !== 'undefined' && properties.stories) {
+                    if (properties.stories == '1') {
+                        var suffix = ' story tall';
+                    } else {
+                        var suffix = ' stories tall';
+                    }
+                    $('#property-stories-permitted').html(properties.stories + suffix + '<br />');
+                }
+                // DNAinfo stories
+                if (typeof properties.story1 !== 'undefined' && properties.story1) {
+                    $('#property-story1-permitted').html('<a href="' + properties.story1 + '" target="_blank">Read More</a><br />');
+                }
+                // documents
+                if (typeof properties.zoning_pdfs !== 'undefined' && properties.zoning_pdfs) {
+                    $('#property-pdf-permitted').html('<a href="/' + properties.zoning_pdfs + '" target="_blank">See Documents</a><br />');
+                }
+
+                // update share buttons
+                osmApplication.updateSocialLinks(osmApplication.permittedGeojsons[id].features[0].geometry.coordinates[0][0][0][1].toFixed(6), osmApplication.permittedGeojsons[id].features[0].geometry.coordinates[0][0][0][0].toFixed(6), osmApplication.osmb.zoom.toFixed(1), osmApplication.osmb.tilt.toFixed(1), osmApplication.osmb.rotation.toFixed(1));
+
+
+                $('#tooltipPermitted').removeClass('hidden');
+                var height = $('#tooltipPermitted').height();
+                var x = parseInt(xcoor) - 150;
+                var y = parseInt(ycoor) - height;
+
+                // keep the tooltip on the screen
+                if (x < 10) {
+                    x = 10;
+                } else if (x > (osmApplication.widthFrame - 310)) {
+                    x = osmApplication.widthFrame - 310;
+                }
+
+                if (y < 10) {
+                    y = 10;
+                }
+
+                // show div with data populated at that screen location
+                $('#tooltipPermitted').css('left', x);
+                $('#tooltipPermitted').css('top', y);
+
+
+            } else if (splitId[0] == 'dna') {
+                // clear out previous data
+                $('#property-projectName-dna').text('');
+                $('#property-image-dna').html('');
+                $('#property-description-dna').html('');
+                $('#property-address-dna').html('');
+                $('#property-stories-dna').html('');
+                $('#property-story1-dna').html('');
+                $('#property-pdf-dna').html('');
+                // look up properties
+                var properties = osmApplication.dnaGeojsons[id].features[0].properties;
+                                // projectName
+                if (typeof properties.projectName !== 'undefined' && properties.projectName) {
+                    $('#property-projectName-dna').text(properties.projectName);
+                } else if (typeof properties.address !== 'undefined' && properties.address) {
+                    $('#property-projectName-dna').text(properties.address);
+                }
+                // image
+                if (typeof properties.buildingImage !== 'undefined' && properties.buildingImage != 'visualizations/media/') {
+                    $('#property-image-dna').html('<img class="property-image" src="/' + properties.buildingImage + '" />');
+                }
+                // description
+                if (typeof properties.description !== 'undefined' && properties.description) {
+                    $('#property-description-dna').html(properties.description + '<br />');
+                }
+                // address
+                if (typeof properties.address !== 'undefined' && properties.address) {
+                    $('#property-address-dna').html(properties.address + '<br />');
+                }
+                // stories
+                if (typeof properties.stories !== 'undefined' && properties.stories) {
+                    if (properties.stories == '1') {
+                        var suffix = ' story tall';
+                    } else {
+                        var suffix = ' stories tall';
+                    }
+                    $('#property-stories-dna').html(properties.stories + suffix + '<br />');
+                }
+                // DNAinfo stories
+                if (typeof properties.story1 !== 'undefined' && properties.story1) {
+                    $('#property-story1-dna').html('<a href="' + properties.story1 + '" target="_blank">Read More</a><br />');
+                }
+                // documents
+                if (typeof properties.zoning_pdfs !== 'undefined' && properties.zoning_pdfs) {
+                    $('#property-pdf-dna').html('<a href="' + properties.zoning_pdfs + '" target="_blank">See Documents</a><br />');
+                }
+
+                // update share buttons
+                osmApplication.updateSocialLinks(osmApplication.dnaGeojsons[id].features[0].geometry.coordinates[0][0][0][1].toFixed(6), osmApplication.dnaGeojsons[id].features[0].geometry.coordinates[0][0][0][0].toFixed(6), osmApplication.osmb.zoom.toFixed(1), osmApplication.osmb.tilt.toFixed(1), osmApplication.osmb.rotation.toFixed(1));
+
+
+                $('#tooltipDNA').removeClass('hidden');
+                var height = $('#tooltipDNA').height();
+                var x = parseInt(xcoor) - 150;
+                var y = parseInt(ycoor) - (height+50);
+
+                // keep the tooltip on the screen
+                if (x < 10) {
+                    x = 10;
+                } else if (x > (osmApplication.widthFrame - 310)) {
+                    x = osmApplication.widthFrame - 310;
+                }
+
+                if (y < 10) {
+                    y = 10;
+                }
+
+                // show div with data populated at that screen location
+                $('#tooltipDNA').css('left', x);
+                $('#tooltipDNA').css('top', y);
+
+
+            } else {
+                if (!$('#tooltipPermitted').hasClass('hidden')) {
+                    $('#tooltipPermitted').addClass('hidden');
+                }
+                if (!$('#tooltipSponsored').hasClass('hidden')) {
+                    $('#tooltipSponsored').addClass('hidden');
+                }
+                if (!$('#tooltipDNA').hasClass('hidden')) {
+                    $('#tooltipDNA').addClass('hidden');
+                }
+            }
+        } else {
+
+            if (!$('#tooltipPermitted').hasClass('hidden')) {
+                $('#tooltipPermitted').addClass('hidden');
+            }
+            if (!$('#tooltipSponsored').hasClass('hidden')) {
+                $('#tooltipSponsored').addClass('hidden');
+            }
+            if (!$('#tooltipDNA').hasClass('hidden')) {
+                $('#tooltipDNA').addClass('hidden');
+            }
+        }
+
+    });
+
+}
+
 osmApplication.getSponsoredGeojsons = function() {
     $.ajax({
         type: "GET",
@@ -678,6 +699,9 @@ osmApplication.getSponsoredGeojsons = function() {
                     }
                 }
             }
+            // get permitted buildings from DOB
+            osmApplication.getPermittedGeojsons();
+
         }
     });
 }
@@ -699,6 +723,9 @@ osmApplication.getPermittedGeojsons = function() {
                     }
                 }
             }
+            // get reporter submitted buildings
+            osmApplication.getDNAGeojsons();
+
         }
     });
 }
@@ -720,6 +747,14 @@ osmApplication.getDNAGeojsons = function() {
                     }
                 }
             }
+            // fire a click in osmx and osmy are set
+            setTimeout(function() {
+                pos = osmApplication.osmb.project(getlat, getlon, 0)
+                console.log(pos);
+                //Object {x: 617.5, y: 231.62057088852146, z: 0.9995772461863411}
+                osmApplication.onClick(pos.x, pos.y);
+            }, 1000);
+            
         }
     });
 }
@@ -727,3 +762,34 @@ osmApplication.getDNAGeojsons = function() {
 osmApplication.destroy = function() {
     osmApplication.osmb.destroy();
 }
+
+
+osmApplication.updateSocialLinks = function (lat, lon, zoom, tilt, rotation) {
+        // set up facebook and twitter buttons
+    osmApplication.fbdescription = "Every new building affects the character of a neighborhood, so DNAinfo created this 3D map that helps you understand how high new buildings could be going up near you: ";
+    // https://hzdl3dry-data-viz-future-map.build.qa.dnainfo.com/new-york/visualizations/skyline
+    // http://localhost:8000/skyline/nyc/browse/282/?lat=40.863743&lon=-73.862489
+    osmApplication.sharelink = 'http://localhost:8000/skyline/nyc/browse/'+hoodID+'/?lat='+lat+'&lon='+lon+'&zoom='+zoom+'&tilt='+tilt+'&rotation='+rotation;
+    osmApplication.fbUrl = 'https://www.facebook.com/dialog/feed?app_id=' + osmApplication.app_id + '&display=popup&description='+ encodeURIComponent(osmApplication.fbdescription) + '&link=' + encodeURIComponent(osmApplication.sharelink) + '&redirect_uri=' + encodeURIComponent(osmApplication.fblink) + '&name=' + encodeURIComponent(osmApplication.fbname) + '&caption=' + encodeURIComponent(osmApplication.fbcaption) + '&picture=' + encodeURIComponent(osmApplication.fbpicture);
+    osmApplication.fbOnclick = 'window.open("' + osmApplication.fbUrl + '","facebook-share-dialog","width=626,height=436");return false;';
+    $('.showShareFB').attr("onclick", osmApplication.fbOnclick);
+
+
+    osmApplication.twitterUrl = 'https://twitter.com/intent/tweet?url=' + encodeURIComponent(osmApplication.sharelink) + '&via='+ encodeURIComponent(osmApplication.via) + '&text=' + encodeURIComponent(osmApplication.twittercaption);
+    osmApplication.twitterOnclick = 'window.open("' + osmApplication.twitterUrl + '","twitter-share-dialog","width=626,height=436");return false;';
+    $('.showShareTwitter').attr("onclick", osmApplication.twitterOnclick);
+}
+
+// standard facebook and twitter variables
+osmApplication.app_id = '406014149589534';
+osmApplication.fblink = "https://visualizations.dnainfo.com/";
+osmApplication.fbpicture = "https://editorial-ny.dnainfo.com/interactives/2016/aptshare.jpeg";
+osmApplication.fbname = "3D Neighbohood Skyline";
+osmApplication.fbcaption = "DNAinfo New York";
+
+osmApplication.via = 'DNAinfo';
+osmApplication.twittercaption = "Every new building affects the character of a neighborhood, so DNAinfo created this 3D map that helps you understand how high new buildings could be going up near you.";
+
+
+
+

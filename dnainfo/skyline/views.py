@@ -989,6 +989,10 @@ def skyline_landingPage(request, id=None):
 	return render(request, 'skyline/index.html', {'form':form, 'bitlyURL':bitlyURL})
 
 def skyline_browse(request, id=None):
+	# check for xcoor and y coor to be passed
+	getlat = request.GET.get('lat', 0)
+	getlon = request.GET.get('lon', 0)
+
 	# A HTTP POST?
 	if request.method == 'POST':
 		form = NYClandingPageForm(request.POST)
@@ -1006,7 +1010,7 @@ def skyline_browse(request, id=None):
 
 	#pull neighborhood
 	hood = neighborhoodNYC.objects.get(pk=id)
-	return render(request, 'skyline/browse.html', {'hood':hood,'form':form})
+	return render(request, 'skyline/browse.html', {'hood':hood,'form':form,'getlat':getlat,'getlon':getlon})
 
 def skyline_return_result(request, id=None):
 	# A HTTP POST?
