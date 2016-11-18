@@ -101,7 +101,7 @@ def skyline_exactLocation(request, id=None):
 			# Save the new data to the database.
 			f = form.save()
 			lookupObject = NYCskyline.objects.get(pk=f.pk)
-			return HttpResponseRedirect(reverse('skyline_end', args=(lookupObject.pk,)))
+			return HttpResponseRedirect(reverse('skyline_return_result', args=(lookupObject.pk,)))
 		else:
 			# The supplied form contained errors - just print them to the terminal.
 			print form.errors
@@ -992,6 +992,7 @@ def skyline_browse(request, id=None):
 	# check for xcoor and y coor to be passed
 	getlat = request.GET.get('lat', 0)
 	getlon = request.GET.get('lon', 0)
+	buildingShared = request.GET.get('buildingShared', 'false');
 
 	# A HTTP POST?
 	if request.method == 'POST':
@@ -1010,9 +1011,13 @@ def skyline_browse(request, id=None):
 
 	#pull neighborhood
 	hood = neighborhoodNYC.objects.get(pk=id)
-	return render(request, 'skyline/browse.html', {'hood':hood,'form':form,'getlat':getlat,'getlon':getlon})
+	return render(request, 'skyline/browse.html', {'hood':hood,'form':form,'getlat':getlat,'getlon':getlon,'buildingShared':buildingShared})
 
 def skyline_return_result(request, id=None):
+	# check for xcoor and y coor to be passed
+	getlat = request.GET.get('lat', 0)
+	getlon = request.GET.get('lon', 0)
+
 	# A HTTP POST?
 	if request.method == 'POST':
 		form = NYClandingPageForm(request.POST)

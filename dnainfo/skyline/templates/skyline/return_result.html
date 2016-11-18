@@ -38,10 +38,10 @@
 <div class="browseNav">
     <div class="social-media-links">
         <div class="link-holder facebook">
-            <a href="#"><i class="fa fa-facebook-official fa-2x" aria-hidden="true"></i></a>
+            <a href="#" id="showShareFB"><i class="fa fa-facebook-official fa-2x" aria-hidden="true"></i></a>
         </div>
         <div class="link-holder twitter">
-            <a href="#"> <i class="fa fa-twitter fa-2x" aria-hidden="true"></i></a>
+            <a href="#" id="showShareTwitter"> <i class="fa fa-twitter fa-2x" aria-hidden="true"></i></a>
         </div>
     </div>
 </div>
@@ -83,15 +83,13 @@
         <p id='property-address' class='property-text'></p>
         <footer>
             <div class="links">
-                <a href="#">Read More</a>
-                <span id='property-pdf-permitted' class='property-text link'></span>
             </div>
             <div class="social-media-links">
                 <div class="link-holder facebook">
-                    <a href="#"><i class="fa fa-facebook-official fa-2x" aria-hidden="true"></i></a>
+                    <a href="#" class="showShareFB"><i class="fa fa-facebook-official fa-2x" aria-hidden="true"></i></a>
                 </div>
                 <div class="link-holder twitter">
-                    <a href="#"> <i class="fa fa-twitter fa-2x" aria-hidden="true"></i></a>
+                    <a href="#" class="showShareTwitter"> <i class="fa fa-twitter fa-2x" aria-hidden="true"></i></a>
                 </div>
             </div>
         </footer>
@@ -108,19 +106,19 @@
             <span id='property-description-permitted' class='property-text dark'></span>
             <span id="property-address-permitted" class='property-text'></span>
             <span id="property-stories-permitted" class='property-text'></span>
-            <span id='property-story1-permitted' class='property-text link'></span>
+            
         </p>
         <footer style="margin-bottom: 6%">
             <div class="links">
-                <a href="#">Read More</a>
+                <span id='property-story1-permitted' class='property-text link'></span>
                 <span id='property-pdf-permitted' class='property-text link'></span>
             </div>
             <div class="social-media-links">
                 <div class="link-holder facebook">
-                    <a href="#"><i class="fa fa-facebook-official fa-2x" aria-hidden="true"></i></a>
+                    <a href="#" class="showShareFB"><i class="fa fa-facebook-official fa-2x" aria-hidden="true"></i></a>
                 </div>
                 <div class="link-holder twitter">
-                    <a href="#"> <i class="fa fa-twitter fa-2x" aria-hidden="true"></i></a>
+                    <a href="#" class="showShareTwitter"> <i class="fa fa-twitter fa-2x" aria-hidden="true"></i></a>
                 </div>
             </div>
         </footer>
@@ -137,19 +135,18 @@
             <span id='property-description-dna' class='property-text dark'></span>
             <span id="property-address-dna" class='property-text'></span>
             <span id="property-stories-dna" class='property-text'></span>
-            <span id='property-pdf-dna' class='property-text link'></span>
         </p>
         <footer style="margin-bottom: 6%">
             <div class="links">
-                <a href="#">Read More</a>
+                <span id='property-pdf-dna' class='property-text link'></span>
                 <span id='property-pdf-permitted' class='property-text link'></span>
             </div>
             <div class="social-media-links">
                 <div class="link-holder facebook">
-                    <a href="#"><i class="fa fa-facebook-official fa-2x" aria-hidden="true"></i></a>
+                    <a href="#" class="showShareFB"><i class="fa fa-facebook-official fa-2x" aria-hidden="true"></i></a>
                 </div>
                 <div class="link-holder twitter">
-                    <a href="#"> <i class="fa fa-twitter fa-2x" aria-hidden="true"></i></a>
+                    <a href="#" class="showShareTwitter"> <i class="fa fa-twitter fa-2x" aria-hidden="true"></i></a>
                 </div>
             </div>
         </footer>
@@ -173,9 +170,10 @@
 <script type="text/javascript" src="{% static 'django_select2/django_select2.js' %}"></script>
 <script type="text/javascript">
 var objectID = "{{ NYCskylineObject.id }}";
+var hoodID = '{{ NYCskylineObject.whereBuilding.id }}';
 var dnaUrl = '{{ NYCskylineObject.whereBuilding.dnaurl }}';
 var boro = '{{ NYCskylineObject.whereBuilding.county }}';
-var neighborhoodName = '{{ NYCskylineObject.whereBuilding.name }}';
+var neighborhoodName = "{{ NYCskylineObject.whereBuilding.name|safe }}";
 if (boro == 'Staten Island') {
     boro = 'SI';
 }
