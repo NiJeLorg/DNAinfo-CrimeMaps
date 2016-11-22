@@ -136,6 +136,10 @@ a:focus {
     right: 45px;
 }
 
+.chevron-button .fa-chevron-down {
+    font-size: 12px;
+}
+
 .building-component {
     color: #2E2925;
 }
