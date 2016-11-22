@@ -37,6 +37,7 @@ a:focus {
     display: flex;
     justify-content: flex-end;
     width: 97%;
+    margin-top: 30px;
 }
 
 .link-holder {
@@ -69,20 +70,28 @@ a:focus {
 
 .title {
     text-align: center;
-    margin-top: -3%;
     color: #2E2925;
+    margin-top: 20px;
 }
 
 .title .title-heading {
     font-size: 4em;
+    font-family: 'Titillium Web', Helvetica, sans-serif;
+    padding: 16px 0;
     font-weight: 600;
-    margin-bottom: 1%;
+    margin-bottom: 8px;
+    margin-top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .title .title-subheading {
-    font-weight: bold;
-    font-size: 1.5em;
-    margin-bottom: 3%;
+    margin-top: 0px;
+    font-weight: 600;
+    font-size: 22px;
+    font-family: 'Titillium Web', Helvetica, sans-serif;
+    margin-bottom: 40px;
 }
 
 .title .title-info {
@@ -92,25 +101,22 @@ a:focus {
     width: 66%;
     margin: 0 auto;
     letter-spacing: .4px;
-    font-size: 1.7em;
-    margin-bottom: 5%;
+    font-size: 1.5em;
+    margin-bottom: 55px;
+    font-size: 25px;
 }
 
 .select-parent {
-    width: 50%;
     display: flex;
     align-items: center;
     margin: 0 auto;
-    margin-bottom: 5%;
+    margin-bottom: 60px;
     justify-content: center;
 }
 
 .select-parent-holder {
-    width: 50%;
-}
-
-.select-parent-holder.center-top-dropdown {
-    margin-left: 22.5px;
+    width: 397px;
+    margin-left: 45px;
 }
 
 .select-parent form .form-group {
@@ -370,20 +376,36 @@ footer .select2-selection__rendered {
 }
 
 @media (max-width: 1024px) {
-    .building-component-holder {
-        width: 80%;
+    .building-component-modal {
+        width: 30%;
     }
     footer .select-parent {
         width: 35%;
     }
 }
 
+@media (max-width: 1024px) {
+    .title .title-info {
+        width: 90%;
+    }
+    .select-parent .select-parent-holder {
+        width: 500px;
+    }
+    .building-component-holder {
+        width: 80%;
+    }
+}
+
 @media (max-width: 768px) {
     .title .title-heading {
+        margin-top: 20px;
         font-size: 3em;
+        height: 110px;
+        margin-bottom: 18px;
     }
     .title .title-subheading {
-        font-size: 1.3em;
+        font-size: 18px;
+        margin-bottom: 26px;
     }
     .title .title-info {
         line-height: 1.4;
@@ -397,7 +419,7 @@ footer .select2-selection__rendered {
         width: 90%;
     }
     .select-parent-holder {
-        width: 80%;
+        width: 52%;
     }
     .building-component-modal {
         width: 38%;
@@ -415,28 +437,31 @@ footer .select2-selection__rendered {
     }
 }
 
-@media (max-width: 1024px) {
-    .building-component-modal {
-        width: 30%;
-    }
-}
-
 @media (max-width: 425px) {
     .social-media-links {
         justify-content: center;
+        width: 100%;
+        margin-top: 15px;
+        margin-bottom: 15px;
     }
-    .link-holder {
+    .twitter {
         margin-left: 4%;
     }
+    .title {
+        margin: 0 15px;
+        text-align: left;
+    }
     .title .title-heading {
-        margin-top: 10%;
+        height: initial;
+        margin-bottom: 30px;
+        margin-top: 0;
     }
     .title .title-subheading {
         margin-bottom: 6%;
     }
     .title .title-info {
-        width: 85%;
         margin-bottom: 6%;
+        width: 100%;
     }
     .building-component-holder {
         width: 90%;
@@ -466,7 +491,16 @@ footer .select2-selection__rendered {
         order: 1;
     }
     .select-parent {
-        width: 85%;
+        width: 100%;
+        margin-bottom: 30px;
+        margin-left: 15px;
+    }
+    .select-parent-holder {
+        width: 100%;
+        margin-left: 0;
+    }
+    .select-parent-header .chevron-button {
+        right: 37px;
     }
     .got-it-now {
         display: initial;
@@ -476,5 +510,17 @@ footer .select2-selection__rendered {
     }
     footer .select-parent {
         width: 85%;
+    }
+}
+
+@media (max-width: 375px) {
+    .select-parent-header .chevron-button {
+        right: 31px;
+    }
+}
+
+@media (max-width: 320px) {
+    .select-parent-header .chevron-button {
+        right: 28px;
     }
 }
