@@ -17,6 +17,7 @@ a:focus {
 
 .component-heading {
     font-weight: bold;
+    margin-bottom: 15px;
 }
 
 .component-info {
