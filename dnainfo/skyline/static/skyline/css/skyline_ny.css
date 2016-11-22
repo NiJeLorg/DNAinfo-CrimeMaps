@@ -247,7 +247,7 @@ a:focus {
 }
 
 .building-modal-info {
-    padding: 2% 4%;
+    padding: 0 4%;
 }
 
 .building-modal-info-header {
@@ -265,6 +265,8 @@ a:focus {
 
 .building-modal-info-header h4 {
     font-weight: bold;
+    letter-spacing: .3px;
+    margin: 15px 0;
 }
 
 .building-component-info-content {
@@ -361,7 +363,6 @@ footer .select2-selection__rendered {
     text-align: center;
     font-size: 1.4em;
 }
-
 
 @media (max-width: 1024px) {
     .building-component-holder {
