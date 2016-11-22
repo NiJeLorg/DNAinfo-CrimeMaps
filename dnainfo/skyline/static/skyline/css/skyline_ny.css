@@ -2,7 +2,8 @@ a {
     cursor: pointer;
 }
 
-a:hover, a:focus {
+a:hover,
+a:focus {
     text-decoration: none;
 }
 
@@ -126,6 +127,8 @@ a:hover, a:focus {
     width: 45px;
     height: 45px;
     text-align: center;
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
 }
 
 .select-parent-header .chevron-button {
