@@ -12,13 +12,16 @@ urlpatterns = [
     url(r'^skyline/nyc/getSponsoredGeojsons/$', views.skyline_getSponsoredGeojsons, name='skyline_getSponsoredGeojsons'),
     url(r'^skyline/nyc/getPermittedGeojsons/(?P<boro>[-\w]+)/$', views.skyline_getPermittedGeojsons, name='skyline_getPermittedGeojsons'),
     url(r'^skyline/nyc/getReporterGeojsons/$', views.skyline_getReporterGeojsons, name='skyline_getReporterGeojsons'),
+    url(r'^skyline/nyc/getUGCApprovedGeojsons/$', views.skyline_getUGCApprovedGeojsons, name='skyline_getUGCApprovedGeojsons'),
     url(r'^skyline/nyc/end/(?P<id>\d+)/$', views.skyline_end, name='skyline_end'),
     url(r'^skyline/nyc/results/(?P<id>\d+)/$', views.skyline_results, name='skyline_results'),
     #admin urls
     url(r'^skyline/admin/nyc/$', views.skylineAdminDashboard, name='skyline_AdminDashboard'),
+    url(r'^skyline/admin/nyc/ugc/viewall/$', views.skyline_UgcViewAll, name='skyline_UgcViewAll'),
     url(r'^skyline/admin/nyc/ugc/list/$', views.skyline_UgcList, name='skyline_UgcList'),
     url(r'^skyline/admin/nyc/ugc/approve/(?P<id>\d+)/$', views.skyline_UgcApprove, name='skyline_UgcApprove'),
     url(r'^skyline/admin/nyc/ugc/reject/(?P<id>\d+)/$', views.skyline_UgcReject, name='skyline_UgcReject'),
+    url(r'^skyline/admin/nyc/ugc/edit/(?P<id>\d+)/$', views.skyline_UgcEdit, name='skyline_UgcEdit'),
     url(r'^skyline/admin/nyc/sponsored/list/$', views.skyline_sponsoredList, name='skyline_sponsoredList'),
     url(r'^skyline/admin/nyc/sponsored/remove/(?P<id>\d+)/$', views.skyline_sponsoredRemove, name='skyline_sponsoredRemove'),
     url(r'^skyline/admin/nyc/sponsored/whatNeighborhood/$', views.skyline_sponsoredWhatNeighborhood, name='skyline_sponsoredWhatNeighborhood'),
@@ -52,6 +55,7 @@ urlpatterns = [
     url(r'^skyline/admin/nyc/permitted/getGeojson/(?P<id>\d+)/$', views.skyline_permittedGetGeojson, name='skyline_permittedGetGeojson'),
     url(r'^skyline/admin/nyc/permitted/end/(?P<id>\d+)/$', views.skyline_permittedEnd, name='skyline_permittedEnd'),
     url(r'^skyline/admin/nyc/permitted/csv/$', views.skyline_createBuildingsCSV, name='skyline_createBuildingsCSV'),
+    url(r'^skyline/admin/nyc/ugc/csv/$', views.skyline_createNewsletterCSV, name='skyline_createNewsletterCSV'),
 
     # intro and landing page
     url(r'^skyline/nyc/$', views.skyline_landingPage, name='skyline_landingPage'),

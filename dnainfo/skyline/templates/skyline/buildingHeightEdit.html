@@ -3,7 +3,12 @@
 {% load bootstrap_tags %}
 
 {% block css_block %}
+<link rel="stylesheet" type="text/css" href="{% static 'skyline/css/carto.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'skyline/css/Control.Geocoder.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'skyline/css/OSMBuildings.css' %}">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="{% static 'skyline/css/select2.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'skyline/css/all-bootstrapped.min.css' %}">
 {% endblock %}
 
 {% block head_js_block %}
@@ -35,7 +40,7 @@
             <div class="row">
                 <div class="col-sm-5 col-sm-offset-2 bottomButtonGroup">
                     <button class="btn btn-dna-primary mobileWidth marginRight10" name="save" type="submit">Save</button>
-                    <button class="btn btn-dna-primary mobileWidth marginRight10" name="pick_plot" type="submit">Pick a Parcel</button>
+                    <button id="nextLocation" class="btn btn-dna-primary mobileWidth marginRight10" name="pick_plot" type="submit">Pick a Parcel</button>
                     <a class="btn btn-dna-primary mobileWidth marginRight10" href="{% url 'skyline_AdminDashboard' %}" role="button">Admin Home</a>
                 </div>
             </div>
@@ -47,11 +52,22 @@
 
 {% block js_block %}
 <script type="text/javascript">
+    var objectID = "{{ NYCskylineObject.id }}";
     $( document ).ready(function() {
         $('#id_buildingStories').prop('min', 1);
         $('#id_buildingStories').prop('max', 150);
     });
 </script>
+<script type="text/javascript" src="{% static 'skyline/js/select2.js' %}"></script>
+<script type="text/javascript" src="{% static 'django_select2/django_select2.js' %}"></script>
+<script type="text/javascript" src="{% static 'skyline/js/d3.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'skyline/js/jquery.scrollTo.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'skyline/js/carto.js' %}"></script>
+<script type="text/javascript" src="{% static 'skyline/js/Control.Geocoder.js' %}"></script>
+<script type="text/javascript" src="{% static 'skyline/js/OSMBuildings.js' %}"></script>
+<script type="text/javascript" src="{% static 'skyline/js/ajax.js' %}"></script>
+<script type="text/javascript" src="{% static 'skyline/js/map.js' %}"></script>
+<script type="text/javascript" src="{% static 'skyline/js/osmmap.js' %}"></script>
 {% endblock %}
 
 

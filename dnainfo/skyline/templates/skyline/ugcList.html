@@ -52,14 +52,38 @@
                 <div id="minimap_{{obj.id}}" class="minimap"></div>
             </div>
             <div class="col-sm-6">
-                <h4>{{ obj.buildingAddress }}</h4>
+                <h4>{{ obj.projectName }}</h4>
                 <p>
-                    {{ obj.whereBuilding.name }}<br />
-                    {{ obj.buildingStories }} stor{{ obj.buildingStories|pluralize:"y,ies" }}<br />
+                    {% if obj.approved == None %}
+                    <span class="label label-default">Needs Review</span>
+                    {% elif obj.approved == True %}
+                    <span class="label label-success">Approved</span>
+                    {% else %}
+                    <span class="label label-danger">Rejected</span>
+                    {% endif %}
                 </p>
-                <a class="btn btn-primary marginRight10" href="{% url 'skyline_UgcApprove' id=obj.id %}" role="button">Approve</a>
+                <p>
+                    {{ obj.buildingAddress }}
+                    <br /> {{ obj.whereBuilding.name }}
+                    <br /> {{ obj.buildingStories }} stor{{ obj.buildingStories|pluralize:"y,ies" }}
+                    <br /> <strong>Proof:</strong> 
+                    {% if obj.buildingImage %}
+                       <a href="/visualizations/media/{{ obj.buildingImage }}" target="_blank">Image</a> | 
+                    {% endif %}
+                    {% if obj.buildingDoc %}
+                        <a href="/visualizations/media/{{ obj.buildingDoc }}" target="_blank">Document</a> | 
+                    {% endif %}
+                    {% if obj.buildingURL %}
+                        <a href="{{ obj.buildingURL }}" target="_blank">Website</a>                        
+                    {% endif %}
+                    <br /> {% if obj.userEmail %} Created by <a href="mailto:{{ obj.created_by.email }}">{{ obj.userEmail }}</a> on {{ obj.created|date:"M d, Y"}}
+                    <br /> {% endif %} {% if obj.reviewed_by %} Reviewed by {{ obj.reviewed_by }} (<a href="mailto:{{ obj.reviewed_by.email }}">{{ obj.reviewed_by.email }}</a>) on {{ obj.updated|date:"M d, Y"}}
+                    <br /> {% endif %}
+                </p>
+                <a class="btn btn-success marginRight10" href="{% url 'skyline_UgcApprove' id=obj.id %}" role="button">Approve</a>
                 <a class="btn btn-danger marginRight10" href="{% url 'skyline_UgcReject' id=obj.id %}" role="button">Reject</a>
-                <a class="btn btn-default marginRight10" href="{% url 'skyline_results' id=obj.id %}" role="button" target="_blank">3D View</a>
+                <a class="btn btn-info marginRight10" href="{% url 'skyline_UgcEdit' id=obj.id %}" role="button" target="_blank">Edit</a>
+                <a class="btn btn-default marginRight10" href="{% url 'skyline_return_result' id=obj.id %}" role="button" target="_blank">3D View</a>
             </div>
         </div>
         <hr />

@@ -59,6 +59,16 @@
                 <a class="btn btn-danger mobileWidth marginRight10 marginBottom20" href="{% url 'skyline_UgcList' %}" role="button">Review UGC Buildings</a>
             </div>
         </div>
+        <div class="row">
+            <div class="col-sm-8 col-sm-offset-2">
+                <a class="btn btn-danger mobileWidth marginRight10 marginBottom20" href="{% url 'skyline_UgcViewAll' %}" role="button">View All UGC Buildings</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-8 col-sm-offset-2">
+                <a class="btn btn-default mobileWidth marginRight10 marginBottom20" href="{% url 'skyline_createNewsletterCSV' %}" role="button">Download CSV of emails, neighborhoods and newsletter requests</a>
+            </div>
+        </div>        
         {% endif %}
     </div>
 </div>

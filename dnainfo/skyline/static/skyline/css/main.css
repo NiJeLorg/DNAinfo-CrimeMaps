@@ -636,6 +636,7 @@ fieldset[disabled] .btn-dna-twitter.active {
 
 /* form controls */
 .form-control {
+    font-size: 16px;
     height: 45px;
     -webkit-text-fill-color:#686868; /* Override iOS / Android font color change */
     -webkit-opacity:1; /* Override iOS opacity change affecting text & background color */
@@ -1073,6 +1074,16 @@ input[type="radio"]:checked + label span {
   transition:background-color 0.4s linear;
 }
 */
+
+.radio label, .checkbox label {
+  font-size: 16px;
+}
+
+/* control label font size */
+.control-label {
+  font-size: 16px;
+  font-weight: normal;
+}
 
 /* Ad images */
 .smallAd {

@@ -17,7 +17,10 @@ $(document).ready(function() {
     // initialize select 2
     $('.django-select2').djangoSelect2();
     // update placeholder text
-    $('.select2-selection__placeholder').text("Select a Neighborhood");
+    setTimeout(function() {
+        $('.select2-selection__placeholder').text("Select a Neighborhood");
+    }, 100);
+
 
     // for iOS, force blur to close keyboard if clicking away from the input field
     $(document).on('click', '#select2-drop', function(e) {

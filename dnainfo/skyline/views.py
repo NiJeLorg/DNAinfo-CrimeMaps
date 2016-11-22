@@ -22,6 +22,9 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 # datetime
 import datetime
 
+#for email
+from django.core.mail import send_mail
+
 
 # views for DNAinfo my first apartment
 def index(request):
@@ -66,7 +69,7 @@ def skyline_buildingHeight(request, id=None):
 
 	# A HTTP POST?
 	if request.method == 'POST':
-		form = NYCbuildingHeightForm(request.POST, instance=NYCskylineObject)
+		form = NYCbuildingHeightForm(request.POST, request.FILES, instance=NYCskylineObject)
 
 		# Have we been provided with a valid form?
 		if form.is_valid():
@@ -182,7 +185,7 @@ def skyline_createBuildingsCSV(request):
 
 @login_required
 def skyline_UgcList(request):
-	NYCskylineObjects = NYCskyline.objects.filter(approved=None).exclude(buildingFootprint='')
+	NYCskylineObjects = NYCskyline.objects.filter(approved=None).exclude(buildingFootprint='').order_by('-updated', 'projectName')
 	paginator = Paginator(NYCskylineObjects, 20) # Show 10 buildings per page
 	page = request.GET.get('page')
 	try:
@@ -198,11 +201,39 @@ def skyline_UgcList(request):
 	return render(request, 'skyline/ugcList.html', {'NYCskylineObjects': objs})
 
 @login_required
+def skyline_UgcViewAll(request):
+	NYCskylineObjects = NYCskyline.objects.exclude(buildingFootprint='').order_by('-updated', 'projectName')
+	paginator = Paginator(NYCskylineObjects, 20) # Show 10 buildings per page
+	page = request.GET.get('page')
+	try:
+		objs = paginator.page(page)
+	except PageNotAnInteger:
+		# If page is not an integer, deliver first page.
+		objs = paginator.page(1)
+	except EmptyPage:
+		# If page is out of range (e.g. 9999), deliver last page of results.
+		objs = paginator.page(paginator.num_pages)
+
+
+	return render(request, 'skyline/ugcList.html', {'NYCskylineObjects': objs})
+
+
+@login_required
 def skyline_UgcApprove(request, id=None):
 	obj = NYCskyline.objects.get(id=id)
 	obj.approved = True
 	obj.reviewed_by = request.user
 	obj.save()
+	# email user if their building is approved
+
+	if obj.userEmail:
+		url = "https://visualizations.dnainfo.com/skyline/nyc/return_result/"+str(obj.id)+"/"
+		subject = "[DNAinfo] The building you added to our 3-D map was approved!"
+		html_message = "Hello "+ obj.userEmail +",<br /><br />The building you added to our 3-D map of buildings was approved, and you can now <a href='"+ url +"'>see that building</a> marked as \"Proposed\" on the map. Thank you for your contribution!<br /><br />DNAinfo.com"
+		message = "Hello "+ obj.userEmail +", The building you added to our 3-D map of buildings was approved, and you can now see that building marked as \"Proposed\" on the map here: "+ url +". Thank you for your contribution! DNAinfo.com"
+
+		send_mail(subject, message, 'dnainfovisualizations@gmail.com', [obj.userEmail], fail_silently=True, html_message=html_message)
+
 	return HttpResponseRedirect(reverse('skyline_UgcList'))
 
 @login_required
@@ -212,6 +243,65 @@ def skyline_UgcReject(request, id=None):
 	obj.reviewed_by = request.user
 	obj.save()
 	return HttpResponseRedirect(reverse('skyline_UgcList'))
+
+@login_required
+def skyline_UgcEdit(request, id=None):
+	if id:
+		NYCskylineObject = NYCskyline.objects.get(pk=id)
+	else:
+		NYCskylineObject = NYCskyline()
+
+	# A HTTP POST?
+	if request.method == 'POST':
+		form = NYCbuildingHeightForm(request.POST, request.FILES, instance=NYCskylineObject)
+
+		# Have we been provided with a valid form?
+		if form.is_valid():
+			# Save the new data to the database.
+			f = form.save()
+			lookupObject = NYCskyline.objects.get(pk=f.pk)
+			# route request depending on which button was clicked
+			if 'save' in request.POST:
+				return HttpResponseRedirect(reverse('skyline_UgcList'))
+			elif 'pick_plot' in request.POST:
+				return HttpResponseRedirect(reverse('skyline_exactLocation', args=(lookupObject.pk,)))
+
+		else:
+			# The supplied form contained errors - just print them to the terminal.
+			print form.errors
+	else:
+		# If the request was not a POST, display the form to enter details.
+		form = NYCbuildingHeightForm(instance=NYCskylineObject)
+
+	# Bad form (or form details), no form supplied...
+	# Render the form with error messages (if any).
+	return render(request, 'skyline/buildingHeightEdit.html', {'form':form, 'NYCskylineObject': NYCskylineObject})
+
+@login_required
+def skyline_createNewsletterCSV(request):
+	# Create the HttpResponse object with the appropriate CSV header.
+	response = HttpResponse(content_type='text/csv')
+	response['Content-Disposition'] = 'attachment; filename="NYC_skyline_newsletter_requests.csv"'
+
+	writer = csv.writer(response, encoding='utf-8')
+	writer.writerow(['created', 'neighborhood', 'email', 'newsletter'])
+
+	#pull data 
+	today = datetime.date.today()
+	minyear = today.year - 1
+
+	NYCskylineObjects = NYCskyline.objects.exclude(userEmail__exact='')
+
+	for o in NYCskylineObjects:
+		if o.whereBuilding:
+			neighborhoodName = o.whereBuilding.name
+		else:
+			neighborhoodName = None
+		
+		writer.writerow([o.created, neighborhoodName, o.userEmail, o.newsletter])
+
+	return response
+
 
 @login_required
 def skyline_sponsoredWhatNeighborhood(request, id=None):
@@ -380,7 +470,7 @@ def skyline_sponsoredGetGeojson(request, id=None):
 
 	return JsonResponse(NYCSponsoredBuildingsObject.buildingFootprint, safe=False)
 
-def skyline_getSponsoredGeojsons(request, id=None):
+def skyline_getSponsoredGeojsons(request):
 
 	NYCSponsoredBuildingsObjects = NYCSponsoredBuildings.objects.exclude(archived=True).exclude(buildingStories__exact = 0).exclude(buildingFootprint__in = ['', '-99'])
 	geojsons = []
@@ -409,6 +499,16 @@ def skyline_getPermittedGeojsons(request, boro=None):
 
 		changed = '{\"type\":\"FeatureCollection\",\"features\":[{\"type\": \"Feature\", \"properties\":{\"color\":\"#00cdbe\", \"roofColor\":\"#00cdbe\", \"height\":\"' + str(buildingHeight) +'\", \"zoning_pdfs\":\"visualizations/media/' + str(obj.zoning_pdfs) +'\", \"address\":\"' + obj.buildingAddress.strip() +'\", \"stories\":\"' + str(obj.buildingStories) +'\", \"story1\":\"' + str(obj.story1) +'\", \"projectName\":\"' + obj.projectName +'\", \"buildingImage\":\"visualizations/media/' + str(obj.buildingImage) +'\", \"buildingZip\":\"' + obj.buildingZip +'\", \"objectID\":\"' + str(obj.id) +'\", \"description\":\"' + obj.description +'\"}, \"geometry\": ' + obj.buildingFootprint + '}]}'
 		geojsons.append(changed)
+		
+	return JsonResponse(geojsons, safe=False)
+
+def skyline_getUGCApprovedGeojsons(request):
+
+	NYCskylineObjects = NYCskyline.objects.filter(approved=True)
+	geojsons = []
+
+	for obj in NYCskylineObjects:
+		geojsons.append(obj.buildingFootprint)
 		
 	return JsonResponse(geojsons, safe=False)
 
