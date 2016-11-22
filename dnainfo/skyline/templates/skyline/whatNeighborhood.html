@@ -38,6 +38,7 @@
 <script type="text/javascript">
     var objectID = "{{ NYCskylineObject.id }}";
     $( document ).ready(function() {
+
         // remove labels
         $('label').remove();
         // add a form-control class to the input, disabled attribute and placeholder text
@@ -45,14 +46,17 @@
         var selected = $('#id_whereBuilding option:selected').val();
         console.log(selected);
         $('#id_whereBuilding option[value=""]').remove();
-        $('#id_iDontSeeMyNeighborhood').addClass("hidden");
         $(".fadein").fadeIn("slow");
         // scroll to top
         $('#content').scrollTop(0);
         // initialize select 2
         $('.django-select2').djangoSelect2();
         if (!selected) {
-            $('.select2-selection__placeholder').text("Neighborhood");  
+            // update placeholder text
+            setTimeout(function() {
+                $('.select2-selection__placeholder').text("Select a Neighborhood");
+            }, 100);
+            
         }
     });
 </script>

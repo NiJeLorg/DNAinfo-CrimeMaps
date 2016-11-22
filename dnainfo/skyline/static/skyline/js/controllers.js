@@ -79,7 +79,7 @@ $( document ).ready(function() {
 	});
 
 
-	// listen for whereBuilding changes and ensure next location button is emabled and i don't see my neighborhood is unchecked
+	// listen for whereBuilding changes and ensure next location button is emabled 
 	$(document).on('change', '#id_whereBuilding', function(e) {
 		// close keyboard
 		$('.select2-focusser').blur();
@@ -87,31 +87,12 @@ $( document ).ready(function() {
 		$('#nextHeight').prop("disabled", false);
 		// sneak in disabling next building height
 		$('#sponsoredNextBuildingHeight').prop("disabled", false);
-		// ensure that iDontSeeMyNeighborhood is unchecked
-		$('#id_iDontSeeMyNeighborhood').prop("checked", false);
 	});
 
 	// for iOS, force blur to close keyboard if clicking away from the input field
 	$(document).on('click', '#select2-drop', function(e) {
 		document.activeElement.blur();
 	});	
-
-
-	// ensure that select2-no-results says the correct text
-	$(document).on('keydown', '.select2-search__field', function(e) {
-		window.setTimeout(function() {  
-	        $(".select2-results__message").html("<em>I don't see my neighborhood.</em>");
-	        // set listener
-        	$(".select2-results__message").on('click', function(e) {
-				$('.select2-selection__placeholder').text("I don't see my neighborhood.");
-				$('.select2-selection__rendered').text("I don't see my neighborhood.");
-				$('#id_whereBuilding').val('');
-        		$('#id_iDontSeeMyNeighborhood').prop("checked", true);
-				$('#nextHeight').prop("disabled", false);
-				$('#sponsoredNextBuildingHeight').prop("disabled", false);
-			});
-	    }, 1);	
-	});
 
 
 	$(document).on('click', '#storiesMinus', function(e) {

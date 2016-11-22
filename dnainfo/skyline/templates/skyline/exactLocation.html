@@ -56,6 +56,11 @@
     } else {
         buildingHeight = (3.5*buildingStories) + 9.625 + (2.625 * (buildingStories/25));
     }
+    var projectName = "{{ NYCskylineObject.projectName }}";
+    var buildingAddress = "{{ NYCskylineObject.buildingAddress }}";
+    var buildingImage = "{{ NYCskylineObject.buildingImage }}";
+    var buildingDoc = "{{ NYCskylineObject.buildingDoc }}";
+    var buildingURL = "{{ NYCskylineObject.buildingURL }}";
 
     $( document ).ready(function() {
         window.setTimeout(function() {

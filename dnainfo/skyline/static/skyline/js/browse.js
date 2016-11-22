@@ -125,6 +125,21 @@ osmApplication.initialize = function() {
 
     });
 
+        // osm building click
+    osmApplication.osmb.on('touchstart', function(e) {
+        console.log(e);
+        if (e.x) {
+            var xcoor = e.x;
+            var ycoor = e.y;
+        } else {
+            var xcoor = e.clientX;
+            var ycoor = e.clientY;
+        }
+
+        osmApplication.onClick(xcoor, ycoor);
+
+    });
+
 
     // close sponsored tooltip if the map changes
     osmApplication.osmb.on('change', function(e) {
@@ -658,8 +673,76 @@ osmApplication.onClick = function (xcoor, ycoor) {
                 $('#tooltipDNA').css('left', x);
                 $('#tooltipDNA').css('top', y);
 
+            } else if (splitId[0] == 'ugcApproved') {
+                // clear out previous data
+                $('#property-projectName-dna').text('');
+                $('#property-image-dna').html('');
+                $('#property-description-dna').html('');
+                $('#property-address-dna').html('');
+                $('#property-stories-dna').html('');
+                $('#property-story1-dna').html('');
+                $('#property-pdf-dna').html('');
+                // look up properties
+                var properties = osmApplication.ugcApprovedGeojsons[id].features[0].properties;
+                console.log(properties);
+                // projectName
+                if (typeof properties.projectName !== 'undefined' && properties.projectName) {
+                    $('#property-projectName-dna').text(properties.projectName);
+                } else if (typeof properties.address !== 'undefined' && properties.address) {
+                    $('#property-projectName-dna').text(properties.address);
+                }
+                // image
+                if (typeof properties.buildingImage !== 'undefined' && properties.buildingImage != 'visualizations/media/') {
+                    $('#property-image-dna').html('<img class="property-image" src="/' + properties.buildingImage + '" />');
+                }
+                // address
+                if (typeof properties.address !== 'undefined' && properties.address) {
+                    $('#property-address-dna').html(properties.address + '<br />');
+                }
+                // stories
+                if (typeof properties.buildingStories !== 'undefined' && properties.buildingStories) {
+                    if (properties.buildingStories == '1') {
+                        var suffix = ' story tall';
+                    } else {
+                        var suffix = ' stories tall';
+                    }
+                    $('#property-stories-dna').html(properties.buildingStories + suffix + '<br />');
+                }
+                // URL
+                if (typeof properties.buildingURL !== 'undefined' && properties.buildingURL) {
+                    $('#property-story1-dna').html('<a href="' + properties.buildingURL + '" target="_blank">Read More</a><br />');
+                }
+                // documents
+                if (typeof properties.buildingDoc !== 'undefined' && properties.buildingDoc) {
+                    $('#property-pdf-dna').html('<a href="/' + properties.buildingDoc + '" target="_blank">See Documents</a><br />');
+                }
+
+                // update share buttons
+                osmApplication.updateSocialLinks(osmApplication.latLonClicked.latitude.toFixed(12), osmApplication.latLonClicked.longitude.toFixed(12), osmApplication.osmb.zoom.toFixed(1), osmApplication.osmb.tilt.toFixed(1), osmApplication.osmb.rotation.toFixed(1), 'true');
+
+                $('#tooltipDNA').removeClass('hidden');
+                var height = $('#tooltipDNA').height();
+                var x = parseInt(xcoor) - 150;
+                var y = parseInt(ycoor) - (height+50);
+
+                // keep the tooltip on the screen
+                if (x < 10) {
+                    x = 10;
+                } else if (x > (osmApplication.widthFrame - 310)) {
+                    x = osmApplication.widthFrame - 310;
+                }
+
+                if (y < 10) {
+                    y = 10;
+                }
+
+                // show div with data populated at that screen location
+                $('#tooltipDNA').css('left', x);
+                $('#tooltipDNA').css('top', y);
+
 
             } else {
+
                 if (!$('#tooltipPermitted').hasClass('hidden')) {
                     $('#tooltipPermitted').addClass('hidden');
                 }
@@ -728,9 +811,36 @@ osmApplication.getPermittedGeojsons = function() {
                     }
                 }
             }
-            // get reporter submitted buildings
-            osmApplication.getDNAGeojsons();
+            // get UGC submitted buildings
+            osmApplication.getUGCApprovedGeojsons();
 
+        }
+    });
+}
+
+osmApplication.getUGCApprovedGeojsons = function() {
+    $.ajax({
+        type: "GET",
+        url: "/skyline/nyc/getUGCApprovedGeojsons/",
+        success: function(data) {
+            // load the draw tools
+            if (data) {
+                osmApplication.ugcApprovedGeojsons = {};
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i]) {
+                        var geojson = JSON.parse(data[i]);
+                        // change color of building
+                        console.log(geojson);
+                        geojson.features[0].properties.color = '#0073a2'
+                        geojson.features[0].properties.roofColor = '#0073a2'
+                        var idNum = "ugcApproved_" + i;
+                        osmApplication.ugcApprovedGeojsons[idNum] = geojson;
+                        osmApplication.osmb.addGeoJSON(geojson, { id: idNum });
+                    }
+                }
+            }
+            // get reporter submitted buildings
+            osmApplication.getDNAGeojsons();   
         }
     });
 }

@@ -17,7 +17,7 @@ YES_NO = (
 class NYCwhatNeighborhoodForm(forms.ModelForm):
     class Meta:
         model = NYCskyline
-        fields = ('whereBuilding', 'iDontSeeMyNeighborhood',)
+        fields = ('whereBuilding',)
         widgets = {
             'whereBuilding': Select2Widget,
         }

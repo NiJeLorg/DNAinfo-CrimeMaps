@@ -1,6 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+#validator
+from django.core.validators import MinValueValidator, MaxValueValidator
+
 # Create your models here.
 # model for NYC neighborhood look up table
 class neighborhoodNYC(models.Model):
@@ -15,11 +18,10 @@ class NYCskyline(models.Model):
 	created = models.DateTimeField(auto_now_add=True)
 	updated = models.DateTimeField(auto_now=True)
 	whereBuilding = models.ForeignKey(neighborhoodNYC, blank=True, null=True)
-	iDontSeeMyNeighborhood = models.BooleanField(default=False)
 	buildingFootprint = models.TextField(default='')
 	buildingAddress = models.CharField(max_length=255, default='', blank=False, null=False)
 	buildingBBL = models.CharField(max_length=255, default='', blank=False, null=False)
-	buildingStories = models.IntegerField(default=0, blank=False, null=False)
+	buildingStories = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(150)], default=1, blank=False, null=False)
 	projectName = models.CharField(max_length=255, default='', blank=True, null=True)
 	imageDocOrURL = models.NullBooleanField(default=None)
 	buildingImage = models.ImageField(upload_to="img/%Y_%m_%d_%h_%M_%s", null=True, blank=True)
@@ -45,7 +47,7 @@ class NYCSponsoredBuildings(models.Model):
 	buildingName = models.CharField(max_length=255, default='', blank=False, null=False)
 	buildingAddress = models.CharField(max_length=255, default='', blank=False, null=False)
 	buildingText = models.CharField(max_length=255, default='', blank=False, null=False)
-	buildingStories = models.IntegerField(default=0, blank=False, null=False)
+	buildingStories = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(150)], default=1, blank=False, null=False)
 	buildingImage = models.ImageField(upload_to="img/%Y_%m_%d_%h_%M_%s", null=False, blank=False)
 	archived = models.BooleanField(default=False)
 
@@ -63,7 +65,7 @@ class NYCReporterBuildings(models.Model):
 	buildingFootprint = models.TextField(default='')
 	buildingAddress = models.CharField(max_length=255, default='', blank=False, null=False)
 	buildingBBL = models.CharField(max_length=255, default='', blank=False, null=False)
-	buildingStories = models.IntegerField(default=0, blank=False, null=False)
+	buildingStories = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(150)], default=1, blank=False, null=False)
 	approved = models.NullBooleanField(default=None)
 	description = models.CharField(max_length=200, default='', blank=True, null=True)
 	zoning_pdfs = models.URLField(max_length=1000, default='', blank=True, null=True)
@@ -101,7 +103,7 @@ class NYC_DOB_Permit_Issuance(models.Model):
 	job_start_date = models.DateField(blank=True, null=True)
 	buildingBBL = models.CharField(max_length=255, default='', blank=False, null=False)
 	buildingFootprint = models.TextField(default='')
-	buildingStories = models.IntegerField(default=0, blank=False, null=False)
+	buildingStories = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(150)], default=1, blank=False, null=False)
 	scan_code = models.CharField(max_length=255, default='', blank=False, null=False)
 	scan_code_updated = models.BooleanField(default=False)
 	zoning_pdfs = models.FileField(upload_to='zoning_pdfs/', blank=True, null=True)

@@ -19,7 +19,6 @@ ajaxApplication.nextNeighborhood = function () {
 				$('#id_whereBuilding').addClass("form-control");
 				var selected = $('#id_whereBuilding option:selected').val();
 				$('#id_whereBuilding option[value=""]').remove();
-				$('#id_iDontSeeMyNeighborhood').addClass("hidden");
 				$(".fadein").fadeIn("slow");
 				// scroll to top
 				$('#content').scrollTop(0);
@@ -28,7 +27,6 @@ ajaxApplication.nextNeighborhood = function () {
 				if (!selected) {
 					$('.select2-selection__placeholder').text("Neighborhood");						
 				}
-
 	        }
 		});
 	}
@@ -49,6 +47,8 @@ ajaxApplication.nextHeight = function () {
 				success: function(data){
 					$('#content').html(data);
 					$('#id_buildingStories').val(1);
+					$('#id_buildingStories').prop('min', 1);
+					$('#id_buildingStories').prop('max', 150);
 					$('#div_id_buildingImage').addClass('hidden');
 					$('#div_id_buildingDoc').addClass('hidden');
 					$('#div_id_buildingURL').addClass('hidden');
@@ -135,7 +135,6 @@ ajaxApplication.backIntro = function () {
 			type: "GET",
 			url: "/skyline/nyc/",
 			success: function(data){
-				mapApplication.destroy();
 				$('#content').html(data);
 				$(".fadein").fadeIn("slow");
 				// scroll to top
@@ -152,7 +151,6 @@ ajaxApplication.backNeighborhood = function (id) {
 			type: "GET",
 			url: "/skyline/nyc/whatNeighborhood/"+id+"/",
 			success: function(data){
-				mapApplication.destroy();
 				$('#content').html(data);
 				// remove labels
 				$('label').remove();
@@ -183,6 +181,8 @@ ajaxApplication.backHeight = function (id) {
 			success: function(data){
 				mapApplication.destroy();
 				$('#content').html(data);
+				$('#id_buildingStories').prop('min', 1);
+				$('#id_buildingStories').prop('max', 150);
 				$(".fadein").fadeIn("slow");
 				// scroll to top
 				$('#content').scrollTop(0);
