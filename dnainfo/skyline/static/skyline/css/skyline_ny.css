@@ -51,6 +51,7 @@ a:focus {
 
 .facebook {
     background: #3D5A96;
+    margin-left: 0;
 }
 
 .twitter {
@@ -272,6 +273,10 @@ a:focus {
 .building-component-info-content {
     display: flex;
     font-family: 'Georgia', serif;
+}
+
+.building-component-info-content main {
+    margin-right: 10px;
 }
 
 main .building-address {
