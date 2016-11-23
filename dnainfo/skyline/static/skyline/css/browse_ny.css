@@ -12,6 +12,10 @@
     width: 397px;
 }
 
+.select-parent-holder .select2 {
+    width: 100% !important;
+}
+
 .select-parent .chevron-button-holder {
     z-index: 4;
     margin-left: -45px;
@@ -154,11 +158,12 @@ footer .add-a-building-button {
     color: #4a4a4a;
 }
 
-@media (max-width: 1024px) {}
-
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     .select-parent {
         top: 146px;
+        left: 50%;
+        right: 0px;
+        margin-left: -200px;
     }
 }
 
@@ -184,6 +189,7 @@ footer .add-a-building-button {
         top: 71px;
         left: 15px;
         right: 0;
+        margin-left: 0;
     }
     .select-parent .row {
         margin-left: 0;
@@ -197,5 +203,11 @@ footer .add-a-building-button {
     }
     footer .add-a-building-button {
         display: none;
+    }
+}
+
+@media (max-width: 375px) {
+    .select-parent .select-parent-holder {
+        width: 92%;
     }
 }
