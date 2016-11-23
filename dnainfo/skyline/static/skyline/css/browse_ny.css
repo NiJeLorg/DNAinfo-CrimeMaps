@@ -3,19 +3,18 @@
     align-items: center;
     position: absolute;
     z-index: 5;
-    top: 5%;
-    right: 133px;
+    top: 81px;
+    right: 180px;
 }
 
 .select-parent .select-parent-holder {
+    display: flex;
     width: 397px;
 }
 
 .select-parent .chevron-button-holder {
-    // z-index: 4;
-    // margin-left: 15px;
-    // position: relative;
-    // right: 45px;
+    z-index: 4;
+    margin-left: -45px;
 }
 
 .select-parent .chevron-button {
@@ -39,9 +38,11 @@
     position: absolute;
     z-index: 3;
     display: flex;
+    height: 45px;
     justify-content: center;
+    align-items: center;
     width: 100%;
-    top: 6%;
+    top: 81px;
     color: #fff;
 }
 
@@ -57,10 +58,10 @@
 .browseNav {
     display: flex;
     justify-content: flex-end;
+    width: 100%;
     align-items: center;
-    width: 98%;
     position: absolute;
-    top: 5%;
+    top: 81px;
     z-index: 3;
 }
 
@@ -68,6 +69,7 @@
     display: inline-flex;
     width: 100%;
     justify-content: flex-end;
+    margin-right: 40px;
 }
 
 .link-holder {
@@ -125,13 +127,20 @@ footer {
 }
 
 footer .add-a-building-button {
-    background: #1074A0;
-    color: #fff;
-    outline: none;
+    padding: 15px 20px;
     border: none;
+    color: #fff;
+    background: #1074A0;
+    outline: none;
     border-radius: 2px;
-    padding: 10px;
+    box-sizing: border-box;
     height: 45px;
+}
+
+.add-a-building-button a {
+    color: white;
+    text-decoration: none;
+    line-height: auto;
 }
 
 .btn:hover,
@@ -145,23 +154,17 @@ footer .add-a-building-button {
     color: #4a4a4a;
 }
 
-@media (max-width: 1024px) {
-    .select-parent {
-        right: 17%;
-    }
-}
+@media (max-width: 1024px) {}
 
 @media (max-width: 768px) {
     .select-parent {
-        top: 13%;
-        width: 40%;
-        right: 29%;
+        top: 146px;
     }
 }
 
 @media (max-width: 425px) {
     .browseNav {
-        top: 116px;
+        top: 126px;
     }
     .browseNav .social-media-links {
         display: block;
@@ -178,12 +181,12 @@ footer .add-a-building-button {
     }
     .select-parent {
         width: 100%;
+        top: 71px;
         left: 15px;
-        top: 60px;
         right: 0;
     }
     .select-parent .row {
-      margin-left: 0;
+        margin-left: 0;
     }
     .select-parent .select2 {
         width: 100%;

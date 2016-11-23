@@ -5,10 +5,10 @@
 <link rel="stylesheet" type="text/css" href="{% static 'skyline/css/select2.min.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'skyline/css/browse_ny.css'%}"> {% endblock %} {% block body_block %}
 <div class="select-parent">
-    <div class="select-parent-holder">
+    <div>
         <form id="whatNeighborhoodForm" method="post" action=".">
             {% csrf_token %}
-            <div class="row">
+            <div class="select-parent-holder">
                 <div style="box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.5)">
                     <div class="formField">
                         <div class="input-group">
@@ -20,20 +20,20 @@
                         {{ form.errors }}
                     </div>
                 </div>
+                <div class="chevron-button-holder">
+                    <button class="chevron-button chevron-button-top">
+                        <i class="fa fa-chevron-down" aria-hidden='true'></i>
+                    </button>
+                </div>
             </div>
         </form>
-    </div>
-    <div class="chevron-button-holder">
-        <button class="chevron-button chevron-button-top">
-            <i class="fa fa-chevron-down" aria-hidden='true'></i>
-        </button>
     </div>
 </div>
 <div class="browseNavTitle">
     <h3 id="neighborhoodName">
     </h3>
 </div>
-<!-- <div class="browseNav">
+<div class="browseNav">
     <div class="social-media-links">
         <div class="link-holder facebook">
             <a href="#" class="showShareFB"><i class="fa fa-facebook-official fa-2x" aria-hidden="true"></i></a>
@@ -42,14 +42,16 @@
             <a href="#" class="showShareTwitter"> <i class="fa fa-twitter fa-2x" aria-hidden="true"></i></a>
         </div>
     </div>
-</div> -->
+</div>
 <footer>
     <div class="key-holder">
         <a href="{% url 'skyline_landingPage' %}">
             <img src="{%static 'skyline/assets/Key.svg' %}">
         </a>
     </div>
-     <a class="btn add-a-building-button" href="{% url 'skyline_whatNeighborhood' %}">Add a Building</a>
+    <button class="add-a-building-button">
+        <a href="{% url 'skyline_whatNeighborhood' %}">Add a Building</a>
+    </button>
 </footer>
 <div id="content">
     <!-- Map -->

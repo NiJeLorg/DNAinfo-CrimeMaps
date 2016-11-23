@@ -844,15 +844,15 @@ footer .select-parent .select2-container {
 }
 
 .control.tilt {
-  top: 0;
+  top: 71px;
 }
 
 .control.rotation {
-  top: 35px;
+  top: 106px;
 }
 
 .control.zoom {
-  top: 70px;
+  top: 141px;
 }
 
 .control.zoom button{
