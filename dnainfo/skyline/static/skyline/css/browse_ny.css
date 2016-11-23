@@ -1,19 +1,21 @@
 .select-parent {
-    width: 21%;
     display: flex;
-    flex-direction: row;
     align-items: center;
     position: absolute;
     z-index: 5;
     top: 5%;
-    right: 10%;
+    right: 133px;
+}
+
+.select-parent .select-parent-holder {
+    width: 397px;
 }
 
 .select-parent .chevron-button-holder {
-    z-index: 4;
-    margin-left: 15px;
-    position: relative;
-    right: 45px;
+    // z-index: 4;
+    // margin-left: 15px;
+    // position: relative;
+    // right: 45px;
 }
 
 .select-parent .chevron-button {
@@ -25,20 +27,12 @@
     width: 45px;
     height: 45px;
     text-align: center;
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
 }
 
 .select-parent .select-parent-holder form .row .select2-container {
     width: 100%;
-}
-
-.gradientDiv {
-    width: 100vw;
-    height: 100vh;
-    z-index: 3;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.33), rgba(215, 215, 215, 0.0));
-    position: absolute;
-    opacity: .4;
-    pointer-events: none;
 }
 
 .browseNavTitle {
@@ -55,6 +49,8 @@
     color: #fff;
     font-weight: bold;
     color: white;
+    font-weight: 600;
+    font-size: 34px;
     margin: 0;
 }
 
@@ -75,17 +71,14 @@
 }
 
 .link-holder {
+    text-align: center;
     height: 45px;
     width: 45px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     border-radius: 2px;
-    margin-left: 1%;
-}
-
-.link-holder {
-    text-align: center;
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.5);
 }
 
 .link-holder a i {
@@ -94,6 +87,7 @@
 
 .facebook {
     background: #3D5A96;
+    margin-right: 20px;
 }
 
 .twitter {
@@ -111,8 +105,8 @@ footer {
 }
 
 .key-holder {
-    width: 40px;
-    height: 40px;
+    width: 45px;
+    height: 45px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -137,10 +131,12 @@ footer .add-a-building-button {
     border: none;
     border-radius: 2px;
     padding: 10px;
-    height: 40px;
+    height: 45px;
 }
 
-.btn:hover, .btn:focus, .btn.focus {
+.btn:hover,
+.btn:focus,
+.btn.focus {
     color: #fff;
     text-decoration: none;
 }
@@ -165,14 +161,14 @@ footer .add-a-building-button {
 
 @media (max-width: 425px) {
     .browseNav {
-        top: 18%;
+        top: 116px;
     }
     .browseNav .social-media-links {
         display: block;
+        margin-left: 15px;
     }
-    .browseNav .link-holder {
-        margin-bottom: 3%;
-        margin-left: 3%;
+    .social-media-links .facebook {
+        margin-bottom: 10px;
     }
     .browseNavTitle {
         display: none;
@@ -181,9 +177,13 @@ footer .add-a-building-button {
         display: none;
     }
     .select-parent {
-        width: 90%;
-        left: 6%;
-        top: 8%;
+        width: 100%;
+        left: 15px;
+        top: 60px;
+        right: 0;
+    }
+    .select-parent .row {
+      margin-left: 0;
     }
     .select-parent .select2 {
         width: 100%;
@@ -192,5 +192,7 @@ footer .add-a-building-button {
         bottom: 6%;
         left: 3%;
     }
-    footer .key-holder {}
+    footer .add-a-building-button {
+        display: none;
+    }
 }

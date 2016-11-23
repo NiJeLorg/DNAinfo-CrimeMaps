@@ -9,7 +9,7 @@
         <form id="whatNeighborhoodForm" method="post" action=".">
             {% csrf_token %}
             <div class="row">
-                <div>
+                <div style="box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.5)">
                     <div class="formField">
                         <div class="input-group">
                             <div class="input-group-addon left"><span class="locationIcon"></span></div>
@@ -29,13 +29,11 @@
         </button>
     </div>
 </div>
-<div class="gradientDiv">
-</div>
 <div class="browseNavTitle">
     <h3 id="neighborhoodName">
     </h3>
 </div>
-<div class="browseNav">
+<!-- <div class="browseNav">
     <div class="social-media-links">
         <div class="link-holder facebook">
             <a href="#" class="showShareFB"><i class="fa fa-facebook-official fa-2x" aria-hidden="true"></i></a>
@@ -44,14 +42,14 @@
             <a href="#" class="showShareTwitter"> <i class="fa fa-twitter fa-2x" aria-hidden="true"></i></a>
         </div>
     </div>
-</div>
+</div> -->
 <footer>
     <div class="key-holder">
         <a href="{% url 'skyline_landingPage' %}">
             <img src="{%static 'skyline/assets/Key.svg' %}">
         </a>
     </div>
-    <a class="btn add-a-building-button" href="{% url 'skyline_whatNeighborhood' %}">Add a Building</a>
+     <a class="btn add-a-building-button" href="{% url 'skyline_whatNeighborhood' %}">Add a Building</a>
 </footer>
 <div id="content">
     <!-- Map -->
