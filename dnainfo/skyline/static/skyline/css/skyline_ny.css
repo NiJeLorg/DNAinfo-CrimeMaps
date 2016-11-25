@@ -116,7 +116,7 @@ a:focus {
 
 .select-parent-holder {
     width: 397px;
-    margin-left: 45px;
+    /*margin-left: 45px;*/
 }
 
 .select-parent form .form-group {

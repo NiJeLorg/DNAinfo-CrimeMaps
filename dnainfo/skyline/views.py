@@ -1078,6 +1078,7 @@ def skyline_landingPage(request, id=None):
 	else:
 		# If the request was not a POST, display the form to enter details.
 		form = NYClandingPageForm()
+		form1 = NYClandingPageForm()
 
 		url = "https://hzdl3dry-data-viz-future-map.build.qa.dnainfo.com/new-york/visualizations/skyline"
 		# connect to Bitly API
@@ -1086,7 +1087,7 @@ def skyline_landingPage(request, id=None):
 
 	# Bad form (or form details), no form supplied...
 	# Render the form with error messages (if any).
-	return render(request, 'skyline/index.html', {'form':form, 'bitlyURL':bitlyURL})
+	return render(request, 'skyline/index.html', {'form':form, 'form1':form1, 'bitlyURL':bitlyURL})
 
 def skyline_browse(request, id=None):
 	# check for xcoor and y coor to be passed

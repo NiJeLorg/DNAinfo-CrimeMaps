@@ -3,7 +3,7 @@
     align-items: center;
     position: absolute;
     z-index: 5;
-    top: 81px;
+    top: 15px;
     right: 180px;
 }
 
@@ -38,6 +38,16 @@
     width: 100%;
 }
 
+/**** Select 2 override ****/
+.select2-container .select2-selection__rendered {
+  background: #ffffff !important;
+}
+.input-group-addon { 
+  background-color: #ffffff !important;
+}
+
+
+
 .browseNavTitle {
     position: absolute;
     z-index: 3;
@@ -46,7 +56,7 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    top: 81px;
+    top: 15px;
     color: #fff;
 }
 
@@ -65,7 +75,7 @@
     width: 100%;
     align-items: center;
     position: absolute;
-    top: 81px;
+    top: 15px;
     z-index: 3;
 }
 
@@ -160,7 +170,7 @@ footer .add-a-building-button {
 
 @media (max-width: 1024px) {
     .select-parent {
-        top: 146px;
+        top: 75px;
         left: 50%;
         right: 0px;
         margin-left: -200px;
@@ -169,7 +179,7 @@ footer .add-a-building-button {
 
 @media (max-width: 425px) {
     .browseNav {
-        top: 126px;
+        top: 65px;
     }
     .browseNav .social-media-links {
         display: block;
@@ -186,7 +196,7 @@ footer .add-a-building-button {
     }
     .select-parent {
         width: 100%;
-        top: 71px;
+        top: 10px;
         left: 15px;
         right: 0;
         margin-left: 0;

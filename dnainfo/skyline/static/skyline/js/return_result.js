@@ -15,7 +15,7 @@ osmApplication.createDjangoSelect2 = function() {
     // initialize select 2
     var $select2obj = $('.django-select2').djangoSelect2();
     // update placeholder text
-    $('.select2-selection__placeholder').text("Select a Neighborhood");
+    $('.select2-selection__placeholder').text(neighborhoodName);
 
     // for iOS, force blur to close keyboard if clicking away from the input field
     $(document).on('click', '#select2-drop', function(e) {

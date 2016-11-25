@@ -182,13 +182,7 @@ html, body, #content, #map, #osmmap {
 
 #methodology .modal-header {
   display: flex;
-  justify-content: flex-end;
-}
-
-.modal-header .close {
-  margin-top: -2px;
-  width: 25px;
-  height: 25px;
+  padding-bottom: 0px;
 }
 
 
@@ -844,15 +838,15 @@ footer .select-parent .select2-container {
 }
 
 .control.tilt {
-  top: 71px;
+  top: 0px;
 }
 
 .control.rotation {
-  top: 106px;
+  top: 39px;
 }
 
 .control.zoom {
-  top: 141px;
+  top: 78px;
 }
 
 .control.zoom button{
