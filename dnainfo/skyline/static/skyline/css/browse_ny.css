@@ -18,7 +18,7 @@
 
 .select-parent .chevron-button-holder {
     z-index: 4;
-    margin-left: -45px;
+    margin-left: -30px;
 }
 
 .select-parent .chevron-button {
@@ -141,7 +141,7 @@ footer {
 }
 
 footer .add-a-building-button {
-    padding: 15px 20px;
+    padding: 13px 20px;
     border: none;
     color: #fff;
     background: #1074A0;
@@ -195,7 +195,7 @@ footer .add-a-building-button {
         display: none;
     }
     .select-parent {
-        width: 100%;
+        width: 95%;
         top: 10px;
         left: 15px;
         right: 0;
