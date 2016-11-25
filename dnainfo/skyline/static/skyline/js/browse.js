@@ -15,7 +15,7 @@ osmApplication.createDjangoSelect2 = function() {
     // initialize select 2
     var $select2obj = $('.django-select2').djangoSelect2();
     // update placeholder text
-    $('.select2-selection__placeholder').text("Select a Neighborhood");
+    $('.select2-selection__placeholder').text(neighborhoodName);
 
     // for iOS, force blur to close keyboard if clicking away from the input field
     $(document).on('click', '#select2-drop', function(e) {
@@ -830,7 +830,6 @@ osmApplication.getUGCApprovedGeojsons = function() {
                     if (data[i]) {
                         var geojson = JSON.parse(data[i]);
                         // change color of building
-                        console.log(geojson);
                         geojson.features[0].properties.color = '#0073a2'
                         geojson.features[0].properties.roofColor = '#0073a2'
                         var idNum = "ugcApproved_" + i;

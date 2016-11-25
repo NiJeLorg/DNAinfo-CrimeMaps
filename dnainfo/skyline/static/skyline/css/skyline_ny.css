@@ -116,7 +116,7 @@ a:focus {
 
 .select-parent-holder {
     width: 397px;
-    margin-left: 45px;
+    /*margin-left: 45px;*/
 }
 
 .select-parent form .form-group {
@@ -185,6 +185,7 @@ a:focus {
 }
 
 .building-component-image {
+    position: relative;
     width: 50%;
     display: flex;
     flex-direction: column;
@@ -208,17 +209,21 @@ a:focus {
 }
 
 .approved-info-icon {
-    bottom: 77%;
+    position: absolute;
+    right: 44%;
+    bottom: 75%;
 }
 
 .proposed-info-icon {
-    bottom: 68%;
-    left: 5%;
+    position: absolute;
+    bottom: 64%;
+    left: 50%;
 }
 
 .sponsored-info-icon {
-    bottom: 71%;
-    right: 7%;
+    position: absolute;
+    bottom: 68%;
+    right: 51%;
 }
 
 .modal-content .modal-header {
