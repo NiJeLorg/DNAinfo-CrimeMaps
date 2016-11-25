@@ -14,8 +14,11 @@ $(document).ready(function() {
     $('#id_whereBuilding').addClass("form-control");
     // don't allow a blank option
     $('#id_whereBuilding option[value=""]').remove();
-    // initialize select 2
-    $('.django-select2').djangoSelect2();
+
+    // initializa select 2 objects
+    var $select2objTop = $('#headerSelect2 .django-select2').djangoSelect2();
+    var $select2objBottom = $('#footerSelect2 .django-select2').djangoSelect2();
+
     // update placeholder text
     setTimeout(function() {
         $('.select2-selection__placeholder').text("Select a Neighborhood");
@@ -77,27 +80,29 @@ $(document).ready(function() {
         sponsoredModalOpen = false;
     });
 
-    var $select2obj;
-    var dropDownOpen = false;
+    var dropDownOpenTop = false;
+    var dropDownOpenBottom = false;
 
     $('.chevron-button-top').click(function() {
-        $select2obj = $('header .django-select2').djangoSelect2();
+        if (!dropDownOpenTop) {
+            $select2objTop.select2("open");
+            dropDownOpenTop = true;
+        } else {
+            $select2objTop.select2("close");
+            dropDownOpenTop = false;
+        }        
     });
 
     $('.chevron-button-bottom').click(function() {
-        $select2obj = $('footer .django-select2').djangoSelect2();
-    });
-
-
-    $('.chevron-button').click(function() {
-        if (!dropDownOpen) {
-            $select2obj.select2("open");
-            dropDownOpen = true;
+        if (!dropDownOpenBottom) {
+            $select2objBottom.select2("open");
+            dropDownOpenBottom = true;
         } else {
-            $select2obj.select2("close");
-            dropDownOpen = false;
-        }
+            $select2objBottom.select2("close");
+            dropDownOpenBottom = false;
+        } 
     });
+
 
     // submit the form on change
     $(document).on('change', '#id_whereBuilding', function(e) {

@@ -182,13 +182,7 @@ html, body, #content, #map, #osmmap {
 
 #methodology .modal-header {
   display: flex;
-  justify-content: flex-end;
-}
-
-.modal-header .close {
-  margin-top: -2px;
-  width: 25px;
-  height: 25px;
+  padding-bottom: 0px;
 }
 
 
@@ -844,15 +838,15 @@ footer .select-parent .select2-container {
 }
 
 .control.tilt {
-  top: 0;
+  top: 0px;
 }
 
 .control.rotation {
-  top: 35px;
+  top: 39px;
 }
 
 .control.zoom {
-  top: 70px;
+  top: 78px;
 }
 
 .control.zoom button{
@@ -937,15 +931,8 @@ footer .select-parent .select2-container {
   width: 35%;
 }
 
-.tooltip footer .social-media-links .link-holder {
-  margin-left: 0;
-  margin-right: 5%;
-}
-
-
-
-.tooltip.sponsored-tooltip {
-  border: 1px solid #ffcf2d;
+.tooltip footer .social-media-links .facebook {
+  margin-right: 10px;
 }
 
 .tooltip .sponsored {
@@ -955,10 +942,6 @@ footer .select-parent .select2-container {
   margin: -15px -15px 0px -15px;
   font-size: 14px;
   font-weight: bold;
-}
-
-.tooltip.permitted-tooltip {
-  border: 1px solid #00cdbe;
 }
 
 .tooltip .permitted {
@@ -977,10 +960,6 @@ footer .select-parent .select2-container {
   margin: -15px -15px 0px -15px;
   font-size: 14px;
   font-weight: bold;
-}
-
-.tooltip.dna-tooltip {
-  border: 1px solid #0073a2;
 }
 
 .tooltip .dna {

@@ -5,7 +5,7 @@
 <link rel="stylesheet" type="text/css" href="{% static 'skyline/css/all-bootstrapped.min.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'skyline/css/skyline_ny.css'%}"> {% endblock %} {% block head_js_block %}
 <script type="text/javascript">
-    var bitlyURL = "{{ bitlyURL.url }}";
+var bitlyURL = "{{ bitlyURL.url }}";
 </script>
 <script type="text/javascript" src="{% static 'skyline/js/landing-page.js' %}"></script>
 <script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js'></script>
@@ -35,7 +35,9 @@
                             <div class="form-group formField">
                                 <div class="input-group">
                                     <div class="input-group-addon left"><span class="locationIcon"></span></div>
-                                    {{ form }}
+                                    <div id="headerSelect2">
+                                        {{ form }}
+                                    </div>
                                     <div class="input-group-addon"></div>
                                 </div>
                                 <p class="text-danger hidden">Please pick a neighborhood above to continue.</p>
@@ -145,7 +147,9 @@
                 </div>
                 <div class="building-component-image proposed-building-component-image">
                     <img src="{%static 'skyline/assets/Buildings_Proposed.svg' %}" class="building-component-svg">
-                    <img src="{%static 'skyline/assets/Info-Icon.svg' %}" class="info-icon proposed-info-icon wow bounceInLeft" id="openProposedModal" data-wow-duration="1s" style="cursor: pointer">
+                    <button class="info-icon proposed-info-icon" id="openProposedModal">
+                        <img src="{%static 'skyline/assets/Info-Icon.svg' %}" class="wow bounceInLeft" data-wow-duration="1s" style="cursor: pointer">
+                    </button>
                 </div>
             </div>
             <div class="building-component grey-bg">
@@ -156,7 +160,9 @@
                     </div>
                     <div class="building-component-image sponsored-building-component-image">
                         <img src="{%static 'skyline/assets/Buildings_Sponsored.svg' %}" class="building-component-svg">
-                        <img src="{%static 'skyline/assets/Info-Icon.svg' %}" class="info-icon sponsored-info-icon wow bounceInLeft" id="openSponsoredModal" data-wow-duration="1s" style="cursor: pointer;">
+                        <button class="info-icon sponsored-info-icon" id="openSponsoredModal">
+                            <img src="{%static 'skyline/assets/Info-Icon.svg' %}" class="wow bounceInLeft" data-wow-duration="1s" style="cursor: pointer;">
+                        </button>
                     </div>
                     <div class="building-component-modal" id="sponsoredModal">
                         <h5 class="building-modal-header proposed-sponsored-header">Sponsored</h5>
@@ -217,16 +223,16 @@
                     <form id="whatNeighborhoodForm" method="post" action=".">
                         {% csrf_token %}
                         <div class="row">
-                            <div>
-                                <div class="form-group formField">
-                                    <div class="input-group">
-                                        <div class="input-group-addon left"><span class="locationIcon"></span></div>
+                            <div class="form-group formField">
+                                <div class="input-group">
+                                    <div class="input-group-addon left"><span class="locationIcon"></span></div>
+                                    <div id="footerSelect2">
                                         {{ form }}
-                                        <div class="input-group-addon"></div>
                                     </div>
-                                    <p class="text-danger hidden">Please pick a neighborhood above to continue.</p>
-                                    {{ form.errors }}
+                                    <div class="input-group-addon"></div>
                                 </div>
+                                <p class="text-danger hidden">Please pick a neighborhood above to continue.</p>
+                                {{ form.errors }}
                             </div>
                         </div>
                     </form>
@@ -250,7 +256,8 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times-circle-o fa-lg" aria-hidden="true"></i></button>
+                <h4><strong>Methods</strong></h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times fa-2x" aria-hidden="true"></i></button>
             </div>
             <div class="modal-body modalContent">
                 <p>
