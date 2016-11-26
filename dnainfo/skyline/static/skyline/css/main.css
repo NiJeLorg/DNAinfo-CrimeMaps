@@ -185,6 +185,9 @@ html, body, #content, #map, #osmmap {
   padding-bottom: 0px;
 }
 
+.close {
+    font-weight: normal;
+}
 
 /* Buttons */
 .bottomButtonGroup {
