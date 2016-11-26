@@ -11,7 +11,7 @@ var bitlyURL = "{{ bitlyURL.url }}";
 <script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js'></script>
 {% endblock %} {% block body_block %}
 <div class="fadein">
-    <header style="margin-top: 2%">
+    <header>
         <div class="social-media-links">
             <div class="link-holder facebook">
                 <a href="#" id="showShareFB"><i class="fa fa-facebook-official fa-2x" aria-hidden="true"></i></a>
@@ -72,8 +72,8 @@ var bitlyURL = "{{ bitlyURL.url }}";
                     <h5 class="building-modal-header approved-header">Approved</h5>
                     <div class="building-modal-info">
                         <div class="building-modal-info-header">
-                            <h4>Library at Hunter's point</h4>
-                            <i class="fa fa-times fa-2x closeModal" id="closeApprovedModal"></i>
+                            <h4>Library at Hunter's Point</h4>
+                            <span class="glyphicon glyphicon-remove-circle close" id="closeApprovedModal" aria-hidden="true"></span>
                         </div>
                         <div class="building-component-info-content">
                             <main>
@@ -115,8 +115,8 @@ var bitlyURL = "{{ bitlyURL.url }}";
                     <h5 class="building-modal-header proposed-header">Proposed</h5>
                     <div class="building-modal-info">
                         <div class="building-modal-info-header">
-                            <h4>Library at Hunter's point</h4>
-                            <i class="fa fa-times fa-2x" id="closeProposedModal"></i>
+                            <h4>Library at Hunter's Point</h4>
+                            <span class="glyphicon glyphicon-remove-circle close" id="closeProposedModal" aria-hidden="true"></span>
                         </div>
                         <div class="building-component-info-content">
                             <main>
@@ -169,7 +169,7 @@ var bitlyURL = "{{ bitlyURL.url }}";
                         <div class="building-modal-info">
                             <div class="building-modal-info-header">
                                 <h4>Austin Nichols House</h4>
-                                <i class="fa fa-times fa-2x" id="closeSponsoredModal"></i>
+                                <span class="glyphicon glyphicon-remove-circle close" id="closeSponsoredModal" aria-hidden="true"></span>
                             </div>
                             <div class="building-component-info-content">
                                 <main>
@@ -257,7 +257,7 @@ var bitlyURL = "{{ bitlyURL.url }}";
         <div class="modal-content">
             <div class="modal-header">
                 <h4><strong>Methods</strong></h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times fa-2x" aria-hidden="true"></i></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></button>
             </div>
             <div class="modal-body modalContent">
                 <p>
