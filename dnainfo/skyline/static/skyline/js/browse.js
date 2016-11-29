@@ -37,7 +37,10 @@ osmApplication.createDjangoSelect2 = function() {
     // submit the form on change
     $(document).on('change', '#id_whereBuilding', function(e) {
         $(this).closest('form').submit();
-    });    
+    }); 
+
+    // close the soft keyboard in iOS if it's open
+    document.activeElement.blur();   
 
 }
 
