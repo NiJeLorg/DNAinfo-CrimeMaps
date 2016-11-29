@@ -111,10 +111,10 @@ $(document).ready(function() {
 
     // set up facebook and twitter buttons
     var app_id = '406014149589534';
-    var fbdescription = "Every new building affects the character of a neighborhood, so DNAinfo created this 3D map that helps you understand how high new buildings could be going up near you: "+ bitlyURL;
+    var fbdescription = "Every new building affects the character of a neighborhood, so DNAinfo created this 3-D map that helps you understand how high new buildings could be going up near you: "+ bitlyURL;
     var fblink = "https://visualizations.dnainfo.com/";
     var fbpicture = "https://visualizations.dnainfo.com/visualizations/static/skyline/css/images/FUTURE_SKYLINE_SOCIAL_SHARE.jpeg";
-    var fbname = "3D Neighbohood Skyline";
+    var fbname = "Going Up! How Tall Will New Buildings in My Neighborhood Be?";
     var fbcaption = "DNAinfo New York";
     var fbUrl = 'https://www.facebook.com/dialog/feed?app_id=' + app_id + '&display=popup&description='+ encodeURIComponent(fbdescription) + '&link=' + encodeURIComponent(bitlyURL) + '&redirect_uri=' + encodeURIComponent(fblink) + '&name=' + encodeURIComponent(fbname) + '&caption=' + encodeURIComponent(fbcaption) + '&picture=' + encodeURIComponent(fbpicture);
     var fbOnclick = 'window.open("' + fbUrl + '","facebook-share-dialog","width=626,height=436");return false;';
