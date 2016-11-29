@@ -177,7 +177,8 @@ html, body, #content, #map, #osmmap {
 }
 
 .modal-dialog {
-  margin: 20vh 25px;
+  margin-right: 15px;
+  margin-left: 15px;
 }
 
 #methodology .modal-header {
@@ -1187,7 +1188,8 @@ input[type="radio"]:checked + label span {
 
 
   .modal-dialog {
-    margin: 30vh auto;
+    margin-right: auto;
+    margin-left: auto;
   }
 
   .shareOn {
