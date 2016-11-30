@@ -4,6 +4,24 @@
 
 function osmApplication() {}
 
+osmApplication.blurListeners = function() {
+    // ensure iOS keyboard is closed
+    document.activeElement.blur();
+
+    // for iOS, force blur on every a tag click
+    $("a").click(function() {
+        // ensure iOS keyboard is closed
+        document.activeElement.blur(); 
+    });
+
+    // for iOS, force blur on every canvase tag click
+    $("canvas").click(function() {
+        // ensure iOS keyboard is closed
+        document.activeElement.blur(); 
+    });
+
+}
+
 osmApplication.createDjangoSelect2 = function() {
     // set up select 2
     // remove form labels
@@ -31,17 +49,17 @@ osmApplication.createDjangoSelect2 = function() {
         } else {
             $select2obj.select2("close");
             dropDownOpen = false;
+            // ensure iOS keyboard is closed
+            document.activeElement.blur(); 
         }
     });
 
     // submit the form on change
     $(document).on('change', '#id_whereBuilding', function(e) {
         $(this).closest('form').submit();
+        // close the keyboard tray
+        document.activeElement.blur(); 
     }); 
-
-    // close the soft keyboard in iOS if it's open
-    document.activeElement.blur();   
-   
 
 }
 
@@ -78,6 +96,9 @@ osmApplication.initialize = function() {
 
     for (var i = 0, il = osmApplication.controlButtons.length; i < il; i++) {
         osmApplication.controlButtons[i].addEventListener('click', function(e) {
+            // ensure iOS keyboard is closed
+            document.activeElement.blur(); 
+
             var button = this;
             var parentClassList = button.parentNode.classList;
             var direction = button.classList.contains('inc') ? 1 : -1;
@@ -125,6 +146,9 @@ osmApplication.initialize = function() {
 
         osmApplication.onClick(xcoor, ycoor);
 
+        // ensure iOS keyboard is closed
+        document.activeElement.blur(); 
+
     });
 
     // listen for touch events and doe the same thing as clicking
@@ -132,6 +156,8 @@ osmApplication.initialize = function() {
         var xcoor = e.touches[0].clientX;
         var ycoor = e.touches[0].clientY;
         osmApplication.onClick(xcoor, ycoor);
+        // ensure iOS keyboard is closed
+        document.activeElement.blur(); 
     });
 
 
@@ -154,6 +180,8 @@ osmApplication.initialize = function() {
     // create listener for closing tooltip
     $('.tooltip-close').click(function() {
         $('.tooltip').addClass('hidden');
+        // ensure iOS keyboard is closed
+        document.activeElement.blur(); 
     });
 
     // get sponsored content
@@ -631,6 +659,8 @@ osmApplication.getSubmittedGeojson = function() {
                     pos = osmApplication.osmb.project(lat, lon, 0)
                     //Object {x: 617.5, y: 231.62057088852146, z: 0.9995772461863411}
                     osmApplication.onClick(pos.x, pos.y);
+                    // ensure iOS keyboard is closed
+                    document.activeElement.blur(); 
                 }, 1000);
 
             }

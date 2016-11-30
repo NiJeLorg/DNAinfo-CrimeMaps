@@ -66,6 +66,15 @@ html, body, #content, #map, #osmmap {
   background-color: #fafafa;
 }
 
+.has-error .help-block, .has-error .control-label, .has-error .radio, .has-error .checkbox, .has-error .radio-inline, .has-error .checkbox-inline, .has-error.radio label, .has-error.checkbox label, .has-error.radio-inline label, .has-error.checkbox-inline label {
+    color: #686868;
+}
+
+.error-msg {
+  color: #d0343a;
+  font-size: 16px;
+}
+
 
 /* Typography */
 .introHeading {
@@ -101,8 +110,8 @@ html, body, #content, #map, #osmmap {
   font-size: 32px;
   font-weight: 200;
   line-height: 1.42;
-  background: rgb(242, 242, 242);
-  background: rgba(242, 242, 242, .9);
+/*  background: rgb(242, 242, 242);
+  background: rgba(242, 242, 242, .9);*/
 
 }
 
@@ -125,8 +134,8 @@ html, body, #content, #map, #osmmap {
 }
 
 .highlightBackground {
-  background: rgb(242, 242, 242);
-  background: rgba(242, 242, 242, .9);
+/*  background: rgb(242, 242, 242);
+  background: rgba(242, 242, 242, .9);*/
 }
 
 
@@ -883,7 +892,7 @@ footer .select-parent .select2-container {
   max-width: 300px;
   height: auto;
   margin: 0;
-  padding: 10px;
+  padding: 15px;
   background: #ffffff;
   opacity: 1;
   border-radius: 5px;
@@ -940,39 +949,43 @@ footer .select-parent .select2-container {
 }
 
 .tooltip .sponsored {
-  padding: 8px 0px 3px 14px;
+  padding: 1% 15px;
   color: #fff;
   background: #ffcf2d;
   margin: -15px -15px 0px -15px;
   font-size: 14px;
   font-weight: bold;
+  letter-spacing: .3px;
 }
 
 .tooltip .permitted {
-  padding: 8px 0px 3px 14px;
+  padding: 1% 15px;
   color: #fff;
   background: #00cdbe;
   margin: -15px -15px 0px -15px;
   font-size: 14px;
   font-weight: bold;
+  letter-spacing: .3px;
 }
 
 .tooltip .submitted {
-  padding: 8px 0px 3px 14px;
+  padding: 1% 15px;
   color: #fff;
   background: #ff926c;
   margin: -15px -15px 0px -15px;
   font-size: 14px;
   font-weight: bold;
+  letter-spacing: .3px;
 }
 
 .tooltip .dna {
-  padding: 8px 0px 3px 14px;
+  padding: 1% 15px;
   color: #fff;
   background: #0073a2;
   margin: -15px -15px 0px -15px;
   font-size: 14px;
   font-weight: bold;
+  letter-spacing: .3px;
 }
 
 
@@ -1274,21 +1287,21 @@ input[type="radio"]:checked + label span {
   }
 }
 
-// @media (max-width: 1024px) {
-//     .select2-container .select2-dropdown {
-//       width: 30.5% !important;
-//     }
-// }
+/* @media (max-width: 1024px) {
+     .select2-container .select2-dropdown {
+       width: 30.5% !important;
+     }
+ }
 
-// @media (max-width: 768px) {
-//     .select2-container .select2-dropdown {
-//       width: 44% !important;
-//     }
-// }
+ @media (max-width: 768px) {
+     .select2-container .select2-dropdown {
+       width: 44% !important;
+     }
+ }
 
-// @media (max-width: 425px) {
-//     .select2-container .select2-dropdown {
-//       width: 75% !important;
-//     }
-// }
+ @media (max-width: 425px) {
+     .select2-container .select2-dropdown {
+       width: 75% !important;
+     }
+ }*/
 

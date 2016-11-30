@@ -30,6 +30,20 @@ $(document).ready(function() {
         document.activeElement.blur();
     });
 
+    // for iOS, force blur on every a tag click
+    $("a").click(function() {
+        // ensure iOS keyboard is closed
+        document.activeElement.blur(); 
+    });
+
+    // ensure that methodology modal shows up at the top of the window, not at the top of the iframe
+    $('#methodology').on('show.bs.modal', function (e) {
+        if (window.top.document.querySelector('iframe')) {
+            $('#methodology').css('top', window.top.scrollY); //set modal position
+        }
+    });
+
+
     var approvedModalOpen = false;
     var proposedModalOpen = false;
     var sponsoredModalOpen = false;
@@ -42,6 +56,8 @@ $(document).ready(function() {
             $('#approvedModal').css('display', 'none');
             approvedModalOpen = false;
         }
+        // ensure iOS keyboard is closed
+        document.activeElement.blur(); 
     });
 
 
@@ -53,6 +69,8 @@ $(document).ready(function() {
             $('#proposedModal').css('display', 'none');
             proposedModalOpen = false;
         }
+        // ensure iOS keyboard is closed
+        document.activeElement.blur(); 
     });
 
 
@@ -64,20 +82,28 @@ $(document).ready(function() {
             $('#sponsoredModal').css('display', 'none');
             sponsoredModalOpen = false;
         }
+        // ensure iOS keyboard is closed
+        document.activeElement.blur(); 
     });
 
 
     $('#closeApprovedModal').click(function() {
         $('#approvedModal').css('display', 'none');
         approvedModalOpen = false;
+        // ensure iOS keyboard is closed
+        document.activeElement.blur(); 
     });
     $('#closeProposedModal').click(function() {
         $('#proposedModal').css('display', 'none');
         proposedModalOpen = false;
+        // ensure iOS keyboard is closed
+        document.activeElement.blur(); 
     });
     $('#closeSponsoredModal').click(function() {
         $('#sponsoredModal').css('display', 'none');
         sponsoredModalOpen = false;
+        // ensure iOS keyboard is closed
+        document.activeElement.blur(); 
     });
 
     var dropDownOpenTop = false;
@@ -90,6 +116,8 @@ $(document).ready(function() {
         } else {
             $select2objTop.select2("close");
             dropDownOpenTop = false;
+            // ensure iOS keyboard is closed
+            document.activeElement.blur(); 
         }        
     });
 
@@ -100,12 +128,16 @@ $(document).ready(function() {
         } else {
             $select2objBottom.select2("close");
             dropDownOpenBottom = false;
+            // ensure iOS keyboard is closed
+            document.activeElement.blur(); 
         } 
     });
 
 
     // submit the form on change
     $(document).on('change', '#id_whereBuilding', function(e) {
+        // ensure iOS keyboard is closed
+        document.activeElement.blur(); 
         $(this).closest('form').submit();
     });
 

@@ -9,7 +9,7 @@
 
 .select-parent .select-parent-holder {
     display: flex;
-    width: 397px;
+    width: 350px;
 }
 
 .select-parent-holder .select2 {
@@ -105,7 +105,9 @@
     flex-direction: column;
     justify-content: center;
     border-radius: 2px;
-    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.5);
+}
+.link-holder.top {
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.5);    
 }
 
 .link-holder a i {
@@ -159,6 +161,7 @@ footer .add-a-building-button {
     outline: none;
     border-radius: 2px;
     box-sizing: border-box;
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.5);
     height: 45px;
 }
 
@@ -179,12 +182,12 @@ footer .add-a-building-button {
     color: #4a4a4a;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1300px) {
     .select-parent {
         top: 80px;
         left: 50%;
         right: 0px;
-        margin-left: -200px;
+        margin-left: -176px;
     }
 }
 
