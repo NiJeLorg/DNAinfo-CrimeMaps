@@ -37,10 +37,10 @@
 </div>
 <div class="browseNav">
     <div class="social-media-links">
-        <div class="link-holder facebook">
+        <div class="link-holder facebook top">
             <a href="#" class="showShareFB"><i class="fa fa-facebook-official fa-2x" aria-hidden="true"></i></a>
         </div>
-        <div class="link-holder twitter">
+        <div class="link-holder twitter top">
             <a href="#" class="showShareTwitter"> <i class="fa fa-twitter fa-2x" aria-hidden="true"></i></a>
         </div>
     </div>
@@ -109,7 +109,7 @@
             <span id="property-address-permitted" class='property-text'></span>
             <span id="property-stories-permitted" class='property-text'></span>
         </p>
-        <footer style="margin-bottom: 6%">
+        <footer>
             <div class="links">
                 <span id='property-story1-permitted' class='property-text link'></span>
                 <span id='property-pdf-permitted' class='property-text link'></span>
@@ -137,7 +137,7 @@
             <span id="property-address-dna" class='property-text'></span>
             <span id="property-stories-dna" class='property-text'></span>
         </p>
-        <footer style="margin-bottom: 6%">
+        <footer>
             <div class="links">
                 <span id='property-story1-dna' class='property-text link'></span>
                 <span id='property-pdf-dna' class='property-text link'></span>
@@ -175,7 +175,9 @@ $(document).ready(function() {
     window.setTimeout(function() {
         osmApplication.initialize();
         osmApplication.createDjangoSelect2();
+        osmApplication.blurListeners();
     }, 100);
+
 });
 </script>
 {% endblock %}
