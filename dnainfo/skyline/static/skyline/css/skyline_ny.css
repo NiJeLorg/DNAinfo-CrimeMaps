@@ -430,55 +430,6 @@ footer .select2-selection__rendered {
     font-size: 1.4em;
 }
 
-@media (min-width: 1024px) {
-    .title .title-heading {
-        font-size: 62px;
-        padding: 0;
-        margin-top: 20px;
-        width: 65%;
-    }
-    .title .title-info {
-        margin-bottom: 55px;
-        width: 65%;
-        font-size: 25px;
-    }
-    .title .title-subheading {
-        font-size: 22px;
-        margin-bottom: 40px;
-    }
-    .building-component-holder {
-        width: 60%;
-    }
-    .building-component-modal {
-        width: 21%;
-    }
-    footer {
-        padding-bottom: 5%;
-    }
-}
-
-@media (min-width: 768px) {
-    .title .title-info {
-        width: 90%;
-    }
-    .component-info {
-        font-size: 1.2em;
-    }
-    .building-component-holder {
-        width: 80%;
-    }
-    .building-component-modal {
-        width: 30%;
-    }
-    .got-it-now .component-heading {
-        margin-bottom: 4%;
-        margin-top: 2%;
-    }
-    footer {
-        padding-bottom: 20%;
-    }
-}
-
 @media (min-width: 425px) {
     .social-media-links {
         justify-content: flex-end;
@@ -505,6 +456,12 @@ footer .select2-selection__rendered {
     .title {
         margin: 0;
         text-align: center;
+    }
+    .title .title-heading {
+        font-size: 3.5em;
+        padding: 0;
+        margin-top: 20px;
+        width: 65%;
     }
     .title .title-subheading {
         margin-bottom: 26px;
@@ -566,4 +523,51 @@ footer .select2-selection__rendered {
         width: 397px;
     }
 }
+
+@media (min-width: 768px) {
+    .title .title-heading {
+        font-size: 62px;
+    }
+    .title .title-info {
+        width: 90%;
+    }
+    .component-info {
+        font-size: 1.2em;
+    }
+    .building-component-holder {
+        width: 80%;
+    }
+    .building-component-modal {
+        width: 30%;
+    }
+    .got-it-now .component-heading {
+        margin-bottom: 4%;
+        margin-top: 2%;
+    }
+    footer {
+        padding-bottom: 20%;
+    }
+}
+
+@media (min-width: 1024px) {
+    .title .title-info {
+        margin-bottom: 55px;
+        width: 65%;
+        font-size: 25px;
+    }
+    .title .title-subheading {
+        font-size: 22px;
+        margin-bottom: 40px;
+    }
+    .building-component-holder {
+        width: 60%;
+    }
+    .building-component-modal {
+        width: 21%;
+    }
+    footer {
+        padding-bottom: 5%;
+    }
+}
+
 
