@@ -37,10 +37,15 @@ $(document).ready(function() {
     });
 
     // ensure that methodology modal shows up at the top of the window, not at the top of the iframe
+    $('#methodologyLink').on('mousedown', function (event) {
+	    event.preventDefault();
+	    $('#methodology').data('y', event.pageY); // store the mouseY position
+	    $('#methodology').modal('show');
+	});
     $('#methodology').on('show.bs.modal', function (e) {
-        if (window.top.document.querySelector('iframe')) {
-            $('#methodology').css('top', window.top.scrollY); //set modal position
-        }
+	    var y = $('#methodology').data('y'); // gets the mouseY position
+	    console.log(y);
+	    $('#methodology').css('top', y);
     });
 
 
