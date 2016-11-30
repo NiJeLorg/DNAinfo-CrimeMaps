@@ -377,14 +377,13 @@ footer {
 
 .got-it-now {
     color: black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: block;
     margin-bottom: 2.5%;
 }
 
 .got-it-now .component-heading {
-    margin: 0% 1%;
+    margin-bottom: 4%;
+    margin-top: 2%;
 }
 
 .got-it-now .add-a-building-button {
@@ -395,7 +394,6 @@ footer {
     border-radius: 2px;
     padding: 12px;
     height: 45px;
-    margin-bottom: 5%;
 }
 
 footer .select-parent {
@@ -511,12 +509,6 @@ footer .select2-selection__rendered {
     .select-parent-holder {
         width: 397px;
     }
-    .got-it-now {
-        display: block;
-    }
-    .got-it-now .add-a-building-button {
-        margin-bottom: 0;
-    }
 
     footer .select-parent {
         margin: 0 auto;
@@ -540,9 +532,17 @@ footer .select2-selection__rendered {
     .building-component-modal {
         width: 30%;
     }
+    .got-it-now {
+        color: black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto;
+        margin-bottom: 2.5%;
+        width: 90%;
+    }
     .got-it-now .component-heading {
-        margin-bottom: 4%;
-        margin-top: 2%;
+        margin: 0% 1%;
     }
     footer {
         padding-bottom: 20%;
@@ -564,6 +564,9 @@ footer .select2-selection__rendered {
     }
     .building-component-modal {
         width: 21%;
+    }
+    .got-it-now {
+        width: 65%;
     }
     footer {
         padding-bottom: 5%;
