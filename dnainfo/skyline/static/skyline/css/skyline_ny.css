@@ -398,9 +398,9 @@ footer {
 
 footer .select-parent {
     margin: 0;
+    margin-left: 15px;
     justify-content: flex-start;
     width: 88%;
-    
 }
 
 footer {
