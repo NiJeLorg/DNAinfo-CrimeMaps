@@ -9,13 +9,13 @@ osmApplication.blurListeners = function() {
     document.activeElement.blur();
 
     // for iOS, force blur on every a tag click
-    $("a").click(function() {
+    $(document).on('click touchstart', 'a', function() {
         // ensure iOS keyboard is closed
         document.activeElement.blur(); 
     });
 
     // for iOS, force blur on every canvase tag click
-    $("canvas").click(function() {
+    $(document).on('click touchstart', 'canvas', function() {
         // ensure iOS keyboard is closed
         document.activeElement.blur(); 
     });
@@ -36,13 +36,13 @@ osmApplication.createDjangoSelect2 = function() {
     $('.select2-selection__placeholder').text(neighborhoodName);
 
     // for iOS, force blur to close keyboard if clicking away from the input field
-    $(document).on('click', '#select2-drop', function(e) {
+    $(document).on('click touchstart', '#select2-drop', function(e) {
         document.activeElement.blur();
     });
 
     var dropDownOpen = false;
 
-    $('.chevron-button').click(function() {
+    $(document).on('click touchstart', '.chevron-button', function() {
         if (!dropDownOpen) {
             $select2obj.select2("open");
             dropDownOpen = true;
@@ -178,7 +178,7 @@ osmApplication.initialize = function() {
     });
 
     // create listener for closing tooltip
-    $('.tooltip-close').click(function() {
+    $(document).on('click touchstart', '.tooltip-close', function() {
         $('.tooltip').addClass('hidden');
         // ensure iOS keyboard is closed
         document.activeElement.blur(); 

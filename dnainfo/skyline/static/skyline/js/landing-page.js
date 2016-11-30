@@ -26,12 +26,12 @@ $(document).ready(function() {
 
 
     // for iOS, force blur to close keyboard if clicking away from the input field
-    $(document).on('click', '#select2-drop', function(e) {
+    $(document).on('click touchstart', '#select2-drop', function(e) {
         document.activeElement.blur();
     });
 
     // for iOS, force blur on every a tag click
-    $("a").click(function() {
+    $(document).on('click touchstart', 'a', function() {
         // ensure iOS keyboard is closed
         document.activeElement.blur(); 
     });
@@ -48,7 +48,7 @@ $(document).ready(function() {
     var proposedModalOpen = false;
     var sponsoredModalOpen = false;
 
-    $('#openApprovedModal').click(function() {
+	$(document).on('click touchstart', '#openApprovedModal', function() {
         if (!approvedModalOpen) {
             $('#approvedModal').css('display', 'block');
             approvedModalOpen = true;
@@ -61,7 +61,7 @@ $(document).ready(function() {
     });
 
 
-    $('#openProposedModal').click(function() {
+	$(document).on('click touchstart', '#openProposedModal', function() {
         if (!proposedModalOpen) {
             $('#proposedModal').css('display', 'block');
             proposedModalOpen = true;
@@ -74,7 +74,7 @@ $(document).ready(function() {
     });
 
 
-    $('#openSponsoredModal').click(function() {
+	$(document).on('click touchstart', '#openSponsoredModal', function() {
         if (!sponsoredModalOpen) {
             $('#sponsoredModal').css('display', 'block');
             sponsoredModalOpen = true;
@@ -87,19 +87,19 @@ $(document).ready(function() {
     });
 
 
-    $('#closeApprovedModal').click(function() {
+	$(document).on('click touchstart', '#closeApprovedModal', function() {
         $('#approvedModal').css('display', 'none');
         approvedModalOpen = false;
         // ensure iOS keyboard is closed
         document.activeElement.blur(); 
     });
-    $('#closeProposedModal').click(function() {
+	$(document).on('click touchstart', '#closeProposedModal', function() {
         $('#proposedModal').css('display', 'none');
         proposedModalOpen = false;
         // ensure iOS keyboard is closed
         document.activeElement.blur(); 
     });
-    $('#closeSponsoredModal').click(function() {
+	$(document).on('click touchstart', '#closeSponsoredModal', function() {
         $('#sponsoredModal').css('display', 'none');
         sponsoredModalOpen = false;
         // ensure iOS keyboard is closed
@@ -109,7 +109,7 @@ $(document).ready(function() {
     var dropDownOpenTop = false;
     var dropDownOpenBottom = false;
 
-    $('.chevron-button-top').click(function() {
+	$(document).on('click touchstart', '.chevron-button-top', function() {
         if (!dropDownOpenTop) {
             $select2objTop.select2("open");
             dropDownOpenTop = true;
@@ -121,7 +121,7 @@ $(document).ready(function() {
         }        
     });
 
-    $('.chevron-button-bottom').click(function() {
+	$(document).on('click touchstart', '.chevron-button-bottom', function() {
         if (!dropDownOpenBottom) {
             $select2objBottom.select2("open");
             dropDownOpenBottom = true;
