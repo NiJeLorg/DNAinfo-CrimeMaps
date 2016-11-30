@@ -7,8 +7,12 @@
     right: 180px;
 }
 
-.select-parent .select-parent-holder {
+.select-parent .select-parent-holder, .formField {
     display: flex;
+    width: 350px;
+}
+
+.formField {
     width: 350px;
 }
 
@@ -231,7 +235,7 @@ footer .add-a-building-button {
 }
 
 @media (max-width: 375px) {
-    .select-parent .select-parent-holder {
+    .select-parent .select-parent-holder, .formField {
         width: 97%;
     }
 }
