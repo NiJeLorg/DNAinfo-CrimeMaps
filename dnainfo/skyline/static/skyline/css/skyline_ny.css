@@ -40,6 +40,13 @@ a:focus {
     margin-top: 20px;
 }
 
+.social-media-links-top {
+    display: block;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
 .link-holder {
     height: 45px;
     width: 45px;
@@ -53,6 +60,13 @@ a:focus {
 .facebook {
     background: #3D5A96;
     margin-left: 0;
+}
+
+.facebook-top {
+    background: #3D5A96;
+    margin-left: 0;
+    position: absolute;
+    right: 65px;
 }
 
 .twitter {
@@ -76,13 +90,12 @@ a:focus {
 .title .title-heading {
     font-size: 62px;
     font-family: 'Titillium Web', Helvetica, sans-serif;
-    padding-bottom: 16px;
     font-weight: 600;
-    margin-bottom: 8px;
-    margin-top: 0;
+    margin-bottom: 20px;
+    margin-top: 20px;
     margin-left: auto;
     margin-right: auto;
-    width: 66%;
+    width: 65%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -101,7 +114,7 @@ a:focus {
     font-family: 'Georgia', serif;
     line-height: 1.5;
     text-align: left;
-    width: 66%;
+    width: 65%;
     margin: 0 auto;
     letter-spacing: .4px;
     font-size: 1.5em;
@@ -136,6 +149,7 @@ a:focus {
     border: none;
     padding: 0;
     outline: none;
+    min-width: 45px;
     width: 45px;
     height: 45px;
     text-align: center;
@@ -168,7 +182,7 @@ a:focus {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 0% 4%;
+    padding: 0;
 }
 
 .approved-building-component-info {
@@ -264,6 +278,7 @@ a:focus {
     text-transform: uppercase;
     padding: 2% 4%;
     border-radius: 4px 4px 0 0;
+    letter-spacing: .3px;
 }
 
 .building-modal-info {
@@ -285,7 +300,6 @@ a:focus {
 
 .building-modal-info-header h4 {
     font-weight: bold;
-    letter-spacing: .3px;
     margin: 15px 0;
 }
 
@@ -372,7 +386,7 @@ footer .select-parent .select-parent-holder {
 }
 
 footer .select-parent .chevron-button {
-    right: 1%;
+    right: 45px;
 }
 
 footer .select2-selection__rendered {
@@ -411,10 +425,7 @@ footer .select2-selection__rendered {
 
 @media (max-width: 768px) {
     .title .title-heading {
-        margin-top: 20px;
         font-size: 3em;
-        height: 110px;
-        margin-bottom: 18px;
     }
     .title .title-subheading {
         font-size: 18px;
@@ -444,6 +455,9 @@ footer .select2-selection__rendered {
         margin-bottom: 4%;
         margin-top: 2%;
     }
+    footer {
+        padding-bottom: 40%;
+    }
     footer .select-parent {
         margin: 0 auto;
         width: 50%;
@@ -457,6 +471,20 @@ footer .select2-selection__rendered {
         margin-top: 15px;
         margin-bottom: 15px;
     }
+    .social-media-links-top {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        margin-top: 15px;
+        margin-bottom: 15px;
+        top: 0;
+        right: 0;
+    }
+    .facebook-top {
+        position: relative;
+        right: 0;
+    }
     .twitter {
         margin-left: 4%;
     }
@@ -465,8 +493,6 @@ footer .select2-selection__rendered {
         text-align: left;
     }
     .title .title-heading {
-        height: initial;
-        margin-bottom: 30px;
         padding: 0;
         margin-top: 0;
         width: 100%;
@@ -479,7 +505,7 @@ footer .select2-selection__rendered {
         width: 100%;
     }
     .building-component-holder {
-        width: 90%;
+        width: 92%;
         flex-wrap: wrap;
     }
     .building-component-holder .building-component-info {
@@ -514,9 +540,6 @@ footer .select2-selection__rendered {
         width: 100%;
         margin-left: 0;
     }
-    .select-parent-header .chevron-button {
-        right: 37px;
-    }
     .got-it-now {
         display: initial;
     }
@@ -528,14 +551,3 @@ footer .select2-selection__rendered {
     }
 }
 
-@media (max-width: 375px) {
-    .select-parent-header .chevron-button {
-        right: 31px;
-    }
-}
-
-@media (max-width: 320px) {
-    .select-parent-header .chevron-button {
-        right: 28px;
-    }
-}
