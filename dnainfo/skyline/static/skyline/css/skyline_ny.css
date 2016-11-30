@@ -33,18 +33,24 @@ a:focus {
     border-bottom: 1px solid #D1D1D1;
 }
 
+
 .social-media-links {
     display: flex;
-    justify-content: flex-end;
-    width: 97%;
-    margin-top: 20px;
+    justify-content: center;
+    width: 100%;
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
 
 .social-media-links-top {
-    display: block;
-    position: absolute;
-    top: 20px;
-    right: 20px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    top: 0;
+    right: 0;
 }
 
 .link-holder {
@@ -65,12 +71,13 @@ a:focus {
 .facebook-top {
     background: #3D5A96;
     margin-left: 0;
-    position: absolute;
-    right: 65px;
+    position: relative;
+    right: 0;
 }
 
 .twitter {
     background: #59ADEB;
+    margin-left: 4%;
 }
 
 .link-holder a {
@@ -85,54 +92,57 @@ a:focus {
 .title {
     text-align: center;
     color: #2E2925;
+    margin: 0 15px;
+    text-align: left;
 }
 
 .title .title-heading {
-    font-size: 62px;
+    font-size: 3em;
     font-family: 'Titillium Web', Helvetica, sans-serif;
     font-weight: 600;
     margin-bottom: 20px;
-    margin-top: 20px;
+    margin-top: 0;
     margin-left: auto;
     margin-right: auto;
-    width: 65%;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-
+    padding: 0;
 }
 
 .title .title-subheading {
     margin-top: 0px;
     font-weight: 600;
-    font-size: 22px;
+    font-size: 18px;
     font-family: 'Titillium Web', Helvetica, sans-serif;
-    margin-bottom: 40px;
+    margin-bottom: 6%;
 }
 
 .title .title-info {
     font-family: 'Georgia', serif;
     line-height: 1.5;
     text-align: left;
-    width: 65%;
+    width: 100%;
     margin: 0 auto;
     letter-spacing: .4px;
     font-size: 1.5em;
-    margin-bottom: 55px;
-    font-size: 25px;
+    margin-bottom: 6%;
 }
+
 
 .select-parent {
     display: flex;
     align-items: center;
-    margin: 0 auto;
-    margin-bottom: 60px;
-    justify-content: center;
+    justify-content: center;   
+    width: 100%;
+    margin-bottom: 30px;
+    margin-left: 15px;
 }
 
 .select-parent-holder {
-    width: 397px;
-    /*margin-left: 45px;*/
+    width: 100%;
+    margin-left: 0;
 }
 
 .select-parent form .form-group {
@@ -172,38 +182,49 @@ a:focus {
 
 .building-component-holder {
     display: flex;
+    flex-wrap: wrap;
     margin: 0 auto;
-    width: 60%;
+    width: 92%;
     padding: 4% 0%;
 }
 
 .building-component-info {
-    width: 50%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     padding: 0;
 }
 
-.approved-building-component-info {
-    order: 1;
+.building-component-holder .building-component-info {
+    width: 100%;
 }
 
-.approved-building-component-image {
-    order: 2;
-}
 
 .proposed-building-component-info {
     order: 2;
 }
-
 .proposed-building-component-image {
     order: 1;
 }
+.approved-building-component-info {
+    order: 2;
+}
+.approved-building-component-image {
+    order: 1;
+}
+.sponsored-building-component-info {
+    order: 2;
+}
+.sponsored-building-component-image {
+    order: 1;
+}
+
+
 
 .building-component-image {
     position: relative;
-    width: 50%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -255,17 +276,18 @@ a:focus {
 
 
 .building-component-modal {
-    position: absolute;
+    position: static;
     background: #fff;
-    right: 10%;
     border-radius: 4px;
     padding: 0%;
+    margin-bottom: 15px;
     box-sizing: border-box;
     box-shadow: 0 2px 4px 0 #c5c5c5;
-    width: 21%;
+    width: 100%;
     display: none;
     z-index: 2;
 }
+
 
 .proposed-component-modal {
     left: 12%;
@@ -373,12 +395,18 @@ footer {
     border-radius: 2px;
     padding: 12px;
     height: 45px;
+    margin-bottom: 5%;
 }
 
 footer .select-parent {
     margin: 0;
     justify-content: flex-start;
-    width: 397px;
+    width: 88%;
+    
+}
+
+footer {
+    padding-bottom: 30%;
 }
 
 footer .select-parent .select-parent-holder {
@@ -402,33 +430,83 @@ footer .select2-selection__rendered {
     font-size: 1.4em;
 }
 
-@media (max-width: 1024px) {
-    .building-component-modal {
-        width: 30%;
+@media (min-width: 1024px) {
+    .title .title-heading {
+        font-size: 62px;
+        padding: 0;
+        margin-top: 20px;
+        width: 65%;
     }
-    footer .select-parent {
-        width: 397px;
+    .title .title-info {
+        margin-bottom: 55px;
+        width: 65%;
+        font-size: 25px;
+    }
+    .title .title-subheading {
+        font-size: 22px;
+        margin-bottom: 40px;
+    }
+    .building-component-holder {
+        width: 60%;
+    }
+    .building-component-modal {
+        width: 21%;
+    }
+    footer {
+        padding-bottom: 5%;
     }
 }
 
-@media (max-width: 1024px) {
+@media (min-width: 768px) {
     .title .title-info {
         width: 90%;
     }
-    .select-parent .select-parent-holder {
-        width: 397px;
+    .component-info {
+        font-size: 1.2em;
     }
     .building-component-holder {
         width: 80%;
     }
+    .building-component-modal {
+        width: 30%;
+    }
+    .got-it-now .component-heading {
+        margin-bottom: 4%;
+        margin-top: 2%;
+    }
+    footer {
+        padding-bottom: 20%;
+    }
 }
 
-@media (max-width: 768px) {
-    .title .title-heading {
-        font-size: 3em;
+@media (min-width: 425px) {
+    .social-media-links {
+        justify-content: flex-end;
+        width: 97%;
+        margin-top: 20px;
+        margin-bottom: 0;
+    }
+    .social-media-links-top {
+        display: block;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        margin-top: 0;
+        margin-bottom: 0;
+        width: initial;
+    }
+    .facebook-top {
+        position: absolute;
+        right: 65px;
+    }
+    .twitter {
+        margin-left: 0;
+    }
+    .title {
+        margin: 0;
+        text-align: center;
     }
     .title .title-subheading {
-        font-size: 18px;
         margin-bottom: 26px;
     }
     .title .title-info {
@@ -436,115 +514,56 @@ footer .select2-selection__rendered {
         font-size: 1.5em;
         width: 95%;
     }
-    .component-info {
-        font-size: 1.2em;
-    }
     .building-component-holder {
         width: 90%;
+        flex-wrap: nowrap;
+    }
+    .building-component-holder .building-component-info {
+        width: 50%;
+    }
+    .building-component-holder .building-component-image {
+        width: 50%;
     }
     .building-component-modal {
+        position: absolute;
+        right: 10%;
         width: 38%;
+    }
+    .proposed-building-component-info {
+        order: 1;
+    }
+    .proposed-building-component-image {
+        order: 2;
+    }
+    .approved-building-component-info {
+        order: 1;
+    }
+    .approved-building-component-image {
+        order: 2;
+    }
+    .sponsored-building-component-info {
+        order: 1;
+    }
+    .sponsored-building-component-image {
+        order: 2;
+    }
+    .select-parent {
+        margin: 0 auto;
+        margin-bottom: 60px;
+    }
+    .select-parent-holder {
+        width: 397px;
     }
     .got-it-now {
         display: block;
     }
-    .got-it-now .component-heading {
-        margin-bottom: 4%;
-        margin-top: 2%;
+    .got-it-now .add-a-building-button {
+        margin-bottom: 0;
     }
-    footer {
-        padding-bottom: 40%;
-    }
+
     footer .select-parent {
         margin: 0 auto;
         width: 397px;
-    }
-}
-
-@media (max-width: 425px) {
-    .social-media-links {
-        justify-content: center;
-        width: 100%;
-        margin-top: 15px;
-        margin-bottom: 15px;
-    }
-    .social-media-links-top {
-        position: relative;
-        display: flex;
-        justify-content: center;
-        width: 100%;
-        margin-top: 15px;
-        margin-bottom: 15px;
-        top: 0;
-        right: 0;
-    }
-    .facebook-top {
-        position: relative;
-        right: 0;
-    }
-    .twitter {
-        margin-left: 4%;
-    }
-    .title {
-        margin: 0 15px;
-        text-align: left;
-    }
-    .title .title-heading {
-        padding: 0;
-        margin-top: 0;
-        width: 100%;
-    }
-    .title .title-subheading {
-        margin-bottom: 6%;
-    }
-    .title .title-info {
-        margin-bottom: 6%;
-        width: 100%;
-    }
-    .building-component-holder {
-        width: 92%;
-        flex-wrap: wrap;
-    }
-    .building-component-holder .building-component-info {
-        width: 100%;
-    }
-    .building-component-holder .building-component-image {
-        width: 100%;
-    }
-    .building-component-modal {
-        position: static;
-        width: 100%;
-        margin-bottom: 10%;
-    }
-    .approved-building-component-info {
-        order: 2;
-    }
-    .approved-building-component-image {
-        order: 1;
-    }
-    .sponsored-building-component-info {
-        order: 2;
-    }
-    .sponsored-building-component-image {
-        order: 1;
-    }
-    .select-parent {
-        width: 100%;
-        margin-bottom: 30px;
-        margin-left: 15px;
-    }
-    .select-parent-holder {
-        width: 100%;
-        margin-left: 0;
-    }
-    .got-it-now {
-        display: initial;
-    }
-    .got-it-now .add-a-building-button {
-        margin-bottom: 5%;
-    }
-    footer .select-parent {
-        width: 88%;
     }
 }
 
