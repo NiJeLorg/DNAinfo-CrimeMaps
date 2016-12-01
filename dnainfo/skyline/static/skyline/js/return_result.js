@@ -125,11 +125,11 @@ osmApplication.initialize = function() {
     });
 
     // listen for touch events and doe the same thing as clicking
-    osmApplication.osmb.on('touchstart', function(e) {
-        var xcoor = e.touches[0].clientX;
-        var ycoor = e.touches[0].clientY;
-        osmApplication.onClick(xcoor, ycoor);
-    });
+    // osmApplication.osmb.on('touchstart', function(e) {
+    //     var xcoor = e.touches[0].clientX;
+    //     var ycoor = e.touches[0].clientY;
+    //     osmApplication.onClick(xcoor, ycoor);
+    // });
 
 
     // close sponsored tooltip if the map changes

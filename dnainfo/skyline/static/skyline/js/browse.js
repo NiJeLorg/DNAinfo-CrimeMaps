@@ -127,11 +127,11 @@ osmApplication.initialize = function() {
     });
 
     // listen for touch events and doe the same thing as clicking
-    osmApplication.osmb.on('touchstart', function(e) {
-        var xcoor = e.touches[0].clientX;
-        var ycoor = e.touches[0].clientY;
-        osmApplication.onClick(xcoor, ycoor);
-    });
+    // osmApplication.osmb.on('touchstart', function(e) {
+    //     var xcoor = e.touches[0].clientX;
+    //     var ycoor = e.touches[0].clientY;
+    //     osmApplication.onClick(xcoor, ycoor);
+    // });
 
 
     // close sponsored tooltip if the map changes
@@ -536,6 +536,7 @@ osmApplication.onClick = function (xcoor, ycoor) {
 
                 // look up properties
                 var properties = osmApplication.permittedGeojsons[id].features[0].properties;
+                console.log(properties);
                 // projectName
                 if (typeof properties.projectName !== 'undefined' && properties.projectName) {
                     $('#property-projectName-permitted').text(properties.projectName);
@@ -573,6 +574,7 @@ osmApplication.onClick = function (xcoor, ycoor) {
                 }
 
                 // update share buttons
+
                 osmApplication.updateSocialLinks(osmApplication.latLonClicked.latitude.toFixed(12), osmApplication.latLonClicked.longitude.toFixed(12), osmApplication.osmb.zoom.toFixed(1), osmApplication.osmb.tilt.toFixed(1), osmApplication.osmb.rotation.toFixed(1), 'true');
 
                 $('#tooltipPermitted').removeClass('hidden');
@@ -607,7 +609,8 @@ osmApplication.onClick = function (xcoor, ycoor) {
                 $('#property-pdf-dna').html('');
                 // look up properties
                 var properties = osmApplication.dnaGeojsons[id].features[0].properties;
-                                // projectName
+                                
+                // projectName
                 if (typeof properties.projectName !== 'undefined' && properties.projectName) {
                     $('#property-projectName-dna').text(properties.projectName);
                 } else if (typeof properties.address !== 'undefined' && properties.address) {
