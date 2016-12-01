@@ -32,8 +32,11 @@ class Command(BaseCommand):
         url = base_url + params
         response = urllib.urlopen(url)
         data = json.loads(response.read())
+        count = 1
         for d in data:
             try:
+                print count
+                count = count + 1
                 #parse dates from stings to date objects
                 issuance_date = None
                 filing_date = None
