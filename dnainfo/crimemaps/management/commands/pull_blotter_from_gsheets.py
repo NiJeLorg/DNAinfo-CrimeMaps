@@ -86,49 +86,51 @@ class Command(BaseCommand):
             data = json.loads(response.read())
             for data in data['feed']['entry']:
                 try:
-                    # try updating database
-                    #get data ready to be added
-                    dateTime = data['gsx$date']['$t'] + ' ' + data['gsx$time']['$t']
-                    #print dateTime
-                    notz = dateutil.parser.parse(dateTime, ignoretz=True)
-                    #print notz
-                    DateTimeObject = pytz.timezone("America/New_York").localize(notz, is_dst=None)
-                    #print DateTimeObject
-                    justDate = DateTimeObject.date()
+                    #skip if no date
+                    if data['gsx$date']['$t'] != '':
+                        # try updating database
+                        #get data ready to be added
+                        dateTime = data['gsx$date']['$t'] + ' ' + data['gsx$time']['$t']
+                        #print dateTime
+                        notz = dateutil.parser.parse(dateTime, ignoretz=True)
+                        #print notz
+                        DateTimeObject = pytz.timezone("America/New_York").localize(notz, is_dst=None)
+                        #print DateTimeObject
+                        justDate = DateTimeObject.date()
 
-                    if hasattr(data, 'gsx$arrest'):
-                        if data['gsx$arrests']['$t'] == 'Yes':
-                            arrest = True
-                        elif data['gsx$arrests']['$t'] == 'No':
-                            arrest = False
+                        if hasattr(data, 'gsx$arrest'):
+                            if data['gsx$arrests']['$t'] == 'Yes':
+                                arrest = True
+                            elif data['gsx$arrests']['$t'] == 'No':
+                                arrest = False
+                            else:
+                                arrest = None
                         else:
                             arrest = None
-                    else:
-                        arrest = None
 
-                    if hasattr(data, 'gsx$crimetype'):
-                        crimeType = data['gsx$crimetype']['$t']
-                    else:
-                        crimeType = None
+                        if hasattr(data, 'gsx$crimetype'):
+                            crimeType = data['gsx$crimetype']['$t']
+                        else:
+                            crimeType = None
 
-                    if data['gsx$precinct']['$t'] != '':
-                        precinctNum = int(data['gsx$precinct']['$t'])
-                    else:
-                        precinctNum = 0
+                        if data['gsx$precinct']['$t'] != '':
+                            precinctNum = int(data['gsx$precinct']['$t'])
+                        else:
+                            precinctNum = 0
 
-                    if data['gsx$latitude']['$t'] == '':
-                        lat = 0                    
-                    else:
-                        lat = float(data['gsx$latitude']['$t'])
+                        if data['gsx$latitude']['$t'] == '':
+                            lat = 0                    
+                        else:
+                            lat = float(data['gsx$latitude']['$t'])
 
-                    if data['gsx$latitude']['$t'] == '':
-                        lon = 0                    
-                    else:
-                        lon = float(data['gsx$longitude']['$t'])
+                        if data['gsx$latitude']['$t'] == '':
+                            lon = 0                    
+                        else:
+                            lon = float(data['gsx$longitude']['$t'])
 
-                    #use get or create to only create records for objects newly added to the spreadsheets
-                    updated_values = {'BlotterWeek':justDate, 'CrimeType':crimeType, 'PoliceSaid':data['gsx$policesaid']['$t'], 'Arrest': arrest, 'Latitude':lat, 'Longitude':lon, 'JSDate': justDate }
-                    obj, created = blotter.objects.update_or_create(Precinct=precinctNum, Address=data['gsx$address']['$t'], DateTime=DateTimeObject,defaults=updated_values)
+                        #use get or create to only create records for objects newly added to the spreadsheets
+                        updated_values = {'BlotterWeek':justDate, 'CrimeType':crimeType, 'PoliceSaid':data['gsx$policesaid']['$t'], 'Arrest': arrest, 'Latitude':lat, 'Longitude':lon, 'JSDate': justDate }
+                        obj, created = blotter.objects.update_or_create(Precinct=precinctNum, Address=data['gsx$address']['$t'], DateTime=DateTimeObject,defaults=updated_values)
 
                 except Exception: 
                     # if error, send email

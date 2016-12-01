@@ -28,13 +28,16 @@ class Command(BaseCommand):
     def load_dob_data(self):
         base_url = 'https://data.cityofchicago.org/resource/9pkb-4fbf.json'
         # Only get new building (NB) jobs
-        params = "?$where=_permit_type='PERMIT - NEW CONSTRUCTION'&$$app_token=y3tPEA3FFVgbMHTpMXv14QAcH"
+        params = "?$limit=50000&$where=_permit_type='PERMIT - NEW CONSTRUCTION'&$$app_token=y3tPEA3FFVgbMHTpMXv14QAcH"
+        count = 1
 
         url = base_url + params
         response = urllib.urlopen(url)
         data = json.loads(response.read())
         for d in data:
             try:
+                print count
+                count = count + 1
                 #parse dates from stings to date objects
                 issue_date = None
                 if "_issue_date" in d:
