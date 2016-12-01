@@ -27,7 +27,7 @@ class Command(BaseCommand):
     def load_dob_data(self):
         base_url = 'https://data.cityofnewyork.us/resource/83x8-shf7.json'
         # Only get new building (NB) jobs
-        params = "?$where=permit_type='NB'&$order=permit_sequence__&$$app_token=GcMAdHP37jdFzicK8BZl00Urg"
+        params = "?$limit=50000$where=permit_type='NB'&$order=permit_sequence__&$$app_token=GcMAdHP37jdFzicK8BZl00Urg"
 
         url = base_url + params
         response = urllib.urlopen(url)
