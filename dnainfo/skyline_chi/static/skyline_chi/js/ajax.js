@@ -19,7 +19,6 @@ ajaxApplication.nextNeighborhood = function () {
 				$('#id_whereBuilding').addClass("form-control");
 				var selected = $('#id_whereBuilding option:selected').val();
 				$('#id_whereBuilding option[value=""]').remove();
-				$('#id_iDontSeeMyNeighborhood').addClass("hidden");
 				$(".fadein").fadeIn("slow");
 				// scroll to top
 				$('#content').scrollTop(0);
@@ -28,7 +27,6 @@ ajaxApplication.nextNeighborhood = function () {
 				if (!selected) {
 					$('.select2-selection__placeholder').text("Neighborhood");						
 				}
-
 	        }
 		});
 	}
@@ -48,13 +46,12 @@ ajaxApplication.nextHeight = function () {
 				data: f.serialize(),
 				success: function(data){
 					$('#content').html(data);
-					// remove labels
-					$('label').remove();
-					// add a form-control class to the input, disabled attribute and placeholder text
-					$('#id_buildingStories').addClass("form-control");
-					$('#id_buildingStories').prop("disabled", true);
-					$('#id_buildingStories').prop("type", "text");
-					$('#id_buildingStories').val("5");
+					$('#id_buildingStories').val(1);
+					$('#id_buildingStories').prop('min', 1);
+					$('#id_buildingStories').prop('max', 150);
+					$('#div_id_buildingImage').addClass('hidden');
+					$('#div_id_buildingDoc').addClass('hidden');
+					$('#div_id_buildingURL').addClass('hidden');
 					$(".fadein").fadeIn("slow");
 					// scroll to top
 					$('#content').scrollTop(0);
@@ -116,11 +113,7 @@ ajaxApplication.nextEnd = function () {
 				url: "/skyline/chi/exactLocation/"+ objectID +"/",
 				data: f.serialize(),
 				success: function(data){
-					$('#content').html(data);
-					$(".fadein").fadeIn("slow");
-					// scroll to top
-					$('#content').scrollTop(0);
-
+					window.location.href = "/skyline/chi/return_result/"+ objectID +"/";
 		        }
 			});
 		});
@@ -188,13 +181,8 @@ ajaxApplication.backHeight = function (id) {
 			success: function(data){
 				mapApplication.destroy();
 				$('#content').html(data);
-				// remove labels
-				$('label').remove();
-				// add a form-control class to the input, disabled attribute and placeholder text
-				$('#id_buildingStories').addClass("form-control");
-				$('#id_buildingStories').prop("disabled", true);
-				$('#id_buildingStories').prop("type", "text");
-				$('#id_buildingStories').val("5");
+				$('#id_buildingStories').prop('min', 1);
+				$('#id_buildingStories').prop('max', 150);
 				$(".fadein").fadeIn("slow");
 				// scroll to top
 				$('#content').scrollTop(0);

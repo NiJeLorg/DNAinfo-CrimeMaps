@@ -1,0 +1,63 @@
+{% extends 'skyline_chi/baseCHI.html' %} {% load staticfiles %} {% load bootstrap_tags %} {% block css_block %}
+<link rel="stylesheet" type="text/css" href="{% static 'skyline_chi/css/carto.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'skyline_chi/css/Control.Geocoder.css' %}">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"> {% endblock %} {% block head_js_block %}
+<script type="text/javascript" src="{% static 'skyline_chi/js/controllers.js' %}"></script>
+{% endblock %} {% block body_block %}
+<div id="content" class="fadein">
+    <!-- Content -->
+    <div id="map"></div>
+    <form id="exactLocationForm" method="post" action=".">
+        <div class="container-fluid absolutePostionedDiv">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-xs-9 col-sm-7 col-xs-offset-1 col-sm-offset-2">
+                    <div class="forceBlock">
+                        <h2 class="questionHeadingExact">
+                            Click the building footprint where the new building will be.
+                        </h2>
+                        <h2 class="questionHeadingExactSmall">
+                            Tap the building footprint where the new building will be.
+                        </h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-8 col-sm-offset-2">
+                    <div class="form-group formField invisible">
+                        <div class="input-group">
+                            <div class="input-group-addon left"><span class="locationIcon"></span></div>
+                            {{ form }}
+                            <div class="input-group-addon"></div>
+                        </div>
+                        {{ form.errors }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-5 col-sm-offset-2 bottomButtonGroupMap">
+                    <a class="btn btn-dna-primary mobileWidth marginRight10" href="{% url 'skyline_chi_permittedBuildingHeightAnd' id=CHI_Building_Permits_NewObject.id %}" role="button"><span class="backArrow"></span>Back</a>
+                    <button id="permittedNextEnd" class="btn btn-dna-primary mobileWidth marginRight10" type="submit" disabled="disabled">Save</button>
+                    <a class="btn btn-dna-primary mobileWidth marginRight10" href="{% url 'skyline_chi_AdminDashboard' %}" role="button">Admin Home</a>
+                </div>
+            </div>
+    </form>
+    </div>
+</div>
+{% endblock %} {% block js_block %}
+<script type="text/javascript" src="{% static 'skyline_chi/js/d3.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'skyline_chi/js/carto.js' %}"></script>
+<script type="text/javascript" src="{% static 'skyline_chi/js/Control.Geocoder.js' %}"></script>
+<script type="text/javascript" src="{% static 'skyline_chi/js/permitted_map.js' %}"></script>
+<script type="text/javascript">
+var objectID = "{{ CHI_Building_Permits_NewObject.id }}";
+var neighborhoodName = "{{ CHI_Building_Permits_NewObject.whereBuilding.dnaurl }}";
+$(document).ready(function() {
+    window.setTimeout(function() {
+        mapApplication.initialize();
+    }, 1);
+});
+</script>
+{% endblock %}

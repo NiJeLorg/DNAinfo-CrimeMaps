@@ -31,14 +31,14 @@
 
 <!-- Hidden Div -->
 <div id="tooltipPermitted" class="tooltip permitted-tooltip hidden">
-    <p class="permitted">PERMITTED BY CHICAGO DOB</p>
+    <p class="permitted">PERMITTED BY NYC DOB</p>
     <h4 id="property-address-permitted" class="tooltip-title"></h4>
     <button type="button" class="close tooltip-close" aria-label="Close"><i class="fa fa-times-circle-o fa-lg" aria-hidden="true"></i></button>
     <div class="clearfix"></div>
     <hr />
     <p>
         <span id="property-stories-permitted" class='property-text'></span>
-        <span id='property-description-permitted' class='property-text'></span>
+        <span id='property-pdf-permitted' class='property-text'></span>
     </p>
 </div>
 
@@ -52,6 +52,7 @@
     <p>
         <span id="property-stories-dna" class='property-text'></span>
         <span id='property-description-dna' class='property-text'></span>
+        <span id='property-pdf-dna' class='property-text'></span>
         <span id='property-story1-dna' class='property-text'></span>
         <span id='property-story2-dna' class='property-text'></span>
         <span id='property-story3-dna' class='property-text'></span>
@@ -82,7 +83,7 @@
 <div class="container-fluid">  
     <div class="row">
         <div class="col-xs-12 col-sm-8 col-sm-offset-2 bottomButtonGroupMap">
-            <a id="letsGoAgain" class="btn btn-dna-primary" href="/skyline/chi/" role="button">Add Another!</a>
+            <a id="letsGoAgain" class="btn btn-dna-primary" href="/skyline/nyc/" role="button">Add Another!</a>
             <span class="pull-right">
                 <a id="showShareFB" class="btn btn-dna-facebook" href="#" role="button" onclick="#"><span class="shareOn">Share on </span><i class="fa fa-facebook-official fa-2x"></i></a>
                 <a id="showShareTwitter" class="btn btn-dna-twitter" href="#" role="button" onclick="#"><span class="shareOn">Share on </span><i class="fa fa-twitter fa-2x"></i></a>
@@ -93,6 +94,10 @@
 
 <script type="text/javascript">
     var objectID = "{{ CHIskylineObject.id }}"; 
+    var boro = "{{ CHIskylineObject.whereBuilding.county }}";
+    if (boro == 'Staten Island') {
+        boro = 'SI';
+    }
     var bitlyURL = "{{ bitlyURL.url }}";
     $( document ).ready(function() {
 
@@ -107,7 +112,7 @@
         var fblink = "https://visualizations.dnainfo.com/";
         var fbpicture = "https://editorial-ny.dnainfo.com/interactives/2016/aptshare.jpeg";
         var fbname = "Share Title";
-        var fbcaption = "DNAinfo Chicago";
+        var fbcaption = "DNAinfo New York";
         var fbUrl = 'https://www.facebook.com/dialog/feed?app_id=' + app_id + '&display=popup&description='+ encodeURIComponent(fbdescription) + '&link=' + encodeURIComponent(bitlyURL) + '&redirect_uri=' + encodeURIComponent(fblink) + '&name=' + encodeURIComponent(fbname) + '&caption=' + encodeURIComponent(fbcaption) + '&picture=' + encodeURIComponent(fbpicture);
         var fbOnclick = 'window.open("' + fbUrl + '","facebook-share-dialog","width=626,height=436");return false;';
         //$('#showShareFB').attr("href", fbUrl);

@@ -46,7 +46,6 @@
 <script type="text/javascript">
     var objectID = "{{ CHIskylineObject.id }}";
     var neighborhoodName = "{{ CHIskylineObject.whereBuilding.dnaurl }}";
-    var iDontSeeMyNeighborhood = "{{ CHIskylineObject.iDontSeeMyNeighborhood }}";
     var buildingStories = parseInt("{{ CHIskylineObject.buildingStories }}");
     // formula from http://www.ctbuh.org/HighRiseInfo/TallestDatabase/Criteria/HeightCalculator/tabid/1007/language/en-GB/Default.aspx
     var buildingHeight;
@@ -55,6 +54,11 @@
     } else {
         buildingHeight = (3.5*buildingStories) + 9.625 + (2.625 * (buildingStories/25));
     }
+    var projectName = "{{ CHIskylineObject.projectName }}";
+    var buildingAddress = "{{ CHIskylineObject.buildingAddress }}";
+    var buildingImage = "{{ CHIskylineObject.buildingImage }}";
+    var buildingDoc = "{{ CHIskylineObject.buildingDoc }}";
+    var buildingURL = "{{ CHIskylineObject.buildingURL }}";
 
     $( document ).ready(function() {
         window.setTimeout(function() {

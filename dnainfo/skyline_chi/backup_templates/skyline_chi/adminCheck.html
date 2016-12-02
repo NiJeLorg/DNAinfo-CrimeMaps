@@ -1,0 +1,33 @@
+{% extends 'skyline_chi/baseCHI.html' %}
+{% load staticfiles %}
+
+{% block title %}Future Skyline Admin Area | DNAinfo{% endblock %}
+
+{% block css_block %}
+<link rel="stylesheet" type="text/css" href="{% static 'skyline_chi/css/OSMBuildings.css' %}">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+{% endblock %}
+
+{% block head_js_block %}
+<script type="text/javascript" src="{% static 'skyline_chi/js/admin-controllers.js' %}"></script>
+{% endblock %}
+	
+{% block body_block %}
+<div id="content" class="fadein">
+    {% include 'skyline/adminTemplate.html' %}
+</div>
+{% endblock %}
+
+{% block modal_block %}   
+{% endblock %}
+
+{% block js_block %}
+<script type="text/javascript" src="{% static 'skyline_chi/js/OSMBuildings.js' %}"></script>
+<script type="text/javascript" src="{% static 'skyline_chi/js/admin-ajax.js' %}"></script>
+<script type="text/javascript" src="{% static 'skyline_chi/js/osmmap.js' %}"></script>
+{% endblock %}
+
+
+	
+	
+

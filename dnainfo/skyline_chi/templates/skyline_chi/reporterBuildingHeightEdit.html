@@ -46,6 +46,12 @@
 {% endblock %}
 
 {% block js_block %}
+<script type="text/javascript">
+    $( document ).ready(function() {
+        $('#id_buildingStories').prop('min', 1);
+        $('#id_buildingStories').prop('max', 150);
+    });
+</script>
 {% endblock %}
 
 
