@@ -7,24 +7,53 @@ from skyline_chi.models import *
 #add select 2
 from django_select2.forms import Select2Widget
 
+#choices for imageDocOrURL
+YES_NO = (
+            (True, 'Upload an image or document showing or describing this building'),
+            (False, 'Add this project\'s website'),
+        )
+
+
 # skyline forms below
 class CHIwhatNeighborhoodForm(forms.ModelForm):
     class Meta:
         model = CHIskyline
-        fields = ('whereBuilding', 'iDontSeeMyNeighborhood',)
+        fields = ('whereBuilding',)
         widgets = {
             'whereBuilding': Select2Widget,
+        }
+        labels = {
+            'whereBuilding': '',
         }
 
 class CHIbuildingHeightForm(forms.ModelForm):
     class Meta:
         model = CHIskyline
-        fields = ('buildingStories', )
+        fields = ('buildingStories', 'projectName', 'imageDocOrURL', 'buildingImage', 'buildingDoc', 'buildingURL', 'userEmail', 'newsletter',)
+        labels = {
+            'buildingStories': 'How many stories tall is this building? (Required)',
+            'projectName': 'If this project has a name, what is it? (Optional)',
+            'imageDocOrURL': 'Please provide some documentation that this building is real or in the works. One of these is required.',
+            'buildingImage': 'Please upload an image of this building.',
+            'buildingDoc': 'Please upload some documentation on this building.',
+            'buildingURL': 'If this project has a website, what is it?',
+            'userEmail': 'Give us your email, and we\'ll let you know when this building is approved to show on our map. (Optional)',
+            'newsletter': '<strong>I\'d like to recieve the DNAinfo newsletter for this neighborhood.</strong>'
+        }
+        widgets = {
+            'imageDocOrURL': forms.RadioSelect(choices=YES_NO),
+        }
 
 class CHIexactLocationForm(forms.ModelForm):
     class Meta:
         model = CHIskyline
         fields = ('buildingFootprint', 'buildingAddress', 'buildingPIN', )
+        labels = {
+            'buildingFootprint': '',
+            'buildingAddress': '',
+            'buildingPIN': '',
+        }
+
 
 class CHIapproveForm(forms.ModelForm):
     class Meta:
@@ -39,6 +68,10 @@ class CHIwhatNeighborhoodSponsoredForm(forms.ModelForm):
         widgets = {
             'whereBuilding': Select2Widget,
         }
+        labels = {
+            'whereBuilding': '',
+        }
+
 
 class CHIbuildingHeightSponsoredForm(forms.ModelForm):
     class Meta:
@@ -71,6 +104,10 @@ class CHIwhatNeighborhoodReporterForm(forms.ModelForm):
         widgets = {
             'whereBuilding': Select2Widget,
         }
+        labels = {
+            'whereBuilding': '',
+        }
+
 
 class CHIbuildingHeightReporterForm(forms.ModelForm):
     class Meta:
@@ -91,12 +128,18 @@ class CHIexactLocationReporterForm(forms.ModelForm):
     class Meta:
         model = CHIReporterBuildings
         fields = ('buildingFootprint', 'buildingPIN', )
+        labels = {
+            'buildingFootprint': '',
+            'buildingPIN': '',
+        }
 
 class CHIremoveReporterForm(forms.ModelForm):
     class Meta:
         model = CHIReporterBuildings
         fields = ('id', )
-
+        labels = {
+            'id': '',
+        }
 
 class CHI_Building_Permits_NewForm(forms.ModelForm):
     class Meta:
@@ -121,6 +164,9 @@ class CHIwhatNeighborhoodPermittedForm(forms.ModelForm):
         widgets = {
             'whereBuilding': Select2Widget,
         }
+        labels = {
+            'whereBuilding': '',
+        }
 
 class CHIbuildingHeightAndPermittedForm(forms.ModelForm):
     class Meta:
@@ -140,3 +186,18 @@ class CHIexactLocationPermittedForm(forms.ModelForm):
     class Meta:
         model = CHI_Building_Permits_New
         fields = ('buildingFootprint', 'pin1', )
+        labels = {
+            'buildingFootprint': '',
+            'pin1': '',
+        }
+
+class CHIlandingPageForm(forms.ModelForm):
+    class Meta:
+        model = CHIskyline
+        fields = ('whereBuilding',)
+        widgets = {
+            'whereBuilding': Select2Widget,
+        }
+        labels = {
+            'whereBuilding': '',
+        }

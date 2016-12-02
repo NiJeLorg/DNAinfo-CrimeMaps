@@ -13,30 +13,30 @@ html, body, #content, #map, #osmmap {
 }
 
 /* reporter and UGC building mini maps */
-.minimap { 
-  height: 180px; 
+.minimap {
+  height: 180px;
   border: 1px solid #aaa;
 }
 
 /* full screen background image */
-#background, #background li { 
-  position: absolute; 
-  top: 0; 
-  left: 0; 
-  right: 0; 
-  bottom: 0; 
+#background, #background li {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   opacity: 1;
   background: url('images/FUTURE_SKYLINE_ILLUS_SMALL.svg');
-  background-color: transparent; 
-  background-size: cover; 
-  background-position: center bottom; 
-  background-repeat: no-repeat; 
+  background-color: transparent;
+  background-size: cover;
+  background-position: center bottom;
+  background-repeat: no-repeat;
 }
 
-#background { 
+#background {
   z-index: -1;
-  margin: 0; 
-  padding: 0; 
+  margin: 0;
+  padding: 0;
 }
 
 /* Main container should have 25px right and left padding */
@@ -64,6 +64,15 @@ html, body, #content, #map, #osmmap {
 
 .jumbotron {
   background-color: #fafafa;
+}
+
+.has-error .help-block, .has-error .control-label, .has-error .radio, .has-error .checkbox, .has-error .radio-inline, .has-error .checkbox-inline, .has-error.radio label, .has-error.checkbox label, .has-error.radio-inline label, .has-error.checkbox-inline label {
+    color: #686868;
+}
+
+.error-msg {
+  color: #d0343a;
+  font-size: 16px;
 }
 
 
@@ -101,7 +110,7 @@ html, body, #content, #map, #osmmap {
   font-size: 32px;
   font-weight: 200;
   line-height: 1.42;
-  background: rgb(242, 242, 242); 
+  background: rgb(242, 242, 242);
   background: rgba(242, 242, 242, .9);
 
 }
@@ -121,12 +130,12 @@ html, body, #content, #map, #osmmap {
   font-weight: 200;
   line-height: 1.3125;
   margin-top: 30px;
-  margin-bottom: 18px;  
+  margin-bottom: 18px;
 }
 
 .highlightBackground {
-  background: rgb(242, 242, 242); 
-  background: rgba(242, 242, 242, .9);  
+  background: rgb(242, 242, 242);
+  background: rgba(242, 242, 242, .9);
 }
 
 
@@ -135,7 +144,7 @@ html, body, #content, #map, #osmmap {
   font-size: 14px;
   font-weight: 200;
   margin-top: 30px;
-  margin-bottom: 65px;  
+  margin-bottom: 65px;
 }
 
 .monthlyRentText {
@@ -143,7 +152,7 @@ html, body, #content, #map, #osmmap {
   font-size: 17px;
   line-height: 1.5294;
   font-weight: 200;
-  margin-bottom: 20px;    
+  margin-bottom: 20px;
 }
 
 
@@ -177,17 +186,18 @@ html, body, #content, #map, #osmmap {
 }
 
 .modal-dialog {
-  margin: 20vh 25px;
+  margin-right: 15px;
+  margin-left: 15px;
 }
 
-.modal-header .close {
-  margin-top: -2px;
-  margin-right: -10px;
-  width: 25px;
-  height: 25px;
-  padding-left: 10px;
+#methodology .modal-header {
+  display: flex;
+  padding-bottom: 0px;
 }
 
+.close {
+    font-weight: normal;
+}
 
 /* Buttons */
 .bottomButtonGroup {
@@ -197,7 +207,7 @@ html, body, #content, #map, #osmmap {
 }
 
 .bottomButtonGroupMap {
-  position: relative; 
+  position: relative;
   bottom: 175px;
 }
 
@@ -380,7 +390,7 @@ fieldset[disabled] .btn-dna-twitter.active {
   z-index: 1000;
   height: auto;
   width: auto;
-  padding: 1px 5px; 
+  padding: 1px 5px;
 }
 
 /* share text in button */
@@ -406,7 +416,7 @@ fieldset[disabled] .btn-dna-twitter.active {
     top: 19px;
     width: 15px;
     height: 12px;
-    margin-left: 10px; 
+    margin-left: 10px;
     background: url('images/Arrow_ICON_NEXT.svg');
     background-color: transparent;
     background-position: left center;
@@ -485,7 +495,7 @@ fieldset[disabled] .btn-dna-twitter.active {
     background: url('images/Stepper_Minus_ICON2.svg');
     background-color: transparent;
     background-position: left center;
-    background-repeat: no-repeat; 
+    background-repeat: no-repeat;
 }
 
 .plusStepper {
@@ -524,7 +534,7 @@ fieldset[disabled] .btn-dna-twitter.active {
     background: url('images/Stepper_Plus_ICON2.svg');
     background-color: transparent;
     background-position: left center;
-    background-repeat: no-repeat;  
+    background-repeat: no-repeat;
 }
 
 
@@ -633,6 +643,7 @@ fieldset[disabled] .btn-dna-twitter.active {
 
 /* form controls */
 .form-control {
+    font-size: 16px;
     height: 45px;
     -webkit-text-fill-color:#686868; /* Override iOS / Android font color change */
     -webkit-opacity:1; /* Override iOS opacity change affecting text & background color */
@@ -671,7 +682,13 @@ fieldset[disabled] .btn-dna-twitter.active {
   font-size: 16px;
   height: 45px !important;
   border-top-right-radius: 4px !important;
-  border-bottom-right-radius: 4px !important; 
+  border-bottom-right-radius: 4px !important;
+  width: auto;
+  outline: none;
+}
+
+footer .select-parent .select2-container {
+  width: 100% !important;
 }
 
 .select2-container--default .select2-selection--single {
@@ -682,7 +699,7 @@ fieldset[disabled] .btn-dna-twitter.active {
 
 .select2-choice {
   border-top-right-radius: 4px;
-  border-bottom-right-radius: 4px;  
+  border-bottom-right-radius: 4px;
 }
 
 .select2-search {
@@ -695,7 +712,7 @@ fieldset[disabled] .btn-dna-twitter.active {
   padding-left: 10px !important;
   font-family: inherit;
   font-size: inherit;
-  border: 0px !important; 
+  border: 0px !important;
   background-color: #eeeeee !important;
   background-image: none !important;
   -webkit-box-shadow: none;
@@ -704,13 +721,13 @@ fieldset[disabled] .btn-dna-twitter.active {
   -o-transition: none;
   transition: none;
   border-top-right-radius: 4px;
-  border-bottom-right-radius: 4px;  
+  border-bottom-right-radius: 4px;
 }
 
 .select2-drop {
   font-size: 16px;
   margin-top: -45px;
-  -webkit-box-shadow: none; 
+  -webkit-box-shadow: none;
   box-shadow: none;
 }
 
@@ -725,12 +742,12 @@ fieldset[disabled] .btn-dna-twitter.active {
   max-height: 135px !important;
 }
 
-.select2-results__options::-webkit-scrollbar { 
-    display: none; 
+.select2-results__options::-webkit-scrollbar {
+    display: none;
 }
 
-.select2-results::-webkit-scrollbar { 
-    display: none; 
+.select2-results::-webkit-scrollbar {
+    display: none;
 }
 
 .select2-container--default .select2-results__option--highlighted[aria-selected] {
@@ -769,7 +786,7 @@ fieldset[disabled] .btn-dna-twitter.active {
 }
 
 .select2-container .select2-selection__rendered {
-  font-size: 16px;  
+  font-size: 16px;
   height: 45px;
   padding: 9px 0 0 10px;
   border: 0px;
@@ -823,7 +840,7 @@ fieldset[disabled] .btn-dna-twitter.active {
   top: 0;
   bottom: 0;
   left: 0;
-  right: 0; 
+  right: 0;
 }
 
 /* OSM Buildings Map CSS */
@@ -834,7 +851,7 @@ fieldset[disabled] .btn-dna-twitter.active {
 }
 
 .control.tilt {
-  top: 0;
+  top: 0px;
 }
 
 .control.rotation {
@@ -875,57 +892,102 @@ fieldset[disabled] .btn-dna-twitter.active {
   max-width: 300px;
   height: auto;
   margin: 0;
-  padding: 10px;
+  padding: 15px;
   background: #ffffff;
   opacity: 1;
   border-radius: 5px;
   overflow: hidden;
+  box-shadow: 0 2px 4px 0 #c5c5c5;
 }
 
-.tooltip.sponsored-tooltip {
-  border: 1px solid #ffcf2d;
+.tooltip .tooltipHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: solid 1px #eae9e9;
+  padding: 3% 0%;
+  margin-bottom: 4%;
+}
+
+.tooltipHeader h4 {
+  font-weight: bold;
+  color: #2e2925;
+  margin: 0;
+}
+
+.tooltipHeader button .fa-2x {
+  font-size: 1.2em;
+}
+
+.tooltip footer {
+  position: static;
+  width: 100%;
+  display: block;
+}
+
+.tooltip .links {
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 8%;
+}
+
+.tooltip footer .links span {
+  display: block;
+  margin-top: 4%;
+}
+
+.tooltip footer .links a:hover {
+  text-decoration: none;
+}
+
+.tooltip footer .social-media-links {
+  width: 35%;
+}
+
+.tooltip footer .social-media-links .facebook {
+  margin-right: 10px;
 }
 
 .tooltip .sponsored {
-  padding: 8px 0px 3px 14px;
+  padding: 1% 15px;
   color: #fff;
   background: #ffcf2d;
   margin: -15px -15px 0px -15px;
   font-size: 14px;
   font-weight: bold;
-}
-
-.tooltip.permitted-tooltip {
-  border: 1px solid #00cdbe;
+  letter-spacing: .3px;
 }
 
 .tooltip .permitted {
-  padding: 8px 0px 3px 14px;
+  padding: 1% 15px;
   color: #fff;
   background: #00cdbe;
   margin: -15px -15px 0px -15px;
   font-size: 14px;
   font-weight: bold;
+  letter-spacing: .3px;
 }
 
-.tooltip.dna-tooltip {
-  border: 1px solid #0073a2;
+.tooltip .submitted {
+  padding: 1% 15px;
+  color: #fff;
+  background: #ff926c;
+  margin: -15px -15px 0px -15px;
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: .3px;
 }
 
 .tooltip .dna {
-  padding: 8px 0px 3px 14px;
+  padding: 1% 15px;
   color: #fff;
   background: #0073a2;
   margin: -15px -15px 0px -15px;
   font-size: 14px;
   font-weight: bold;
+  letter-spacing: .3px;
 }
 
-.tooltip .tooltip-close {
-  position: absolute;
-  right: 10px;
-  top: 30px;
-}
 
 .tooltip .tooltip-title {
   margin-bottom: 0px;
@@ -943,7 +1005,6 @@ fieldset[disabled] .btn-dna-twitter.active {
 
 .tooltip .property-text.link {
   font-family:"Titillium Web", Helvetica, Sans-Serif;
-  margin-top: 15px;
 }
 
 .tooltip .property-image {
@@ -958,10 +1019,10 @@ canvas {
 
 
 /* remove spinners */
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
-  -webkit-appearance: none; 
-  margin: 0; 
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 input[type=number] {
@@ -970,11 +1031,11 @@ input[type=number] {
 
 
 /* radio button css */
-input[type="radio"] {
+/*input[type="radio"] {
     display:none;
 }
-input[type="radio"] + label {   
-    cursor: pointer; 
+input[type="radio"] + label {
+    cursor: pointer;
     font-family:"Titillium Web", Helvetica, Sans-Serif;
     color: #686868;
     font-size: 18px;
@@ -1008,7 +1069,17 @@ input[type="radio"]:checked + label span {
   -moz-transition:background-color 0.4s linear;
   transition:background-color 0.4s linear;
 }
+*/
 
+.radio label, .checkbox label {
+  font-size: 16px;
+}
+
+/* control label font size */
+.control-label {
+  font-size: 16px;
+  font-weight: normal;
+}
 
 /* Ad images */
 .smallAd {
@@ -1048,10 +1119,10 @@ input[type="radio"]:checked + label span {
     width: 80%;
   }
   .col-sm-7 {
-    width: 75%;    
+    width: 75%;
   }
   .col-sm-1 {
-    width: 5%;        
+    width: 5%;
   }
   .col-sm-offset-2 {
     margin-left: 10%;
@@ -1067,18 +1138,18 @@ input[type="radio"]:checked + label span {
   }
 
   .forwardArrow {
-      left: 88px; 
+      left: 88px;
       margin-left: 0px;
   }
 
-  #background, #background li { 
+  #background, #background li {
     background: url('images/FUTURE_SKYLINE_ILLUS_TALL.svg');
-    background-color: transparent; 
-    background-size: cover; 
-    background-position: center bottom; 
-    background-repeat: no-repeat; 
-  } 
-   
+    background-color: transparent;
+    background-size: cover;
+    background-position: center bottom;
+    background-repeat: no-repeat;
+  }
+
   .introHeading {
     font-size: 26px;
     line-height: 1.5;
@@ -1117,7 +1188,7 @@ input[type="radio"]:checked + label span {
     font-size: 57px;
     line-height: 1.42;
     margin-left: 0px;
-    background: rgb(242, 242, 242); 
+    background: rgb(242, 242, 242);
     background: rgba(242, 242, 242, .9);
   }
 
@@ -1130,7 +1201,8 @@ input[type="radio"]:checked + label span {
 
 
   .modal-dialog {
-    margin: 30vh auto;
+    margin-right: auto;
+    margin-left: auto;
   }
 
   .shareOn {
@@ -1159,13 +1231,13 @@ input[type="radio"]:checked + label span {
 
 @media (min-width: 1200px) {
 
-  #background, #background li { 
+  #background, #background li {
     background: url('images/FUTURE_SKYLINE_ILLUS_FULL.svg');
-    background-color: transparent; 
-    background-size: cover; 
-    background-position: center bottom; 
-    background-repeat: no-repeat; 
-  } 
+    background-color: transparent;
+    background-size: cover;
+    background-position: center bottom;
+    background-repeat: no-repeat;
+  }
 
   .introHeading {
     font-size: 26px;
@@ -1199,7 +1271,7 @@ input[type="radio"]:checked + label span {
     font-size: 57px;
     font-weight: 200;
     line-height: 1.42;
-    background: rgb(242, 242, 242); 
+    background: rgb(242, 242, 242);
     background: rgba(242, 242, 242, .9);
   }
 
@@ -1213,7 +1285,6 @@ input[type="radio"]:checked + label span {
     margin-top: 75px;
     margin-bottom: 18px;
   }
-
 }
 
 

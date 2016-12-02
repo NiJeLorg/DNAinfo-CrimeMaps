@@ -110,8 +110,8 @@ html, body, #content, #map, #osmmap {
   font-size: 32px;
   font-weight: 200;
   line-height: 1.42;
-/*  background: rgb(242, 242, 242);
-  background: rgba(242, 242, 242, .9);*/
+  background: rgb(242, 242, 242);
+  background: rgba(242, 242, 242, .9);
 
 }
 
@@ -134,8 +134,8 @@ html, body, #content, #map, #osmmap {
 }
 
 .highlightBackground {
-/*  background: rgb(242, 242, 242);
-  background: rgba(242, 242, 242, .9);*/
+  background: rgb(242, 242, 242);
+  background: rgba(242, 242, 242, .9);
 }
 
 

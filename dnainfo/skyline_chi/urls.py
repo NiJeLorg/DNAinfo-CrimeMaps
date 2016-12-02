@@ -3,7 +3,7 @@ from skyline_chi import views
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
-    url(r'^skyline/chi/$', views.skyline_chi_intro, name='skyline_chi_intro'),
+    url(r'^skyline/chi/new-building/$', views.skyline_chi_intro, name='skyline_chi_intro'),
     url(r'^skyline/chi/whatNeighborhood/$', views.skyline_chi_whatNeighborhood, name='skyline_chi_whatNeighborhood'),
     url(r'^skyline/chi/whatNeighborhood/(?P<id>\d+)/$', views.skyline_chi_whatNeighborhood, name='skyline_chi_whatNeighborhood'),
     url(r'^skyline/chi/buildingHeight/(?P<id>\d+)/$', views.skyline_chi_buildingHeight, name='skyline_chi_buildingHeight'),
@@ -12,12 +12,16 @@ urlpatterns = [
     url(r'^skyline/chi/getSponsoredGeojsons/$', views.skyline_chi_getSponsoredGeojsons, name='skyline_chi_getSponsoredGeojsons'),
     url(r'^skyline/chi/getPermittedGeojsons/$', views.skyline_chi_getPermittedGeojsons, name='skyline_chi_getPermittedGeojsons'),
     url(r'^skyline/chi/getReporterGeojsons/$', views.skyline_chi_getReporterGeojsons, name='skyline_chi_getReporterGeojsons'),
+    url(r'^skyline/chi/getUGCApprovedGeojsons/$', views.skyline_chi_getUGCApprovedGeojsons, name='skyline_chi_getUGCApprovedGeojsons'),
     url(r'^skyline/chi/end/(?P<id>\d+)/$', views.skyline_chi_end, name='skyline_chi_end'),
     url(r'^skyline/chi/results/(?P<id>\d+)/$', views.skyline_chi_results, name='skyline_chi_results'),
-    url(r'^skyline/admin/chi/$', views.skyline_chi_AdminDashboard, name='skyline_chi_AdminDashboard'),
+    #admin urls
+    url(r'^skyline/admin/chi/$', views.skylineAdminDashboard, name='skyline_chi_AdminDashboard'),
+    url(r'^skyline/admin/chi/ugc/viewall/$', views.skyline_chi_UgcViewAll, name='skyline_chi_UgcViewAll'),
     url(r'^skyline/admin/chi/ugc/list/$', views.skyline_chi_UgcList, name='skyline_chi_UgcList'),
     url(r'^skyline/admin/chi/ugc/approve/(?P<id>\d+)/$', views.skyline_chi_UgcApprove, name='skyline_chi_UgcApprove'),
     url(r'^skyline/admin/chi/ugc/reject/(?P<id>\d+)/$', views.skyline_chi_UgcReject, name='skyline_chi_UgcReject'),
+    url(r'^skyline/admin/chi/ugc/edit/(?P<id>\d+)/$', views.skyline_chi_UgcEdit, name='skyline_chi_UgcEdit'),
     url(r'^skyline/admin/chi/sponsored/list/$', views.skyline_chi_sponsoredList, name='skyline_chi_sponsoredList'),
     url(r'^skyline/admin/chi/sponsored/remove/(?P<id>\d+)/$', views.skyline_chi_sponsoredRemove, name='skyline_chi_sponsoredRemove'),
     url(r'^skyline/admin/chi/sponsored/whatNeighborhood/$', views.skyline_chi_sponsoredWhatNeighborhood, name='skyline_chi_sponsoredWhatNeighborhood'),
@@ -39,8 +43,9 @@ urlpatterns = [
     url(r'^skyline/admin/chi/viewall/whatNeighborhood/$', views.skyline_chi_viewAllWhatNeighborhood, name='skyline_chi_viewAllWhatNeighborhood'),
     url(r'^skyline/admin/chi/viewall/whatNeighborhood/(?P<id>\d+)/$', views.skyline_chi_viewAllWhatNeighborhood, name='skyline_chi_viewAllWhatNeighborhood'),
     url(r'^skyline/admin/chi/viewall/(?P<id>\d+)/$', views.skyline_chi_viewAll, name='skyline_chi_viewAll'),
-    url(r'^skyline/admin/check/chi/$', views.skyline_chi_AdminCheck, name='sskyline_chi_AdminCheck'),
-    url(r'^skyline/admin/next/chi/$', views.skyline_chi_AdminNext, name='skyline_chi_AdminNext'),
+    url(r'^skyline/admin/check/$', views.skylineAdminCheck, name='skyline_chi_AdminCheck'),
+    url(r'^skyline/admin/next/$', views.skylineAdminNext, name='skyline_chi_AdminNext'),
+    # permitted buidling mini-form
     url(r'^skyline/admin/chi/permitted/buildingHeight/(?P<id>\d+)/$', views.skyline_chi_permittedBuildingHeight, name='skyline_chi_permittedBuildingHeight'),
     # permitted building full form
     url(r'^skyline/admin/chi/permitted/whatNeighborhood/$', views.skyline_chi_permittedWhatNeighborhood, name='skyline_chi_permittedWhatNeighborhood'),
@@ -50,6 +55,11 @@ urlpatterns = [
     url(r'^skyline/admin/chi/permitted/getGeojson/(?P<id>\d+)/$', views.skyline_chi_permittedGetGeojson, name='skyline_chi_permittedGetGeojson'),
     url(r'^skyline/admin/chi/permitted/end/(?P<id>\d+)/$', views.skyline_chi_permittedEnd, name='skyline_chi_permittedEnd'),
     url(r'^skyline/admin/chi/permitted/csv/$', views.skyline_chi_createBuildingsCSV, name='skyline_chi_createBuildingsCSV'),
+    url(r'^skyline/admin/chi/ugc/csv/$', views.skyline_chi_createNewsletterCSV, name='skyline_chi_createNewsletterCSV'),
 
+    # intro and landing page
+    url(r'^skyline/chi/$', views.skyline_chi_landingPage, name='skyline_chi_landingPage'),
+    url(r'^skyline/chi/browse/(?P<id>\d+)/$', views.skyline_chi_browse, name='skyline_chi_browse'),
+    url(r'^skyline/chi/return_result/(?P<id>\d+)/$', views.skyline_chi_return_result, name='skyline_chi_return_result'),
 
 ]

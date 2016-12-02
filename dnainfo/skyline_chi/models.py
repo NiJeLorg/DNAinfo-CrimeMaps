@@ -1,6 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+#validator
+from django.core.validators import MinValueValidator, MaxValueValidator
+
 # Create your models here.
 # model for CHI neighborhood look up table
 class neighborhoodCHI(models.Model):
@@ -19,7 +22,14 @@ class CHIskyline(models.Model):
 	buildingFootprint = models.TextField(default='')
 	buildingAddress = models.CharField(max_length=255, default='', blank=False, null=False)
 	buildingPIN = models.CharField(max_length=255, default='', blank=False, null=False)
-	buildingStories = models.IntegerField(default=0, blank=False, null=False)
+	buildingStories = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(150)], default=1, blank=False, null=False)
+	projectName = models.CharField(max_length=255, default='', blank=True, null=True)
+	imageDocOrURL = models.NullBooleanField(default=None)
+	buildingImage = models.ImageField(upload_to="img/%Y_%m_%d_%h_%M_%s", null=True, blank=True)
+	buildingDoc = models.FileField(upload_to='buildingDocs/', blank=True, null=True)
+	buildingURL = models.URLField(max_length=1000, default='', blank=True, null=True)
+	userEmail = models.EmailField(max_length=255, default='', blank=True, null=True)
+	newsletter = models.BooleanField(default=False)
 	approved = models.NullBooleanField(default=None)
 	reviewed_by = models.ForeignKey(User, blank=True, null=True)
 
@@ -38,7 +48,7 @@ class CHISponsoredBuildings(models.Model):
 	buildingName = models.CharField(max_length=255, default='', blank=False, null=False)
 	buildingAddress = models.CharField(max_length=255, default='', blank=False, null=False)
 	buildingText = models.CharField(max_length=255, default='', blank=False, null=False)
-	buildingStories = models.IntegerField(default=0, blank=False, null=False)
+	buildingStories = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(150)], default=1, blank=False, null=False)
 	buildingImage = models.ImageField(upload_to="img/%Y_%m_%d_%h_%M_%s", null=False, blank=False)
 	archived = models.BooleanField(default=False)
 
@@ -56,7 +66,7 @@ class CHIReporterBuildings(models.Model):
 	buildingFootprint = models.TextField(default='')
 	buildingAddress = models.CharField(max_length=255, default='', blank=False, null=False)
 	buildingPIN = models.CharField(max_length=255, default='', blank=False, null=False)
-	buildingStories = models.IntegerField(default=0, blank=False, null=False)
+	buildingStories = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(150)], default=1, blank=False, null=False)
 	approved = models.NullBooleanField(default=None)
 	description = models.CharField(max_length=200, default='', blank=True, null=True)
 	zoning_pdfs = models.URLField(max_length=1000, default='', blank=True, null=True)
@@ -85,7 +95,7 @@ class CHI_Building_Permits_Old(models.Model):
 	latitude = models.CharField(max_length=255, default='', blank=False, null=False)
 	longitude = models.CharField(max_length=255, default='', blank=False, null=False)
 	buildingFootprint = models.TextField(default='')
-	buildingStories = models.IntegerField(default=0, blank=False, null=False)
+	buildingStories = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(150)], default=1, blank=False, null=False)
 	zoning_pdfs = models.URLField(max_length=1000, default='', blank=True, null=True)
 	story1 = models.URLField(max_length=1000, default='', blank=True, null=True)
 	projectName = models.CharField(max_length=255, default='', blank=True, null=True)
@@ -113,7 +123,7 @@ class CHI_Building_Permits_New(models.Model):
 	latitude = models.CharField(max_length=255, default='', blank=False, null=False)
 	longitude = models.CharField(max_length=255, default='', blank=False, null=False)
 	buildingFootprint = models.TextField(default='')
-	buildingStories = models.IntegerField(default=0, blank=False, null=False)
+	buildingStories = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(150)], default=1, blank=False, null=False)
 	zoning_pdfs = models.URLField(max_length=1000, default='', blank=True, null=True)
 	story1 = models.URLField(max_length=1000, default='', blank=True, null=True)
 	projectName = models.CharField(max_length=255, default='', blank=True, null=True)

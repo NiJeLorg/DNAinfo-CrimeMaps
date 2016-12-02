@@ -91,7 +91,27 @@ class Command(BaseCommand):
                                 buildingStories = 9
                             if sliceText.find('ten') != -1:
                                 buildingStories = 10
-
+                            if sliceText.find('eleven') != -1:
+                                buildingStories = 11
+                            if sliceText.find('twelve') != -1:
+                                buildingStories = 12
+                            if sliceText.find('thirteen') != -1:
+                                buildingStories = 13
+                            if sliceText.find('fourteen') != -1:
+                                buildingStories = 14
+                            if sliceText.find('fifteen') != -1:
+                                buildingStories = 15
+                            if sliceText.find('sixteen') != -1:
+                                buildingStories = 16
+                            if sliceText.find('seventeen') != -1:
+                                buildingStories = 17
+                            if sliceText.find('eighteen ') != -1:
+                                buildingStories = 18
+                            if sliceText.find('nineteen') != -1:
+                                buildingStories = 19
+                            if sliceText.find('twenty') != -1:
+                                buildingStories = 20
+                                
                     else:
                         buildingStories = 0
 

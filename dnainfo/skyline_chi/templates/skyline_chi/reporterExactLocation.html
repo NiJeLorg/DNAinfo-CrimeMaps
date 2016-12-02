@@ -52,7 +52,7 @@
                     <a class="btn btn-dna-primary mobileWidth marginRight10" href="{% url 'skyline_chi_reporterBuildingHeight' id=CHIReporterBuildingsObject.id %}" role="button"><span class="backArrow"></span>Back</a>
                     <button id="reporterNextEnd" class="btn btn-dna-primary mobileWidth marginRight10" type="submit" disabled="disabled">Save</button>
                     <a class="btn btn-dna-primary mobileWidth marginRight10" href="{% url 'skyline_chi_AdminDashboard' %}" role="button">Admin Home</a>
-                </div>
+                 </div>
             </div>
         </form>
     </div>
@@ -69,7 +69,6 @@
 <script type="text/javascript">
     var objectID = "{{ CHIReporterBuildingsObject.id }}";
     var neighborhoodName = "{{ CHIReporterBuildingsObject.whereBuilding.dnaurl }}";
-    var iDontSeeMyNeighborhood = "{{ CHIReporterBuildingsObject.iDontSeeMyNeighborhood }}";
     var buildingStories = parseInt("{{ CHIReporterBuildingsObject.buildingStories }}");
     // formula from http://www.ctbuh.org/HighRiseInfo/TallestDatabase/Criteria/HeightCalculator/tabid/1007/language/en-GB/Default.aspx
     var buildingHeight;

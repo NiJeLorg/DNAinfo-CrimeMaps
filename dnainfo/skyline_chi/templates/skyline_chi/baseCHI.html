@@ -8,11 +8,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link href='https://fonts.googleapis.com/css?family=Titillium+Web:200,400,300,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Titillium+Web:200,400,300,600,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="{% static 'skyline_chi/css/bootstrap.css' %}">
-	{% block css_block %}
-	{% endblock %}
-    <link rel="stylesheet" type="text/css" href="{% static 'skyline_chi/css/main.css' %}">    
+  {% block css_block %}
+  {% endblock %}
+     <link rel="stylesheet" type="text/css" href="{% static 'skyline_chi/css/main.css' %}">
+
+
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -25,24 +27,25 @@
 
   {% block head_js_block %}
   {% endblock %}
-		
+
   </head>
 
   <body>
 
-	{% block body_block %}
-	{% endblock %}
+  {% block body_block %}
+  {% endblock %}
 
 
-	{% block modal_block %}
-	{% endblock %}
-	
+
+  {% block modal_block %}
+  {% endblock %}
+
     <!--  javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-	<script type="text/javascript" src="{% static 'skyline_chi/js/bootstrap.min.js' %}"></script>
-	{% block js_block %}
-	{% endblock %}
+  <script type="text/javascript" src="{% static 'skyline_chi/js/bootstrap.min.js' %}"></script>
+  {% block js_block %}
+  {% endblock %}
   <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

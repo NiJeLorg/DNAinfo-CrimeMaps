@@ -1,0 +1,127 @@
+<!-- Map -->
+<div id="osmmap"></div>
+
+<!-- Buttons -->
+<div class="control tilt">
+  <button class="dec"><i class="fa fa-angle-double-down" aria-hidden="true"></i></button>
+  <button class="inc"><i class="fa fa-angle-double-up" aria-hidden="true"></i></button>
+</div>
+
+<div class="control rotation">
+  <button class="inc"><i class="fa fa-undo" aria-hidden="true"></i></button>
+  <button class="dec"><i class="fa fa-repeat" aria-hidden="true"></i></button>
+</div>
+
+<div class="control zoom">
+  <button class="dec"><i class="fa fa-minus" aria-hidden="true"></i></button>
+  <button class="inc"><i class="fa fa-plus" aria-hidden="true"></i></button>
+</div>
+
+<!-- Hidden Div -->
+<div id="tooltipSponsored" class="tooltip sponsored-tooltip hidden">
+    <p class="sponsored">SPONSORED</p>
+    <h4 id="property-name" class="tooltip-title"></h4>
+    <button type="button" class="close tooltip-close" aria-label="Close"><i class="fa fa-times-circle-o fa-lg" aria-hidden="true"></i></button>
+    <div class="clearfix"></div>
+    <hr />
+    <img id='property-image' class='property-image pull-right' src="" />
+    <p id="property-description" class='property-text'></p>
+    <p id='property-address' class='property-text'></p>
+</div>
+
+<!-- Hidden Div -->
+<div id="tooltipPermitted" class="tooltip permitted-tooltip hidden">
+    <p class="permitted">PERMITTED BY CHICAGO DOB</p>
+    <h4 id="property-address-permitted" class="tooltip-title"></h4>
+    <button type="button" class="close tooltip-close" aria-label="Close"><i class="fa fa-times-circle-o fa-lg" aria-hidden="true"></i></button>
+    <div class="clearfix"></div>
+    <hr />
+    <p>
+        <span id="property-stories-permitted" class='property-text'></span>
+        <span id='property-description-permitted' class='property-text'></span>
+    </p>
+</div>
+
+<!-- Hidden Div -->
+<div id="tooltipDNA" class="tooltip dna-tooltip hidden">
+    <p class="dna">ADDED BY DNAINFO</p>
+    <h4 id="property-address-dna" class="tooltip-title"></h4>
+    <button type="button" class="close tooltip-close" aria-label="Close"><i class="fa fa-times-circle-o fa-lg" aria-hidden="true"></i></button>
+    <div class="clearfix"></div>
+    <hr />
+    <p>
+        <span id="property-stories-dna" class='property-text'></span>
+        <span id='property-description-dna' class='property-text'></span>
+        <span id='property-story1-dna' class='property-text'></span>
+        <span id='property-story2-dna' class='property-text'></span>
+        <span id='property-story3-dna' class='property-text'></span>
+    </p>
+</div>
+
+
+<!-- Overlays -->
+<button id="methodologyButton" class="btn btn-dna-primary btn-xs" data-toggle="modal" data-target="#methodology">Methodology</button>
+
+<div class="container-fluid absolutePostionedDiv">
+    <div class="row">
+        <div class="col-xs-8 col-sm-7 col-xs-offset-2">
+            <div class="forceBlock">
+                <h2 class="questionHeadingExact">
+                    Here's a rendering of what that building may look like.
+                </h2>
+                <h2 class="questionHeadingExactSmall">
+                    Here's a rendering of what that building may look like.
+                </h2>
+            </div>
+        </div>
+        <div class="col-xs-2 col-sm-1">
+            <p class="pagesCompleted pull-right highlightBackground">4/4</p>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">  
+    <div class="row">
+        <div class="col-xs-12 col-sm-8 col-sm-offset-2 bottomButtonGroupMap">
+            <a id="letsGoAgain" class="btn btn-dna-primary" href="/skyline/chi/" role="button">Add Another!</a>
+            <span class="pull-right">
+                <a id="showShareFB" class="btn btn-dna-facebook" href="#" role="button" onclick="#"><span class="shareOn">Share on </span><i class="fa fa-facebook-official fa-2x"></i></a>
+                <a id="showShareTwitter" class="btn btn-dna-twitter" href="#" role="button" onclick="#"><span class="shareOn">Share on </span><i class="fa fa-twitter fa-2x"></i></a>
+            </span>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var objectID = "{{ CHIskylineObject.id }}"; 
+    var bitlyURL = "{{ bitlyURL.url }}";
+    $( document ).ready(function() {
+
+        window.setTimeout(function() {
+            osmApplication.initialize();
+        }, 1);
+
+
+        // set up twitter and facebook URLs
+        var app_id = '406014149589534';
+        var fbdescription = "Some share text here with url. "+ bitlyURL;
+        var fblink = "https://visualizations.dnainfo.com/";
+        var fbpicture = "https://editorial-ny.dnainfo.com/interactives/2016/aptshare.jpeg";
+        var fbname = "Share Title";
+        var fbcaption = "DNAinfo Chicago";
+        var fbUrl = 'https://www.facebook.com/dialog/feed?app_id=' + app_id + '&display=popup&description='+ encodeURIComponent(fbdescription) + '&link=' + encodeURIComponent(bitlyURL) + '&redirect_uri=' + encodeURIComponent(fblink) + '&name=' + encodeURIComponent(fbname) + '&caption=' + encodeURIComponent(fbcaption) + '&picture=' + encodeURIComponent(fbpicture);
+        var fbOnclick = 'window.open("' + fbUrl + '","facebook-share-dialog","width=626,height=436");return false;';
+        //$('#showShareFB').attr("href", fbUrl);
+        $('#showShareFB').attr("onclick", fbOnclick);
+
+
+        var twitterlink = bitlyURL;
+        var via = 'DNAinfo';
+        var twittercaption = "Some share text here with url. ";
+        var twitterUrl = 'https://twitter.com/intent/tweet?url=' + encodeURIComponent(twitterlink) + '&via='+ encodeURIComponent(via) + '&text=' + encodeURIComponent(twittercaption);
+        var twitterOnclick = 'window.open("' + twitterUrl + '","twitter-share-dialog","width=626,height=436");return false;';
+        //$('#showShareTwitter').attr("href", twitterUrl);
+        $('#showShareTwitter').attr("onclick", twitterOnclick);
+    });
+
+</script>	
+

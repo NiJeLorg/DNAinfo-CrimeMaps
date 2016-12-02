@@ -9,13 +9,8 @@ mapApplication.initialize = function () {
 
 	// set zoom and center for this map
 	this.center = center(neighborhoodName);
-	if (iDontSeeMyNeighborhood == "True"){
-		this.zoom = 11;
-		this.minZoom = 11;
-	} else {
-		this.zoom = 17;
-		this.minZoom = 14;
-	}    
+	this.zoom = 17;
+	this.minZoom = 14;
     this.map = new L.Map('map', {
 		minZoom:this.minZoom,
 		maxZoom:18,
@@ -385,18 +380,7 @@ mapApplication.loadPluto = function () {
 					mapApplication.featureClick(data.cartodb_id);
 				}
 			});
-			
-			/**** It doesn't appear to be possible to have featureOver work with featureClick		
-			sublayer.on('featureOver', function(e, latlng, pos, data, layerIndex) {
-                if (data.cartodb_id != mapApplication.hovered_cartodb_id) {
-					mapApplication.featureOver(tableName, data.cartodb_id);
-				}
-			});
-
-			sublayer.on('featureOut', function(e, latlng, pos, data, layerIndex) {
-				mapApplication.removeAllHoverShapes();
-			});
-			****/
+		
 
 		})
 		.on('error', function(err) {
@@ -447,38 +431,11 @@ mapApplication.featureClick = function (cartodb_id) {
 
 }
 
-mapApplication.featureOver = function (cartodb_id) {
-	mapApplication.removeAllHoverShapes();
-
-	// query DB for geometry
-	mapApplication.sql.execute("SELECT * FROM {{tableName}} WHERE cartodb_id= {{cartodb_id}}", { tableName: mapApplication.tableName, cartodb_id: cartodb_id })
-		.done(function(geojson) {
-			mapApplication.HOVERGEOJSON = L.geoJson(geojson, {
-			        style: mapApplication.hovered
-			    }).addTo(mapApplication.map);
-			mapApplication.hovered.push(mapApplication.HOVERGEOJSON);
-			mapApplication.hovered_cartodb_id = cartodb_id;
-		})
-		.error(function(errors) {
-			// errors contains a list of errors
-			console.log("errors:" + errors);
-		});
-
-}
 
 mapApplication.removeAllClickShapes = function () {
 	if (mapApplication.map.hasLayer(mapApplication.CLICKGEOJSON)) {
 		mapApplication.map.removeLayer(mapApplication.CLICKGEOJSON);
 		mapApplication.clicked_cartodb_id = null;		
-	}
-}
-
-mapApplication.removeAllHoverShapes = function () {
-	for (var i = mapApplication.hovered.length - 1; i >= 0; i--) {
-		if (mapApplication.map.hasLayer(mapApplication.hovered[i])) {
-			mapApplication.map.removeLayer(mapApplication.hovered[i]);
-			mapApplication.hovered_cartodb_id = null;
-		}
 	}
 }
 
@@ -541,7 +498,6 @@ mapApplication.HOVERGEOJSON;
 mapApplication.hovered = [];
 mapApplication.CLICKGEOJSON;
 mapApplication.clicked_cartodb_id = null;
-mapApplication.hovered_cartodb_id = null;
 
 
 
