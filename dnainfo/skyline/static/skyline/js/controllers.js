@@ -186,6 +186,4 @@ $( document ).ready(function() {
 		}
 	});	
 
-
-
 });

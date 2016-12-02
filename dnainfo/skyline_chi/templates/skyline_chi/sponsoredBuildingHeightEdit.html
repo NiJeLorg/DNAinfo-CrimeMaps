@@ -36,8 +36,8 @@
                 <div class="col-sm-5 col-sm-offset-2 bottomButtonGroup">
                     <button class="btn btn-dna-primary mobileWidth marginRight10" name="save" type="submit">Save</button>
                     <button class="btn btn-dna-primary mobileWidth marginRight10" name="pick_plot" type="submit">Pick a Parcel</button>
-                    <a class="btn btn-dna-primary mobileWidth marginRight10" href="{% url 'skyline_chi_AdminDashboard' %}" role="button">Admin Home</a>
-                </div>
+                    <a class="btn btn-dna-primary mobileWidth" href="{% url 'skyline_chi_AdminDashboard' %}" role="button">Admin Home</a>
+                 </div>
             </div>
         </form>
     </div>
@@ -46,6 +46,12 @@
 {% endblock %}
 
 {% block js_block %}
+<script type="text/javascript">
+    $( document ).ready(function() {
+        $('#id_buildingStories').prop('min', 1);
+        $('#id_buildingStories').prop('max', 150);
+    });
+</script>
 {% endblock %}
 
 

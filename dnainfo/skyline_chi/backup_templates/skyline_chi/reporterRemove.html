@@ -1,0 +1,73 @@
+{% extends 'skyline_chi/baseCHI.html' %}
+{% load staticfiles %}
+{% load bootstrap_tags %}
+
+{% block css_block %}
+<link rel="stylesheet" type="text/css" href="{% static 'skyline_chi/css/leaflet.css' %}">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+{% endblock %}
+
+{% block head_js_block %}
+<script type="text/javascript" src="{% static 'skyline_chi/js/controllers.js' %}"></script>
+{% endblock %}
+
+
+{% block body_block %}
+<div id="content" class="fadein">
+    <!-- Content -->
+    <div class="container-fluid">
+        <form method="post" action=".">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-xs-10 col-sm-7 col-sm-offset-2">
+                    <h2 class="questionHeading">
+                        Are you sure you want to remove this reporter / editor created building?
+                    </h2>
+                </div>
+            </div>
+            <div class="row marginBottom20">
+                <div class="col-sm-3 col-sm-offset-2">
+                    <div id="minimap_{{CHIReporterBuildingsObject.id}}" class="minimap"></div>
+                </div>
+                <div class="col-sm-6">
+                    <h4>{{ CHIReporterBuildingsObject.buildingAddress }}</h4>
+                    <p>
+                        {{ CHIReporterBuildingsObject.whereBuilding.name }}<br />
+                        {{ CHIReporterBuildingsObject.buildingStories }} stor{{ CHIReporterBuildingsObject.buildingStories|pluralize:"y,ies" }}<br />
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-8 col-sm-offset-2">
+                    <a class="btn btn-primary marginRight10" href="{% url 'skyline_chi_reporterList' %}" role="button">No!</a>
+                    <button class="btn btn-danger" type="submit">Yes.</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-8 col-sm-offset-2">
+                    <div class="form-group formField invisible">
+                        {{ form|as_bootstrap }}
+                        {{ form.errors }}
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block js_block %}
+<script type="text/javascript" src="{% static 'skyline_chi/js/leaflet.js' %}"></script>
+<script type="text/javascript" src="{% static 'skyline_chi/js/mini_map.js' %}"></script>
+<script type="text/javascript">
+    $( document ).ready(function() {
+        window.setTimeout(function() {
+            miniMapApplication.initialize({{CHIReporterBuildingsObject.id}});
+        }, 1);
+    });
+</script>
+{% endblock %}
+
+
+

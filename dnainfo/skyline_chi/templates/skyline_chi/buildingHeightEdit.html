@@ -1,0 +1,74 @@
+{% extends 'skyline_chi/baseCHI.html' %}
+{% load staticfiles %}
+{% load bootstrap_tags %}
+
+{% block css_block %}
+<link rel="stylesheet" type="text/css" href="{% static 'skyline_chi/css/carto.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'skyline_chi/css/Control.Geocoder.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'skyline_chi/css/OSMBuildings.css' %}">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="{% static 'skyline_chi/css/select2.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'skyline_chi/css/all-bootstrapped.min.css' %}">
+{% endblock %}
+
+{% block head_js_block %}
+<script type="text/javascript" src="{% static 'skyline_chi/js/controllers.js' %}"></script>
+{% endblock %}
+
+
+{% block body_block %}
+<div id="content" class="fadein">
+    <!-- Content -->
+    <div class="container-fluid">
+        <form id="buildingHeightForm" enctype="multipart/form-data" method="post" action=".">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-xs-10 col-sm-7 col-sm-offset-2">
+                    <h2 class="questionHeading">
+                        Tell us some other information about this building.
+                    </h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-8 col-sm-offset-2">
+                    <div class="form-group formField">
+                        {{ form|as_bootstrap }}
+                        {{ form.errors }}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-5 col-sm-offset-2 bottomButtonGroup">
+                    <button class="btn btn-dna-primary mobileWidth marginRight10" name="save" type="submit">Save</button>
+                    <button id="nextLocation" class="btn btn-dna-primary mobileWidth marginRight10" name="pick_plot" type="submit">Pick a Parcel</button>
+                    <a class="btn btn-dna-primary mobileWidth marginRight10" href="{% url 'skyline_chi_AdminDashboard' %}" role="button">Admin Home</a>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block js_block %}
+<script type="text/javascript">
+    var objectID = "{{ CHIskylineObject.id }}";
+    $( document ).ready(function() {
+        $('#id_buildingStories').prop('min', 1);
+        $('#id_buildingStories').prop('max', 150);
+    });
+</script>
+<script type="text/javascript" src="{% static 'skyline_chi/js/select2.js' %}"></script>
+<script type="text/javascript" src="{% static 'django_select2/django_select2.js' %}"></script>
+<script type="text/javascript" src="{% static 'skyline_chi/js/d3.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'skyline_chi/js/jquery.scrollTo.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'skyline_chi/js/carto.js' %}"></script>
+<script type="text/javascript" src="{% static 'skyline_chi/js/Control.Geocoder.js' %}"></script>
+<script type="text/javascript" src="{% static 'skyline_chi/js/OSMBuildings.js' %}"></script>
+<script type="text/javascript" src="{% static 'skyline_chi/js/ajax.js' %}"></script>
+<script type="text/javascript" src="{% static 'skyline_chi/js/map.js' %}"></script>
+<script type="text/javascript" src="{% static 'skyline_chi/js/osmmap.js' %}"></script>
+{% endblock %}
+
+
+

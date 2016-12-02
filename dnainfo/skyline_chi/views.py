@@ -22,6 +22,9 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 # datetime
 import datetime
 
+#for email
+from django.core.mail import send_mail
+
 
 # views for DNAinfo my first apartment
 def index(request):
@@ -55,7 +58,7 @@ def skyline_chi_whatNeighborhood(request, id=None):
 
 	# Bad form (or form details), no form supplied...
 	# Render the form with error messages (if any).
-	return render(request, 'skyline_chi/whatNeighborhood.html', {'form':form, 'CHIskylineObject': CHIskylineObject})
+	return render(request, 'skyline_chi/add_a_building_intro.html', {'form':form, 'CHIskylineObject': CHIskylineObject})
 
 
 def skyline_chi_buildingHeight(request, id=None):
@@ -66,7 +69,7 @@ def skyline_chi_buildingHeight(request, id=None):
 
 	# A HTTP POST?
 	if request.method == 'POST':
-		form = CHIbuildingHeightForm(request.POST, instance=CHIskylineObject)
+		form = CHIbuildingHeightForm(request.POST, request.FILES, instance=CHIskylineObject)
 
 		# Have we been provided with a valid form?
 		if form.is_valid():
@@ -101,7 +104,7 @@ def skyline_chi_exactLocation(request, id=None):
 			# Save the new data to the database.
 			f = form.save()
 			lookupObject = CHIskyline.objects.get(pk=f.pk)
-			return HttpResponseRedirect(reverse('skyline_chi_end', args=(lookupObject.pk,)))
+			return HttpResponseRedirect(reverse('skyline_chi_return_result', args=(lookupObject.pk,)))
 		else:
 			# The supplied form contained errors - just print them to the terminal.
 			print form.errors
@@ -128,7 +131,7 @@ def skyline_chi_end(request, id=None):
 		CHIskylineObject = CHIskyline()
 
 	# social urls
-	url = "https://visualizations.dnainfo.com/skyline/chi/results/" + str(id) + "/"
+	url = "https://visualizations.dnainfo.com/skyline_chi/nyc/results/" + str(id) + "/"
 	# connect to Bitly API
 	c = bitly_api.Connection('ondnainfo', 'R_cdbdcaaef8d04d97b363b989f2fba3db')
 	bitlyURL = c.shorten(url)
@@ -143,7 +146,7 @@ def skyline_chi_results(request, id=None):
 
 
 	# social urls
-	url = "https://visualizations.dnainfo.com/skyline/chi/results/" + str(id) + "/"
+	url = "https://visualizations.dnainfo.com/skyline_chi/nyc/results/" + str(id) + "/"
 	# connect to Bitly API
 	c = bitly_api.Connection('ondnainfo', 'R_cdbdcaaef8d04d97b363b989f2fba3db')
 	bitlyURL = c.shorten(url)
@@ -151,7 +154,7 @@ def skyline_chi_results(request, id=None):
 	return render(request, 'skyline_chi/results.html', {'CHIskylineObject': CHIskylineObject, "bitlyURL": bitlyURL})
 
 @login_required
-def skyline_chi_AdminDashboard(request):
+def skylineAdminDashboard(request):
 	return render(request, 'skyline_chi/adminDashboard.html', {})
 
 @login_required
@@ -169,6 +172,7 @@ def skyline_chi_createBuildingsCSV(request):
 
 	CHI_Building_Permits_NewObjects = CHI_Building_Permits_New.objects.filter(issue_date__year__gte=minyear).exclude(buildingStories__exact = 0).exclude(buildingFootprint__in = ['', '-99'])
 
+
 	for o in CHI_Building_Permits_NewObjects:
 		if o.whereBuilding:
 			neighborhoodName = o.whereBuilding.name
@@ -181,7 +185,7 @@ def skyline_chi_createBuildingsCSV(request):
 
 @login_required
 def skyline_chi_UgcList(request):
-	CHIskylineObjects = CHIskyline.objects.filter(approved=None).exclude(buildingFootprint='')
+	CHIskylineObjects = CHIskyline.objects.filter(approved=None).exclude(buildingFootprint='').order_by('-updated', 'projectName')
 	paginator = Paginator(CHIskylineObjects, 20) # Show 10 buildings per page
 	page = request.GET.get('page')
 	try:
@@ -197,18 +201,107 @@ def skyline_chi_UgcList(request):
 	return render(request, 'skyline_chi/ugcList.html', {'CHIskylineObjects': objs})
 
 @login_required
+def skyline_chi_UgcViewAll(request):
+	CHIskylineObjects = CHIskyline.objects.exclude(buildingFootprint='').order_by('-updated', 'projectName')
+	paginator = Paginator(CHIskylineObjects, 20) # Show 10 buildings per page
+	page = request.GET.get('page')
+	try:
+		objs = paginator.page(page)
+	except PageNotAnInteger:
+		# If page is not an integer, deliver first page.
+		objs = paginator.page(1)
+	except EmptyPage:
+		# If page is out of range (e.g. 9999), deliver last page of results.
+		objs = paginator.page(paginator.num_pages)
+
+
+	return render(request, 'skyline_chi/ugcList.html', {'CHIskylineObjects': objs})
+
+
+@login_required
 def skyline_chi_UgcApprove(request, id=None):
 	obj = CHIskyline.objects.get(id=id)
 	obj.approved = True
+	obj.reviewed_by = request.user
 	obj.save()
+	# email user if their building is approved
+
+	if obj.userEmail:
+		url = "https://visualizations.dnainfo.com/skyline_chi/nyc/return_result/"+str(obj.id)+"/"
+		subject = "[DNAinfo] The building you added to our 3-D map was approved!"
+		html_message = "Hello "+ obj.userEmail +",<br /><br />The building you added to our 3-D map of buildings was approved, and you can now <a href='"+ url +"'>see that building</a> marked as \"Proposed\" on the map. Thank you for your contribution!<br /><br />DNAinfo.com"
+		message = "Hello "+ obj.userEmail +", The building you added to our 3-D map of buildings was approved, and you can now see that building marked as \"Proposed\" on the map here: "+ url +". Thank you for your contribution! DNAinfo.com"
+
+		send_mail(subject, message, 'dnainfovisualizations@gmail.com', [obj.userEmail], fail_silently=True, html_message=html_message)
+
 	return HttpResponseRedirect(reverse('skyline_chi_UgcList'))
 
 @login_required
 def skyline_chi_UgcReject(request, id=None):
 	obj = CHIskyline.objects.get(id=id)
 	obj.approved = False
+	obj.reviewed_by = request.user
 	obj.save()
 	return HttpResponseRedirect(reverse('skyline_chi_UgcList'))
+
+@login_required
+def skyline_chi_UgcEdit(request, id=None):
+	if id:
+		CHIskylineObject = CHIskyline.objects.get(pk=id)
+	else:
+		CHIskylineObject = CHIskyline()
+
+	# A HTTP POST?
+	if request.method == 'POST':
+		form = CHIbuildingHeightForm(request.POST, request.FILES, instance=CHIskylineObject)
+
+		# Have we been provided with a valid form?
+		if form.is_valid():
+			# Save the new data to the database.
+			f = form.save()
+			lookupObject = CHIskyline.objects.get(pk=f.pk)
+			# route request depending on which button was clicked
+			if 'save' in request.POST:
+				return HttpResponseRedirect(reverse('skyline_chi_UgcList'))
+			elif 'pick_plot' in request.POST:
+				return HttpResponseRedirect(reverse('skyline_chi_exactLocation', args=(lookupObject.pk,)))
+
+		else:
+			# The supplied form contained errors - just print them to the terminal.
+			print form.errors
+	else:
+		# If the request was not a POST, display the form to enter details.
+		form = CHIbuildingHeightForm(instance=CHIskylineObject)
+
+	# Bad form (or form details), no form supplied...
+	# Render the form with error messages (if any).
+	return render(request, 'skyline_chi/buildingHeightEdit.html', {'form':form, 'CHIskylineObject': CHIskylineObject})
+
+@login_required
+def skyline_chi_createNewsletterCSV(request):
+	# Create the HttpResponse object with the appropriate CSV header.
+	response = HttpResponse(content_type='text/csv')
+	response['Content-Disposition'] = 'attachment; filename="CHI_skyline_chi_newsletter_requests.csv"'
+
+	writer = csv.writer(response, encoding='utf-8')
+	writer.writerow(['created', 'neighborhood', 'email', 'newsletter'])
+
+	#pull data 
+	today = datetime.date.today()
+	minyear = today.year - 1
+
+	CHIskylineObjects = CHIskyline.objects.exclude(userEmail__exact='')
+
+	for o in CHIskylineObjects:
+		if o.whereBuilding:
+			neighborhoodName = o.whereBuilding.name
+		else:
+			neighborhoodName = None
+		
+		writer.writerow([o.created, neighborhoodName, o.userEmail, o.newsletter])
+
+	return response
+
 
 @login_required
 def skyline_chi_sponsoredWhatNeighborhood(request, id=None):
@@ -322,7 +415,6 @@ def skyline_chi_sponsoredBuildingHeightEdit(request, id=None):
 				return HttpResponseRedirect(reverse('skyline_chi_sponsoredList'))
 			elif 'pick_plot' in request.POST:
 				return HttpResponseRedirect(reverse('skyline_chi_sponsoredExactLocation', args=(lookupObject.pk,)))
-
 		else:
 			# The supplied form contained errors - just print them to the terminal.
 			print form.errors
@@ -356,10 +448,10 @@ def skyline_chi_sponsoredExactLocation(request, id=None):
 				f.updated_by = request.user
 			else:
 				f.created_by = request.user
+
 			# save form
 			f.save()
-			# pull object and check to see if it have a created_by field filled out
-			lookupObject = CHISponsoredBuildings.objects.get(pk=f.pk)
+			
 			return HttpResponseRedirect(reverse('skyline_chi_sponsoredList'))
 		else:
 			# The supplied form contained errors - just print them to the terminal.
@@ -378,7 +470,7 @@ def skyline_chi_sponsoredGetGeojson(request, id=None):
 
 	return JsonResponse(CHISponsoredBuildingsObject.buildingFootprint, safe=False)
 
-def skyline_chi_getSponsoredGeojsons(request, id=None):
+def skyline_chi_getSponsoredGeojsons(request):
 
 	CHISponsoredBuildingsObjects = CHISponsoredBuildings.objects.exclude(archived=True).exclude(buildingStories__exact = 0).exclude(buildingFootprint__in = ['', '-99'])
 	geojsons = []
@@ -407,6 +499,16 @@ def skyline_chi_getPermittedGeojsons(request):
 		
 	return JsonResponse(geojsons, safe=False)
 
+def skyline_chi_getUGCApprovedGeojsons(request):
+
+	CHIskylineObjects = CHIskyline.objects.filter(approved=True)
+	geojsons = []
+
+	for obj in CHIskylineObjects:
+		geojsons.append(obj.buildingFootprint)
+		
+	return JsonResponse(geojsons, safe=False)
+
 @login_required
 def skyline_chi_sponsoredEnd(request, id=None):
 	CHISponsoredBuildingsObject = CHISponsoredBuildings.objects.get(pk=id)
@@ -415,7 +517,7 @@ def skyline_chi_sponsoredEnd(request, id=None):
 
 @login_required
 def skyline_chi_sponsoredList(request, id=None):
-	CHISponsoredBuildingsObjects = CHISponsoredBuildings.objects.exclude(archived=True).order_by('-updated_by', 'buildingName')
+	CHISponsoredBuildingsObjects = CHISponsoredBuildings.objects.exclude(archived=True).order_by('-updated', 'buildingName')
 
 	paginator = Paginator(CHISponsoredBuildingsObjects, 20) # Show 10 buildings per page
 	page = request.GET.get('page')
@@ -440,7 +542,7 @@ def skyline_chi_sponsoredRemove(request, id=None):
 
 		# Have we been provided with a valid form?
 		if form.is_valid():
-			#archive this building
+			#archive this sponsored content
 			CHISponsoredBuildingsObject.archived = True
 			CHISponsoredBuildingsObject.updated_by = request.user
 			CHISponsoredBuildingsObject.save()
@@ -603,8 +705,6 @@ def skyline_chi_reporterExactLocation(request, id=None):
 				f.created_by = request.user
 			# save form
 			f.save()
-			# pull object and check to see if it have a created_by field filled out
-			lookupObject = CHIReporterBuildings.objects.get(pk=f.pk)
 
 			return HttpResponseRedirect(reverse('skyline_chi_reporterList'))
 		else:
@@ -643,7 +743,7 @@ def skyline_chi_reporterEnd(request, id=None):
 
 @login_required
 def skyline_chi_reporterList(request, id=None):
-	CHIReporterBuildingsObjects = CHIReporterBuildings.objects.exclude(archived=True).order_by('-updated_by', 'projectName')
+	CHIReporterBuildingsObjects = CHIReporterBuildings.objects.exclude(archived=True).order_by('-updated', 'projectName')
 
 	paginator = Paginator(CHIReporterBuildingsObjects, 20) # Show 10 buildings per page
 	page = request.GET.get('page')
@@ -710,9 +810,8 @@ def skyline_chi_viewAll(request, id=None):
 	return render(request, 'skyline_chi/viewAll.html', {'hood':hood,})	
 
 
-
 @login_required
-def skyline_chi_AdminCheck(request, id=None):
+def skylineAdminCheck(request, id=None):
 	buildingCount = CHIskyline.objects.filter(approved=None).exclude(buildingFootprint='').count()
 	if buildingCount == 0:
 		return render(request, 'skyline_chi/adminNoBuildings.html', {})
@@ -732,7 +831,7 @@ def skyline_chi_AdminCheck(request, id=None):
 
 
 @login_required
-def skyline_chi_AdminNext(request, id=None):
+def skylineAdminNext(request, id=None):
 	buildingCount = CHIskyline.objects.filter(approved=None).exclude(buildingFootprint='').count()
 	if buildingCount == 0:
 		return render(request, 'skyline_chi/adminNoBuildings.html', {})
@@ -764,7 +863,6 @@ def skyline_chi_AdminNext(request, id=None):
 		# Bad form (or form details), no form supplied...
 		# Render the form with error messages (if any).
 		return render(request, 'skyline_chi/adminTemplate.html', {'form':form, 'CHIskylineObject': CHIskylineObject, 'buildingCount': buildingCount})
-
 
 @login_required
 def skyline_chi_permittedBuildingHeight(request, id=None):
@@ -814,7 +912,6 @@ def skyline_chi_permittedBuildingHeight(request, id=None):
 	# Render the form with error messages (if any).
 	return render(request, 'skyline_chi/permittedBuildingHeight.html', {'form':form, 'CHI_Building_Permits_NewObject': CHI_Building_Permits_NewObject})
 
-
 @login_required
 def skyline_chi_permittedWhatNeighborhood(request, id=None):
 	if id:
@@ -844,8 +941,7 @@ def skyline_chi_permittedWhatNeighborhood(request, id=None):
 				f.created_by = request.user
 				# save form
 				f.save()
-				formID = f.pk
-				lookupObject = CHI_Building_Permits_New.objects.get(pk=formID)
+				lookupObject = CHI_Building_Permits_New.objects.get(pk=f.pk)
 
 			return HttpResponseRedirect(reverse('skyline_chi_permittedBuildingHeightAnd', args=(lookupObject.pk,)))
 		else:
@@ -881,8 +977,10 @@ def skyline_chi_permittedBuildingHeightAnd(request, id=None):
 				f.updated_by = request.user
 			else:
 				f.created_by = request.user
-			# add the issue date as today to keep the building in there for the maximum amount of time
-			f.issue_date = datetime.date.today()
+			# add the job start date as today to keep the building in there for the maximum amount fo time
+			f.job_start_date = datetime.date.today()
+			# add borough for filtering
+			f.borough = lookupObject.whereBuilding.county
 			# save form
 			f.save()
 			# pull object and check to see if it have a created_by field filled out
@@ -908,7 +1006,7 @@ def skyline_chi_permittedExactLocation(request, id=None):
 
 	# A HTTP POST?
 	if request.method == 'POST':
-		form = CHIexactLocationPermittedForm(request.POST, instance=CHI_Building_Permits_NewObject)
+		form = CHIexactLocationReporterForm(request.POST, instance=CHI_Building_Permits_NewObject)
 
 		# Have we been provided with a valid form?
 		if form.is_valid():
@@ -931,7 +1029,7 @@ def skyline_chi_permittedExactLocation(request, id=None):
 			print form.errors
 	else:
 		# If the request was not a POST, display the form to enter details.
-		form = CHIexactLocationPermittedForm(instance=CHI_Building_Permits_NewObject)
+		form = CHIexactLocationReporterForm(instance=CHI_Building_Permits_NewObject)
 
 	# Bad form (or form details), no form supplied...
 	# Render the form with error messages (if any).
@@ -947,7 +1045,7 @@ def skyline_chi_permittedGetGeojson(request, id=None):
 		else:
 			buildingHeight = (3.5*obj.buildingStories) + 9.625 + (2.625 * (obj.buildingStories/25))
 
-		changed = '{\"type\":\"FeatureCollection\",\"features\":[{\"type\": \"Feature\", \"properties\":{\"color\":\"#00cdbe\", \"roofColor\":\"#00cdbe\", \"height\":\"' + str(buildingHeight) +'\", \"zoning_pdfs\":\"' + str(obj.zoning_pdfs) +'\", \"address\":\"' + obj.buildingAddress.strip() +'\", \"stories\":\"' + str(obj.buildingStories) +'\", \"story1\":\"' + str(obj.story1) +'\", \"projectName\":\"' + obj.projectName +'\", \"buildingImage\":\"visualizations/media/' + str(obj.buildingImage) +'\", \"objectID\":\"' + str(obj.pk) +'\", \"description\":\"' + obj.description +'\"}, \"geometry\": ' + obj.buildingFootprint + '}]}'
+		changed = '{\"type\":\"FeatureCollection\",\"features\":[{\"type\": \"Feature\", \"properties\":{\"color\":\"#00cdbe\", \"roofColor\":\"#00cdbe\", \"height\":\"' + str(buildingHeight) +'\", \"zoning_pdfs\":\"visualizations/media/' + str(obj.zoning_pdfs) +'\", \"address\":\"' + obj.buildingAddress.strip() +'\", \"stories\":\"' + str(obj.buildingStories) +'\", \"story1\":\"' + str(obj.story1) +'\", \"projectName\":\"' + obj.projectName +'\", \"buildingImage\":\"visualizations/media/' + str(obj.buildingImage) +'\", \"buildingZip\":\"' + obj.buildingZip +'\", \"objectID\":\"' + str(obj.id) +'\", \"description\":\"' + obj.description +'\"}, \"geometry\": ' + obj.buildingFootprint + '}]}'
 	else:
 		changed = None
 
@@ -960,4 +1058,79 @@ def skyline_chi_permittedEnd(request, id=None):
 
 	return render(request, 'skyline_chi/permittedEnd.html', {'CHI_Building_Permits_NewObject': CHI_Building_Permits_NewObject})
 
+
+
+def skyline_chi_landingPage(request, id=None):
+	# A HTTP POST?
+	if request.method == 'POST':
+		form = CHIlandingPageForm(request.POST)
+
+		# Have we been provided with a valid form?
+		if form.is_valid():
+			whereBuilding = request.POST['whereBuilding']
+			return HttpResponseRedirect(reverse('skyline_chi_browse', args=(whereBuilding,)))
+		else:
+			# The supplied form contained errors - just print them to the terminal.
+			print form.errors
+	else:
+		# If the request was not a POST, display the form to enter details.
+		form = CHIlandingPageForm()
+		form1 = CHIlandingPageForm()
+
+		url = "https://hzdl3dry-data-viz-future-map.build.qa.dnainfo.com/chicago/visualizations/skyline"
+		# connect to Bitly API
+		c = bitly_api.Connection('ondnainfo', 'R_cdbdcaaef8d04d97b363b989f2fba3db')
+		bitlyURL = c.shorten(url)	
+
+	# Bad form (or form details), no form supplied...
+	# Render the form with error messages (if any).
+	return render(request, 'skyline_chi/index.html', {'form':form, 'form1':form1, 'bitlyURL':bitlyURL})
+
+def skyline_chi_browse(request, id=None):
+	# check for xcoor and y coor to be passed
+	getlat = request.GET.get('lat', 0)
+	getlon = request.GET.get('lon', 0)
+	buildingShared = request.GET.get('buildingShared', 'false');
+
+	# A HTTP POST?
+	if request.method == 'POST':
+		form = CHIlandingPageForm(request.POST)
+
+		# Have we been provided with a valid form?
+		if form.is_valid():
+			whereBuilding = request.POST['whereBuilding']
+			return HttpResponseRedirect(reverse('skyline_chi_browse', args=(whereBuilding,)))
+		else:
+			# The supplied form contained errors - just print them to the terminal.
+			print form.errors
+	else:
+		# If the request was not a POST, display the form to enter details.
+		form = CHIlandingPageForm()
+
+	#pull neighborhood
+	hood = neighborhoodCHI.objects.get(pk=id)
+	return render(request, 'skyline_chi/browse.html', {'hood':hood,'form':form,'getlat':getlat,'getlon':getlon,'buildingShared':buildingShared})
+
+def skyline_chi_return_result(request, id=None):
+	# check for xcoor and y coor to be passed
+	getlat = request.GET.get('lat', 0)
+	getlon = request.GET.get('lon', 0)
+
+	# A HTTP POST?
+	if request.method == 'POST':
+		form = CHIlandingPageForm(request.POST)
+
+		# Have we been provided with a valid form?
+		if form.is_valid():
+			whereBuilding = request.POST['whereBuilding']
+			return HttpResponseRedirect(reverse('skyline_chi_browse', args=(whereBuilding,)))
+		else:
+			# The supplied form contained errors - just print them to the terminal.
+			print form.errors
+	else:
+		# If the request was not a POST, display the form to enter details.
+		form = CHIlandingPageForm()
+
+	CHIskylineObject = CHIskyline.objects.get(pk=id)
+	return render(request, 'skyline_chi/return_result.html', {'CHIskylineObject':CHIskylineObject,'form':form})
 

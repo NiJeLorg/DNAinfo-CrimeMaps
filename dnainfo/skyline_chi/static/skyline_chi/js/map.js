@@ -9,13 +9,8 @@ mapApplication.initialize = function () {
 
 	// set zoom and center for this map
 	this.center = center(neighborhoodName);
-	if (iDontSeeMyNeighborhood == "True"){
-		this.zoom = 11;
-		this.minZoom = 11;
-	} else {
-		this.zoom = 17;
-		this.minZoom = 14;
-	}    
+	this.zoom = 17;
+	this.minZoom = 14;	  
     this.map = new L.Map('map', {
 		minZoom:this.minZoom,
 		maxZoom:18,
@@ -344,10 +339,15 @@ mapApplication.featureClick = function (cartodb_id, sql, tableName, latlng) {
 			mapApplication.reverseGeocode(latlng);
 
 			// add properties to geojson
-			geojson.features[0].properties.color = "rgba(0, 115, 163, 0.5)";
-		    geojson.features[0].properties.roofColor = "rgba(0, 115, 163, 0.5)";
+			geojson.features[0].properties.color = "#ff926c";
+		    geojson.features[0].properties.roofColor = "ff926c";
 		    geojson.features[0].properties.height = buildingHeight;
 		    geojson.features[0].properties.minHeight = 0;
+            geojson.features[0].properties.projectName = projectName;
+            geojson.features[0].properties.buildingImage = 'visualizations/media/' + buildingImage;
+            geojson.features[0].properties.buildingDoc = 'visualizations/media/' + buildingDoc;
+            geojson.features[0].properties.buildingURL = buildingURL;
+            geojson.features[0].properties.buildingStories = buildingStories;
 
 			// add data to form
 			$('#id_buildingFootprint').val(JSON.stringify(geojson));

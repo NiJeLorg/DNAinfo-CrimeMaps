@@ -79,7 +79,7 @@ $( document ).ready(function() {
 	});
 
 
-	// listen for whereBuilding changes and ensure next location button is emabled and i don't see my neighborhood is unchecked
+	// listen for whereBuilding changes and ensure next location button is emabled 
 	$(document).on('change', '#id_whereBuilding', function(e) {
 		// close keyboard
 		$('.select2-focusser').blur();
@@ -87,31 +87,12 @@ $( document ).ready(function() {
 		$('#nextHeight').prop("disabled", false);
 		// sneak in disabling next building height
 		$('#sponsoredNextBuildingHeight').prop("disabled", false);
-		// ensure that iDontSeeMyNeighborhood is unchecked
-		$('#id_iDontSeeMyNeighborhood').prop("checked", false);
 	});
 
 	// for iOS, force blur to close keyboard if clicking away from the input field
 	$(document).on('click', '#select2-drop', function(e) {
 		document.activeElement.blur();
 	});	
-
-
-	// ensure that select2-no-results says the correct text
-	$(document).on('keydown', '.select2-search__field', function(e) {
-		window.setTimeout(function() {  
-	        $(".select2-results__message").html("<em>I don't see my neighborhood.</em>");
-	        // set listener
-        	$(".select2-results__message").on('click', function(e) {
-				$('.select2-selection__placeholder').text("I don't see my neighborhood.");
-				$('.select2-selection__rendered').text("I don't see my neighborhood.");
-				$('#id_whereBuilding').val('');
-        		$('#id_iDontSeeMyNeighborhood').prop("checked", true);
-				$('#nextHeight').prop("disabled", false);
-				$('#sponsoredNextBuildingHeight').prop("disabled", false);
-			});
-	    }, 1);	
-	});
 
 
 	$(document).on('click', '#storiesMinus', function(e) {
@@ -161,6 +142,48 @@ $( document ).ready(function() {
 		return false;
 	}
 
+	// listeners for radio button clicks to show or hide document/image/url UGC form
+	$(document).on('click', '#id_imageDocOrURL_1', function(e) {
+		// check if hidden and unhide
+		if ($('#div_id_buildingImage').hasClass('hidden') && $('#div_id_buildingDoc').hasClass('hidden')) {
+			$('#div_id_buildingImage').removeClass('hidden');
+			$('#div_id_buildingDoc').removeClass('hidden');
+			$('#div_id_buildingURL').addClass('hidden');
+		} 
+	});
 
+	$(document).on('click', '#id_imageDocOrURL_2', function(e) {
+		// check if hidden and unhide
+		if ($('#div_id_buildingURL').hasClass('hidden')) {
+			$('#div_id_buildingImage').addClass('hidden');
+			$('#div_id_buildingDoc').addClass('hidden');
+			$('#div_id_buildingURL').removeClass('hidden');
+		} 
+	});
+
+	// if a document has been uploaded, release the next button
+	$(document).on('change', '#id_buildingImage', function(e) {
+		if ($('#id_buildingImage').val() === '' && $('#id_buildingDoc').val() === '' && $('#id_buildingURL').val() === '') {
+			$('#nextLocation').prop("disabled", true);
+		} else {
+			$('#nextLocation').prop("disabled", false);
+		}
+	});
+	$(document).on('change', '#id_buildingDoc', function(e) {
+		if ($('#id_buildingImage').val() === '' && $('#id_buildingDoc').val() === '' && $('#id_buildingURL').val() === '') {
+			$('#nextLocation').prop("disabled", true);
+		} else {
+			$('#nextLocation').prop("disabled", false);
+		}		
+	});
+
+	// if any value exists in id_buildingURL, release the next button
+	$(document).on('keyup', '#id_buildingURL', function(e) {
+		if ($('#id_buildingImage').val() === '' && $('#id_buildingDoc').val() === '' && $('#id_buildingURL').val() === '') {
+			$('#nextLocation').prop("disabled", true);
+		} else {
+			$('#nextLocation').prop("disabled", false);
+		}
+	});	
 
 });

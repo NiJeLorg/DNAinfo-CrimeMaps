@@ -27,8 +27,8 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-8 col-sm-offset-2 bottomButtonGroup">
-                <button id="backIntro" class="btn btn-dna-primary mobileWidth marginRight10" type="submit"><span class="backArrow"></span>Back</button>
+            <div class="col-sm-5 col-sm-offset-2 bottomButtonGroup">
+                <a class="btn btn-dna-primary mobileWidth marginRight10" href="{% url 'skyline_chi_landingPage' %}"><span class="backArrow"></span>Back</a>
                 <button id="nextHeight" class="btn btn-dna-primary mobileWidth" type="submit" disabled="disabled">Next<span class="forwardArrow"></span></button>
             </div>
         </div>
@@ -37,6 +37,28 @@
 
 <script type="text/javascript">
     var objectID = "{{ CHIskylineObject.id }}";
+    $( document ).ready(function() {
+
+        // remove labels
+        $('label').remove();
+        // add a form-control class to the input, disabled attribute and placeholder text
+        $('#id_whereBuilding').addClass("form-control");
+        var selected = $('#id_whereBuilding option:selected').val();
+        console.log(selected);
+        $('#id_whereBuilding option[value=""]').remove();
+        $(".fadein").fadeIn("slow");
+        // scroll to top
+        $('#content').scrollTop(0);
+        // initialize select 2
+        $('.django-select2').djangoSelect2();
+        if (!selected) {
+            // update placeholder text
+            setTimeout(function() {
+                $('.select2-selection__placeholder').text("Select a Neighborhood");
+            }, 100);
+            
+        }
+    });
 </script>
 	
 

@@ -7,13 +7,8 @@ function mapApplication() {}
 mapApplication.initialize = function() {
     // set zoom and center for this map
     this.center = center(neighborhoodName);
-    if (iDontSeeMyNeighborhood == "True") {
-        this.zoom = 11;
-        this.minZoom = 11;
-    } else {
-        this.zoom = 17;
-        this.minZoom = 14;
-    }
+    this.zoom = 17;
+    this.minZoom = 14;
     this.map = new L.Map('map', {
         minZoom: this.minZoom,
         maxZoom: 18,

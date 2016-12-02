@@ -1,0 +1,51 @@
+{% extends 'skyline_chi/baseCHI.html' %}
+{% load staticfiles %}
+{% load bootstrap_tags %}
+
+{% block css_block %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+{% endblock %}
+
+{% block head_js_block %}
+<script type="text/javascript" src="{% static 'skyline_chi/js/controllers.js' %}"></script>
+{% endblock %}
+
+
+{% block body_block %}
+<div id="content" class="fadein">
+    <!-- Content -->
+    <div class="container-fluid">
+        <form id="buildingHeightForm" enctype="multipart/form-data" method="post" action=".">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-xs-10 col-sm-7 col-sm-offset-2">
+                    <h2 class="questionHeading">
+                        Tell us some other information about this building.
+                    </h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-8 col-sm-offset-2">
+                    <div class="form-group formField">
+                        {{ form|as_bootstrap }}
+                        {{ form.errors }}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-5 col-sm-offset-2 bottomButtonGroup">
+                    <a class="btn btn-dna-primary mobileWidth marginRight10" href="{% url 'skyline_chi_reporterWhatNeighborhood' id=CHIReporterBuildingsObject.id %}" role="button"><span class="backArrow"></span>Back</a>
+                    <button class="btn btn-dna-primary mobileWidth" type="submit">Next<span class="forwardArrow"></span></button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block js_block %}
+{% endblock %}
+
+
+

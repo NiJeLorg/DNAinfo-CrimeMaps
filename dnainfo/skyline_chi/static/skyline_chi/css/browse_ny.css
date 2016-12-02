@@ -1,0 +1,265 @@
+.select-parent {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    z-index: 5;
+    width: 95%;
+    top: 10px;
+    left: 15px;
+    right: 0;
+    margin-left: 0;
+}
+
+.select-parent .select-parent-holder, .formField {
+    display: flex;
+    width: 97%; 
+}
+
+.select-parent .row {
+    margin-left: 0;
+}
+
+.select-parent .select2 {
+    width: 100%;
+}
+
+.formField {
+    width: 100%;
+}
+
+.select-parent-holder .select2 {
+    width: 100% !important;
+}
+
+.select-parent .chevron-button-holder {
+    z-index: 4;
+    margin-left: -45px;
+}
+
+.select-parent .chevron-button {
+    color: white;
+    background: #1074A0;
+    border: none;
+    padding: 0;
+    outline: none;
+    width: 45px;
+    height: 45px;
+    text-align: center;
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
+}
+
+.select-parent .select-parent-holder form .row .select2-container {
+    width: 100%;
+}
+
+/**** Select 2 override ****/
+.select2-container .select2-selection__rendered {
+  background: #ffffff !important;
+}
+.input-group-addon { 
+  background-color: #ffffff !important;
+}
+
+/**** Adding back the gradient ****/
+.gradientDiv {
+    width: 100vw;
+    height: 100vh;
+    z-index: 3;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.48), rgba(215, 215, 215, 0.0));
+    position: absolute;
+    opacity: 1;
+    pointer-events: none;
+}
+
+.browseNavTitle {
+    display: none;
+}
+
+.browseNavTitle h3 {
+    color: #fff;
+    font-weight: bold;
+    color: white;
+    font-weight: 600;
+    font-size: 34px;
+    margin: 0;
+}
+
+.browseNav {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    align-items: center;
+    position: absolute;
+    top: 85px;
+    z-index: 3;
+}
+
+.controls {
+    display: none;
+}
+
+.social-media-links {
+    display: inline-flex;
+    width: 100%;
+    justify-content: flex-end;
+    margin-right: 40px;
+}
+
+.social-media-links .facebook {
+    margin-bottom: 10px;
+} 
+
+.browseNav .social-media-links {
+    display: block;
+    margin-left: 15px;
+}
+
+.link-holder {
+    text-align: center;
+    height: 45px;
+    width: 45px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 2px;
+}
+.link-holder.top {
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.5);    
+}
+
+.link-holder a i {
+    color: #fff;
+}
+
+.facebook {
+    background: #3D5A96;
+    margin-right: 20px;
+}
+
+.twitter {
+    background: #59ADEB;
+}
+
+footer {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    bottom: 6%;
+    left: 3%;
+    z-index: 2;
+    width: 100%;
+}
+
+.key-holder {
+    width: 45px;
+    height: 45px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: #fff;
+    border-radius: 2px;
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.5);
+    margin-right: 1%;
+}
+
+.key-holder a {
+    text-align: center;
+}
+
+.key-holder a i {
+    color: #ffcf2e;
+}
+
+footer .add-a-building-button {
+    display: none;
+}
+
+.add-a-building-button a {
+    color: white;
+    text-decoration: none;
+    line-height: auto;
+}
+
+.btn:hover,
+.btn:focus,
+.btn.focus {
+    color: #fff;
+    text-decoration: none;
+}
+
+#tooltipSubmitted .property-description {
+    color: #4a4a4a;
+}
+
+@media (min-width: 425px) {
+    .browseNav {
+        top: 20px;
+    }
+    .browseNav .social-media-links {
+        display: inline-flex;
+        margin-left: 0;
+    }
+    .social-media-links .facebook {
+        margin-bottom: 0;
+    }
+    .browseNavTitle {
+        position: absolute;
+        z-index: 3;
+        display: flex;
+        height: 45px;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        top: 20px;
+        color: #fff;
+    }
+    .controls {
+        display: block;
+    }
+    .select-parent {
+        top: 80px;
+        left: 50%;
+        right: 0px;
+        margin-left: -176px;
+    }
+    .select-parent .select-parent-holder, .formField {
+        width: 350px;
+    }
+    .select-parent .row {
+        /*margin-left: 0;*/
+    }
+    .select-parent .select2 {
+        /*width: 100%;*/
+    }
+    .formField {
+        width: 350px;
+    }
+    footer {
+        bottom: 3%;
+        left: 1%;
+    }
+    footer .add-a-building-button {
+        display: block;
+        padding: 13px 20px;
+        border: none;
+        color: #fff;
+        background: #1074A0;
+        outline: none;
+        border-radius: 2px;
+        box-sizing: border-box;
+        box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.5);
+        height: 45px;
+    }
+}
+
+@media (min-width: 1300px) {
+    .select-parent {
+        top: 20px;
+        right: 180px;
+        left: initial;
+        margin-left: 0;
+        width: 350px;
+    }
+}
+

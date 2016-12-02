@@ -191,7 +191,7 @@ class NYCbuildingHeightAndPermittedForm(forms.ModelForm):
             'story1': 'Please add a link to a DNAinfo story. (Optional)',
         }
 
-class NYCexactLocationReporterForm(forms.ModelForm):
+class NYCexactLocationPermittedForm(forms.ModelForm):
     class Meta:
         model = NYC_DOB_Permit_Issuance
         fields = ('buildingFootprint', 'buildingBBL', )

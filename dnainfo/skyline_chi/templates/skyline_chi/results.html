@@ -49,14 +49,14 @@
 
     <!-- Hidden Div -->
     <div id="tooltipPermitted" class="tooltip permitted-tooltip hidden">
-        <p class="permitted">PERMITTED BY CHICAGO DOB</p>
+        <p class="permitted">PERMITTED BY NYC DOB</p>
         <h4 id="property-address-permitted" class="tooltip-title"></h4>
         <button type="button" class="close tooltip-close" aria-label="Close"><i class="fa fa-times-circle-o fa-lg" aria-hidden="true"></i></button>
         <div class="clearfix"></div>
         <hr />
         <p>
             <span id="property-stories-permitted" class='property-text'></span>
-            <span id='property-description-permitted' class='property-text'></span>
+            <span id='property-pdf-permitted' class='property-text'></span>
         </p>
     </div>
 
@@ -70,6 +70,7 @@
         <p>
             <span id="property-stories-dna" class='property-text'></span>
             <span id='property-description-dna' class='property-text'></span>
+            <span id='property-pdf-dna' class='property-text'></span>
             <span id='property-story1-dna' class='property-text'></span>
             <span id='property-story2-dna' class='property-text'></span>
             <span id='property-story3-dna' class='property-text'></span>
@@ -97,7 +98,7 @@
     <div class="container-fluid">  
         <div class="row">
             <div class="col-xs-12 col-sm-8 col-sm-offset-2 bottomButtonGroupMap">
-                <a id="letsGoAgain" class="btn btn-dna-primary" href="/skyline/chi/" role="button">Add a building!</a>
+                <a id="letsGoAgain" class="btn btn-dna-primary" href="/skyline/nyc/" role="button">Add a building!</a>
                 <span class="pull-right">
                     <a id="showShareFB" class="btn btn-dna-facebook" href="#" role="button" onclick="#"><span class="shareOn">Share on </span><i class="fa fa-facebook-official fa-2x"></i></a>
                     <a id="showShareTwitter" class="btn btn-dna-twitter" href="#" role="button" onclick="#"><span class="shareOn">Share on </span><i class="fa fa-twitter fa-2x"></i></a>
@@ -118,7 +119,7 @@
         </div>
         <div class="modal-body modalContent">
           <p>
-            DNAinfo uses the Cook County Parcel 2015 polygons (<a href="https://datacatalog.cookcountyil.gov/GIS-Maps/ccgisdata-Parcel-2015/nxb6-rw3s" target="_blank">Parcel 2015 | Cook County Open Data Portal</a>) for the underlying geography of each parcel across Chicago. These data are from August 2016. We calculate buidling heights with a formula derived from the <a href="http://www.ctbuh.org/HighRiseInfo/TallestDatabase/Criteria/HeightCalculator/tabid/1007/language/en-GB/Default.aspx" target="_blank">Council on Tall Buildings and Urban Habitat</a>.
+            DNAinfo uses the historical Consumer Price Index for all urban consumers (<a href="http://www.bls.gov/cpi/tables.htm" target="_blank">CPI-U</a>), U.S. city average for all items to adjust the rent you paid in the past for inflation. While CPI-U is calculated for the rent of primary residences separately, major methodological changes in how the U.S. Bureau of Labor Statistics calculates this subset of CPI-U preclude us from directly comparing rents in prior years with rents from today. <a href="http://www.zillow.com/research/data/" target="_blank">Zillow</a> provided us with the median rental list price of apartments across neighborhoods, boroughs, and citywide. These data are from March 2016. 
           </p>
         </div>
       </div>
@@ -129,6 +130,7 @@
 {% block js_block %}
 <script type="text/javascript">
     var objectID = "{{ CHIskylineObject.id }}"; 
+    var boro = "{{ CHIskylineObject.whereBuilding.county }}";
     var bitlyURL = "{{ bitlyURL.url }}";
     $( document ).ready(function() {
 
@@ -143,7 +145,7 @@
         var fblink = "https://visualizations.dnainfo.com/";
         var fbpicture = "https://editorial-ny.dnainfo.com/interactives/2016/aptshare.jpeg";
         var fbname = "Share Title";
-        var fbcaption = "DNAinfo Chicago";
+        var fbcaption = "DNAinfo New York";
         var fbUrl = 'https://www.facebook.com/dialog/feed?app_id=' + app_id + '&display=popup&description='+ encodeURIComponent(fbdescription) + '&link=' + encodeURIComponent(bitlyURL) + '&redirect_uri=' + encodeURIComponent(fblink) + '&name=' + encodeURIComponent(fbname) + '&caption=' + encodeURIComponent(fbcaption) + '&picture=' + encodeURIComponent(fbpicture);
         var fbOnclick = 'window.open("' + fbUrl + '","facebook-share-dialog","width=626,height=436");return false;';
         //$('#showShareFB').attr("href", fbUrl);
