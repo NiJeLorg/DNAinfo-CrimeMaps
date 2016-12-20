@@ -28,7 +28,9 @@ from django.core.mail import send_mail
 
 #lyft test
 def lyft_test(request):
-	return render(request, 'skyline/lyft_test.html', {})
+	lat = request.GET.get('lat')
+	lng = request.GET.get('lng')
+	return render(request, 'skyline/lyft_test.html', {'lat': lat, 'lng': lng})
 
 # views for DNAinfo skyline 3-D
 def index(request):
