@@ -62,4 +62,8 @@ urlpatterns = [
     url(r'^skyline/nyc/browse/(?P<id>\d+)/$', views.skyline_browse, name='skyline_browse'),
     url(r'^skyline/nyc/return_result/(?P<id>\d+)/$', views.skyline_return_result, name='skyline_return_result'),
 
+    #lyft test
+    url(r'^lyft_test/$', views.lyft_test, name='lyft_test'),    
+
+
 ]
