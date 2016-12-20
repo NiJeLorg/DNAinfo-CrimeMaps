@@ -26,7 +26,11 @@ import datetime
 from django.core.mail import send_mail
 
 
-# views for DNAinfo my first apartment
+#lyft test
+def lyft_test(request):
+	return render(request, 'skyline/lyft_test.html', {})
+
+# views for DNAinfo skyline 3-D
 def index(request):
 	return redirect('http://www.dnainfo.com/')
 
