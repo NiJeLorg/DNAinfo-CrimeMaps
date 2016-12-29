@@ -115,15 +115,66 @@ class Command(BaseCommand):
                     else:
                         buildingStories = 0
 
+				#check the rest for existence and set default values if missing
+				if "permit_" in d:
+					permit = d['permit_']
+				else:
+					permit = ''
+
+				if "_permit_type" in d:
+					permit_type = d['_permit_type']
+				else:
+					permit_type = ''
+
+				if "_estimated_cost" in d:
+					estimated_cost = d['_estimated_cost']
+				else:
+					estimated_cost = 0
+
+				if "street_number" in d:
+					street_number = d['street_number']
+				else:
+					street_number = ''
+
+				if "street_direction" in d:
+					street_direction = d['street_direction']
+				else:
+					street_direction = ''
+
+				if "street_name" in d:
+					street_name = d['street_name']
+				else:
+					street_name = ''
+
+				if "_suffix" in d:
+					suffix = d['_suffix']
+				else:
+					suffix = ''
+
+				if "work_description" in d:
+					work_description = d['work_description']
+				else:
+					work_description = ''
+
+				if "latitude" in d:
+					latitude = d['latitude']
+				else:
+					latitude = ''
+
+				if "longitude" in d:
+					longitude = d['longitude']
+				else:
+					longitude = ''
+
                 #use get or create to only create records for objects newly added to the spreadsheets
-                updated_values = {'permit': d['permit_'], 'permit_type': d['_permit_type'], 'issue_date': issue_date, 'estimated_cost': d['_estimated_cost'], 'street_number': d['street_number'], 'street_direction': d['street_direction'], 'street_name': d['street_name'], 'suffix': d['_suffix'], 'work_description': d['work_description'], 'pin1': PIN, 'latitude': d['latitude'], 'longitude': d['longitude'], 'buildingStories': buildingStories}
+                updated_values = {'permit': permit, 'permit_type': permit_type, 'issue_date': issue_date, 'estimated_cost': estimated_cost, 'street_number': street_number, 'street_direction': street_direction, 'street_name': street_name, 'suffix': suffix, 'work_description': work_description, 'pin1': PIN, 'latitude': latitude, 'longitude': longitude, 'buildingStories': buildingStories}
                 obj, created = CHI_Building_Permits_New.objects.update_or_create(ID_ODP=d['id'], defaults=updated_values)
                 print d['id']
                 print created
 
                 # fill out address field if one doesn't exist
                 if not obj.buildingAddress:
-                    obj.buildingAddress = d['street_number'] + ' ' + d['street_direction'] + ' ' + d['street_name'] + ' ' + d['_suffix']
+                    obj.buildingAddress = street_number + ' ' + street_direction + ' ' + street_name + ' ' + suffix
                     obj.save()
 
 
@@ -136,7 +187,7 @@ class Command(BaseCommand):
                 html_message = 'Problem ID #: ' + d['id']
                 message = 'Problem ID #: ' + d['id']
 
-                #send_mail(subject, message, 'dnainfovisualizations@gmail.com', ['jd@nijel.org'], fail_silently=True, html_message=html_message)
+                send_mail(subject, message, 'dnainfovisualizations@gmail.com', ['jd@nijel.org'], fail_silently=True, html_message=html_message)
 
 
     def handle(self, *args, **options):
