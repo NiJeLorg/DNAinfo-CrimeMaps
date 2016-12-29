@@ -174,7 +174,7 @@ def skyline_createBuildingsCSV(request):
 
 	#pull data 
 	today = datetime.date.today()
-	minyear = today.year - 1
+	minyear = today.year - 2
 
 	NYC_DOB_Permit_IssuanceObjects = NYC_DOB_Permit_Issuance.objects.filter(job_start_date__year__gte=minyear).exclude(buildingStories__exact = 0).exclude(buildingFootprint__in = ['', '-99'])
 
@@ -294,7 +294,7 @@ def skyline_createNewsletterCSV(request):
 
 	#pull data 
 	today = datetime.date.today()
-	minyear = today.year - 1
+	minyear = today.year - 2
 
 	NYCskylineObjects = NYCskyline.objects.exclude(userEmail__exact='')
 
@@ -489,7 +489,7 @@ def skyline_getSponsoredGeojsons(request):
 
 def skyline_getPermittedGeojsons(request, boro=None):
 	today = datetime.date.today()
-	minyear = today.year - 1
+	minyear = today.year - 2
 
 	if boro == 'SI':
 		boro = 'Staten Island'
