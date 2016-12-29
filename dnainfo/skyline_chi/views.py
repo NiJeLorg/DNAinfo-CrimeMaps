@@ -25,6 +25,9 @@ import datetime
 #for email
 from django.core.mail import send_mail
 
+#for pulling only the max 
+from django.db.models import Max 
+
 
 # views for DNAinfo my first apartment
 def index(request):
@@ -164,11 +167,11 @@ def skyline_chi_createBuildingsCSV(request):
 	response['Content-Disposition'] = 'attachment; filename="CHI_permitted_buildings_on_map.csv"'
 
 	writer = csv.writer(response, encoding='utf-8')
-	writer.writerow(['ID_ODP', 'created', 'updated', 'created_by', 'updated_by', 'whereBuilding', 'permit', 'permit_type', 'issue_date', 'street_number', 'street_direction', 'street_name', 'suffix', 'work_description', 'pin1', 'latitude', 'longitude', 'buildingFootprint', 'buildingStories', 'zoning_pdfs', 'story1', 'projectName', 'buildingImage', 'buildingAddress', 'description', 'archived'])
+	writer.writerow(['ID_ODP', 'created', 'updated', 'created_by', 'updated_by', 'whereBuilding', 'permit', 'permit_type', 'issue_date', 'estimated_cost', 'street_number', 'street_direction', 'street_name', 'suffix', 'work_description', 'pin1', 'pin_added', 'latitude', 'longitude', 'buildingFootprint', 'buildingStories', 'zoning_pdfs', 'story1', 'projectName', 'buildingImage', 'buildingAddress', 'description', 'archived'])
 
 	#pull data 
 	today = datetime.date.today()
-	minyear = today.year - 1
+	minyear = today.year - 2
 
 	CHI_Building_Permits_NewObjects = CHI_Building_Permits_New.objects.filter(issue_date__year__gte=minyear).exclude(buildingStories__exact = 0).exclude(buildingFootprint__in = ['', '-99'])
 
@@ -179,7 +182,7 @@ def skyline_chi_createBuildingsCSV(request):
 		else:
 			neighborhoodName = None
 		
-		writer.writerow([o.ID_ODP, o.created, o.updated, o.created_by, o.updated_by, neighborhoodName, o.permit, o.permit_type, o.issue_date, o.street_number, o.street_direction, o.street_name, o.suffix, o.work_description, o.pin1, o.latitude, o.longitude, o.buildingFootprint, o.buildingStories, o.zoning_pdfs, o.story1, o.projectName, o.buildingImage, o.buildingAddress, o.description, o.archived])
+		writer.writerow([o.ID_ODP, o.created, o.updated, o.created_by, o.updated_by, neighborhoodName, o.permit, o.permit_type, o.issue_date, o.estimated_cost, o.street_number, o.street_direction, o.street_name, o.suffix, o.work_description, o.pin1, o.pin_added, o.latitude, o.longitude, o.buildingFootprint, o.buildingStories, o.zoning_pdfs, o.story1, o.projectName, o.buildingImage, o.buildingAddress, o.description, o.archived])
 
 	return response
 
@@ -287,9 +290,6 @@ def skyline_chi_createNewsletterCSV(request):
 	writer.writerow(['created', 'neighborhood', 'email', 'newsletter'])
 
 	#pull data 
-	today = datetime.date.today()
-	minyear = today.year - 1
-
 	CHIskylineObjects = CHIskyline.objects.exclude(userEmail__exact='')
 
 	for o in CHIskylineObjects:
@@ -483,9 +483,22 @@ def skyline_chi_getSponsoredGeojsons(request):
 
 def skyline_chi_getPermittedGeojsons(request):
 	today = datetime.date.today()
-	minyear = today.year - 1
+	minyear = today.year - 2
 
-	CHI_Building_Permits_NewObjects = CHI_Building_Permits_New.objects.filter(issue_date__year__gte=minyear).exclude(buildingStories__exact = 0).exclude(buildingFootprint__in = ['', '-99'])
+	unique_id_list = []
+	pin_lookup = ''
+	# getting unique list of ID numbers (and PIN numbers) with the highest cost only
+	uniqueID_ODP = CHI_Building_Permits_New.objects.order_by('pin1', '-estimated_cost').values('ID_ODP', 'pin1', 'pin_added', 'estimated_cost').filter(issue_date__year__gte=minyear).exclude(buildingStories__exact = 0).exclude(buildingFootprint__in = ['', '-99'])
+
+	for obj in uniqueID_ODP:
+		if obj['pin_added'] != '':
+			unique_id_list.append(obj['ID_ODP'])
+		elif obj['pin1'] != pin_lookup:
+			unique_id_list.append(obj['ID_ODP'])
+			pin_lookup = obj['pin1']
+
+
+	CHI_Building_Permits_NewObjects = CHI_Building_Permits_New.objects.filter(ID_ODP__in = unique_id_list).filter(issue_date__year__gte=minyear).exclude(buildingStories__exact = 0).exclude(buildingFootprint__in = ['', '-99'])
 	geojsons = []
 
 	for obj in CHI_Building_Permits_NewObjects:
@@ -494,7 +507,7 @@ def skyline_chi_getPermittedGeojsons(request):
 		else:
 			buildingHeight = (3.5*obj.buildingStories) + 9.625 + (2.625 * (obj.buildingStories/25))
 
-		changed = '{\"type\":\"FeatureCollection\",\"features\":[{\"type\": \"Feature\", \"properties\":{\"color\":\"#00cdbe\", \"roofColor\":\"#00cdbe\", \"height\":\"' + str(buildingHeight) +'\", \"zoning_pdfs\":\"' + str(obj.zoning_pdfs) +'\", \"address\":\"' + obj.buildingAddress.strip() +'\", \"stories\":\"' + str(obj.buildingStories) +'\", \"story1\":\"' + str(obj.story1) +'\", \"projectName\":\"' + obj.projectName +'\", \"buildingImage\":\"visualizations/media/' + str(obj.buildingImage) +'\", \"objectID\":\"' + str(obj.pk) +'\", \"description\":\"' + obj.description +'\"}, \"geometry\": ' + obj.buildingFootprint + '}]}'
+		changed = '{\"type\":\"FeatureCollection\",\"features\":[{\"type\": \"Feature\", \"properties\":{\"color\":\"#00cdbe\", \"roofColor\":\"#00cdbe\", \"height\":\"' + str(buildingHeight) +'\", \"zoning_pdfs\":\"' + str(obj.zoning_pdfs) +'\", \"address\":\"' + obj.buildingAddress.strip() +'\", \"stories\":\"' + str(obj.buildingStories) +'\", \"story1\":\"' + str(obj.story1) +'\", \"projectName\":\"' + obj.projectName +'\", \"buildingImage\":\"visualizations/media/' + str(obj.buildingImage) +'\", \"objectID\":\"' + str(obj.pk) +'\", \"description\":\"' + obj.description +'\" , \"estimated_cost\":\"' + str(obj.estimated_cost) +'\"}, \"geometry\": ' + obj.buildingFootprint + '}]}'
 		geojsons.append(changed)
 		
 	return JsonResponse(geojsons, safe=False)

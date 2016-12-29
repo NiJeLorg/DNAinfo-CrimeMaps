@@ -16,12 +16,12 @@ import re
 
 
 """
-  Loads NYC department of buildings data for NYC open data portal
-  https://data.cityofnewyork.us/Housing-Development/DOB-Permit-Issuance/ipu4-2q9a
+  Loads Chicago building permist data from the Chicago open data portal
+  https://data.cityofchicago.org/Buildings/Building-Permits/ydr8-5enu/data
   API Docs
-  https://dev.socrata.com/foundry/data.cityofnewyork.us/83x8-shf7
+  https://dev.socrata.com/foundry/data.cityofchicago.org/9pkb-4fbf
   API endpoint
-  https://data.cityofnewyork.us/resource/83x8-shf7.json
+  https://data.cityofchicago.org/resource/9pkb-4fbf.json
 """
 class Command(BaseCommand):
 
@@ -116,7 +116,7 @@ class Command(BaseCommand):
                         buildingStories = 0
 
                 #use get or create to only create records for objects newly added to the spreadsheets
-                updated_values = {'permit': d['permit_'], 'permit_type': d['_permit_type'], 'issue_date': issue_date, 'street_number': d['street_number'], 'street_direction': d['street_direction'], 'street_name': d['street_name'], 'suffix': d['_suffix'], 'work_description': d['work_description'], 'pin1': PIN, 'latitude': d['latitude'], 'longitude': d['longitude'], 'buildingStories': buildingStories}
+                updated_values = {'permit': d['permit_'], 'permit_type': d['_permit_type'], 'issue_date': issue_date, 'estimated_cost': d['_estimated_cost'], 'street_number': d['street_number'], 'street_direction': d['street_direction'], 'street_name': d['street_name'], 'suffix': d['_suffix'], 'work_description': d['work_description'], 'pin1': PIN, 'latitude': d['latitude'], 'longitude': d['longitude'], 'buildingStories': buildingStories}
                 obj, created = CHI_Building_Permits_New.objects.update_or_create(ID_ODP=d['id'], defaults=updated_values)
                 print d['id']
                 print created
