@@ -140,7 +140,7 @@ class Command(BaseCommand):
 					buildingBBL = '5' + block + lot[1:]
 
 				#use get or create to only create records for objects newly added to the spreadsheets
-				updated_values = {'borough': borough, 'bin': bin_num, 'house': d['house__'], 'street_name': d['street_name'], 'job_doc': d['job_doc___'], 'job_type': d['job_type'], 'block': d['block'], 'lot': d['lot'], 'community_board': d['community_board'], 'zip_code': d['zip_code'], 'bldg_type': d['bldg_type'], 'permit_status': d['permit_status'], 'filing_status': d['filing_status'], 'permit_type': d['permit_type'], 'filing_date': filing_date, 'issuance_date': issuance_date, 'expiration_date': expiration_date, 'job_start_date': job_start_date, 'buildingBBL': buildingBBL}
+				updated_values = {'borough': borough, 'bin': bin_num, 'house': house, 'street_name': street_name, 'job_doc': job_doc, 'job_type': job_type, 'block': block, 'lot': lot, 'community_board': community_boar, 'zip_code': zip_code, 'bldg_type': bldg_type, 'permit_status': permit_status, 'filing_status': filing_status, 'permit_type': permit_type, 'filing_date': filing_date, 'issuance_date': issuance_date, 'expiration_date': expiration_date, 'job_start_date': job_start_date, 'buildingBBL': buildingBBL}
 				obj, created = NYC_DOB_Permit_Issuance.objects.update_or_create(job=d['job__'], defaults=updated_values)
 				print d['job__']
 				print created
