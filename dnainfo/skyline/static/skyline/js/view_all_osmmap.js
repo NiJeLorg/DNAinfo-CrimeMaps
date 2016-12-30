@@ -131,6 +131,7 @@ osmApplication.initialize = function() {
                     $('#property-edit-permitted').prop('href', '#');
                     // look up properties
                     var properties = osmApplication.permittedGeojsons[id].features[0].properties;
+                    console.log(properties);
                     // projectName
                     if (typeof properties.projectName !== 'undefined' && properties.projectName) {
                         $('#property-projectName-permitted').text(properties.projectName);
@@ -206,6 +207,7 @@ osmApplication.initialize = function() {
                     $('#property-remove-dna').prop('href', '#');
                     // look up properties
                     var properties = osmApplication.dnaGeojsons[id].features[0].properties;
+                                    
                     // projectName
                     if (typeof properties.projectName !== 'undefined' && properties.projectName) {
                         $('#property-projectName-dna').text(properties.projectName);
