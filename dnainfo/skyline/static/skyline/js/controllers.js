@@ -57,6 +57,56 @@ $( document ).ready(function() {
 		ajaxApplication.nextEnd();
 	});
 
+	// listen for keyboard enter clicks to submit forms 
+	$(document).on('click', '#nextNeighborhood', function(e) {
+		e.preventDefault();
+		$(".fadein").fadeOut("fast");
+		ajaxApplication.nextNeighborhood();
+	});	
+
+	$(document).keypress(function(e) {
+		if(e.which == 13) {
+			e.preventDefault();
+			if ($("#nextHeight").length) {
+				console.log('here');
+				// check if field is empty
+				var whereBuilding = $('#id_whereBuilding').val();
+				var checkNull = isNull(whereBuilding);
+				if (checkNull) {
+					return;
+				}
+
+				//fade out, submit form, then fade back in
+				$(".fadein").fadeOut("fast");
+				ajaxApplication.nextHeight();
+			}
+			if ($("#nextLocation").length) {
+				// check if field is empty
+				var buildingStories = $('#id_buildingStories').val();
+				var checkNull = isNull(buildingStories);
+				if (checkNull) {
+					return;
+				}
+
+				//fade out, submit form, then fade back in
+				$(".fadein").fadeOut("fast");
+				ajaxApplication.nextLocation();
+			}
+			if ($("#nextEnd").length) {
+				// check if field is empty
+				var buildingFootprint = $('#id_buildingFootprint').val();
+				var checkNull = isNull(buildingFootprint);
+				if (checkNull) {
+					return;
+				}
+
+				//fade out, submit form, then fade back in
+				$(".fadein").fadeOut("fast");
+				ajaxApplication.nextEnd();
+			}
+		}
+	});
+
 
 
 	// listeners for back buttons

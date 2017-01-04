@@ -1,5 +1,5 @@
 /**
- * map.js: Creates map for selecting which pluto plot to use
+ * osmmap.js
  */
 
 function osmApplication() {}
