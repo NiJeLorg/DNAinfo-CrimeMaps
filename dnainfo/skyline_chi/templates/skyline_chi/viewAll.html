@@ -4,6 +4,7 @@
 {% block css_block %}
 <link rel="stylesheet" type="text/css" href="{% static 'skyline_chi/css/OSMBuildings.css' %}">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="{% static 'skyline/css/browse_ny.css'%}">
 {% endblock %}
 
 {% block body_block %}
@@ -42,38 +43,47 @@
 <!-- Hidden Div -->
 <div id="tooltipPermitted" class="tooltip permitted-tooltip hidden">
     <p class="permitted">APPROVED</p>
-    <h4 id="property-projectName-permitted" class="tooltip-title"></h4>
-    <button type="button" class="close tooltip-close" aria-label="Close"><i class="fa fa-times-circle-o fa-lg" aria-hidden="true"></i></button>
-    <div class="clearfix"></div>
-    <hr />
+    <div class="tooltipHeader">
+        <h4 id="property-projectName-permitted" class="tooltip-title"></h4>
+        <button type="button" class="close tooltip-close" aria-label="Close"><span class="glyphicon glyphicon-remove-circle closeModal" aria-hidden="true"></span></button>
+    </div>
     <div id='property-image-permitted' class='pull-right'></div>
     <p>
         <span id='property-description-permitted' class='property-text dark'></span>
         <span id="property-address-permitted" class='property-text'></span>
         <span id="property-stories-permitted" class='property-text'></span>
-        <span id='property-story1-permitted' class='property-text link'></span>
-        <span id='property-pdf-permitted' class='property-text link'></span>
     </p>
-    <a id='property-edit-permitted' class="btn btn-primary marginRight10" href="" role="button" target="_blank">Edit</a>
+    <footer>
+        <div class="links">
+            <span id='property-story1-permitted' class='property-text link'></span>
+            <span id='property-pdf-permitted' class='property-text link'></span>
+        </div>
+        <a id='property-edit-permitted' class="btn btn-primary marginRight10" href="" role="button" target="_blank">Edit</a>
+    </footer>
 </div>
 
 <!-- Hidden Div -->
 <div id="tooltipDNA" class="tooltip dna-tooltip hidden">
     <p class="dna">PROPOSED</p>
-    <h4 id="property-projectName-dna" class="tooltip-title"></h4>
-    <button type="button" class="close tooltip-close" aria-label="Close"><i class="fa fa-times-circle-o fa-lg" aria-hidden="true"></i></button>
-    <div class="clearfix"></div>
-    <hr />
+    <div class="tooltipHeader">
+        <h4 id="property-projectName-dna" class="tooltip-title"></h4>
+        <button type="button" class="close tooltip-close" aria-label="Close"><span class="glyphicon glyphicon-remove-circle closeModal" aria-hidden="true"></span></button>
+    </div>
     <div id='property-image-dna' class='pull-right'></div>
     <p>
         <span id='property-description-dna' class='property-text dark'></span>
         <span id="property-address-dna" class='property-text'></span>
         <span id="property-stories-dna" class='property-text'></span>
-        <span id='property-story1-dna' class='property-text link'></span>
-        <span id='property-pdf-dna' class='property-text link'></span>
     </p>
-    <a id='property-edit-dna' class="btn btn-primary marginRight10" href="" role="button" target="_blank">Edit</a>
-    <a id='property-remove-dna' class="btn btn-danger" href="" role="button" target="_blank">Remove</a>   
+    <footer>
+        <div class="links">
+            <span id='property-story1-dna' class='property-text link'></span>
+            <span id='property-pdf-dna' class='property-text link'></span>
+        </div>
+        <a id='property-edit-dna' class="btn btn-primary marginRight10" href="" role="button" target="_blank">Edit</a>
+        <a id='property-remove-dna' class="btn btn-danger" href="" role="button" target="_blank">Remove</a>  
+    </footer>
+ 
 </div>
 
 
