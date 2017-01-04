@@ -505,7 +505,7 @@ footer .select2-selection__rendered {
     }
     .select-parent {
         /*margin: 0 auto;*/
-        margin-left: 2.5%;
+        margin-left: 0;
         margin-bottom: 60px;
     }
     .select-parent-holder {
