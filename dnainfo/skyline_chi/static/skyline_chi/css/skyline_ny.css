@@ -136,14 +136,14 @@ a:focus {
     display: flex;
     align-items: center;
     justify-content: center;   
-    width: 104%;
+    width: 100%;
     margin-bottom: 30px;
-    margin-left: 15px;
+    margin-left: 0;
 }
 
 .select-parent-holder {
     width: 100%;
-    margin-left: 0;
+    margin-left: 15px;
 }
 
 .select-parent form .form-group {

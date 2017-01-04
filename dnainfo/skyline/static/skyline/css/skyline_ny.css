@@ -136,14 +136,14 @@ a:focus {
     display: flex;
     align-items: center;
     justify-content: center;   
-    width: 104%;
+    width: 100%;
     margin-bottom: 30px;
-    margin-left: 15px;
+    margin-left: 0;
 }
 
 .select-parent-holder {
     width: 100%;
-    margin-left: 0;
+    margin-left: 11%;
 }
 
 .select-parent form .form-group {
@@ -399,9 +399,9 @@ footer {
 
 footer .select-parent {
     margin: 0;
-    margin-left: 15px;
+    margin-left: 11%;
     justify-content: flex-start;
-    width: 92%;
+    width: 78%;
 }
  
 .bottom-footer {
@@ -410,6 +410,7 @@ footer .select-parent {
 
 footer .select-parent .select-parent-holder {
     width: 100%;
+    margin-left: 0;
 }
 
 footer .select-parent .chevron-button {
@@ -510,6 +511,7 @@ footer .select2-selection__rendered {
     }
     .select-parent-holder {
         width: 397px;
+        margin-left: 2.5%;
     }
 
     footer .select-parent {
