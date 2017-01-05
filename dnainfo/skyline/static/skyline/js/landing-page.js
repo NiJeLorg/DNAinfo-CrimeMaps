@@ -82,14 +82,17 @@ $(document).ready(function() {
 
 
 	$(document).on('click', '#closeApprovedModal', function() {
+        window.alert("close approved!");
         $('#approvedModal').css('display', 'none');
         approvedModalOpen = false;
     });
 	$(document).on('click', '#closeProposedModal', function() {
+        window.alert("close proposed!");
         $('#proposedModal').css('display', 'none');
         proposedModalOpen = false;
     });
 	$(document).on('click', '#closeSponsoredModal', function() {
+        window.alert("close proposed!");
         $('#sponsoredModal').css('display', 'none');
         sponsoredModalOpen = false;
     });
