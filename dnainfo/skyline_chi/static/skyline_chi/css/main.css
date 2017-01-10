@@ -694,6 +694,11 @@ fieldset[disabled] .btn-dna-twitter.active {
   color: #686868;
 }
 
+/* special form control for id_buildingFootprint -- make it tiny to overcome visibilty: hidden not working in safari; */
+#id_buildingFootprint {
+  width: 10px;
+}
+
 
 /* Select 2 control css */
 .select2-container, .select2-selection {
