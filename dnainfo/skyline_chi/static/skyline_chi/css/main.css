@@ -207,8 +207,26 @@ html, body, #content, #map, #osmmap {
 }
 
 .bottomButtonGroupMap {
-  position: relative;
-  bottom: 175px;
+  position: absolute;
+  bottom: 30%;
+}
+
+@media (min-width: 321px) {
+  .bottomButtonGroupMap {
+    bottom: 20%;
+  }
+}
+
+@media (min-width: 426px) {
+  .bottomButtonGroupMap {
+    bottom: 15%;
+  }
+}
+
+@media (min-width: 1026px) {
+  .bottomButtonGroupMap {
+    bottom: 7%;
+  }
 }
 
 .bottomButtonGroupRadio {

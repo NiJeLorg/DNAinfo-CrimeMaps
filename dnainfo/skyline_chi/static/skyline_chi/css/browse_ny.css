@@ -192,7 +192,7 @@ footer .add-a-building-button {
     color: #4a4a4a;
 }
 
-@media (min-width: 425px) {
+@media (min-width: 426px) {
     .browseNav {
         top: 20px;
     }
