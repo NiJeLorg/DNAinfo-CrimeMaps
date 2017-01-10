@@ -97,7 +97,8 @@ a:focus {
 }
 
 .title .title-heading {
-    font-size: 3em;
+    font-size: 32px;
+    line-height: 42px;
     font-family: 'Titillium Web', Helvetica, sans-serif;
     font-weight: 600;
     margin-bottom: 20px;
@@ -458,9 +459,11 @@ footer .select2-selection__rendered {
         text-align: center;
     }
     .title .title-heading {
-        font-size: 3.5em;
+        font-size: 36px;
+        line-height: 44px;
         padding: 0;
-        margin-top: 20px;
+        margin-top: 40px;
+        margin-bottom: 30px;
         width: 65%;
     }
     .title .title-subheading {
@@ -524,6 +527,9 @@ footer .select2-selection__rendered {
 @media (min-width: 768px) {
     .title .title-heading {
         font-size: 62px;
+        line-height: 68px;
+        margin-top: 50px;
+        margin-bottom: 40px;
     }
     .title .title-info {
         width: 90%;
