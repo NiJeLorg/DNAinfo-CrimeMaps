@@ -402,7 +402,7 @@ footer .select-parent {
     margin: 0;
     margin-left: 11%;
     justify-content: flex-start;
-    width: 78%;
+    width: 61%;
 }
  
 .bottom-footer {
@@ -429,6 +429,12 @@ footer .select2-selection__rendered {
 .view-methodology {
     text-align: center;
     font-size: 17px;
+}
+
+@media (min-width: 321px) {
+    footer .select-parent {
+        width: 78%;
+    }
 }
 
 @media (min-width: 426px) {
