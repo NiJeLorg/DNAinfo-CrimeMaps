@@ -416,6 +416,7 @@ footer .select-parent .select-parent-holder {
 
 footer .select-parent .chevron-button {
     right: 45px;
+    z-index: 1;
 }
 
 footer .select2-selection__rendered {
