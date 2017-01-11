@@ -229,6 +229,43 @@ html, body, #content, #map, #osmmap {
   }
 }
 
+.question-mark-holder {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: #fff;
+    border-radius: 2px;
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.5);
+    position:absolute;
+    top: 45px;
+    right: 10px;
+    left: inherit;
+}
+
+.question-mark-holder a {
+    text-align: center;
+    color: #f6c82c;
+}
+
+.for-mobile-2x {
+  font-size: 2em;
+}
+
+@media (min-width: 600px) {
+  .question-mark-holder {
+    width: 52px;
+    height: 52px;
+    top: 10px;
+    left: 50px;
+    right: inherit;
+  }
+  .for-mobile-2x {
+    font-size: 3em;
+  }
+}
+
 
 .bottomButtonGroupRadio {
   position: relative;
