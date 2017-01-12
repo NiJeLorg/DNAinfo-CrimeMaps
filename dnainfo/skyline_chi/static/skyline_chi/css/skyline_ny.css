@@ -533,10 +533,11 @@ footer .select2-selection__rendered {
 
 @media (min-width: 768px) {
     .title .title-heading {
-        font-size: 62px;
-        line-height: 68px;
-        margin-top: 50px;
+        font-size: 44px;
+        line-height: 64px;
+        margin-top: 60px;
         margin-bottom: 40px;
+        width: 85%;
     }
     .title .title-info {
         width: 90%;
@@ -571,6 +572,10 @@ footer .select2-selection__rendered {
 }
 
 @media (min-width: 1024px) {
+    .title .title-heading {
+        font-size: 50px;
+        line-height: 65px;
+    }
     .title .title-info {
         margin-bottom: 55px;
         width: 65%;
