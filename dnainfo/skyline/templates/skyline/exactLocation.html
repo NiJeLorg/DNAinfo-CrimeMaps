@@ -44,9 +44,38 @@
 </form>
 
 <div class="question-mark-holder">
-    <a href="/skyline/nyc/">
+    <a data-toggle="modal" data-target="#faq">
         <i class="fa fa-question fa-3x for-mobile-2x" aria-hidden="true"></i>
     </a>
+</div>
+
+<div class="modal fade" id="faq" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4><strong>Frequently Asked Questions:</strong></h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></button>
+            </div>
+            <div class="modal-body modalContent">
+                <p><strong>Q: What if I can't find my address?</strong></p>
+                <p>
+                    A: Not all addresses will display on the map, due to the nature of the data available from the city. If you can't find your property, you're welcome to enter it on the closest plot available, and our team will evaluate it before accepting it for display on the public map. Questions or concerns about the map can also be sent to <a href="mailto:3Dmap@dnainfo.com">3Dmap@dnainfo.com</a>.
+                </p>
+                <p><strong>Q: Why won't my property let me click it?</strong></p>
+                <p>
+                    A: DNAinfo New York built this map using the crowd-sourced interactive map software <a href="https://osmbuildings.org/" target="_blank"> OpenStreetMap (OSM) Buildings</a>. If OSM doesn't include building footprints as active, they will not be available to place a new building.
+                </p>
+                <p><strong>Q. What if my building is bigger than the existing plots?</strong></p>
+                <p>
+                    A: DNAinfo's 3-D map can only accept submissions through the existing plots. If you know a building will take up multiple plots, you are welcome to enter the same information about that building into all the relevant plots.
+                </p>
+                <p><strong>Q: What if my building is smaller than the existing plots?</strong></p>
+                <p>
+                    A: You are welcome to enter the information into the plot where the building will be located, and we will take that into consideration before accepting it for display on the public map.
+                </p>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script type="text/javascript">

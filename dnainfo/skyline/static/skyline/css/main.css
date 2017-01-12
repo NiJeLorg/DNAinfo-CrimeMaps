@@ -190,13 +190,26 @@ html, body, #content, #map, #osmmap {
   margin-left: 15px;
 }
 
-#methodology .modal-header {
+#methodology .modal-header, #faq .modal-header {
   display: flex;
   padding-bottom: 0px;
 }
 
 .close {
     font-weight: normal;
+}
+
+.modal-content .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header .close {
+    font-size: 2em;
+}
+.modal-header .close {
+    font-size: 2em;
 }
 
 /* Buttons */
