@@ -97,7 +97,8 @@ a:focus {
 }
 
 .title .title-heading {
-    font-size: 3em;
+    font-size: 32px;
+    line-height: 42px;
     font-family: 'Titillium Web', Helvetica, sans-serif;
     font-weight: 600;
     margin-bottom: 20px;
@@ -143,7 +144,7 @@ a:focus {
 
 .select-parent-holder {
     width: 100%;
-    margin-left: 15px;
+    margin-left: 11%;
 }
 
 .select-parent form .form-group {
@@ -379,7 +380,7 @@ footer {
 .got-it-now {
     color: black;
     display: block;
-    margin-bottom: 2.5%;
+    margin-bottom: 20px;
 }
 
 .got-it-now .component-heading {
@@ -399,9 +400,9 @@ footer {
 
 footer .select-parent {
     margin: 0;
-    margin-left: 15px;
+    margin-left: 11%;
     justify-content: flex-start;
-    width: 92%;
+    width: 61%;
 }
  
 .bottom-footer {
@@ -410,10 +411,12 @@ footer .select-parent {
 
 footer .select-parent .select-parent-holder {
     width: 100%;
+    margin-left: 0;
 }
 
 footer .select-parent .chevron-button {
     right: 45px;
+    z-index: 1;
 }
 
 footer .select2-selection__rendered {
@@ -427,6 +430,12 @@ footer .select2-selection__rendered {
 .view-methodology {
     text-align: center;
     font-size: 17px;
+}
+
+@media (min-width: 321px) {
+    footer .select-parent {
+        width: 78%;
+    }
 }
 
 @media (min-width: 426px) {
@@ -457,9 +466,11 @@ footer .select2-selection__rendered {
         text-align: center;
     }
     .title .title-heading {
-        font-size: 3.5em;
+        font-size: 36px;
+        line-height: 44px;
         padding: 0;
-        margin-top: 20px;
+        margin-top: 40px;
+        margin-bottom: 30px;
         width: 65%;
     }
     .title .title-subheading {
@@ -483,7 +494,7 @@ footer .select2-selection__rendered {
     .building-component-modal {
         position: absolute;
         right: 10%;
-        width: 38%;
+        width: 300px;
     }
     .proposed-building-component-info {
         order: 1;
@@ -510,6 +521,7 @@ footer .select2-selection__rendered {
     }
     .select-parent-holder {
         width: 397px;
+        margin-left: 2.5%;
     }
 
     footer .select-parent {
@@ -521,7 +533,11 @@ footer .select2-selection__rendered {
 
 @media (min-width: 768px) {
     .title .title-heading {
-        font-size: 62px;
+        font-size: 44px;
+        line-height: 64px;
+        margin-top: 60px;
+        margin-bottom: 40px;
+        width: 85%;
     }
     .title .title-info {
         width: 90%;
@@ -532,9 +548,9 @@ footer .select2-selection__rendered {
     .building-component-holder {
         width: 80%;
     }
-    .building-component-modal {
+/*    .building-component-modal {
         width: 30%;
-    }
+    }*/
     .got-it-now {
         color: black;
         display: flex;
@@ -556,6 +572,10 @@ footer .select2-selection__rendered {
 }
 
 @media (min-width: 1024px) {
+    .title .title-heading {
+        font-size: 50px;
+        line-height: 65px;
+    }
     .title .title-info {
         margin-bottom: 55px;
         width: 65%;
@@ -568,10 +588,9 @@ footer .select2-selection__rendered {
     .building-component-holder {
         width: 60%;
     }
-    .building-component-modal {
-        /*width: 21%;*/
-        width: 30%;
-    }
+/*    .building-component-modal {
+        width: 21%;
+    }*/
     .got-it-now {
         width: 65%;
     }
