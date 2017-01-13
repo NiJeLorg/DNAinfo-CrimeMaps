@@ -73,15 +73,17 @@ var bitlyURL = "{{ bitlyURL.url }}";
                     <div class="building-modal-info">
                         <div class="building-modal-info-header">
                             <h4>Library at Hunter's Point</h4>
-                            <span class="glyphicon glyphicon-remove-circle close" id="closeApprovedModal" aria-hidden="true"></span>
+                            <a><span class="glyphicon glyphicon-remove-circle close" id="closeApprovedModal" aria-hidden="true"></span></a>
                         </div>
                         <div class="building-component-info-content">
                             <main>
                                 <p>A modern community center and peaceful retreat</p>
                                 <div class="building-address">
-                                    <p>25-01 Jackson Ave,</p>
-                                    <p>Long Island City, NY 11101</p>
-                                    <P>3 Stories tall</P>
+                                    <p>
+                                    25-01 Jackson Ave,<br>
+                                    Long Island City, NY 11101<br>
+                                    3 stories tall
+                                    </p>
                                 </div>
                             </main>
                             <img src="{%static 'skyline_chi/assets/building_thumb.jpg'%}" height="80px" width="80px">
@@ -108,7 +110,7 @@ var bitlyURL = "{{ bitlyURL.url }}";
             <div class="building-component-holder">
                 <div class="building-component-info proposed-building-component-info">
                     <h3 class="component-heading">Proposed Consideration</h3>
-                    <p class="component-info">Blue boxes have not yet had permits approved by the city. These are projects that may have been presented at local meetings, but haven't completed the city's building approval process. The height of these boxes reflect what developers have submitted
+                    <p class="component-info">Blue boxes have not yet had permits approved by the city. These are projects that may have been presented at local meetings, but haven't completed the city's building approval process. The height of these boxes reflect what developers have submitted.
                     </p>
                 </div>
                 <div class="building-component-modal proposed-component-modal" id="proposedModal">
@@ -116,15 +118,17 @@ var bitlyURL = "{{ bitlyURL.url }}";
                     <div class="building-modal-info">
                         <div class="building-modal-info-header">
                             <h4>Library at Hunter's Point</h4>
-                            <span class="glyphicon glyphicon-remove-circle close" id="closeProposedModal" aria-hidden="true"></span>
+                            <a><span class="glyphicon glyphicon-remove-circle close" id="closeProposedModal" aria-hidden="true"></span></a>
                         </div>
                         <div class="building-component-info-content">
                             <main>
                                 <p>A modern community center and peaceful retreat</p>
                                 <div class="building-address">
-                                    <p>25-01 Jackson Ave,</p>
-                                    <p>Long Island City, NY 11101</p>
-                                    <P>3 stories tall</P>
+                                    <p>
+                                    25-01 Jackson Ave,<br>
+                                    Long Island City, NY 11101<br>
+                                    3 stories tall
+                                    </p>
                                 </div>
                             </main>
                             <img src="{%static 'skyline_chi/assets/building_thumb.jpg'%}" height="80px" width="80px">
@@ -156,7 +160,7 @@ var bitlyURL = "{{ bitlyURL.url }}";
                 <div class="building-component-holder">
                     <div class="building-component-info sponsored-building-component-info">
                         <h3 class="component-heading">Explore Inside</h3>
-                        <p class="component-info">Yellow boxes are from DNAinfo partners</p>
+                        <p class="component-info">Yellow boxes are from DNAinfo partners.</p>
                     </div>
                     <div class="building-component-image sponsored-building-component-image">
                         <img src="{%static 'skyline_chi/assets/Buildings_Sponsored.svg' %}" class="building-component-svg">
@@ -169,16 +173,18 @@ var bitlyURL = "{{ bitlyURL.url }}";
                         <div class="building-modal-info">
                             <div class="building-modal-info-header">
                                 <h4>Austin Nichols House</h4>
-                                <span class="glyphicon glyphicon-remove-circle close" id="closeSponsoredModal" aria-hidden="true"></span>
+                                <a><span class="glyphicon glyphicon-remove-circle close" id="closeSponsoredModal" aria-hidden="true"></span></a>
                             </div>
                             <div class="building-component-info-content">
                                 <main>
                                     <p>A home for our generation. A century in the making.
                                     </p>
                                     <div class="building-address">
-                                        <p>184 Kent Ave,</p>
-                                        <p>Brooklyn, NY 10009</p>
-                                        <P>9 Stories tall</P>
+                                        <p>
+                                        184 Kent Ave,<br>
+                                        Brooklyn, NY 10009<br>
+                                        9 Stories tall
+                                        </p>
                                     </div>
                                 </main>
                                 <img src="{%static 'skyline_chi/assets/building_thumb.jpg'%}" height="80px" width="80px">
@@ -217,7 +223,7 @@ var bitlyURL = "{{ bitlyURL.url }}";
     </main>
     <footer class="bottom-footer">
         <div class="got-it-now">
-            <h3 class="component-heading">Got it? Now &nbsp;</h3>
+            <h3 class="component-heading">Got it? Now</h3>
             <div class="select-parent">
                 <div class="select-parent-holder">
                     <form id="whatNeighborhoodForm" method="post" action=".">
@@ -266,6 +272,7 @@ var bitlyURL = "{{ bitlyURL.url }}";
             </div>
         </div>
     </div>
+</div>
     {% endblock %} {% block js_block %}
     <script type="text/javascript" src="{% static 'skyline_chi/js/select2.js' %}"></script>
     <script type="text/javascript" src="{% static 'django_select2/django_select2.js' %}"></script>

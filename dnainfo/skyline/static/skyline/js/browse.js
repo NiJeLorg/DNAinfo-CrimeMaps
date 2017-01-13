@@ -127,11 +127,12 @@ osmApplication.initialize = function() {
     });
 
     // listen for touch events and doe the same thing as clicking
-    // osmApplication.osmb.on('touchstart', function(e) {
-    //     var xcoor = e.touches[0].clientX;
-    //     var ycoor = e.touches[0].clientY;
-    //     osmApplication.onClick(xcoor, ycoor);
-    // });
+    osmApplication.osmb.on('touchstart', function(e) {
+        console.log('touch event: ', e);
+        var xcoor = e.touches[0].clientX;
+        var ycoor = e.touches[0].clientY;
+        osmApplication.onClick(xcoor, ycoor);
+    });
 
 
     // close sponsored tooltip if the map changes
@@ -536,7 +537,6 @@ osmApplication.onClick = function (xcoor, ycoor) {
 
                 // look up properties
                 var properties = osmApplication.permittedGeojsons[id].features[0].properties;
-                console.log(properties);
                 // projectName
                 if (typeof properties.projectName !== 'undefined' && properties.projectName) {
                     $('#property-projectName-permitted').text(properties.projectName);
@@ -609,12 +609,13 @@ osmApplication.onClick = function (xcoor, ycoor) {
                 $('#property-pdf-dna').html('');
                 // look up properties
                 var properties = osmApplication.dnaGeojsons[id].features[0].properties;
-                                
+                console.log(properties);
+
                 // projectName
                 if (typeof properties.projectName !== 'undefined' && properties.projectName) {
                     $('#property-projectName-dna').text(properties.projectName);
-                } else if (typeof properties.address !== 'undefined' && properties.address) {
-                    $('#property-projectName-dna').text(properties.address);
+                } else if (typeof properties.buildingAddress !== 'undefined' && properties.buildingAddress) {
+                    $('#property-projectName-dna').text(properties.buildingAddress);
                 }
                 // image
                 if (typeof properties.buildingImage !== 'undefined' && properties.buildingImage != 'visualizations/media/') {
@@ -625,8 +626,8 @@ osmApplication.onClick = function (xcoor, ycoor) {
                     $('#property-description-dna').html(properties.description + '<br />');
                 }
                 // address
-                if (typeof properties.address !== 'undefined' && properties.address) {
-                    $('#property-address-dna').html(properties.address + '<br />');
+                if (typeof properties.buildingAddress !== 'undefined' && properties.buildingAddress) {
+                    $('#property-address-dna').html(properties.buildingAddress + '<br />');
                 }
                 // stories
                 if (typeof properties.stories !== 'undefined' && properties.stories) {

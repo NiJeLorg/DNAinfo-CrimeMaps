@@ -107,7 +107,7 @@ html, body, #content, #map, #osmmap {
 .questionHeadingExactSmall {
   display: inline;
   color: #686868;
-  font-size: 32px;
+  font-size: 28px;
   font-weight: 200;
   line-height: 1.42;
   background: rgb(242, 242, 242);
@@ -190,13 +190,23 @@ html, body, #content, #map, #osmmap {
   margin-left: 15px;
 }
 
-#methodology .modal-header {
+#methodology .modal-header, #faq .modal-header {
   display: flex;
   padding-bottom: 0px;
 }
 
 .close {
     font-weight: normal;
+}
+
+.modal-content .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header .close {
+    font-size: 2em;
 }
 
 /* Buttons */
@@ -207,9 +217,65 @@ html, body, #content, #map, #osmmap {
 }
 
 .bottomButtonGroupMap {
-  position: relative;
-  bottom: 175px;
+  position: absolute;
+  bottom: 30%;
 }
+
+@media (min-width: 321px) {
+  .bottomButtonGroupMap {
+    bottom: 20%;
+  }
+}
+
+@media (min-width: 426px) {
+  .bottomButtonGroupMap {
+    bottom: 15%;
+  }
+}
+
+@media (min-width: 1026px) {
+  .bottomButtonGroupMap {
+    bottom: 7%;
+  }
+}
+
+.question-mark-holder {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: #fff;
+    border-radius: 2px;
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.5);
+    position:absolute;
+    top: 45px;
+    right: 10px;
+    left: inherit;
+}
+
+.question-mark-holder a {
+    text-align: center;
+    color: #f6c82c;
+}
+
+.for-mobile-2x {
+  font-size: 2em;
+}
+
+@media (min-width: 600px) {
+  .question-mark-holder {
+    width: 52px;
+    height: 52px;
+    top: 10px;
+    left: 50px;
+    right: inherit;
+  }
+  .for-mobile-2x {
+    font-size: 3em;
+  }
+}
+
 
 .bottomButtonGroupRadio {
   position: relative;
@@ -674,6 +740,11 @@ fieldset[disabled] .btn-dna-twitter.active {
 }
 .form-control::-webkit-input-placeholder {
   color: #686868;
+}
+
+/* special form control for id_buildingFootprint -- make it tiny to overcome visibilty: hidden not working in safari; */
+#id_buildingFootprint {
+  width: 10px;
 }
 
 
