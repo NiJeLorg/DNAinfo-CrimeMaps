@@ -190,6 +190,10 @@ html, body, #content, #map, #osmmap {
   margin-left: 15px;
 }
 
+#methodology.modal, #faq.modal {
+  top: auto;
+}
+
 #methodology .modal-header, #faq .modal-header {
   display: flex;
   padding-bottom: 0px;
@@ -252,7 +256,7 @@ html, body, #content, #map, #osmmap {
     border-radius: 2px;
     box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.5);
     position:absolute;
-    top: 45px;
+    top: 55px;
     right: 10px;
     left: inherit;
 }
