@@ -112,8 +112,17 @@ osmApplication.initialize = function() {
         });
     }
 
+    // listen for touch events and doe the same thing as clicking
+    osmApplication.osmb.on('touchstart', function(e) {
+        window.alert("touch");
+        var xcoor = e.touches[0].clientX;
+        var ycoor = e.touches[0].clientY;
+        osmApplication.onClick(xcoor, ycoor);
+    });
+
     // listen for osm buidling click events
     osmApplication.osmb.on('click', function(e) {
+        console.log("click: ", e);
         if (e.x) {
             var xcoor = e.x;
             var ycoor = e.y;
@@ -126,12 +135,7 @@ osmApplication.initialize = function() {
 
     });
 
-    // listen for touch events and doe the same thing as clicking
-    osmApplication.osmb.on('touchstart', function(e) {
-        var xcoor = e.touches[0].clientX;
-        var ycoor = e.touches[0].clientY;
-        osmApplication.onClick(xcoor, ycoor);
-    });
+
 
 
     // close sponsored tooltip if the map changes
