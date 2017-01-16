@@ -256,6 +256,7 @@ html, body, #content, #map, #osmmap {
     top: 55px;
     right: 10px;
     left: inherit;
+    cursor: pointer;
 }
 
 .question-mark-holder a {
