@@ -190,7 +190,7 @@ html, body, #content, #map, #osmmap {
   margin-left: 15px;
 }
 
-#methodology.modal, #faq.modal {
+#methodology.modal {
   top: auto;
 }
 
