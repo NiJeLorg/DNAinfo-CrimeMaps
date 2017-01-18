@@ -137,7 +137,8 @@ def skyline_end(request, id=None):
 		NYCskylineObject = NYCskyline()
 
 	# social urls
-	url = "https://visualizations.dnainfo.com/skyline/nyc/results/" + str(id) + "/"
+	# https://www.dnainfo.com/new-york/visualizations/skyline?result&hood=####
+	url = "https://www.dnainfo.com/new-york/visualizations/skyline?result&hood=" + str(id)
 	# connect to Bitly API
 	c = bitly_api.Connection('ondnainfo', 'R_cdbdcaaef8d04d97b363b989f2fba3db')
 	bitlyURL = c.shorten(url)
@@ -152,7 +153,7 @@ def skyline_results(request, id=None):
 
 
 	# social urls
-	url = "https://visualizations.dnainfo.com/skyline/nyc/results/" + str(id) + "/"
+	url = "https://www.dnainfo.com/new-york/visualizations/skyline?result&hood=" + str(id)
 	# connect to Bitly API
 	c = bitly_api.Connection('ondnainfo', 'R_cdbdcaaef8d04d97b363b989f2fba3db')
 	bitlyURL = c.shorten(url)
@@ -233,7 +234,7 @@ def skyline_UgcApprove(request, id=None):
 	# email user if their building is approved
 
 	if obj.userEmail:
-		url = "https://visualizations.dnainfo.com/skyline/nyc/return_result/"+str(obj.id)+"/"
+		url = "https://www.dnainfo.com/new-york/visualizations/skyline?result&hood="+str(obj.id)
 		subject = "[DNAinfo] The building you added to our 3-D map was approved!"
 		html_message = "Hello "+ obj.userEmail +",<br /><br />The building you added to our 3-D map of buildings was approved, and you can now <a href='"+ url +"'>see that building</a> marked as \"Proposed\" on the map. Thank you for your contribution!<br /><br />DNAinfo.com"
 		message = "Hello "+ obj.userEmail +", The building you added to our 3-D map of buildings was approved, and you can now see that building marked as \"Proposed\" on the map here: "+ url +". Thank you for your contribution! DNAinfo.com"
@@ -1086,7 +1087,7 @@ def skyline_landingPage(request, id=None):
 		form = NYClandingPageForm()
 		form1 = NYClandingPageForm()
 
-		url = "https://hzdl3dry-data-viz-future-map.build.qa.dnainfo.com/new-york/visualizations/skyline"
+		url = "https://www.dnainfo.com/new-york/visualizations/skyline/"
 		# connect to Bitly API
 		c = bitly_api.Connection('ondnainfo', 'R_cdbdcaaef8d04d97b363b989f2fba3db')
 		bitlyURL = c.shorten(url)	

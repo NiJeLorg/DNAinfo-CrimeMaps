@@ -72,7 +72,7 @@ var bitlyURL = "{{ bitlyURL.url }}";
                     <h5 class="building-modal-header approved-header">Approved</h5>
                     <div class="building-modal-info">
                         <div class="building-modal-info-header">
-                            <h4>Library at Hunter's Point</h4>
+                            <h4>1399 Park Avenue</h4>
                             <a><span class="glyphicon glyphicon-remove-circle close" id="closeApprovedModal" aria-hidden="true"></span></a>
                         </div>
                         <div class="building-component-info-content">
@@ -80,9 +80,9 @@ var bitlyURL = "{{ bitlyURL.url }}";
                                 <p>A modern community center and peaceful retreat</p>
                                 <div class="building-address">
                                     <p>
-                                    25-01 Jackson Ave,<br>
-                                    Long Island City, NY 11101<br>
-                                    3 stories tall
+                                    1399 Park Avenue<br>
+                                    New York, NY 10029<br>
+                                    23 stories tall
                                     </p>
                                 </div>
                             </main>
@@ -117,7 +117,7 @@ var bitlyURL = "{{ bitlyURL.url }}";
                     <h5 class="building-modal-header proposed-header">Proposed</h5>
                     <div class="building-modal-info">
                         <div class="building-modal-info-header">
-                            <h4>Library at Hunter's Point</h4>
+                            <h4>Brearley School</h4>
                             <a><span class="glyphicon glyphicon-remove-circle close" id="closeProposedModal" aria-hidden="true"></span></a>
                         </div>
                         <div class="building-component-info-content">
@@ -125,9 +125,9 @@ var bitlyURL = "{{ bitlyURL.url }}";
                                 <p>A modern community center and peaceful retreat</p>
                                 <div class="building-address">
                                     <p>
-                                    25-01 Jackson Ave,<br>
-                                    Long Island City, NY 11101<br>
-                                    3 stories tall
+                                    70-74 East End Ave.<br>
+                                    New York, NY 10028<br>
+                                    12 stories tall
                                     </p>
                                 </div>
                             </main>
@@ -164,8 +164,9 @@ var bitlyURL = "{{ bitlyURL.url }}";
                     </div>
                     <div class="building-component-image sponsored-building-component-image">
                         <img src="{%static 'skyline/assets/Buildings_Sponsored.svg' %}" class="building-component-svg">
-                        <button class="info-icon sponsored-info-icon" id="openSponsoredModal">
-                            <img src="{%static 'skyline/assets/Info-Icon.svg' %}" class="wow bounceInLeft" data-wow-duration="1s" style="cursor: pointer;">
+                        <!-- removing id selector until sponsored content comes online: id="openSponsoredModal" and style="cursor: pointer;" -->
+                        <button class="info-icon sponsored-info-icon">
+                            <img src="{%static 'skyline/assets/Info-Icon.svg' %}" class="wow bounceInLeft" data-wow-duration="1s">
                         </button>
                     </div>
                     <div class="building-component-modal" id="sponsoredModal">
