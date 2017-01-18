@@ -653,9 +653,8 @@ osmApplication.updateSocialLinksClass = function (lat, lon, zoom, tilt, rotation
     osmApplication.twittercaption = "This 3-D map shows what construction will do to my neighborhood's skyline: ";
     // set up facebook and twitter buttons
     osmApplication.fbdescription = "Every new building affects the character of a neighborhood, so DNAinfo created this 3-D map that helps you understand how high new buildings could be going up near you: ";
-    // https://hzdl3dry-data-viz-future-map.build.qa.dnainfo.com/new-york/visualizations/skyline
-    // http://localhost:8000/skyline/nyc/browse/282/?lat=40.863743&lon=-73.862489
-    osmApplication.sharelink = 'https://hzdl3dry-data-viz-future-map.build.qa.dnainfo.com/new-york/visualizations/skyline?browse&hood='+hoodID+'/?lat='+lat+'&lon='+lon+'&zoom='+zoom+'&tilt='+tilt+'&rotation='+rotation+'&buildingShared='+buildingShared;
+    // https://www.dnainfo.com/new-york/visualizations/skyline?browse&hood=301&lat=40.772543&lon=-73.980238&zoom=15.2&tilt=45.0&rotation=0.0
+    osmApplication.sharelink = 'https://www.dnainfo.com/new-york/visualizations/skyline?browse&hood='+hoodID+'/?lat='+lat+'&lon='+lon+'&zoom='+zoom+'&tilt='+tilt+'&rotation='+rotation+'&buildingShared='+buildingShared;
     osmApplication.fbUrl = 'https://www.facebook.com/dialog/feed?app_id=' + osmApplication.app_id + '&display=popup&description='+ encodeURIComponent(osmApplication.fbdescription) + '&link=' + encodeURIComponent(osmApplication.sharelink) + '&redirect_uri=' + encodeURIComponent(osmApplication.fblink) + '&name=' + encodeURIComponent(osmApplication.fbname) + '&caption=' + encodeURIComponent(osmApplication.fbcaption) + '&picture=' + encodeURIComponent(osmApplication.fbpicture);
     osmApplication.fbOnclick = 'window.open("' + osmApplication.fbUrl + '","facebook-share-dialog","width=626,height=436");return false;';
     $('.showShareFB').attr("onclick", osmApplication.fbOnclick);
@@ -677,8 +676,8 @@ osmApplication.updateSocialLinksID = function (lat, lon, zoom, tilt, rotation, b
     osmApplication.twittercaption = "This 3-D map shows what construction will do to my neighborhood's skyline: ";
     // set up facebook and twitter buttons
     osmApplication.fbdescription = "Every new building affects the character of a neighborhood, so DNAinfo created this 3-D map that helps you understand how high new buildings could be going up near you: ";
-    // https://hzdl3dry-data-viz-future-map.build.qa.dnainfo.com/new-york/visualizations/skyline?result&hood=301&lat=40.772543&lon=-73.980238&zoom=15.2&tilt=45.0&rotation=0.0
-    osmApplication.sharelink = 'https://hzdl3dry-data-viz-future-map.build.qa.dnainfo.com/new-york/visualizations/skyline?result&hood='+objectID+'?lat='+lat+'&lon='+lon+'&zoom='+zoom+'&tilt='+tilt+'&rotation='+rotation;
+    // https://www.dnainfo.com/new-york/visualizations/skyline?result&hood=301&lat=40.772543&lon=-73.980238&zoom=15.2&tilt=45.0&rotation=0.0
+    osmApplication.sharelink = 'https://www.dnainfo.com/new-york/visualizations/skyline?result&hood='+objectID+'?lat='+lat+'&lon='+lon+'&zoom='+zoom+'&tilt='+tilt+'&rotation='+rotation;
     osmApplication.fbUrl = 'https://www.facebook.com/dialog/feed?app_id=' + osmApplication.app_id + '&display=popup&description='+ encodeURIComponent(osmApplication.fbdescription) + '&link=' + encodeURIComponent(osmApplication.sharelink) + '&redirect_uri=' + encodeURIComponent(osmApplication.fblink) + '&name=' + encodeURIComponent(osmApplication.fbname) + '&caption=' + encodeURIComponent(osmApplication.fbcaption) + '&picture=' + encodeURIComponent(osmApplication.fbpicture);
     osmApplication.fbOnclick = 'window.open("' + osmApplication.fbUrl + '","facebook-share-dialog","width=626,height=436");return false;';
     $('#showShareFB').attr("onclick", osmApplication.fbOnclick);
