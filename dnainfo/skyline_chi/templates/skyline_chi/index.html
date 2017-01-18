@@ -72,17 +72,17 @@ var bitlyURL = "{{ bitlyURL.url }}";
                     <h5 class="building-modal-header approved-header">Approved</h5>
                     <div class="building-modal-info">
                         <div class="building-modal-info-header">
-                            <h4>Library at Hunter's Point</h4>
+                            <h4>Sterling Bay's Union Station Tower</h4>
                             <a><span class="glyphicon glyphicon-remove-circle close" id="closeApprovedModal" aria-hidden="true"></span></a>
                         </div>
                         <div class="building-component-info-content">
                             <main>
-                                <p>A modern community center and peaceful retreat</p>
+                                <p>The proposed office tower would be among the top 10 tallest buildings in Chicago.</p>
                                 <div class="building-address">
                                     <p>
-                                    25-01 Jackson Ave,<br>
-                                    Long Island City, NY 11101<br>
-                                    3 stories tall
+                                    Van Buren St. and Clinton St.<br>
+                                    Chicago, IL 60607<br>
+                                    95 stories tall
                                     </p>
                                 </div>
                             </main>
@@ -117,17 +117,17 @@ var bitlyURL = "{{ bitlyURL.url }}";
                     <h5 class="building-modal-header proposed-header">Proposed</h5>
                     <div class="building-modal-info">
                         <div class="building-modal-info-header">
-                            <h4>Library at Hunter's Point</h4>
+                            <h4>Twin Towers</h4>
                             <a><span class="glyphicon glyphicon-remove-circle close" id="closeProposedModal" aria-hidden="true"></span></a>
                         </div>
                         <div class="building-component-info-content">
                             <main>
-                                <p>A modern community center and peaceful retreat</p>
+                                <p>The project will include more than 200 residential units in two towers, a 12-story building and an 11-story building.</p>
                                 <div class="building-address">
                                     <p>
-                                    25-01 Jackson Ave,<br>
-                                    Long Island City, NY 11101<br>
-                                    3 stories tall
+                                    2210 N. Washtenaw Ave.<br>
+                                    Chicago, IL 60647<br>
+                                    12 stories tall
                                     </p>
                                 </div>
                             </main>
@@ -164,15 +164,16 @@ var bitlyURL = "{{ bitlyURL.url }}";
                     </div>
                     <div class="building-component-image sponsored-building-component-image">
                         <img src="{%static 'skyline_chi/assets/Buildings_Sponsored.svg' %}" class="building-component-svg">
-                        <button class="info-icon sponsored-info-icon" id="openSponsoredModal">
-                            <img src="{%static 'skyline_chi/assets/Info-Icon.svg' %}" class="wow bounceInLeft" data-wow-duration="1s" style="cursor: pointer;">
+                        <!-- removing id selector until sponsored content comes online: id="openSponsoredModal" and style="cursor: pointer;" -->
+                        <button class="info-icon sponsored-info-icon">
+                            <img src="{%static 'skyline_chi/assets/Info-Icon.svg' %}" class="wow bounceInLeft" data-wow-duration="1s">
                         </button>
                     </div>
                     <div class="building-component-modal" id="sponsoredModal">
                         <h5 class="building-modal-header proposed-sponsored-header">Sponsored</h5>
                         <div class="building-modal-info">
                             <div class="building-modal-info-header">
-                                <h4>Austin Nichols House</h4>
+                                <h4></h4>
                                 <a><span class="glyphicon glyphicon-remove-circle close" id="closeSponsoredModal" aria-hidden="true"></span></a>
                             </div>
                             <div class="building-component-info-content">
