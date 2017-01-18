@@ -37,7 +37,7 @@ class NYCbuildingHeightForm(forms.ModelForm):
             'buildingDoc': 'Please upload some documentation on this building.',
             'buildingURL': 'If this project has a website, what is it?',
             'userEmail': 'Give us your email, and we\'ll let you know when this building is approved to show on our map. (Optional)',
-            'newsletter': '<strong>I\'d like to recieve the DNAinfo newsletter for this neighborhood.</strong>'
+            'newsletter': '<strong>I\'d like to receive the DNAinfo newsletter for this neighborhood.</strong>'
         }
         widgets = {
             'imageDocOrURL': forms.RadioSelect(choices=YES_NO),

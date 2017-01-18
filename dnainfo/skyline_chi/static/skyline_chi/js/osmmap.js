@@ -96,11 +96,11 @@ osmApplication.initialize = function () {
 		    	var lookupId = parseInt(splitId[1]);
 		    	var properties = osmApplication.sponsoredGeojsons[lookupId].features[0].properties;
 		    	console.log(properties);
-		    	$('#property-name').text(properties.name);
+		    	$('#property-name').html(properties.name);
 		    	var imgSrc = '/visualizations/media/' + properties.image
 		    	$('#property-image').prop('src', imgSrc);
-		    	$('#property-description').text(properties.text);
-		    	$('#property-address').text(properties.printAddress);
+		    	$('#property-description').html(properties.text);
+		    	$('#property-address').html(properties.printAddress);
 		    	var x = parseInt(xcoor) - 150;
 		    	var y = parseInt(ycoor) - 250; 
 			    // show div with data populated at that screen location
@@ -113,9 +113,9 @@ osmApplication.initialize = function () {
 		    	var lookupId = parseInt(splitId[1]);
 		    	var properties = osmApplication.permittedGeojsons[lookupId].features[0].properties;
 		    	console.log(properties);
-		    	$('#property-address-permitted').text(properties.address);
+		    	$('#property-address-permitted').html(properties.address);
 		    	$('#property-stories-permitted').html(properties.stories+ ' Stories<br />');
-		    	$('#property-description-permitted').text(properties.work_description);
+		    	$('#property-description-permitted').html(properties.work_description);
 		    	var x = parseInt(xcoor) - 150;
 		    	var y = parseInt(ycoor) - 250; 
 			    // show div with data populated at that screen location
@@ -127,7 +127,7 @@ osmApplication.initialize = function () {
 		    	var lookupId = parseInt(splitId[1]);
 		    	var properties = osmApplication.dnaGeojsons[lookupId].features[0].properties;
 		    	console.log(properties);
-		    	$('#property-address-dna').text(properties.address);
+		    	$('#property-address-dna').html(properties.address);
 		    	$('#property-stories-dna').html(properties.stories+ ' Stories<br />');
 		    	$('#property-description-dna').html(properties.description + '<br />');
 

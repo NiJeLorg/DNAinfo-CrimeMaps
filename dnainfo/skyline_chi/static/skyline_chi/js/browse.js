@@ -147,6 +147,13 @@ osmApplication.initialize = function() {
             $('#tooltipDNA').addClass('hidden');
         }
 
+        $(".browseNavTitle").fadeOut( "slow" );
+
+        // check browser with and set top of .select-parent if width > 500
+        if ($("body").width() > 500) {
+            $(".select-parent").css( "top", "20px" );
+        }
+
         // send lat, lon, zoom, tilt, rotation to social share buttons
         osmApplication.updateSocialLinks(osmApplication.osmb.position.latitude.toFixed(6), osmApplication.osmb.position.longitude.toFixed(6), osmApplication.osmb.zoom.toFixed(1), osmApplication.osmb.tilt.toFixed(1), osmApplication.osmb.rotation.toFixed(1), 'false');
 
@@ -351,17 +358,17 @@ osmApplication.onClick = function (xcoor, ycoor) {
 
             if (splitId[0] == 'sponsored') {
                 // clear out previous data
-                $('#property-name').text('');
+                $('#property-name').html('');
                 $('#property-image').html('');
-                $('#property-description').text('');
-                $('#property-address').text('');
+                $('#property-description').html('');
+                $('#property-address').html('');
                 // look up properties
                 properties = osmApplication.sponsoredGeojsons[id].features[0].properties;
-                $('#property-name').text(properties.name);
+                $('#property-name').html(properties.name);
                 var imgSrc = '/visualizations/media/' + properties.image;
                 $('#property-image').html('<img class="property-image" src="' + imgSrc + '" />');
-                $('#property-description').text(properties.text);
-                $('#property-address').text(properties.printAddress);
+                $('#property-description').html(properties.text);
+                $('#property-address').html(properties.printAddress);
 
                 $('#tooltipSponsored').removeClass('hidden');
                 var height = $('#tooltipSponsored').height();
@@ -390,7 +397,7 @@ osmApplication.onClick = function (xcoor, ycoor) {
 
             } else if (splitId[0] == 'permitted') {
                 // clear out previous data
-                $('#property-projectName-permitted').text('');
+                $('#property-projectName-permitted').html('');
                 $('#property-image-permitted').html('');
                 $('#property-description-permitted').html('');
                 $('#property-address-permitted').html('');
@@ -403,9 +410,9 @@ osmApplication.onClick = function (xcoor, ycoor) {
                 console.log(properties);
                 // projectName
                 if (typeof properties.projectName !== 'undefined' && properties.projectName) {
-                    $('#property-projectName-permitted').text(properties.projectName);
+                    $('#property-projectName-permitted').html(properties.projectName);
                 } else if (typeof properties.address !== 'undefined' && properties.address) {
-                    $('#property-projectName-permitted').text(properties.address);
+                    $('#property-projectName-permitted').html(properties.address);
                 }
                 // image
                 if (typeof properties.buildingImage !== 'undefined' && properties.buildingImage != 'visualizations/media/') {
@@ -464,7 +471,7 @@ osmApplication.onClick = function (xcoor, ycoor) {
 
             } else if (splitId[0] == 'dna') {
                 // clear out previous data
-                $('#property-projectName-dna').text('');
+                $('#property-projectName-dna').html('');
                 $('#property-image-dna').html('');
                 $('#property-description-dna').html('');
                 $('#property-address-dna').html('');
@@ -476,9 +483,9 @@ osmApplication.onClick = function (xcoor, ycoor) {
                                 
                 // projectName
                 if (typeof properties.projectName !== 'undefined' && properties.projectName) {
-                    $('#property-projectName-dna').text(properties.projectName);
+                    $('#property-projectName-dna').html(properties.projectName);
                 } else if (typeof properties.buildingAddress !== 'undefined' && properties.buildingAddress) {
-                    $('#property-projectName-dna').text(properties.buildingAddress);
+                    $('#property-projectName-dna').html(properties.buildingAddress);
                 }
                 // image
                 if (typeof properties.buildingImage !== 'undefined' && properties.buildingImage != 'visualizations/media/') {
@@ -535,7 +542,7 @@ osmApplication.onClick = function (xcoor, ycoor) {
 
             } else if (splitId[0] == 'ugcApproved') {
                 // clear out previous data
-                $('#property-projectName-dna').text('');
+                $('#property-projectName-dna').html('');
                 $('#property-image-dna').html('');
                 $('#property-description-dna').html('');
                 $('#property-address-dna').html('');
@@ -547,9 +554,9 @@ osmApplication.onClick = function (xcoor, ycoor) {
                 console.log(properties);
                 // projectName
                 if (typeof properties.projectName !== 'undefined' && properties.projectName) {
-                    $('#property-projectName-dna').text(properties.projectName);
+                    $('#property-projectName-dna').html(properties.projectName);
                 } else if (typeof properties.address !== 'undefined' && properties.address) {
-                    $('#property-projectName-dna').text(properties.address);
+                    $('#property-projectName-dna').html(properties.address);
                 }
                 // image
                 if (typeof properties.buildingImage !== 'undefined' && properties.buildingImage != 'visualizations/media/') {
