@@ -87,17 +87,17 @@ osmApplication.initialize = function() {
 
                 if (splitId[0] == 'sponsored') {
                     // clear out previous data
-                    $('#property-name').text('');
+                    $('#property-name').html('');
                     $('#property-image').html('');
-                    $('#property-description').text('');
-                    $('#property-address').text('');
+                    $('#property-description').html('');
+                    $('#property-address').html('');
                     // look up properties
                     properties = osmApplication.sponsoredGeojsons[id].features[0].properties;
-                    $('#property-name').text(properties.name);
+                    $('#property-name').html(properties.name);
                     var imgSrc = '/visualizations/media/' + properties.image;
                     $('#property-image').html('<img class="property-image" src="' + imgSrc + '" />');
-                    $('#property-description').text(properties.text);
-                    $('#property-address').text(properties.printAddress);
+                    $('#property-description').html(properties.text);
+                    $('#property-address').html(properties.printAddress);
 
                     $('#tooltipSponsored').removeClass('hidden');
                     var height = $('#tooltipSponsored').height();
@@ -121,7 +121,7 @@ osmApplication.initialize = function() {
 
                 } else if (splitId[0] == 'permitted') {
                     // clear out previous data
-                    $('#property-projectName-permitted').text('');
+                    $('#property-projectName-permitted').html('');
                     $('#property-image-permitted').html('');
                     $('#property-description-permitted').html('');
                     $('#property-address-permitted').html('');
@@ -134,9 +134,9 @@ osmApplication.initialize = function() {
                     console.log(properties);
                     // projectName
                     if (typeof properties.projectName !== 'undefined' && properties.projectName) {
-                        $('#property-projectName-permitted').text(properties.projectName);
+                        $('#property-projectName-permitted').html(properties.projectName);
                     } else if (typeof properties.address !== 'undefined' && properties.address) {
-                        $('#property-projectName-permitted').text(properties.address);
+                        $('#property-projectName-permitted').html(properties.address);
                     }
                     // image
                     if (typeof properties.buildingImage !== 'undefined' && properties.buildingImage != 'visualizations/media/') {
@@ -196,7 +196,7 @@ osmApplication.initialize = function() {
 
                 } else if (splitId[0] == 'dna') {
                     // clear out previous data
-                    $('#property-projectName-dna').text('');
+                    $('#property-projectName-dna').html('');
                     $('#property-image-dna').html('');
                     $('#property-description-dna').html('');
                     $('#property-address-dna').html('');
@@ -210,9 +210,9 @@ osmApplication.initialize = function() {
                                     
                     // projectName
                     if (typeof properties.projectName !== 'undefined' && properties.projectName) {
-                        $('#property-projectName-dna').text(properties.projectName);
+                        $('#property-projectName-dna').html(properties.projectName);
                     } else if (typeof properties.buildingAddress !== 'undefined' && properties.buildingAddress) {
-                        $('#property-projectName-dna').text(properties.buildingAddress);
+                        $('#property-projectName-dna').html(properties.buildingAddress);
                     }
                     // image
                     if (typeof properties.buildingImage !== 'undefined' && properties.buildingImage != 'visualizations/media/') {
