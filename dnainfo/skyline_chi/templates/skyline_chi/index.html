@@ -21,9 +21,9 @@ var bitlyURL = "{{ bitlyURL.url }}";
             </div>
         </div>
         <div class="title">
-            <h2 class="title-heading">Going Up! How Tall Will New Buildings in My Neighborhood Be?</h2>
-            <h4 class="title-subheading">This 3-D map shows what construction will do to every neighborhood's skyline</h4>
-            <p class="title-info">Every new building affects the character of a neighborhood, so DNAinfo created this 3-D map that helps you understand how high new buildings could be going up near you.
+            <h2 class="title-heading">How Tall Will New Buildings in My Chicago Neighborhood Be?</h2>
+            <!-- <h4 class="title-subheading">This 3-D map shows what construction will do to every neighborhood's skyline</h4> -->
+            <p class="title-info">This 3-D map shows what construction will do to every neighborhood's skyline to help you see how you could be affected.
             </p>
         </div>
         <div class="select-parent select-parent-header">
@@ -59,7 +59,7 @@ var bitlyURL = "{{ bitlyURL.url }}";
                     <h3 class="component-heading">Approved Construction</h3>
                     <p class="component-info">Turquoise boxes represent areas where building permits have been issued. As far as the city's concerned, these buildings are being built at this height.
                     </p>
-                    <p class="component-info"> Buildings will go within this Turquoise area. These are height indicators, not building designs.
+                    <p class="component-info">Buildings will go within this turquoise area. These are height indicators, not building designs.
                     </p>
                 </div>
                 <div class="building-component-image approved-building-component-image">
@@ -109,7 +109,7 @@ var bitlyURL = "{{ bitlyURL.url }}";
         <div class="building-component">
             <div class="building-component-holder">
                 <div class="building-component-info proposed-building-component-info">
-                    <h3 class="component-heading">Proposed Consideration</h3>
+                    <h3 class="component-heading">Proposed Buildings</h3>
                     <p class="component-info">Blue boxes have not yet had permits approved by the city. These are projects that may have been presented at local meetings, but haven't completed the city's building approval process. The height of these boxes reflect what developers have submitted.
                     </p>
                 </div>
@@ -212,8 +212,7 @@ var bitlyURL = "{{ bitlyURL.url }}";
                 <div class="building-component-holder">
                     <div class="building-component-info" style="order: 2">
                         <h3 class="component-heading">Add a building</h3>
-                        <p class="component-info">We have thousands of possible buildings in our map now, but you can
-                            <a href="{% url 'skyline_chi_whatNeighborhood' %}">add more.</a> Submit one, and we'll tell you when your building's been added.
+                        <p class="component-info">We have thousands of buildings on our map now, but there are many projects that DNAinfo has never reported on. <a href="{% url 'skyline_chi_whatNeighborhood' %}">Tell us</a> about a building proposed in your neighborhood, and we'll add it to the map.
                         </p>
                     </div>
                     <div class="building-component-image" style="order: 1">
