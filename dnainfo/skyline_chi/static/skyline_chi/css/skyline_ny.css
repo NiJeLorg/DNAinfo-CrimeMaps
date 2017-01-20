@@ -97,7 +97,7 @@ a:focus {
 }
 
 .title .title-heading {
-    font-size: 32px;
+    font-size: 27px;
     line-height: 42px;
     font-family: 'Titillium Web', Helvetica, sans-serif;
     font-weight: 600;
@@ -537,7 +537,7 @@ footer .select2-selection__rendered {
         line-height: 64px;
         margin-top: 60px;
         margin-bottom: 40px;
-        width: 85%;
+        width: 70%;
     }
     .title .title-info {
         width: 90%;
