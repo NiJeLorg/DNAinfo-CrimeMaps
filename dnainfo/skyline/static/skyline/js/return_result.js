@@ -654,7 +654,8 @@ osmApplication.updateSocialLinksClass = function (lat, lon, zoom, tilt, rotation
     osmApplication.app_id = '406014149589534';
     osmApplication.fblink = "https://visualizations.dnainfo.com/";
     osmApplication.fbpicture = "https://visualizations.dnainfo.com/visualizations/static/skyline/css/images/FUTURE_SKYLINE_SOCIAL_SHARE.jpeg";
-    osmApplication.fbname = "Going Up! How Tall Will New Buildings in My Neighborhood Be?";
+    //osmApplication.fbname = "Going Up! How Tall Will New Buildings in My Neighborhood Be?";
+    osmApplication.fbname = "How Tall Will New Buildings in My NYC Neighborhood Be?";    
     osmApplication.fbcaption = "DNAinfo New York";
 
     osmApplication.via = 'DNAinfo';
@@ -677,7 +678,8 @@ osmApplication.updateSocialLinksID = function (lat, lon, zoom, tilt, rotation, b
     osmApplication.app_id = '406014149589534';
     osmApplication.fblink = "https://visualizations.dnainfo.com/";
     osmApplication.fbpicture = "https://visualizations.dnainfo.com/visualizations/static/skyline/css/images/FUTURE_SKYLINE_SOCIAL_SHARE.jpeg";
-    osmApplication.fbname = "Going Up! How Tall Will New Buildings in My Neighborhood Be?";
+    //osmApplication.fbname = "Going Up! How Tall Will New Buildings in My Neighborhood Be?";
+    osmApplication.fbname = "How Tall Will New Buildings in My NYC Neighborhood Be?";    
     osmApplication.fbcaption = "DNAinfo New York";
 
     osmApplication.via = 'DNAinfo';
