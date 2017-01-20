@@ -653,7 +653,8 @@ osmApplication.updateSocialLinksClass = function (lat, lon, zoom, tilt, rotation
     osmApplication.app_id = '406014149589534';
     osmApplication.fblink = "https://visualizations.dnainfo.com/";
     osmApplication.fbpicture = "https://visualizations.dnainfo.com/visualizations/static/skyline_chi/css/images/FUTURE_SKYLINE_SOCIAL_SHARE.jpeg";
-    osmApplication.fbname = "Going Up! How Tall Will New Buildings in My Neighborhood Be?";
+    //osmApplication.fbname = "Going Up! How Tall Will New Buildings in My Neighborhood Be?";
+    osmApplication.fbname = "How Tall Will New Buildings in My Chicago Neighborhood Be?";    
     osmApplication.fbcaption = "DNAinfo Chicago";
 
     osmApplication.via = 'DNAinfoCHI';
