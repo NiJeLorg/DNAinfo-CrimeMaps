@@ -128,7 +128,8 @@ $(document).ready(function() {
     var fbdescription = "Every new building affects the character of a neighborhood, so DNAinfo created this 3-D map that helps you understand how high new buildings could be going up near you: "+ bitlyURL;
     var fblink = "https://visualizations.dnainfo.com/";
     var fbpicture = "https://visualizations.dnainfo.com/visualizations/static/skyline_chi/css/images/FUTURE_SKYLINE_SOCIAL_SHARE.jpeg";
-    var fbname = "Going Up! How Tall Will New Buildings in My Neighborhood Be?";
+    // var fbname = "Going Up! How Tall Will New Buildings in My Neighborhood Be?";
+    var fbname = "How Tall Will New Buildings in My Chicago Neighborhood Be?";    
     var fbcaption = "DNAinfo Chicago";
     var fbUrl = 'https://www.facebook.com/dialog/feed?app_id=' + app_id + '&display=popup&description='+ encodeURIComponent(fbdescription) + '&link=' + encodeURIComponent(bitlyURL) + '&redirect_uri=' + encodeURIComponent(fblink) + '&name=' + encodeURIComponent(fbname) + '&caption=' + encodeURIComponent(fbcaption) + '&picture=' + encodeURIComponent(fbpicture);
     var fbOnclick = 'window.open("' + fbUrl + '","facebook-share-dialog","width=626,height=436");return false;';
