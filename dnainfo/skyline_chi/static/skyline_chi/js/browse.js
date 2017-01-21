@@ -43,14 +43,7 @@ osmApplication.createDjangoSelect2 = function() {
 
 osmApplication.initialize = function() {
 
-    osmApplication.widthFrame = $('#content').width();
-    if (osmApplication.widthFrame < 1200) {
-        osmApplication.shadows = [];
-    } else {
-        osmApplication.shadows = ['shadows'];
-    }
-
-    osmApplication.center = center(dnaUrl);
+    osmApplication.hoodCenter = center(dnaUrl);
 
     // center point to evaluate
     osmApplication.point = {
@@ -58,91 +51,9 @@ osmApplication.initialize = function() {
       "properties": {},
       "geometry": {
         "type": "Point",
-        "coordinates": [osmApplication.center[0], osmApplication.center[1]]
+        "coordinates": [osmApplication.hoodCenter[0], osmApplication.hoodCenter[1]]
       }
     };
-
-    osmApplication.osmb = new OSMBuildings({
-        baseURL: '/visualizations/static/skyline_chi/css/images',
-        minZoom: 14,
-        maxZoom: 19,
-        tilt: 45,
-        zoom: 17,
-        position: { latitude: osmApplication.center[0], longitude: osmApplication.center[1] },
-        state: true,
-        effects: osmApplication.shadows,
-        attribution: '© 3D <a href="https://osmbuildings.org/copyright/">OSM Buildings</a>. Map tiles by <a href=\"http://stamen.com\">Stamen Design</a>, under <a href=\"https://creativecommons.org/licenses/by/3.0/\" target=\"_blank\">CC BY 3.0</a>. Data by <a href=\"http://www.openstreetmap.org/\" target=\"_blank\">OpenStreetMap</a>, under ODbL.'
-    }).appendTo("osmmap");
-
-    osmApplication.osmb.addMapTiles('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.png', { attribution: 'Map tiles by <a href=\"http://stamen.com\">Stamen Design</a>, under <a href=\"https://creativecommons.org/licenses/by/3.0/\" target=\"_blank\">CC BY 3.0</a>. Data by <a href=\"http://www.openstreetmap.org/\" target=\"_blank\">OpenStreetMap</a>, under ODbL.' });
-
-    osmApplication.osmb.addGeoJSONTiles('https://{s}.data.osmbuildings.org/0.2/anonymous/tile/{z}/{x}/{y}.json', { color: 'rgb(220, 210, 200)' });
-
-    // set initial conditons for share buttons
-    osmApplication.updateSocialLinks(osmApplication.osmb.position.latitude.toFixed(6), osmApplication.osmb.position.longitude.toFixed(6), osmApplication.osmb.zoom.toFixed(1), osmApplication.osmb.tilt.toFixed(1), osmApplication.osmb.rotation.toFixed(1), 'false');
-
-    // button controls
-    osmApplication.controlButtons = document.querySelectorAll('.control button');
-
-    for (var i = 0, il = osmApplication.controlButtons.length; i < il; i++) {
-        osmApplication.controlButtons[i].addEventListener('click', function(e) {
-
-            var button = this;
-            var parentClassList = button.parentNode.classList;
-            var direction = button.classList.contains('inc') ? 1 : -1;
-            var increment;
-            var property;
-
-            if (parentClassList.contains('tilt')) {
-                property = 'Tilt';
-                increment = direction * 10;
-            }
-            if (parentClassList.contains('rotation')) {
-                property = 'Rotation';
-                increment = direction * 10;
-            }
-            if (parentClassList.contains('zoom')) {
-                property = 'Zoom';
-                increment = direction * 1;
-            }
-            if (property) {
-                if (property == 'Zoom') {
-                    var zoomNow = osmApplication.osmb['get' + property]();
-                    if (zoomNow <= 14 && direction == -1) {
-                        // don't zoom below 14
-                    } else if (zoomNow >= 19 && direction == 1) {
-                        // don't zoom above 19
-                    } else {
-                        osmApplication.osmb['set' + property](osmApplication.osmb['get' + property]() + increment);
-                    }
-                } else {
-                    osmApplication.osmb['set' + property](osmApplication.osmb['get' + property]() + increment);
-                }
-            }
-        });
-    }
-
-    // listen for touch events and doe the same thing as clicking
-    osmApplication.osmb.on('touchstart', function(e) {
-        var xcoor = e.touches[0].clientX;
-        var ycoor = e.touches[0].clientY;
-        osmApplication.onClick(xcoor, ycoor);
-    });
-
-    // listen for osm buidling click events
-    osmApplication.osmb.on('click', function(e) {
-        if (e.x) {
-            var xcoor = e.x;
-            var ycoor = e.y;
-        } else {
-            var xcoor = e.clientX;
-            var ycoor = e.clientY;
-        }
-
-        osmApplication.onClick(xcoor, ycoor);
-
-    });
-
 
     // create listener for closing tooltip
     $(document).on('click', '.tooltip-close', function() {
@@ -151,7 +62,6 @@ osmApplication.initialize = function() {
 
     // get sponsored content
     osmApplication.getSponsoredGeojsons();
-
 
     function center(neighborhood) {
         var lookup = {
@@ -318,6 +228,152 @@ osmApplication.initialize = function() {
             return [41.848614, -87.684616];
         }
     }
+
+}
+
+osmApplication.createMap =  function() {
+    osmApplication.widthFrame = $('#content').width();
+    if (osmApplication.widthFrame < 1200) {
+        osmApplication.shadows = [];
+    } else {
+        osmApplication.shadows = ['shadows'];
+    }
+
+    osmApplication.osmb = new OSMBuildings({
+        baseURL: '/visualizations/static/skyline_chi/css/images',
+        minZoom: 14,
+        maxZoom: 19,
+        tilt: 45,
+        zoom: 17,
+        position: { latitude: osmApplication.center[0], longitude: osmApplication.center[1] },
+        state: true,
+        effects: osmApplication.shadows,
+        attribution: '© 3D <a href="https://osmbuildings.org/copyright/">OSM Buildings</a>. Map tiles by <a href=\"http://stamen.com\">Stamen Design</a>, under <a href=\"https://creativecommons.org/licenses/by/3.0/\" target=\"_blank\">CC BY 3.0</a>. Data by <a href=\"http://www.openstreetmap.org/\" target=\"_blank\">OpenStreetMap</a>, under ODbL.'
+    }).appendTo("osmmap");
+
+    osmApplication.osmb.addMapTiles('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.png', { attribution: 'Map tiles by <a href=\"http://stamen.com\">Stamen Design</a>, under <a href=\"https://creativecommons.org/licenses/by/3.0/\" target=\"_blank\">CC BY 3.0</a>. Data by <a href=\"http://www.openstreetmap.org/\" target=\"_blank\">OpenStreetMap</a>, under ODbL.' });
+
+    osmApplication.osmb.addGeoJSONTiles('https://{s}.data.osmbuildings.org/0.2/anonymous/tile/{z}/{x}/{y}.json', { color: 'rgb(220, 210, 200)' });
+
+    // set initial conditons for share buttons
+    osmApplication.updateSocialLinks(osmApplication.osmb.position.latitude.toFixed(6), osmApplication.osmb.position.longitude.toFixed(6), osmApplication.osmb.zoom.toFixed(1), osmApplication.osmb.tilt.toFixed(1), osmApplication.osmb.rotation.toFixed(1), 'false');
+
+    // button controls
+    osmApplication.controlButtons = document.querySelectorAll('.control button');
+
+    for (var i = 0, il = osmApplication.controlButtons.length; i < il; i++) {
+        osmApplication.controlButtons[i].addEventListener('click', function(e) {
+
+            var button = this;
+            var parentClassList = button.parentNode.classList;
+            var direction = button.classList.contains('inc') ? 1 : -1;
+            var increment;
+            var property;
+
+            if (parentClassList.contains('tilt')) {
+                property = 'Tilt';
+                increment = direction * 10;
+            }
+            if (parentClassList.contains('rotation')) {
+                property = 'Rotation';
+                increment = direction * 10;
+            }
+            if (parentClassList.contains('zoom')) {
+                property = 'Zoom';
+                increment = direction * 1;
+            }
+            if (property) {
+                if (property == 'Zoom') {
+                    var zoomNow = osmApplication.osmb['get' + property]();
+                    if (zoomNow <= 14 && direction == -1) {
+                        // don't zoom below 14
+                    } else if (zoomNow >= 19 && direction == 1) {
+                        // don't zoom above 19
+                    } else {
+                        osmApplication.osmb['set' + property](osmApplication.osmb['get' + property]() + increment);
+                    }
+                } else {
+                    osmApplication.osmb['set' + property](osmApplication.osmb['get' + property]() + increment);
+                }
+            }
+        });
+    }
+
+    // listen for touch events and do the same thing as clicking
+    osmApplication.osmb.on('touchstart', function(e) {
+        var xcoor = e.touches[0].clientX;
+        var ycoor = e.touches[0].clientY;
+        osmApplication.onClick(xcoor, ycoor);
+    });
+
+    // listen for osm buidling click events
+    osmApplication.osmb.on('click', function(e) {
+        if (e.x) {
+            var xcoor = e.x;
+            var ycoor = e.y;
+        } else {
+            var xcoor = e.clientX;
+            var ycoor = e.clientY;
+        }
+
+        osmApplication.onClick(xcoor, ycoor);
+
+    });
+
+        // close sponsored tooltip if the map changes
+    osmApplication.osmb.on('change', function(e) {
+        // close all of the tooltips
+        if (!$('#tooltipPermitted').hasClass('hidden')) {
+            $('#tooltipPermitted').addClass('hidden');
+        }
+        if (!$('#tooltipSponsored').hasClass('hidden')) {
+            $('#tooltipSponsored').addClass('hidden');
+        }
+        if (!$('#tooltipDNA').hasClass('hidden')) {
+            $('#tooltipDNA').addClass('hidden');
+        }
+
+        if (!$('#tooltipDNA').hasClass('hidden')) {
+            $('#tooltipDNA').addClass('hidden');
+        }
+
+        $(".browseNavTitle").fadeOut( "slow" );
+
+        // check browser with and set top of .select-parent if width > 500
+        if ($("body").width() > 500) {
+            $(".select-parent").css( "top", "20px" );
+        }
+
+        // send lat, lon, zoom, tilt, rotation to social share buttons
+        osmApplication.updateSocialLinks(osmApplication.osmb.position.latitude.toFixed(6), osmApplication.osmb.position.longitude.toFixed(6), osmApplication.osmb.zoom.toFixed(1), osmApplication.osmb.tilt.toFixed(1), osmApplication.osmb.rotation.toFixed(1), 'false');
+
+    });
+
+    // add data
+    for (var key in osmApplication.sponsoredGeojsons) {
+        osmApplication.osmb.addGeoJSON(osmApplication.sponsoredGeojsons[key], { id: key });
+    }
+
+    for (var key in osmApplication.permittedGeojsons) {
+        osmApplication.osmb.addGeoJSON(osmApplication.permittedGeojsons[key], { id: key });
+    }
+
+    for (var key in osmApplication.ugcApprovedGeojsons) {
+        osmApplication.osmb.addGeoJSON(osmApplication.ugcApprovedGeojsons[key], { id: key });
+    }
+
+    for (var key in osmApplication.dnaGeojsons) {
+        osmApplication.osmb.addGeoJSON(osmApplication.dnaGeojsons[key], { id: key });
+    }
+
+    // fire a click in osmx and osmy are set
+    setTimeout(function() {
+        pos = osmApplication.osmb.project(getlat, getlon, 0)
+        //Object {x: 617.5, y: 231.62057088852146, z: 0.9995772461863411}
+        if (buildingShared == 'true') {
+            osmApplication.onClick(pos.x, pos.y);
+        }
+    }, 1000);
 
 }
 
@@ -635,7 +691,7 @@ osmApplication.getSponsoredGeojsons = function() {
                         var geojson = JSON.parse(data[i]);
                         var idNum = "sponsored_" + i;
                         osmApplication.sponsoredGeojsons[idNum] = geojson;
-                        osmApplication.osmb.addGeoJSON(geojson, { id: idNum });
+                        // osmApplication.osmb.addGeoJSON(geojson, { id: idNum });
                         // add a point to the against array
                         if (typeof geojson.features[0].geometry.coordinates[0][0][0][0] != 'undefined') {
                             var lat = geojson.features[0].geometry.coordinates[0][0][0][1];
@@ -676,7 +732,7 @@ osmApplication.getPermittedGeojsons = function() {
                         var geojson = JSON.parse(data[i]);
                         var idNum = "permitted_" + i;
                         osmApplication.permittedGeojsons[idNum] = geojson;
-                        osmApplication.osmb.addGeoJSON(geojson, { id: idNum });
+                        // osmApplication.osmb.addGeoJSON(geojson, { id: idNum });
                          // add a point to the against array
                         if (typeof geojson.features[0].geometry.coordinates[0][0][0][0] != 'undefined') {
                             var lat = geojson.features[0].geometry.coordinates[0][0][0][1];
@@ -720,7 +776,7 @@ osmApplication.getUGCApprovedGeojsons = function() {
                         geojson.features[0].properties.roofColor = '#0073a2'
                         var idNum = "ugcApproved_" + i;
                         osmApplication.ugcApprovedGeojsons[idNum] = geojson;
-                        osmApplication.osmb.addGeoJSON(geojson, { id: idNum });
+                        // osmApplication.osmb.addGeoJSON(geojson, { id: idNum });
                         // add a point to the against array
                         if (typeof geojson.features[0].geometry.coordinates[0][0][0][0] != 'undefined') {
                             var lat = geojson.features[0].geometry.coordinates[0][0][0][1];
@@ -750,7 +806,7 @@ osmApplication.getUGCApprovedGeojsons = function() {
 osmApplication.getDNAGeojsons = function() {
     $.ajax({
         type: "GET",
-        url: "/skyline/chi/getReporterGeojsons/",
+        url: "/skyline/nyc/getReporterGeojsons/",
         success: function(data) {
             // load the draw tools
             if (data) {
@@ -760,7 +816,7 @@ osmApplication.getDNAGeojsons = function() {
                         var geojson = JSON.parse(data[i]);
                         var idNum = "dna_" + i;
                         osmApplication.dnaGeojsons[idNum] = geojson;
-                        osmApplication.osmb.addGeoJSON(geojson, { id: idNum });
+                        // osmApplication.osmb.addGeoJSON(geojson, { id: idNum });
                         // add a point to the against array
                         if (typeof geojson.features[0].geometry.coordinates[0][0][0][0] != 'undefined') {
                             var lat = geojson.features[0].geometry.coordinates[0][0][0][1];
@@ -777,58 +833,26 @@ osmApplication.getDNAGeojsons = function() {
                                 "coordinates": [lat, lon]
                             }
                         }
-                        osmApplication.against.features.push(feature);                    
+                        osmApplication.against.features.push(feature);
                     }
                 }
             }
-
             // center map on nearest building
             osmApplication.nearest = turf.nearest(osmApplication.point, osmApplication.against);
             // pan map if lat and lon aren't set
+            osmApplication.center = [];
             if (getlat == 0 && getlon == 0) {
-                osmApplication.osmb.setPosition({ latitude:osmApplication.nearest.geometry.coordinates[0], longitude:osmApplication.nearest.geometry.coordinates[1] });
+                osmApplication.center[0] = osmApplication.nearest.geometry.coordinates[0];
+                osmApplication.center[1] = osmApplication.nearest.geometry.coordinates[1];
+            } else {
+                osmApplication.center[0] = getlat;
+                osmApplication.center[1] = getlon;                
             }
 
             // set listener for on change
-            osmApplication.setupOnChangeListener();
-            
-            // fire a click in osmx and osmy are set
-            setTimeout(function() {
-                pos = osmApplication.osmb.project(getlat, getlon, 0)
-                //Object {x: 617.5, y: 231.62057088852146, z: 0.9995772461863411}
-                if (buildingShared == 'true') {
-                    osmApplication.onClick(pos.x, pos.y);
-                }
-            }, 1000);
+            osmApplication.createMap();
             
         }
-    });
-}
-
-osmApplication.setupOnChangeListener = function() {
-    // close sponsored tooltip if the map changes
-    osmApplication.osmb.on('change', function(e) {
-        // close all of the tooltips
-        if (!$('#tooltipPermitted').hasClass('hidden')) {
-            $('#tooltipPermitted').addClass('hidden');
-        }
-        if (!$('#tooltipSponsored').hasClass('hidden')) {
-            $('#tooltipSponsored').addClass('hidden');
-        }
-        if (!$('#tooltipDNA').hasClass('hidden')) {
-            $('#tooltipDNA').addClass('hidden');
-        }
-
-        $(".browseNavTitle").fadeOut( "slow" );
-
-        // check browser with and set top of .select-parent if width > 500
-        if ($("body").width() > 500) {
-            $(".select-parent").css( "top", "20px" );
-        }
-
-        // send lat, lon, zoom, tilt, rotation to social share buttons
-        osmApplication.updateSocialLinks(osmApplication.osmb.position.latitude.toFixed(6), osmApplication.osmb.position.longitude.toFixed(6), osmApplication.osmb.zoom.toFixed(1), osmApplication.osmb.tilt.toFixed(1), osmApplication.osmb.rotation.toFixed(1), 'false');
-
     });
 }
 
