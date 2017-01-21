@@ -73,7 +73,7 @@
     // formula from http://www.ctbuh.org/HighRiseInfo/TallestDatabase/Criteria/HeightCalculator/tabid/1007/language/en-GB/Default.aspx
     var buildingHeight;
     if (buildingStories < 30) {
-        buildingHeight = buildingStories*10;
+        buildingHeight = buildingStories*3.048;
     } else {
         buildingHeight = (3.5*buildingStories) + 9.625 + (2.625 * (buildingStories/25));
     }
