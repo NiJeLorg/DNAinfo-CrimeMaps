@@ -50,7 +50,17 @@ osmApplication.initialize = function() {
         osmApplication.shadows = ['shadows'];
     }
 
-    this.center = center(dnaUrl);
+    osmApplication.center = center(dnaUrl);
+
+    // center point to evaluate
+    osmApplication.point = {
+      "type": "Feature",
+      "properties": {},
+      "geometry": {
+        "type": "Point",
+        "coordinates": [osmApplication.center[0], osmApplication.center[1]]
+      }
+    };
 
     osmApplication.osmb = new OSMBuildings({
         baseURL: '/visualizations/static/skyline_chi/css/images',
@@ -58,7 +68,7 @@ osmApplication.initialize = function() {
         maxZoom: 19,
         tilt: 45,
         zoom: 17,
-        position: { latitude: this.center[0], longitude: this.center[1] },
+        position: { latitude: osmApplication.center[0], longitude: osmApplication.center[1] },
         state: true,
         effects: osmApplication.shadows,
         attribution: '© 3D <a href="https://osmbuildings.org/copyright/">OSM Buildings</a>. Map tiles by <a href=\"http://stamen.com\">Stamen Design</a>, under <a href=\"https://creativecommons.org/licenses/by/3.0/\" target=\"_blank\">CC BY 3.0</a>. Data by <a href=\"http://www.openstreetmap.org/\" target=\"_blank\">OpenStreetMap</a>, under ODbL.'
@@ -133,31 +143,6 @@ osmApplication.initialize = function() {
 
     });
 
-
-    // close sponsored tooltip if the map changes
-    osmApplication.osmb.on('change', function(e) {
-        // close all of the tooltips
-        if (!$('#tooltipPermitted').hasClass('hidden')) {
-            $('#tooltipPermitted').addClass('hidden');
-        }
-        if (!$('#tooltipSponsored').hasClass('hidden')) {
-            $('#tooltipSponsored').addClass('hidden');
-        }
-        if (!$('#tooltipDNA').hasClass('hidden')) {
-            $('#tooltipDNA').addClass('hidden');
-        }
-
-        $(".browseNavTitle").fadeOut( "slow" );
-
-        // check browser with and set top of .select-parent if width > 500
-        if ($("body").width() > 500) {
-            $(".select-parent").css( "top", "20px" );
-        }
-
-        // send lat, lon, zoom, tilt, rotation to social share buttons
-        osmApplication.updateSocialLinks(osmApplication.osmb.position.latitude.toFixed(6), osmApplication.osmb.position.longitude.toFixed(6), osmApplication.osmb.zoom.toFixed(1), osmApplication.osmb.tilt.toFixed(1), osmApplication.osmb.rotation.toFixed(1), 'false');
-
-    });
 
     // create listener for closing tooltip
     $(document).on('click', '.tooltip-close', function() {
@@ -651,6 +636,23 @@ osmApplication.getSponsoredGeojsons = function() {
                         var idNum = "sponsored_" + i;
                         osmApplication.sponsoredGeojsons[idNum] = geojson;
                         osmApplication.osmb.addGeoJSON(geojson, { id: idNum });
+                        // add a point to the against array
+                        if (typeof geojson.features[0].geometry.coordinates[0][0][0][0] != 'undefined') {
+                            var lat = geojson.features[0].geometry.coordinates[0][0][0][1];
+                            var lon = geojson.features[0].geometry.coordinates[0][0][0][0]; 
+                        } else {
+                            var lat = geojson.features[0].geometry.coordinates[0][0][1];
+                            var lon = geojson.features[0].geometry.coordinates[0][0][0];
+                        } 
+                        var feature = {
+                            "type": "Feature",
+                            "properties": {},
+                            "geometry": {
+                                "type": "Point",
+                                "coordinates": [lat, lon]
+                            }
+                        }
+                        osmApplication.against.features.push(feature);                    
                     }
                 }
             }
@@ -675,7 +677,24 @@ osmApplication.getPermittedGeojsons = function() {
                         var idNum = "permitted_" + i;
                         osmApplication.permittedGeojsons[idNum] = geojson;
                         osmApplication.osmb.addGeoJSON(geojson, { id: idNum });
-                    }
+                         // add a point to the against array
+                        if (typeof geojson.features[0].geometry.coordinates[0][0][0][0] != 'undefined') {
+                            var lat = geojson.features[0].geometry.coordinates[0][0][0][1];
+                            var lon = geojson.features[0].geometry.coordinates[0][0][0][0]; 
+                        } else {
+                            var lat = geojson.features[0].geometry.coordinates[0][0][1];
+                            var lon = geojson.features[0].geometry.coordinates[0][0][0];
+                        } 
+                        var feature = {
+                            "type": "Feature",
+                            "properties": {},
+                            "geometry": {
+                                "type": "Point",
+                                "coordinates": [lat, lon]
+                            }
+                        }
+                        osmApplication.against.features.push(feature);                    
+                   }
                 }
             }
             // get UGC submitted buildings
@@ -702,6 +721,23 @@ osmApplication.getUGCApprovedGeojsons = function() {
                         var idNum = "ugcApproved_" + i;
                         osmApplication.ugcApprovedGeojsons[idNum] = geojson;
                         osmApplication.osmb.addGeoJSON(geojson, { id: idNum });
+                        // add a point to the against array
+                        if (typeof geojson.features[0].geometry.coordinates[0][0][0][0] != 'undefined') {
+                            var lat = geojson.features[0].geometry.coordinates[0][0][0][1];
+                            var lon = geojson.features[0].geometry.coordinates[0][0][0][0]; 
+                        } else {
+                            var lat = geojson.features[0].geometry.coordinates[0][0][1];
+                            var lon = geojson.features[0].geometry.coordinates[0][0][0];
+                        } 
+                        var feature = {
+                            "type": "Feature",
+                            "properties": {},
+                            "geometry": {
+                                "type": "Point",
+                                "coordinates": [lat, lon]
+                            }
+                        }
+                        osmApplication.against.features.push(feature);                    
                     }
                 }
             }
@@ -725,9 +761,37 @@ osmApplication.getDNAGeojsons = function() {
                         var idNum = "dna_" + i;
                         osmApplication.dnaGeojsons[idNum] = geojson;
                         osmApplication.osmb.addGeoJSON(geojson, { id: idNum });
+                        // add a point to the against array
+                        if (typeof geojson.features[0].geometry.coordinates[0][0][0][0] != 'undefined') {
+                            var lat = geojson.features[0].geometry.coordinates[0][0][0][1];
+                            var lon = geojson.features[0].geometry.coordinates[0][0][0][0]; 
+                        } else {
+                            var lat = geojson.features[0].geometry.coordinates[0][0][1];
+                            var lon = geojson.features[0].geometry.coordinates[0][0][0];
+                        } 
+                        var feature = {
+                            "type": "Feature",
+                            "properties": {},
+                            "geometry": {
+                                "type": "Point",
+                                "coordinates": [lat, lon]
+                            }
+                        }
+                        osmApplication.against.features.push(feature);                    
                     }
                 }
             }
+
+            // center map on nearest building
+            osmApplication.nearest = turf.nearest(osmApplication.point, osmApplication.against);
+            // pan map if lat and lon aren't set
+            if (getlat == 0 && getlon == 0) {
+                osmApplication.osmb.setPosition({ latitude:osmApplication.nearest.geometry.coordinates[0], longitude:osmApplication.nearest.geometry.coordinates[1] });
+            }
+
+            // set listener for on change
+            osmApplication.setupOnChangeListener();
+            
             // fire a click in osmx and osmy are set
             setTimeout(function() {
                 pos = osmApplication.osmb.project(getlat, getlon, 0)
@@ -740,6 +804,34 @@ osmApplication.getDNAGeojsons = function() {
         }
     });
 }
+
+osmApplication.setupOnChangeListener = function() {
+    // close sponsored tooltip if the map changes
+    osmApplication.osmb.on('change', function(e) {
+        // close all of the tooltips
+        if (!$('#tooltipPermitted').hasClass('hidden')) {
+            $('#tooltipPermitted').addClass('hidden');
+        }
+        if (!$('#tooltipSponsored').hasClass('hidden')) {
+            $('#tooltipSponsored').addClass('hidden');
+        }
+        if (!$('#tooltipDNA').hasClass('hidden')) {
+            $('#tooltipDNA').addClass('hidden');
+        }
+
+        $(".browseNavTitle").fadeOut( "slow" );
+
+        // check browser with and set top of .select-parent if width > 500
+        if ($("body").width() > 500) {
+            $(".select-parent").css( "top", "20px" );
+        }
+
+        // send lat, lon, zoom, tilt, rotation to social share buttons
+        osmApplication.updateSocialLinks(osmApplication.osmb.position.latitude.toFixed(6), osmApplication.osmb.position.longitude.toFixed(6), osmApplication.osmb.zoom.toFixed(1), osmApplication.osmb.tilt.toFixed(1), osmApplication.osmb.rotation.toFixed(1), 'false');
+
+    });
+}
+
 
 osmApplication.destroy = function() {
     osmApplication.osmb.destroy();
@@ -769,6 +861,11 @@ osmApplication.fbname = "How Tall Will New Buildings in My Chicago Neighborhood 
 osmApplication.fbcaption = "DNAinfo Chicago";
 osmApplication.via = 'DNAinfoCHI';
 osmApplication.twittercaption = "This 3-D map shows what construction will do to my neighborhood's skyline: ";
+
+
+// group of points to evaluate against to center map on the closest building.
+osmApplication.against = {"type": "FeatureCollection", "features": []};
+
 
 
 
