@@ -500,7 +500,7 @@ def skyline_getPermittedGeojsons(request, boro=None):
 
 	for obj in NYC_DOB_Permit_IssuanceObjects:
 		if obj.buildingStories < 30:
-			buildingHeight = obj.buildingStories*10
+			buildingHeight = obj.buildingStories*3.048
 		else:
 			buildingHeight = (3.5*obj.buildingStories) + 9.625 + (2.625 * (obj.buildingStories/25))
 
@@ -1051,7 +1051,7 @@ def skyline_permittedGetGeojson(request, id=None):
 
 	if obj.buildingFootprint:
 		if obj.buildingStories < 30:
-			buildingHeight = obj.buildingStories*10
+			buildingHeight = obj.buildingStories*3.048
 		else:
 			buildingHeight = (3.5*obj.buildingStories) + 9.625 + (2.625 * (obj.buildingStories/25))
 
