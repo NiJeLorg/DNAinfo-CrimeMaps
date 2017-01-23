@@ -138,7 +138,7 @@ $(document).ready(function() {
 
 
     var twitterlink = bitlyURL;
-    var via = 'DNAinfo';
+    var via = 'DNAinfoNY';
     var twittercaption = "This 3-D map shows what construction will do to my neighborhood's skyline: ";
     var twitterUrl = 'https://twitter.com/intent/tweet?url=' + encodeURIComponent(twitterlink) + '&via='+ encodeURIComponent(via) + '&text=' + encodeURIComponent(twittercaption);
     var twitterOnclick = 'window.open("' + twitterUrl + '","twitter-share-dialog","width=626,height=436");return false;';

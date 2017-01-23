@@ -1022,7 +1022,7 @@ osmApplication.fbname = "How Tall Will New Buildings in My NYC Neighborhood Be?"
 
 osmApplication.fbcaption = "DNAinfo New York";
 
-osmApplication.via = 'DNAinfo';
+osmApplication.via = 'DNAinfoNY';
 osmApplication.twittercaption = "This 3-D map shows what construction will do to my neighborhood's skyline: ";
 
 
