@@ -808,7 +808,7 @@ osmApplication.getUGCApprovedGeojsons = function() {
 osmApplication.getDNAGeojsons = function() {
     $.ajax({
         type: "GET",
-        url: "/skyline/nyc/getReporterGeojsons/",
+        url: "/skyline/chi/getReporterGeojsons/",
         success: function(data) {
             // load the draw tools
             if (data) {
