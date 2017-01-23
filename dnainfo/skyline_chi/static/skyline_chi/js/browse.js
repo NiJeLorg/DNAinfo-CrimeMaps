@@ -363,7 +363,7 @@ osmApplication.createMap =  function() {
     }
 
     for (var key in osmApplication.dnaGeojsons) {
-        console.log('reporter geojson': osmApplication.dnaGeojsons[key]);
+        console.log('reporter geojson', osmApplication.dnaGeojsons[key]);
         osmApplication.osmb.addGeoJSON(osmApplication.dnaGeojsons[key], { id: key });
     }
 
