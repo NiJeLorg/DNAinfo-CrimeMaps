@@ -355,6 +355,7 @@ osmApplication.createMap =  function() {
     }
 
     for (var key in osmApplication.permittedGeojsons) {
+        console.log('permitted geojson', osmApplication.permittedGeojsons[key]);
         osmApplication.osmb.addGeoJSON(osmApplication.permittedGeojsons[key], { id: key });
     }
 
