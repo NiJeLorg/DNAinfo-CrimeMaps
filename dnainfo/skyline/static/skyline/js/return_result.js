@@ -658,7 +658,7 @@ osmApplication.updateSocialLinksClass = function (lat, lon, zoom, tilt, rotation
     osmApplication.fbname = "How Tall Will New Buildings in My NYC Neighborhood Be?";    
     osmApplication.fbcaption = "DNAinfo New York";
 
-    osmApplication.via = 'DNAinfo';
+    osmApplication.via = 'DNAinfoNY';
     osmApplication.twittercaption = "This 3-D map shows what construction will do to my neighborhood's skyline: ";
     // set up facebook and twitter buttons
     osmApplication.fbdescription = "Every new building affects the character of a neighborhood, so DNAinfo created this 3-D map that helps you understand how high new buildings could be going up near you: ";
@@ -682,7 +682,7 @@ osmApplication.updateSocialLinksID = function (lat, lon, zoom, tilt, rotation, b
     osmApplication.fbname = "How Tall Will New Buildings in My NYC Neighborhood Be?";    
     osmApplication.fbcaption = "DNAinfo New York";
 
-    osmApplication.via = 'DNAinfo';
+    osmApplication.via = 'DNAinfoNY';
     osmApplication.twittercaption = "This 3-D map shows what construction will do to my neighborhood's skyline: ";
     // set up facebook and twitter buttons
     osmApplication.fbdescription = "Every new building affects the character of a neighborhood, so DNAinfo created this 3-D map that helps you understand how high new buildings could be going up near you: ";
