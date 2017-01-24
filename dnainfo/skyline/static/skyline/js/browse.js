@@ -955,6 +955,7 @@ osmApplication.getDNAGeojsons = function() {
                         osmApplication.dnaGeojsons[idNum] = geojson;
                         // osmApplication.osmb.addGeoJSON(geojson, { id: idNum });
                         // add a point to the against array
+                        console.log(geojson);
                         if (typeof geojson.features[0].geometry.coordinates[0][0][0][0] != 'undefined') {
                             var lat = geojson.features[0].geometry.coordinates[0][0][0][1];
                             var lon = geojson.features[0].geometry.coordinates[0][0][0][0]; 
