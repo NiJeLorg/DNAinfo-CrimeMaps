@@ -1103,7 +1103,7 @@ def skyline_chi_browse(request, id=None):
 	# check for xcoor and y coor to be passed
 	getlat = request.GET.get('lat', 0)
 	getlon = request.GET.get('lon', 0)
-	buildingShared = request.GET.get('buildingShared', 'false');
+	buildingShared = request.GET.get('building', 'false');
 
 	# A HTTP POST?
 	if request.method == 'POST':
