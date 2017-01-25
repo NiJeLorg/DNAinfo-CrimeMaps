@@ -57,7 +57,6 @@ osmApplication.initialize = function() {
         tilt: 45,
         zoom: 17,
         position: { latitude: 40.710508, longitude: -73.943825 },
-        state: true,
         effects: osmApplication.shadows,
         attribution: '© 3D <a href="https://osmbuildings.org/copyright/">OSM Buildings</a>. Map tiles by <a href=\"http://stamen.com\">Stamen Design</a>, under <a href=\"https://creativecommons.org/licenses/by/3.0/\" target=\"_blank\">CC BY 3.0</a>. Data by <a href=\"http://www.openstreetmap.org/\" target=\"_blank\">OpenStreetMap</a>, under ODbL.'
     }).appendTo("osmmap");
@@ -663,7 +662,7 @@ osmApplication.updateSocialLinksClass = function (lat, lon, zoom, tilt, rotation
     osmApplication.fbdescription = "Every new building affects the character of a neighborhood, so DNAinfo created this 3-D map that helps you understand how high new buildings could be going up near you: ";
     // https://hzdl3dry-data-viz-future-map.build.qa.dnainfo.com/new-york/visualizations/skyline
     // http://localhost:8000/skyline/chi/browse/282/?lat=40.863743&lon=-73.862489
-    osmApplication.sharelink = 'https://www.dnainfo.com/chicago/visualizations/skyline?browse&hood='+hoodID+'/?lat='+lat+'&lon='+lon+'&zoom='+zoom+'&tilt='+tilt+'&rotation='+rotation+'&buildingShared='+buildingShared;
+    osmApplication.sharelink = 'https://www.dnainfo.com/chicago/visualizations/skyline?browse&hood='+hoodID+'/?lat='+lat+'&lon='+lon+'&zoom='+zoom+'&tilt='+tilt+'&rotation='+rotation+'&building='+buildingShared;
     osmApplication.fbUrl = 'https://www.facebook.com/dialog/feed?app_id=' + osmApplication.app_id + '&display=popup&description='+ encodeURIComponent(osmApplication.fbdescription) + '&link=' + encodeURIComponent(osmApplication.sharelink) + '&redirect_uri=' + encodeURIComponent(osmApplication.fblink) + '&name=' + encodeURIComponent(osmApplication.fbname) + '&caption=' + encodeURIComponent(osmApplication.fbcaption) + '&picture=' + encodeURIComponent(osmApplication.fbpicture);
     osmApplication.fbOnclick = 'window.open("' + osmApplication.fbUrl + '","facebook-share-dialog","width=626,height=436");return false;';
     $('.showShareFB').attr("onclick", osmApplication.fbOnclick);
