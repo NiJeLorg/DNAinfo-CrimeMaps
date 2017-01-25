@@ -165,7 +165,7 @@ osmApplication.initialize = function() {
                         $('#property-story1-permitted').html('<a href="' + properties.story1 + '" target="_blank">Read More</a><br />');
                     }
                     // documents
-                    if (typeof properties.zoning_pdfs !== 'undefined' && properties.zoning_pdfs) {
+                    if (typeof properties.zoning_pdfs !== 'undefined' && properties.zoning_pdfs && properties.zoning_pdfs != 'visualizations/media/') {
                         $('#property-pdf-permitted').html('<a href="' + properties.zoning_pdfs + '" target="_blank">See Documents</a><br />');
                     }
                     // links for editing
