@@ -280,12 +280,10 @@ $(document).ready(function () {
         if (Modernizr.touchevents || Modernizr.pointerevents) {
             // if we detect touch or pointer events, disable hover
             var highLight = false;
-            var renderHighlight = { fill: false, stroke: false };
-            $('#largeHeadingTouch').removeClass('hidden');    
+            var renderHighlight = { fill: false, stroke: false };  
         } else {
             var highLight = true;
-            var renderHighlight = { altImage: altImage, fillOpacity: 0.5 };
-            $('#largeHeadingDesktop').removeClass('hidden');    
+            var renderHighlight = { altImage: altImage, fillOpacity: 0.5 }; 
         }
 
         
