@@ -432,6 +432,12 @@ footer .select2-selection__rendered {
     font-size: 17px;
 }
 
+.credits {
+    margin-top: 40px;
+    color: #2E2925;
+}
+
+
 @media (min-width: 321px) {
     footer .select-parent {
         width: 78%;
