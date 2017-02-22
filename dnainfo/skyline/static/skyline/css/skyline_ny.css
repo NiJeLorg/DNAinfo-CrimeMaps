@@ -433,7 +433,11 @@ footer .select2-selection__rendered {
 }
 
 .credits {
-    margin-top: 40px;
+    margin-top: 60px;
+    font-family: 'Titillium Web', Helvetica, sans-serif;
+    font-size: 1.4em;
+    line-height: 1.6em;
+    font-weight: 600;
     color: #2E2925;
 }
 
@@ -570,6 +574,9 @@ footer .select2-selection__rendered {
     }
     .view-methodology {
         font-size: 1.4em;
+    }
+    .credits {
+        font-size: 1.2em;
     }
     .bottom-footer {
         padding-bottom: 20%;
