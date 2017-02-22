@@ -437,8 +437,12 @@ footer .select2-selection__rendered {
     font-family: 'Titillium Web', Helvetica, sans-serif;
     font-size: 1.4em;
     line-height: 1.6em;
-    font-weight: 600;
+    font-weight: 400;
     color: #2E2925;
+}
+
+.credits a {
+    font-weight: 600;
 }
 
 @media (min-width: 321px) {
