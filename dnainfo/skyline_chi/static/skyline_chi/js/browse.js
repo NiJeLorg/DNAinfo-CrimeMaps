@@ -836,16 +836,21 @@ osmApplication.getDNAGeojsons = function() {
                     }
                 }
             }
-            // center map on nearest building
+            // center map on nearest building if that building is less than 3/4 of a mile away
             osmApplication.nearest = turf.nearest(osmApplication.point, osmApplication.against);
-            // pan map if lat and lon aren't set
+            osmApplication.distance = turf.distance(osmApplication.nearest, osmApplication.point, "miles");
+
+            // if lat lon are passed in, then use those for the center
             osmApplication.center = [];
-            if (getlat == 0 && getlon == 0) {
+            if (getlat != 0 && getlon != 0) {
+                osmApplication.center[0] = getlat;
+                osmApplication.center[1] = getlon;  
+            } else if (osmApplication.distance < 0.75) {
                 osmApplication.center[0] = osmApplication.nearest.geometry.coordinates[0];
                 osmApplication.center[1] = osmApplication.nearest.geometry.coordinates[1];
             } else {
-                osmApplication.center[0] = getlat;
-                osmApplication.center[1] = getlon;                
+                osmApplication.center[0] = osmApplication.hoodCenter[0];
+                osmApplication.center[1] = osmApplication.hoodCenter[1];
             }
 
             // set listener for on change
