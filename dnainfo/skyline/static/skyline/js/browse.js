@@ -982,7 +982,7 @@ osmApplication.getDNAGeojsons = function() {
             if (getlat != 0 && getlon != 0) {
                 osmApplication.center[0] = getlat;
                 osmApplication.center[1] = getlon;  
-            } else if (osmApplication.distance < 0.75) {
+            } else if (osmApplication.distance < 0.2) {
                 osmApplication.center[0] = osmApplication.nearest.geometry.coordinates[0];
                 osmApplication.center[1] = osmApplication.nearest.geometry.coordinates[1];
             } else {

@@ -840,19 +840,15 @@ osmApplication.getDNAGeojsons = function() {
             osmApplication.nearest = turf.nearest(osmApplication.point, osmApplication.against);
             osmApplication.distance = turf.distance(osmApplication.nearest, osmApplication.point, "miles");
 
-            console.log(osmApplication.distance)
-
             // if lat lon are passed in, then use those for the center
             osmApplication.center = [];
             if (getlat != 0 && getlon != 0) {
                 osmApplication.center[0] = getlat;
                 osmApplication.center[1] = getlon;  
-            } else if (osmApplication.distance < 0.75) {
-                console.log('less than 0.75');
+            } else if (osmApplication.distance < 0.2) {
                 osmApplication.center[0] = osmApplication.nearest.geometry.coordinates[0];
                 osmApplication.center[1] = osmApplication.nearest.geometry.coordinates[1];
             } else {
-                console.log('more than 0.75');
                 osmApplication.center[0] = osmApplication.hoodCenter[0];
                 osmApplication.center[1] = osmApplication.hoodCenter[1];
             }
