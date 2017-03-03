@@ -278,8 +278,10 @@ DNAinfoCHIZillow.drawTimeSlider = function (){
 	var maxDate = moment().toDate();
 
 	// three month calc
-	var threemonthsago = moment().subtract(3, "months").toDate();
-	var threemonthdifference = maxDate - threemonthsago;
+	var threemonths = moment(minDate).add(3, "months").add(1, "days").toDate();
+	var threemonthdifference = threemonths - minDate;
+
+	console.log(threemonthdifference);
 
 	mapSlider = d3.slider()
 					.axis(
@@ -310,6 +312,7 @@ DNAinfoCHIZillow.drawTimeSlider = function (){
 					.step(threemonthdifference)
 					.value(selectedQ)
 					.on("slide", function(evt, value) {
+						console.log(value);
 						// run a function to update map layers with new dates
 						selectedQ = value;
 						// add formated dates selected to area right below slider
