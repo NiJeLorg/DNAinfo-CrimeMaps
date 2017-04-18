@@ -63,10 +63,20 @@ class Command(BaseCommand):
                         if obj.scan_code != sliceText:
                             obj.scan_code = sliceText
                             obj.scan_code_updated = True
-                            obj.save()
+                        else:
+                            obj.scan_code_updated = False
+                    else:
+                        obj.scan_code_updated = False
+                else:
+                    obj.scan_code_updated = False
+
+                obj.save()
 
 
             except Exception, e:
+                obj.scan_code_updated = False
+                obj.save()
+
                 print e
                 # if error, send email
                 subject = "Skyline NYC Error Getting Scan Code"
