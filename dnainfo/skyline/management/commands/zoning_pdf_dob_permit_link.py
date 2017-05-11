@@ -39,7 +39,8 @@ class Command(BaseCommand):
 	                    params = '?passjobnumber=' + obj.job + '&scancode=' + obj.scan_code
 	                    url = base_url + params
 	                    print url
-	                    obj.zoning_pdfs.save(url)
+	                    obj.zoning_pdfs = url
+	                    obj.save()
 	                    # response = requests.get(url, headers=headers)
 	                    # try:
 	                    #     response.raise_for_status()
