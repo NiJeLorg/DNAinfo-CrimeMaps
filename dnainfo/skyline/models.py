@@ -106,7 +106,7 @@ class NYC_DOB_Permit_Issuance(models.Model):
 	buildingStories = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(150)], default=1, blank=False, null=False)
 	scan_code = models.CharField(max_length=255, default='', blank=False, null=False)
 	scan_code_updated = models.BooleanField(default=False)
-	zoning_pdfs = models.FileField(upload_to='zoning_pdfs/', blank=True, null=True)
+	zoning_pdfs = models.URLField(max_length=1000, default='', blank=True, null=True)
 	story1 = models.URLField(max_length=1000, default='', blank=True, null=True)
 	projectName = models.CharField(max_length=255, default='', blank=True, null=True)
 	buildingImage = models.ImageField(upload_to="img/%Y_%m_%d_%h_%M_%s", null=True, blank=True)

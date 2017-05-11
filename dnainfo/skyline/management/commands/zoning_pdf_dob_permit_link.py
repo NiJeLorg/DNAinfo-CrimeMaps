@@ -38,23 +38,25 @@ class Command(BaseCommand):
 	                if obj.job:
 	                    params = '?passjobnumber=' + obj.job + '&scancode=' + obj.scan_code
 	                    url = base_url + params
-	                    response = requests.get(url, headers=headers)
-	                    try:
-	                        response.raise_for_status()
-	                        if response.headers.get('content-type') == 'application/pdf':
-	                            f = open(obj.scan_code+'.pdf', 'wb+')
-	                            f.write(response.content)
-	                            pdffile = File(f)
-	                            print pdffile
-	                            obj.zoning_pdfs.save(obj.scan_code+'_'+strtime+'.pdf', pdffile)
-	                            f.close()
-	                            os.remove(obj.scan_code+'.pdf')
+	                    print url
+	                    obj.zoning_pdfs.save(url)
+	                    # response = requests.get(url, headers=headers)
+	                    # try:
+	                    #     response.raise_for_status()
+	                    #     if response.headers.get('content-type') == 'application/pdf':
+	                    #         f = open(obj.scan_code+'.pdf', 'wb+')
+	                    #         f.write(response.content)
+	                    #         pdffile = File(f)
+	                    #         print pdffile
+	                    #         obj.zoning_pdfs.save(obj.scan_code+'_'+strtime+'.pdf', pdffile)
+	                    #         f.close()
+	                    #         os.remove(obj.scan_code+'.pdf')
 
-	                            # pause if successful
-	                            time.sleep(2) 
+	                    #         # pause if successful
+	                    #         time.sleep(2) 
 
-	                    except Exception as e:
-	                        print('There was a problem: %s' % (e))
+	                    # except Exception as e:
+	                    #     print('There was a problem: %s' % (e))
 
 	            except Exception, e:
 	                print e
