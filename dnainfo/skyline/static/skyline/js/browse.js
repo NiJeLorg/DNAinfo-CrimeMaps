@@ -617,7 +617,7 @@ osmApplication.onClick = function (xcoor, ycoor) {
                 }
                 // documents
                 if (typeof properties.zoning_pdfs !== 'undefined' && properties.zoning_pdfs && properties.zoning_pdfs != 'visualizations/media/') {
-                    $('#property-pdf-permitted').html('<a href="/' + properties.zoning_pdfs + '" target="_blank">See Documents</a><br />');
+                    $('#property-pdf-permitted').html('<a href="' + properties.zoning_pdfs + '" target="_blank">See Documents</a><br />');
                 }
 
                 // update share buttons
