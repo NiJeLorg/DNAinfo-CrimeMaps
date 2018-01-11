@@ -35,7 +35,7 @@ import bitly_api
 
 # views for DNAinfo crime maps
 def index(request):
-	return redirect('http://www.dnainfo.com/')
+	return  HttpResponseRedirect(reverse('skyline_landingPage'))
 
 def workedFromHome(request):
 	return render(request, 'crimemaps/workedFromHome.html', {})
