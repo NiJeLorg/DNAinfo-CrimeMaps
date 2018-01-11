@@ -11,9 +11,9 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RenameField(
-            model_name='chizipzillowdata',
-            old_name='monthyear',
-            new_name='quarter',
-        ),
+        # migrations.RenameField(
+        #     model_name='chizipzillowdata',
+        #     old_name='monthyear',
+        #     new_name='quarter',
+        # ),
     ]
